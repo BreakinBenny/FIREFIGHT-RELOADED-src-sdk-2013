@@ -6,7 +6,6 @@
 #include "cbase.h"
 #include "simple_bot.h"
 #include "nav_mesh.h"
-#include "ai_basenpc.h"
 
 //-----------------------------------------------------------------------------------------------------
 // Command to add a Simple Bot where your crosshairs are aiming
