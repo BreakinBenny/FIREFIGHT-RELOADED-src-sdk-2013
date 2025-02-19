@@ -27,6 +27,8 @@ public:
 	virtual void Precache();
 	virtual void Spawn( void );
 
+	virtual Class_T Classify() { return CLASS_PLAYER_ALLY; }
+
 	// INextBot
 	DECLARE_INTENTION_INTERFACE( CSimpleBot )
 	virtual NextBotGroundLocomotion	*GetLocomotionInterface( void ) const	{ return m_locomotor; }

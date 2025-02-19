@@ -6,7 +6,7 @@
 #include "cbase.h"
 #include "simple_bot.h"
 #include "nav_mesh.h"
-
+#include "ai_basenpc.h"
 
 //-----------------------------------------------------------------------------------------------------
 // Command to add a Simple Bot where your crosshairs are aiming
@@ -90,6 +90,8 @@ void CSimpleBot::Precache()
 void CSimpleBot::Spawn( void )
 {
 	BaseClass::Spawn();
+
+	m_iMaxHealth = m_iHealth = 100;
 
 #ifndef DOTA_DLL
 	SetModel( "models/humans/group01/female_01.mdl" );
