@@ -14,7 +14,7 @@ $Configuration
 	$Compiler
 	{
 		$AdditionalIncludeDirectories	".\hl2;.\hl2\elements;.\firefightreloaded;.\swarm;$SRCDIR\game\shared\hl2;$SRCDIR\game\shared\episodic;$SRCDIR\game\shared\firefightreloaded;$SRCDIR\game\shared\swarm;$SRCDIR\thirdparty\fmod\inc;..\..\public;$BASE"
-		$PreprocessorDefinitions		"$BASE;HL2_CLIENT_DLL;HL2_EPISODIC;SOURCE_2013;FR_CLIENT;FR_DLL;GLOWS_ENABLE;GAMEPADUI"
+		$PreprocessorDefinitions		"$BASE;HL2_CLIENT_DLL;HL2_EPISODIC;SOURCE_2013;FR_CLIENT;FR_DLL;GLOWS_ENABLE;GAMEPADUI;NEXT_BOT"
         $PreprocessorDefinitions		"$BASE;MOD_VER" [$MOD_VER]
 	}
 }
@@ -30,6 +30,12 @@ $Project "Client (FR)"
 		$File	"$SRCDIR\game\shared\predicted_viewmodel.h"
 		$File	"worldlight.cpp"
 		$File	"worldlight.h"
+        
+        $Folder	"NextBot"
+		{
+			$File	"NextBot\C_NextBot.cpp"
+			$File	"NextBot\C_NextBot.h"
+		}
 		
 		$Folder	"MOMENTUM MOD DLL"
 		{
