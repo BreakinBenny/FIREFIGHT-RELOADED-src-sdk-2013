@@ -1475,12 +1475,10 @@ bool IntersectRayWithOBB( const Ray_t &ray, const matrix3x4_t &matOBBToWorld,
 	Collision_ClearTrace( ray.m_Start + ray.m_StartOffset, ray.m_Delta, pTrace );
 
 	// Compute a bounding sphere around the bloated OBB
-	Vector vecOBBExtents;
-	VectorAdd(vecOBBMins, vecOBBMaxs, vecOBBExtents);
-	vecOBBExtents *= 0.5f;
-
-	Vector vecOBBCenter;
-	VectorTransform(vecOBBExtents, matOBBToWorld, vecOBBCenter);
+	Vector vecBoxExtents, vecOBBCenter;
+	VectorAdd(vecOBBMins, vecOBBMaxs, vecBoxExtents);
+	vecBoxExtents *= 0.5f;
+	VectorTransform(vecBoxExtents, matOBBToWorld, vecOBBCenter);
 
 	Vector vecOBBHalfDiagonal;
 	VectorSubtract( vecOBBMaxs, vecOBBMins, vecOBBHalfDiagonal );
