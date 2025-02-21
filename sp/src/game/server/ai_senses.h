@@ -33,8 +33,12 @@ enum seentype_t
 	SEEN_ALL = -1,	// Default
 	SEEN_HIGH_PRIORITY = 0,
 	SEEN_NPCS,
+#ifdef NEXT_BOT
 	SEEN_MISC,
 	SEEN_NEXTBOTS
+#else
+	SEEN_MISC
+#endif
 };
 
 #define SENSING_FLAGS_NONE			0x00000000
