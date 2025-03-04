@@ -317,7 +317,8 @@ void CBasePlayer::ItemPostFrame()
 			GetActiveWeapon()->ItemBusyFrame();
 		}
 	}
-	else
+
+	if (gpGlobals->curtime >= m_flNextAttack)
 	{
 		if ( GetActiveWeapon() && (!IsInAVehicle() || UsingStandardWeaponsInVehicle()) )
 		{
