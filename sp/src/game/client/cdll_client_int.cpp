@@ -150,7 +150,7 @@
 //TODO: add linux support for discord RPC if it's available for x32!
 #if defined( WIN32 )
 //discord
-#include "discord-rpc.h"
+#include "discord_rpc.h"
 #include <time.h>
 #endif
 
@@ -354,6 +354,8 @@ static ConVar cl_discord_devbuild("cl_discord_devbuild", "1", FCVAR_DEVELOPMENTO
 #else
 static ConVar cl_discord_devbuild("cl_discord_devbuild", "0", FCVAR_DEVELOPMENTONLY | FCVAR_CHEAT);
 #endif
+
+static ConVar cl_discord("cl_discord", "1", FCVAR_ARCHIVE);
 #endif
 
 ConVar cl_glyphtype("cl_glyphtype", "0", FCVAR_ARCHIVE);
@@ -861,31 +863,40 @@ bool IsEngineThreaded()
 }
 
 #if defined( WIN32 )
-static void handleDiscordReady()
+//-----------------------------------------------------------------------------
+// Discord RPC
+//-----------------------------------------------------------------------------
+static void HandleDiscordReady(const DiscordUser* connectedUser)
 {
-	DevMsg("Discord: Ready\n");
+	DevMsg("Discord: Connected to user %s#%s - %s\n",
+		connectedUser->username,
+		connectedUser->discriminator,
+		connectedUser->userId);
 }
 
-static void handleDiscordDisconnected(int errcode, const char* message)
+static void HandleDiscordDisconnected(int errcode, const char* message)
 {
 	DevMsg("Discord: Disconnected (%d: %s)\n", errcode, message);
 }
 
-static void handleDiscordError(int errcode, const char* message)
+static void HandleDiscordError(int errcode, const char* message)
 {
 	DevMsg("Discord: Error (%d: %s)\n", errcode, message);
 }
 
-static void handleDiscordJoin(const char* secret)
+static void HandleDiscordJoin(const char* secret)
 {
+	// Not implemented
 }
 
-static void handleDiscordSpectate(const char* secret)
+static void HandleDiscordSpectate(const char* secret)
 {
+	// Not implemented
 }
 
-static void handleDiscordJoinRequest(const DiscordJoinRequest* request)
+static void HandleDiscordJoinRequest(const DiscordUser* request)
 {
+	// Not implemented
 }
 #endif
 
@@ -1147,63 +1158,66 @@ int CHLClient::Init( CreateInterfaceFn appSystemFactory, CreateInterfaceFn physi
 #endif
 
 #if defined( WIN32 )
-	DiscordEventHandlers handlers;
-	memset(&handlers, 0, sizeof(handlers));
-	handlers.ready = handleDiscordReady;
-	handlers.disconnected = handleDiscordDisconnected;
-	handlers.errored = handleDiscordError;
-	handlers.joinGame = handleDiscordJoin;
-	handlers.spectateGame = handleDiscordSpectate;
-	handlers.joinRequest = handleDiscordJoinRequest;
-	char appid[255];
-	sprintf(appid, "%d", engine->GetAppID());
-	Discord_Initialize(cl_discord_appid.GetString(), &handlers, 1, appid);
-
-	if (!g_bTextMode)
+	if (cl_discord.GetBool())
 	{
-		DiscordRichPresence discordPresence;
-		memset(&discordPresence, 0, sizeof(discordPresence));
-		discordPresence.state = "In-Game";
-		discordPresence.details = "Main Menu";
-		discordPresence.startTimestamp = startTimestamp;
-		if (cl_discord_devbuild.GetBool())
+		DiscordEventHandlers handlers;
+		memset(&handlers, 0, sizeof(handlers));
+		handlers.ready = HandleDiscordReady;
+		handlers.disconnected = HandleDiscordDisconnected;
+		handlers.errored = HandleDiscordError;
+		handlers.joinGame = HandleDiscordJoin;
+		handlers.spectateGame = HandleDiscordSpectate;
+		handlers.joinRequest = HandleDiscordJoinRequest;
+		char appid[255];
+		sprintf(appid, "%d", engine->GetAppID());
+		Discord_Initialize(cl_discord_appid.GetString(), &handlers, 1, appid);
+
+		if (!g_bTextMode)
 		{
-			discordPresence.largeImageKey = "fr_dev_large";
+			DiscordRichPresence discordPresence;
+			memset(&discordPresence, 0, sizeof(discordPresence));
+			discordPresence.state = "In-Game";
+			discordPresence.details = "Main Menu";
+			discordPresence.startTimestamp = startTimestamp;
+			if (cl_discord_devbuild.GetBool())
+			{
+				discordPresence.largeImageKey = "fr_dev_large";
+			}
+			else
+			{
+				discordPresence.largeImageKey = "fr_large";
+			}
+
+			char verString[128];
+			if (g_pFullFileSystem->FileExists("version.txt"))
+			{
+				FileHandle_t fh = filesystem->Open("version.txt", "r", "MOD");
+				int file_len = filesystem->Size(fh);
+				char* GameInfo = new char[file_len + 1];
+
+				filesystem->Read((void*)GameInfo, file_len, fh);
+				GameInfo[file_len] = 0; // null terminator
+
+				filesystem->Close(fh);
+
+				Q_snprintf(verString, sizeof(verString), "Version: %s", GameInfo + 8);
+
+				delete[] GameInfo;
+			}
+
+			if (cl_discord_devbuild.GetBool())
+			{
+				char buffer[256];
+				sprintf(buffer, "%s | Hi!", verString);
+				discordPresence.largeImageText = buffer;
+			}
+			else
+			{
+				discordPresence.largeImageText = verString;
+			}
+
+			Discord_UpdatePresence(&discordPresence);
 		}
-		else
-		{
-			discordPresence.largeImageKey = "fr_large";
-		}
-
-		char verString[128];
-		if (g_pFullFileSystem->FileExists("version.txt"))
-		{
-			FileHandle_t fh = filesystem->Open("version.txt", "r", "MOD");
-			int file_len = filesystem->Size(fh);
-			char* GameInfo = new char[file_len + 1];
-
-			filesystem->Read((void*)GameInfo, file_len, fh);
-			GameInfo[file_len] = 0; // null terminator
-
-			filesystem->Close(fh);
-
-			Q_snprintf(verString, sizeof(verString), "Version: %s", GameInfo + 8);
-
-			delete[] GameInfo;
-		}
-
-		if (cl_discord_devbuild.GetBool())
-		{
-			char buffer[256];
-			sprintf(buffer, "%s | Hi!", verString);
-			discordPresence.largeImageText = buffer;
-		}
-		else
-		{
-			discordPresence.largeImageText = verString;
-		}
-
-		Discord_UpdatePresence(&discordPresence);
 	}
 #endif
 
@@ -1407,7 +1421,10 @@ void CHLClient::Shutdown( void )
 #endif
 	
 #if defined( WIN32 )
-	Discord_Shutdown();
+	if (cl_discord.GetBool())
+	{
+		Discord_Shutdown();
+	}
 #endif
 	
 	// This call disconnects the VGui libraries which we rely on later in the shutdown path, so don't do it
@@ -1836,43 +1853,46 @@ void CHLClient::LevelInitPreEntity( char const* pMapName )
 #endif
 
 #if defined( WIN32 )
-	if (!g_bTextMode)
+	if (cl_discord.GetBool())
 	{
-		char buffer[256];
-		DiscordRichPresence discordPresence;
-		memset(&discordPresence, 0, sizeof(discordPresence));
-		discordPresence.state = "In-Game";
-		sprintf(buffer, "Map: %s", pMapName);
-		discordPresence.details = buffer;
-		if (cl_discord_devbuild.GetBool())
+		if (!g_bTextMode)
 		{
-			discordPresence.largeImageKey = "fr_dev_large";
-
-			char verString[30];
-			if (g_pFullFileSystem->FileExists("version.txt"))
+			char buffer[256];
+			DiscordRichPresence discordPresence;
+			memset(&discordPresence, 0, sizeof(discordPresence));
+			discordPresence.state = "In-Game";
+			sprintf(buffer, "Map: %s", pMapName);
+			discordPresence.details = buffer;
+			if (cl_discord_devbuild.GetBool())
 			{
-				FileHandle_t fh = filesystem->Open("version.txt", "r", "MOD");
-				int file_len = filesystem->Size(fh);
-				char* GameInfo = new char[file_len + 1];
+				discordPresence.largeImageKey = "fr_dev_large";
 
-				filesystem->Read((void*)GameInfo, file_len, fh);
-				GameInfo[file_len] = 0; // null terminator
+				char verString[30];
+				if (g_pFullFileSystem->FileExists("version.txt"))
+				{
+					FileHandle_t fh = filesystem->Open("version.txt", "r", "MOD");
+					int file_len = filesystem->Size(fh);
+					char* GameInfo = new char[file_len + 1];
 
-				filesystem->Close(fh);
+					filesystem->Read((void*)GameInfo, file_len, fh);
+					GameInfo[file_len] = 0; // null terminator
 
-				Q_snprintf(verString, sizeof(verString), "Version: %s", GameInfo + 8);
+					filesystem->Close(fh);
 
-				delete[] GameInfo;
+					Q_snprintf(verString, sizeof(verString), "Version: %s", GameInfo + 8);
+
+					delete[] GameInfo;
+				}
+				char cBuffer[256];
+				sprintf(cBuffer, "%s | Hi!", verString);
+				discordPresence.largeImageText = cBuffer;
 			}
-			char cBuffer[256];
-			sprintf(cBuffer, "%s | Hi!", verString);
-			discordPresence.largeImageText = cBuffer;
+			else
+			{
+				discordPresence.largeImageKey = "fr_large";
+			}
+			Discord_UpdatePresence(&discordPresence);
 		}
-		else
-		{
-			discordPresence.largeImageKey = "fr_large";
-		}
-		Discord_UpdatePresence(&discordPresence);
 	}
 #endif
 
@@ -1989,41 +2009,44 @@ void CHLClient::LevelShutdown( void )
 	gHUD.LevelShutdown();
 
 #if defined( WIN32 )
-	if (!g_bTextMode)
+	if (cl_discord.GetBool())
 	{
-		DiscordRichPresence discordPresence;
-		memset(&discordPresence, 0, sizeof(discordPresence));
-		discordPresence.state = "In-Game";
-		discordPresence.details = "Main Menu";
-		if (cl_discord_devbuild.GetBool())
+		if (!g_bTextMode)
 		{
-			discordPresence.largeImageKey = "fr_dev_large";
-
-			char verString[30];
-			if (g_pFullFileSystem->FileExists("version.txt"))
+			DiscordRichPresence discordPresence;
+			memset(&discordPresence, 0, sizeof(discordPresence));
+			discordPresence.state = "In-Game";
+			discordPresence.details = "Main Menu";
+			if (cl_discord_devbuild.GetBool())
 			{
-				FileHandle_t fh = filesystem->Open("version.txt", "r", "MOD");
-				int file_len = filesystem->Size(fh);
-				char* GameInfo = new char[file_len + 1];
+				discordPresence.largeImageKey = "fr_dev_large";
 
-				filesystem->Read((void*)GameInfo, file_len, fh);
-				GameInfo[file_len] = 0; // null terminator
+				char verString[30];
+				if (g_pFullFileSystem->FileExists("version.txt"))
+				{
+					FileHandle_t fh = filesystem->Open("version.txt", "r", "MOD");
+					int file_len = filesystem->Size(fh);
+					char* GameInfo = new char[file_len + 1];
 
-				filesystem->Close(fh);
+					filesystem->Read((void*)GameInfo, file_len, fh);
+					GameInfo[file_len] = 0; // null terminator
 
-				Q_snprintf(verString, sizeof(verString), "Version: %s", GameInfo + 8);
+					filesystem->Close(fh);
 
-				delete[] GameInfo;
+					Q_snprintf(verString, sizeof(verString), "Version: %s", GameInfo + 8);
+
+					delete[] GameInfo;
+				}
+				char buffer[256];
+				sprintf(buffer, "%s | Hi!", verString);
+				discordPresence.largeImageText = buffer;
 			}
-			char buffer[256];
-			sprintf(buffer, "%s | Hi!", verString);
-			discordPresence.largeImageText = buffer;
+			else
+			{
+				discordPresence.largeImageKey = "fr_large";
+			}
+			Discord_UpdatePresence(&discordPresence);
 		}
-		else
-		{
-			discordPresence.largeImageKey = "fr_large";
-		}
-		Discord_UpdatePresence(&discordPresence);
 	}
 #endif
 
