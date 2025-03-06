@@ -151,7 +151,6 @@
 #if defined( WIN32 )
 //discord
 #include "discord-rpc.h"
-#include "discord_register.h"
 #include <time.h>
 #endif
 
