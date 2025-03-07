@@ -932,7 +932,7 @@ void CHudWeaponSelection::DrawLargeWeaponBox( C_BaseCombatWeapon *pWeapon, bool 
 			g_pVGuiLocalize->ConvertANSIToUnicode(weaponInfo.szPrintName, text, sizeof(text));
 		}
 
-		if (pWeapon->IsDualWielding())
+		if (pWeapon->DidPreviouslyDualWield() || pWeapon->IsDualWielding())
 		{
 			_snwprintf(text, sizeof(text) / sizeof(wchar_t) - 1, L"%s (x2)", text);
 		}
