@@ -342,6 +342,8 @@ public:
 
 	virtual	void			ToggleDualWield(void);
 	virtual	void			OnPickupDualWield(void);
+	virtual bool			HasEnoughAmmoToDualWield(void);
+	virtual bool			CanSwitchBackToDualWield(void) { return DidPreviouslyDualWield() && HasEnoughAmmoToDualWield(); }
 
 	// Reloading
 	virtual	void			CheckReload( void );

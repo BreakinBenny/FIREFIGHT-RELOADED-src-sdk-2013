@@ -1983,37 +1983,10 @@ bool CBaseCombatWeapon::DefaultDeploy( char *szViewModel, char *szWeaponModel, i
 	if (IsIronsighted())
 		DisableIronsights();
 
-	if (DidPreviouslyDualWield())
+	if (CanSwitchBackToDualWield())
 	{
-		//check if we have enough ammo.
-		bool hasEnoughAmmo = false;
-		int doubleAmmo = GetWpnData().iMaxClip1 * 2;
-
-		if (UsesClipsForAmmo1())
-		{
-			//total ammo count in the player's inventory, including what's in the mag.
-			int ammoCount = pOwner->GetAmmoCount(m_iPrimaryAmmoType) + Clip1();
-
-			//make sure we can realistically give the player that ammo.
-			if (ammoCount > 0 && ammoCount >= doubleAmmo)
-			{
-				hasEnoughAmmo = true;
-			}
-		}
-		else
-		{
-			int ammoCount = pOwner->GetAmmoCount(m_iPrimaryAmmoType);
-			if (ammoCount > 0)
-			{
-				hasEnoughAmmo = true;
-			}
-		}
-
 		//toggle dual wield on if true. keep it off if we only have one bullet. 
-		if (hasEnoughAmmo)
-		{
-			ToggleDualWield();
-		}
+		ToggleDualWield();
 	}
 
 	//disable this value regardless of what it's set to.
@@ -2654,14 +2627,13 @@ void CBaseCombatWeapon::StopWeaponSound( WeaponSound_t sound_type )
 	}
 }
 
-void CBaseCombatWeapon::ToggleDualWield(void)
+bool CBaseCombatWeapon::HasEnoughAmmoToDualWield(void)
 {
 	CBaseCombatCharacter* pOwner = GetOwner();
 	if (!pOwner)
-		return;
+		return false;
 
-#if !defined( CLIENT_DLL )
-
+	//check if we have enough ammo.
 	bool hasEnoughAmmo = false;
 	int doubleAmmo = GetWpnData().iMaxClip1 * 2;
 
@@ -2671,7 +2643,7 @@ void CBaseCombatWeapon::ToggleDualWield(void)
 		int ammoCount = pOwner->GetAmmoCount(m_iPrimaryAmmoType) + Clip1();
 
 		//make sure we can realistically give the player that ammo.
-		if (ammoCount > 0 && ammoCount >= doubleAmmo)
+		if (ammoCount > 1 && ammoCount >= doubleAmmo)
 		{
 			hasEnoughAmmo = true;
 		}
@@ -2679,15 +2651,43 @@ void CBaseCombatWeapon::ToggleDualWield(void)
 	else
 	{
 		int ammoCount = pOwner->GetAmmoCount(m_iPrimaryAmmoType);
-		if (ammoCount > 0)
+		if (ammoCount > 1)
 		{
 			hasEnoughAmmo = true;
 		}
 	}
 
+	//if we don't have enough for a full mag, make sure we at least have > 1 bullet.
+	if (!hasEnoughAmmo)
+	{
+		int ammoCount = pOwner->GetAmmoCount(m_iPrimaryAmmoType);
+		if (UsesClipsForAmmo1())
+		{
+			//total ammo count in the player's inventory, including what's in the mag.
+			ammoCount = ammoCount + Clip1();
+		}
+
+		if (ammoCount > 1)
+		{
+			hasEnoughAmmo = true;
+		}
+	}
+
+	return hasEnoughAmmo;
+}
+
+void CBaseCombatWeapon::ToggleDualWield(void)
+{
+	CBaseCombatCharacter* pOwner = GetOwner();
+	if (!pOwner)
+		return;
+
+#if !defined( CLIENT_DLL )
+	int doubleAmmo = GetWpnData().iMaxClip1 * 2;
+
 	if (CanDualWield())
 	{
-		if (!m_bIsDualWielding && !hasEnoughAmmo)
+		if (!m_bIsDualWielding && !HasEnoughAmmoToDualWield())
 		{
 			pOwner->EmitSound("Player.DenyWeaponSelection");
 			return;
