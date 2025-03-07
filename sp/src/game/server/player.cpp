@@ -6123,7 +6123,7 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 	char szFullFileName[_MAX_PATH];
 	Q_snprintf(szFullFileName, sizeof(szFullFileName), "scripts/loadouts/%s.txt", kvName);
 	
-	KeyValues* pKV = new KeyValues(kvName);
+	KeyValuesAD pKV(kvName);
 	if (pKV->LoadFromFile(filesystem, szFullFileName))
 	{
 		if (savetoLoadout && m_kvLoadout == NULL)

@@ -92,7 +92,7 @@ CAttributesLoader::CAttributesLoader(const char *className, int preset)
 	char szFullKVName[512];
 	Q_snprintf(szFullKVName, sizeof(szFullKVName), "%s_preset%i", className, preset);
 
-	KeyValues* pKV = new KeyValues(className);
+	KeyValuesAD pKV(className);
 	if (pKV->LoadFromFile(filesystem, szFullName))
 	{
 		data = pKV->MakeCopy();
@@ -104,8 +104,6 @@ CAttributesLoader::CAttributesLoader(const char *className, int preset)
 		DevWarning("CAttributesLoader: Failed to load attributes for %s on preset %i!! File may not exist.\n", className, preset);
 		loadedAttributes = false;
 	}
-
-	pKV->deleteThis();
 }
 
 const char* CAttributesLoader::GetString(const char* szString, const char* defaultValue)
