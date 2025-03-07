@@ -33,7 +33,6 @@ public:
 	DECLARE_DATADESC();
 	CWeaponManhackThrower();
 
-	bool				Deploy(void);
 	void				Spawn( void );
 	void				Precache( void );
 
@@ -84,11 +83,6 @@ void CWeaponManhackThrower::Spawn( )
 {
 	BaseClass::Spawn();
 	Precache( );
-}
-
-bool CWeaponManhackThrower::Deploy(void)
-{
-	return BaseClass::Deploy();
 }
 
 void CWeaponManhackThrower::Precache( void )

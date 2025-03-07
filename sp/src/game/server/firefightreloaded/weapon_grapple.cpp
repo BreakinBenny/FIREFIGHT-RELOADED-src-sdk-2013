@@ -381,11 +381,6 @@ void CWeaponGrapple::Precache( void )
 	BaseClass::Precache();
 }
 
-bool CWeaponGrapple::Deploy(void)
-{
-	return BaseClass::Deploy();
-}
-
 bool CWeaponGrapple::CanDeploy(void)
 {
 	if (m_flNextPrimaryAttack < gpGlobals->curtime)

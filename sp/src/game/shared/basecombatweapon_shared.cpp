@@ -433,6 +433,11 @@ bool CBaseCombatWeapon::CouldDualWield(void) const
 	return (IsDualWieldable() && !m_bOwnerHasSecondWeapon);
 }
 
+bool CBaseCombatWeapon::DidPreviouslyDualWield(void) const
+{
+	return (CanDualWield() && !m_bIsDualWielding && m_bDidDualWield);
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -1880,6 +1885,9 @@ bool CBaseCombatWeapon::ReloadOrSwitchWeapons( void )
 		if (IsDualWielding())
 		{
 			ToggleDualWield();
+			//this has a side effect of making it so if you run out of ammo this disables dual wield entirely.
+			//so, i'm adding a value that saves the dual wield satate of the weapon, which will be recalled in the Deploy function.
+			m_bDidDualWield = true;
 		}
 
 		if ( ( (GetWeaponFlags() & ITEM_FLAG_NOAUTOSWITCHEMPTY) == false ) && ( g_pGameRules->SwitchToNextBestWeapon( pOwner, this ) ) )
@@ -1974,6 +1982,42 @@ bool CBaseCombatWeapon::DefaultDeploy( char *szViewModel, char *szWeaponModel, i
 
 	if (IsIronsighted())
 		DisableIronsights();
+
+	if (DidPreviouslyDualWield())
+	{
+		//check if we have enough ammo.
+		bool hasEnoughAmmo = false;
+		int doubleAmmo = GetWpnData().iMaxClip1 * 2;
+
+		if (UsesClipsForAmmo1())
+		{
+			//total ammo count in the player's inventory, including what's in the mag.
+			int ammoCount = pOwner->GetAmmoCount(m_iPrimaryAmmoType) + Clip1();
+
+			//make sure we can realistically give the player that ammo.
+			if (ammoCount > 0 && ammoCount >= doubleAmmo)
+			{
+				hasEnoughAmmo = true;
+			}
+		}
+		else
+		{
+			int ammoCount = pOwner->GetAmmoCount(m_iPrimaryAmmoType);
+			if (ammoCount > 0)
+			{
+				hasEnoughAmmo = true;
+			}
+		}
+
+		//toggle dual wield on if true. keep it off if we only have one bullet. 
+		if (hasEnoughAmmo)
+		{
+			ToggleDualWield();
+		}
+	}
+
+	//disable this value regardless of what it's set to.
+	m_bDidDualWield = false;
 
 /*
 
@@ -3498,6 +3542,7 @@ BEGIN_PREDICTION_DATA( CBaseCombatWeapon )
 
 	DEFINE_PRED_FIELD(m_bOwnerHasSecondWeapon, FIELD_BOOLEAN, FTYPEDESC_INSENDTABLE),
 	DEFINE_PRED_FIELD(m_bIsDualWielding, FIELD_BOOLEAN, FTYPEDESC_INSENDTABLE),
+	DEFINE_PRED_FIELD(m_bDidDualWield, FIELD_BOOLEAN, FTYPEDESC_INSENDTABLE),
 	DEFINE_PRED_FIELD(m_bIsFiringLeft, FIELD_BOOLEAN, FTYPEDESC_INSENDTABLE),
 	DEFINE_PRED_FIELD(m_bWeaponControlsDualWield, FIELD_BOOLEAN, FTYPEDESC_INSENDTABLE),
 
@@ -3531,6 +3576,7 @@ BEGIN_PREDICTION_DATA( CBaseCombatWeapon )
 	DEFINE_FIELD(m_bIsDualWielding, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_bIsFiringLeft, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_bWeaponControlsDualWield, FIELD_BOOLEAN),
+	DEFINE_FIELD(m_bDidDualWield, FIELD_BOOLEAN),
 	DEFINE_FIELD( m_bRemoveable, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_iPrimaryAmmoCount, FIELD_INTEGER ),
 	DEFINE_FIELD( m_iSecondaryAmmoCount, FIELD_INTEGER ),
@@ -3595,7 +3641,8 @@ BEGIN_DATADESC( CBaseCombatWeapon )
 	DEFINE_FIELD( m_bIsIronsighted, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_flIronsightedTime, FIELD_FLOAT ),
 	DEFINE_FIELD(m_bOwnerHasSecondWeapon, FIELD_BOOLEAN),
-	DEFINE_FIELD(m_bIsDualWielding, FIELD_BOOLEAN),
+	DEFINE_FIELD(m_bIsDualWielding, FIELD_BOOLEAN), 
+	DEFINE_FIELD(m_bDidDualWield, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_bIsFiringLeft, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_bWeaponControlsDualWield, FIELD_BOOLEAN),
 	DEFINE_FIELD( m_iSubType, FIELD_INTEGER ),
@@ -3760,6 +3807,7 @@ BEGIN_NETWORK_TABLE_NOBASE( CBaseCombatWeapon, DT_LocalWeaponData )
 
 	SendPropBool(SENDINFO(m_bOwnerHasSecondWeapon)),
 	SendPropBool(SENDINFO(m_bIsDualWielding)),
+	SendPropBool(SENDINFO(m_bDidDualWield)),
 	SendPropBool(SENDINFO(m_bIsFiringLeft)),
 	SendPropBool(SENDINFO(m_bWeaponControlsDualWield)),
 
@@ -3782,6 +3830,7 @@ BEGIN_NETWORK_TABLE_NOBASE( CBaseCombatWeapon, DT_LocalWeaponData )
 
 	RecvPropBool(RECVINFO(m_bOwnerHasSecondWeapon)),
 	RecvPropBool(RECVINFO(m_bIsDualWielding)),
+	RecvPropBool(RECVINFO(m_bDidDualWield)),
 	RecvPropBool(RECVINFO(m_bIsFiringLeft)),
 
 	RecvPropBool(RECVINFO(m_bWeaponControlsDualWield)),

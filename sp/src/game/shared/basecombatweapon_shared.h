@@ -462,6 +462,7 @@ public:
 	virtual bool			IsDualWielding(void) const;
 	virtual bool			CanDualWield(void) const;
 	virtual bool			CouldDualWield(void) const;
+	virtual bool			DidPreviouslyDualWield(void) const;
 	Vector					GetIronsightPositionOffset(void) const;
 	QAngle					GetIronsightAngleOffset(void) const;
 	float					GetIronsightFOVOffset(void) const;
@@ -672,6 +673,7 @@ public:
 	CNetworkVar(bool, m_bIsDualWielding);
 	CNetworkVar(bool, m_bIsFiringLeft);
 	CNetworkVar(bool, m_bWeaponControlsDualWield);
+	CNetworkVar(bool, m_bDidDualWield);
 
 	// Weapon art
 	CNetworkVar( int, m_iViewModelIndex );

@@ -46,7 +46,6 @@ public:
 	void	FireNPCPrimaryAttack(CBaseCombatCharacter* pOperator, bool bUseWeaponAngles);
 	void	Operator_ForceNPCFire(CBaseCombatCharacter* pOperator, bool bSecondary);
 	void	Operator_HandleAnimEvent(animevent_t* pEvent, CBaseCombatCharacter* pOperator);
-	bool	Deploy(void);
 	bool	Holster(CBaseCombatWeapon* pSwitchingTo);
 	void	ItemPostFrame(void);
 	void	HolsterThink(void);

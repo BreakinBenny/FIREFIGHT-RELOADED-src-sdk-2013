@@ -248,14 +248,6 @@ void CWeaponRailgun::Precache(void)
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-bool CWeaponRailgun::Deploy(void)
-{
-	return BaseClass::Deploy();
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool CWeaponRailgun::Holster(CBaseCombatWeapon* pSwitchingTo)
 {
 	CBasePlayer* pPlayer = ToBasePlayer(GetOwner());
