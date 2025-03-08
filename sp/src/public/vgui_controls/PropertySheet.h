@@ -182,6 +182,8 @@ private:
 	bool	m_bContextButton;
 	bool	m_bKBNavigationEnabled;
 
+	CPanelAnimationVarAliasType(int, m_iPageYOffset, "yoffset", "0", "proportional_int");
+
 	CPanelAnimationVarAliasType( int, m_iTabXIndent, "tabxindent", "0", "proportional_int" );
 	CPanelAnimationVarAliasType( int, m_iTabXDelta, "tabxdelta", "0", "proportional_int" );
 	CPanelAnimationVarAliasType( bool, m_bTabFitText, "tabxfittotext", "1", "bool" );
