@@ -1412,7 +1412,11 @@ void CFuncVPhysicsClip::Spawn( void )
 	SetModel( STRING( GetModelName() ) );
 	AddEffects( EF_NODRAW );
 	CreateVPhysics();
-	VPhysicsGetObject()->EnableCollisions( !m_bDisabled );
+	IPhysicsObject* pPhys = VPhysicsGetObject();
+	if (pPhys)
+	{
+		pPhys->EnableCollisions(!m_bDisabled);
+	}
 }
 
 
@@ -1440,8 +1444,14 @@ bool CFuncVPhysicsClip::EntityPassesFilter( CBaseEntity *pOther )
 	if ( pFilter )
 		return pFilter->PassesFilter( this, pOther );
 
-	if ( pOther->GetMoveType() == MOVETYPE_VPHYSICS && pOther->VPhysicsGetObject()->IsMoveable() )
-		return true;
+	if (pOther->GetMoveType() == MOVETYPE_VPHYSICS)
+	{
+		IPhysicsObject* pPhys = pOther->VPhysicsGetObject();
+		if (pPhys && pPhys->IsMoveable())
+		{
+			return true;
+		}
+	}
 	
 	return false;
 }
@@ -1454,12 +1464,20 @@ bool CFuncVPhysicsClip::ForceVPhysicsCollide( CBaseEntity *pEntity )
 
 void CFuncVPhysicsClip::InputEnable( inputdata_t &inputdata )
 {
-	VPhysicsGetObject()->EnableCollisions(true);
+	IPhysicsObject* pPhys = VPhysicsGetObject();
+	if (pPhys)
+	{
+		pPhys->EnableCollisions(true);
+	}
 	m_bDisabled = false;
 }
 
 void CFuncVPhysicsClip::InputDisable( inputdata_t &inputdata )
 {
-	VPhysicsGetObject()->EnableCollisions(false);
+	IPhysicsObject* pPhys = VPhysicsGetObject();
+	if (pPhys)
+	{
+		pPhys->EnableCollisions(false);
+	}
 	m_bDisabled = true;
 }
