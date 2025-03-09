@@ -25,7 +25,9 @@
 
 #define	NUM_CROUCH_HINTS	3
 
+#ifdef POSIX
 [[gnu::optimize("no-associative-math")]]
+#endif
 bool CGameMovement::CanUnduck()
 {
 	int i;
@@ -61,7 +63,9 @@ bool CGameMovement::CanUnduck()
 	return true;
 }
 
+#ifdef POSIX
 [[gnu::optimize("no-associative-math")]]
+#endif
 //-----------------------------------------------------------------------------
 // Purpose: Stop ducking
 //-----------------------------------------------------------------------------
@@ -142,7 +146,9 @@ void CGameMovement::UpdateDuckJumpEyeOffset( void )
 	}
 }
 
+#ifdef POSIX
 [[gnu::optimize("no-associative-math")]]
+#endif
 //-----------------------------------------------------------------------------
 // Purpose:
 //-----------------------------------------------------------------------------
@@ -179,7 +185,9 @@ void CGameMovement::FinishUnDuckJump( trace_t &trace )
 	CategorizePosition();
 }
 
+#ifdef POSIX
 [[gnu::optimize("no-associative-math")]]
+#endif
 //-----------------------------------------------------------------------------
 // Purpose: Finish ducking
 //-----------------------------------------------------------------------------
@@ -232,7 +240,9 @@ void CGameMovement::FinishDuck( void )
 	CategorizePosition();
 }
 
+#ifdef POSIX
 [[gnu::optimize("no-associative-math")]]
+#endif
 //-----------------------------------------------------------------------------
 // Purpose:
 //-----------------------------------------------------------------------------
