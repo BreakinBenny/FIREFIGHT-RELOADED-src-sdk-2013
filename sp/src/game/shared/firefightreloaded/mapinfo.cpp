@@ -35,10 +35,10 @@ KeyValues* CMapInfo::GetMapInfoData()
 	char szFullKVName[512];
 	Q_snprintf(szFullKVName, sizeof(szFullKVName), "%s", mapname);
 
-	KeyValues* pKV = new KeyValues(mapname);
+	KeyValuesAD pKV(mapname);
 	if (pKV->LoadFromFile(filesystem, szFullName))
 	{
-		return pKV;
+		return pKV->MakeCopy();
 	}
 
 	return NULL;
