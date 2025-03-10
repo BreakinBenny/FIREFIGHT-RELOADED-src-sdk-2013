@@ -56,7 +56,7 @@ CON_COMMAND(showworkshop, "")
 
 CON_COMMAND(fr_version, "")
 {
-	char verString[30];
+	char verString[1024];
 	if (g_pFullFileSystem->FileExists("version.txt"))
 	{
 		FileHandle_t fh = filesystem->Open("version.txt", "r", "MOD");
@@ -68,7 +68,7 @@ CON_COMMAND(fr_version, "")
 
 		filesystem->Close(fh);
 
-		Q_snprintf(verString, sizeof(verString), "Game Version: v%s\n", GameInfo + 8);
+		Q_snprintf(verString, sizeof(verString), "Game Version: v%s (%s)", GameInfo + 8, __DATE__);
 
 		delete[] GameInfo;
 	}
