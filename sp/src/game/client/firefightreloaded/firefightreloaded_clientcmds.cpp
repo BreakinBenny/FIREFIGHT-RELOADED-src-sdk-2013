@@ -68,7 +68,7 @@ CON_COMMAND(fr_version, "")
 
 		filesystem->Close(fh);
 
-		Q_snprintf(verString, sizeof(verString), "Game Version: v%s (%s)", GameInfo + 8, __DATE__);
+		Q_snprintf(verString, sizeof(verString), "Game Version: v%s (%s)\n", GameInfo + 8, __DATE__);
 
 		delete[] GameInfo;
 	}
