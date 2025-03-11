@@ -140,7 +140,7 @@ void CWeaponGaussGun::Fire( void )
 	info.m_nFlags = FIRE_BULLETS_ALLOW_WATER_SURFACE_IMPACTS;
 	info.m_pAttacker = pOwner;
 
-	FireBullets(info);
+	pOwner->FireBullets(info);
 
 	// Register a muzzleflash for the AI
 	pOwner->SetMuzzleFlashTime(gpGlobals->curtime + 0.5);

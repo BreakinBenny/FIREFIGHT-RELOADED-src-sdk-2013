@@ -1810,7 +1810,7 @@ CAmmoDef *GetAmmoDef()
 		def.AddAmmoType("AssassinSMG1",				DMG_BULLET,					TRACER_LINE_AND_WHIZ, "sk_plr_dmg_smg1", "sk_npc_dmg_assassinsmg", "sk_max_smg1", BULLET_IMPULSE(200, 1225), 0, 'r');
 		def.AddAmmoType("KillerScannerPistol",	DMG_BULLET, TRACER_LINE_AND_WHIZ, "sk_plr_dmg_pistol", "sk_npc_dmg_killerscanner", "sk_max_pistol", BULLET_IMPULSE(200, 1225), 0, 'p');
 		def.AddAmmoType("SMG1",				DMG_BULLET,					TRACER_LINE_AND_WHIZ,	"sk_plr_dmg_smg1",			"sk_npc_dmg_smg1",			"sk_max_smg1",			BULLET_IMPULSE(200, 1225), 0, 'r' );
-		def.AddAmmoType("357",				DMG_BULLET | DMG_SNIPER,	TRACER_LINE_AND_WHIZ,	"sk_plr_dmg_357",			"sk_npc_dmg_357",			"sk_max_357",			BULLET_IMPULSE(800, 5000), 0, 'q');
+		def.AddAmmoType("357",				DMG_BULLET,	TRACER_LINE_AND_WHIZ,	"sk_plr_dmg_357",			"sk_npc_dmg_357",			"sk_max_357",			BULLET_IMPULSE(800, 5000), 0, 'q');
 		def.AddAmmoType("XBowBolt",			DMG_BULLET,					TRACER_LINE,			"sk_plr_dmg_crossbow",		"sk_npc_dmg_crossbow",		"sk_max_crossbow",		BULLET_IMPULSE(800, 8000), 0, 'w' );
 
 		def.AddAmmoType("Buckshot",			DMG_BULLET | DMG_BUCKSHOT | DMG_SNIPER, TRACER_LINE, "sk_plr_dmg_buckshot", "sk_npc_dmg_buckshot", "sk_max_buckshot", BULLET_IMPULSE(400, 1200), 0, 's');

@@ -19,6 +19,8 @@
 #include "engine/IEngineSound.h"
 #include "te_effect_dispatch.h"
 #include "gamestats.h"
+#include "ammodef.h"
+#include "hl2_shareddefs.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -44,7 +46,7 @@ public:
 
 	virtual const Vector& GetBulletSpread(void)
 	{
-		static const Vector cone = VECTOR_CONE_3DEGREES;
+		static const Vector cone = VECTOR_CONE_2DEGREES;
 		static const Vector ironsightCone = VECTOR_CONE_1DEGREES;
 		if (IsIronsighted())
 		{
@@ -239,10 +241,18 @@ void CWeapon357::PrimaryAttack( void )
 
 	m_iClip1--;
 
-	Vector vecSrc		= pPlayer->Weapon_ShootPosition();
-	Vector vecAiming	= pPlayer->GetAutoaimVector( AUTOAIM_SCALE_DEFAULT );	
+	CAmmoDef* def = GetAmmoDef();
 
-	pPlayer->FireBullets( 1, vecSrc, vecAiming, vec3_origin, MAX_TRACE_LENGTH, m_iPrimaryAmmoType, 0 );
+	FireBulletsInfo_t info;
+	info.m_iShots = 1;
+	info.m_vecSrc = pPlayer->Weapon_ShootPosition();
+	info.m_vecDirShooting = pPlayer->GetAutoaimVector(AUTOAIM_SCALE_DEFAULT);
+	info.m_vecSpread = GetBulletSpread();
+	info.m_flDistance = MAX_TRACE_LENGTH;
+	info.m_iAmmoType = m_iPrimaryAmmoType;
+	info.m_nDamageFlags = (m_bIsIronsighted) ? (def->DamageType(info.m_iAmmoType) | DMG_SNIPER) : def->DamageType(info.m_iAmmoType);
+	info.m_iTracerFreq = 0;
+	pPlayer->FireBullets(info);
 
 	pPlayer->SetMuzzleFlashTime( gpGlobals->curtime + 0.5 );
 

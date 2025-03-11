@@ -697,7 +697,7 @@ void CWeaponCustom::ShootBulletsLeft(bool isPrimary, bool usePrimaryAmmo)
 	info.m_flDistance = MAX_TRACE_LENGTH;
 	info.m_iAmmoType = m_iPrimaryAmmoType;
 	info.m_iTracerFreq = 2;
-	FireBullets(info);
+	pPlayer->FireBullets(info);
 
 	//Factor in the view kick
 	if (isPrimary)
@@ -822,7 +822,7 @@ void CWeaponCustom::ShootBulletsRight(bool isPrimary, bool usePrimaryAmmo)
 	info.m_flDistance = MAX_TRACE_LENGTH;
 	info.m_iAmmoType = m_iPrimaryAmmoType;
 	info.m_iTracerFreq = 2;
-	FireBullets(info);
+	pPlayer->FireBullets(info);
 
 	//Factor in the view kick
 	if (isPrimary)

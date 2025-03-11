@@ -382,7 +382,7 @@ void CWeaponMP5::FireModeLogic(int burstsize, float firerate, int firemode)
 	info.m_flDistance = MAX_TRACE_LENGTH;
 	info.m_iAmmoType = m_iPrimaryAmmoType;
 	info.m_iTracerFreq = 2;
-	FireBullets(info);
+	pPlayer->FireBullets(info);
 
 	//Factor in the view kick
 	AddViewKick();
