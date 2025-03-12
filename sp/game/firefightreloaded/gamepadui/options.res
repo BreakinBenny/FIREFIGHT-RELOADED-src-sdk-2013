@@ -312,6 +312,21 @@
 				}
 			}
             
+            "GrappleSpeed"
+			{
+				"text"			"#GameUI_GrappleSpeed"
+				"type"			"slideyslide"
+				"convar"		"sk_grapple_speed"
+                "advanced"		"1"
+                "hidden"		"1"
+
+				"min"			"0"
+				"max"			"2500"
+				"step"			"5"
+
+				"textprecision" "2"
+			}
+            
             "GrappleRangeRestriction"
 			{
 				"text"			"#GameUI_GrappleRangeRestriction"
@@ -1838,6 +1853,21 @@
 				"text"			"#GameUI_LowerOnSprint"
 				"type"			"wheelywheel"
 				"convar"		"viewmodel_lower_on_sprint"
+                "advanced"		"1"
+                "hidden"		"1"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
+            "ToggleBunnyhopLegacy"
+			{
+				"text"			"#GameUI_ToggleBunnyhopLegacy"
+				"type"			"wheelywheel"
+				"convar"		"fr_enable_bunnyhop_legacybehavior"
                 "advanced"		"1"
                 "hidden"		"1"
 
