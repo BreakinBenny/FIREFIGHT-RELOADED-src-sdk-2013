@@ -1,7 +1,7 @@
 @ECHO OFF
 call reset.bat
-vdf2json "%CD%/resource/firefightreloaded_english.txt" "%CD%/resource/firefightreloaded_english.json" -ei utf-16le -p
 cls
+"C:\Users\Bitl\AppData\Local\Programs\Python\Python313\Scripts\vdf2json.exe" "%CD%/resource/firefightreloaded_english.txt" "%CD%/resource/firefightreloaded_english.json" -ei utf-16le -p
 SET dest=G:\Projects\FIREFIGHT\steambuild\FIREFIGHTRELOADED\release\firefightreloaded
 SET dlldest=G:\Projects\FIREFIGHT\steambuild\FIREFIGHTRELOADED\windows_client\firefightreloaded\bin
 SET linuxdlldest=G:\Projects\FIREFIGHT\steambuild\FIREFIGHTRELOADED\linux_client\firefightreloaded\bin
