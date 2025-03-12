@@ -66,6 +66,7 @@ ConVar player_limit_jump_speed( "player_limit_jump_speed", "1", FCVAR_REPLICATED
 
 //Used for bunnyhopping
 ConVar fr_enable_bunnyhop("fr_enable_bunnyhop", "1", FCVAR_ARCHIVE);
+ConVar fr_enable_bunnyhop_legacybehavior("fr_enable_bunnyhop_legacybehavior", "0", FCVAR_ARCHIVE);
 
 ConVar fr_floatymove("fr_floatymove", "0", FCVAR_ARCHIVE);
 
@@ -2616,24 +2617,41 @@ bool CGameMovement::CheckJumpButton( void )
 		AngleVectors(mv->m_vecViewAngles, &vecForward, NULL, NULL);
 		vecForward.z = 0.0f;
 		VectorNormalize(vecForward);
-		if (!pMoveData->m_bIsSprinting && !player->m_Local.m_bDucked)
-		{
-			for (int iAxis = 0; iAxis < 2; ++iAxis)
-			{
-				vecForward[iAxis] *= (mv->m_flForwardMove * 0.5f);
-			}
-		}
-		else
+		static ConVarRef sv_leagcy_maxspeed("sv_leagcy_maxspeed");
+		if (!fr_enable_bunnyhop_legacybehavior.GetBool() && !sv_leagcy_maxspeed.GetBool())
 		{
 			for (int iAxis = 0; iAxis < 2; ++iAxis)
 			{
 				vecForward[iAxis] *= (mv->m_flForwardMove * 0.1f);
 			}
 		}
+		else
+		{
+			if (!pMoveData->m_bIsSprinting && !player->m_Local.m_bDucked)
+			{
+				for (int iAxis = 0; iAxis < 2; ++iAxis)
+				{
+					vecForward[iAxis] *= (mv->m_flForwardMove * 0.5f);
+				}
+			}
+			else
+			{
+				for (int iAxis = 0; iAxis < 2; ++iAxis)
+				{
+					vecForward[iAxis] *= (mv->m_flForwardMove * 0.1f);
+				}
+			}
+		}
 
 		VectorAdd(vecForward, mv->m_vecVelocity, mv->m_vecVelocity);
 
 		float flSpeedBoostPerc = (!pMoveData->m_bIsSprinting && !player->m_Local.m_bDucked) ? 0.5f : 0.1f;
+
+		if (!fr_enable_bunnyhop_legacybehavior.GetBool() && !sv_leagcy_maxspeed.GetBool())
+		{
+			flSpeedBoostPerc = 0.1f;
+		}
+
 		float flSpeedAddition = fabs(mv->m_flForwardMove * flSpeedBoostPerc);
 		float flNewSpeed = (flSpeedAddition + mv->m_vecVelocity.Length2D());
 
