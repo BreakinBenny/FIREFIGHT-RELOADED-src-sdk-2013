@@ -255,7 +255,7 @@ ConVar	sv_specnoclip	( "sv_specnoclip", "1", FCVAR_ARCHIVE | FCVAR_NOTIFY | FCVA
 ConVar	sv_maxspeed		( "sv_maxspeed", "999", FCVAR_NOTIFY | FCVAR_REPLICATED);
 ConVar	sv_accelerate	( "sv_accelerate", "30", FCVAR_NOTIFY | FCVAR_REPLICATED);
 
-ConVar	sv_airaccelerate("sv_airaccelerate", "150", FCVAR_NOTIFY | FCVAR_REPLICATED);
+ConVar	sv_airaccelerate("sv_airaccelerate", "45", FCVAR_NOTIFY | FCVAR_REPLICATED);
 ConVar	sv_wateraccelerate("sv_wateraccelerate", "30", FCVAR_NOTIFY | FCVAR_REPLICATED);
 ConVar	sv_waterfriction("sv_waterfriction", "1", FCVAR_NOTIFY | FCVAR_REPLICATED);
 ConVar	sv_footsteps("sv_footsteps", "1", FCVAR_NOTIFY | FCVAR_REPLICATED, "Play footstep sound for players");
