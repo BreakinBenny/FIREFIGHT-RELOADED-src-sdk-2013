@@ -37,11 +37,12 @@
 #define GLOW_SPRITE "sprites/orangeflare1.vmt"
 
 ConVar sk_grapple_delay("sk_grapple_delay", "0.5");
+ConVar sk_grapple_speed("sk_grapple_speed", "1000.0", FCVAR_ARCHIVE);
 ConVar sk_grapple_batterydrain("sk_grapple_batterydrain", "1", FCVAR_ARCHIVE);
 ConVar sk_grapple_rangerestriction("sk_grapple_rangerestriction", "1", FCVAR_ARCHIVE);
 ConVar sk_grapple_batterydrain_time("sk_grapple_batterydrain_time", "0.35", FCVAR_ARCHIVE);
 ConVar sk_grapple_batterydrain_amount("sk_grapple_batterydrain_amount", "4", FCVAR_ARCHIVE);
-ConVar sk_grapple_rangerestriction_max("sk_grapple_rangerestriction_max", "1500", FCVAR_ARCHIVE);
+ConVar sk_grapple_rangerestriction_max("sk_grapple_rangerestriction_max", "2500", FCVAR_ARCHIVE);
 
 static const char* ppszIgnoredClasses[] =
 {
@@ -288,10 +289,10 @@ void CGrappleHook::HookedThink( void )
 		{
 			CPropVehicleDriveable* pVehicle = (CPropVehicleDriveable*)m_hGrappledEntity.Get();
 
-			if (pVehicle != NULL || pVehicle != nullptr)
+			if (pVehicle != NULL)
 			{
 				IServerVehicle *pServerVehicle = pVehicle->GetServerVehicle();
-				if (pServerVehicle != NULL || pServerVehicle != nullptr)
+				if (pServerVehicle != NULL)
 				{
 					pVehicle->ResetUseKey(m_hPlayer);
 					pServerVehicle->HandlePassengerEntry(m_hPlayer, true, true);
@@ -303,7 +304,7 @@ void CGrappleHook::HookedThink( void )
 	}
 	else
 	{
-		float velocity = BOLT_GRAPPLE_VELOCITY;
+		float velocity = sk_grapple_speed.GetFloat();
 		m_hPlayer->SetAbsVelocity(tempVec1 * temp_multiplier * velocity);//400
 	}
 }
@@ -572,7 +573,19 @@ void CWeaponGrapple::ItemPostFrame( void )
 
 	if ( m_hHook )
 	{
-		if (!(pOwner->m_nButtons & IN_ATTACK) && !(pOwner->m_nButtons & IN_GRAPPLE))
+		bool outOfBattery = false;
+
+		if (sk_grapple_batterydrain.GetBool())
+		{
+			if (pOwner->ArmorValue() <= 0)
+			{
+				outOfBattery = true;
+			}
+		}
+
+		bool notPressingAnyButtons = (!(pOwner->m_nButtons & IN_ATTACK) && !(pOwner->m_nButtons & IN_GRAPPLE));
+
+		if (outOfBattery || notPressingAnyButtons)
 		{
 			m_hHook->SetTouch( NULL );
 			m_hHook->SetThink( NULL );
@@ -587,6 +600,9 @@ void CWeaponGrapple::ItemPostFrame( void )
  
 			//Update our times
 			m_flNextPrimaryAttack = gpGlobals->curtime + sk_grapple_delay.GetFloat();
+
+			//ugh
+			pOwner->SelectLastItem();
 		}
 	}
 }
