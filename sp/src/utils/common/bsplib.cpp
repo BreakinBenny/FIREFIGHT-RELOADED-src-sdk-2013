@@ -1185,7 +1185,7 @@ void CGameLump::ParseGameLump( dheader_t* pHeader )
 			}
 			else
 			{
-				memcpy( g_GameLumps.GetGameLump(lump), (byte *)pHeader + pGameLump[i].fileofs, length );
+				memcpy( g_GameLumps.GetGameLump(lump), (byte *)pHeader + pGameLump[i].fileofs, glLength );
 			}
 		}
 	}
