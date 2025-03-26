@@ -92,8 +92,8 @@ Translations:
  - Insane Black Rock Shooter - Simplified Chinese Translation
 
 Thank you to the following people who have playtested the mod to make sure it works properly:
- - Tyler 'BFBC2143' Schield
- - Pierce 'herbj54' Johnson
+ - BFBC2143
+ - herbj54
  - Greenie
  - Kasey/Tytygigas
  - DeviantXS

@@ -2220,9 +2220,9 @@
 				"type"			"slideyslide"
 				"convar"		"sensitivity"
 
-				"min"			"0.1"
-				"max"			"6.0"
-				"step"			"0.1"
+				"min"			"0"
+				"max"			"12.0"
+				"step"			"1.0"
 
 				"textprecision" "2"
 			}
