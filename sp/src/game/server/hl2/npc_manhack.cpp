@@ -503,6 +503,7 @@ void CNPC_Manhack::TakeDamageFromPhysicsImpact( int index, gamevcollisionevent_t
 
 	// NOTE: Bypass the normal impact energy scale here.
 	float flDamageScale = PlayerHasMegaPhysCannon() ? 10.0f : 1.0f;
+
 	int damageType = 0;
 	float damage = CalculateDefaultPhysicsDamage( index, pEvent, flDamageScale, true, damageType );
 	if ( damage == 0 )
@@ -518,8 +519,16 @@ void CNPC_Manhack::TakeDamageFromPhysicsImpact( int index, gamevcollisionevent_t
 		damageForce = pEvent->postVelocity[!index] * pEvent->pObjects[!index]->GetMass();
 	}
 
+	CBaseEntity* pAttacker = pHitEntity;
+
+	CBasePlayer* pPhysicsAttacker = pHitEntity->HasPhysicsAttacker(0.5f);
+	if (pPhysicsAttacker)
+	{
+		pAttacker = pPhysicsAttacker;
+	}
+
 	// FIXME: this doesn't pass in who is responsible if some other entity "caused" this collision
-	PhysCallbackDamage( this, CTakeDamageInfo( pHitEntity, pHitEntity, damageForce, damagePos, damage, damageType ), *pEvent, index );
+	PhysCallbackDamage( this, CTakeDamageInfo( pHitEntity, pAttacker, damageForce, damagePos, damage, damageType ), *pEvent, index );
 }
 
 
@@ -570,6 +579,11 @@ void CNPC_Manhack::VPhysicsCollision( int index, gamevcollisionevent_t *pEvent )
 		if ( pHitEntity->GetServerVehicle() )
 		{
 			TakeDamageFromVehicle( index, pEvent );
+		}
+		else if (FClassnameIs(pHitEntity, "weapon_striderbuster") || FClassnameIs(pHitEntity, "prop_stickybomb"))
+		{
+			// for striderbuster kills, take the full damage from it.
+			TakeDamageFromPhysicsImpact(index, pEvent);
 		}
 		else if ( pHitEntity->HasPhysicsAttacker( 0.5f ) )
 		{

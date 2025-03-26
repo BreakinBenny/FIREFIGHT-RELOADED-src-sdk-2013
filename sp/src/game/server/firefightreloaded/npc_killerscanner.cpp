@@ -29,16 +29,16 @@ ConVar	sk_killerscanner_mag_size("sk_killerscanner_mag_size", "0");
 ConVar	sk_killerscanner_max_speed("sk_killerscanner_max_speed", "0");
 ConVar	sk_killerscanner_projectile_speed("sk_killerscanner_projectile_speed", "0");
 //STAT VARS
-ConVar	sk_killerscanner_attack_near("sk_killerscanner_attack_near", "72", FCVAR_DEVELOPMENTONLY);
-ConVar	sk_killerscanner_attack_maxrange("sk_killerscanner_attack_maxrange", "750", FCVAR_DEVELOPMENTONLY);
-ConVar	sk_killerscanner_mindist_idle("sk_killerscanner_mindist_idle", "128", FCVAR_DEVELOPMENTONLY);
-ConVar	sk_killerscanner_mindist_combat("sk_killerscanner_mindist_combat", "128", FCVAR_DEVELOPMENTONLY);
-ConVar	sk_killerscanner_turn_rate_combat("sk_killerscanner_turn_rate_combat", "1500", FCVAR_DEVELOPMENTONLY);
-ConVar	sk_killerscanner_turn_rate_idle("sk_killerscanner_turn_rate_idle", "750", FCVAR_DEVELOPMENTONLY);
-ConVar	sk_killerscanner_minheight_combat("sk_killerscanner_minheight_combat", "16", FCVAR_DEVELOPMENTONLY);
-ConVar	sk_killerscanner_minheight_idle("sk_killerscanner_minheight_idle", "72", FCVAR_DEVELOPMENTONLY);
-ConVar	sk_killerscanner_flight_accel_combat("sk_killerscanner_flight_accel_combat", "450", FCVAR_DEVELOPMENTONLY);
-ConVar	sk_killerscanner_sentence_delay("sk_killerscanner_sentence_delay", "30", FCVAR_DEVELOPMENTONLY);
+ConVar	sk_killerscanner_attack_near("sk_killerscanner_attack_near", "72", FCVAR_CHEAT);
+ConVar	sk_killerscanner_attack_maxrange("sk_killerscanner_attack_maxrange", "750", FCVAR_CHEAT);
+ConVar	sk_killerscanner_mindist_idle("sk_killerscanner_mindist_idle", "128", FCVAR_CHEAT);
+ConVar	sk_killerscanner_mindist_combat("sk_killerscanner_mindist_combat", "128", FCVAR_CHEAT);
+ConVar	sk_killerscanner_turn_rate_combat("sk_killerscanner_turn_rate_combat", "1500", FCVAR_CHEAT);
+ConVar	sk_killerscanner_turn_rate_idle("sk_killerscanner_turn_rate_idle", "750", FCVAR_CHEAT);
+ConVar	sk_killerscanner_minheight_combat("sk_killerscanner_minheight_combat", "16", FCVAR_CHEAT);
+ConVar	sk_killerscanner_minheight_idle("sk_killerscanner_minheight_idle", "72", FCVAR_CHEAT);
+ConVar	sk_killerscanner_flight_accel_combat("sk_killerscanner_flight_accel_combat", "450", FCVAR_CHEAT);
+ConVar	sk_killerscanner_sentence_delay("sk_killerscanner_sentence_delay", "30", FCVAR_CHEAT);
 
 ConVar	debug_killerscanner_showshootpath("debug_killerscanner_showshootpath", "0");
 
@@ -90,6 +90,7 @@ public:
 	void		MoveToAttack(float flInterval);
 	int			OnTakeDamage_Alive(const CTakeDamageInfo& info);
 	void		VPhysicsCollision(int index, gamevcollisionevent_t* pEvent);
+	void		TakeDamageFromPhysicsImpact(int index, gamevcollisionevent_t* pEvent);
 
 	void		PrescheduleThink();
 
@@ -296,6 +297,44 @@ void CNPC_KillerScanner::PrescheduleThink()
 char* CNPC_KillerScanner::GetScannerSoundPrefix(void)
 {
 	return "NPC_KillerScanner";
+}
+
+extern ConVar sk_striderbuster_dmg;
+
+//-----------------------------------------------------------------------------
+// Take damage from physics impacts
+//-----------------------------------------------------------------------------
+void CNPC_KillerScanner::TakeDamageFromPhysicsImpact(int index, gamevcollisionevent_t* pEvent)
+{
+	CBaseEntity* pHitEntity = pEvent->pEntities[!index];
+
+	//striderbusters should kill us instantly on impact.
+	//i hate this, but this helps with instances where we can phase though objects and take no damage.
+	if (FClassnameIs(pHitEntity, "weapon_striderbuster") || FClassnameIs(pHitEntity, "prop_stickybomb"))
+	{
+		Vector damagePos;
+		pEvent->pInternalData->GetContactPoint(damagePos);
+		Vector damageForce = pEvent->postVelocity[index] * pEvent->pObjects[index]->GetMass();
+		if (damageForce == vec3_origin)
+		{
+			// This can happen if this entity is motion disabled, and can't move.
+			// Use the velocity of the entity that hit us instead.
+			damageForce = pEvent->postVelocity[!index] * pEvent->pObjects[!index]->GetMass();
+		}
+
+		CBaseEntity* pAttacker = pHitEntity;
+
+		CBasePlayer* pPhysicsAttacker = pHitEntity->HasPhysicsAttacker(0.5f);
+		if (pPhysicsAttacker)
+		{
+			pAttacker = pPhysicsAttacker;
+		}
+
+		PhysCallbackDamage(this, CTakeDamageInfo(pHitEntity, pAttacker, damageForce, damagePos, sk_striderbuster_dmg.GetFloat(), 0), *pEvent, index);
+		return;
+	}
+
+	BaseClass::TakeDamageFromPhysicsImpact(index, pEvent);
 }
 
 #define SCANNER_SMASH_TIME	0.35		// How long after being thrown from a physcannon that a manhack is eligible to die from impact

@@ -488,8 +488,16 @@ void CNPC_BaseScanner::TakeDamageFromPhysicsImpact( int index, gamevcollisioneve
 		damageForce = pEvent->postVelocity[!index] * pEvent->pObjects[!index]->GetMass();
 	}
 
+	CBaseEntity* pAttacker = pHitEntity;
+
+	CBasePlayer* pPhysicsAttacker = pHitEntity->HasPhysicsAttacker(0.5f);
+	if (pPhysicsAttacker)
+	{
+		pAttacker = pPhysicsAttacker;
+	}
+
 	// FIXME: this doesn't pass in who is responsible if some other entity "caused" this collision
-	PhysCallbackDamage( this, CTakeDamageInfo( pHitEntity, pHitEntity, damageForce, damagePos, damage, damageType ), *pEvent, index );
+	PhysCallbackDamage( this, CTakeDamageInfo( pHitEntity, pAttacker, damageForce, damagePos, damage, damageType ), *pEvent, index );
 }
 
 //-----------------------------------------------------------------------------

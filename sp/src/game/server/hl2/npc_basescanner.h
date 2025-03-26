@@ -132,7 +132,7 @@ public:
 	void TakeDamageFromPhyscannon(CBasePlayer* pPlayer);
 
 	// Take damage from physics impacts
-	void TakeDamageFromPhysicsImpact(int index, gamevcollisionevent_t* pEvent);
+	virtual void TakeDamageFromPhysicsImpact(int index, gamevcollisionevent_t* pEvent);
 
 protected:
 	virtual char		*GetEngineSound( void ) { return NULL; }
