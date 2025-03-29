@@ -2622,7 +2622,7 @@ bool CGameMovement::CheckJumpButton( void )
 		{
 			for (int iAxis = 0; iAxis < 2; ++iAxis)
 			{
-				vecForward[iAxis] *= (mv->m_flForwardMove * 0.1f);
+				vecForward[iAxis] *= (mv->m_flForwardMove * 0.2f);
 			}
 		}
 		else
@@ -2649,7 +2649,7 @@ bool CGameMovement::CheckJumpButton( void )
 
 		if (!fr_enable_bunnyhop_legacybehavior.GetBool() && !sv_leagcy_maxspeed.GetBool())
 		{
-			flSpeedBoostPerc = 0.1f;
+			flSpeedBoostPerc = 0.2f;
 		}
 
 		float flSpeedAddition = fabs(mv->m_flForwardMove * flSpeedBoostPerc);

@@ -335,14 +335,24 @@ float CalculatePhysicsImpactDamage( int index, gamevcollisionevent_t *pEvent, co
 
 	if ( pEvent->pObjects[otherIndex]->GetGameFlags() & FVPHYSICS_PLAYER_HELD )
 	{
-		if ( gpGlobals->maxClients == 1 )
+		// if the player is holding the object, use its real mass (player holding reduced the mass)
+		CBasePlayer* pPlayer = NULL;
+
+		// See which MP player is holding the physics object and then use that player to get the real mass of the object.
+		// This is ugly but better than having linkage between an object and its "holding" player.
+		for (int i = 1; i <= gpGlobals->maxClients; i++)
 		{
-			// if the player is holding the object, use it's real mass (player holding reduced the mass)
-			CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
-			if ( pPlayer )
+			CBasePlayer* tempPlayer = UTIL_PlayerByIndex(i);
+			if (tempPlayer && pEvent->pEntities[index] == tempPlayer->GetHeldObject())
 			{
-				otherMass = pPlayer->GetHeldObjectMass( pEvent->pObjects[otherIndex] );
+				pPlayer = tempPlayer;
+				break;
 			}
+		}
+
+		if (pPlayer)
+		{
+			otherMass = pPlayer->GetHeldObjectMass(pEvent->pObjects[otherIndex]);
 		}
 	}
 
@@ -438,17 +448,27 @@ float CalculatePhysicsImpactDamage( int index, gamevcollisionevent_t *pEvent, co
 	}
 	else if ( pEvent->pObjects[index]->GetGameFlags() & FVPHYSICS_PLAYER_HELD )
 	{
-		if ( gpGlobals->maxClients == 1 )
+		// if the player is holding the object, use it's real mass (player holding reduced the mass)
+		CBasePlayer* pPlayer = NULL;
+
+		// See which MP player is holding the physics object and then use that player to get the real mass of the object.
+		// This is ugly but better than having linkage between an object and its "holding" player.
+		for (int i = 1; i <= gpGlobals->maxClients; i++)
 		{
-			// if the player is holding the object, use it's real mass (player holding reduced the mass)
-			CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
-			if ( pPlayer )
+			CBasePlayer* tempPlayer = UTIL_PlayerByIndex(i);
+			if (tempPlayer && pEvent->pEntities[index] == tempPlayer->GetHeldObject())
 			{
-				float heldmass = pPlayer->GetHeldObjectMass( pEvent->pObjects[index] );
-				if ( heldmass > 0 )
-				{
-					invMass = 1.0f / heldmass;
-				}
+				pPlayer = tempPlayer;
+				break;
+			}
+		}
+
+		if (pPlayer)
+		{
+			float objMass = pPlayer->GetHeldObjectMass(pEvent->pObjects[index]);
+			if (objMass > 0)
+			{
+				invMass = 1.0f / objMass;
 			}
 		}
 	}

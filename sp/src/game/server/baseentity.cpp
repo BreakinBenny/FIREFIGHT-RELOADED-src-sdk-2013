@@ -1598,6 +1598,19 @@ int CBaseEntity::VPhysicsTakeDamage( const CTakeDamageInfo &info )
 		{
 			// if the player is holding the object, use it's real mass (player holding reduced the mass)
 			CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
+
+			// See which MP player is holding the physics object and then use that player to get the real mass of the object.
+			// This is ugly but better than having linkage between an object and its "holding" player.
+			for (int i = 1; i <= gpGlobals->maxClients; i++)
+			{
+				CBasePlayer* tempPlayer = UTIL_PlayerByIndex(i);
+				if (tempPlayer && (tempPlayer->GetHeldObject() == this))
+				{
+					pPlayer = tempPlayer;
+					break;
+				}
+			}
+
 			if ( pPlayer )
 			{
 				float mass = pPlayer->GetHeldObjectMass( VPhysicsGetObject() );
