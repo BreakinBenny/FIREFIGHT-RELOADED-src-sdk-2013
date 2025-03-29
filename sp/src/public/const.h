@@ -54,12 +54,7 @@
 #define SP_MODEL_INDEX_BITS			13
 
 // How many bits to use to encode an edict.
-#define FR_INCREASEDENTITYLIMIT		1
-#ifdef FR_INCREASEDENTITYLIMIT
-#define	MAX_EDICT_BITS				15
-#else
 #define	MAX_EDICT_BITS				11			// # of bits needed to represent max edicts
-#endif
 // Max # of edicts in a level
 #define	MAX_EDICTS					(1<<MAX_EDICT_BITS)
 
