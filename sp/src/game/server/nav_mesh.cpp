@@ -1327,6 +1327,15 @@ bool CNavMesh::GetGroundHeight( const Vector &pos, float *height, Vector *normal
 {
 	VPROF( "CNavMesh::GetGroundHeight" );
 
+	// IS_NAN complains when trying to read from &pos, so it needs a throwaway variable.
+	Vector temp = pos;
+	for (int i = 0; i < 3; i++) {
+		if (IS_NAN(temp[i])) {
+			DevMsg("GetGroundHeight got NaN as position input!\n");
+			return false;
+		}
+	}
+
 	const float flMaxOffset = 100.0f;
 
 	CTraceFilterGroundEntities filter( NULL, COLLISION_GROUP_NONE, WALK_THRU_EVERYTHING );
