@@ -18,6 +18,7 @@
 #include "world.h"
 #include "func_break.h"
 #include "func_breakablesurf.h"
+#include "particle_parse.h"
 
 #ifdef PORTAL
 	#include "portal_util_shared.h"

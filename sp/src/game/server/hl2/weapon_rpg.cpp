@@ -1550,7 +1550,7 @@ void CWeaponRPG::Operator_HandleAnimEvent( animevent_t *pEvent, CBaseCombatChara
 	{
 		case EVENT_WEAPON_SMG1:
 		{
-			if ( m_hMissile != NULL )
+			if (HasMissileBeenDeployed())
 				return;
 
 			Vector	muzzlePoint;
@@ -1607,6 +1607,8 @@ void CWeaponRPG::Operator_HandleAnimEvent( animevent_t *pEvent, CBaseCombatChara
 
 void CWeaponRPG::ToggleDualWield(void)
 {
+	//remove missile handle.
+	m_hMissile = NULL;
 	StopGuiding();
 	BaseClass::ToggleDualWield();
 }
@@ -1616,7 +1618,7 @@ void CWeaponRPG::ToggleDualWield(void)
 //-----------------------------------------------------------------------------
 bool CWeaponRPG::HasAnyAmmo( void )
 {
-	if ( m_hMissile != NULL )
+	if (HasMissileBeenDeployed())
 		return true;
 
 	return BaseClass::HasAnyAmmo();
@@ -1641,7 +1643,7 @@ bool CWeaponRPG::WeaponShouldBeLowered( void )
 void CWeaponRPG::PrimaryAttack( void )
 {
 	// Can't have an active missile out
-	if ( m_hMissile != NULL )
+	if (HasMissileBeenDeployed())
 		return;
 
 	// Can't be reloading
@@ -1732,7 +1734,7 @@ void CWeaponRPG::PrimaryAttack( void )
 void CWeaponRPG::LeftHandAttack(void)
 {
 	// Can't have an active missile out
-	if (m_hMissile != NULL)
+	if (HasMissileBeenDeployed())
 		return;
 
 	// Can't be reloading
@@ -1905,7 +1907,7 @@ void CWeaponRPG::SuppressGuiding( bool state )
 //-----------------------------------------------------------------------------
 bool CWeaponRPG::Lower( void )
 {
-	if (m_hMissile != NULL && IsGuiding())
+	if (HasMissileBeenDeployed() && IsGuiding())
 		return false;
 
 	return BaseClass::Lower();
@@ -2042,7 +2044,7 @@ bool CWeaponRPG::Deploy( void )
 bool CWeaponRPG::Holster( CBaseCombatWeapon *pSwitchingTo )
 {
 	//Can't have an active missile out
-	if ( m_hMissile != NULL )
+	if (HasMissileBeenDeployed())
 		return false;
 
 	StopGuiding();
@@ -2185,6 +2187,15 @@ void CWeaponRPG::CreateLaserPointer( void )
 	if ( m_hLaserDot != NULL )
 		return;
 
+	CBaseCombatCharacter* pOwner = GetOwner();
+
+	if (!pOwner)
+		return;
+
+	// Let me still be guided if I am the owner's child
+	if (!HasMissileBeenDeployed() && pOwner->GetAmmoCount(m_iPrimaryAmmoType) <= 0)
+		return;
+
 	m_hLaserDot = CLaserDot::Create( GetAbsOrigin(), GetOwnerEntity() );
 	m_hLaserDot->TurnOff();
 
@@ -2265,7 +2276,7 @@ bool CWeaponRPG::WeaponLOSCondition( const Vector &ownerPos, const Vector &targe
 //-----------------------------------------------------------------------------
 int CWeaponRPG::WeaponRangeAttack1Condition( float flDot, float flDist )
 {
-	if ( m_hMissile != NULL )
+	if (HasMissileBeenDeployed())
 		return 0;
 
 	// Ignore vertical distance when doing our RPG distance calculations

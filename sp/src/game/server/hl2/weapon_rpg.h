@@ -218,6 +218,8 @@ public:
 
 	bool	HasAnyAmmo( void );
 
+	bool	HasMissileBeenDeployed(void) { return (!IsDualWielding() && (m_hMissile != NULL)); }
+
 	void	SuppressGuiding( bool state = true );
 
 	void	CreateLaserPointer( void );
