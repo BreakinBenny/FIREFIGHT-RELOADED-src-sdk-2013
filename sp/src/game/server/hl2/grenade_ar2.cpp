@@ -44,7 +44,7 @@ ConVar	  sk_m79_grenade_radius		    ( "sk_m79_grenade_radius","0");
 
 ConVar	  smg1_grenade_glass_passthrough	("smg1_grenade_glass_passthrough", "1", FCVAR_ARCHIVE);
 
-ConVar g_CV_SmokeTrail("smoke_trail", "1", 0); // temporary dust explosion switch
+ConVar g_CV_SmokeTrail("smg1_grenade_old_smoke_trail", "0", FCVAR_ARCHIVE); // temporary dust explosion switch
 
 BEGIN_DATADESC( CGrenadeAR2 )
 
@@ -152,7 +152,7 @@ void CGrenadeAR2::Spawn( void )
 	// -------------
 	// Smoke trail.
 	// -------------
-	if( g_CV_SmokeTrail.GetInt() && !IsXbox() )
+	if( g_CV_SmokeTrail.GetBool() && !IsXbox() )
 	{
 		m_hSmokeTrail = SmokeTrail::CreateSmokeTrail();
 		
@@ -185,6 +185,10 @@ void CGrenadeAR2::Spawn( void )
 void CGrenadeAR2::GrenadeAR2Think( void )
 {
 	SetNextThink( gpGlobals->curtime + 0.05f );
+	if (!g_CV_SmokeTrail.GetBool())
+	{
+		DispatchParticleEffect("Rocket_Smoke_Trail", PATTACH_ABSORIGIN_FOLLOW, this, true, true);
+	}
 
 	if (!m_bIsLive)
 	{
@@ -417,7 +421,9 @@ void CGrenadeAR2::Precache( void )
     else
     {
         PrecacheModel("models/Weapons/ar2_grenade.mdl");
-    }    
+    } 
+
+	PrecacheParticleSystem("Rocket_Smoke_Trail");
 }
 
 CGrenadeAR2::CGrenadeAR2(void)
