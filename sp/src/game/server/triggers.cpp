@@ -2146,11 +2146,13 @@ public:
 	
 	float m_flAlternateTicksFix; // Scale factor to apply to the push speed when running with alternate ticks
 	float m_flPushSpeed;
+	bool m_bFixLift;
 };
 
 BEGIN_DATADESC( CTriggerPush )
 	DEFINE_KEYFIELD( m_vecPushDir, FIELD_VECTOR, "pushdir" ),
 	DEFINE_KEYFIELD( m_flAlternateTicksFix, FIELD_FLOAT, "alternateticksfix" ),
+	DEFINE_KEYFIELD(m_bFixLift, FIELD_BOOLEAN, "liftfix"),
 	//DEFINE_FIELD( m_flPushSpeed, FIELD_FLOAT ),
 END_DATADESC()
 
@@ -2277,7 +2279,14 @@ void CTriggerPush::Touch( CBaseEntity *pOther )
 			{
 				pOther->SetGroundEntity( NULL );
 				Vector origin = pOther->GetAbsOrigin();
-				origin.z += 1.0f;
+				if (m_bFixLift)
+				{
+					origin.z += 16.0f;
+				}
+				else
+				{
+					origin.z += 1.0f;
+				}
 				pOther->SetAbsOrigin( origin );
 			}
 
