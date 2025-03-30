@@ -8488,31 +8488,79 @@ bool CBasePlayer::ClientCommand( const CCommand &args )
 	{
 		int moneyAmount = atoi(args[3]);
 
-		GiveAmmo(atoi(args[2]), args[1]);
+		int ammo = GiveAmmo(atoi(args[2]), args[1]);
 
-		engine->ClientCommand(edict(), "confirm_purchase %i", moneyAmount);
+		if (ammo > 0)
+		{
+			engine->ClientCommand(edict(), "confirm_purchase %i", moneyAmount);
+		}
+		else
+		{
+			if (sv_store_denynotifications.GetBool())
+			{
+				CFmtStr hint;
+				hint.sprintf("#Valve_StoreBuyDenyItemNotAvailable");
+				ShowLevelMessage(hint.Access());
+			}
+			if (sv_store_denysounds.GetBool())
+			{
+				EmitSound("Store.InsufficientFunds");
+			}
+		}
 		
 		return true;
 	}
 	else if (stricmp(cmd, "healthkit") == 0)
 	{
-		int moneyAmount = atoi(args[1]);
+		if (GetHealth() < GetMaxHealthValue())
+		{
+			int moneyAmount = atoi(args[1]);
 
-		CFmtStr hint;
-		GiveHealthkit(this);
+			CFmtStr hint;
+			GiveHealthkit(this);
 
-		engine->ClientCommand(edict(), "confirm_purchase %i", moneyAmount);
+			engine->ClientCommand(edict(), "confirm_purchase %i", moneyAmount);
+		}
+		else
+		{
+			if (sv_store_denynotifications.GetBool())
+			{
+				CFmtStr hint;
+				hint.sprintf("#Valve_StoreBuyDenyItemNotAvailable");
+				ShowLevelMessage(hint.Access());
+			}
+			if (sv_store_denysounds.GetBool())
+			{
+				EmitSound("Store.InsufficientFunds");
+			}
+		}
 
 		return true;
 	}
 	else if (stricmp(cmd, "battery") == 0)
 	{
-		int moneyAmount = atoi(args[1]);
+		if (ArmorValue() < GetMaxArmorValue())
+		{
+			int moneyAmount = atoi(args[1]);
 
-		CFmtStr hint;
-		GiveBattery(this);
+			CFmtStr hint;
+			GiveBattery(this);
 
-		engine->ClientCommand(edict(), "confirm_purchase %i", moneyAmount);
+			engine->ClientCommand(edict(), "confirm_purchase %i", moneyAmount);
+		}
+		else
+		{
+			if (sv_store_denynotifications.GetBool())
+			{
+				CFmtStr hint;
+				hint.sprintf("#Valve_StoreBuyDenyItemNotAvailable");
+				ShowLevelMessage(hint.Access());
+			}
+			if (sv_store_denysounds.GetBool())
+			{
+				EmitSound("Store.InsufficientFunds");
+			}
+		}
 
 		return true;
 	}

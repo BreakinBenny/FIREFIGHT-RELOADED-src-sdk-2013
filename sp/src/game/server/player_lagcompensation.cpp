@@ -80,6 +80,11 @@ public:
 		m_flSimulationTime = -1;
 		m_masterSequence = 0;
 		m_masterCycle = 0;
+
+		for (int i = 0; i < MAXSTUDIOPOSEPARAM; i++)
+		{
+			m_flPoseParameters[i] = 0;
+		}
 	}
 
 	LagRecord( const LagRecord& src )
@@ -96,6 +101,11 @@ public:
 		}
 		m_masterSequence = src.m_masterSequence;
 		m_masterCycle = src.m_masterCycle;
+
+		for (int i = 0; i < MAXSTUDIOPOSEPARAM; i++)
+		{
+			m_flPoseParameters[i] = src.m_flPoseParameters[i];
+		}
 	}
 
 	// Did player die this frame
@@ -106,8 +116,6 @@ public:
 	QAngle					m_vecAngles;
 	Vector					m_vecMinsPreScaled;
 	Vector					m_vecMaxsPreScaled;
-	Vector					m_vecMins;
-	Vector					m_vecMaxs;
 
 	float					m_flSimulationTime;	
 	
@@ -115,6 +123,8 @@ public:
 	LayerRecord				m_layerRecords[MAX_LAYER_RECORDS];
 	int						m_masterSequence;
 	float					m_masterCycle;
+
+	float					m_flPoseParameters[MAXSTUDIOPOSEPARAM];
 };
 
 
@@ -384,6 +394,11 @@ void CLagCompensationManager::FrameUpdatePostEntityThink()
 		}
 		record.m_masterSequence = pPlayer->GetSequence();
 		record.m_masterCycle = pPlayer->GetCycle();
+
+		for (int i2 = 0; i2 < MAXSTUDIOPOSEPARAM; i2++)
+		{
+			record.m_flPoseParameters[i2] = pPlayer->GetPoseParameter(i2);
+		}
 	}
 
 	if (g_pGameRules && g_pGameRules->IsMultiplayer())
@@ -446,8 +461,8 @@ void CLagCompensationManager::FrameUpdatePostEntityThink()
 			record.m_flSimulationTime = pNPC->GetSimulationTime();
 			record.m_vecAngles = pNPC->GetLocalAngles();
 			record.m_vecOrigin = pNPC->GetLocalOrigin();
-			record.m_vecMaxs = pNPC->WorldAlignMaxs();
-			record.m_vecMins = pNPC->WorldAlignMins();
+			record.m_vecMinsPreScaled = pNPC->CollisionProp()->OBBMinsPreScaled();
+			record.m_vecMaxsPreScaled = pNPC->CollisionProp()->OBBMaxsPreScaled();
 
 			int layerCount = pNPC->GetNumAnimOverlays();
 			for (int layerIndex = 0; layerIndex < layerCount; ++layerIndex)
@@ -463,6 +478,11 @@ void CLagCompensationManager::FrameUpdatePostEntityThink()
 			}
 			record.m_masterSequence = pNPC->GetSequence();
 			record.m_masterCycle = pNPC->GetCycle();
+
+			for (int i2 = 0; i2 < MAXSTUDIOPOSEPARAM; i2++)
+			{
+				record.m_flPoseParameters[i2] = pNPC->GetPoseParameter(i2);
+			}
 		}
 	}
 
@@ -889,11 +909,24 @@ void CLagCompensationManager::BacktrackPlayer( CBasePlayer *pPlayer, float flTar
 		{
 			pPlayer->SetCycle( Lerp( frac, record->m_masterCycle, prevRecord->m_masterCycle ) );
 		}
+
+		for (int i = 0; i < MAXSTUDIOPOSEPARAM; i++)
+		{
+			//don't lerp pose params, just pick the closest
+			pPlayer->SetPoseParameter(i, record->m_flPoseParameters[i]);
+			//pAnimating->SetPoseParameter( i, Lerp( frac, record->m_flPoseParameters[i], prevRecord->m_flPoseParameters[i] ) );
+		}
 	}
+
 	if( !interpolatedMasters )
 	{
 		pPlayer->SetSequence(record->m_masterSequence);
 		pPlayer->SetCycle(record->m_masterCycle);
+
+		for (int i = 0; i < MAXSTUDIOPOSEPARAM; i++)
+		{
+			pPlayer->SetPoseParameter(i, record->m_flPoseParameters[i]);
+		}
 	}
 
 	////////////////////////
@@ -1054,8 +1087,8 @@ void CLagCompensationManager::BacktrackEntity(CAI_BaseNPC *pEntity, float flTarg
 
 		ang = Lerp(frac, record->m_vecAngles, prevRecord->m_vecAngles);
 		org = Lerp(frac, record->m_vecOrigin, prevRecord->m_vecOrigin);
-		mins = Lerp(frac, record->m_vecMins, prevRecord->m_vecMins);
-		maxs = Lerp(frac, record->m_vecMaxs, prevRecord->m_vecMaxs);
+		mins = Lerp(frac, record->m_vecMinsPreScaled, record->m_vecMinsPreScaled);
+		maxs = Lerp(frac, record->m_vecMaxsPreScaled, prevRecord->m_vecMaxsPreScaled);
 	}
 	else
 	{
@@ -1063,8 +1096,8 @@ void CLagCompensationManager::BacktrackEntity(CAI_BaseNPC *pEntity, float flTarg
 		// just copy these values since they are the best we have
 		ang = record->m_vecAngles;
 		org = record->m_vecOrigin;
-		mins = record->m_vecMins;
-		maxs = record->m_vecMaxs;
+		mins = record->m_vecMinsPreScaled;
+		maxs = record->m_vecMaxsPreScaled;
 	}
 
 	// See if this is still a valid position for us to teleport to
@@ -1177,15 +1210,15 @@ void CLagCompensationManager::BacktrackEntity(CAI_BaseNPC *pEntity, float flTarg
 	}
 
 	// Use absolute equality here
-	if ((mins != pEntity->WorldAlignMins()) ||
-		(maxs != pEntity->WorldAlignMaxs()))
+	if ((mins != pEntity->CollisionProp()->OBBMinsPreScaled()) ||
+		(maxs != pEntity->CollisionProp()->OBBMaxsPreScaled()))
 	{
 		flags |= LC_SIZE_CHANGED;
-		restore->m_vecMins = pEntity->WorldAlignMins();
-		restore->m_vecMaxs = pEntity->WorldAlignMaxs();
+		restore->m_vecMinsPreScaled = pEntity->CollisionProp()->OBBMinsPreScaled();
+		restore->m_vecMaxsPreScaled = pEntity->CollisionProp()->OBBMaxsPreScaled();
 		pEntity->SetSize(mins, maxs);
-		change->m_vecMins = mins;
-		change->m_vecMaxs = maxs;
+		change->m_vecMinsPreScaled = mins;
+		change->m_vecMaxsPreScaled = maxs;
 	}
 
 	// Note, do origin at end since it causes a relink into the k/d tree
@@ -1231,11 +1264,23 @@ void CLagCompensationManager::BacktrackEntity(CAI_BaseNPC *pEntity, float flTarg
 		{
 			pEntity->SetCycle(Lerp(frac, record->m_masterCycle, prevRecord->m_masterCycle));
 		}
+
+		for (int i = 0; i < MAXSTUDIOPOSEPARAM; i++)
+		{
+			//don't lerp pose params, just pick the closest
+			pEntity->SetPoseParameter(i, record->m_flPoseParameters[i]);
+			//pAnimating->SetPoseParameter( i, Lerp( frac, record->m_flPoseParameters[i], prevRecord->m_flPoseParameters[i] ) );
+		}
 	}
 	if (!interpolatedMasters)
 	{
 		pEntity->SetSequence(record->m_masterSequence);
 		pEntity->SetCycle(record->m_masterCycle);
+
+		for (int i = 0; i < MAXSTUDIOPOSEPARAM; i++)
+		{
+			pEntity->SetPoseParameter(i, record->m_flPoseParameters[i]);
+		}
 	}
 
 	////////////////////////
@@ -1405,6 +1450,11 @@ void CLagCompensationManager::FinishLagCompensation( CBasePlayer *player )
 					currentLayer->m_flWeight = restore->m_layerRecords[layerIndex].m_weight;
 				}
 			}
+
+			for (int i2 = 0; i2 < MAXSTUDIOPOSEPARAM; i2++)
+			{
+				pPlayer->SetPoseParameter(i2, restore->m_flPoseParameters[i2]);
+			}
 		}
 
 		if ( restoreSimulationTime )
@@ -1485,6 +1535,11 @@ void CLagCompensationManager::FinishLagCompensation( CBasePlayer *player )
 					currentLayer->m_nSequence = restore->m_layerRecords[layerIndex].m_sequence;
 					currentLayer->m_flWeight = restore->m_layerRecords[layerIndex].m_weight;
 				}
+			}
+
+			for (int i2 = 0; i2 < MAXSTUDIOPOSEPARAM; i2++)
+			{
+				pNPC->SetPoseParameter(i2, restore->m_flPoseParameters[i2]);
 			}
 		}
 
