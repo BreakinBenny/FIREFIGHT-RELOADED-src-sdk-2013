@@ -203,7 +203,7 @@ inline bool C_BaseViewModel::ShouldFlipViewModel()
 		const FileWeaponInfo_t *pInfo = &pWeapon->GetWpnData();
 		return pInfo->m_bAllowFlipping && pInfo->m_bBuiltRightHanded != cl_righthand.GetBool();
 	}
-	return cl_righthand.GetBool(); // hack for scout ball projeciles to have properly flipped viewmodels
+	return !cl_righthand.GetBool(); // hack for scout ball projeciles to have properly flipped viewmodels
 //#endif
 
 #ifdef TF_CLIENT_DLL
