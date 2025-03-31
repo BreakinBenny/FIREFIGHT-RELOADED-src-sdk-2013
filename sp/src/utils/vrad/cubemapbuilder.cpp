@@ -53,8 +53,8 @@ void CopyBspToGameDir()
 	float start = Plat_FloatTime();
 
 	V_snprintf(mapdir, sizeof(mapdir), "%s", source);
-	V_snprintf(mapgamedir, sizeof(mapgamedir), "%s\maps", gamedir);
-	V_snprintf(mapgamedir_file, sizeof(mapgamedir_file), "%s\maps\\%s.bsp", gamedir, level_name);
+	V_snprintf(mapgamedir, sizeof(mapgamedir), "%s/maps", gamedir);
+	V_snprintf(mapgamedir_file, sizeof(mapgamedir_file), "%s/maps\\%s.bsp", gamedir, level_name);
 
 	Msg("Map original directory: %s\n", mapdir);
 	Msg("Map game folder: %s\n", mapgamedir);
@@ -91,8 +91,8 @@ void CopyGameDirBspToOrignalBspDir()
 	float start = Plat_FloatTime();
 
 	V_snprintf(mapdir, sizeof(mapdir), "%s", source);
-	V_snprintf(mapgamedir, sizeof(mapgamedir), "%s\maps", gamedir);
-	V_snprintf(mapgamedir_file, sizeof(mapgamedir_file), "%s\maps\\%s.bsp", gamedir, level_name);
+	V_snprintf(mapgamedir, sizeof(mapgamedir), "%s/maps", gamedir);
+	V_snprintf(mapgamedir_file, sizeof(mapgamedir_file), "%s/maps\\%s.bsp", gamedir, level_name);
 
 	Msg("Copying game %s.bsp to source directory... ", level_name);
 
@@ -218,6 +218,9 @@ void BuildCubemaps(bool bHdrMode)
 	FileSystem_GetAppInstallDir(gamexecutablepath, sizeof(gamexecutablepath));
 	V_snprintf(gamexecutablepath, sizeof(gamexecutablepath), "%s\\%s %s", gamexecutablepath, gameexecutablename, buildcubemapscommandline);
 
+	// MSVC wrongly reports this as using uninitialised variable.
+#pragma warning(push)
+#pragma warning(disable: 6001)
 	STARTUPINFO si;
 	PROCESS_INFORMATION pi;
 	ZeroMemory(&si, sizeof(si));
@@ -253,6 +256,7 @@ void BuildCubemaps(bool bHdrMode)
 	{
 		Error("GetExitCodeProcess() failed!\n");
 	}
+#pragma warning(pop)
 
 	// Once the cubemap compile is complete we will copy the file again to the original bsp dir. This is done 
 	// to not break older workflows (e.g: if the user wants use bspzip, vbspinfo or a postcompiler)

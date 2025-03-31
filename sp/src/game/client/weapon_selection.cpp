@@ -383,10 +383,10 @@ void ClientInstantPhysSwap()
 	{
 		for (int i = 0; i < pPlayer->WeaponCount(); ++i)
 		{
-			C_BaseCombatWeapon* pWeapon = pPlayer->GetWeapon(i);
-			if (pWeapon && !Q_stricmp(pWeapon->GetClassname(), "weapon_physcannon")) // switch to physcannon
+			C_BaseCombatWeapon* pWeapon2 = pPlayer->GetWeapon(i);
+			if (pWeapon2 && !Q_stricmp(pWeapon2->GetClassname(), "weapon_physcannon")) // switch to physcannon
 			{
-				input->MakeWeaponSelection(pWeapon);
+				input->MakeWeaponSelection(pWeapon2);
 				return;
 			}
 		}

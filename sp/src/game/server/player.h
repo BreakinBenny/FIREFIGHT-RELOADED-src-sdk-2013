@@ -1096,6 +1096,8 @@ public:
 	bool m_bForcedLoadout;
 	const char* m_szForcedLoadoutName;
 
+	bool m_bFirstSpawn;
+
 private:
 
 	Activity				m_Activity;

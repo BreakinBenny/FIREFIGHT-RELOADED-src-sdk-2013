@@ -1895,6 +1895,11 @@ void CHL2_Player::Spawn(void)
 	DeterminePlayerModel();
 
 	WeaponSpawnLogic();
+
+	if (m_bFirstSpawn)
+	{
+		m_bFirstSpawn = false;
+	}
 }
 
 void CHL2_Player::DeterminePlayerModel()

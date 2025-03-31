@@ -6336,11 +6336,35 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 	{
 		for (int i = m_loadoutWeapons.Size() - 1; i >= 0; i--)
 		{
-			const char* ConvertedString = STRING(m_loadoutWeapons[i]);
+			const char* classname = STRING(m_loadoutWeapons[i]);
+			bool isDualies = false;
+
+			char* dualiesext = Q_strstr(classname, "_dual");
+			if (dualiesext)
+			{
+				isDualies = true;
+				*dualiesext = 0;
+			}
+
+			const char* ConvertedString = classname;
 
 			if (ConvertedString)
 			{
-				GiveNamedItem(ConvertedString, 0, false);
+				CBaseEntity *pEnt = GiveNamedItem(ConvertedString, 0, false);
+				CBaseCombatWeapon *pWeapon = dynamic_cast<CBaseCombatWeapon*>(pEnt);
+
+				if (pWeapon && pWeapon->IsDualWieldable())
+				{
+					if (isDualies)
+					{
+						pWeapon->OnPickupDualWield();
+					}
+					else
+					{
+						pWeapon->m_bOwnerHasSecondWeapon = false;
+					}
+				}
+
 				if (!gaveWeapons)
 				{
 					gaveWeapons = true;
@@ -6483,6 +6507,8 @@ void CBasePlayer::InitialSpawn( void )
 	{
 		m_MaxHealthVal = player_defaulthealth.GetInt();
 	}
+
+	m_bFirstSpawn = true;
 }
 
 //-----------------------------------------------------------------------------
