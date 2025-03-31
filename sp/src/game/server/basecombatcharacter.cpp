@@ -1170,6 +1170,9 @@ bool CTraceFilterMelee::ShouldHitEntity( IHandleEntity *pHandleEntity, int conte
 		if ( pEntity->m_takedamage == DAMAGE_NO )
 			return false;
 
+		if (m_pPassEnt && !pEntity->CanBeHitByMeleeAttack(const_cast<CBaseEntity*>(EntityFromEntityHandle(m_pPassEnt))))
+			return false;
+
 		// FIXME: Do not translate this to the driver because the driver only accepts damage from the vehicle
 		// Translate the vehicle into its driver for damage
 		/*
@@ -1213,7 +1216,8 @@ bool CTraceFilterMelee::ShouldHitEntity( IHandleEntity *pHandleEntity, int conte
 		}
 		else
 		{
-			m_pHit = pEntity;
+			if (!m_pHit)
+				m_pHit = pEntity;
 
 			// Make sure if the player is holding this, he drops it
 			Pickup_ForcePlayerToDropThisObject( pEntity );
