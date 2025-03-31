@@ -134,6 +134,8 @@ ConVar sv_autosave_levelup("sv_autosave_levelup", "1", FCVAR_ARCHIVE);
 
 ConVar sv_player_damageflash_time("sv_player_damageflash_time", "1.0", FCVAR_ARCHIVE);
 
+ConVar	sv_player_extinguish_on_death("sv_player_extinguish_on_death", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED, "");
+
 extern ConVar sv_maxunlag;
 extern ConVar sv_turbophysics;
 extern ConVar *sv_maxreplay;
@@ -3254,6 +3256,11 @@ void CBasePlayer::PlayerDeathThink(void)
 	}
 	
 	StopAnimation();
+
+	if (sv_player_extinguish_on_death.GetBool())
+	{
+		Extinguish();
+	}
 
 	IncrementInterpolationFrame();
 	m_flPlaybackRate = 0.0;
