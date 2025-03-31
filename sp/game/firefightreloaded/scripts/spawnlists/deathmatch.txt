@@ -12,9 +12,17 @@
 	"1"
 	{
 		"classname"	"npc_playerbot_enemy"
+		"attributes"
+		{
+			"new_color"	"255 64 64 255"
+		}
 	}
 	"2"
 	{
 		"classname"	"npc_playerbot"
+		"attributes"
+		{
+			"new_color"	"64 64 255 255"
+		}
 	}
 }
