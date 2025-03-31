@@ -84,9 +84,9 @@ void CFuncMoveLinear::Spawn( void )
 		m_flMoveDistance = DotProductAbs( m_vecMoveDir, vecOBB ) - m_flLip;
 	}
 
-	m_vecPosition1 = GetAbsOrigin() - (m_vecMoveDir * m_flMoveDistance * m_flStartPosition);
+	m_vecPosition1 = GetLocalOrigin() - (m_vecMoveDir * m_flMoveDistance * m_flStartPosition);
 	m_vecPosition2 = m_vecPosition1 + (m_vecMoveDir * m_flMoveDistance);
-	m_vecFinalDest = GetAbsOrigin();
+	m_vecFinalDest = GetLocalOrigin();
 
 	SetTouch( NULL );
 
@@ -108,12 +108,24 @@ void CFuncMoveLinear::Spawn( void )
 	CreateVPhysics();
 }
 
+//-----------------------------------------------------------------------------
+// Purpose: Runs a fix atfer the base version clearly dosen't cut it.
+//-----------------------------------------------------------------------------
+
+void CFuncMoveLinear::SetParent(CBaseEntity* pParentEntity, int iAttachment)
+{
+	BaseClass::SetParent(pParentEntity, iAttachment);
+
+	// Recompute all positions
+	m_vecPosition1 = GetLocalOrigin() - (m_vecMoveDir * m_flMoveDistance * m_flStartPosition);
+	m_vecPosition2 = m_vecPosition1 + (m_vecMoveDir * m_flMoveDistance);
+	m_vecFinalDest = GetLocalOrigin();
+}
 
 bool CFuncMoveLinear::ShouldSavePhysics( void )
 {
 	// don't save physics for func_water_analog, regen
 	return !FClassnameIs( this, "func_water_analog" );
-		
 }
 
 //-----------------------------------------------------------------------------
