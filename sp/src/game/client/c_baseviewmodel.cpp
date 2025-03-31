@@ -200,6 +200,9 @@ inline bool C_BaseViewModel::ShouldFlipViewModel()
 	CBaseCombatWeapon *pWeapon = GetOwningWeapon();
 	if ( pWeapon )
 	{
+		if (pWeapon->IsDualWielding())
+			return false;
+
 		const FileWeaponInfo_t *pInfo = &pWeapon->GetWpnData();
 		return pInfo->m_bAllowFlipping && pInfo->m_bBuiltRightHanded != cl_righthand.GetBool();
 	}
