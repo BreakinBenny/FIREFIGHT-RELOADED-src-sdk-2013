@@ -20,7 +20,7 @@
 	}
 	"3"
 	{
-		"weapon"	"weapon_rpg"
+		"weapon"	"weapon_rpg_dual"
 		"ammotype"	"rpg_round"
 		"ammonum"	"100"
 	}
@@ -40,13 +40,6 @@
 	{
 		"weapon"	"weapon_flechettegun"
 		"ammotype"	"Flechette"
-		"ammonum"	"100"
-	}
-	//dualies
-	"7"
-	{
-		"weapon"	"weapon_rpg"
-		"ammotype"	"rpg_round"
 		"ammonum"	"100"
 	}
 	"8"

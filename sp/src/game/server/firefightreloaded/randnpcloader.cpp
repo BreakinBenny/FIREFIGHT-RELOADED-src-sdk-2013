@@ -26,10 +26,25 @@ void dumpspawnlist_cb()
 		return;
 	}
 
-	ConMsg("m_Settings.spawnTime: %f\n", g_npcLoader->m_Settings.spawnTime);
+	Color settings = Color(255, 64, 64, 255);
+	Color spawnEntries = Color(255, 166, 64, 255);
+	Color spawnEntryEquip = Color(255, 249, 64, 255);
+	Color spawnEntryMaps = Color(153, 255, 64, 255);
+	Color spawnEntryAttribute = Color(64, 255, 93, 255);
+
+	if (g_npcLoader->m_Settings.spawnTime == -1)
+	{
+		ConColorMsg(settings, "[settings] spawnTime: %f (managed with entity definition from Hammer or Mapadd)\n", g_npcLoader->m_Settings.spawnTime);
+	}
+	else
+	{
+		ConColorMsg(settings, "[settings] spawnTime: %f\n", g_npcLoader->m_Settings.spawnTime);
+	}
+
 	for ( auto& iter : g_npcLoader->m_Entries )
 	{
-		ConMsg( "[%p] name=\"%s\", %s minPlayerLevel=%d npcAttributePreset=%d npcAttributeWildcard=%d grenades=[%d, %d] weight=%f, totalEquipWeight=%f, extraExp=%d, extraMoney=%d, subsituteValues=%s\n",
+		ConColorMsg(spawnEntries, "[%s (%p)] name=\"%s\", %s minPlayerLevel=%d npcAttributePreset=%d npcAttributeWildcard=%d grenades=[%d, %d] weight=%f, totalEquipWeight=%f, extraExp=%d, extraMoney=%d, subsituteValues=%s\n",
+			iter.classname,
 			&iter,
 			iter.classname,
 			iter.isRare ? "rare" : "notRare",
@@ -46,11 +61,27 @@ void dumpspawnlist_cb()
 		);
 		for ( auto& iter2 : iter.spawnEquipment )
 		{
-			ConMsg( "[%p]  name=\"%s\", weight=%f\n",
+			ConColorMsg(spawnEntryEquip, "[%s (%p)] Equipment: name=\"%s\", weight=%f\n",
+				iter.classname,
 				&iter,
 				iter2.name,
 				iter2.weight
 			);
+		}
+
+		for (auto& iter3 : iter.maps)
+		{
+			ConColorMsg(spawnEntryMaps, "[%s (%p)] MapEntry: name=\"%s\"\n",
+				iter.classname,
+				&iter,
+				iter3.name
+			);
+		}
+
+		if (iter.npcCustomAttributes != NULL && iter.npcCustomAttributes->GetFirstSubKey() != NULL)
+		{
+			ConColorMsg(spawnEntryAttribute, "[%s (%p)] Attributes: ", iter.classname, &iter);
+			KeyValuesDumpAsColorMsg(iter.npcCustomAttributes, 1, spawnEntryAttribute);
 		}
 	}
 }
@@ -290,6 +321,12 @@ bool CRandNPCLoader::ParseEntry( SpawnEntry_t& entry, KeyValues *kv)
 		}
 	}
 
+	KeyValues* attributesKv = kv->FindKey("attributes");
+	if (attributesKv != NULL && attributesKv->GetFirstSubKey() != NULL)
+	{
+		entry.npcCustomAttributes = attributesKv->MakeCopy();
+	}
+
 	// The equipment key can just have a string value, or a list of subkeys with weapon/weight pairs.
 	KeyValues* equipKv = kv->FindKey( "equipment" );
 	if ( equipKv == NULL )
@@ -359,6 +396,8 @@ CRandNPCLoader::SpawnEntry_t::SpawnEntry_t()
 	isRare = false;
 	weight = 1;
 	grenadesMin = grenadesMax = -1;
+	totalEquipWeight = 0;
+	npcCustomAttributes = NULL;
 }
 
 const char* CRandNPCLoader::SpawnEntry_t::GetRandomEquip() const

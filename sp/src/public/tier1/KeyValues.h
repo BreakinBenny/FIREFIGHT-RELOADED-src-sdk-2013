@@ -475,4 +475,26 @@ inline bool KeyValuesDumpAsDevMsg( KeyValues *pKeyValues, int nIndentLevel = 0, 
 	return pKeyValues->Dump( &ctx, nIndentLevel );
 }
 
+class CKeyValuesDumpContextAsColorMsg : public IKeyValuesDumpContextAsText
+{
+public:
+	CKeyValuesDumpContextAsColorMsg(Color clr = Color(255,255,255,255)) : m_clrMessageColor(clr) {}
+
+public:
+	virtual bool KvWriteText(char const* szText)
+	{
+		ConColorMsg(m_clrMessageColor, "%s", szText);
+		return true;
+	}
+
+protected:
+	Color m_clrMessageColor;
+};
+
+inline bool KeyValuesDumpAsColorMsg(KeyValues* pKeyValues, int nIndentLevel = 0, Color clr = Color(255, 255, 255, 255))
+{
+	CKeyValuesDumpContextAsColorMsg ctx(clr);
+	return pKeyValues->Dump(&ctx, nIndentLevel);
+}
+
 #endif // KEYVALUES_H

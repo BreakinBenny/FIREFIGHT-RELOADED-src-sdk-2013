@@ -6359,10 +6359,6 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 					{
 						pWeapon->OnPickupDualWield();
 					}
-					else
-					{
-						pWeapon->m_bOwnerHasSecondWeapon = false;
-					}
 				}
 
 				if (!gaveWeapons)
@@ -6472,7 +6468,7 @@ void CBasePlayer::WeaponSpawnLogic(void)
 				if (Q_strcmp(m_szForcedLoadoutName, "") == 1)
 				{
 					m_bForcedLoadout = true;
-					WeaponSpawnLogic();
+					//WeaponSpawnLogic();
 					LoadLoadoutFile(m_szForcedLoadoutName);
 					return;
 				}

@@ -756,6 +756,21 @@
 				}
 			}
             
+            "InfiniteManhacks"
+			{
+				"text"			"#GameUI_InfiniteManhacks"
+				"type"			"wheelywheel"
+				"convar"		"sv_infinite_manhacks"
+                "advanced"		"1"
+                "hidden"		"1"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
             "ShootInZoom"
 			{
 				"text"			"#GameUI_ShootInZoom"

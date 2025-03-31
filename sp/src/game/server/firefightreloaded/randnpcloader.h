@@ -70,6 +70,7 @@ public:
 		int minPlayerLevel;
 		int npcAttributePreset;
 		int npcAttributeWildcard;
+		KeyValues* npcCustomAttributes;
 		int grenadesMin;
 		int grenadesMax;
 		int extraExp;

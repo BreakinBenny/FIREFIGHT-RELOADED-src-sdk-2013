@@ -8,6 +8,7 @@ class CAttributesLoader
 {
 public:
 	CAttributesLoader(const char* className, int preset);
+	virtual void LoadFromKeyValues(KeyValues* pKV, int preset = -1);
 	virtual const char* GetString(const char* szString, const char* defaultValue = "");
 	virtual int GetInt(const char* szString, int defaultValue = 0);
 	virtual float GetFloat(const char* szString, float defaultValue = 0.0f);

@@ -95,15 +95,20 @@ CAttributesLoader::CAttributesLoader(const char *className, int preset)
 	KeyValuesAD pKV(className);
 	if (pKV->LoadFromFile(filesystem, szFullName))
 	{
-		data = pKV->MakeCopy();
-		presetNum = preset;
-		loadedAttributes = true;
+		LoadFromKeyValues(pKV, preset);
 	}
 	else
 	{
 		DevWarning("CAttributesLoader: Failed to load attributes for %s on preset %i!! File may not exist.\n", className, preset);
 		loadedAttributes = false;
 	}
+}
+
+void CAttributesLoader::LoadFromKeyValues(KeyValues* pKV, int preset)
+{
+	data = pKV->MakeCopy();
+	presetNum = preset;
+	loadedAttributes = true;
 }
 
 const char* CAttributesLoader::GetString(const char* szString, const char* defaultValue)

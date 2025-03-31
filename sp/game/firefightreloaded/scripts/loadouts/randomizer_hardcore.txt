@@ -31,7 +31,7 @@
 	"5"
 	{
 		"randomizermode" "1"
-		"weapon"	"weapon_pistol"
+		"weapon"	"weapon_pistol_dual"
 		"ammotype"	"Pistol"
 		"ammonum"	"999"
 	}
@@ -63,7 +63,7 @@
 	"10"
 	{
 		"randomizermode" "1"
-		"weapon"	"weapon_rpg"
+		"weapon"	"weapon_rpg_dual"
 		"ammotype"	"rpg_round"
 		"ammonum"	"999"
 	}
@@ -199,22 +199,7 @@
 		"ammotype"	"Flechette"
 		"ammonum"	"999"
 	}
-	//for dualies
 	"32"
-	{
-		"randomizermode"	"1"
-		"weapon"	"weapon_pistol"
-		"ammotype"	"Pistol"
-		"ammonum"	"999"
-	}
-	"33"
-	{
-		"randomizermode"	"1"
-		"weapon"	"weapon_rpg"
-		"ammotype"	"rpg_round"
-		"ammonum"	"999"
-	}
-	"34"
 	{
 		"randomizermode"	"1"
 		"weapon"	"weapon_grenadelauncher"
