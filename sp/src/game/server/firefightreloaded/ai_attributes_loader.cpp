@@ -69,6 +69,18 @@ CAttributesLoader* LoadPresetFile(const char* className, int preset)
 	return loader;
 }
 
+CAttributesLoader* LoadKeyValues(const char* className, KeyValues* pKV)
+{
+	CAttributesLoader* loader = new CAttributesLoader(pKV, className);
+
+	if (!loader->loadedAttributes)
+	{
+		return NULL;
+	}
+
+	return loader;
+}
+
 CAttributesLoader::CAttributesLoader(const char *className, int preset)
 {
 	if (!className || className == NULL || strlen(className) == 0)
@@ -95,7 +107,7 @@ CAttributesLoader::CAttributesLoader(const char *className, int preset)
 	KeyValuesAD pKV(className);
 	if (pKV->LoadFromFile(filesystem, szFullName))
 	{
-		LoadFromKeyValues(pKV, preset);
+		Load(pKV, className, preset);
 	}
 	else
 	{
@@ -104,8 +116,27 @@ CAttributesLoader::CAttributesLoader(const char *className, int preset)
 	}
 }
 
-void CAttributesLoader::LoadFromKeyValues(KeyValues* pKV, int preset)
+CAttributesLoader::CAttributesLoader(KeyValues* pKV, const char* className)
 {
+	if (!className || className == NULL || strlen(className) == 0)
+	{
+		DevWarning("CAttributesLoader: Definition has no classname!\n");
+		return;
+	}
+
+	wildcard = false;
+	Load(pKV, className);
+}
+
+void CAttributesLoader::Load(KeyValues* pKV, const char* className, int preset)
+{
+	if (pKV == NULL || (pKV != NULL && pKV->GetFirstSubKey() == NULL))
+	{
+		DevWarning("CAttributesLoader: Failed to load attributes for %s on preset %i!! KeyValues/file format definition may be invalid.\n", className, preset);
+		loadedAttributes = false;
+		return;
+	}
+
 	data = pKV->MakeCopy();
 	presetNum = preset;
 	loadedAttributes = true;

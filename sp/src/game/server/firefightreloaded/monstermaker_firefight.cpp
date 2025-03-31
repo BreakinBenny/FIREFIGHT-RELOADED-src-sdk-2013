@@ -915,16 +915,24 @@ void CNPCMakerFirefight::MakeNPC()
 		}
 	}
 
-	if (entry->npcAttributePreset > 0)
+	if (entry->npcCustomAttributes != NULL && entry->npcCustomAttributes->GetFirstSubKey() != NULL)
 	{
-		if (entry->npcAttributeWildcard > 0)
+		pent->m_pAttributes = LoadKeyValues(pent->GetClassname(), entry->npcCustomAttributes);
+		pent->LoadInitAttributes();
+	}
+	else
+	{
+		if (entry->npcAttributePreset > 0)
 		{
-			pent->m_pAttributes = LoadPresetFile("npc_any", entry->npcAttributePreset);
-			pent->LoadInitAttributes();
-		}
-		else
-		{
-			pent->m_pAttributes = LoadPresetFile(pent->GetClassname(), entry->npcAttributePreset);
+			if (entry->npcAttributeWildcard > 0)
+			{
+				pent->m_pAttributes = LoadPresetFile("npc_any", entry->npcAttributePreset);
+			}
+			else
+			{
+				pent->m_pAttributes = LoadPresetFile(pent->GetClassname(), entry->npcAttributePreset);
+			}
+
 			pent->LoadInitAttributes();
 		}
 	}
