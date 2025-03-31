@@ -2549,6 +2549,7 @@ void CBasePlayer::OnDamagedByExplosion( const CTakeDamageInfo &info )
 
 		CSingleUserRecipientFilter user(this);
 		enginesound->SetPlayerDSP(user, effect, false);
+		iDamageTime = gpGlobals->curtime;
 	}
 }
 

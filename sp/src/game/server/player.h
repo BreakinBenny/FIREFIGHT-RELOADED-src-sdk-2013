@@ -987,6 +987,7 @@ private:
 
 	int					DetermineSimulationTicks( void );
 	void				AdjustPlayerTimeBase( int simulation_ticks );
+	int					iDamageTime;
 
 	CNetworkVar(int, m_iExp);
 	CNetworkVar(int, m_iLevel);
