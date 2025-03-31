@@ -207,6 +207,7 @@ CBaseEntity* CBaseCombatWeapon::Respawn( void )
 		pNewWeapon->SetTouch( NULL );// no touch
 		pNewWeapon->AddEFlags( EFL_NO_PHYSCANNON_INTERACTION );
 		pNewWeapon->SetThink( &CBaseCombatWeapon::AttemptToMaterialize );
+		pNewWeapon->AddEFlags(EFL_NO_PHYSCANNON_INTERACTION);
 
 		UTIL_DropToFloor( this, MASK_SOLID );
 
@@ -616,6 +617,7 @@ void CBaseCombatWeapon::AttemptToMaterialize( void )
 	if ( time == 0 )
 	{
 		Materialize();
+		RemoveEFlags(EFL_NO_PHYSCANNON_INTERACTION);
 		return;
 	}
 

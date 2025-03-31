@@ -467,6 +467,7 @@ CBaseEntity* CItem::Respawn(void)
 {
 	SetTouch(NULL);
 	AddEffects(EF_NODRAW);
+	AddEFlags(EFL_NO_PHYSCANNON_INTERACTION);
 	ThinkSet(nullptr, 0, "repo");
 
 	VPhysicsDestroyObject();
