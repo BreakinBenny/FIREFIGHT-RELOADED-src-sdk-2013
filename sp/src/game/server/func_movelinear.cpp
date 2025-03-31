@@ -365,9 +365,25 @@ void CFuncMoveLinear::InputSetSpeed( inputdata_t &inputdata )
 	float flDistToGoalSqr = ( m_vecFinalDest - GetAbsOrigin() ).LengthSqr();
 	if ( flDistToGoalSqr > Square( FLT_EPSILON ) )
 	{
-		// NOTE: We do NOT want to call sound functions here, just vanilla position changes
-		LinearMove( m_vecFinalDest, m_flSpeed );
+		// Check if the entity is currently moving
+		if (m_flSpeed > 0)
+		{
+			// Continue moving to the final destination with the updated speed
+			LinearMove(m_vecFinalDest, m_flSpeed);
+		}
+		else
+		{
+			// If speed is zero, stop the movement
+			StopMoving();
+		}
 	}
+}
+
+void CFuncMoveLinear::StopMoving()
+{
+	// Stop the entity's movement but keep the destination intact
+	SetAbsVelocity(vec3_origin);
+	SetThink(NULL);  // Clear any active think functions, stopping the movement logic
 }
 
 //-----------------------------------------------------------------------------
