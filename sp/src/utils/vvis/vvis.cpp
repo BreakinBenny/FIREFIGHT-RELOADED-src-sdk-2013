@@ -1027,7 +1027,7 @@ void PrintUsage( int argc, char **argv )
 		"  -novconfig      : Don't bring up graphical UI on vproject errors.\n"
 		"  -radius_override: Force a vis radius, regardless of whether an\n"
 		"  -mpi_pw <pw>    : Use a password to choose a specific set of VMPI workers.\n"
-		"  -threads        : Control the number of threads vbsp uses (defaults to the #\n"
+		"  -threads #      : Control the number of threads vvis uses (defaults to the #\n"
 		"                    or processors on your machine).\n"
 		"  -nosort         : Don't sort portals (sorting is an optimization).\n"
 		"  -tmpin          : Make portals come from \\tmp\\<mapname>.\n"
