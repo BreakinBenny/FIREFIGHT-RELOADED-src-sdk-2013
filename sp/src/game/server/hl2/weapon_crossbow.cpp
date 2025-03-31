@@ -211,6 +211,60 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 		}
 	}
 
+	if (FClassnameIs(pOther, "func_breakable"))
+	{
+		if (crossbow_new_glass_passthrough.GetBool())
+		{
+			CBreakable* pOtherEntity = static_cast<CBreakable*>(pOther);
+			if (pOtherEntity && (pOtherEntity->GetMaterialType() == matGlass || pOtherEntity->GetMaterialType() == matWeb))
+				return;
+		}
+	}
+	else if (FClassnameIs(pOther, "func_breakable_surf"))
+	{
+		if (crossbow_new_glass_passthrough.GetBool())
+		{
+			CBreakableSurface* pOtherEntity = static_cast<CBreakableSurface*>(pOther);
+			if (pOtherEntity && (pOtherEntity->GetMaterialType() == matGlass || pOtherEntity->GetMaterialType() == matWeb))
+				return;
+		}
+	}
+	else if (FClassnameIs(pOther, "prop_door_rotating") ||
+		FClassnameIs(pOther, "func_door") ||
+		FClassnameIs(pOther, "func_door_rotating") ||
+		FClassnameIs(pOther, "func_movelinear") ||
+		FClassnameIs(pOther, "func_train") ||
+		FClassnameIs(pOther, "func_tanktrain") ||
+		FClassnameIs(pOther, "func_conveyor") ||
+		FClassnameIs(pOther, "func_brush") ||
+		FClassnameIs(pOther, "func_tracktrain"))
+	{
+		trace_t tr;
+		tr = BaseClass::GetTouchTrace();
+
+		Vector vecDir = GetAbsVelocity();
+		float speed = VectorNormalize(vecDir);
+
+		float hitDot = DotProduct(tr.plane.normal, -vecDir);
+		Vector vReflection = 2.0f * tr.plane.normal * hitDot + vecDir;
+
+		QAngle reflectAngles;
+		VectorAngles(vReflection, reflectAngles);
+
+		SetLocalAngles(reflectAngles);
+		SetAbsVelocity(vReflection * speed * 0.75f);
+
+		// Shoot some sparks
+		if (UTIL_PointContents(GetAbsOrigin()) != CONTENTS_WATER)
+		{
+			g_pEffects->Sparks(GetAbsOrigin());
+		}
+
+		EmitSound("Weapon_Crossbow.BoltBounce");
+
+		return;
+	}
+
 	if ( pOther->m_takedamage != DAMAGE_NO )
 	{
 		trace_t	tr, tr2;
@@ -247,23 +301,6 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 		//Adrian: keep going through the glass.
 		if ( pOther->GetCollisionGroup() == COLLISION_GROUP_BREAKABLE_GLASS )
 			 return;
-
-		if (crossbow_new_glass_passthrough.GetBool())
-		{
-			if (FClassnameIs(pOther, "func_breakable"))
-			{
-				CBreakable* pOtherEntity = static_cast<CBreakable*>(pOther);
-				if (pOtherEntity && (pOtherEntity->GetMaterialType() == matGlass || pOtherEntity->GetMaterialType() == matWeb))
-					return;
-			}
-
-			if (FClassnameIs(pOther, "func_breakable_surf"))
-			{
-				CBreakableSurface* pOtherEntity = static_cast<CBreakableSurface*>(pOther);
-				if (pOtherEntity && (pOtherEntity->GetMaterialType() == matGlass || pOtherEntity->GetMaterialType() == matWeb))
-					return;
-			}
-		}
 
 		if ( !pOther->IsAlive() )
 		{
