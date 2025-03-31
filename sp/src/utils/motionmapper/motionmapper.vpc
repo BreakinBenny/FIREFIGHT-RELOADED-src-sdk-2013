@@ -84,5 +84,6 @@ $Project "Motionmapper"
 		$Lib mathlib
 		$Lib nvtristrip
 		$Lib tier2
+        $Lib steam_api
 	}
 }

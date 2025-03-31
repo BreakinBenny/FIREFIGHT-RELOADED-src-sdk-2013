@@ -19,6 +19,7 @@
 #include "loadcmdline.h"
 #include "byteswap.h"
 #include "worldvertextransitionfixup.h"
+#include "tier1/KeyValues.h"
 
 extern float		g_maxLightmapDimension;
 
@@ -26,6 +27,7 @@ char		g_source[1024];
 char		g_mapbase[ 64 ];
 char		name[1024];
 char		materialPath[1024];
+char		GameInfoPath[MAX_PATH];
 
 vec_t		microvolume = 1.0;
 qboolean	noprune;
@@ -856,8 +858,21 @@ void ProcessModels (void)
 		}
 	}
 
-	// Turn the skybox into a cubemap in case we don't build env_cubemap textures.
-	Cubemap_CreateDefaultCubemaps();
+	KeyValues* GameInfoKVCubemap = ReadKeyValuesFile(GameInfoPath);
+	if (!GameInfoKVCubemap)
+	{
+		Error("Could not get KeyValues from %s!\n", GameInfoPath);
+	}
+
+	KeyValues* CubemapBuilder = GameInfoKVCubemap->FindKey("CubemapBuilder", true);
+	const char* BuildDefaultCubemap = CubemapBuilder->GetString("BuildDefaultCubemap", "1");
+
+	if (atoi(BuildDefaultCubemap) == 1)
+	{
+		// Turn the skybox into a cubemap in case we don't build env_cubemap textures.
+		Cubemap_CreateDefaultCubemaps();
+	}
+
 	EndBSPFile ();
 }
 
@@ -895,6 +910,8 @@ int RunVBSP( int argc, char **argv )
 	Q_StripExtension( ExpandArg( argv[ argc-1 ] ), g_source, sizeof( g_source ) );
 	Q_FileBase( g_source, g_mapbase, sizeof( g_mapbase ) );
 	strlwr( g_mapbase );
+
+	g_pFullFileSystem->RelativePathToFullPath("gameinfo.txt", "GAME", GameInfoPath, sizeof(GameInfoPath));
 
 	LoadCmdLineFromFile( argc, argv, g_mapbase, "vbsp" );
 
@@ -1378,7 +1395,7 @@ int RunVBSP( int argc, char **argv )
 	
 	char str[512];
 	GetHourMinuteSecondsString( (int)( end - start ), str, sizeof( str ) );
-	Msg( "%s elapsed\n", str );
+	Msg("--> Geometry complete in %s\n", str);
 
 	DeleteCmdLine( argc, argv );
 	ReleasePakFileLumps();

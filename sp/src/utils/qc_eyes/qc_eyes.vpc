@@ -71,4 +71,9 @@ $Project "QC_Eyes"
 		$File	"res\QC_Eyes.ico"
 		$File	"res\QC_Eyes.rc2"
 	}
+    
+    $Folder	"Link Libraries"
+	{
+		$Lib steam_api
+	}
 }

@@ -93,4 +93,37 @@
 			platform			|all_source_engine_paths|platform
 		}
 	}
+
+	// Name of the game launcher without extension. 
+	GameExecutableName fr                    
+
+	// CubemapBuilder KeyValue controls cubemap building inside the compile tools, it is used to pass commandline/convars to the engine. 
+	CubemapBuilder
+	{
+		// Sets up the game at maximun graphics
+		SetGameToMaximunGraphic 1
+		//VBSP option: Build the default cubemap
+		BuildDefaultCubemap 	1
+
+		// These are mounted in the command line when VRAD initiates the game launcher.  
+		// They can be either a convar or a commandline argument.  
+		// If '-BuildHdrCubemaps' is enabled, VRAD will load these commandline arguments/convars.
+		Hdr
+		{
+			-novid  				1
+			+sv_cheats 			1
+			+mat_specular	 		0
+			+mat_hdr_level			2
+			+building_cubemaps		1
+		}
+
+		// If '-BuildLdrCubemaps' is enabled, VRAD will load these commandline arguments/convars
+		Ldr
+		{
+			-novid  				1
+			+sv_cheats 			1
+			+mat_hdr_level			0
+			+mat_specular	 		0
+		}
+	}
 }

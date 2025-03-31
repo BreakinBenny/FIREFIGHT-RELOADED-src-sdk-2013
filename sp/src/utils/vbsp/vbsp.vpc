@@ -178,6 +178,7 @@ $Project "Vbsp"
 		$Lib mathlib
 		$Lib tier2
 		$Lib vtf
+        $Lib steam_api
 	}
 
 	$File	"notes.txt"

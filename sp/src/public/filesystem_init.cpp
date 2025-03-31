@@ -33,6 +33,8 @@
 #include "xbox\xbox_win32stubs.h"
 #endif
 
+#include "steam/steam_api.h"
+
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
@@ -1367,6 +1369,37 @@ void FileSystem_ClearSteamEnvVars()
 	envVars.m_SteamAppUser.SetValue( "" );
 	
 	envVars.SetRestoreOriginalValue_ALL( false );
+}
+
+//-----------------------------------------------------------------------------
+// Returns a string where the app dir is instaled 
+//-----------------------------------------------------------------------------
+void FileSystem_GetAppInstallDir(char* string, size_t bufferSize)
+{
+	if (!SteamAPI_Init())
+	{
+		Error("SteamAPI_Init() failed! Possible causes:\n"
+			"  - Steam is not open.\n"
+			"  - Could not find steam_appid.txt\n"
+#ifdef PLATFORM_64BITS
+			"  - Could not find steam_api64.dll\n"
+#else
+			"  - Could not find steam_api.dll\n"
+#endif
+		);
+	}
+
+	AppId_t appID = SteamUtils()->GetAppID();
+	if (appID == 0)
+	{
+		Error("Failed to get AppID!");
+	}
+
+	uint32 result = SteamApps()->GetAppInstallDir(appID, string, bufferSize);
+	if (result == 0)
+	{
+		Error("Failed to get App Install Directory!");
+	}
 }
 
 //-----------------------------------------------------------------------------

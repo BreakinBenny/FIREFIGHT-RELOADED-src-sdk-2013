@@ -56,5 +56,6 @@ $Project "Captioncompiler"
 		$Lib mathlib
 		$Lib tier2
 		$Lib tier3
+        $Lib steam_api
 	}
 }

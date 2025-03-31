@@ -40,6 +40,8 @@ $Project "Vrad_dll"
 		$File	"macro_texture.cpp"
 		$File	"..\common\mpi_stats.cpp"
 		$File	"mpivrad.cpp"
+        $File	"$SRCDIR\public\filesystem_init.cpp"
+        $File	"..\common\filesystem_tools.cpp"
 		$File	"..\common\MySqlDatabase.cpp"
 		$File	"..\common\pacifier.cpp"
 		$File	"..\common\physdll.cpp"
@@ -57,6 +59,7 @@ $Project "Vrad_dll"
 		$File	"vraddll.cpp"
 		$File	"VRadStaticProps.cpp"
 		$File	"$SRCDIR\public\zip_utils.cpp"
+        $File	"cubemapbuilder.cpp"
 
 		$Folder	"Common Files"
 		{
@@ -100,6 +103,7 @@ $Project "Vrad_dll"
 		$File	"VRAD_DispColl.h"
 		$File	"vraddetailprops.h"
 		$File	"vraddll.h"
+        $File	"cubemapbuilder.h"
 
 		$Folder	"Common Header Files"
 		{
@@ -124,6 +128,7 @@ $Project "Vrad_dll"
 			$File	"..\vmpi\vmpi_dispatch.h"
 			$File	"..\vmpi\vmpi_distribute_work.h"
 			$File	"..\vmpi\vmpi_filesystem.h"
+            $File	"$SRCDIR\public\filesystem_init.h"
 		}
 
 		$Folder	"Public Header Files"
@@ -218,6 +223,7 @@ $Project "Vrad_dll"
 		$Lib raytrace
 		$Lib tier2
 		$Lib vmpi
+        $Lib steam_api
 		$Lib vtf
 	}
 

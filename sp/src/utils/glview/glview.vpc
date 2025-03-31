@@ -50,5 +50,6 @@ $Project "Glview"
 	{
 		$Lib mathlib
 		$Lib tier2
+        $Lib steam_api
 	}
 }
