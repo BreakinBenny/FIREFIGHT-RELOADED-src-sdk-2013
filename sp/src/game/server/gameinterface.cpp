@@ -214,6 +214,8 @@ static ConVar  *g_pcv_commentary = NULL;
 static ConVar *g_pcv_ThreadMode = NULL;
 static ConVar *g_pcv_hideServer = NULL;
 
+ConVar sv_pauseplayers("sv_pauseplayers", "0", FCVAR_NOTIFY | FCVAR_REPLICATED, "When paused, also pause player actions and movements. Doesn't work if sv_noclipduringpause is enabled.");
+
 // String tables
 INetworkStringTable *g_pStringTableParticleEffectNames = NULL;
 INetworkStringTable *g_pStringTableEffectDispatch = NULL;
@@ -3057,8 +3059,10 @@ float CServerGameClients::ProcessUsercmds( edict_t *player, bf_read *buf, int nu
 		from = to;
 	}
 
-	// Client not fully connected or server has gone inactive  or is paused, just ignore
-	if ( ignore || !pPlayer )
+	bool shouldPauseServerPlayers = (sv_noclipduringpause.GetBool() ? false : (paused && sv_pauseplayers.GetBool()));
+
+	// Client not fully connected or server has gone inactive or is paused, just ignore
+	if ( ignore || shouldPauseServerPlayers || !pPlayer )
 	{
 		return 0.0f;
 	}
