@@ -10,34 +10,34 @@
 		"path"	"music/FR_Combat1.mp3"
 		"title"	"DISRUPTOR"
 		"artist"	"Bitl Development Studio"
-		"album"	"FirefightReloaded"
+		"album"	"FirefightReloadedEndgame"
 	}
 	"2"
 	{
 		"path"	"music/FR_Combat2.mp3"
 		"title"	"BLOOD HAZARD"
 		"artist"	"Bitl Development Studio"
-		"album"	"FirefightReloaded"
+		"album"	"FirefightReloadedEndgame"
 	}
 	"3"
 	{
 		"path"	"music/FR_Combat3.mp3"
 		"title"	"MOMENTUM"
 		"artist"	"Bitl Development Studio"
-		"album"	"FirefightReloaded"
+		"album"	"FirefightReloadedEndgame"
 	}
 	"4"
 	{
 		"path"	"music/FR_Combat4.mp3"
 		"title"	"MANIFEST"
 		"artist"	"Bitl Development Studio"
-		"album"	"FirefightReloaded"
+		"album"	"FirefightReloadedEndgame"
 	}
 	"5"
 	{
 		"path"	"music/FR_Combat5.mp3"
 		"title"	"CODE: EXPUNGE"
 		"artist"	"Bitl Development Studio"
-		"album"	"FirefightReloaded"
+		"album"	"FirefightReloadedEndgame"
 	}
 }
