@@ -124,6 +124,7 @@ bool        g_bDisablePropSelfShadowing = false;
 bool		g_bBuildOnlyCubemaps = false;
 bool		g_bBuildHdrCubemaps = false;
 bool		g_bBuildLdrCubemaps = false;
+bool		g_bSuperSampling = false;
 
 CUtlVector<byte> g_FacesVisibleToLights;
 
@@ -2677,6 +2678,12 @@ int ParseCommandLine( int argc, char **argv, bool *onlydetail )
 			g_bBuildHdrCubemaps = true;
 			g_bBuildLdrCubemaps = true;
 		}
+#if SUPERSAMPLING
+		else if (!Q_stricmp(argv[i], "-dispsupersampling"))
+		{
+			g_bSuperSampling = true;
+		}
+#endif
 		else if (!Q_stricmp(argv[i],"-maxchop"))
 		{
 			if ( ++i < argc )
@@ -2736,7 +2743,7 @@ int ParseCommandLine( int argc, char **argv, bool *onlydetail )
 				g_MaxDispPatchRadius = ( float )atof( argv[i] );
 				if ( g_MaxDispPatchRadius < 10.0f )
 				{
-					Warning( "Error: g_MaxDispPatchRadius < 10.0\n" );
+					Warning("Error: g_MaxDispPatchRadius < 10.0, increase the value above 10.0!\n");
 					return 1;
 				}
 			}
@@ -2922,6 +2929,9 @@ void PrintUsage( int argc, char **argv )
 		"  -textureshadows : Allows texture alpha channels to block light - rays intersecting alpha surfaces will sample the texture\n"
 		"  -noskyboxrecurse : Turn off recursion into 3d skybox (skybox shadows on world)\n"
 		"  -nossprops      : Globally disable self-shadowing on static props\n"
+#if SUPERSAMPLING
+		"  -dispsupersampling      : Enable super-sampling on displacements.\n"
+#endif
 		"\n"
 #if 1 // Disabled for the initial SDK release with VMPI so we can get feedback from selected users.
 		);

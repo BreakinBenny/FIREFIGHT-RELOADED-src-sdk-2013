@@ -3156,7 +3156,18 @@ void BuildFacelights (int iThread, int facenum)
 	}
 
 	// get rid of the -extra functionality on displacement surfaces
-	if (do_extra && !sampleInfo.m_IsDispFace)
+
+	// We enable supersampling for displacements, it makes a better transition between brushes and displacements
+	bool extraBehavior = (do_extra && !sampleInfo.m_IsDispFace);
+
+#if SUPERSAMPLING
+	if (g_bSuperSampling)
+	{
+		extraBehavior = (do_extra);
+	}
+#endif
+
+	if (g_bSuperSampling)
 	{
 		// For each lightstyle, perform a supersampling pass
 		for (int i = 0; i < MAXLIGHTMAPS; ++i )
