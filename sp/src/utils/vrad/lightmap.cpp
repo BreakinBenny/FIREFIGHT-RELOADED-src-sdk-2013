@@ -3160,12 +3160,10 @@ void BuildFacelights (int iThread, int facenum)
 	// We enable supersampling for displacements, it makes a better transition between brushes and displacements
 	bool extraBehavior = (do_extra && !sampleInfo.m_IsDispFace);
 
-#if SUPERSAMPLING
 	if (g_bSuperSampling)
 	{
 		extraBehavior = (do_extra);
 	}
-#endif
 
 	if (g_bSuperSampling)
 	{
