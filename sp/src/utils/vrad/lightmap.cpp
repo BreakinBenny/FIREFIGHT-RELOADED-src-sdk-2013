@@ -3165,7 +3165,7 @@ void BuildFacelights (int iThread, int facenum)
 		extraBehavior = (do_extra);
 	}
 
-	if (g_bSuperSampling)
+	if (extraBehavior)
 	{
 		// For each lightstyle, perform a supersampling pass
 		for (int i = 0; i < MAXLIGHTMAPS; ++i )
