@@ -214,7 +214,7 @@ static ConVar  *g_pcv_commentary = NULL;
 static ConVar *g_pcv_ThreadMode = NULL;
 static ConVar *g_pcv_hideServer = NULL;
 
-ConVar sv_pauseplayers("sv_pauseplayers", "0", FCVAR_NOTIFY | FCVAR_REPLICATED, "When paused, also pause player actions and movements. Doesn't work if sv_noclipduringpause is enabled.");
+ConVar sv_pauseplayers("sv_pauseplayers", "0", FCVAR_ARCHIVE | FCVAR_NOTIFY | FCVAR_REPLICATED, "When paused, also pause player actions and movements. Doesn't work if sv_noclipduringpause is enabled.");
 
 // String tables
 INetworkStringTable *g_pStringTableParticleEffectNames = NULL;

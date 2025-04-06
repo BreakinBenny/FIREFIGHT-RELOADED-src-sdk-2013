@@ -1863,6 +1863,21 @@
 				}
 			}
             
+            "PausePlayerMovement"
+			{
+				"text"			"#GameUI_PausePlayerMovement"
+				"type"			"wheelywheel"
+				"convar"		"sv_pauseplayers"
+                "advanced"		"1"
+                "hidden"		"1"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
             "LowerVMOnSprint"
 			{
 				"text"			"#GameUI_LowerOnSprint"

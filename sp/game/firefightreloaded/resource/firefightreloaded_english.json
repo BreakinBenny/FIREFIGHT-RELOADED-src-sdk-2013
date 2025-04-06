@@ -644,6 +644,7 @@
             "GameUI_RailgunOverchargeLimit": "Maximum Railgun Ammo Limit (0 is off)",
             "GameUI_RailgunWarningBeepTime": "Railgun Overcharge Warning Beep Time",
             "GameUI_DeckOverride": "Enable Steam Deck setting overrides (Steam Deck only)",
+            "GameUI_PausePlayerMovement": "Pause player movement when the game is paused.",
             "GameUI_SndPauseLoseFocus": "Pause music playing through FMOD while the game window is in the background.",
             "GameUI_SndPauseGamePaused": "Pause music playing through FMOD while the game is paused.",
             "GameUI_DeathcamMode": "Deathcam View",
