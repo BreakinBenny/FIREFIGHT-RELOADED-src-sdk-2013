@@ -941,6 +941,8 @@ CBasePlayer::CBasePlayer( )
 		m_rgMaxUpgrades[i] = 0;
 		DevMsg("SET m_rgMaxUpgrades[%i] TO %i\n", i, m_rgMaxUpgrades[i]);
 	}
+
+	SetTimeBase(gpGlobals->curtime);
 }
 
 CBasePlayer::~CBasePlayer( )
