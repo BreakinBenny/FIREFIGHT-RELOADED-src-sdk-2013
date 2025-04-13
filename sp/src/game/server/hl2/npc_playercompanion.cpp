@@ -298,41 +298,34 @@ Disposition_t CNPC_PlayerCompanion::IRelationType( CBaseEntity *pTarget )
 
 	Disposition_t baseRelationship = BaseClass::IRelationType( pTarget );
 
-	CAI_BaseNPC* pNPC = (CAI_BaseNPC*)pTarget;
-
-	if (pNPC)
+	if (baseRelationship != D_LI)
 	{
-		bool shotgunnerTarget = ((pNPC->GetActiveWeapon() && 
-			((pNPC->GetActiveWeapon()->ClassMatches(gm_iszShotgunClassname) && 
-				(!GetActiveWeapon() || !GetActiveWeapon()->ClassMatches(gm_iszShotgunClassname))) || 
-			((pNPC->GetActiveWeapon()->ClassMatches(gm_iszShotgunM1014Classname) && 
-				(!GetActiveWeapon() || !GetActiveWeapon()->ClassMatches(gm_iszShotgunM1014Classname)))))));
-
-		if (baseRelationship != D_LI)
+		if (IsTurret(pTarget))
 		{
-			if (IsTurret(pTarget))
+			// Citizens are afeared of turrets, so long as the turret
+			// is active... that is, not classifying itself as CLASS_NONE
+			if (pTarget->Classify() != CLASS_NONE)
 			{
-				// Citizens are afeared of turrets, so long as the turret
-				// is active... that is, not classifying itself as CLASS_NONE
-				if (pTarget->Classify() != CLASS_NONE)
+				if (!hl2_episodic.GetBool() && IsSafeFromFloorTurret(GetAbsOrigin(), pTarget))
 				{
-					if (!hl2_episodic.GetBool() && IsSafeFromFloorTurret(GetAbsOrigin(), pTarget))
-					{
-						return D_NU;
-					}
+					return D_NU;
+				}
 
-					return D_FR;
-				}
+				return D_FR;
 			}
-			else if (baseRelationship == D_HT &&
-				pTarget->IsNPC() && shotgunnerTarget)
+		}
+		else if (baseRelationship == D_HT &&
+			pTarget->IsNPC() &&
+			((CAI_BaseNPC*)pTarget) &&
+			((CAI_BaseNPC*)pTarget)->GetActiveWeapon() &&
+			(((CAI_BaseNPC*)pTarget)->GetActiveWeapon()->ClassMatches(gm_iszShotgunClassname) || ((CAI_BaseNPC*)pTarget)->GetActiveWeapon()->ClassMatches(gm_iszShotgunM1014Classname)) &&
+			(!GetActiveWeapon() || !GetActiveWeapon()->ClassMatches(gm_iszShotgunClassname) || !GetActiveWeapon()->ClassMatches(gm_iszShotgunM1014Classname)))
+		{
+			if ((pTarget->GetAbsOrigin() - GetAbsOrigin()).LengthSqr() < Square(25 * 12))
 			{
-				if ((pTarget->GetAbsOrigin() - GetAbsOrigin()).LengthSqr() < Square(25 * 12))
-				{
-					// Ignore enemies on the floor above us
-					if (fabs(pTarget->GetAbsOrigin().z - GetAbsOrigin().z) < 100)
-						return D_FR;
-				}
+				// Ignore enemies on the floor above us
+				if (fabs(pTarget->GetAbsOrigin().z - GetAbsOrigin().z) < 100)
+					return D_FR;
 			}
 		}
 	}
