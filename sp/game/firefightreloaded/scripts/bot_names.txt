@@ -347,4 +347,6 @@
 	"name" "npc_citizen"
 	"name" "Takanuva"
 	"name" "Voriki"
+	"name" "Pepper"
+	"name" "Sophie"
 }
