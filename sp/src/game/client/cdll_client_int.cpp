@@ -1865,7 +1865,8 @@ void CHLClient::LevelInitPreEntity( char const* pMapName )
 			discordPresence.details = buffer;
 			if (cl_discord_devbuild.GetBool())
 			{
-				discordPresence.largeImageKey = "fr_dev_large";
+				discordPresence.largeImageKey = pMapName;
+				discordPresence.smallImageKey = "fr_dev_large";
 
 				char verString[30];
 				if (g_pFullFileSystem->FileExists("version.txt"))
@@ -1889,7 +1890,8 @@ void CHLClient::LevelInitPreEntity( char const* pMapName )
 			}
 			else
 			{
-				discordPresence.largeImageKey = "fr_large";
+				discordPresence.largeImageKey = pMapName;
+				discordPresence.smallImageKey = "fr_large";
 			}
 			Discord_UpdatePresence(&discordPresence);
 		}
