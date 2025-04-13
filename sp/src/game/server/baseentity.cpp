@@ -275,6 +275,8 @@ IMPLEMENT_SERVERCLASS_ST_NOBASE( CBaseEntity, DT_BaseEntity )
 	SendPropInt		(SENDINFO(m_fEffects),		EF_MAX_BITS, SPROP_UNSIGNED),
 	SendPropInt		(SENDINFO(m_clrRender),	32, SPROP_UNSIGNED),
 	SendPropInt		(SENDINFO(m_iTeamNum),		TEAMNUM_NUM_BITS, 0),
+	SendPropBool	(SENDINFO(m_bBoss)),
+	SendPropBool	(SENDINFO(m_isRareEntity)),
 	SendPropInt		(SENDINFO(m_CollisionGroup), 5, SPROP_UNSIGNED),
 	SendPropFloat	(SENDINFO(m_flElasticity), 0, SPROP_COORD),
 	SendPropFloat	(SENDINFO(m_flShadowCastDistance), 12, SPROP_UNSIGNED ),
@@ -1869,6 +1871,7 @@ BEGIN_DATADESC_NO_BASE( CBaseEntity )
 
 	DEFINE_INPUT( m_iInitialTeamNum, FIELD_INTEGER, "TeamNum" ),
 	DEFINE_FIELD( m_iTeamNum, FIELD_INTEGER ),
+	DEFINE_FIELD(m_bBoss, FIELD_BOOLEAN),
 
 	DEFINE_FIELD(m_isRareEntity, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_isLargeEntity, FIELD_BOOLEAN),

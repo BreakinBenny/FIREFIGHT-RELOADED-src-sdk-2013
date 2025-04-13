@@ -929,7 +929,6 @@ public:
 
 	NPC_STATE			m_NPCState;				// npc's current state
 	float				m_flLastStateChangeTime;
-	bool				m_bBoss;
 	bool				m_bNoRemove;
 
 private:

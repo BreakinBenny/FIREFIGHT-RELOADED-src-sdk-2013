@@ -1759,10 +1759,12 @@ public:
 	// So it can get at the physics methods
 	friend class CCollisionEvent;
 
-	bool m_isRareEntity;
+	CNetworkVar(bool, m_isRareEntity);
 	bool m_isLargeEntity;
 	int m_iExtraExp;
 	int m_iExtraMoney;
+
+	CNetworkVar(bool, m_bBoss);				// Team number of this entity's team. 
 
 	virtual float GetColorRed(void) { return m_iColorRed; }
 	virtual float GetColorGreen(void) { return m_iColorGreen; }

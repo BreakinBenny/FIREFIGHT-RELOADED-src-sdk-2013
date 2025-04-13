@@ -37,6 +37,23 @@
 		"userid"	"short"	
         "level"	    "short"
 	}
+    
+    "player_hurt"
+	{
+		"userid"	"short"   	// player index who was hurt				
+		"attacker"	"short"	 	// player index who attacked
+		"health"	"byte"		// remaining health points
+        "damageamount"	"byte"
+	}
+    
+    "npc_hurt"
+	{
+		"entindex"	"short"   	// player index who was hurt				
+		"attacker_player"	"short"	 	// player index who attacked
+		"health"	"byte"		// remaining health points
+        "damageamount"	"byte"
+        "damageamount_consecutive"	"byte"
+	}
 	
 	"player_death"				// a game event, name may be 32 charaters long
 	{

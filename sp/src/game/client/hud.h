@@ -41,14 +41,40 @@ public:
 	CHudTexture& operator =( const CHudTexture& src );
 	virtual ~CHudTexture();
 
+	int XOffset() const
+	{
+		if (!bHasSeperateXY)
+			return 0;
+
+		return xOffset;
+	}
+
+	int YOffset() const
+	{
+		if (!bHasSeperateXY)
+			return 0;
+
+		return yOffset;
+	}
+
 	int Width() const
 	{
-		return rc.right - rc.left;
+		return (rc.right - rc.left);
 	}
 
 	int Height() const
 	{
-		return rc.bottom - rc.top;
+		return (rc.bottom - rc.top);
+	}
+
+	int WidthWithOffset() const
+	{
+		return Width() + XOffset();
+	}
+
+	int HeightWithOffset() const
+	{
+		return Height() + YOffset();
 	}
 
 	// causes the font manager to generate the glyph, prevents run time hitches on platforms that have slow font managers

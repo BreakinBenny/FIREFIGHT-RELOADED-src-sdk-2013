@@ -240,6 +240,23 @@ CHudTexture *WeaponsResource::GetAmmoIconFromWeapon( int iAmmoId )
 	return NULL;
 }
 
+CHudTexture* WeaponsResource::GetIconFromActiveWeapon()
+{
+	C_BasePlayer* player = C_BasePlayer::GetLocalPlayer();
+	if (!player)
+		return NULL;
+
+	C_BaseCombatWeapon* weapon = player->GetActiveWeapon();
+	if (!weapon)
+		return NULL;
+
+	CHudTexture* hudTex = gHUD.GetIcon(weapon->GetClassname());
+	if (hudTex == NULL)
+		return NULL;
+
+	return hudTex;
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: Get a pointer to a weapon using this ammo
 //-----------------------------------------------------------------------------

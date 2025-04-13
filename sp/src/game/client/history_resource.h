@@ -21,6 +21,7 @@ enum
 	HISTSLOT_WEAP,
 	HISTSLOT_ITEM,
 	HISTSLOT_AMMODENIED,
+	HISTSLOT_DAMAGE
 };
 
 namespace vgui
@@ -49,6 +50,8 @@ private:
 		float DisplayTime;  // the time at which this item should be removed from the history
 		int iCount;
 		int iId;
+		bool bIsRare;
+		bool bIsBoss;
 		CHandle< C_BaseCombatWeapon > m_hWeapon;
 
 		CHudTexture *icon;
@@ -67,6 +70,7 @@ public:
 	virtual void Paint( void );
 
 	virtual void ApplySchemeSettings( vgui::IScheme *pScheme );
+	virtual void FireGameEvent(IGameEvent* event);
 
 	void	AddToHistory( int iType, int iId, int iCount = 0 );
 	void	AddToHistory( int iType, const char *szName, int iCount = 0 );
@@ -76,7 +80,7 @@ public:
 	
 	void	CheckClearHistory( void );
 	void	SetHistoryGap( int iNewHistoryGap );
-	void	AddIconToHistory( int iType, int iId, C_BaseCombatWeapon *weapon, int iCount, CHudTexture *icon );
+	void	AddIconToHistory( int iType, int iId, C_BaseCombatWeapon *weapon, int iCount, CHudTexture *icon, bool bIsRare = false, bool bIsBoss = false);
 
 private:
 	// these vars are for hl1-port compatibility

@@ -19,6 +19,20 @@
 
 using namespace vgui;
 
+ConVar	hud_hitdamage("hud_hitdamage", "0", FCVAR_ARCHIVE);
+ConVar	hud_hitdamage_red("hud_hitdamage_red", "255", FCVAR_ARCHIVE);
+ConVar	hud_hitdamage_green("hud_hitdamage_green", "255", FCVAR_ARCHIVE);
+ConVar	hud_hitdamage_blue("hud_hitdamage_blue", "0", FCVAR_ARCHIVE);
+
+ConVar	hud_hitdamage_entitytypespecific("hud_hitdamage_entitytypespecific", "1", FCVAR_ARCHIVE);
+ConVar	hud_hitdamage_red_boss("hud_hitdamage_red_boss", "255", FCVAR_ARCHIVE);
+ConVar	hud_hitdamage_green_boss("hud_hitdamage_green_boss", "0", FCVAR_ARCHIVE);
+ConVar	hud_hitdamage_blue_boss("hud_hitdamage_blue_boss", "255", FCVAR_ARCHIVE);
+
+ConVar	hud_hitdamage_red_rare("hud_hitdamage_red_rare", "252", FCVAR_ARCHIVE);
+ConVar	hud_hitdamage_green_rare("hud_hitdamage_green_rare", "109", FCVAR_ARCHIVE);
+ConVar	hud_hitdamage_blue_rare("hud_hitdamage_blue_rare", "0", FCVAR_ARCHIVE);
+
 extern ConVar hud_drawhistory_time;
 
 DECLARE_HUDELEMENT( CHudHistoryResource );
@@ -37,6 +51,8 @@ CHudHistoryResource::CHudHistoryResource( const char *pElementName ) :
 	m_wcsAmmoFullMsg[0] = 0;
 	m_bNeedsDraw = false;
 	SetHiddenBits( HIDEHUD_MISCSTATUS );
+
+	ListenForGameEvent("npc_hurt");
 }
 
 //-----------------------------------------------------------------------------
@@ -52,6 +68,24 @@ void CHudHistoryResource::ApplySchemeSettings( IScheme *pScheme )
 	if (wcs)
 	{
 		wcsncpy(m_wcsAmmoFullMsg, wcs, sizeof(m_wcsAmmoFullMsg) / sizeof(wchar_t));
+	}
+}
+
+void CHudHistoryResource::FireGameEvent(IGameEvent* event)
+{
+	if (FStrEq(event->GetName(), "npc_hurt"))
+	{
+		if (hud_hitdamage.GetBool())
+		{
+			const int iDamage = event->GetInt("damageamount_consecutive");
+
+			//don't show burn damage.
+			if (iDamage > 1)
+			{
+				//make damage report as negative.
+				AddToHistory(HISTSLOT_DAMAGE, event->GetInt("entindex"), -iDamage);
+			}
+		}
 	}
 }
 
@@ -116,6 +150,11 @@ void CHudHistoryResource::AddToHistory( C_BaseCombatWeapon *weapon )
 //-----------------------------------------------------------------------------
 void CHudHistoryResource::AddToHistory( int iType, int iId, int iCount )
 {
+	CHudTexture* hudTex = NULL;
+
+	bool bIsRare = false;
+	bool bIsBoss = false;
+
 	// Ignore adds with no count
 	if ( iType == HISTSLOT_AMMO )
 	{
@@ -145,8 +184,54 @@ void CHudHistoryResource::AddToHistory( int iType, int iId, int iCount )
 			}
 		}
 	}
+	else if (iType == HISTSLOT_DAMAGE)
+	{
+		if (!iCount)
+			return;
 
-	AddIconToHistory( iType, iId, NULL, iCount, NULL );
+		// Get the item's icon
+		hudTex = gHUD.GetIcon("hitmarker");
+		if (hudTex == NULL)
+			return;
+
+		// clear out any ammo pickup denied icons, since we can obviously pickup again
+		for (int i = 0; i < m_PickupHistory.Count(); i++)
+		{
+			if (m_PickupHistory[i].type == HISTSLOT_DAMAGE && m_PickupHistory[i].iId == iId)
+			{
+				if (m_PickupHistory[i].bIsBoss)
+				{
+					bIsBoss = true;
+				}
+				else if (m_PickupHistory[i].bIsRare)
+				{
+					bIsRare = true;
+				}
+
+				// kill the old entry
+				m_PickupHistory[i].DisplayTime = 0.0f;
+				// change the pickup to be in this entry
+				m_iCurrentHistorySlot = i;
+				break;
+			}
+		}
+
+		C_BaseEntity* pEntity = ClientEntityList().GetBaseEntityFromHandle(ClientEntityList().EntIndexToHandle(iId));
+
+		if (pEntity)
+		{
+			if (!bIsBoss && pEntity->m_bBoss)
+			{
+				bIsBoss = true;
+			}
+			else if (!bIsRare && pEntity->m_isRareEntity)
+			{
+				bIsRare = true;
+			}
+		}
+	}
+
+	AddIconToHistory( iType, iId, NULL, iCount, hudTex, bIsRare, bIsBoss);
 }
 
 //-----------------------------------------------------------------------------
@@ -154,7 +239,7 @@ void CHudHistoryResource::AddToHistory( int iType, int iId, int iCount )
 //-----------------------------------------------------------------------------
 void CHudHistoryResource::AddToHistory( int iType, const char *szName, int iCount )
 {
-	if ( iType != HISTSLOT_ITEM )
+	if ( iType != HISTSLOT_ITEM)
 		return;
 
 	// Get the item's icon
@@ -168,7 +253,7 @@ void CHudHistoryResource::AddToHistory( int iType, const char *szName, int iCoun
 //-----------------------------------------------------------------------------
 // Purpose: adds a history icon
 //-----------------------------------------------------------------------------
-void CHudHistoryResource::AddIconToHistory( int iType, int iId, C_BaseCombatWeapon *weapon, int iCount, CHudTexture *icon )
+void CHudHistoryResource::AddIconToHistory( int iType, int iId, C_BaseCombatWeapon *weapon, int iCount, CHudTexture *icon, bool bIsRare, bool bIsBoss)
 {
 	m_bNeedsDraw = true;
 
@@ -201,6 +286,12 @@ void CHudHistoryResource::AddIconToHistory( int iType, int iId, C_BaseCombatWeap
 	freeslot->type = iType;
 	freeslot->m_hWeapon  = weapon;
 	freeslot->iCount = iCount;
+
+	if (iType == HISTSLOT_DAMAGE)
+	{
+		freeslot->bIsRare = bIsRare;
+		freeslot->bIsBoss = bIsBoss;
+	}
 
 	if (iType == HISTSLOT_AMMODENIED)
 	{
@@ -418,6 +509,50 @@ void CHudHistoryResource::Paint( void )
 					bHalfHeight = false;
 				}
 				break;
+			case HISTSLOT_DAMAGE:
+				{
+					if (!m_PickupHistory[i].iId)
+						continue;
+
+					itemIcon = m_PickupHistory[i].icon;
+					bHalfHeight = false;
+					iAmount = m_PickupHistory[i].iCount;
+
+					if (hud_hitdamage_entitytypespecific.GetBool())
+					{
+						if (m_PickupHistory[i].bIsBoss)
+						{
+							//Change the color to indicate this is the final boss.
+							clr[0] = hud_hitdamage_red_boss.GetFloat();
+							clr[1] = hud_hitdamage_green_boss.GetFloat();
+							clr[2] = hud_hitdamage_blue_boss.GetFloat();
+						}
+						else if (m_PickupHistory[i].bIsRare)
+						{
+							//Change the color to indicate this is a rare enemy.
+							clr[0] = hud_hitdamage_red_rare.GetFloat();
+							clr[1] = hud_hitdamage_green_rare.GetFloat();
+							clr[2] = hud_hitdamage_blue_rare.GetFloat();
+						}
+						else
+						{
+							// display as CUSTOM COLOR.
+							clr[0] = hud_hitdamage_red.GetFloat();
+							clr[1] = hud_hitdamage_green.GetFloat();
+							clr[2] = hud_hitdamage_blue.GetFloat();
+						}
+					}
+					else
+					{
+						// display as CUSTOM COLOR.
+						clr[0] = hud_hitdamage_red.GetFloat();
+						clr[1] = hud_hitdamage_green.GetFloat();
+						clr[2] = hud_hitdamage_blue.GetFloat();
+					}
+					
+					clr[3] = MIN(scale, 255);
+				}
+				break;
 			default:
 				// unknown history type
 				Assert( 0 );
@@ -446,13 +581,13 @@ void CHudHistoryResource::Paint( void )
 				}
 #endif // HL2MP
 #endif
-				xpos -= itemIcon->Width();
-				itemIcon->DrawSelf( xpos, ypos + (height - itemIcon->Height()) / 2, clr );
+				xpos -= itemIcon->WidthWithOffset();
+				itemIcon->DrawSelf( xpos, ypos + (height - itemIcon->HeightWithOffset()) / 2, clr );
 			}
 
 			if ( itemAmmoIcon != NULL )
 			{
-				xpos -= itemAmmoIcon->Width() * 1.25f;
+				xpos -= itemAmmoIcon->WidthWithOffset() * 1.25f;
 				itemAmmoIcon->DrawSelf( xpos, ypos, clr );
 			}
 

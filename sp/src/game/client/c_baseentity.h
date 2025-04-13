@@ -1335,6 +1335,9 @@ public:
 	// Team Handling
 	int								m_iTeamNum;
 
+	bool				m_bBoss;
+	bool				m_isRareEntity;
+
 #if !defined( NO_ENTITY_PREDICTION )
 	// Certain entities (projectiles) can be created on the client
 	CPredictableId					m_PredictableID;

@@ -4091,16 +4091,18 @@ const char* CNPC_MetroPolice::GetGibModel(appendage_t appendage)
 
 bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 {
+	CTakeDamageInfo newinfo = info;
+
 	bool gibs = true;
 	if (m_pAttributes != NULL)
 	{
 		gibs = m_pAttributes->GetBool("gibs", true);
 	}
 
-	if (info.GetDamageType() & DMG_DISSOLVE)
+	if (newinfo.GetDamageType() & DMG_DISSOLVE)
 		return false;
 
-	if (info.GetDamageType() & DMG_NEVERGIB)
+	if (newinfo.GetDamageType() & DMG_NEVERGIB)
 		return false;
 
 	static ConVarRef violence_hgibs( "violence_hgibs" );
@@ -4108,7 +4110,7 @@ bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 		&& (violence_hgibs.IsValid() && violence_hgibs.GetBool())
 		&& g_fr_headshotgore.GetBool() && gibs;
 
-	if (info.GetDamageType() & (DMG_SNIPER))
+	if (newinfo.GetDamageType() & (DMG_SNIPER))
 	{
 		if ( shouldAnimateDecap )
 		{
@@ -4121,7 +4123,7 @@ bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 			}
 
 			DispatchParticleEffect("smod_headshot_r", PATTACH_POINT_FOLLOW, this, "bloodspurt", true);
-			SpawnBlood( GetAbsOrigin(), g_vecAttackDir, BloodColor(), info.GetDamage() );
+			SpawnBlood( GetAbsOrigin(), g_vecAttackDir, BloodColor(), newinfo.GetDamage() );
 			CGib::SpawnSpecificStickyGibs( this, 6, 150, 450, "models/gibs/pgib_p3.mdl", 6 );
 			CGib::SpawnSpecificStickyGibs( this, 6, 150, 450, "models/gibs/pgib_p4.mdl", 6 );
 			EmitSound( "Gore.Headshot" );
@@ -4129,13 +4131,12 @@ bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 			m_bDecapitated = true;
 			m_bNoDeathSound = true;
 			SentenceStop();
-			m_iHealth = 0;
 			//Event_Killed(info);
 		}
 
 		return true;
 	}
-	else if (info.GetDamageType() & (DMG_SLASH))
+	else if (newinfo.GetDamageType() & (DMG_SLASH))
 	{
 		if ( shouldAnimateDecap )
 		{
@@ -4147,7 +4148,7 @@ bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 				m_pAttributes->SwitchEntityColor( this, "new_color" );
 			}
 
-			SpawnBlood( GetAbsOrigin(), g_vecAttackDir, BloodColor(), info.GetDamage() );
+			SpawnBlood( GetAbsOrigin(), g_vecAttackDir, BloodColor(), newinfo.GetDamage() );
 			CBaseEntity* pHeadGib = CGib::SpawnSpecificSingleGib( this, 150, 450, GetGibModel( APPENDAGE_HEAD ), 6 );
 
 			if ( pHeadGib )
@@ -4165,7 +4166,6 @@ bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 			m_bDecapitated = true;
 			m_bNoDeathSound = true;
 			SentenceStop();
-			m_iHealth = 0;
 			//Event_Killed(info);
 		}
 

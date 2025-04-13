@@ -616,6 +616,9 @@ Vector CNPC_CombineAce::CalcThrowVelocity(const Vector& startPos, const Vector& 
 
 CTakeDamageInfo CNPC_CombineAce::BulletResistanceLogic(const CTakeDamageInfo& info, trace_t* ptr)
 {
+	if (m_bBulletResistanceBroken)
+		return info;
+
 	int shieldhealth = GetMaxHealth() * 0.5;
 
 	CTakeDamageInfo outputInfo = info;

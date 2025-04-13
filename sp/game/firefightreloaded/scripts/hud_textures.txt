@@ -573,10 +573,17 @@
 				"customxyoffset"	"1"
 				"y_offset"		"5"
 		}
-        "dualies"
+       		 "dualies"
 		{
 				"font"		"WeaponIconsKillFeed3"
 				"character"	"s"
+		}
+		"hitmarker"
+		{
+				"font"		"Crosshairs"
+				"character"	"Q"
+				"customxyoffset"	"1"
+				"x_offset"		"45"
 		}
 	}	
 }

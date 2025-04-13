@@ -690,6 +690,15 @@ void CAI_BaseNPC::Event_Killed( const CTakeDamageInfo &info )
 		if ( pPlayer != NULL )
 			pAttacker = pPlayer;
 	}
+
+	if ((gpGlobals->curtime - m_flLastDamageTime) < 1.0)
+	{
+		m_flSumDamage += new_info.GetDamage();
+	}
+	else
+	{
+		m_flSumDamage = new_info.GetDamage();
+	}
 	
 	if (pAttacker->IsPlayer())
 	{
@@ -698,6 +707,28 @@ void CAI_BaseNPC::Event_Killed( const CTakeDamageInfo &info )
 			new_info.SetAttacker(pAttacker);
 			((CSingleplayRules*)GameRules())->NPCKilled(this, new_info);
 		}
+
+		// If the attacker was an NPC or client update my position memory
+		/*if (new_info.GetAttacker()->GetFlags() & (FL_NPC | FL_CLIENT))
+		{
+			CBasePlayer* player = ToBasePlayer(pAttacker);
+
+			if (player)
+			{
+				IGameEvent* event = gameeventmanager->CreateEvent("npc_hurt");
+				if (event)
+				{
+					event->SetInt("entindex", entindex());
+					event->SetInt("health", MAX(0, m_iHealth));
+					event->SetInt("damageamount", new_info.GetDamage());
+					event->SetInt("damageamount_consecutive", m_flSumDamage);
+					event->SetInt("priority", 5);	// HLTV event priority, not transmitted
+					event->SetInt("attacker_player", player->GetUserID()); // hurt by other player
+
+					gameeventmanager->FireEvent(event);
+				}
+			}
+		}*/
 
 		if (GlobalEntity_GetState("player_inbossbattle") == GLOBAL_OFF && sk_gotoboss_ondronekill.GetBool())
 		{
@@ -1016,6 +1047,24 @@ int CAI_BaseNPC::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 		NotifyFriendsOfDamage( info.GetAttacker() );
 	}
 
+	CBasePlayer* player = ToBasePlayer(info.GetAttacker());
+
+	if (player)
+	{
+		IGameEvent* event = gameeventmanager->CreateEvent("npc_hurt");
+		if (event)
+		{
+			event->SetInt("entindex", entindex());
+			event->SetInt("health", MAX(0, m_iHealth));
+			event->SetInt("damageamount", info.GetDamage());
+			event->SetInt("damageamount_consecutive", m_flSumDamage);
+			event->SetInt("priority", 5);	// HLTV event priority, not transmitted
+			event->SetInt("attacker_player", player->GetUserID()); // hurt by other player
+
+			gameeventmanager->FireEvent(event);
+		}
+	}
+
 	// ---------------------------------------------------------------
 	//  Insert a combat sound so that nearby NPCs know I've been hit
 	// ---------------------------------------------------------------
@@ -1043,6 +1092,7 @@ int CAI_BaseNPC::OnTakeDamage_Dying( const CTakeDamageInfo &info )
 			}
 		}
 	}
+
 	return BaseClass::OnTakeDamage_Dying( info );
 }
 
@@ -11202,7 +11252,6 @@ BEGIN_DATADESC( CAI_BaseNPC )
 	DEFINE_KEYFIELD( m_iszEnemyFilterName,		FIELD_STRING, "enemyfilter" ),
 	DEFINE_FIELD( m_bImportanRagdoll,			FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_bPlayerAvoidState,			FIELD_BOOLEAN ),
-	DEFINE_FIELD(m_bBoss, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_bNoRemove, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_IsAdvisorDrone, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_iAttributePresetNum, FIELD_INTEGER),

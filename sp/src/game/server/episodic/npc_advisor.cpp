@@ -289,6 +289,9 @@ void CNPC_Advisor::LoadInitAttributes()
 
 CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info, trace_t* ptr)
 {
+	if (m_bBulletResistanceBroken)
+		return info;
+	
 	CTakeDamageInfo outputInfo = info;
 
 	int shieldmaxhealth = GetMaxHealth() * 0.5;

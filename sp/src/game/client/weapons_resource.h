@@ -36,6 +36,7 @@ public:
 
 	// Ammo Handling
 	CHudTexture					*GetAmmoIconFromWeapon( int iAmmoId );
+	CHudTexture					*GetIconFromActiveWeapon();
 	const FileWeaponInfo_t		*GetWeaponFromAmmo( int iAmmoId );
 };
 

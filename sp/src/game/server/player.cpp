@@ -2707,7 +2707,7 @@ int CBasePlayer::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 	if ( !BaseClass::OnTakeDamage_Alive( info ) )
 		return 0;
 
-	CBaseEntity * attacker = info.GetAttacker();
+	CBaseEntity* attacker = info.GetAttacker();
 
 	if ( !attacker )
 		return 0;
@@ -2737,12 +2737,20 @@ int CBasePlayer::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 	{
 		event->SetInt("userid", GetUserID() );
 		event->SetInt("health", MAX(0, m_iHealth) );
+		event->SetInt("damageamount", info.GetDamage());
 		event->SetInt("priority", 5 );	// HLTV event priority, not transmitted
 
 		if ( attacker->IsPlayer() )
 		{
-			CBasePlayer *player = ToBasePlayer( attacker );
-			event->SetInt("attacker", player->GetUserID() ); // hurt by other player
+			CBasePlayer* player = ToBasePlayer(attacker);
+			if (player)
+			{
+				event->SetInt("attacker", player->GetUserID()); // hurt by other player
+			}
+			else
+			{
+				event->SetInt("attacker", 0); // hurt by "world"
+			}
 		}
 		else
 		{

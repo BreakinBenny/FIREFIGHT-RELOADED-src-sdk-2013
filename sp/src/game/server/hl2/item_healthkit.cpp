@@ -166,7 +166,7 @@ bool CHealthKit::MyTouch( CBasePlayer *pPlayer )
 		user.MakeReliable();
 
 		UserMessageBegin( user, "ItemPickup" );
-			WRITE_STRING( GetClassname() );
+			WRITE_STRING( "item_healthkit" );
 		MessageEnd();
 
 		CPASAttenuationFilter filter( pPlayer, "HealthKit.Touch" );

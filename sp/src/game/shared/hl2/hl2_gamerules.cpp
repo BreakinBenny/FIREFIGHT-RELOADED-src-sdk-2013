@@ -96,6 +96,8 @@ ConVar	sk_allow_autoaim( "sk_allow_autoaim", "1", FCVAR_REPLICATED | FCVAR_ARCHI
 
 ConVar	firefightrumble_enemyattack("firefightrumble_enemyattack", "0", FCVAR_REPLICATED | FCVAR_ARCHIVE);
 
+ConVar  r_burningpropslight_override("r_burningpropslight_override", "1", FCVAR_REPLICATED | FCVAR_ARCHIVE);
+
 // Autoaim scale
 ConVar	sk_autoaim_scale1( "sk_autoaim_scale1", "1.0", FCVAR_REPLICATED);
 ConVar	sk_autoaim_scale2( "sk_autoaim_scale2", "1.0", FCVAR_REPLICATED);
@@ -1767,9 +1769,9 @@ bool CHalfLife2::IsAlyxInDarknessMode()
 bool CHalfLife2::ShouldBurningPropsEmitLight()
 {
 #ifdef HL2_EPISODIC
-	return IsAlyxInDarknessMode();
+	return (IsAlyxInDarknessMode() || r_burningpropslight_override.GetBool());
 #else
-	return false;
+	return r_burningpropslight_override.GetBool();
 #endif // HL2_EPISODIC
 }
 
