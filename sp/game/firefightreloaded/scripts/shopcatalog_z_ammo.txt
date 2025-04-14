@@ -90,17 +90,11 @@
 	}
 	"15"
 	{
-		"name"	"RailgunAmmo"
-		"price"	"800"
-		"command"	"ammo Railgun 25"
-	}
-	"16"
-	{
 		"name"	"OICWAmmo"
 		"price"	"30"
 		"command"	"ammo 556Round 60"
 	}
-	"17"
+	"16"
 	{
 		"name"	"AlyxgunAmmo"
 		"price"	"25"
