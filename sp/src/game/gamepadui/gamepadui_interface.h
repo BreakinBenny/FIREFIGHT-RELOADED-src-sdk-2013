@@ -25,6 +25,9 @@
 #include "IGameUIFuncs.h"
 #include "steam/steam_api.h"
 #include "fmod/gamepadui_fmod.h"
+#ifdef STEAM_INPUT
+#include "expanded_steam/isteaminput.h"
+#endif
 
 class GamepadUIBasePanel;
 class GamepadUIMainMenu;
@@ -69,6 +72,9 @@ public:
     ISoundEmitterSystemBase *GetSoundEmitterSystemBase() const { return m_pSoundEmitterSystemBase; }
     IVEngineClient          *GetEngineClient()           const { return m_pEngineClient; }
     IVRenderView            *GetRenderView()             const { return m_pRenderView; }
+#ifdef STEAM_INPUT
+    ISource2013SteamInput* GetSteamInput()             const { return m_pSteamInput; }
+#endif
 
     vgui::AnimationController *GetAnimationController() const { return m_pAnimationController; }
     float GetTime() const { return Plat_FloatTime(); }
@@ -77,6 +83,11 @@ public:
     void ResetToMainMenuGradients();
 
     CSteamAPIContext* GetSteamAPIContext() { return &m_SteamAPIContext; }
+
+#ifdef STEAM_INPUT
+    // TODO: Replace with proper singleton interface in the future
+    void SetSteamInput(ISource2013SteamInput* pSteamInput) override { m_pSteamInput = pSteamInput; }
+#endif
 
     float GetScreenRatio() const { return m_flScreenRatio; }
 
@@ -93,6 +104,10 @@ private:
 
     IGameUI                 *m_pGameUI                 = NULL;
     IAchievementMgr         *m_pAchievementMgr         = NULL;
+
+#ifdef STEAM_INPUT
+    ISource2013SteamInput* m_pSteamInput = NULL;
+#endif
 
     vgui::AnimationController *m_pAnimationController = NULL;
     GamepadUIBasePanel *m_pBasePanel = NULL;

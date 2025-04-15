@@ -366,7 +366,9 @@ static ConVar cl_discord_devbuild("cl_discord_devbuild", "0", FCVAR_DEVELOPMENTO
 static ConVar cl_discord("cl_discord", "1", FCVAR_ARCHIVE);
 #endif
 
+#ifndef STEAM_INPUT
 ConVar cl_glyphtype("cl_glyphtype", "0", FCVAR_ARCHIVE);
+#endif
 
 ConVar cl_deck_override_client_settings("cl_deck_override_client_settings", "1", FCVAR_ARCHIVE);
 
@@ -964,6 +966,7 @@ int CHLClient::Init( CreateInterfaceFn appSystemFactory, CreateInterfaceFn physi
 
 	if (g_pSteamInput->IsSteamRunningOnSteamDeck())
 	{
+		CommandLine()->AppendParm("-deck", NULL);
 		CommandLine()->AppendParm("-w", "1280");
 		CommandLine()->AppendParm("-h", "800");
 	}
@@ -1342,6 +1345,11 @@ void CHLClient::PostInit()
 					factorylist_t factories;
 					FactoryList_Retrieve(factories);
 					g_pGamepadUI->Initialize(factories.appSystemFactory);
+
+#ifdef STEAM_INPUT
+					g_pSteamInput->SetGamepadUI(true);
+					g_pGamepadUI->SetSteamInput(g_pSteamInput);
+#endif
 				}
 				else
 				{
@@ -1546,7 +1554,11 @@ void CHLClient::HudUpdate( bool bActive )
 #ifdef STEAM_INPUT
 	//if (g_pSteamInput->IsEnabled())
 	{
+#if defined(GAMEPADUI)
+		if (!engine->IsConnected() || engine->IsPaused())
+#else
 		if (!engine->IsConnected() || engine->IsPaused() || engine->IsLevelMainMenuBackground())
+#endif
 		{
 			ActionSet_t iActionSet = AS_MenuControls;
 			g_pSteamInput->RunFrame(iActionSet);

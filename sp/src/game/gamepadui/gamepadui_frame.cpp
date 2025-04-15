@@ -193,7 +193,9 @@ void GamepadUIFrame::LayoutFooterButtons()
             nRightOffset += m_flFooterButtonsSpacing + m_pFooterButtons[i]->GetWide();
         }
 
-#ifdef HL2_RETAIL // Steam input and Steam Controller are not supported in SDK2013 (Madi)
+#ifdef STEAM_INPUT
+        const bool bController = GamepadUI::GetInstance().GetSteamInput()->IsEnabled();
+#elif defined(HL2_RETAIL) // Steam input and Steam Controller are not supported in SDK2013 (Madi)
         const bool bController = g_pInputSystem->IsSteamControllerActive();
 #else
         ConVarRef cl_glyphtype("cl_glyphtype");

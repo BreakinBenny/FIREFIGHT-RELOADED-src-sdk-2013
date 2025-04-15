@@ -53,6 +53,8 @@ char *SteamInput_VarArgs( const char *format, ... )
 //-------------------------------------------
 
 #define USE_HL2_INSTALLATION 0 // This attempts to obtain HL2's action manifest from the user's own HL2 or Portal installations
+//HACK!
+#define USE_FR_INSTALLATION 1
 
 InputActionSetHandle_t g_AS_GameControls;
 InputActionSetHandle_t g_AS_VehicleControls;
@@ -342,7 +344,7 @@ void CSource2013SteamInput::InitSteamInput()
 {
 	bool bInit = false;
 
-	if (CommandLine()->CheckParm( "-nosteamcontroller" ) == 0 && SteamUtils()->IsOverlayEnabled())
+	if (CommandLine()->CheckParm( "-nosteamcontroller" ) == 0 /*&& SteamUtils()->IsOverlayEnabled()*/)
 	{
 		// Do this before initializing SteamInput()
 		InitActionManifest();
@@ -424,6 +426,7 @@ void CSource2013SteamInput::InitSteamInput()
 #define ACTION_MANIFEST_MOD					"steam_input/action_manifest_mod.vdf"
 #define ACTION_MANIFEST_RELATIVE_HL2		"%s/../Half-Life 2/steam_input/action_manifest_hl2.vdf"
 #define ACTION_MANIFEST_RELATIVE_PORTAL		"%s/../Portal/steam_input/action_manifest_hl2.vdf"
+#define ACTION_MANIFEST_RELATIVE_FR			"%s/../FIREFIGHT RELOADED/controller_config/action_manifest_firefightreloaded.vdf"
 
 void CSource2013SteamInput::InitActionManifest()
 {
@@ -437,6 +440,23 @@ void CSource2013SteamInput::InitActionManifest()
 		Msg( "Loading mod action manifest file at \"%s\"\n", szFullPath );
 		SteamInput()->SetInputActionManifestFilePath( szFullPath );
 	}
+#if USE_FR_INSTALLATION
+	else if (SteamUtils()->GetAppID() == 397680)
+	{
+		char szCurDir[MAX_PATH];
+		g_pFullFileSystem->GetCurrentDirectory(szCurDir, sizeof(szCurDir));
+
+		char szTargetApp[MAX_PATH];
+		Q_snprintf(szTargetApp, sizeof(szTargetApp), ACTION_MANIFEST_RELATIVE_FR, szCurDir);
+		V_FixSlashes(szTargetApp);
+
+		if (g_pFullFileSystem->FileExists(szTargetApp))
+		{
+			Msg("Loading FIREFIGHT RELOADED action manifest file at \"%s\"\n", szTargetApp);
+			SteamInput()->SetInputActionManifestFilePath(szTargetApp);
+		}
+}
+#else
 #if USE_HL2_INSTALLATION
 	else if (SteamUtils()->GetAppID() == 243730 || SteamUtils()->GetAppID() == 243750)
 	{
@@ -465,6 +485,7 @@ void CSource2013SteamInput::InitActionManifest()
 			}
 		}
 	}
+#endif
 #endif
 }
 

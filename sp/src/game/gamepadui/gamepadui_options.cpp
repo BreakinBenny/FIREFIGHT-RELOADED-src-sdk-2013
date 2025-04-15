@@ -1465,7 +1465,7 @@ void GamepadUIOptionsPanel::Paint()
     const int nGlyphOffsetX = nGlyphSize / 4.0f;
     const int nGlyphOffsetY = nTabSize - nGlyphSize;
 
-#ifdef HL2_RETAIL // Steam input and Steam Controller are not supported in SDK2013 (Madi)
+#if defined(HL2_RETAIL) || defined(STEAM_INPUT) // Steam input and Steam Controller are not supported in SDK2013 (Madi)
     if ( m_leftGlyph.SetupGlyph( nGlyphSize, "menu_lb", true ) )
         m_leftGlyph.PaintGlyph( m_flTabsOffsetX - nGlyphSize - nGlyphOffsetX, m_flTabsOffsetY + nGlyphOffsetY / 2, nGlyphSize, 255 );
 
@@ -1697,7 +1697,12 @@ void GamepadUIOptionsPanel::OnCommand( char const* pCommand )
     }
     else if ( !V_strcmp( pCommand, "open_steaminput" ) )
     {
-#ifdef HL2_RETAIL // Steam input and Steam Controller are not supported in SDK2013 (Madi)
+#ifdef STEAM_INPUT
+        if (GamepadUI::GetInstance().GetSteamInput()->IsEnabled())
+        {
+            GamepadUI::GetInstance().GetSteamInput()->ShowBindingPanel(GamepadUI::GetInstance().GetSteamInput()->GetActiveController());
+        }
+#elif defined(HL2_RETAIL) // Steam input and Steam Controller are not supported in SDK2013 (Madi)
         uint64_t nController = g_pInputSystem->GetActiveSteamInputHandle();
         if ( !nController )
         {

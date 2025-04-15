@@ -28,6 +28,9 @@
 
 #ifdef CLIENT_DLL
 	#include "c_te_effect_dispatch.h"
+#ifdef STEAM_INPUT
+	#include "expanded_steam/isteaminput.h"
+#endif
 #else
 	#include "te_effect_dispatch.h"
 
@@ -1184,5 +1187,20 @@ const bool UTIL_IsGamepadUIEnabled()
 
 const bool UTIL_IsSteamDeck()
 {
+#ifdef STEAM_INPUT
+#ifdef CLIENT_DLL
+	if (g_pSteamInput)
+	{
+		return g_pSteamInput->IsSteamRunningOnSteamDeck();
+	}
+#else
 	return IsDeck();
+#endif // CLIENT_DLL
+#else
+	const char* pszSteamDeckEnv = getenv("SteamDeck");
+	if (pszSteamDeckEnv && *pszSteamDeckEnv)
+		return atoi(pszSteamDeckEnv) != 0;
+#endif
+
+	return false;
 }
