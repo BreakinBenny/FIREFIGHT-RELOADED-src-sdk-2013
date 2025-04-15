@@ -65,6 +65,7 @@ Maestra Fénix for the following:
 The Open Fortress Team for the color proxy code.
 Iván Bravo Bravo for the node generation code.
 The Mapbase Team for logic_eventlistener.
+Blixibon for Expanded Steam.
 Spirrwell for their FMOD implementation.
 FMOD created by Firelight Technologies Pty Ltd.
 

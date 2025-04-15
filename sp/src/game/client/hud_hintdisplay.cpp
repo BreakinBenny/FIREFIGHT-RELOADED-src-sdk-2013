@@ -491,12 +491,15 @@ void CHudHintKeyDisplay::Paint()
 				vgui::surface()->DrawSetColor(m_Labels[i]->GetFgColor());
 
 				int i2 = i / 2;
-				vgui::surface()->DrawSetTexture(m_pchBindingChoices[i2][m_iBindingTick % m_pchBindingChoices[i2].Count()].i);
+				if (m_pchBindingChoices[i2].Count() > 0)
+				{
+					vgui::surface()->DrawSetTexture(m_pchBindingChoices[i2][m_iBindingTick % m_pchBindingChoices[i2].Count()].i);
 
-				int x, y;
-				m_Labels[i]->GetPos(x, y);
+					int x, y;
+					m_Labels[i]->GetPos(x, y);
 
-				vgui::surface()->DrawTexturedRect(x, y, x + m_iButtonSize, y + m_iButtonSize);
+					vgui::surface()->DrawTexturedRect(x, y, x + m_iButtonSize, y + m_iButtonSize);
+				}
 			}
 		}
 

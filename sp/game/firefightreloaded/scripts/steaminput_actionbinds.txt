@@ -1,0 +1,56 @@
+//
+// This file defines what command each action should run
+//
+"scripts/steaminput_actionbinds.txt"
+{
+	"attack"				"+attack"
+	"attack2"				"+attack2"
+	"zoom"					"+zoom"
+	"reload"				"+reload"
+	"jump"					"+jump"
+	"duck"					"+duck"
+	"use"					"+use"
+	"invnext"				"invnext"
+	"invprev"				"invprev"
+	"lastinv"				"lastinv"
+	"walk"					"+walk"
+	"speed"					"+speed"
+	"pause_menu"			"pause_menu"
+	"sc_flashlight"			"impulse 100" // sc_flashlight
+	"sc_squad"				"impulse 50" // sc_squad
+	"lookspin"				"+lookspin"
+	"resetcamera"			"+resetcamera"
+	"slot1"					"slot1"
+	"slot2"					"slot2"
+	"slot3"					"slot3"
+	"slot4"					"slot4"
+	"phys_swap"				"phys_swap"
+	"bug_swap"				"bug_swap"
+	"sc_save_quick"			"save quick" // sc_save_quick
+	"sc_load_quick"			"load quick" // sc_load_quick
+
+	"toggle_zoom"			"toggle_zoom"
+	"toggle_duck"			"toggle_duck"
+
+	//FR
+    "firemode"				"+attack3"
+	"bullettime"			"+bullettime"
+	"toggle_bullettime"			"toggle_bullettime"
+	"mod_showposition"			"showposition"
+	"mod_ai_node_start"		"ai_nodes_start"
+	"mod_ai_node_save"		"ai_nodes_save"
+	"mod_ai_node_add"		"ai_nodes_add"
+	"mod_ai_node_undo"		"ai_nodes_undo"
+	"moddingmenu"			"moddingmenu"
+	"mus_reload"			"snd_fmod_musicsystem_reload"
+	"mus_backward"			"snd_fmod_musicsystem_backward"
+	"mus_forward"			"snd_fmod_musicsystem_forward"
+	"showscores"			"+showscores"
+	"grapple"				"+grapple"
+	"buymenu_old"			"buymenu"
+	"buymenu"			"gamepadui_openstore"
+	"toggle_dualwield"			"toggle_dualwield"
+	"toggle_ironsight"			"toggle_ironsight"
+	"ironsight"				"+ironsight"
+	"kick"				"+kick"
+}

@@ -140,6 +140,7 @@
 	" "	"CreditsOutroText"
 	"The Mapbase Team for logic_eventlistener." 	"CreditsOutroText"
 	" "	"CreditsOutroText"
+	"Blixibon for Expanded Steam."	"CreditsOutroText"
 	"Spirrwell for their FMOD implementation."	"CreditsOutroText"
 	"FMOD created by Firelight Technologies Pty Ltd."	"CreditsOutroText"
 	" "	"CreditsOutroText"
