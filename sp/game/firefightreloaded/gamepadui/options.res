@@ -3077,23 +3077,6 @@
 				"options_from"	"displaymode"
 			}
             
-            "Glyphs"
-			{
-				"text"			"#Deck_Glyphs"
-				"type"			"wheelywheel"
-				"convar"		"cl_glyphtype"
-
-				"options"
-				{
-					"0"		"#Deck_Glyphs_Off"
-					"1"		"#Deck_Glyphs_Xbone"
-                    "2"		"#Deck_Glyphs_PS"
-                    "3"		"#Deck_Glyphs_Switch"
-                    "4"		"#Deck_Glyphs_Generic"
-                    "5"		"#Deck_Glyphs_Keyboard"
-				}
-			}
-            
 			"AdvancedHeader"
 			{
 				"text"			"#GameUI_AdvancedNoEllipsis"
