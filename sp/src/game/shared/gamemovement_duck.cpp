@@ -337,6 +337,12 @@ bool CGameMovement::CanUnDuckJump( trace_t &trace )
 	return false;
 }
 
+#if !defined(CLIENT_DLL)
+#ifdef STEAM_INPUT
+extern ConVar player_x360_crouch_hints;
+#endif
+#endif
+
 //-----------------------------------------------------------------------------
 // Purpose: See if duck button is pressed and do the appropriate things
 //-----------------------------------------------------------------------------
@@ -388,7 +394,11 @@ void CGameMovement::Duck( void )
 		{
 			// XBOX SERVER ONLY
 #if !defined(CLIENT_DLL)
+#ifdef STEAM_INPUT
+			if ((IsX360() || player_x360_crouch_hints.GetBool()) && buttonsPressed & IN_DUCK)
+#else
 			if (IsX360() && buttonsPressed & IN_DUCK)
+#endif
 			{
 				// Hinting logic
 				if (player->GetToggledDuckState() && player->m_nNumCrouches < NUM_CROUCH_HINTS)

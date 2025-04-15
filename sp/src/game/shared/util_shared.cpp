@@ -1184,9 +1184,5 @@ const bool UTIL_IsGamepadUIEnabled()
 
 const bool UTIL_IsSteamDeck()
 {
-	const char* pszSteamDeckEnv = getenv("SteamDeck");
-	if (pszSteamDeckEnv && *pszSteamDeckEnv)
-		return atoi(pszSteamDeckEnv) != 0;
-
-	return false;
+	return IsDeck();
 }

@@ -90,6 +90,10 @@
 ConVar autoaim_max_dist( "autoaim_max_dist", "2160" ); // 2160 = 180 feet
 ConVar autoaim_max_deflect( "autoaim_max_deflect", "0.99" );
 
+#ifdef STEAM_INPUT
+ConVar player_x360_weapon_select_hints("player_x360_weapon_select_hints", "0");
+#endif
+
 #ifdef CSTRIKE_DLL
 ConVar	spec_freeze_time( "spec_freeze_time", "5.0", FCVAR_CHEAT | FCVAR_REPLICATED, "Time spend frozen in observer freeze cam." );
 ConVar	spec_freeze_traveltime( "spec_freeze_traveltime", "0.7", FCVAR_CHEAT | FCVAR_REPLICATED, "Time taken to zoom in to frame a target in observer freeze cam.", true, 0.01, false, 0 );
@@ -8866,7 +8870,11 @@ bool CBasePlayer::BumpWeapon( CBaseCombatWeapon *pWeapon )
 		}
 		else
 		{
-			if ( IsX360() )
+#ifdef STEAM_INPUT
+			if (IsX360() || player_x360_weapon_select_hints.GetBool())
+#else
+			if (IsX360())
+#endif
 			{
 				CFmtStr hint;
 				hint.sprintf( "#valve_hint_select_%s", pWeapon->GetClassname() );

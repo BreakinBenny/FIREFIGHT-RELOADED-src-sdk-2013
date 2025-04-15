@@ -130,6 +130,10 @@ void vm_adjust_fov_callback(IConVar *pConVar, char const *pOldString, float flOl
 	}
 }
 
+#if defined(STEAM_INPUT) && defined(CLIENT_DLL)
+extern ConVar hud_fastswitch;
+#endif
+
 CBaseCombatWeapon::CBaseCombatWeapon()
 {
 	// Constructor must call this
@@ -670,6 +674,11 @@ int CBaseCombatWeapon::GetWeaponFlags( void ) const
 //-----------------------------------------------------------------------------
 int CBaseCombatWeapon::GetSlot( void ) const
 {
+#if defined(STEAM_INPUT) && defined(CLIENT_DLL)
+	if (hud_fastswitch.GetInt() == 2)
+		return GetWpnData().iSlot360;
+#endif
+
 	return GetWpnData().iSlot;
 }
 
@@ -678,6 +687,11 @@ int CBaseCombatWeapon::GetSlot( void ) const
 //-----------------------------------------------------------------------------
 int CBaseCombatWeapon::GetPosition( void ) const
 {
+#if defined(STEAM_INPUT) && defined(CLIENT_DLL)
+	if (hud_fastswitch.GetInt() == 2)
+		return GetWpnData().iPosition360;
+#endif
+
 	return GetWpnData().iPosition;
 }
 

@@ -23,6 +23,11 @@ $Project "gamepadui"
 	"game\gamepadui\gamepadui_fr.vpc"	[($WIN32||$X360||$POSIX) && $FR]
 }
 
+$Project "expanded_steam"
+{
+	"expanded_steam\expanded_steam.vpc" [($WIN32||$X360||$POSIX) && $BUILD_EXPANDED_STEAM]
+}
+
 $Project "fgdlib"
 {
 	"fgdlib\fgdlib.vpc" [$WIN32]
