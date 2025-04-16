@@ -1009,18 +1009,22 @@ void Button::OnMouseReleased(MouseCode code)
 //-----------------------------------------------------------------------------
 void Button::OnKeyCodePressed(KeyCode code)
 {
-	KeyCode localCode = GetBaseButtonCode( code );
+#ifndef STEAM_INPUT
+	KeyCode localCode = GetBaseButtonCode(code);
 
-	if( ( localCode == KEY_XBUTTON_A ) && IsEnabled() )
+	if ((localCode == KEY_XBUTTON_A) && IsEnabled())
 	{
-		SetArmed( true );
-		_buttonFlags.SetFlag( BUTTON_KEY_DOWN );
-		if( _activationType != ACTIVATE_ONRELEASED )
+		SetArmed(true);
+		_buttonFlags.SetFlag(BUTTON_KEY_DOWN);
+		if (_activationType != ACTIVATE_ONRELEASED)
 		{
 			DoClick();
 		}
 	}
 	else if (code == KEY_SPACE || code == KEY_ENTER)
+#else
+	if (code == KEY_SPACE || code == KEY_ENTER)
+#endif // !STEAM_INPUT
 	{
 		SetArmed(true);
 		_buttonFlags.SetFlag( BUTTON_KEY_DOWN );

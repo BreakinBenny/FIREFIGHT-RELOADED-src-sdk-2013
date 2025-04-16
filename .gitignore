@@ -114,3 +114,5 @@ sp/src/lib/public/raytrace.pdb
 sp/src/lib/public/tier1.pdb
 sp/src/lib/public/vgui_controls.pdb
 *.lin
+sp/src/lib/public/expanded_steam.pdb
+sp/src/lib/public/expanded_steam.lib
