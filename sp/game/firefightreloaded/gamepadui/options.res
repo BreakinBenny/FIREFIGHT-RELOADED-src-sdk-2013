@@ -189,21 +189,6 @@
                 "hidden"		"1"
 			}
             
-            "DeckOverride"
-			{
-				"text"			"#GameUI_DeckOverride"
-				"type"			"wheelywheel"
-				"convar"		"cl_deck_override_client_settings"
-                "advanced"		"1"
-                "hidden"		"1"
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#gameui_enabled"
-				}
-			}
-            
             "StartingKash"
 			{
 				"text"			"#GameUI_StartingKash"

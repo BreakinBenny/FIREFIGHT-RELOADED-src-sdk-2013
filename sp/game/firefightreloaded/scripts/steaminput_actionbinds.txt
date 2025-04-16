@@ -3,6 +3,12 @@
 //
 "scripts/steaminput_actionbinds.txt"
 {
+    //movement switch didn't work for FR, so we're binding the movement keys as well.
+    "backward"              "+back"
+    "forward"               "+forward"
+    "left"                  "+moveleft"
+    "right"                 "+moveright"
+
 	"attack"				"+attack"
 	"attack2"				"+attack2"
 	"zoom"					"+zoom"
