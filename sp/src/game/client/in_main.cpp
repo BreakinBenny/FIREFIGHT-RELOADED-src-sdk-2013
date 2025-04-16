@@ -1204,21 +1204,24 @@ void CInput::CreateMove ( int sequence_number, float input_sample_frametime, boo
 
 #ifdef STEAM_INPUT
 	C_BasePlayer* pPlayer = C_BasePlayer::GetLocalPlayer();
-	if (pPlayer)
+	if (g_pSteamInput)
 	{
-		if (!engine->IsPaused() && !engine->IsLevelMainMenuBackground())
+		if (pPlayer)
 		{
-			ActionSet_t iActionSet;
-			if (pPlayer->GetVehicle())
+			if (!engine->IsPaused() && !engine->IsLevelMainMenuBackground())
 			{
-				iActionSet = AS_VehicleControls;
-			}
-			else
-			{
-				iActionSet = AS_GameControls;
-			}
+				ActionSet_t iActionSet;
+				if (pPlayer->GetVehicle())
+				{
+					iActionSet = AS_VehicleControls;
+				}
+				else
+				{
+					iActionSet = AS_GameControls;
+				}
 
-			g_pSteamInput->RunFrame(iActionSet);
+				g_pSteamInput->RunFrame(iActionSet);
+			}
 		}
 	}
 #endif
@@ -1802,7 +1805,10 @@ void CInput::Init_All (void)
 	Init_Camera();
 
 #ifdef STEAM_INPUT
-	g_pSteamInput->InitSteamInput();
+	if (g_pSteamInput)
+	{
+		g_pSteamInput->InitSteamInput();
+	}
 #endif
 }
 
@@ -1823,7 +1829,10 @@ void CInput::Shutdown_All(void)
 	m_pVerifiedCommands = NULL;
 
 #ifdef STEAM_INPUT
-	g_pSteamInput->Shutdown();
+	if (g_pSteamInput)
+	{
+		g_pSteamInput->Shutdown();
+	}
 #endif
 }
 

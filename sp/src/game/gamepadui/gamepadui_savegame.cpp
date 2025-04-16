@@ -203,6 +203,8 @@ void GamepadUISaveGamePanel::UpdateGradients()
 	GamepadUI::GetInstance().GetGradientHelper()->ResetTargets( flTime );
 	GamepadUI::GetInstance().GetGradientHelper()->SetTargetGradient( GradientSide::Up, { 1.0f, 1.0f }, flTime );
 	GamepadUI::GetInstance().GetGradientHelper()->SetTargetGradient( GradientSide::Down, { 1.0f, 1.0f }, flTime );
+
+	BaseClass::UpdateGradients();
 }
 
 void GamepadUISaveGamePanel::OnThink()

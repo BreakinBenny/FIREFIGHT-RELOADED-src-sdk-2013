@@ -536,7 +536,7 @@ void CInput::Joystick_Advanced(void)
 	}
 
 #ifdef STEAM_INPUT
-	if (g_pSteamInput->IsEnabled())
+	if (g_pSteamInput && g_pSteamInput->IsEnabled())
 		return;
 #endif
 
@@ -693,7 +693,7 @@ void CInput::JoyStickMove( float frametime, CUserCmd *cmd )
 
 	// Reinitialize the 'advanced joystick' system if hotplugging has caused us toggle between some/none joysticks.
 #ifdef STEAM_INPUT
-	bool haveJoysticks = g_pSteamInput->UsingJoysticks();
+	bool haveJoysticks = (g_pSteamInput && g_pSteamInput->UsingJoysticks());
 #else
 	bool haveJoysticks = (inputsystem->GetJoystickCount() > 0);
 #endif
@@ -726,13 +726,16 @@ void CInput::JoyStickMove( float frametime, CUserCmd *cmd )
 	memset( &gameAxes, 0, sizeof(gameAxes) );
 
 #ifdef STEAM_INPUT
-	bool gameAxesRelative[MAX_GAME_AXES];
-	g_pSteamInput->GetJoystickValues(gameAxes[GAME_AXIS_FORWARD].value, gameAxes[GAME_AXIS_SIDE].value, gameAxes[GAME_AXIS_PITCH].value, gameAxes[GAME_AXIS_YAW].value,
-		gameAxesRelative[GAME_AXIS_FORWARD], gameAxesRelative[GAME_AXIS_SIDE], gameAxesRelative[GAME_AXIS_PITCH], gameAxesRelative[GAME_AXIS_YAW]);
-
-	for (int i = 0; i < MAX_GAME_AXES; ++i)
+	if (g_pSteamInput)
 	{
-		gameAxes[i].controlType = gameAxesRelative[i] ? JOY_RELATIVE_AXIS : JOY_ABSOLUTE_AXIS;
+		bool gameAxesRelative[MAX_GAME_AXES];
+		g_pSteamInput->GetJoystickValues(gameAxes[GAME_AXIS_FORWARD].value, gameAxes[GAME_AXIS_SIDE].value, gameAxes[GAME_AXIS_PITCH].value, gameAxes[GAME_AXIS_YAW].value,
+			gameAxesRelative[GAME_AXIS_FORWARD], gameAxesRelative[GAME_AXIS_SIDE], gameAxesRelative[GAME_AXIS_PITCH], gameAxesRelative[GAME_AXIS_YAW]);
+
+		for (int i = 0; i < MAX_GAME_AXES; ++i)
+		{
+			gameAxes[i].controlType = gameAxesRelative[i] ? JOY_RELATIVE_AXIS : JOY_ABSOLUTE_AXIS;
+		}
 	}
 #else
 	// Get each joystick axis value, and normalize the range

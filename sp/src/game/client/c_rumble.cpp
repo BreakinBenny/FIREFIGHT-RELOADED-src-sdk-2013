@@ -522,7 +522,10 @@ void CRumbleEffects::SetOutputEnabled( bool bEnable )
 		m_flScreenShake = 0.0f;
 
 #ifdef STEAM_INPUT
-		g_pSteamInput->StopRumble();
+		if (g_pSteamInput)
+		{
+			g_pSteamInput->StopRumble();
+		}
 #else
 		inputsystem->StopRumble();
 #endif
@@ -781,7 +784,10 @@ void CRumbleEffects::UpdateEffects( float curtime )
 	}
 
 #ifdef STEAM_INPUT
-	g_pSteamInput->SetRumble(0, fLeftMotor, fRightMotor);
+	if (g_pSteamInput)
+	{
+		g_pSteamInput->SetRumble(0, fLeftMotor, fRightMotor);
+	}
 #else
 	inputsystem->SetRumble(fLeftMotor, fRightMotor);
 #endif
@@ -789,12 +795,15 @@ void CRumbleEffects::UpdateEffects( float curtime )
 
 //---------------------------------------------------------
 //---------------------------------------------------------
-void StopAllRumbleEffects( void )
+void StopAllRumbleEffects(void)
 {
 	g_RumbleEffects.StopAllEffects();
 
 #ifdef STEAM_INPUT
-	g_pSteamInput->StopRumble();
+	if (g_pSteamInput)
+	{
+		g_pSteamInput->StopRumble();
+	}
 #else
 	inputsystem->StopRumble();
 #endif

@@ -583,7 +583,7 @@ bool CHudHintKeyDisplay::SetHintText( const char *text )
 	m_Labels.RemoveAll();
 
 #ifdef STEAM_INPUT
-	if (g_pSteamInput->IsEnabled())
+	if (g_pSteamInput && g_pSteamInput->IsEnabled())
 	{
 		// Remap the hint if needed
 		g_pSteamInput->RemapHudHint(&text);
@@ -694,7 +694,7 @@ bool CHudHintKeyDisplay::SetHintText( const char *text )
 			char friendlyName[64];
 
 #if STEAM_INPUT
-			if (g_pSteamInput->IsEnabled())
+			if (g_pSteamInput && g_pSteamInput->IsEnabled())
 			{
 				int labelIdx = 0;
 				if (g_pSteamInput->IsEnabled())

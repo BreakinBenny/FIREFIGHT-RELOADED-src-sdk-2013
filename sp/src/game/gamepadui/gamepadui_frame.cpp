@@ -194,7 +194,7 @@ void GamepadUIFrame::LayoutFooterButtons()
         }
 
 #ifdef STEAM_INPUT
-        const bool bController = GamepadUI::GetInstance().GetSteamInput()->IsEnabled();
+        const bool bController = GamepadUI::GetInstance().GetSteamInput() && GamepadUI::GetInstance().GetSteamInput()->IsEnabled();
 #elif defined(HL2_RETAIL) // Steam input and Steam Controller are not supported in SDK2013 (Madi)
         const bool bController = g_pInputSystem->IsSteamControllerActive();
 #else

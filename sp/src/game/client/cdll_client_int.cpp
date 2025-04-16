@@ -960,13 +960,16 @@ int CHLClient::Init( CreateInterfaceFn appSystemFactory, CreateInterfaceFn physi
 	//	g_pSteamInput = (ISource2013SteamInput*)Sys_GetFactoryThis()(SOURCE2013STEAMINPUT_INTERFACE_VERSION, NULL);
 	//}
 
-	g_pSteamInput = CreateSource2013SteamInput();
-
-	if (g_pSteamInput->IsSteamRunningOnSteamDeck())
+	if (SteamUtils())
 	{
-		CommandLine()->AppendParm("-deck", NULL);
-		CommandLine()->AppendParm("-w", "1280");
-		CommandLine()->AppendParm("-h", "800");
+		g_pSteamInput = CreateSource2013SteamInput();
+
+		if (g_pSteamInput->IsSteamRunningOnSteamDeck())
+		{
+			CommandLine()->AppendParm("-deck", NULL);
+			CommandLine()->AppendParm("-w", "1280");
+			CommandLine()->AppendParm("-h", "800");
+		}
 	}
 #endif
 #endif
@@ -1147,7 +1150,10 @@ int CHLClient::Init( CreateInterfaceFn appSystemFactory, CreateInterfaceFn physi
 	C_BaseTempEntity::PrecacheTempEnts();
 
 #ifdef STEAM_INPUT
-	g_pSteamInput->Initialize(appSystemFactory);
+	if (g_pSteamInput)
+	{
+		g_pSteamInput->Initialize(appSystemFactory);
+	}
 #endif
 
 	input->Init_All();
@@ -1321,7 +1327,10 @@ void CHLClient::PostInit()
 #endif
 
 #ifdef STEAM_INPUT
-	g_pSteamInput->PostInit();
+	if (g_pSteamInput)
+	{
+		g_pSteamInput->PostInit();
+	}
 #endif
 
 #if defined(GAMEPADUI)
@@ -1345,8 +1354,11 @@ void CHLClient::PostInit()
 					g_pGamepadUI->Initialize(factories.appSystemFactory);
 
 #ifdef STEAM_INPUT
-					g_pSteamInput->SetGamepadUI(true);
-					g_pGamepadUI->SetSteamInput(g_pSteamInput);
+					if (g_pSteamInput)
+					{
+						g_pSteamInput->SetGamepadUI(true);
+						g_pGamepadUI->SetSteamInput(g_pSteamInput);
+					}
 #endif
 				}
 				else
@@ -1545,7 +1557,7 @@ void CHLClient::HudUpdate( bool bActive )
 #endif
 
 #ifdef STEAM_INPUT
-	//if (g_pSteamInput->IsEnabled())
+	if (g_pSteamInput)
 	{
 #if defined(GAMEPADUI)
 		if (!engine->IsConnected() || engine->IsPaused())
@@ -1853,7 +1865,10 @@ void CHLClient::LevelInitPreEntity( char const* pMapName )
 	input->LevelInit();
 
 #ifdef STEAM_INPUT
-	g_pSteamInput->LevelInitPreEntity();
+	if (g_pSteamInput)
+	{
+		g_pSteamInput->LevelInitPreEntity();
+	}
 #endif
 
 	vieweffects->LevelInit();

@@ -17,6 +17,9 @@
 
 CON_COMMAND( si_print_state, "" )
 {
+	if (!g_pSteamInput)
+		return;
+
 	bool bEnabled = g_pSteamInput->IsEnabled();
 
 	char szState[512];
@@ -42,6 +45,9 @@ CON_COMMAND( si_print_state, "" )
 
 CON_COMMAND( si_restart, "" )
 {
+	if (!g_pSteamInput)
+		return;
+
 	g_pSteamInput->Shutdown();
 	g_pSteamInput->InitSteamInput();
 }
