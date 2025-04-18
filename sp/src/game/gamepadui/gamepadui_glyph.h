@@ -34,6 +34,9 @@ public:
     bool SetupGlyph( int nSize, const char *pszAction, bool bBaseLight = false )
     {
 #ifdef STEAM_INPUT
+        if (!GamepadUI::GetInstance().GetSteamInput())
+            return false;
+
         if (m_pszActionOrigin && !V_strcmp(pszAction, m_pszActionOrigin))
             return IsValid();
 

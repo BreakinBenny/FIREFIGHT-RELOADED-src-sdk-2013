@@ -152,15 +152,13 @@ CON_COMMAND( pause_menu, "Shortcut to toggle pause menu" )
 
 static ConVar si_current_cfg( "si_current_cfg", "0", FCVAR_ARCHIVE, "Steam Input's current controller." );
 
-static ConVar si_force_glyph_controller( "si_force_glyph_controller", "-1", FCVAR_NONE, "Forces glyphs to translate to the specified ESteamInputType." );
+static ConVar si_force_glyph_controller( "si_force_glyph_controller", "-1", FCVAR_ARCHIVE, "Forces glyphs to translate to the specified ESteamInputType." );
 
-static ConVar si_use_glyphs( "si_use_glyphs", "1", FCVAR_NONE, "Whether or not to use controller glyphs for hints." );
+static ConVar si_use_glyphs( "si_use_glyphs", "1", FCVAR_ARCHIVE, "Whether or not to use controller glyphs for hints." );
 
-static ConVar si_enable_rumble( "si_enable_rumble", "1", FCVAR_NONE, "Enables controller rumble triggering vibration events in Steam Input. If disabled, rumble is directed back to the input system as before." );
+static ConVar si_enable_rumble( "si_enable_rumble", "1", FCVAR_ARCHIVE, "Enables controller rumble triggering vibration events in Steam Input. If disabled, rumble is directed back to the input system as before." );
 
-static ConVar si_hintremap( "si_hintremap", "1", FCVAR_NONE, "Enables the hint remap system, which remaps HUD hints based on the current controller configuration." );
-
-static ConVar si_rumble_offset("si_rumble_offset", "5000", FCVAR_ARCHIVE, "Steam Input's current controller.");
+static ConVar si_hintremap( "si_hintremap", "1", FCVAR_ARCHIVE, "Enables the hint remap system, which remaps HUD hints based on the current controller configuration." );
 
 static ConVar si_status("si_status", "0", FCVAR_HIDDEN);
 
@@ -1284,10 +1282,7 @@ void CSource2013SteamInput::SetRumble( InputHandle_t nController, float fLeftMot
 
 	if (nController == 0)
 		nController = m_nControllerHandle;
-
-	float rumbleOffset = si_rumble_offset.GetFloat();
-
-	SteamInput()->TriggerVibrationExtended( nController, fLeftMotor * rumbleOffset, fRightMotor * rumbleOffset, fLeftMotor * rumbleOffset, fRightMotor * rumbleOffset);
+	SteamInput()->TriggerVibrationExtended( nController, fLeftMotor, fRightMotor, fLeftMotor, fRightMotor);
 
 	if (si_print_rumble.GetBool())
 	{

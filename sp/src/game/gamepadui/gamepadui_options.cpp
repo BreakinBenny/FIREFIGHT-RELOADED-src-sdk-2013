@@ -1700,9 +1700,17 @@ void GamepadUIOptionsPanel::OnCommand( char const* pCommand )
     else if ( !V_strcmp( pCommand, "open_steaminput" ) )
     {
 #ifdef STEAM_INPUT
-        if (GamepadUI::GetInstance().GetSteamInput()->IsEnabled())
+        if (GamepadUI::GetInstance().GetSteamInput() && GamepadUI::GetInstance().GetSteamInput()->IsEnabled())
         {
             GamepadUI::GetInstance().GetSteamInput()->ShowBindingPanel(GamepadUI::GetInstance().GetSteamInput()->GetActiveController());
+        }
+        else
+        {
+            new GamepadUIGenericConfirmationPanel(GamepadUIOptionsPanel::GetInstance(), 
+                "SteamInputError", 
+                "#GameUI_SteamInputError_Title", 
+                "#GameUI_SteamInputError_Text", 
+                []() {}, true, false);
         }
 #elif defined(HL2_RETAIL) // Steam input and Steam Controller are not supported in SDK2013 (Madi)
         uint64_t nController = g_pInputSystem->GetActiveSteamInputHandle();

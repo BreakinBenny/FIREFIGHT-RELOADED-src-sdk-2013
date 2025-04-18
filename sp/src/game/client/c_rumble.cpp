@@ -802,8 +802,14 @@ void CRumbleEffects::UpdateEffects( float curtime )
 	fLeftMotor += shakeLeft;
 	fRightMotor += shakeRight;
 
-	fLeftMotor *= cl_rumblescale.GetFloat();
-	fRightMotor *= cl_rumblescale.GetFloat();
+#ifdef STEAM_INPUT
+	float SteamInputMultiplier = 1000;
+#else
+	float SteamInputMultiplier = 1;
+#endif
+
+	fLeftMotor *= cl_rumblescale.GetFloat() * SteamInputMultiplier;
+	fRightMotor *= cl_rumblescale.GetFloat() * SteamInputMultiplier;
 
 	if( engine->IsPaused() )
 	{

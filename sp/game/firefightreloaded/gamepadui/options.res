@@ -2535,7 +2535,14 @@
 		"alternating"   "1"
 		"items"
 		{
-			"FastWeaponSwitch"
+            "AdvancedHeader"
+			{
+				"text"			"#GameUI_AdvancedNoEllipsis"
+				"type"			"headeryheader"
+                "advanced"		"1"
+			}
+            
+            "FastWeaponSwitch"
 			{
 				"text"			"#GameUI_FastSwitchCheck"
 				"type"			"wheelywheel"
@@ -2559,77 +2566,6 @@
 					"0"		"#gameui_disabled"
 					"1"		"#gameui_enabled"
 				}
-			}
-            
-            "Rumble"
-			{
-				"text"			"#GameUI_Rumble"
-				"type"			"wheelywheel"
-				"advanced"		"1"
-				"convar"		"si_enable_rumble"
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#gameui_enabled"
-				}
-			}
-        
-            "RumbleStrength"
-			{
-				"text"			"#GameUI_RumbleStrength"
-				"type"			"slideyslide"
-				"advanced"		"1"
-				"convar"		"cl_rumblescale"
-
-				"min"			"0.1"
-				"max"			"15"
-				"step"			"0.5"
-
-				"textprecision" "2"
-			}
-            
-			"OpenSteamInput"
-			{
-				"text"			"#Deck_Open_Steam_Input"
-				"type"			"button"
-				"command"		"open_steaminput"
-			}
-            
-            "AdvancedHeader"
-			{
-				"text"			"#GameUI_AdvancedNoEllipsis"
-				"type"			"headeryheader"
-                "advanced"		"1"
-			}
-            
-            "ShowAdvancedGameOptions2"
-			{
-				"text"			"#GameUI_ShowAdvancedOptions"
-				"type"			"wheelywheel"
-				"convar"		"gamepadui_showadvancedoptions"
-                "advanced"		"1"
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#gameui_enabled"
-				}
-			}
-            
-            "RumbleStrengthMultiplier"
-			{
-				"text"			"#GameUI_RumbleStrengthMultiplier"
-				"type"			"slideyslide"
-				"advanced"		"1"
-                "hidden"		"1"
-				"convar"		"si_rumble_offset"
-
-				"min"			"10"
-				"max"			"10000"
-				"step"			"10"
-
-				"textprecision" "2"
 			}
 		}
 	}
@@ -2718,6 +2654,48 @@
 				"depends_on"	"m_customaccel"
 
 				"textprecision" "2"
+			}
+		}
+	}
+    "SteamInput"
+	{
+		"title"			"#GameUI_SteamInput"
+		"alternating"   "0"
+		"items"
+		{
+            "Rumble"
+			{
+				"text"			"#GameUI_Rumble"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"si_enable_rumble"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+        
+            "RumbleStrength"
+			{
+				"text"			"#GameUI_RumbleStrength"
+				"type"			"slideyslide"
+				"advanced"		"1"
+				"convar"		"cl_rumblescale"
+
+				"min"			"0.1"
+				"max"			"15"
+				"step"			"0.5"
+
+				"textprecision" "2"
+			}
+            
+			"OpenSteamInput"
+			{
+				"text"			"#Deck_Open_Steam_Input"
+				"type"			"button"
+				"command"		"open_steaminput"
 			}
 		}
 	}

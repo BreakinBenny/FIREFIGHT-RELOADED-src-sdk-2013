@@ -2,9 +2,9 @@
 {
 	"BaseSettings"
 	{
-		"Button.Width.Out"						"108"
-		"Button.Width.Over"						"108"
-		"Button.Width.Pressed"					"108"
+		"Button.Width.Out"						"93"
+		"Button.Width.Over"						"93"
+		"Button.Width.Pressed"					"93"
 
 		"Button.Height.Out"						"32"
 		"Button.Height.Over"						"32"
@@ -61,7 +61,6 @@
 
 	"CustomFontFiles"
 	{
-		"file"		"resource/smodgui.ttf"
 		"file"		"gamepadui/fonts/din1451alt.ttf"
 	}
 }
