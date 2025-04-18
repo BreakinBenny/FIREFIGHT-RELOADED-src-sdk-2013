@@ -20,6 +20,7 @@ WeaponData
 	"secondary_ammo"		"None"
 
 	"weight"			"8"
+	"rumble"			    "6"
 	"item_flags"			"69"
 
 	"BuiltRightHanded" 		"1" 
