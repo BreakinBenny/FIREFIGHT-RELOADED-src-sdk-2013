@@ -21,6 +21,7 @@
 #include "npc_combine.h"
 #include "npc_citizen17.h"
 #include "ammodef.h"
+#include "rumble_shared.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -530,6 +531,13 @@ bool CWeaponShotgun::Reload( void )
 	WeaponSound(RELOAD);
 	SendWeaponAnim( ACT_VM_RELOAD );
 
+	CBasePlayer* pPlayer = ((CBasePlayer*)pOwner);
+
+	if (pPlayer)
+	{
+		pPlayer->RumbleEffect(RUMBLE_STOP_ALL, 0, RUMBLE_FLAGS_NONE);
+	}
+
 	pOwner->m_flNextAttack = gpGlobals->curtime;
 	m_flNextPrimaryAttack = gpGlobals->curtime + SequenceDuration();
 
@@ -701,9 +709,10 @@ void CWeaponShotgun::PrimaryAttack( void )
 	int dmgType = def->DamageType(info.m_iAmmoType);
 
 	info.m_nDamageFlags = (dmgType &= ~DMG_SNIPER);
+
+	pPlayer->ViewPunch(QAngle(random->RandomFloat(-2, -1), random->RandomFloat(-2, 2), 0));
+
 	pPlayer->FireBullets(info);
-	
-	pPlayer->ViewPunch( QAngle( random->RandomFloat( -2, -1 ), random->RandomFloat( -2, 2 ), 0 ) );
 
 	CSoundEnt::InsertSound( SOUND_COMBAT, GetAbsOrigin(), SOUNDENT_VOLUME_SHOTGUN, 0.2, GetOwner() );
 
@@ -729,6 +738,7 @@ void CWeaponShotgun::PrimaryAttack( void )
 	}
 
 	m_iPrimaryAttacks++;
+	pPlayer->RumbleEffect(RUMBLE_SHOTGUN_SINGLE, 0, RUMBLE_FLAG_RESTART);
 	gamestats->Event_WeaponFired( pPlayer, true, GetClassname() );
 }
 
@@ -798,8 +808,8 @@ void CWeaponShotgun::SecondaryAttack( void )
 
 	info.m_nDamageFlags = (randInt == 3) ? (dmgType | DMG_BLAST) : dmgType;
 
+	pPlayer->ViewPunch(QAngle(random->RandomFloat(-5, 5), 0, 0));
 	pPlayer->FireBullets(info);
-	pPlayer->ViewPunch( QAngle(random->RandomFloat( -5, 5 ),0,0) );
 
 	pPlayer->SetMuzzleFlashTime( gpGlobals->curtime + 1.0 );
 
@@ -827,6 +837,7 @@ void CWeaponShotgun::SecondaryAttack( void )
 	}
 
 	m_iSecondaryAttacks++;
+	pPlayer->RumbleEffect(RUMBLE_SHOTGUN_DOUBLE, 0, RUMBLE_FLAG_RESTART);
 	gamestats->Event_WeaponFired( pPlayer, false, GetClassname() );
 }
 	
@@ -995,6 +1006,7 @@ void CWeaponShotgun::ItemPostFrame( void )
 				 m_flNextPrimaryAttack = gpGlobals->curtime;
 			}
 			SecondaryAttack();
+			return;
 		}
 	}
 	else if ( (m_bDelayedFire1 || pOwner->m_nButtons & IN_ATTACK) && m_flNextPrimaryAttack <= gpGlobals->curtime)
@@ -1027,6 +1039,7 @@ void CWeaponShotgun::ItemPostFrame( void )
 				 m_flNextPrimaryAttack = gpGlobals->curtime;
 			}
 			PrimaryAttack();
+			return;
 		}
 	}
 
@@ -1062,7 +1075,10 @@ void CWeaponShotgun::ItemPostFrame( void )
 			}
 		}
 
-		WeaponIdle( );
+		if (m_flNextPrimaryAttack < gpGlobals->curtime)
+		{
+			WeaponIdle();
+		}
 		return;
 	}
 }

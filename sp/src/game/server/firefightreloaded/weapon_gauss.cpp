@@ -18,6 +18,7 @@
 #include "soundent.h"
 #include "shake.h"
 #include "explode.h"
+#include "rumble_shared.h"
 
 #include "weapon_gauss.h"
 
@@ -141,6 +142,7 @@ void CWeaponGaussGun::Fire( void )
 	info.m_pAttacker = pOwner;
 
 	pOwner->FireBullets(info);
+	pOwner->RumbleEffect(RUMBLE_PISTOL, 0, RUMBLE_FLAG_RESTART);
 
 	// Register a muzzleflash for the AI
 	pOwner->SetMuzzleFlashTime(gpGlobals->curtime + 0.5);
@@ -232,6 +234,8 @@ void CWeaponGaussGun::ChargedFire( void )
 	}
 
 	ApplyMultiDamage();
+
+	pOwner->RumbleEffect(RUMBLE_357, 0, RUMBLE_FLAG_RESTART);
 
 	UTIL_ImpactTrace( &tr, GetAmmoDef()->DamageType(m_iPrimaryAmmoType), "ImpactGauss" );
 

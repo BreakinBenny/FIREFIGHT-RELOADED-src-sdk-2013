@@ -9,6 +9,12 @@
 
 #include "hl2_player_shared.h"
 
+#include "rumble_shared.h"
+
+#if !defined( CLIENT_DLL )
+#include "globalstate.h"
+#endif
+
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
@@ -26,8 +32,6 @@ END_NETWORK_TABLE()
 
 
 #if !defined( CLIENT_DLL )
-
-#include "globalstate.h"
 
 //---------------------------------------------------------
 // Save/Restore
@@ -188,16 +192,18 @@ bool CBaseHLCombatWeapon::WeaponShouldBeLowered( void )
 //-----------------------------------------------------------------------------
 void CBaseHLCombatWeapon::WeaponIdle( void )
 {
+#if !defined( CLIENT_DLL )
+	CHL2_Player* pPlayer = (CHL2_Player*)ToBasePlayer(GetOwner());
+
+	if (!pPlayer)
+		return;
+#endif
+
 	//See if we should idle high or low
 	if ( WeaponShouldBeLowered() )
 	{
 #if !defined( CLIENT_DLL )
-		CHL2_Player *pPlayer = dynamic_cast<CHL2_Player*>(GetOwner());
-
-		if( pPlayer )
-		{
-			pPlayer->Weapon_Lower();
-		}
+		pPlayer->Weapon_Lower();
 #endif
 
 		// Move to lowered position if we're not there yet
@@ -224,6 +230,10 @@ void CBaseHLCombatWeapon::WeaponIdle( void )
 			SendWeaponAnim( ACT_VM_IDLE );
 		}
 	}
+
+#if !defined( CLIENT_DLL )
+	pPlayer->RumbleEffect(RUMBLE_STOP_ALL, 0, RUMBLE_FLAGS_NONE);
+#endif
 }
 
 float	g_lateralBob;

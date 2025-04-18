@@ -15,6 +15,7 @@
 #include "entitylist.h"
 #include "eventqueue.h"
 #include "weapon_slam.h"
+#include "rumble_shared.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -919,6 +920,13 @@ void CWeapon_SLAM::WeaponIdle( void )
 		}
 		SendWeaponAnim( iAnim );
 	}
+
+	CBasePlayer* pPlayer = ToBasePlayer(GetOwner());
+
+	if (!pPlayer)
+		return;
+
+	pPlayer->RumbleEffect(RUMBLE_STOP_ALL, 0, RUMBLE_FLAGS_NONE);
 }
 
 bool CWeapon_SLAM::Deploy( void )

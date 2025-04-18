@@ -21,6 +21,7 @@
 #include "npc_combine.h"
 #include "npc_citizen17.h"
 #include "ammodef.h"
+#include "rumble_shared.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -348,6 +349,13 @@ bool CWeaponXM1014::Reload( void )
 	WeaponSound(RELOAD);
 	SendWeaponAnim( ACT_VM_RELOAD );
 
+	CBasePlayer* pPlayer = ((CBasePlayer*)pOwner);
+
+	if (pPlayer)
+	{
+		pPlayer->RumbleEffect(RUMBLE_STOP_ALL, 0, RUMBLE_FLAGS_NONE);
+	}
+
 	pOwner->m_flNextAttack = gpGlobals->curtime;
 	m_flNextPrimaryAttack = gpGlobals->curtime + 0.6f; //SequenceDuration();
 
@@ -439,6 +447,7 @@ void CWeaponXM1014::PrimaryAttack( void )
 	WeaponSound(SINGLE);
 
 	pPlayer->DoMuzzleFlash();
+	pPlayer->RumbleEffect(RUMBLE_SHOTGUN_SINGLE, 0, RUMBLE_FLAG_RESTART);
 
 	SendWeaponAnim( ACT_VM_PRIMARYATTACK );
 
@@ -605,6 +614,7 @@ void CWeaponXM1014::ItemPostFrame( void )
 				 m_flNextPrimaryAttack = gpGlobals->curtime;
 			}
 			PrimaryAttack();
+			return;
 		}
 	}
 
@@ -640,7 +650,10 @@ void CWeaponXM1014::ItemPostFrame( void )
 			}
 		}
 
-		WeaponIdle( );
+		if (m_flNextPrimaryAttack < gpGlobals->curtime)
+		{
+			WeaponIdle();
+		}
 		return;
 	}
 }

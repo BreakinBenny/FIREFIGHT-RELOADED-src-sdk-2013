@@ -371,6 +371,7 @@ void CWeaponFlechetteGun::PrimaryAttack(void)
 
 	SendWeaponAnim(ACT_VM_PRIMARYATTACK);
 	pPlayer->SetAnimation(PLAYER_ATTACK1);
+	pPlayer->RumbleEffect(RUMBLE_AR2, 0, RUMBLE_FLAG_RESTART);
 
 	if (GetWpnData().m_bUseMuzzleSmoke)
 	{

@@ -160,6 +160,8 @@ static ConVar si_enable_rumble( "si_enable_rumble", "1", FCVAR_NONE, "Enables co
 
 static ConVar si_hintremap( "si_hintremap", "1", FCVAR_NONE, "Enables the hint remap system, which remaps HUD hints based on the current controller configuration." );
 
+static ConVar si_rumble_offset("si_rumble_offset", "5000", FCVAR_ARCHIVE, "Steam Input's current controller.");
+
 static ConVar si_print_action_set( "si_print_action_set", "0" );
 static ConVar si_print_joy_src( "si_print_joy_src", "0" );
 static ConVar si_print_rumble( "si_print_rumble", "0" );
@@ -234,7 +236,7 @@ public:
 		bool &bRelativeForward, bool &bRelativeSide, bool &bRelativePitch, bool &bRelativeYaw ) override;
 
 	void SetRumble( InputHandle_t nController, float fLeftMotor, float fRightMotor, int userId = INVALID_USER_ID ) override;
-	void StopRumble() override;
+	void StopRumble(InputHandle_t nController) override;
 
 	//-------------------------------------------
 	
@@ -1268,26 +1270,39 @@ void CSource2013SteamInput::SetRumble( InputHandle_t nController, float fLeftMot
 		return;
 	}
 
+	if (fLeftMotor == 0 && fRightMotor == 0)
+		return;
+
 	if (nController == 0)
 		nController = m_nControllerHandle;
 
-	SteamInput()->TriggerVibrationExtended( nController, fLeftMotor, fRightMotor, fLeftMotor, fRightMotor );
+	float rumbleOffset = si_rumble_offset.GetFloat();
+
+	SteamInput()->TriggerVibrationExtended( nController, fLeftMotor * rumbleOffset, fRightMotor * rumbleOffset, fLeftMotor * rumbleOffset, fRightMotor * rumbleOffset);
 
 	if (si_print_rumble.GetBool())
 	{
-		Msg( "fLeftMotor = %f, fRightMotor = %f\n\n", fLeftMotor, fRightMotor );
+		Msg("fLeftMotor = %f, fRightMotor = %f [STARTED]\n", fLeftMotor, fRightMotor);
 	}
 }
 
-void CSource2013SteamInput::StopRumble()
+void CSource2013SteamInput::StopRumble(InputHandle_t nController)
 {
-	if (!IsEnabled())
+	if (!IsEnabled() || !si_enable_rumble.GetBool())
 	{
 		g_pInputSystem->StopRumble();
 		return;
 	}
 
-	// N/A
+	if (nController == 0)
+		nController = m_nControllerHandle;
+
+	SteamInput()->TriggerVibrationExtended(nController, 0, 0, 0, 0);
+
+	//if (si_print_rumble.GetBool())
+	//{
+	//	Msg("fLeftMotor = 0, fRightMotor = 0 [STOPPED]\n");
+	//}
 }
 
 //-------------------------------------------------------------------------------------------------

@@ -16,6 +16,7 @@
 #include "ammodef.h"
 #include "explode.h"
 #include "globalstate.h"
+#include "rumble_shared.h"
 
 ConVar sk_weapon_railgun_overcharge_limit("sk_weapon_railgun_overcharge_limit", "500", FCVAR_ARCHIVE);
 ConVar sk_weapon_railgun_warning_beep_time("sk_weapon_railgun_warning_beep_time", "3.5", FCVAR_ARCHIVE);
@@ -445,7 +446,7 @@ void CWeaponRailgun::ItemPostFrame(void)
 		(pOwner->m_nButtons & IN_ATTACK3)))
 	{
 		// no fire buttons down or reloading
-		if (!ReloadOrSwitchWeapons() && (m_bInReload == false))
+		if (!ReloadOrSwitchWeapons() && (m_bInReload == false) && m_flNextPrimaryAttack < gpGlobals->curtime)
 		{
 			WeaponIdle();
 		}

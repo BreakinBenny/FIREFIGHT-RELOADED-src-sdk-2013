@@ -10,9 +10,8 @@
 #include "rumble_shared.h"
 #ifdef STEAM_INPUT
 #include "expanded_steam/isteaminput.h"
-#else
-#include "inputsystem/iinputsystem.h"
 #endif
+#include "inputsystem/iinputsystem.h"
 
 ConVar cl_rumblescale( "cl_rumblescale", "1.0", FCVAR_ARCHIVE | FCVAR_ARCHIVE_XBOX, "Scale sensitivity of rumble effects (0 to 1.0)" ); 
 ConVar cl_debugrumble( "cl_debugrumble", "0", FCVAR_ARCHIVE, "Turn on rumble debugging spew" );
@@ -524,7 +523,11 @@ void CRumbleEffects::SetOutputEnabled( bool bEnable )
 #ifdef STEAM_INPUT
 		if (g_pSteamInput)
 		{
-			g_pSteamInput->StopRumble();
+			g_pSteamInput->StopRumble(g_pSteamInput->GetActiveController());
+		}
+		else
+		{
+			inputsystem->StopRumble();
 		}
 #else
 		inputsystem->StopRumble();
@@ -622,6 +625,19 @@ void CRumbleEffects::StopEffect( int effectIndex )
 			m_Channels[i].in_use = false;
 		}
 	}
+
+#ifdef STEAM_INPUT
+	if (g_pSteamInput)
+	{
+		g_pSteamInput->StopRumble(g_pSteamInput->GetActiveController());
+	}
+	else
+	{
+		inputsystem->StopRumble();
+	}
+#else
+	inputsystem->StopRumble();
+#endif
 }
 
 //---------------------------------------------------------
@@ -634,6 +650,19 @@ void CRumbleEffects::StopAllEffects()
 	}
 
 	m_flScreenShake = 0.0f;
+
+#ifdef STEAM_INPUT
+	if (g_pSteamInput)
+	{
+		g_pSteamInput->StopRumble(g_pSteamInput->GetActiveController());
+	}
+	else
+	{
+		inputsystem->StopRumble();
+	}
+#else
+	inputsystem->StopRumble();
+#endif
 }
 
 //---------------------------------------------------------
@@ -786,7 +815,11 @@ void CRumbleEffects::UpdateEffects( float curtime )
 #ifdef STEAM_INPUT
 	if (g_pSteamInput)
 	{
-		g_pSteamInput->SetRumble(0, fLeftMotor, fRightMotor);
+		g_pSteamInput->SetRumble(g_pSteamInput->GetActiveController(), fLeftMotor, fRightMotor);
+	}
+	else
+	{
+		inputsystem->SetRumble(fLeftMotor, fRightMotor);
 	}
 #else
 	inputsystem->SetRumble(fLeftMotor, fRightMotor);
@@ -802,7 +835,11 @@ void StopAllRumbleEffects(void)
 #ifdef STEAM_INPUT
 	if (g_pSteamInput)
 	{
-		g_pSteamInput->StopRumble();
+		g_pSteamInput->StopRumble(g_pSteamInput->GetActiveController());
+	}
+	else
+	{
+		inputsystem->StopRumble();
 	}
 #else
 	inputsystem->StopRumble();

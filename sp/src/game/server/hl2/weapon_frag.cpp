@@ -16,6 +16,7 @@
 #include "soundent.h"
 #include "gamestats.h"
 #include "fmtstr.h"
+#include "rumble_shared.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -264,6 +265,13 @@ bool CWeaponFrag::Reload( void )
 
 		//Mark this as done
 		m_bRedraw = false;
+	}
+
+	CBasePlayer* pPlayer = ToBasePlayer(GetOwner());
+
+	if (pPlayer)
+	{
+		pPlayer->RumbleEffect(RUMBLE_STOP_ALL, 0, RUMBLE_FLAGS_NONE);
 	}
 
 	return true;

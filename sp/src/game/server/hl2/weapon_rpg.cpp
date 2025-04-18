@@ -2235,6 +2235,13 @@ bool CWeaponRPG::Reload( void )
 	if (!IsDualWielding())
 	{
 		SendWeaponAnim(ACT_VM_RELOAD);
+
+		CBasePlayer* pPlayer = ToBasePlayer(GetOwner());
+
+		if (pPlayer)
+		{
+			pPlayer->RumbleEffect(RUMBLE_STOP_ALL, 0, RUMBLE_FLAGS_NONE);
+		}
 	}
 
 	return true;

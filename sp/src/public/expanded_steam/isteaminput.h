@@ -98,7 +98,7 @@ public:
 		bool &bRelativeForward, bool &bRelativeSide, bool &bRelativePitch, bool &bRelativeYaw ) = 0;
 
 	virtual void SetRumble( InputHandle_t nController, float fLeftMotor, float fRightMotor, int userId = INVALID_USER_ID ) = 0;
-	virtual void StopRumble() = 0;
+	virtual void StopRumble(InputHandle_t nController) = 0;
 
 	//-------------------------------------------
 

@@ -21,6 +21,8 @@
 #include "player_pickup.h"
 #include "SoundEmitterSystem/isoundemittersystembase.h"
 #include "basehlcombatweapon.h"
+#include "hl2_player.h"
+#include "rumble_shared.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -1289,6 +1291,12 @@ void CWeaponGravityGun::AttachObject( CBaseEntity *pObject, const Vector& start,
 //=========================================================
 void CWeaponGravityGun::PrimaryAttack( void )
 {
+	CBasePlayer* pOwner = ToBasePlayer(GetOwner());
+	if (!pOwner)
+		return;
+
+	pOwner->RumbleEffect(RUMBLE_PISTOL, 0, RUMBLE_FLAG_RESTART);
+
 	if ( !m_active )
 	{
 		SendWeaponAnim( ACT_VM_PRIMARYATTACK );
@@ -1362,6 +1370,7 @@ void CWeaponGravityGun::SecondaryAttack( void )
 		pPellet->SetParent( pHit );
 	}
 	AddPellet( pPellet, pHit, tr.plane.normal );
+	pOwner->RumbleEffect(RUMBLE_PISTOL, 0, RUMBLE_FLAG_RESTART);
 
 	// UNDONE: Probably should just do this client side
 	CBaseEntity *pEnt = GetBeamEntity();
@@ -1399,6 +1408,13 @@ void CWeaponGravityGun::WeaponIdle( void )
 		EffectDestroy();
 		SoundDestroy();
 	}
+
+	CBasePlayer* pOwner = ToBasePlayer(GetOwner());
+
+	if (!pOwner)
+		return;
+
+	pOwner->RumbleEffect(RUMBLE_STOP_ALL, 0, RUMBLE_FLAGS_NONE);
 }
 
 void CWeaponGravityGun::ItemPostFrame( void )

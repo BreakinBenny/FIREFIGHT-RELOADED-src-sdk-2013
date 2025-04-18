@@ -33,6 +33,7 @@ public:
 	virtual float	GetFireRate( void ) = 0;
 	virtual int		WeaponRangeAttack1Condition( float flDot, float flDist );
 	virtual bool	Deploy( void );
+	virtual bool	Reload(void);
 
 	virtual const Vector &GetBulletSpread( void );
 

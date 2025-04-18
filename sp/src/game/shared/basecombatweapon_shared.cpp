@@ -42,6 +42,8 @@
 #include "weapon_selection.h"
 #endif
 
+#include "rumble_shared.h"
+
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
@@ -2804,6 +2806,15 @@ bool CBaseCombatWeapon::DefaultReload( int iClipSize1, int iClipSize2, int iActi
 	if (!pOwner)
 		return false;
 
+	CBasePlayer* pPlayer = ToBasePlayer(GetOwner());
+
+#if !defined( CLIENT_DLL )
+	if (pPlayer)
+	{
+		pPlayer->RumbleEffect(RUMBLE_STOP_ALL, 0, RUMBLE_FLAGS_NONE);
+	}
+#endif
+
 	// If I don't have any spare ammo, I can't reload
 	if ( pOwner->GetAmmoCount(m_iPrimaryAmmoType) <= 0 )
 		return false;
@@ -2844,9 +2855,9 @@ bool CBaseCombatWeapon::DefaultReload( int iClipSize1, int iClipSize2, int iActi
 	}
 
 	// Play the player's reload animation
-	if ( pOwner->IsPlayer() )
+	if (pPlayer)
 	{
-		( ( CBasePlayer * )pOwner)->SetAnimation( PLAYER_RELOAD );
+		pPlayer->SetAnimation(PLAYER_RELOAD);
 	}
 
 	MDLCACHE_CRITICAL_SECTION();
@@ -2899,6 +2910,15 @@ void CBaseCombatWeapon::WeaponIdle( void )
 	{
 		SendWeaponAnim( ACT_VM_IDLE );
 	}
+
+#if !defined( CLIENT_DLL )
+	CBasePlayer* pOwner = ToBasePlayer(GetOwner());
+
+	if (!pOwner)
+		return;
+
+	pOwner->RumbleEffect(RUMBLE_STOP_ALL, 0, RUMBLE_FLAGS_NONE);
+#endif
 }
 
 
@@ -2951,9 +2971,10 @@ char *CBaseCombatWeapon::GetDeathNoticeName( void )
 //====================================================================================
 void CBaseCombatWeapon::CheckReload( void )
 {
+	CBasePlayer* pOwner = ToBasePlayer(GetOwner());
+
 	if ( m_bReloadsSingly )
 	{
-		CBasePlayer *pOwner = ToBasePlayer( GetOwner() );
 		if ( !pOwner )
 			return;
 

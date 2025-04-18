@@ -12,6 +12,8 @@
 #include "in_buttons.h"
 #include "gamestats.h"
 
+#include "rumble_shared.h"
+
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
@@ -252,8 +254,26 @@ int CHLMachineGun::WeaponSoundRealtime( WeaponSound_t shoot_type )
 	return numBullets;
 }
 
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+bool CHLMachineGun::Reload(void)
+{
+	bool fRet;
+	float fCacheTime = m_flNextSecondaryAttack;
 
+	fRet = DefaultReload(GetMaxClip1(), GetMaxClip2(), ACT_VM_RELOAD);
+	if (fRet)
+	{
+		// Undo whatever the reload process has done to our secondary
+		// attack timer. We allow you to interrupt reloading to fire
+		// a grenade.
+		m_flNextSecondaryAttack = GetOwner()->m_flNextAttack = fCacheTime;
 
+		WeaponSound(RELOAD);
+	}
+
+	return fRet;
+}
 
 //-----------------------------------------------------------------------------
 // Purpose: 

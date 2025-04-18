@@ -2388,6 +2388,13 @@ void CWeaponPhysCannon::WeaponIdle( void )
 			SendWeaponAnim( ACT_VM_IDLE );
 		}
 	}
+
+	CBasePlayer* pOwner = ToBasePlayer(GetOwner());
+
+	if (!pOwner)
+		return;
+
+	pOwner->RumbleEffect(RUMBLE_STOP_ALL, 0, RUMBLE_FLAGS_NONE);
 }
 
 //-----------------------------------------------------------------------------

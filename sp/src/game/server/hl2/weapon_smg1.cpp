@@ -42,7 +42,6 @@ public:
 	int		GetMaxBurst() { return 5; }
 
 	virtual void Equip( CBaseCombatCharacter *pOwner );
-	bool	Reload( void );
 
 	float	GetFireRate( void ) { return 0.075f; }	// 13.3hz
 	int		CapabilitiesGet( void ) { return bits_CAP_WEAPON_RANGE_ATTACK1; }
@@ -330,27 +329,6 @@ Activity CWeaponSMG1::GetPrimaryAttackActivity( void )
 		return ACT_VM_RECOIL2;
 
 	return ACT_VM_RECOIL3;
-}
-
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-bool CWeaponSMG1::Reload( void )
-{
-	bool fRet;
-	float fCacheTime = m_flNextSecondaryAttack;
-
-	fRet = DefaultReload( GetMaxClip1(), GetMaxClip2(), ACT_VM_RELOAD );
-	if ( fRet )
-	{
-		// Undo whatever the reload process has done to our secondary
-		// attack timer. We allow you to interrupt reloading to fire
-		// a grenade.
-		m_flNextSecondaryAttack = GetOwner()->m_flNextAttack = fCacheTime;
-
-		WeaponSound( RELOAD );
-	}
-
-	return fRet;
 }
 
 //-----------------------------------------------------------------------------

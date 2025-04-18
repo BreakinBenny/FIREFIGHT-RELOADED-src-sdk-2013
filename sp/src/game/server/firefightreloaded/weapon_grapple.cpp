@@ -29,6 +29,7 @@
 #include "physics_saverestore.h"
 #include "hl2_player.h"
 #include "vehicle_base.h"
+#include "rumble_shared.h"
  
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -270,6 +271,8 @@ void CGrappleHook::HookedThink( void )
 	m_hPlayer->m_bIsPowerSliding = false;
 	m_hPlayer->m_Local.m_flSlideTime = 0.0f;
 	m_hPlayer->StopPowerSlideSound();
+	m_hPlayer->RumbleEffect(RUMBLE_FALL_SHORT, 0, RUMBLE_FLAG_STOP);
+	m_hPlayer->RumbleEffect(RUMBLE_357, 0, RUMBLE_FLAG_RESTART);
 
 	HandleBattery();
 
@@ -281,6 +284,8 @@ void CGrappleHook::HookedThink( void )
 		SetThink(NULL);
 
 		m_hOwner->NotifyHookDied();
+		m_hPlayer->RumbleEffect(RUMBLE_357, 0, RUMBLE_FLAG_STOP);
+		m_hPlayer->RumbleEffect(RUMBLE_AR2_ALT_FIRE, 0, RUMBLE_FLAG_INITIAL_SCALE);
 		m_hPlayer->SelectLastItem();
 
 		//if we grappled onto a vehicle, get into the vehicle.
@@ -469,6 +474,7 @@ void CWeaponGrapple::PrimaryAttack( void )
 
 	SendWeaponAnim( ACT_VM_PRIMARYATTACK );
 	pPlayer->SetAnimation( PLAYER_ATTACK1 );
+	pPlayer->RumbleEffect(RUMBLE_357, 0, RUMBLE_FLAG_RESTART);
 
 	Vector vecSrc		= pPlayer->Weapon_ShootPosition();
 	Vector vecAiming	= pPlayer->GetAutoaimVector( AUTOAIM_SCALE_DEFAULT );	
@@ -600,6 +606,8 @@ void CWeaponGrapple::ItemPostFrame( void )
  
 			//Update our times
 			m_flNextPrimaryAttack = gpGlobals->curtime + sk_grapple_delay.GetFloat();
+
+			pOwner->RumbleEffect(RUMBLE_357, 0, RUMBLE_FLAG_STOP);
 
 			//ugh
 			pOwner->SelectLastItem();

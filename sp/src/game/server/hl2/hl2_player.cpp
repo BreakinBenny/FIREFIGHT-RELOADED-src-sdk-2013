@@ -66,6 +66,8 @@
 #include "portal_player.h"
 #endif // PORTAL
 
+#include "rumble_shared.h"
+
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
@@ -1410,6 +1412,7 @@ void CHL2_Player::KickAttack(void)
 						AngularImpulse angVelocity(random->RandomFloat(0, 45), 18, random->RandomFloat(-45, 45));
 						pDoor->PlayBreakOpenSound();
 						pDoor->BreakDoor(Weapon_ShootPosition(), angVelocity);
+						RumbleEffect(RUMBLE_357, 0, RUMBLE_FLAG_RESTART);
 						return;
 					}
 					pDoor->PlayBreakFailSound();
@@ -1420,6 +1423,7 @@ void CHL2_Player::KickAttack(void)
 				CBreakable* pBreak = dynamic_cast <CBreakable*>(CheckKickPropAction(vm, Weapon_ShootPosition(), vecEnd, Vector(-16, -16, -16), Vector(16, 16, 16), KickDamageProps, KickThrowForceMult));
 				if (pBreak)
 				{
+					RumbleEffect(RUMBLE_357, 0, RUMBLE_FLAG_RESTART);
 					EmitSound("HL2Player.kick_wall");
 					return;
 				}
@@ -1427,6 +1431,7 @@ void CHL2_Player::KickAttack(void)
 				CPhysicsProp* pProp = dynamic_cast<CPhysicsProp*>(CheckKickPropAction(vm, Weapon_ShootPosition(), vecEnd, Vector(-16, -16, -16), Vector(16, 16, 16), KickDamageProps, KickThrowForceMult));
 				if (pProp)
 				{
+					RumbleEffect(RUMBLE_357, 0, RUMBLE_FLAG_RESTART);
 					EmitSound("HL2Player.kick_wall");
 					return;
 				}
@@ -1434,6 +1439,7 @@ void CHL2_Player::KickAttack(void)
 				CBaseEntity* Victim = CheckTraceHullAttack(Weapon_ShootPosition(), vecEnd, Vector(-16, -16, -16), Vector(16, 16, 16), KickDamageFlightBoost, (DMG_CLUB | DMG_BLAST | DMG_NEVERGIB), KickThrowForceMult, true);
 				if (Victim && Victim->IsNPC())
 				{
+					RumbleEffect(RUMBLE_357, 0, RUMBLE_FLAG_RESTART);
 					//don't kick striders, only deliver damage.
 					if (FClassnameIs(Victim, "npc_strider"))
 					{
@@ -1470,6 +1476,7 @@ void CHL2_Player::KickAttack(void)
 			}
 			else
 			{
+				RumbleEffect(RUMBLE_CROWBAR_SWING, 0, RUMBLE_FLAG_RESTART);
 				EmitSound("HL2Player.kick_fire");
 			}
 
