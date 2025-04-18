@@ -606,6 +606,8 @@ const char		   *UTIL_GetActiveHolidayString();
 
 const bool			UTIL_IsGamepadUIEnabled();
 const bool			UTIL_IsSteamDeck();
+const bool			UTIL_SteamInput_AreControllersConnected();
 
+const bool			UTIL_UsingSteamInput();
 
 #endif // UTIL_SHARED_H

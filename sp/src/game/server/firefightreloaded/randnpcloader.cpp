@@ -171,7 +171,7 @@ bool CRandNPCLoader::Load()
 	KeyValues* settings = pKV->FindKey("settings");
 	if (settings)
 	{
-		if (UTIL_IsSteamDeck())
+		if (UTIL_UsingSteamInput())
 		{
 			float spawntimeDeck = settings->GetFloat("spawntime_steamdeck", TIME_SETBYHAMMER);
 

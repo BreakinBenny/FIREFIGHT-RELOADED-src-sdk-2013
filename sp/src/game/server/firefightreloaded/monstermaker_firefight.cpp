@@ -259,7 +259,7 @@ void CNPCMakerFirefight::AdjustSpawnTime(void)
 		{
 			spawnFreq = timeAdd;
 
-			if (UTIL_IsSteamDeck())
+			if (UTIL_UsingSteamInput())
 			{
 				spawnFreq = spawnFreq * sk_spawner_deckadjustfactor.GetFloat();
 			}
@@ -269,7 +269,7 @@ void CNPCMakerFirefight::AdjustSpawnTime(void)
 	{
 		if (m_bUsingMapSpawnTime)
 		{
-			if (UTIL_IsSteamDeck())
+			if (UTIL_UsingSteamInput())
 			{
 				spawnFreq = m_flInitialSpawnFrequency * sk_spawner_deckadjustfactor.GetFloat();
 			}

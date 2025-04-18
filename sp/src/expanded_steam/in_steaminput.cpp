@@ -162,6 +162,8 @@ static ConVar si_hintremap( "si_hintremap", "1", FCVAR_NONE, "Enables the hint r
 
 static ConVar si_rumble_offset("si_rumble_offset", "5000", FCVAR_ARCHIVE, "Steam Input's current controller.");
 
+static ConVar si_status("si_status", "0", FCVAR_HIDDEN);
+
 static ConVar si_print_action_set( "si_print_action_set", "0" );
 static ConVar si_print_joy_src( "si_print_joy_src", "0" );
 static ConVar si_print_rumble( "si_print_rumble", "0" );
@@ -363,6 +365,7 @@ void CSource2013SteamInput::InitSteamInput()
 			Msg("Reverting leftover Steam Input cvars\n");
 			g_pEngineClient->ClientCmd_Unrestricted( "exec steam_uninput.cfg" );
 			g_pEngineClient->ClientCmd_Unrestricted( SteamInput_VarArgs( "exec steam_uninput_%s.cfg", si_current_cfg.GetString() ) );
+			si_status.SetValue("0");
 		}
 
 		return;
@@ -574,6 +577,7 @@ void CSource2013SteamInput::PostInit()
 			g_pEngineClient->ClientCmd_Unrestricted( SteamInput_VarArgs( "exec steam_uninput_%s.cfg", si_current_cfg.GetString() ) );
 
 			si_current_cfg.SetValue( "0" );
+			si_status.SetValue("0");
 		}
 	}
 	else
@@ -581,6 +585,7 @@ void CSource2013SteamInput::PostInit()
 		// Sometimes, the archived value overwrites the cvar. This is a compromise to make sure that doesn't happen
 		ESteamInputType inputType = SteamInput()->GetInputTypeForHandle( m_nControllerHandle );
 		si_current_cfg.SetValue( IdentifyControllerParam( inputType ) );
+		si_status.SetValue("1");
 	}
 }
 
@@ -654,6 +659,7 @@ void CSource2013SteamInput::InputDeviceConnected( InputHandle_t nDeviceHandle )
 	{
 		g_pEngineClient->ClientCmd_Unrestricted( SteamInput_VarArgs( "exec steam_input_%s.cfg", pszInputPrintType ) );
 		si_current_cfg.SetValue( pszInputPrintType );
+		si_status.SetValue("1");
 	}
 
 	if (g_pEngineClient->IsConnected() )
@@ -682,6 +688,7 @@ void CSource2013SteamInput::InputDeviceDisconnected( InputHandle_t nDeviceHandle
 	}
 
 	si_current_cfg.SetValue( "0" );
+	si_status.SetValue("0");
 
 	if ( g_pEngineClient->IsConnected() )
 	{
@@ -714,6 +721,7 @@ void CSource2013SteamInput::InputDeviceChanged( InputHandle_t nOldHandle, InputH
 	{
 		g_pEngineClient->ClientCmd_Unrestricted( SteamInput_VarArgs( "exec steam_input_%s.cfg", pszNewInputPrintType ) );
 		si_current_cfg.SetValue( pszNewInputPrintType );
+		si_status.SetValue("1");
 	}
 }
 
@@ -727,6 +735,7 @@ void CSource2013SteamInput::DeckConnected( InputHandle_t nDeviceHandle )
 	g_pEngineClient->ClientCmd_Unrestricted( "exec steam_input.cfg" );
 	g_pEngineClient->ClientCmd_Unrestricted( "exec steam_input_deck.cfg" );
 	si_current_cfg.SetValue( "deck" );
+	si_status.SetValue("1");
 }
 
 //-------------------------------------------

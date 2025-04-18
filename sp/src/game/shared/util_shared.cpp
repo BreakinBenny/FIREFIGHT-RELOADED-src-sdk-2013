@@ -1204,3 +1204,40 @@ const bool UTIL_IsSteamDeck()
 
 	return false;
 }
+
+const bool UTIL_SteamInput_AreControllersConnected()
+{
+#ifdef STEAM_INPUT
+#ifdef CLIENT_DLL
+	if (g_pSteamInput)
+	{
+		return g_pSteamInput->IsEnabled();
+	}
+#else
+
+	CBasePlayer* pPlayer = UTIL_GetLocalPlayer();
+
+	if (!pPlayer)
+		return false;
+
+	const char* szStatus = engine->GetClientConVarValue(engine->IndexOfEdict(pPlayer->edict()), "si_status");
+
+	if (szStatus)
+	{
+		int iStatus = atoi(szStatus);
+		if (iStatus != 0)
+		{
+			return true;
+		}
+	}
+
+#endif // CLIENT_DLL
+#endif
+
+	return false;
+}
+
+const bool UTIL_UsingSteamInput()
+{ 
+	return (UTIL_IsSteamDeck() || UTIL_SteamInput_AreControllersConnected()); 
+}
