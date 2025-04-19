@@ -20,7 +20,7 @@
 	{
 		"weapon"	"weapon_crossbow"
 		"ammotype"	"XBowBolt"
-		"ammonum"	"50"
+		"ammonum"	"60"
 	}
 	"4"
 	{
@@ -31,5 +31,10 @@
 	"5"
 	{
 		"weapon"	"weapon_physcannon"
+	}
+    "6"
+	{
+		"weapon"	"weapon_chargebow"
+        //shares ammo with crossbow.
 	}
 }

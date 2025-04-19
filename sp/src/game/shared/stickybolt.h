@@ -7,5 +7,6 @@
 static const int SBFL_CROSSBOWBOLT = 1;
 // Stick a ragdoll.
 static const int SBFL_STICKRAGDOLL = 2;
+static const int SBFL_CHARGEBOWARROW = 3;
 
 #endif

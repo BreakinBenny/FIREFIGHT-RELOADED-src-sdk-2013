@@ -15,6 +15,8 @@
 
 ConVar cl_rumblescale( "cl_rumblescale", "1.0", FCVAR_ARCHIVE | FCVAR_ARCHIVE_XBOX, "Scale sensitivity of rumble effects (0 to 1.0)" ); 
 ConVar cl_debugrumble( "cl_debugrumble", "0", FCVAR_ARCHIVE, "Turn on rumble debugging spew" );
+ConVar cl_debugrumble_effectrun("cl_debugrumble_effectrun", "0", FCVAR_ARCHIVE, "Turn on rumble debugging spew");
+ConVar cl_debugrumble_effectupdate("cl_debugrumble_effectupdate", "0", FCVAR_ARCHIVE, "Turn on rumble debugging spew");
 
 #define MAX_RUMBLE_CHANNELS 3	// Max concurrent rumble effects
 
@@ -539,16 +541,35 @@ void CRumbleEffects::SetOutputEnabled( bool bEnable )
 //---------------------------------------------------------
 void CRumbleEffects::StartEffect( unsigned char effectIndex, unsigned char rumbleData, unsigned char rumbleFlags )
 {
-	if( effectIndex == RUMBLE_STOP_ALL )
+	if (!(rumbleFlags & RUMBLE_FLAG_BYPASS_STOP))
 	{
-		StopAllEffects();
-		return;
-	}
+		if (effectIndex == RUMBLE_STOP_ALL)
+		{
+			StopAllEffects();
+			if (cl_debugrumble_effectrun.GetBool())
+			{
+				Msg("Rumble set to RUMBLE_STOP_ALL\n");
+			}
+			return;
+		}
 
-	if( rumbleFlags & RUMBLE_FLAG_STOP )
+		if (rumbleFlags & RUMBLE_FLAG_STOP)
+		{
+			StopEffect(effectIndex);
+			if (cl_debugrumble_effectrun.GetBool())
+			{
+				Msg("Rumble %i has RUMBLE_FLAG_STOP flag\n", effectIndex);
+			}
+			return;
+		}
+	}
+	else
 	{
-		StopEffect( effectIndex );
-		return;
+		SetOutputEnabled(true);
+		if (cl_debugrumble_effectrun.GetBool())
+		{
+			Msg("Rumble %i has RUMBLE_FLAG_BYPASS_STOP flag. Bypassed stop events.\n", effectIndex);
+		}
 	}
 
 	int priority = 1;
@@ -558,6 +579,10 @@ void CRumbleEffects::StartEffect( unsigned char effectIndex, unsigned char rumbl
 	{
 		// Try to find any active instance of this effect and replace it.
 		pChannel = FindExistingChannel( effectIndex );
+		if (cl_debugrumble_effectrun.GetBool())
+		{
+			Msg("Rumble %i has RUMBLE_FLAG_RESTART flag.\n", effectIndex);
+		}
 	}
 
 	if( (rumbleFlags & RUMBLE_FLAG_ONLYONE) )
@@ -567,7 +592,16 @@ void CRumbleEffects::StartEffect( unsigned char effectIndex, unsigned char rumbl
 		if( pChannel )
 		{
 			// Bail out. An instance of this effect is already playing.
+			if (cl_debugrumble_effectrun.GetBool())
+			{
+				Msg("Rumble %i has RUMBLE_FLAG_ONLYONE flag. Bailed out.\n", effectIndex);
+			}
 			return;
+		}
+
+		if (cl_debugrumble_effectrun.GetBool())
+		{
+			Msg("Rumble %i has RUMBLE_FLAG_ONLYONE flag.\n", effectIndex);
 		}
 	}
 
@@ -577,6 +611,11 @@ void CRumbleEffects::StartEffect( unsigned char effectIndex, unsigned char rumbl
 		if( pChannel )
 		{
 			pChannel->scale = ((float)rumbleData) / 100.0f;
+		}
+
+		if (cl_debugrumble_effectrun.GetBool())
+		{
+			Msg("Rumble %i has RUMBLE_FLAG_UPDATE_SCALE flag.\n", effectIndex);
 		}
 
 		// It's possible to return without finding a rumble to update.
@@ -803,7 +842,7 @@ void CRumbleEffects::UpdateEffects( float curtime )
 	fRightMotor += shakeRight;
 
 #ifdef STEAM_INPUT
-	float SteamInputMultiplier = 1000;
+	float SteamInputMultiplier = 5000;
 #else
 	float SteamInputMultiplier = 1;
 #endif
@@ -818,16 +857,33 @@ void CRumbleEffects::UpdateEffects( float curtime )
 		fRightMotor = 0.0f;
 	}
 
+	if (cl_debugrumble_effectupdate.GetBool())
+	{
+		Msg("Sent rumble motor values: %f, %f\n", fLeftMotor, fRightMotor);
+	}
+
 #ifdef STEAM_INPUT
 	if (g_pSteamInput)
 	{
+		if (cl_debugrumble_effectupdate.GetBool())
+		{
+			Msg("Sending to Steam Input.\n");
+		}
 		g_pSteamInput->SetRumble(g_pSteamInput->GetActiveController(), fLeftMotor, fRightMotor);
 	}
 	else
 	{
+		if (cl_debugrumble_effectupdate.GetBool())
+		{
+			Msg("Sending to InputSystem.\n");
+		}
 		inputsystem->SetRumble(fLeftMotor, fRightMotor);
 	}
 #else
+	if (cl_debugrumble_effectupdate.GetBool())
+	{
+		Msg("Sending to InputSystem.\n");
+	}
 	inputsystem->SetRumble(fLeftMotor, fRightMotor);
 #endif
 }

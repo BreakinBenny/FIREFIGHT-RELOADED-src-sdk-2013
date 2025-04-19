@@ -180,4 +180,10 @@
 		"ammotype"	"M79_Grenade"
 		"ammonum"	"999"
 	}
+    "33"
+	{
+		"weapon"	"weapon_chargebow"
+		"ammotype"	"XBowBolt"
+		"ammonum"	"999"
+	}
 }

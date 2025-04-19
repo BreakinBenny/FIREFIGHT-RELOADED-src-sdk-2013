@@ -87,7 +87,7 @@
 	{
 		"weapon"	"weapon_crossbow"
 		"ammotype"	"XBowBolt"
-		"ammonum"	"50"
+		"ammonum"	"60"
 	}
 	"16"
 	{
@@ -117,5 +117,9 @@
 		"ammotype"	"M79_Grenade"
 		"ammonum"	"30"
 	}
-
+    "26"
+	{
+		"weapon"	"weapon_chargebow"
+        //shares ammo with crossbow.
+	}
 }

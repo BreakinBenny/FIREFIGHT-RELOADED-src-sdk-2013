@@ -28,6 +28,8 @@
 #include "func_break.h"
 #include "func_breakablesurf.h"
 #include "stickybolt.h"
+#include "ammodef.h"
+#include "weapon_crossbow.h"
 
 #ifdef PORTAL
 	#include "portal_util_shared.h"
@@ -36,52 +38,14 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-//#define BOLT_MODEL			"models/crossbow_bolt.mdl"
-//#define BOLT_MODEL	"models/weapons/w_missile_closed.mdl"
-
-#define BOLT_AIR_VELOCITY	2500
-#define BOLT_WATER_VELOCITY	1500
-
 extern ConVar sk_plr_dmg_crossbow;
 extern ConVar sk_npc_dmg_crossbow;
 
 ConVar	  crossbow_new_glass_passthrough("crossbow_new_glass_passthrough", "1", FCVAR_ARCHIVE);
 
-#define	BOLT_SKIN_NORMAL	0
-#define BOLT_SKIN_GLOW		1
+ConVar	  chargebow_uncharged_damage_reduction("chargebow_uncharged_damage_reduction", "0.5", FCVAR_ARCHIVE);
+ConVar	  chargebow_damage_falloff_amount("chargebow_damage_falloff_amount", "0.25", FCVAR_ARCHIVE);
 
-//-----------------------------------------------------------------------------
-// Crossbow Bolt
-//-----------------------------------------------------------------------------
-class CCrossbowBolt : public CBaseCombatCharacter
-{
-	DECLARE_CLASS( CCrossbowBolt, CBaseCombatCharacter );
-
-public:
-	CCrossbowBolt() { };
-	~CCrossbowBolt();
-
-	Class_T Classify( void ) { return CLASS_NONE; }
-
-public:
-	void Spawn( void );
-	void Precache( void );
-	void BubbleThink( void );
-	void BoltTouch( CBaseEntity *pOther );
-	bool CreateVPhysics( void );
-	unsigned int PhysicsSolidMaskForEntity() const;
-	static CCrossbowBolt *BoltCreate( const Vector &vecOrigin, const QAngle &angAngles, CBasePlayer *pentOwner = NULL );
-
-protected:
-
-	bool	CreateSprites( void );
-
-	CHandle<CSprite>		m_pGlowSprite;
-	//CHandle<CSpriteTrail>	m_pGlowTrail;
-
-	DECLARE_DATADESC();
-	DECLARE_SERVERCLASS();
-};
 LINK_ENTITY_TO_CLASS( crossbow_bolt, CCrossbowBolt );
 
 BEGIN_DATADESC( CCrossbowBolt )
@@ -91,6 +55,10 @@ BEGIN_DATADESC( CCrossbowBolt )
 
 	// These are recreated on reload, they don't need storage
 	DEFINE_FIELD( m_pGlowSprite, FIELD_EHANDLE ),
+	DEFINE_FIELD( m_iBoltType, FIELD_INTEGER ),
+	DEFINE_FIELD(m_bStopPenetrating, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_bCharged, FIELD_BOOLEAN ),
+	DEFINE_FIELD(m_iDamage, FIELD_INTEGER),
 	//DEFINE_FIELD( m_pGlowTrail, FIELD_EHANDLE ),
 
 END_DATADESC()
@@ -98,7 +66,7 @@ END_DATADESC()
 IMPLEMENT_SERVERCLASS_ST( CCrossbowBolt, DT_CrossbowBolt )
 END_SEND_TABLE()
 
-CCrossbowBolt *CCrossbowBolt::BoltCreate( const Vector &vecOrigin, const QAngle &angAngles, CBasePlayer *pentOwner )
+CCrossbowBolt *CCrossbowBolt::BoltCreate( const Vector &vecOrigin, const QAngle &angAngles, CBasePlayer *pentOwner, int iBoltType, bool bCharged)
 {
 	// Create a new entity with CCrossbowBolt private data
 	CCrossbowBolt *pBolt = (CCrossbowBolt *)CreateEntityByName( "crossbow_bolt" );
@@ -106,6 +74,8 @@ CCrossbowBolt *CCrossbowBolt::BoltCreate( const Vector &vecOrigin, const QAngle 
 	{
 		UTIL_SetOrigin(pBolt, vecOrigin);
 		pBolt->SetAbsAngles(angAngles);
+		pBolt->m_iBoltType = iBoltType;
+		pBolt->m_bCharged = bCharged;
 		pBolt->Spawn();
 		pBolt->SetOwnerEntity(pentOwner);
 	}
@@ -170,12 +140,29 @@ void CCrossbowBolt::Spawn( void )
 {
 	Precache( );
 
-	SetModel("models/crossbow_bolt.mdl");
+	if (m_iBoltType == BOLT_CHARGEBOW)
+	{
+		SetModel("models/weapons/chagebow_bolt.mdl");
+	}
+	else
+	{
+		SetModel("models/crossbow_bolt.mdl");
+	}
 
 	SetMoveType( MOVETYPE_FLYGRAVITY, MOVECOLLIDE_FLY_CUSTOM );
 	UTIL_SetSize( this, -Vector(0.3f,0.3f,0.3f), Vector(0.3f,0.3f,0.3f) );
 	SetSolid( SOLID_BBOX );
 	SetGravity( 0.05f );
+
+	//so we don't call !IsCharged() and check for m_iBoltType == BOLT_CHARGEBOW again
+	if (IsUncharged())
+	{
+		m_iDamage = sk_plr_dmg_crossbow.GetFloat() * chargebow_uncharged_damage_reduction.GetFloat();
+	}
+	else
+	{
+		m_iDamage = sk_plr_dmg_crossbow.GetFloat();
+	}
 	
 	// Make sure we're updated if we're underwater
 	UpdateWaterState();
@@ -189,13 +176,29 @@ void CCrossbowBolt::Spawn( void )
 
 	// Make us glow until we've hit the wall
 	m_nSkin = BOLT_SKIN_GLOW;
+	m_bStopPenetrating = false;
 }
 
 
 void CCrossbowBolt::Precache( void )
 {
+	PrecacheModel("models/weapons/chagebow_bolt.mdl");
 	PrecacheModel("models/crossbow_bolt.mdl");
 	PrecacheModel( "sprites/light_glow02_noz.vmt" );
+}
+
+void CCrossbowBolt::GlassCollide(CBaseEntity* pOther)
+{
+	trace_t tr;
+	tr = CBaseEntity::GetTouchTrace();
+	ClearMultiDamage();
+	Vector forward;
+	AngleVectors(GetLocalAngles(), &forward, NULL, NULL);
+	CTakeDamageInfo info(this, GetOwnerEntity(), 1, DMG_CLUB);
+	CalculateMeleeDamageForce(&info, GetAbsVelocity(), GetAbsOrigin());
+	pOther->DispatchTraceAttack(info, forward, &tr);
+	ApplyMultiDamage();
+	SetAbsVelocity(GetAbsVelocity());
 }
 
 //-----------------------------------------------------------------------------
@@ -217,7 +220,10 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 		{
 			CBreakable* pOtherEntity = static_cast<CBreakable*>(pOther);
 			if (pOtherEntity && (pOtherEntity->GetMaterialType() == matGlass || pOtherEntity->GetMaterialType() == matWeb))
+			{
+				GlassCollide(pOther);
 				return;
+			}
 		}
 	}
 	else if (FClassnameIs(pOther, "func_breakable_surf"))
@@ -226,7 +232,10 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 		{
 			CBreakableSurface* pOtherEntity = static_cast<CBreakableSurface*>(pOther);
 			if (pOtherEntity && (pOtherEntity->GetMaterialType() == matGlass || pOtherEntity->GetMaterialType() == matWeb))
+			{
+				GlassCollide(pOther);
 				return;
+			}
 		}
 	}
 	else if (FClassnameIs(pOther, "prop_door_rotating") ||
@@ -237,7 +246,8 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 		FClassnameIs(pOther, "func_tanktrain") ||
 		FClassnameIs(pOther, "func_conveyor") ||
 		FClassnameIs(pOther, "func_brush") ||
-		FClassnameIs(pOther, "func_tracktrain"))
+		FClassnameIs(pOther, "func_tracktrain") &&
+		m_iBoltType != BOLT_CHARGEBOW)
 	{
 		trace_t tr;
 		tr = BaseClass::GetTouchTrace();
@@ -274,11 +284,11 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 		ClearMultiDamage();
 		VectorNormalize( vecNormalizedVel );
 
-		float curDamage = sk_plr_dmg_crossbow.GetFloat();
+		Msg("%i, (%f,%f,%f)\n", m_iDamage, vecNormalizedVel.x, vecNormalizedVel.y, vecNormalizedVel.z);
 
 		if( GetOwnerEntity() && GetOwnerEntity()->IsPlayer() && pOther->IsNPC() )
 		{
-			CTakeDamageInfo	dmgInfo( this, GetOwnerEntity(), curDamage, DMG_NEVERGIB );
+			CTakeDamageInfo	dmgInfo( this, GetOwnerEntity(), m_iDamage, DMG_NEVERGIB );
 			dmgInfo.AdjustPlayerDamageInflictedForSkillLevel();
 			CalculateMeleeDamageForce( &dmgInfo, vecNormalizedVel, tr.endpos, 0.7f );
 			dmgInfo.SetDamagePosition( tr.endpos );
@@ -290,7 +300,7 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 		}
 		else
 		{
-			CTakeDamageInfo	dmgInfo( this, GetOwnerEntity(), curDamage, DMG_BULLET | DMG_NEVERGIB );
+			CTakeDamageInfo	dmgInfo( this, GetOwnerEntity(), m_iDamage, DMG_BULLET | DMG_NEVERGIB );
 			CalculateMeleeDamageForce( &dmgInfo, vecNormalizedVel, tr.endpos, 0.7f );
 			dmgInfo.SetDamagePosition( tr.endpos );
 			pOther->DispatchTraceAttack( dmgInfo, vecNormalizedVel, &tr );
@@ -312,41 +322,73 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 			}
 		}
 
-		SetAbsVelocity( Vector( 0, 0, 0 ) );
+		bool bShotPenetrate = false;
 
-		// play body "thwack" sound
-		EmitSound( "Weapon_Crossbow.BoltHitBody" );
-
-		Vector vForward;
-
-		AngleVectors( GetAbsAngles(), &vForward );
-		VectorNormalize ( vForward );
-
-		UTIL_TraceLine( GetAbsOrigin(),	GetAbsOrigin() + vForward * 128, MASK_BLOCKLOS, pOther, COLLISION_GROUP_NONE, &tr2 );
-
-		if ( tr2.fraction != 1.0f )
+		if (IsCharged() && !m_bStopPenetrating)
 		{
-//			NDebugOverlay::Box( tr2.endpos, Vector( -16, -16, -16 ), Vector( 16, 16, 16 ), 0, 255, 0, 0, 10 );
-//			NDebugOverlay::Box( GetAbsOrigin(), Vector( -16, -16, -16 ), Vector( 16, 16, 16 ), 0, 0, 255, 0, 10 );
+			bShotPenetrate = true;
+		}
 
-			if ( tr2.m_pEnt == NULL || ( tr2.m_pEnt && tr2.m_pEnt->GetMoveType() == MOVETYPE_NONE ) )
+		if (!bShotPenetrate)
+		{
+			SetAbsVelocity(Vector(0, 0, 0));
+
+			// play body "thwack" sound
+			EmitSound("Weapon_Crossbow.BoltHitBody");
+
+			Vector vForward;
+
+			AngleVectors(GetAbsAngles(), &vForward);
+			VectorNormalize(vForward);
+
+			UTIL_TraceLine(GetAbsOrigin(), GetAbsOrigin() + vForward * 128, MASK_BLOCKLOS, pOther, COLLISION_GROUP_NONE, &tr2);
+
+			if (tr2.fraction != 1.0f)
 			{
-				CEffectData	data;
+				//			NDebugOverlay::Box( tr2.endpos, Vector( -16, -16, -16 ), Vector( 16, 16, 16 ), 0, 255, 0, 0, 10 );
+				//			NDebugOverlay::Box( GetAbsOrigin(), Vector( -16, -16, -16 ), Vector( 16, 16, 16 ), 0, 0, 255, 0, 10 );
 
-				data.m_vOrigin = tr2.endpos;
-				data.m_vNormal = vForward;
-				data.m_fFlags = SBFL_CROSSBOWBOLT | SBFL_STICKRAGDOLL;
-			
-				DispatchEffect("BoltImpact", data);
+				if (tr2.m_pEnt == NULL || (tr2.m_pEnt && tr2.m_pEnt->GetMoveType() == MOVETYPE_NONE))
+				{
+					CEffectData	data;
 
-				UTIL_ImpactTrace( &tr2, DMG_BULLET );
+					data.m_vOrigin = tr2.endpos;
+					data.m_vNormal = vForward;
+					if (m_iBoltType == BOLT_CHARGEBOW)
+					{
+						data.m_fFlags = SBFL_CHARGEBOWARROW | SBFL_STICKRAGDOLL;
+						DispatchEffect("ArrowImpact", data);
+					}
+					else
+					{
+						data.m_fFlags = SBFL_CROSSBOWBOLT | SBFL_STICKRAGDOLL;
+						DispatchEffect("BoltImpact", data);
+					}
+
+					UTIL_ImpactTrace(&tr2, DMG_BULLET);
+				}
+			}
+		
+			SetTouch(NULL);
+			SetThink(NULL);
+
+			UTIL_Remove(this);
+		}
+		else
+		{
+			SetAbsVelocity(GetAbsVelocity() - (GetAbsVelocity() * chargebow_damage_falloff_amount.GetFloat()));
+
+			// play body "thwack" sound
+			EmitSound("Weapon_Crossbow.BoltHitBody");
+
+			m_iDamage = m_iDamage - (m_iDamage * chargebow_damage_falloff_amount.GetFloat());
+
+			if (m_iDamage <= 0 || GetAbsVelocity() == Vector(0, 0, 0))
+			{
+				//end penetration NOW.
+				m_bStopPenetrating = true;
 			}
 		}
-		
-		SetTouch( NULL );
-		SetThink( NULL );
-
-		UTIL_Remove(this);
 	}
 	else
 	{
@@ -381,7 +423,8 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 			// See if we should reflect off this surface
 			float hitDot = DotProduct( tr.plane.normal, -vecDir );
 			
-			if ( ( hitDot < 0.5f ) && ( speed > 100 ) )
+			//don't deflect if we're using the chargebow
+			if ( ( hitDot < 0.5f ) && ( speed > 100 ) && m_iBoltType != BOLT_CHARGEBOW)
 			{
 				Vector vReflection = 2.0f * tr.plane.normal * hitDot + vecDir;
 				
@@ -400,6 +443,8 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 			{
 				//FIXME: We actually want to stick (with hierarchy) to what we've hit
 				SetMoveType( MOVETYPE_NONE );
+
+				m_bStopPenetrating = true;
 			
 				Vector vForward;
 
@@ -410,9 +455,17 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 
 				data.m_vOrigin = tr.endpos;
 				data.m_vNormal = vForward;
-				data.m_fFlags = SBFL_CROSSBOWBOLT;
-			
-				DispatchEffect("BoltImpact", data);
+
+				if (m_iBoltType == BOLT_CHARGEBOW)
+				{
+					data.m_fFlags = SBFL_CHARGEBOWARROW;
+					DispatchEffect("ArrowImpact", data);
+				}
+				else
+				{
+					data.m_fFlags = SBFL_CROSSBOWBOLT;
+					DispatchEffect("BoltImpact", data);
+				}
 				
 				UTIL_ImpactTrace( &tr, DMG_BULLET );
 
@@ -436,6 +489,8 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 		}
 		else
 		{
+			m_bStopPenetrating = true;
+
 			// Put a mark unless we've hit the sky
 			if ( ( tr.surface.flags & SURF_SKY ) == false )
 			{
@@ -507,16 +562,6 @@ private:
 	void	CheckZoomToggle( void );
 	void	FireBolt( void );
 	void	ToggleZoom( void );
-	
-	// Various states for the crossbow's charger
-	enum ChargerState_t
-	{
-		CHARGER_STATE_START_LOAD,
-		CHARGER_STATE_START_CHARGE,
-		CHARGER_STATE_READY,
-		CHARGER_STATE_DISCHARGE,
-		CHARGER_STATE_OFF,
-	};
 
 	void	CreateChargerEffects( void );
 	void	SetChargerState( ChargerState_t state );
@@ -539,7 +584,7 @@ acttable_t CWeaponCrossbow::m_acttable[] =
 	{ ACT_HL2MP_IDLE_CROUCH, ACT_HL2MP_IDLE_CROUCH_CROSSBOW, false },
 	{ ACT_HL2MP_WALK_CROUCH, ACT_HL2MP_WALK_CROUCH_CROSSBOW, false },
 	{ ACT_HL2MP_GESTURE_RANGE_ATTACK, ACT_HL2MP_GESTURE_RANGE_ATTACK_CROSSBOW, false },
-	{ ACT_HL2MP_GESTURE_RELOAD,			ACT_HL2MP_GESTURE_RELOAD_AR2,				false },
+	{ ACT_HL2MP_GESTURE_RELOAD,			ACT_HL2MP_GESTURE_RELOAD_CROSSBOW,				false },
 	{ ACT_HL2MP_JUMP, ACT_HL2MP_JUMP_CROSSBOW, false },
 	{ ACT_RANGE_ATTACK1, ACT_RANGE_ATTACK_SHOTGUN, false },
 };
@@ -573,9 +618,6 @@ CWeaponCrossbow::CWeaponCrossbow( void )
 	m_bInZoom			= false;
 	m_bMustReload		= false;
 }
-
-#define	CROSSBOW_GLOW_SPRITE	"sprites/light_glow02_noz.vmt"
-#define	CROSSBOW_GLOW_SPRITE2	"sprites/blueflare1.vmt"
 
 //-----------------------------------------------------------------------------
 // Purpose: 
@@ -736,10 +778,11 @@ void CWeaponCrossbow::FireBolt( void )
 	}
 #endif
 
-	CCrossbowBolt *pBolt = CCrossbowBolt::BoltCreate( vecSrc, angAiming, pOwner );
+	CCrossbowBolt *pBolt = CCrossbowBolt::BoltCreate( vecSrc, angAiming, pOwner);
 
 	if (pBolt)
 	{
+
 		if (pOwner->GetWaterLevel() == 3)
 		{
 			pBolt->SetAbsVelocity(vecAiming * BOLT_WATER_VELOCITY);
@@ -828,8 +871,6 @@ void CWeaponCrossbow::ToggleZoom( void )
 		}
 	}
 }
-
-#define	BOLT_TIP_ATTACHMENT	2
 
 //-----------------------------------------------------------------------------
 // Purpose: 

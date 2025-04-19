@@ -17,6 +17,7 @@
 #define RUMBLE_FLAG_ONLYONE				0x0010 // Don't play this effect if it is already playing.
 #define RUMBLE_FLAG_RANDOM_AMPLITUDE	0x0020 // Amplitude scale will be randomly chosen. Between 10% and 100%
 #define RUMBLE_FLAG_INITIAL_SCALE		0x0040 // Data is the initial scale to start this effect ( * 100 )
+#define RUMBLE_FLAG_BYPASS_STOP			0x0080 // This effect bypasses any stop events.
 
 enum
 {

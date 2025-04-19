@@ -168,9 +168,6 @@ void StickRagdollNow(const Vector &vecOrigin, const Vector &vecDirection, const 
 		if ( knife != nullptr )
 			knife->m_hStuckRagdoll = ragdollEnum.GetRagdoll();
 	}
-	
-	if ( flags & SBFL_CROSSBOWBOLT )
-		CreateCrossbowBolt( vecOrigin, vecDirection );
 }
 
 //-----------------------------------------------------------------------------
@@ -180,9 +177,39 @@ void StickRagdollNow(const Vector &vecOrigin, const Vector &vecDirection, const 
 void StickyBoltCallback( const CEffectData &data )
 {
 	StickRagdollNow( data.m_vOrigin, data.m_vNormal, data.m_fFlags, data.GetEntity() );
+
+	if (data.m_fFlags & SBFL_CROSSBOWBOLT)
+		CreateCrossbowBolt(data.m_vOrigin, data.m_vNormal);
 }
 
-DECLARE_CLIENT_EFFECT( "BoltImpact", StickyBoltCallback );
+DECLARE_CLIENT_EFFECT("BoltImpact", StickyBoltCallback);
+
+void CreateChargebowBolt(const Vector& vecOrigin, const Vector& vecDirection)
+{
+	model_t* pModel = NULL;
+
+	pModel = (model_t*)engine->LoadModel("models/weapons/chagebow_bolt.mdl");
+
+	QAngle vAngles;
+
+	VectorAngles(vecDirection, vAngles);
+
+	tempents->SpawnTempModel(pModel, vecOrigin - vecDirection * 8, vAngles, Vector(0, 0, 0), 30.0f, FTENT_NONE);
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+// Input  : &data - 
+//-----------------------------------------------------------------------------
+void ArrowImpactCallback(const CEffectData& data)
+{
+	StickRagdollNow(data.m_vOrigin, data.m_vNormal, data.m_fFlags, data.GetEntity());
+
+	if (data.m_fFlags & SBFL_CHARGEBOWARROW)
+		CreateChargebowBolt(data.m_vOrigin, data.m_vNormal);
+}
+
+DECLARE_CLIENT_EFFECT("ArrowImpact", ArrowImpactCallback);
 
 void KnifeDislodgeCallback( const CEffectData &data )
 {

@@ -47,6 +47,7 @@ STUB_WEAPON_CLASS(weapon_turret, WeaponTurret, C_BaseHLCombatWeapon);
 STUB_WEAPON_CLASS(weapon_manhackthrower, WeaponManhackThrower, C_BaseHLCombatWeapon);
 STUB_WEAPON_CLASS(weapon_xm1014, WeaponXM1014, C_BaseHLCombatWeapon);
 STUB_WEAPON_CLASS(weapon_grenadelauncher, WeaponGrenadeLauncher, C_BaseHLCombatWeapon);
+STUB_WEAPON_CLASS(weapon_chargebow, WeaponChargebow, C_BaseHLCombatWeapon);
 #ifdef HL2_EPISODIC
 STUB_WEAPON_CLASS( weapon_hopwire, WeaponHopwire, C_BaseHLCombatWeapon );
 //STUB_WEAPON_CLASS( weapon_proto1, WeaponProto1, C_BaseHLCombatWeapon );
