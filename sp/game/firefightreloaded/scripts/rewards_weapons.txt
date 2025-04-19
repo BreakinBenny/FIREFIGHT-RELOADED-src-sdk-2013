@@ -39,63 +39,70 @@
 		"min_level"	"1"
 		"weapon_classname"	"weapon_crossbow"
 	}
-	"6"
+    "6"
+	{
+		"name"	"#GameUI_Store_Buy_ChargeBow"
+		"item_type"	"5"
+		"min_level"	"6"
+		"weapon_classname"	"weapon_chargebow"
+	}
+	"7"
 	{
 		"name"	"#GameUI_Store_Buy_Shotgun"
 		"item_type"	"5"
 		"min_level"	"1"
 		"weapon_classname"	"weapon_shotgun"
 	}
-	"7"
+	"8"
 	{
 		"name"	"#GameUI_Store_Buy_XM1014"
 		"item_type"	"5"
 		"min_level"	"6"
 		"weapon_classname"	"weapon_xm1014"
 	}
-	"8"
+	"9"
 	{
 		"name"	"#GameUI_Store_Buy_RPG"
 		"item_type"	"5"
 		"min_level"	"5"
 		"weapon_classname"	"weapon_rpg"
 	}
-	"9"
+	"10"
 	{
 		"name"	"#GameUI_Store_Buy_GrenadeLauncher"
 		"item_type"	"5"
 		"min_level"	"5"
 		"weapon_classname"	"weapon_grenadelauncher"
 	}
-	"10"
+	"11"
 	{
 		"name"	"#GameUI_Store_Buy_SniperRifle"
 		"item_type"	"5"
 		"min_level"	"1"
 		"weapon_classname"	"weapon_sniper_rifle"
 	}
-	"11"
+	"12"
 	{
 		"name"	"#GameUI_Store_Buy_M249Para"
 		"item_type"	"5"
 		"min_level"	"5"
 		"weapon_classname"	"weapon_m249para"
 	}
-	"12"
+	"13"
 	{
 		"name"	"#GameUI_Store_Buy_Gauss"
 		"item_type"	"5"
 		"min_level"	"7"
 		"weapon_classname"	"weapon_gauss"
 	}
-	"13"
+	"14"
 	{
 		"name"	"#GameUI_Store_Buy_Katana"
 		"item_type"	"5"
 		"min_level"	"10"
 		"weapon_classname"	"weapon_katana"
 	}
-	"14"
+	"15"
 	{
 		"name"	"#GameUI_Bugbait"
 		"item_type"	"5"
@@ -103,7 +110,7 @@
 		"unlocks_in_lone_wolf"	"0"
 		"weapon_classname"	"weapon_bugbait"
 	}
-	"15"
+	"16"
 	{
 		"name"	"#GameUI_Store_Buy_Knife"
 		"item_type"	"5"
@@ -111,35 +118,35 @@
 		"weapon_classname"	"weapon_knife"
 		"unlocks_in_iron_kick"	"1"
 	}
-	"16"
+	"17"
 	{
 		"name"	"#GameUI_Store_Buy_Railgun"
 		"item_type"	"5"
 		"min_level"	"8"
 		"weapon_classname"	"weapon_railgun"
 	}
-	"17"
+	"18"
 	{
 		"name"	"#GameUI_Store_Buy_OICW"
 		"item_type"	"5"
 		"min_level"	"4"
 		"weapon_classname"	"weapon_oicw"
 	}
-	"18"
+	"19"
 	{
 		"name"	"#GameUI_Store_Buy_Alyxgun"
 		"item_type"	"5"
 		"min_level"	"8"
 		"weapon_classname"	"weapon_alyxgun"
 	}
-	"19"
+	"20"
 	{
 		"name"	"#GameUI_Store_Buy_Turret"
 		"item_type"	"5"
 		"min_level"	"6"
 		"weapon_classname"	"weapon_turret"
 	}
-	"20"
+	"21"
 	{
 		"name"	"#GameUI_Store_Buy_Manhack"
 		"item_type"	"6"

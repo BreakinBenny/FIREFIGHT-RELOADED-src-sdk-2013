@@ -537,6 +537,7 @@
             "Valve_Hint_Alt_Weapon_Pistol": "%+attack3% SWITCH AMMO TYPE TO .9MM/FLARES",
             "Valve_Hint_Alt_Weapon_Knife": "%+attack2% THROW KNIFE",
             "Valve_Hint_Alt_Weapon_Katana": "KILLS WITH THE KATANA DURING BULLETTIME WILL INCREASE YOUR SPEED AND HEALTH",
+            "Valve_Hint_Alt_Weapon_Chargebow": "%+attack%PRESS AND RELEASE TO FIRE.\nPRESS AND HOLD TO CHARGE THE ARROW\nFOR INCREASED BOLT DAMAGE, SPEED, AND SHOT PENETRATION",
             "Valve_Hud_DualWield": "%toggle_dualwield% TO DUAL-WIELD WEAPON",
             "Valve_Hud_DualWield_Pickup_Weapon_Pistol": "%invnext% SWITCH TO PISTOL %toggle_dualwield% TO DUAL-WIELD PISTOL",
             "Valve_Hud_DualWield_Pickup_Weapon_RPG": "%invnext% SWITCH TO RPG %toggle_dualwield% TO DUAL-WIELD RPG",

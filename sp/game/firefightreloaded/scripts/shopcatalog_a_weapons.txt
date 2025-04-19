@@ -60,119 +60,126 @@
 		"limit"	"1"
 		"command"	"item weapon_crossbow 0"
 	}
-	"9"
+    "9"
+	{
+		"name"	"ChargeBow"
+		"price"	"4500"
+		"limit"	"1"
+		"command"	"item weapon_chargebow 0"
+	}
+	"10"
 	{
 		"name"	"Shotgun"
 		"price"	"2500"
 		"limit"	"1"
 		"command"	"item weapon_shotgun 0"
 	}
-	"10"
+	"11"
 	{
 		"name"	"XM1014"
 		"price"	"4000"
 		"limit"	"1"
 		"command"	"item weapon_xm1014 0"
 	}
-	"11"
+	"12"
 	{
 		"name"	"RPG"
 		"price"	"4500"
 		"limit"	"2"
 		"command"	"item weapon_rpg 0"
 	}
-	"12"
+	"13"
 	{
 		"name"	"GrenadeLauncher"
 		"price"	"3500"
 		"limit"	"1"
 		"command"	"item weapon_grenadelauncher 0"
 	}
-	"13"
+	"14"
 	{
 		"name"	"SniperRifle"
 		"price"	"2500"
 		"limit"	"1"
 		"command"	"item weapon_sniper_rifle 0"
 	}
-	"14"
+	"15"
 	{
 		"name"	"FlechetteGun"
 		"price"	"7500"
 		"limit"	"1"
 		"command"	"item weapon_flechettegun 0"
 	}
-	"15"
+	"16"
 	{
 		"name"	"M249Para"
 		"price"	"15000"
 		"limit"	"1"
 		"command"	"item weapon_m249para 0"
 	}
-	"16"
+	"17"
 	{
 		"name"	"Gauss"
 		"price"	"25000"
 		"limit"	"1"
 		"command"	"item weapon_gauss 0"
 	}
-	"17"
+	"18"
 	{
 		"name"	"Katana"
 		"price"	"27000"
 		"limit"	"1"
 		"command"	"item weapon_katana 0"
 	}
-	"18"
+	"19"
 	{
 		"name"	"Railgun"
 		"price"	"30000"
 		"limit"	"1"
 		"command"	"item weapon_railgun 0"
 	}
-	"19"
+	"20"
 	{
 		"name"	"OICW"
 		"price"	"2450"
 		"limit"	"1"
 		"command"	"item weapon_oicw 0"
 	}
-	"20"
+	"21"
 	{
 		"name"	"SMG"
 		"price"	"1500"
 		"limit"	"1"
 		"command"	"item weapon_smg1 0"
 	}
-	"21"
+	"22"
 	{
 		"name"	"MP5"
 		"price"	"1000"
 		"limit"	"1"
 		"command"	"item weapon_mp5 0"
 	}
-	"22"
+	"23"
 	{
 		"name"	"Pistol"
 		"price"	"500"
 		"limit"	"2"
 		"command"	"item weapon_pistol 0"
 	}
-	"23"
+	"24"
 	{
 		"name"	"Crowbar"
 		"price"	"300"
 		"limit"	"1"
 		"command"	"item weapon_crowbar 0"
 	}
-	"24"
+	"25"
 	{
 		"name"	"GravityGun"
 		"price"	"3500"
 		"limit"	"1"
 		"command"	"item weapon_physcannon 0"
 	}
-	"25"
+	"26"
 	{
 		"name"	"GrappleBeam"
 		"price"	"3500"
