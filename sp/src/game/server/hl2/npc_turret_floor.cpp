@@ -1915,6 +1915,7 @@ int CNPC_FloorTurret::VPhysicsTakeDamage( const CTakeDamageInfo &info )
 	if ( !bShouldIgnoreFromFront )
 	{
 		bShouldIgnoreFromFront = (FClassnameIs( info.GetInflictor(), "crossbow_bolt" ) || 
+									FClassnameIs(info.GetInflictor(), "chargebow_bolt") ||
 									FClassnameIs(info.GetInflictor(), "knife_bolt"));
 	}
 

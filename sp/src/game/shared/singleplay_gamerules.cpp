@@ -858,6 +858,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 				{
 					if (FClassnameIs(pInflictor, "knife_bolt") ||
 						FClassnameIs(pInflictor, "crossbow_bolt") ||
+						FClassnameIs(pInflictor, "chargebow_bolt") ||
 						FClassnameIs(pInflictor, "env_flare"))
 					{
 						moneyReward += 30;

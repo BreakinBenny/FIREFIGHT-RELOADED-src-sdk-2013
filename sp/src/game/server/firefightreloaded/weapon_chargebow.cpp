@@ -136,7 +136,7 @@ CWeaponChargebow::CWeaponChargebow( void )
 //-----------------------------------------------------------------------------
 void CWeaponChargebow::Precache( void )
 {
-	UTIL_PrecacheOther( "crossbow_bolt" );
+	UTIL_PrecacheOther( "chargebow_bolt" );
 
 	PrecacheScriptSound( "Weapon_Crossbow.BoltHitBody" );
 	PrecacheScriptSound( "Weapon_Crossbow.BoltHitWorld" );

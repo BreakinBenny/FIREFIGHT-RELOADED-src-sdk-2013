@@ -46,7 +46,10 @@ ConVar	  crossbow_new_glass_passthrough("crossbow_new_glass_passthrough", "1", F
 ConVar	  chargebow_uncharged_damage_reduction("chargebow_uncharged_damage_reduction", "0.5", FCVAR_ARCHIVE);
 ConVar	  chargebow_damage_falloff_amount("chargebow_damage_falloff_amount", "0.25", FCVAR_ARCHIVE);
 
+ConVar	  bolt_debug_print_damage("bolt_debug_print_damage", "0", FCVAR_NONE);
+
 LINK_ENTITY_TO_CLASS( crossbow_bolt, CCrossbowBolt );
+LINK_ENTITY_TO_CLASS( chargebow_bolt, CCrossbowBolt);
 
 BEGIN_DATADESC( CCrossbowBolt )
 	// Function Pointers
@@ -69,7 +72,15 @@ END_SEND_TABLE()
 CCrossbowBolt *CCrossbowBolt::BoltCreate( const Vector &vecOrigin, const QAngle &angAngles, CBasePlayer *pentOwner, int iBoltType, bool bCharged)
 {
 	// Create a new entity with CCrossbowBolt private data
-	CCrossbowBolt *pBolt = (CCrossbowBolt *)CreateEntityByName( "crossbow_bolt" );
+
+	const char* szBoltClassname = "crossbow_bolt";
+
+	if (iBoltType == BOLT_CHARGEBOW)
+	{
+		szBoltClassname = "chargebow_bolt";
+	}
+
+	CCrossbowBolt *pBolt = (CCrossbowBolt *)CreateEntityByName(szBoltClassname);
 	if (pBolt)
 	{
 		UTIL_SetOrigin(pBolt, vecOrigin);
@@ -277,14 +288,17 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 
 	if ( pOther->m_takedamage != DAMAGE_NO )
 	{
+		if (bolt_debug_print_damage.GetBool())
+		{
+			Msg("%i, (%f,%f,%f)\n", m_iDamage, GetAbsVelocity().x, GetAbsVelocity().y, GetAbsVelocity().z);
+		}
+
 		trace_t	tr, tr2;
 		tr = BaseClass::GetTouchTrace();
 		Vector	vecNormalizedVel = GetAbsVelocity();
 
 		ClearMultiDamage();
 		VectorNormalize( vecNormalizedVel );
-
-		Msg("%i, (%f,%f,%f)\n", m_iDamage, vecNormalizedVel.x, vecNormalizedVel.y, vecNormalizedVel.z);
 
 		if( GetOwnerEntity() && GetOwnerEntity()->IsPlayer() && pOther->IsNPC() )
 		{
