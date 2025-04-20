@@ -422,12 +422,12 @@
 				"font"		"WeaponIconsKillFeed3"
 				"character"	"x"
 		}
-        "npc_hgrunt_robot"
+        		"npc_hgrunt_robot"
 		{
 				"font"		"WeaponIconsKillFeed3"
 				"character"	"x"
 		}
-        "weapon_physgun"
+        		"weapon_physgun"
 		{
 				"font"		"WeaponIconsKillFeed2"
 				"character"	"m"
@@ -584,6 +584,16 @@
 				"character"	"Q"
 				"customxyoffset"	"1"
 				"x_offset"		"45"
+		}
+		"chargebow_bolt"
+		{
+				"file"		"VGUI/basic2d_linear/ex_weaponicon_54"
+				"x"			"0"
+				"y"			"0"
+				"width"		"64"
+				"height"	"32"
+				"customxyoffset"	"1"
+				"y_offset"		"-13"
 		}
 	}	
 }

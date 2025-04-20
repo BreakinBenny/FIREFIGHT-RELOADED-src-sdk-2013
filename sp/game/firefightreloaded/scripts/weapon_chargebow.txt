@@ -9,7 +9,7 @@ WeaponData
 	"anim_prefix"	"bow"
 	"weapon_type"	"bow"
 	"bucket"			"3"
-	"bucket_position"	"5"
+	"bucket_position"		"5"
 
 	"clip_size"		"1"
 	"default_clip"		"10"
@@ -42,18 +42,19 @@ WeaponData
 	{
 		"weapon"
 		{
-				"font"		"WeaponIcons"
-				"character"	"g"
+				"file"		"VGUI/basic2d_linear/ex_weaponicon_54"
+				"x"			"0"
+				"y"			"0"
+				"width"		"64"
+				"height"	"32"
 		}
 		"weapon_s"
 		{	
-				"font"		"WeaponIconsSelected"
-				"character"	"g"
-		}
-		"weapon_small"
-		{
-				"font"		"WeaponIconsSmall"
-				"character"	"g"
+				"file"		"VGUI/basic2d_linear/ex_weaponicon_54"
+				"x"			"0"
+				"y"			"0"
+				"width"		"64"
+				"height"	"32"
 		}
 		"ammo"
 		{

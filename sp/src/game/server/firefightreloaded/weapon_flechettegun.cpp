@@ -43,6 +43,7 @@ public:
 	void	FireNPCPrimaryAttack(CBaseCombatCharacter* pOperator, Vector& vecShootOrigin, Vector& vecShootDir);
 	void	Operator_HandleAnimEvent(animevent_t *pEvent, CBaseCombatCharacter *pOperator);
 	void	Operator_ForceNPCFire(CBaseCombatCharacter* pOperator, bool bSecondary);
+	bool	Reload(void);
 	float	GetFireRate(void) 
 	{ 
 		if (GetOwner()->MyNPCPointer())
@@ -251,6 +252,11 @@ void CWeaponFlechetteGun::FireNPCPrimaryAttack(CBaseCombatCharacter* pOperator, 
 	DispatchEffect("HunterMuzzleFlash", data);
 
 	m_iClip1 = m_iClip1 - 1;
+}
+
+bool CWeaponFlechetteGun::Reload(void)
+{
+	return DefaultReload(GetMaxClip1(), GetMaxClip2(), ACT_VM_RELOAD);
 }
 
 //-----------------------------------------------------------------------------
