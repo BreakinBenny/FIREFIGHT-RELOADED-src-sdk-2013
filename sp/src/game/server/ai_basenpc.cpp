@@ -3180,10 +3180,7 @@ void CAI_BaseNPC::RunAnimation( void )
 			//But here it doesn't and not setting it causes any animation set through here to be stomped by the 
 			//ideal sequence before it has a chance of playing out (since there's code that reselects the ideal 
 			//sequence if it doesn't match the current one).
-			if ( hl2_episodic.GetBool() )
-			{
-				m_nIdealSequence = iSequence;
-			}
+			m_nIdealSequence = iSequence;
 		}
 	}
 
@@ -6585,6 +6582,19 @@ void CAI_BaseNPC::SetIdealActivity( Activity NewActivity )
 	ResolveActivityToSequence(m_IdealActivity, m_nIdealSequence, m_IdealTranslatedActivity, m_IdealWeaponActivity);
 }
 
+void CAI_BaseNPC::SetModel(const char* szModelName)
+{
+	BaseClass::SetModel(szModelName);
+
+	//Msg("Anim currently %s\n", GetSequenceName(GetSequence()));
+
+	if (m_nIdealSequence != NULL)
+	{
+		SetSequence(m_nIdealSequence);
+	}
+
+	//Msg("Anim now %s\n", GetSequenceName(GetSequence()));
+}
 
 //-----------------------------------------------------------------------------
 // Purpose: Moves toward the ideal activity through any transition sequences.

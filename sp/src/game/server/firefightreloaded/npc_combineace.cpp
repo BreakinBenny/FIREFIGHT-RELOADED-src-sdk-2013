@@ -803,6 +803,22 @@ float CNPC_CombineAce::GetHitgroupDamageMultiplier( int iHitGroup, const CTakeDa
 		{
 			return 1.5f;
 		}
+	case HITGROUP_CHEST:
+		if (m_bBulletResistanceBroken)
+		{
+			//for katanas, we should make it so decapitations
+			//happen if we hit the chest of an enemy
+			//to improve responsiveness.
+			if (info.GetDamageType() & (DMG_SLASH))
+			{
+				// Soldiers take double headshot damage
+				if (CorpseDecapitate(info))
+				{
+					//we're dead by this point, lol
+					return BaseClass::GetHitgroupDamageMultiplier(iHitGroup, info);
+				}
+			}
+		}
 	}
 
 	return BaseClass::GetHitgroupDamageMultiplier(iHitGroup, info);

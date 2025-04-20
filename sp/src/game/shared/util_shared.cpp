@@ -1222,7 +1222,7 @@ const bool UTIL_SteamInput_AreControllersConnected()
 
 	const char* szStatus = engine->GetClientConVarValue(engine->IndexOfEdict(pPlayer->edict()), "si_status");
 
-	if (szStatus)
+	if (szStatus && *szStatus)
 	{
 		int iStatus = atoi(szStatus);
 		if (iStatus != 0)

@@ -1025,6 +1025,8 @@ public:
 	virtual bool		ShouldIgnoreSound( CSound * )	{ return false; }
 	bool				SoundIsVisible( CSound *pSound );
 
+	virtual void		SetModel(const char* szModelName);
+
 protected:
 	virtual void		ClearSenseConditions( void );
 	

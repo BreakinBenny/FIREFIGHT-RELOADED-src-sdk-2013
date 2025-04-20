@@ -4024,6 +4024,19 @@ float CNPC_MetroPolice::GetHitgroupDamageMultiplier(int iHitGroup, const CTakeDa
 		{
 			return 2.0f;
 		}
+	case HITGROUP_CHEST:
+		//for katanas, we should make it so decapitations
+		//happen if we hit the chest of an enemy
+		//to improve responsiveness.
+		if (info.GetDamageType() & (DMG_SLASH))
+		{
+			// Soldiers take double headshot damage
+			if (CorpseDecapitate(info))
+			{
+				//we're dead by this point, lol
+				return BaseClass::GetHitgroupDamageMultiplier(iHitGroup, info);
+			}
+		}
 	}
 
 	return BaseClass::GetHitgroupDamageMultiplier(iHitGroup, info);

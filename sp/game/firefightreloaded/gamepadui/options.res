@@ -2221,6 +2221,51 @@
 				}
 			}
             
+            "BullettimeBulletSpeed"
+			{
+				"text"			"#GameUI_Bullettime_Bullet_Speed"
+				"type"			"slideyslide"
+				"advanced"		"1"
+                "hidden"		"1"
+				"convar"		"sv_bullettime_bullet_speed"
+
+				"min"			"1000"
+				"max"			"20000"
+				"step"			"100"
+
+				"textprecision" "2"
+			}
+            
+            "BullettimeBulletSpeedOffset"
+			{
+				"text"			"#GameUI_Bullettime_Bullet_Speed_Offset"
+				"type"			"slideyslide"
+				"advanced"		"1"
+                "hidden"		"1"
+				"convar"		"sv_bullettime_timescale_offset"
+
+				"min"			"100"
+				"max"			"300"
+				"step"			"10"
+
+				"textprecision" "2"
+			}
+            
+            "BullettimeBulletSpeedOffsetPlayer"
+			{
+				"text"			"#GameUI_Bullettime_Bullet_Speed_Offset_Player"
+				"type"			"slideyslide"
+				"advanced"		"1"
+                "hidden"		"1"
+				"convar"		"sv_bullettime_timescale_offset_player"
+
+				"min"			"100"
+				"max"			"300"
+				"step"			"10"
+
+				"textprecision" "2"
+			}
+            
             "PausePlayerMovement"
 			{
 				"text"			"#GameUI_PausePlayerMovement"
@@ -3104,67 +3149,24 @@
 				"options_from"	"displaymode"
 			}
             
+            "VerticalSync"
+			{
+				"text"			"#GameUI_Wait_For_VSync"
+				"type"			"wheelywheel"
+				"convar"		"mat_vsync"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
 			"AdvancedHeader"
 			{
 				"text"			"#GameUI_AdvancedNoEllipsis"
 				"type"			"headeryheader"
 				"advanced"		"1"
-			}
-            
-            "ClassicBlood"
-			{
-				"text"			"#GameUI_ClassicBlood"
-				"type"			"wheelywheel"
-				"advanced"		"1"
-				"convar"		"r_classic_blood"
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#gameui_enabled"
-				}
-			}
-            
-            "ClassicFire"
-			{
-				"text"			"#GameUI_ClassicFire"
-				"type"			"wheelywheel"
-				"advanced"		"1"
-				"convar"		"_gamepadui_classicfire"
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#gameui_enabled"
-				}
-			}
-            
-            "NPCMuzzleSmoke"
-			{
-				"text"			"#GameUI_NPCMuzzleSmoke"
-				"type"			"wheelywheel"
-				"advanced"		"1"
-				"convar"		"g_fr_npc_muzzlesmoke"
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#gameui_enabled"
-				}
-			}
-            
-            "PLRMuzzleSmoke"
-			{
-				"text"			"#GameUI_PLRMuzzleSmoke"
-				"type"			"wheelywheel"
-				"advanced"		"1"
-				"convar"		"g_fr_plr_muzzlesmoke"
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#gameui_enabled"
-				}
 			}
 
 			"ModelDetail"
@@ -3313,68 +3315,12 @@
 				}
             }
             
-            "GaussBeam"
+            "PowerSavingMode"
 			{
-				"text"			"#GameUI_GaussBeamOption"
+				"text"			"#GameUI_PowerSavingMode"
 				"type"			"wheelywheel"
 				"advanced"		"1"
-				"convar"		"sv_gauss_jeep_beam"
-
-				"options"
-				{
-					"0"		"#Song_Album_HalfLife"
-					"1"		"#Song_Album_HalfLife2"
-				}
-			}
-            
-            "BullettimeBulletSpeed"
-			{
-				"text"			"#GameUI_Bullettime_Bullet_Speed"
-				"type"			"slideyslide"
-				"advanced"		"1"
-				"convar"		"sv_bullettime_bullet_speed"
-
-				"min"			"1000"
-				"max"			"20000"
-				"step"			"100"
-
-				"textprecision" "2"
-			}
-            
-            "BullettimeBulletSpeedOffset"
-			{
-				"text"			"#GameUI_Bullettime_Bullet_Speed_Offset"
-				"type"			"slideyslide"
-				"advanced"		"1"
-				"convar"		"sv_bullettime_timescale_offset"
-
-				"min"			"100"
-				"max"			"300"
-				"step"			"10"
-
-				"textprecision" "2"
-			}
-            
-            "BullettimeBulletSpeedOffsetPlayer"
-			{
-				"text"			"#GameUI_Bullettime_Bullet_Speed_Offset_Player"
-				"type"			"slideyslide"
-				"advanced"		"1"
-				"convar"		"sv_bullettime_timescale_offset_player"
-
-				"min"			"100"
-				"max"			"300"
-				"step"			"10"
-
-				"textprecision" "2"
-			}
-
-			"ColorCorrection"
-			{
-				"text"			"#GameUI_Color_Correction"
-				"type"			"wheelywheel"
-				"advanced"		"1"
-				"convar"		"mat_colorcorrection"
+				"convar"		"mat_powersavingsmode"
 
 				"options"
 				{
@@ -3382,8 +3328,8 @@
 					"1"		"#gameui_enabled"
 				}
 			}
-
-			"Antialiasing"
+            
+            "Antialiasing"
 			{
 				"text"			"#GameUI_Antialiasing_Mode"
 				"type"			"wheelywheel"
@@ -3410,13 +3356,83 @@
 					"16"	"#GameUI_Anisotropic16X"
 				}
 			}
-
-			"VerticalSync"
+            
+            "ClassicBlood"
 			{
-				"text"			"#GameUI_Wait_For_VSync"
+				"text"			"#GameUI_ClassicBlood"
 				"type"			"wheelywheel"
 				"advanced"		"1"
-				"convar"		"mat_vsync"
+				"convar"		"r_classic_blood"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
+            "ClassicFire"
+			{
+				"text"			"#GameUI_ClassicFire"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"_gamepadui_classicfire"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
+            "NPCMuzzleSmoke"
+			{
+				"text"			"#GameUI_NPCMuzzleSmoke"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"g_fr_npc_muzzlesmoke"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
+            "PLRMuzzleSmoke"
+			{
+				"text"			"#GameUI_PLRMuzzleSmoke"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"g_fr_plr_muzzlesmoke"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
+            "GaussBeam"
+			{
+				"text"			"#GameUI_GaussBeamOption"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"sv_gauss_jeep_beam"
+
+				"options"
+				{
+					"0"		"#Song_Album_HalfLife"
+					"1"		"#Song_Album_HalfLife2"
+				}
+			}
+
+			"ColorCorrection"
+			{
+				"text"			"#GameUI_Color_Correction"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"mat_colorcorrection"
 
 				"options"
 				{
@@ -3450,6 +3466,8 @@
 				{
 					"0"		"#gameui_disabled"
 					"-1"	"#gameui_enabled"
+                    "2"	    "#GameUI_EnabledQueuedMultithreaded"
+                    "-2"    "#GameUI_EnabledLegacyMode"
 				}
 			}
 			

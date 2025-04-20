@@ -23,6 +23,8 @@
 extern ConVar r_FadeProps;
 #endif
 
+static ConVar cl_ragdoll_statue("cl_ragdoll_statue", "0", FCVAR_ARCHIVE | FCVAR_USERINFO);
+
 CRagdoll::CRagdoll()
 {
 	m_ragdoll.listCount = 0;
@@ -110,7 +112,7 @@ void CRagdoll::Init(
 	params.pCurrentBones = pCurrentBonePosition;
 	params.jointFrictionScale = 1.0;
 	params.allowStretch = false;
-	params.fixedConstraints = bFixedConstraints;
+	params.fixedConstraints = (cl_ragdoll_statue.GetBool()) ? cl_ragdoll_statue.GetBool() : bFixedConstraints;
 	RagdollCreate( m_ragdoll, params, physenv );
 	ent->VPhysicsSetObject( NULL );
 	ent->VPhysicsSetObject( m_ragdoll.list[0].pObject );
