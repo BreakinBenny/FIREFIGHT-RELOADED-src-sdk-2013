@@ -583,7 +583,7 @@
 				"font"		"Crosshairs"
 				"character"	"Q"
 				"customxyoffset"	"1"
-				"x_offset"		"45"
+				"x_offset"		"65"
 		}
 		"chargebow_bolt"
 		{
