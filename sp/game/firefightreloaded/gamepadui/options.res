@@ -2571,6 +2571,21 @@
 					"1"		"#gameui_enabled"
 				}
 			}
+            
+            "RagdollStatues"
+			{
+				"text"			"#GameUI_RagdollStatues"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+                "hidden"		"1"
+				"convar"		"cl_ragdoll_statue"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
 		}
 	}
 	"Keyboard"

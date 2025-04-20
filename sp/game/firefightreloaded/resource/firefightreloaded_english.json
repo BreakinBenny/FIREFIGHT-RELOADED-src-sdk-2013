@@ -738,6 +738,7 @@
             "GameUI_IronsightVignette": "Vignette effect when using ironsights",
             "GameUI_EnabledQueuedMultithreaded": "Enabled (Queued Mode)",
             "GameUI_EnabledLegacyMode": "Enabled (Legacy Mode)",
+            "GameUI_RagdollStatues": "Ragdoll Statues",
             "FIREFIGHTRELOADED_KILL20COMBINE_NAME": "The Rookie",
             "FIREFIGHTRELOADED_KILL20COMBINE_DESC": "Kill 20 Combine Soldiers/Civil Protection overall.",
             "FIREFIGHTRELOADED_KILL20COMBINE_ACHIEVED": "ACHIEVEMENT UNLOCKED:\nThe Rookie\nKill 20 Combine Soldiers/Civil Protection overall.",
