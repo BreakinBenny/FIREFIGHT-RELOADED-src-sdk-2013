@@ -6351,6 +6351,10 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 		for (int i = m_loadoutWeapons.Size() - 1; i >= 0; i--)
 		{
 			const char* classname = STRING(m_loadoutWeapons[i]);
+
+			if (!(classname && *classname))
+				continue;
+
 			bool isDualies = false;
 
 			char* dualiesext = Q_strstr(classname, "_dual");
@@ -6391,6 +6395,10 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 				for (int i = m_loadoutAmmo.Size() - 1; i >= 0; i--)
 				{
 					const char* ConvertedAmmoString = STRING(m_loadoutAmmo[i]);
+
+					if (!(ConvertedAmmoString && *ConvertedAmmoString))
+						continue;
+
 					int amt = m_loadoutAmmoAmt[i];
 
 					if (ConvertedAmmoString && amt)
@@ -6413,6 +6421,9 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 			{
 				const char* ConvertedString = STRING(m_awardedWeapons[i]);
 
+				if (!(ConvertedString && *ConvertedString))
+					continue;
+
 				if (ConvertedString)
 				{
 					GiveNamedItem(ConvertedString, 0, false);
@@ -6430,6 +6441,9 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 			{
 				const char* ConvertedString = STRING(m_boughtWeapons[i]);
 
+				if (!(ConvertedString && *ConvertedString))
+					continue;
+
 				if (ConvertedString)
 				{
 					GiveNamedItem(ConvertedString, 0, false);
@@ -6445,6 +6459,9 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 			for (int i = m_droppedWeapons.Size() - 1; i >= 0; i--)
 			{
 				const char* ConvertedString = STRING(m_droppedWeapons[i]);
+
+				if (!(ConvertedString && *ConvertedString))
+					continue;
 
 				if (ConvertedString)
 				{

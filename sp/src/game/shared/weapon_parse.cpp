@@ -546,14 +546,18 @@ void FileWeaponInfo_t::Parse( KeyValues *pKeyValuesData, const char *szWeaponNam
 	if ( iSlot >= MAX_WEAPON_SLOTS ||
 		iPosition >= MAX_WEAPON_POSITIONS )
 	{
-		Warning( "Invalid weapon slot or position [slot %d/%d max], pos[%d/%d max]\n",
-			iSlot, MAX_WEAPON_SLOTS - 1, iPosition, MAX_WEAPON_POSITIONS - 1 );
+		Warning( "Invalid weapon slot or position: %s [%s] [slot %d/%d max], pos[%d/%d max]\n",
+			szPrintName, szClassName, iSlot, MAX_WEAPON_SLOTS - 1, iPosition, MAX_WEAPON_POSITIONS - 1 );
 	}
 	else
 	{
 		if (g_bUsedWeaponSlots[iSlot][iPosition])
 		{
-			Warning( "Duplicately assigned weapon slots in selection hud:  %s (%d, %d)\n", szPrintName, iSlot, iPosition );
+			Warning( "Duplicately assigned weapon slots in selection hud: %s [%s] (%d, %d)\n", szPrintName, szClassName, iSlot, iPosition );
+		}
+		else
+		{
+			DevMsg("Weapon claimed slot: %s [%s] (%d, %d)\n", szPrintName, szClassName, iSlot, iPosition);
 		}
 		g_bUsedWeaponSlots[iSlot][iPosition] = true;
 	}

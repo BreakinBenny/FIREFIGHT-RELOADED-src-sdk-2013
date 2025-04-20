@@ -8,8 +8,8 @@ WeaponData
 	"playermodel"			"models/weapons/w_suitcase_passenger.mdl"
 	"anim_prefix"			"smg2"
 	"weapon_type"			"npc"
-	"bucket"				"2"
-	"bucket_position"		"0"
+	"bucket"				"5"
+	"bucket_position"			"81"
 
 	"clip_size"				"-1"
 	"clip2_size"			"-1"
