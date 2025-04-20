@@ -169,7 +169,7 @@ void CWeaponChargebow::PrimaryAttack( void )
 
 	// Put both of these off indefinitely. We do not know how long
 	// the player will hold the grenade.
-	//m_flTimeWeaponIdle = FLT_MAX;
+	m_flTimeWeaponIdle = FLT_MAX;
 	m_flNextPrimaryAttack = FLT_MAX;
 
 	//start the charge timer.
@@ -241,6 +241,7 @@ void CWeaponChargebow::ItemPostFrame( void )
 					m_fChargeTime = gpGlobals->curtime + FLT_MAX;
 					m_bPlayedChargeSound = false;
 					m_bCharged = false;
+					WeaponIdle();
 					return;
 				}
 
