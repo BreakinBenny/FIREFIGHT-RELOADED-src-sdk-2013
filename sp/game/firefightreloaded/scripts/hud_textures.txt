@@ -175,14 +175,14 @@
 				"font"		"AmmoIconsKillFeed"
 				"character"	"x"
                 				"customxyoffset"	"1"
-				"y_offset"		"-13"
+				"y_offset"		"-15"
 		}
 		"weapon_rpg"
 		{
 				"font"		"AmmoIconsKillFeed"
 				"character"	"x"
                 				"customxyoffset"	"1"
-				"y_offset"		"-13"
+				"y_offset"		"-15"
 		}
 		"npc_killerscanner"
 		{
@@ -277,7 +277,7 @@
 				"width"		"32"
 				"height"	"32"
 				"customxyoffset"	"1"
-				"y_offset"		"-13"
+				"y_offset"		"-4"
 		}
         		"npc_manhack_weapon"
 		{
@@ -287,7 +287,7 @@
 				"width"		"32"
 				"height"	"32"
 				"customxyoffset"	"1"
-				"y_offset"		"-13"
+				"y_offset"		"-4"
 		}
        		"npc_manhack_friendly"
 		{
@@ -297,7 +297,7 @@
 				"width"		"32"
 				"height"	"32"
 				"customxyoffset"	"1"
-				"y_offset"		"-13"
+				"y_offset"		"-4"
 		}
 		"weapon_manhackthrower"
 		{
@@ -307,7 +307,7 @@
 				"width"		"32"
 				"height"	"32"
 				"customxyoffset"	"1"
-				"y_offset"		"-13"
+				"y_offset"		"-4"
 		}
 		"kick"
 		{
@@ -392,7 +392,7 @@
 				"width"		"64"
 				"height"	"32"
 				"customxyoffset"	"1"
-				"y_offset"		"-13"
+				"y_offset"		"-7"
 		}
 		"weapon_katana"
 		{
@@ -402,7 +402,7 @@
 				"width"		"128"
 				"height"	"32"
 				"customxyoffset"	"1"
-				"y_offset"		"-13"
+				"y_offset"		"-7"
 		}
 		"weapon_railgun"
 		{
@@ -534,7 +534,7 @@
 				"width"		"64"
 				"height"	"32"
 				"customxyoffset"	"1"
-				"y_offset"		"-10"
+				"y_offset"		"-6"
 		}
 		"weapon_gatling"
 		{
@@ -544,7 +544,7 @@
 				"width"		"64"
 				"height"	"32"
 				"customxyoffset"	"1"
-				"y_offset"		"-13"
+				"y_offset"		"-7"
 		}
 		"weapon_physcannon"
 		{
@@ -593,7 +593,7 @@
 				"width"		"64"
 				"height"	"32"
 				"customxyoffset"	"1"
-				"y_offset"		"-13"
+				"y_offset"		"-8"
 		}
 		"hunter_flechette"
 		{
@@ -603,7 +603,7 @@
 				"width"		"64"
 				"height"	"32"
 				"customxyoffset"	"1"
-				"y_offset"		"-10"
+				"y_offset"		"-6"
 		}
 	}	
 }

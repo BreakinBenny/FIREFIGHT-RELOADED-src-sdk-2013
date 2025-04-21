@@ -209,7 +209,14 @@
 
 		"MaxDeathNotices" "4"
 		"LineHeight"	  "28"
+        "LineHeightBackgroundOffset"	  "10"
 		"RightJustify"	  "1"	// If 1, draw notices from the right
+        
+        "BackgroundOffsetX" "6"
+        "BackgroundOffsetY" "5"
+        
+        "IconSize"          "1.3"
+        "IconOffsetY"       "2"
 
 		"TextFont"				"DefaultKillFeed"
 		

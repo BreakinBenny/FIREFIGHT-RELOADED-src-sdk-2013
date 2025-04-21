@@ -66,13 +66,12 @@ public:
 private:
 
 	CPanelAnimationVarAliasType(float, m_flLineHeight, "LineHeight", "15", "proportional_float");
+	CPanelAnimationVarAliasType(float, m_flLineHeightBackgroundOffset, "LineHeightBackgroundOffset", "15", "proportional_float");
 
 	CPanelAnimationVar(float, m_flMaxDeathNotices, "MaxDeathNotices", "4");
 
 	CPanelAnimationVar(bool, m_bRightJustify, "RightJustify", "1");
 
-	CPanelAnimationVar(bool,		m_bUseTeamTextColor,	"UseTeamTextColor", "1");
-	CPanelAnimationVar(Color,		m_cTextColor,		"TextColor", "255 80 0 255");
 	CPanelAnimationVar(vgui::HFont, m_hTextFont, "TextFont", "HudNumbersTimer");
 
 	CPanelAnimationVar(Color, m_cIconColor, "IconColor", "255 80 0 255");
@@ -80,6 +79,9 @@ private:
 
 	CPanelAnimationVar(float, m_flIconOffsetX, "IconOffsetX", "0");
 	CPanelAnimationVar(float, m_flIconOffsetY, "IconOffsetY", "0");
+
+	CPanelAnimationVar(float, m_flBackgroundOffsetX, "BackgroundOffsetX", "0");
+	CPanelAnimationVar(float, m_flBackgroundOffsetY, "BackgroundOffsetY", "0");
 
 	CHudTexture* m_icon;
 
@@ -146,14 +148,7 @@ bool CHudDeathNotice::ShouldDraw(void)
 //-----------------------------------------------------------------------------
 void CHudDeathNotice::SetColorForNoticePlayer(int iTeamNumber)
 {
-	Color col = m_cTextColor;
-
-	if (m_bUseTeamTextColor)
-	{
-		col = GameResources()->GetTeamColor(iTeamNumber);
-	}
-
-	surface()->DrawSetTextColor(col);
+	surface()->DrawSetTextColor(GameResources()->GetTeamColor(iTeamNumber));
 }
 
 //-----------------------------------------------------------------------------
@@ -169,6 +164,9 @@ void CHudDeathNotice::Paint()
 
 	surface()->DrawSetTextFont(m_hTextFont);
 	surface()->DrawSetTextColor(GameResources()->GetTeamColor(0));
+
+	int xMargin = XRES(10);
+	int xSpacing = UTIL_ComputeStringWidth(m_hTextFont, L" ");
 
 	int iCount = m_DeathNotices.Count();
 	for (int i = 0; i < iCount; i++)
@@ -279,6 +277,16 @@ void CHudDeathNotice::Paint()
 			x = 0;
 		}
 
+		int iKillerTextWide = killer[0] ? UTIL_ComputeStringWidth(m_hTextFont, killer) + xSpacing : 0;
+		int iVictimTextWide = UTIL_ComputeStringWidth(m_hTextFont, victim) + xSpacing;
+
+		int iTotalWide = iKillerTextWide + iconWide + iVictimTextWide + (xMargin * 2) + m_flBackgroundOffsetX;
+
+		int iTotalTall = (m_flLineHeight - m_flLineHeightBackgroundOffset) + m_flBackgroundOffsetY;
+
+		Color col = GetBgColor();
+		surface()->DrawSetColor(col);
+
 		// Only draw killers name if it wasn't a suicide
 		if (!m_DeathNotices[i].iSuicide)
 		{
@@ -287,6 +295,8 @@ void CHudDeathNotice::Paint()
 				x -= UTIL_ComputeStringWidth(m_hTextFont, killer);
 			}
 
+			surface()->DrawFilledRect(x - m_flBackgroundOffsetX, y - m_flBackgroundOffsetY - 1, x + iTotalWide, y + iTotalTall - 1);
+
 			SetColorForNoticePlayer(iKillerTeam);
 
 			// Draw killer's name
@@ -294,6 +304,10 @@ void CHudDeathNotice::Paint()
 			surface()->DrawSetTextFont(m_hTextFont);
 			surface()->DrawUnicodeString(killer);
 			surface()->DrawGetTextPos(x, y);
+		}
+		else
+		{
+			surface()->DrawFilledRect(x - m_flBackgroundOffsetX, y - m_flBackgroundOffsetY - 1, x + iTotalWide, y + iTotalTall - 1);
 		}
 
 		// Draw death weapon
