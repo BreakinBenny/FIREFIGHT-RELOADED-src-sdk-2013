@@ -197,7 +197,7 @@ void CHudZoom::Paint( void )
 
 	if (pWeapon)
 	{
-		if (pWeapon->IsIronsighted())
+		if (pPlayer->m_HL2Local.m_bZoomingIronsight)
 		{
 			displayCircle = false;
 		}

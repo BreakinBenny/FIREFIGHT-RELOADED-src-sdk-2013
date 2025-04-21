@@ -595,5 +595,15 @@
 				"customxyoffset"	"1"
 				"y_offset"		"-13"
 		}
+		"hunter_flechette"
+		{
+				"file"		"sprites/weapons/flechette_icon"
+				"x"		"0"
+				"y"		"0"
+				"width"		"64"
+				"height"	"32"
+				"customxyoffset"	"1"
+				"y_offset"		"-10"
+		}
 	}	
 }

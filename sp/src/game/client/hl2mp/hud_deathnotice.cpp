@@ -71,6 +71,8 @@ private:
 
 	CPanelAnimationVar(bool, m_bRightJustify, "RightJustify", "1");
 
+	CPanelAnimationVar(bool,		m_bUseTeamTextColor,	"UseTeamTextColor", "1");
+	CPanelAnimationVar(Color,		m_cTextColor,		"TextColor", "255 80 0 255");
 	CPanelAnimationVar(vgui::HFont, m_hTextFont, "TextFont", "HudNumbersTimer");
 
 	CPanelAnimationVar(Color, m_cIconColor, "IconColor", "255 80 0 255");
@@ -144,7 +146,14 @@ bool CHudDeathNotice::ShouldDraw(void)
 //-----------------------------------------------------------------------------
 void CHudDeathNotice::SetColorForNoticePlayer(int iTeamNumber)
 {
-	surface()->DrawSetTextColor(GameResources()->GetTeamColor(iTeamNumber));
+	Color col = m_cTextColor;
+
+	if (m_bUseTeamTextColor)
+	{
+		col = GameResources()->GetTeamColor(iTeamNumber);
+	}
+
+	surface()->DrawSetTextColor(col);
 }
 
 //-----------------------------------------------------------------------------

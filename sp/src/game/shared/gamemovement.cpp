@@ -67,6 +67,7 @@ ConVar player_limit_jump_speed( "player_limit_jump_speed", "1", FCVAR_REPLICATED
 //Used for bunnyhopping
 ConVar fr_enable_bunnyhop("fr_enable_bunnyhop", "1", FCVAR_ARCHIVE);
 ConVar fr_enable_bunnyhop_legacybehavior("fr_enable_bunnyhop_legacybehavior", "0", FCVAR_ARCHIVE);
+ConVar fr_enable_bunnyhop_speedboost("fr_enable_bunnyhop_speedboost", "0.2", FCVAR_ARCHIVE);
 
 ConVar fr_floatymove("fr_floatymove", "0", FCVAR_ARCHIVE);
 
@@ -2631,7 +2632,7 @@ bool CGameMovement::CheckJumpButton( void )
 		{
 			for (int iAxis = 0; iAxis < 2; ++iAxis)
 			{
-				vecForward[iAxis] *= (mv->m_flForwardMove * 0.2f);
+				vecForward[iAxis] *= (mv->m_flForwardMove * fr_enable_bunnyhop_speedboost.GetFloat());
 			}
 		}
 		else

@@ -2129,6 +2129,7 @@ void CHL2_Player::StartZooming( void )
 	if ( SetFOV( this, iFOV, 0.4f ) )
 	{
 		m_HL2Local.m_bZooming = true;
+		m_HL2Local.m_bZoomingIronsight = false;
 	}
 }
 
@@ -2270,6 +2271,7 @@ void CHL2_Player::CheckIronsights(void)
 				if (pWeapon->IsIronsighted())
 				{
 					m_HL2Local.m_bZooming = true;
+					m_HL2Local.m_bZoomingIronsight = true;
 				}
 				else
 				{
