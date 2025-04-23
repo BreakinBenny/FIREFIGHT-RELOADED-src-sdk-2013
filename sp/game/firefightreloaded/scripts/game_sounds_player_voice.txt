@@ -65,3 +65,29 @@
 		"wave"	"player/voice/pl_perk6.wav"
 	}
 }
+
+"Player.VoiceCharge"
+{
+	"channel"	"CHAN_VOICE"
+	"soundlevel"	"SNDLVL_94dB"
+	"volume"	"1.0"
+	"rndwave"
+	{
+		"wave"		"player/voice/pl_charge1.wav"
+		"wave"		"player/voice/pl_charge2.wav"
+		"wave"		"player/voice/pl_charge3.wav"
+	}
+}
+
+"Player.VoiceChargeDefault"
+{
+	"channel"	"CHAN_VOICE"
+	"soundlevel"	"SNDLVL_94dB"
+	"volume"	"1.0"
+	"rndwave"
+	{
+		"wave"		"player/voice/pl_charge_default1.wav"
+		"wave"		"player/voice/pl_charge_default2.wav"
+		"wave"		"player/voice/pl_charge_default3.wav"
+	}
+}

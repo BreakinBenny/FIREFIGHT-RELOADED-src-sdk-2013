@@ -109,6 +109,14 @@ public:
 	virtual void		StopLoopingSounds( void );
 	virtual void		Splash( void );
 	virtual void 		ModifyOrAppendPlayerCriteria( AI_CriteriaSet& set );
+	void				CheckCharge(void);
+	bool				CanCharge(void);
+	void				DoCharge(void);
+	void				EndCharge(void);
+	void				ChargeBash(void);
+	bool				CheckChargeBash(void);
+	bool				IsCharging(void) { return m_bCharging; }
+	void				SetCharging(bool bCharging) { m_bCharging = bCharging; }
 
 	void				DrawDebugGeometryOverlays(void);
 
@@ -402,6 +410,12 @@ private:
 
 	bool				m_bJustSpawned;
 
+	float				m_fChargeTime;
+	float				m_fChargeDelayTime;
+	bool				m_bPlayedChargeDingSound;
+
+	CNetworkVar(bool, m_bCharging);
+
 	float				m_flTimeUseSuspended;
 
 	CSimpleSimTimer		m_LowerWeaponTimer;
@@ -412,11 +426,14 @@ private:
 	EHANDLE				m_hLocatorTargetEntity; // The entity that's being tracked by the suit locator.
 
 	float				m_flTimeNextLadderHint;	// Next time we're eligible to display a HUD hint about a ladder.
+	bool				m_bImpactedSomething;
 	
 	friend class CHL2GameMovement;
 
 	CSinglePlayerAnimState *m_pPlayerAnimState;
 	QAngle m_angEyeAngles;
+public:
+	QAngle				m_qPreviousChargeEyeAngle;		// Previous EyeAngles to compute deltas for legal mouse movement
 };
 
 

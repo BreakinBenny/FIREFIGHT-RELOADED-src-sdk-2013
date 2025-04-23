@@ -17,7 +17,11 @@ static ConVar sv_ladderautomountdot("sv_ladderautomountdot", "0.4", FCVAR_REPLIC
 
 static ConVar sv_ladder_useonly("sv_ladder_useonly", "0", FCVAR_REPLICATED, "If set, ladders can only be mounted by pressing +USE");
 
+ConVar	fr_max_charge_speed("fr_max_charge_speed", "750", FCVAR_NOTIFY | FCVAR_REPLICATED | FCVAR_CHEAT);
+
 #define USE_DISMOUNT_SPEED 100
+
+extern ConVar sv_maxspeed;
 
 //-----------------------------------------------------------------------------
 // Purpose: 
@@ -216,6 +220,94 @@ void CHL2GameMovement::StartForcedMove(bool mounting, float transit_speed, const
 
 	// Debounce the use key
 	SwallowUseKey();
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: Overridden to allow players to run faster than the maxspeed
+//-----------------------------------------------------------------------------
+void CHL2GameMovement::ProcessMovement(CBasePlayer* pBasePlayer, CMoveData* pMove)
+{
+	// Verify data.
+	Assert(pBasePlayer);
+	Assert(pMove);
+	if (!pBasePlayer || !pMove)
+		return;
+
+	// Reset point contents for water check.
+	ResetGetPointContentsCache();
+
+	// Cropping movement speed scales mv->m_fForwardSpeed etc. globally
+	// Once we crop, we don't want to recursively crop again, so we set the crop
+	// flag globally here once per usercmd cycle.
+	m_iSpeedCropped = SPEED_CROPPED_RESET;
+
+	// Get the current TF player.
+	player = pBasePlayer;
+	mv = pMove;
+
+	// The max speed is currently set to the scout - if this changes we need to change this!
+	mv->m_flMaxSpeed = sv_maxspeed.GetFloat();
+
+	// Handle charging demomens
+	ChargeMove();
+
+	// Run the command.
+	PlayerMove();
+
+	FinishMove();
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+bool CHL2GameMovement::ChargeMove()
+{
+	if (!GetHL2Player()->IsCharging())
+		return false;
+
+	mv->m_flMaxSpeed = fr_max_charge_speed.GetFloat();
+
+	int oldbuttons = mv->m_nButtons;
+
+	// Handle demoman shield charge.
+	mv->m_flForwardMove = fr_max_charge_speed.GetFloat();
+	mv->m_flSideMove = 0.0f;
+
+	if (!(player->GetFlags() & FL_ONGROUND))
+	{
+		//fling ourselves to the ground if whe charge while in mid air.
+		mv->m_flUpMove = -fr_max_charge_speed.GetFloat();
+	}
+	else
+	{
+		mv->m_flUpMove = 0.0f;
+	}
+
+	if (mv->m_nButtons & IN_ATTACK2)
+	{
+		// Allow the player to continue to hold alt-fire.
+		mv->m_nButtons = IN_ATTACK2;
+	}
+	else
+	{
+		mv->m_nButtons = 0;
+	}
+
+	if (oldbuttons & IN_ATTACK)
+	{
+		mv->m_nButtons |= IN_ATTACK;
+	}
+
+	return true;
+}
+
+//----------------------------------------------------------------------------------------
+// Purpose: moves the player
+//----------------------------------------------------------------------------------------
+void CHL2GameMovement::PlayerMove()
+{
+	// call base class to do movement
+	BaseClass::PlayerMove();
 }
 
 //-----------------------------------------------------------------------------

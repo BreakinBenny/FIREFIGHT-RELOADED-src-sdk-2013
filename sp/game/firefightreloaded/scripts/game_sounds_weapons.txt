@@ -1874,6 +1874,15 @@
  	"wave"       "weapons/katana/katana_hitworld.wav"
 }
 
+"Katana.Ready"
+{
+	"channel"		"CHAN_STATIC"
+	"volume"		"0.9"
+	"soundlevel"  		"SNDLVL_90dB"
+
+	"wave"			"player/charge_ready.wav"
+}
+
 "Weapon_grapple.Single"
 {
 	"channel"		"CHAN_WEAPON"

@@ -41,12 +41,15 @@ public:
 	void		AddViewKick( void );
 
 	void		PrimaryAttack(void);
-	void		SecondaryAttack( void )	{	return;	}
+	void		SecondaryAttack(void);
 	bool		CanHolster(void);
 	bool		Holster(CBaseCombatWeapon* pSwitchingTo);
 	void		ItemPostFrame(void);
 	void		ImpactEffect(trace_t& traceHit);
 	float		GetDamageForActivity(Activity hitActivity);
+
+	int			GetKillMultiplier() { return m_iKillMultiplier; }
+	
 private:
 	int			m_iKillMultiplier;
 	int			m_iKills;

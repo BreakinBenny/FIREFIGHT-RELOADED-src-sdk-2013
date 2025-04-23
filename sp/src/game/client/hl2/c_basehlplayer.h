@@ -62,6 +62,8 @@ public:
 	virtual void DoImpactEffect(trace_t &tr, int nDamageType);
 	virtual bool ShouldReceiveProjectedTextures(int flags);
 
+	bool IsCharging(void) { return m_bCharging; }
+
 	CSinglePlayerAnimState *m_pPlayerAnimState;
 	QAngle m_angEyeAngles;
 
@@ -85,6 +87,9 @@ private:
 	bool				m_bPlayUseDenySound;		// Signaled by PlayerUse, but can be unset by HL2 ladder code...
 	float				m_flSpeedMod;
 	float				m_flExitSpeedMod;
+
+	bool				m_bCharging;
+
 	EHANDLE	m_hRagdoll;
 
 

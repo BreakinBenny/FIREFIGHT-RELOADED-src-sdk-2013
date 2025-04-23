@@ -18,6 +18,10 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+static ConVar fr_charge_frametime_scaling("fr_charge_frametime_scaling", "1", FCVAR_REPLICATED | FCVAR_CHEAT, "When enabled, scale yaw limiting based on client performance (frametime).");
+static const float YAW_CAP_SCALE_MIN = 0.2f;
+static const float YAW_CAP_SCALE_MAX = 2.f;
+
 class CHLPlayerMove : public CPlayerMove
 {
 	DECLARE_CLASS( CHLPlayerMove, CPlayerMove );
@@ -62,6 +66,21 @@ CMoveData *g_pMoveData = &g_HLMoveData;
 
 IPredictionSystem *IPredictionSystem::g_pPredictionSystems = NULL;
 
+float CalculateChargeCap(void)
+{
+	float flCap = 0.45f;
+
+	// Scale yaw cap based on frametime to prevent differences in turn effectiveness due to variable framerate (between clients mainly)
+	if (fr_charge_frametime_scaling.GetBool())
+	{
+		// There's probably something better to use here as a baseline, instead of TICK_INTERVAL
+		float flMod = RemapValClamped(gpGlobals->frametime, (TICK_INTERVAL * YAW_CAP_SCALE_MIN), (TICK_INTERVAL * YAW_CAP_SCALE_MAX), 0.25f, 2.f);
+		flCap *= flMod;
+	}
+
+	return flCap;
+}
+
 void CHLPlayerMove::SetupMove( CBasePlayer *player, CUserCmd *ucmd, IMoveHelper *pHelper, CMoveData *move )
 {
 	// Call the default SetupMove code.
@@ -99,6 +118,37 @@ void CHLPlayerMove::SetupMove( CBasePlayer *player, CUserCmd *ucmd, IMoveHelper 
 			if ( m_bWasInVehicle )
 			{
 				m_bWasInVehicle = false;
+			}
+
+			// targe Exploit fix. Clients sending higher view angle changes then allowed
+			// Clamp their YAW Movement
+			if (pHLPlayer->IsCharging())
+			{
+				// Get the view deltas and clamp them if they are too high, give a high tolerance (lag)
+				float flCap = CalculateChargeCap();
+				flCap *= 2.5f;
+				QAngle qAngle = pHLPlayer->m_qPreviousChargeEyeAngle;
+				float flDiff = abs(qAngle[YAW]) - abs(ucmd->viewangles[YAW]);
+				if (flDiff > flCap)
+				{
+					//float flReportedPitchDelta = qAngle[YAW] - ucmd->viewangles[YAW];
+					if (ucmd->viewangles[YAW] > qAngle[YAW])
+					{
+						ucmd->viewangles[YAW] = qAngle[YAW] + flCap;
+						pHLPlayer->SnapEyeAngles(ucmd->viewangles);
+					}
+					else // smaller values
+					{
+						ucmd->viewangles[YAW] = qAngle[YAW] - flCap;
+						pHLPlayer->SnapEyeAngles(ucmd->viewangles);
+					}
+				}
+
+				pHLPlayer->m_qPreviousChargeEyeAngle = ucmd->viewangles;
+			}
+			else
+			{
+				pHLPlayer->m_qPreviousChargeEyeAngle = pHLPlayer->EyeAngles();
 			}
 		}
 	}

@@ -57,6 +57,7 @@
 #include "ammodef.h"
 #include "movevars_shared.h"
 #include "firefightreloaded/mapinfo.h"
+#include "firefightreloaded/weapon_katana.h"
 
 #ifdef HL2_EPISODIC
 #include "npc_alyx_episodic.h"
@@ -150,6 +151,16 @@ ConVar sv_player_katana("sv_player_katana", "1", FCVAR_ARCHIVE, "");
 ConVar sv_suitintro("sv_suitintro", "3", FCVAR_ARCHIVE);
 
 ConVar sv_ironsightvignette("sv_ironsightvignette", "1", FCVAR_ARCHIVE);
+
+static ConVar sk_katana_charge_bashdamage("sk_katana_charge_bashdamage", "0");
+static ConVar sv_katana_charge_bashvelocitymultiplier("sv_katana_charge_bashvelocitymultiplier", "5", FCVAR_CHEAT);
+static ConVar sv_katana_charge_chargetime("sv_katana_charge_chargetime", "2", FCVAR_CHEAT);
+static ConVar sv_katana_charge_chargedelaytime("sv_katana_charge_chargedelaytime", "4", FCVAR_CHEAT);
+
+static ConVar sv_katana_charge_insanity("sv_katana_charge_insanity", "0", FCVAR_CHEAT);
+
+extern ConVar sv_player_voice;
+ConVar sv_player_voice_charge("sv_player_voice_charge", "1", FCVAR_ARCHIVE);
 
 #define	FLASH_DRAIN_TIME	 1.1111	// 100 units / 90 secs
 #define	FLASH_CHARGE_TIME	 50.0f	// 100 units / 2 secs
@@ -463,6 +474,13 @@ BEGIN_DATADESC( CHL2_Player )
 	DEFINE_FIELD(m_bBullettimeOffSound, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_bWasEverInBullettime, FIELD_BOOLEAN),
 
+	DEFINE_FIELD(m_fChargeTime, FIELD_TIME),
+	DEFINE_FIELD(m_fChargeDelayTime, FIELD_TIME),
+
+	DEFINE_FIELD(m_bImpactedSomething, FIELD_BOOLEAN),
+
+	DEFINE_FIELD(m_bCharging, FIELD_BOOLEAN),
+
 	DEFINE_FIELD(m_bJustSpawned, FIELD_BOOLEAN),
 	//DEFINE_FIELD( m_hPlayerProxy, FIELD_EHANDLE ), //Shut up class check!
 
@@ -473,6 +491,7 @@ CHL2_Player::CHL2_Player()
 	// Here we create and init the player animation state.
 	m_pPlayerAnimState = CreatePlayerAnimationState(this);
 	m_angEyeAngles.Init();
+	m_qPreviousChargeEyeAngle.Init();
 
 	m_nNumMissPositions	= 0;
 	m_pPlayerAISquad = 0;
@@ -489,9 +508,13 @@ CHL2_Player::CHL2_Player()
 	m_iArmorReductionFrom = 0;
 
 	m_flBullettimeOffSoundQueueTime = 0.0f;
+	m_fChargeTime = 0.0f;
+	m_fChargeDelayTime = 0.0f;
 	m_bBullettimeOffSound = false;
 	m_bWasEverInBullettime = false;
 	m_bJustSpawned = false;
+	m_bImpactedSomething = false;
+	m_bCharging = false;
 }
 
 //
@@ -519,6 +542,7 @@ IMPLEMENT_SERVERCLASS_ST(CHL2_Player, DT_HL2_Player)
 	SendPropDataTable(SENDINFO_DT(m_HL2Local), &REFERENCE_SEND_TABLE(DT_HL2Local), SendProxy_SendLocalDataTable),
 	SendPropBool( SENDINFO(m_fIsSprinting) ),
 	SendPropEHandle(SENDINFO(m_hRagdoll)),
+	SendPropBool(SENDINFO(m_bCharging)),
 END_SEND_TABLE()
 
 
@@ -551,6 +575,9 @@ void CHL2_Player::Precache( void )
 	PrecacheScriptSound( "HL2Player.TrainUse" );
 	PrecacheScriptSound( "HL2Player.Use" );
 	PrecacheScriptSound( "HL2Player.BurnPain" );
+	PrecacheScriptSound("Player.VoiceChargeDefault");
+	PrecacheScriptSound("Player.VoiceCharge");
+	PrecacheScriptSound("Katana.Ready");
 	//PrecacheScriptSound( "HL2Player.Jetpack" );
 	//PrecacheModel(PLAYER_MODEL);
 }
@@ -877,6 +904,7 @@ void CHL2_Player::PreThink(void)
 		CheckSuitUpdate();
 		CheckSuitZoom();
 		CheckBullettime();
+		CheckCharge();
 		CheckIronsights();
 
 		if (!IsInBullettime() && m_bWasEverInBullettime && (gpGlobals->curtime > m_flBullettimeOffSoundQueueTime))
@@ -1020,6 +1048,10 @@ void CHL2_Player::PreThink(void)
 
 	VPROF_SCOPE_BEGIN("CHL2_Player::PreThink-CheckBullettime");
 	CheckBullettime();
+	VPROF_SCOPE_END();
+
+	VPROF_SCOPE_BEGIN("CHL2_Player::PreThink-CheckCharge");
+	CheckCharge();
 	VPROF_SCOPE_END();
 
 	//this is going to get technical
@@ -1937,10 +1969,27 @@ void CHL2_Player::InitSprinting( void )
 	StopSprinting();
 }
 
+extern ConVar fr_max_charge_speed;
+
 void CHL2_Player::DeriveMaxSpeed( void )
 {
 	float newMaxSpeed;
-	if ( m_nWallRunState >= WALLRUN_RUNNING )
+	CWeaponKatana* pKatana = nullptr;
+
+	if (GetActiveWeapon())
+	{
+		pKatana = dynamic_cast<CWeaponKatana*>(GetActiveWeapon());
+	}
+
+	if (IsCharging())
+	{
+		newMaxSpeed = fr_max_charge_speed.GetFloat();
+	}
+	else if (IsInBullettime() && pKatana && pKatana->GetKillMultiplier() > 0)
+	{
+		newMaxSpeed = FR_BULLETTIME_SPEED * pKatana->GetKillMultiplier();
+	}
+	else if ( m_nWallRunState >= WALLRUN_RUNNING )
 	{
 		newMaxSpeed = sv_wallrun_speed.GetFloat();
 	}
@@ -2172,6 +2221,8 @@ void CHL2_Player::StartBullettime(bool bInShop)
 	if (!bInShop && !SuitPower_AddDevice(SuitDeviceBulletTime))
 		return;
 
+	EndCharge();
+
 	if (!bInShop)
 	{
 		color32 white = { 255, 255, 255, 32 };
@@ -2320,6 +2371,249 @@ void CHL2_Player::ToggleBullettime(void)
 	{
 		StartBullettime();
 	}
+}
+
+bool CHL2_Player::CheckChargeBash(void)
+{
+	// Setup the swing range.
+	Vector vecForward;
+	AngleVectors(EyeAngles(), &vecForward);
+	Vector vecStart = Weapon_ShootPosition();
+	Vector vecEnd = vecStart + vecForward * 48;
+
+	// See if we hit anything.
+	trace_t trace;
+	UTIL_TraceHull(vecStart, vecEnd, -Vector(24, 24, 24), Vector(24, 24, 24),
+		MASK_SOLID, this, COLLISION_GROUP_NONE, &trace);
+
+	if (trace.DidHit())
+	{
+		if (IsCharging())
+		{
+			if (trace.m_pEnt)
+			{
+				if (trace.m_pEnt->IsNPC() && trace.m_pEnt->GetMaxHealth() <= sk_katana_charge_bashdamage.GetFloat())
+				{
+					//smash the enemy since they're in our way, and we can kill them.
+					EmitSound("HL2Player.kick_body");
+
+					CTakeDamageInfo info;
+					info.SetAttacker(this);
+					info.SetInflictor(this);
+					info.SetWeapon(GetActiveWeapon());
+					info.SetDamage(sk_katana_charge_bashdamage.GetFloat());
+					info.SetDamageForce(info.GetDamageForce() * sv_katana_charge_bashvelocitymultiplier.GetFloat());
+					info.SetDamagePosition(trace.endpos);
+					info.SetDamageType(DMG_CLUB);
+
+					Vector dir;
+					AngleVectors(GetAbsAngles(), &dir);
+					trace.m_pEnt->DispatchTraceAttack(info, dir, &trace);
+					ApplyMultiDamage();
+
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CHL2_Player::ChargeBash(void)
+{
+	if (!IsCharging())
+		return;
+
+	if (m_bImpactedSomething)
+		return;
+
+	// Setup the swing range.
+	Vector vecForward;
+	AngleVectors(EyeAngles(), &vecForward);
+	Vector vecStart = Weapon_ShootPosition();
+	Vector vecEnd = vecStart + vecForward * 48;
+
+	// See if we hit anything.
+	trace_t trace;
+	UTIL_TraceHull(vecStart, vecEnd, -Vector(24, 24, 24), Vector(24, 24, 24),
+		MASK_SOLID, this, COLLISION_GROUP_NONE, &trace);
+
+	if (trace.DidHit())
+	{
+		m_bImpactedSomething = true;
+
+		// Play an impact sound.
+		bool bImpactDamage = false;
+		if (trace.m_pEnt)
+		{
+			const char* pszSoundName = "";
+			if (trace.m_pEnt->IsPlayer() || trace.m_pEnt->IsNPC())
+			{
+				bImpactDamage = true;
+				pszSoundName = "Player.PowerSlideStart";
+			}
+			else
+			{
+				pszSoundName = "HL2Player.kick_wall";
+			}
+			EmitSound(pszSoundName);
+		}
+
+		// Apply impact damage, if any.
+		if (bImpactDamage)
+		{
+			CTakeDamageInfo info;
+			info.SetAttacker(this);
+			info.SetInflictor(this);
+			info.SetWeapon(GetActiveWeapon());
+			info.SetDamage(sk_katana_charge_bashdamage.GetFloat());
+			info.SetDamageForce(info.GetDamageForce() * sv_katana_charge_bashvelocitymultiplier.GetFloat());
+			info.SetDamagePosition(trace.endpos);
+			info.SetDamageType(DMG_CLUB);
+
+			Vector dir;
+			AngleVectors(GetAbsAngles(), &dir);
+			trace.m_pEnt->DispatchTraceAttack(info, dir, &trace);
+			ApplyMultiDamage();
+		}
+
+		UTIL_ScreenShake(WorldSpaceCenter(), 25.0, 150.0, 1.0, 750, SHAKE_START);
+	}
+}
+
+void CHL2_Player::CheckCharge(void)
+{
+	CBaseCombatWeapon* pKatana = Weapon_OwnsThisType("weapon_katana");
+
+	if (!pKatana)
+		return;
+
+	if (CheckChargeBash() && IsCharging())
+	{
+		EndCharge();
+	}
+
+	if (m_fChargeTime < gpGlobals->curtime && IsCharging())
+	{
+		EndCharge();
+	}
+
+	if (m_fChargeDelayTime < gpGlobals->curtime && !m_bPlayedChargeDingSound)
+	{
+		EmitSound("Katana.Ready");
+		m_bPlayedChargeDingSound = true;
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CHL2_Player::DoCharge(void)
+{
+	if (!CanCharge())
+		return;
+
+	m_fChargeTime = gpGlobals->curtime + sv_katana_charge_chargetime.GetFloat();
+
+	SetCharging(true);
+	DeriveMaxSpeed();
+
+	if (sv_player_voice.GetBool() && sv_player_voice_charge.GetBool())
+	{
+		EmitSound("Player.VoiceCharge");
+	}
+	else
+	{
+		EmitSound("Player.VoiceChargeDefault");
+	}
+
+	CSoundEnt::InsertSound(SOUND_DANGER, GetAbsOrigin(), 500, 1.0f, this);
+
+	m_bImpactedSomething = false;
+}
+
+void CHL2_Player::EndCharge(void)
+{
+	if (!IsCharging())
+		return;
+
+	//bash into whatever.
+	ChargeBash();
+
+	SetCharging(false);
+	DeriveMaxSpeed();
+
+	if (sv_player_voice.GetBool() && sv_player_voice_charge.GetBool())
+	{
+		StopSound("Player.VoiceCharge");
+	}
+	else
+	{
+		StopSound("Player.VoiceChargeDefault");
+	}
+
+	m_bPlayedChargeDingSound = false;
+	m_fChargeDelayTime = gpGlobals->curtime + sv_katana_charge_chargedelaytime.GetFloat();
+}
+
+bool CHL2_Player::CanCharge(void)
+{
+	// we can't charge right now
+	if (!sv_katana_charge_insanity.GetBool() && m_fChargeDelayTime > gpGlobals->curtime)
+	{
+		return false;
+	}
+
+	//something is in our way while we're NOT already charging.
+	//this is so the player can continue to charge forward if they killed an enemy.
+	if (CheckChargeBash() && !IsCharging())
+	{
+		return false;
+	}
+
+	//we're ducking
+	if (m_Local.m_bDucking && (GetFlags() & FL_DUCKING))
+	{
+		return false;
+	}
+
+	//we're using the grapple
+	if (IsGrappling())
+	{
+		return false;
+	}
+
+	//we're in bullettime
+	if (IsInBullettime())
+	{
+		return false;
+	}
+
+	//we're in a vehicle.
+	if (IsInAVehicle())
+	{
+		return false;
+	}
+
+	//we're wallrunning
+	if (m_nWallRunState == WALLRUN_RUNNING)
+	{
+		return false;
+	}
+
+	//we're powersliding
+	if (m_bIsPowerSliding)
+	{
+		return false;
+	}
+
+	return true;
 }
 
 class CPhysicsPlayerCallback : public IPhysicsPlayerControllerEvent

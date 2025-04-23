@@ -1800,7 +1800,7 @@ int CNPC_Advisor::SelectSchedule()
 						m_bStopMoving = true;
 						return SCHED_ADVISOR_TOSS_PLAYER;
 					}
-					else if (pPlayer && (pPlayer->m_nWallRunState == WALLRUN_RUNNING || pPlayer->m_nWallRunState == WALLRUN_STALL))
+					else if (pPlayer && (pPlayer->m_nWallRunState == WALLRUN_RUNNING))
 					{
 						if (!m_hPlayerPinPos.IsValid())
 						{

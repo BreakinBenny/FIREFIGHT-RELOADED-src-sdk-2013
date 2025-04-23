@@ -21,6 +21,7 @@
 #include "weapon_katana.h"
 #include "rumble_shared.h"
 #include "gamestats.h"
+#include "hl2_player.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -61,7 +62,7 @@ BEGIN_DATADESC(CWeaponKatana)
 DEFINE_FIELD(m_iKillMultiplier, FIELD_INTEGER),
 DEFINE_FIELD(m_iKills, FIELD_INTEGER),
 DEFINE_FIELD(m_flLastKill, FIELD_TIME),
-DEFINE_FIELD(m_bKillMultiplier, FIELD_BOOLEAN),
+DEFINE_FIELD(m_bKillMultiplier, FIELD_BOOLEAN)
 END_DATADESC()
 
 acttable_t CWeaponKatana::m_acttable[] = 
@@ -246,6 +247,13 @@ void CWeaponKatana::PrimaryAttack(void)
 								m_flLastKill = gpGlobals->curtime + sv_katana_healthbonus_postdelay.GetFloat();
 								const char* hintMultiplier = CFmtStr("%ix!", m_iKillMultiplier);
 								pPlayer->ShowLevelMessage(hintMultiplier);
+
+								CHL2_Player* pHL2Player = ToHL2Player(pPlayer);
+
+								if (pHL2Player)
+								{
+									pHL2Player->DeriveMaxSpeed();
+								}
 							}
 						}
 					}
@@ -276,13 +284,28 @@ void CWeaponKatana::PrimaryAttack(void)
 
 bool CWeaponKatana::CanHolster(void)
 {
+	CHL2_Player* pPlayer = ToHL2Player(GetOwner());
+
 	//this is dumb. why does it bug out when we get the 357??
-	if (g_pGameRules->isInBullettime && m_iKillMultiplier > 0)
+	if ((pPlayer && pPlayer->IsCharging()) || (g_pGameRules->isInBullettime && m_iKillMultiplier > 0))
 	{
 		return false;
 	}
 
 	return BaseClass::CanHolster();
+}
+
+void CWeaponKatana::SecondaryAttack(void)
+{ 
+	CHL2_Player* pPlayer = ToHL2Player(GetOwner());
+
+	if (pPlayer)
+	{
+		if (pPlayer->IsCharging())
+			return;
+
+		pPlayer->DoCharge();
+	}
 }
 
 bool CWeaponKatana::Holster(CBaseCombatWeapon* pSwitchingTo)
