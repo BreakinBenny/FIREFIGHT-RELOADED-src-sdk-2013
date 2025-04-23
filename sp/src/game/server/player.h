@@ -1089,6 +1089,9 @@ public:
 	bool m_bGotPerkHealthRegen;
 	float m_fRegenRate;
 
+	bool m_bGotInfiniteAmmoFromCheat;
+	bool m_bGotInfiniteAmmoLegitimately;
+
 	bool m_bIronKick;
 	bool m_bIronKickNoWeaponPickupOnly;
 	bool m_bHardcore;

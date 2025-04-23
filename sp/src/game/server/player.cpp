@@ -316,6 +316,17 @@ void CC_GiveAllAmmo( void )
 }
 static ConCommand giveallammo( "giveallammo", CC_GiveAllAmmo, "Give all weapons in inventory all ammo.\n", FCVAR_CHEAT );
 
+void CC_GiveInfiniteAmmo(void)
+{
+	CBasePlayer* player = UTIL_GetCommandClient();
+	if (player == nullptr)
+		return;
+
+	player->m_iPerkInfiniteAmmo = 1;
+	player->m_bGotInfiniteAmmoFromCheat = true;
+}
+static ConCommand giveinfiniteammo("giveinfiniteammo", CC_GiveInfiniteAmmo, "Give infinite ammo.\n", FCVAR_CHEAT);
+
 /*
 void CC_BuyItem(const CCommand &args)
 {
@@ -433,6 +444,7 @@ void CC_PlayerMoney(const CCommand &args)
 	}
 }
 static ConCommand player_givemoney("givemoney", CC_PlayerMoney, "Gives the player money. DOSH!\n", FCVAR_CHEAT);
+static ConCommand player_givekash("givekash", CC_PlayerMoney, "Gives the player money. DOSH!\n", FCVAR_CHEAT);
 
 void CC_PlayerReward(const CCommand& args)
 {
@@ -721,6 +733,8 @@ BEGIN_DATADESC( CBasePlayer )
 	DEFINE_FIELD(m_iPerkInfiniteAmmo, FIELD_INTEGER),
 	DEFINE_FIELD(m_iPerkHealthRegen, FIELD_INTEGER),
 	DEFINE_FIELD(m_bGotPerkHealthRegen, FIELD_BOOLEAN),
+	DEFINE_FIELD(m_bGotInfiniteAmmoFromCheat, FIELD_BOOLEAN),
+	DEFINE_FIELD(m_bGotInfiniteAmmoLegitimately, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_fRegenRate, FIELD_FLOAT),
 	DEFINE_FIELD(m_iMoney, FIELD_INTEGER),
 	DEFINE_FIELD( m_bIsPowerSliding, FIELD_BOOLEAN),
@@ -1384,7 +1398,8 @@ bool GivePerkForID(CBasePlayer* pPlayer, int perkID)
 			if (pPlayer->m_iPerkInfiniteAmmo == 0)
 			{
 				pPlayer->m_iPerkInfiniteAmmo = GivePerk(pPlayer, sv_fr_perks_infiniteammo.GetBool());
-				unlocked = (pPlayer->m_iPerkInfiniteAmmo > 0);
+				unlocked = (pPlayer->m_iPerkInfiniteAmmo > 0); 
+				pPlayer->m_bGotInfiniteAmmoLegitimately = true;
 			}
 			break;
 		case FIREFIGHT_PERK_HEALTHREGENERATIONRATE:
@@ -1418,6 +1433,16 @@ bool GivePerkForID(CBasePlayer* pPlayer, int perkID)
 
 	return unlocked;
 }
+
+void CC_GivePerk(const CCommand& args)
+{
+	CBasePlayer* player = UTIL_GetCommandClient();
+	if (player == nullptr)
+		return;
+
+	GivePerkForID(player, atoi(args[1]));
+}
+static ConCommand giveperk("giveperk", CC_GivePerk, "Give a perk.\n", FCVAR_CHEAT);
 
 bool GiveKashBonus(CBasePlayer* pPlayer)
 {
@@ -6656,6 +6681,11 @@ void CBasePlayer::Spawn( void )
 		{
 			m_iPerkHealthRegen = 0;
 		}
+	}
+
+	if (m_bGotInfiniteAmmoFromCheat && !m_bGotInfiniteAmmoLegitimately)
+	{
+		m_iPerkInfiniteAmmo = 0;
 	}
 
 	m_iTrain = TRAIN_NEW;
