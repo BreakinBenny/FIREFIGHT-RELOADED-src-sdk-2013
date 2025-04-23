@@ -2373,6 +2373,23 @@ void CHL2_Player::ToggleBullettime(void)
 	}
 }
 
+void CHL2_Player::DoChargeBashDamage(trace_t &trace)
+{
+	CTakeDamageInfo info;
+	info.SetAttacker(this);
+	info.SetInflictor(this);
+	info.SetWeapon(GetActiveWeapon());
+	info.SetDamage(sk_katana_charge_bashdamage.GetFloat());
+	info.SetDamageForce(info.GetDamageForce() * sv_katana_charge_bashvelocitymultiplier.GetFloat());
+	info.SetDamagePosition(trace.endpos);
+	info.SetDamageType(DMG_CLUB);
+
+	Vector dir;
+	AngleVectors(GetAbsAngles(), &dir);
+	trace.m_pEnt->DispatchTraceAttack(info, dir, &trace);
+	ApplyMultiDamage();
+}
+
 bool CHL2_Player::CheckChargeBash(void)
 {
 	// Setup the swing range.
@@ -2390,29 +2407,40 @@ bool CHL2_Player::CheckChargeBash(void)
 	{
 		if (IsCharging())
 		{
+			bool hadToDamage = false;
+
 			if (trace.m_pEnt)
 			{
 				if (trace.m_pEnt->IsNPC() && trace.m_pEnt->GetMaxHealth() <= sk_katana_charge_bashdamage.GetFloat())
 				{
 					//smash the enemy since they're in our way, and we can kill them.
 					EmitSound("HL2Player.kick_body");
-
-					CTakeDamageInfo info;
-					info.SetAttacker(this);
-					info.SetInflictor(this);
-					info.SetWeapon(GetActiveWeapon());
-					info.SetDamage(sk_katana_charge_bashdamage.GetFloat());
-					info.SetDamageForce(info.GetDamageForce() * sv_katana_charge_bashvelocitymultiplier.GetFloat());
-					info.SetDamagePosition(trace.endpos);
-					info.SetDamageType(DMG_CLUB);
-
-					Vector dir;
-					AngleVectors(GetAbsAngles(), &dir);
-					trace.m_pEnt->DispatchTraceAttack(info, dir, &trace);
-					ApplyMultiDamage();
-
-					return false;
+					hadToDamage = true;
 				}
+				else
+				{
+					//break any props.
+
+					CBreakable* pBreak = dynamic_cast <CBreakable*>(trace.m_pEnt);
+					if (pBreak)
+					{
+						EmitSound("HL2Player.kick_wall");
+						hadToDamage = true;
+					}
+
+					CPhysicsProp* pProp = dynamic_cast<CPhysicsProp*>(trace.m_pEnt);
+					if (pProp)
+					{
+						EmitSound("HL2Player.kick_wall");
+						hadToDamage = true;
+					}
+				}
+			}
+
+			if (hadToDamage)
+			{
+				DoChargeBashDamage(trace);
+				return false;
 			}
 		}
 
@@ -2468,19 +2496,7 @@ void CHL2_Player::ChargeBash(void)
 		// Apply impact damage, if any.
 		if (bImpactDamage)
 		{
-			CTakeDamageInfo info;
-			info.SetAttacker(this);
-			info.SetInflictor(this);
-			info.SetWeapon(GetActiveWeapon());
-			info.SetDamage(sk_katana_charge_bashdamage.GetFloat());
-			info.SetDamageForce(info.GetDamageForce() * sv_katana_charge_bashvelocitymultiplier.GetFloat());
-			info.SetDamagePosition(trace.endpos);
-			info.SetDamageType(DMG_CLUB);
-
-			Vector dir;
-			AngleVectors(GetAbsAngles(), &dir);
-			trace.m_pEnt->DispatchTraceAttack(info, dir, &trace);
-			ApplyMultiDamage();
+			DoChargeBashDamage(trace);
 		}
 
 		UTIL_ScreenShake(WorldSpaceCenter(), 25.0, 150.0, 1.0, 750, SHAKE_START);
@@ -2516,6 +2532,11 @@ void CHL2_Player::CheckCharge(void)
 //-----------------------------------------------------------------------------
 void CHL2_Player::DoCharge(void)
 {
+	CBaseCombatWeapon* pKatana = dynamic_cast<CWeaponKatana*>(GetActiveWeapon());
+
+	if (!pKatana)
+		return;
+
 	if (!CanCharge())
 		return;
 
@@ -2540,6 +2561,11 @@ void CHL2_Player::DoCharge(void)
 
 void CHL2_Player::EndCharge(void)
 {
+	CBaseCombatWeapon* pKatana = dynamic_cast<CWeaponKatana*>(GetActiveWeapon());
+
+	if (!pKatana)
+		return;
+
 	if (!IsCharging())
 		return;
 

@@ -6473,7 +6473,7 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 
 	Weapon_Switch(Weapon_OwnsThisType("weapon_physcannon"));
 
-	if (m_bIronKick)
+	if (m_bIronKick || m_bIronKickNoWeaponPickupOnly)
 	{
 		SetPreventWeaponPickup(true);
 	}

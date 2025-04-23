@@ -40,6 +40,7 @@
                     "gaussrail"		        "#GameUI_LoadoutRailgun"
                     "explosives"		        "#GameUI_LoadoutExplosives"
                     "snipers"		        "#GameUI_LoadoutSnipers"
+                    "honorbound"            "#GameUI_LoadoutHonorbound"
                     "randomizer"            "#GameUI_LoadoutRandomizer"
                     "randomizer_hardcore"   "#GameUI_LoadoutRandomizerPermadeath"
                     "mapadd"		        "#FIREFIGHTRELOADED_ModMapping_Mapadd"
@@ -3041,6 +3042,20 @@
 				"text"			"#GameUI_ToggleHitSound"
 				"type"			"wheelywheel"
 				"convar"		"sv_player_voice_hit"
+				"advanced"		"1"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
+            "ManOfAFewWordsArentYouCharge"
+			{
+				"text"			"#GameUI_ToggleChargeSound"
+				"type"			"wheelywheel"
+				"convar"		"sv_player_voice_charge"
 				"advanced"		"1"
 
 				"options"

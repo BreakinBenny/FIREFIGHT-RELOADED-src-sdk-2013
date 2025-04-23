@@ -1,0 +1,24 @@
+//#Loadout
+//WARNING: DO NOT REMOVE THESE TOP COMMENTS.
+//FABRICATOR REQUIRES THE FIRST COMMENT TO LOAD THIS FILE.
+
+"honorbound"
+{
+	"1"
+	{
+		"health"		"100"
+		"setmaxhealth"	"1"
+		"armor"		"100"
+		"setmaxarmor"	"1"
+		"preventweaponpickup" "1"
+		"permadeath" 	"1"
+	}
+	"2"
+	{
+		"weapon"	"weapon_katana"
+	}
+	"3"
+	{
+		"weapon"	"weapon_grapple"
+	}
+}

@@ -8,6 +8,7 @@
 #include "in_buttons.h"
 #include "utlrbtree.h"
 #include "hl2_shareddefs.h"
+#include "movevars_shared.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -18,6 +19,7 @@ static ConVar sv_ladderautomountdot("sv_ladderautomountdot", "0.4", FCVAR_REPLIC
 static ConVar sv_ladder_useonly("sv_ladder_useonly", "0", FCVAR_REPLICATED, "If set, ladders can only be mounted by pressing +USE");
 
 ConVar	fr_max_charge_speed("fr_max_charge_speed", "750", FCVAR_NOTIFY | FCVAR_REPLICATED | FCVAR_CHEAT);
+ConVar	fr_max_charge_airmove_divisor("fr_max_charge_airmove_divisor", "2", FCVAR_NOTIFY | FCVAR_REPLICATED | FCVAR_CHEAT);
 
 #define USE_DISMOUNT_SPEED 100
 
@@ -269,19 +271,21 @@ bool CHL2GameMovement::ChargeMove()
 
 	int oldbuttons = mv->m_nButtons;
 
-	// Handle demoman shield charge.
-	mv->m_flForwardMove = fr_max_charge_speed.GetFloat();
-	mv->m_flSideMove = 0.0f;
-
-	if (!(player->GetFlags() & FL_ONGROUND))
+	//calculate air moving
+	if (player->GetGroundEntity() == NULL)
 	{
-		//fling ourselves to the ground if whe charge while in mid air.
-		mv->m_flUpMove = -fr_max_charge_speed.GetFloat();
+		//reduce air speed in mid air due to the air acceleration.
+		mv->m_flForwardMove = (fr_max_charge_speed.GetFloat() / fr_max_charge_airmove_divisor.GetFloat());
+		AirMove();
 	}
 	else
 	{
-		mv->m_flUpMove = 0.0f;
+		// Handle demoman shield charge.
+		mv->m_flForwardMove = fr_max_charge_speed.GetFloat();
 	}
+
+	mv->m_flSideMove = 0.0f;
+	mv->m_flUpMove = 0.0f;
 
 	if (mv->m_nButtons & IN_ATTACK2)
 	{

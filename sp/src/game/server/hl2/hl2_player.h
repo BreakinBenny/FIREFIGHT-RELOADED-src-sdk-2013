@@ -117,6 +117,7 @@ public:
 	bool				CheckChargeBash(void);
 	bool				IsCharging(void) { return m_bCharging; }
 	void				SetCharging(bool bCharging) { m_bCharging = bCharging; }
+	void				DoChargeBashDamage(trace_t &trace);
 
 	void				DrawDebugGeometryOverlays(void);
 
