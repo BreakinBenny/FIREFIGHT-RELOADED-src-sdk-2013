@@ -103,6 +103,7 @@ public:
 	const char* GetGibModel(appendage_t appendage);
 	bool		CorpseGib(const CTakeDamageInfo& info);
 	bool		CorpseDecapitate(const CTakeDamageInfo& info);
+	void		CorpseDecapitateEffect(const CTakeDamageInfo& info);
 
 	// Speaking
 	virtual void SpeakSentence( int nSentenceType );

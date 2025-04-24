@@ -4102,6 +4102,26 @@ const char* CNPC_MetroPolice::GetGibModel(appendage_t appendage)
 	return "";
 }
 
+void CNPC_MetroPolice::CorpseDecapitateEffect(const CTakeDamageInfo& info)
+{
+	EmitSound("Gore.Headshot");
+	EmitSound("Gore.Decap");
+	m_bDecapitated = true;
+	m_bNoDeathSound = true;
+	SentenceStop();
+
+	//INSTAKILL US
+	CTakeDamageInfo info2;
+	info2.SetAttacker(info.GetAttacker());
+	info2.SetInflictor(info.GetInflictor());
+	info2.SetDamage(GetHealth());
+	info2.SetDamageForce(info.GetDamageForce());
+	info2.SetDamagePosition(info.GetDamagePosition());
+	info2.SetDamageType(info.GetDamageType());
+
+	TakeDamage(info2);
+}
+
 bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 {
 	CTakeDamageInfo newinfo = info;
@@ -4139,12 +4159,7 @@ bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 			SpawnBlood( GetAbsOrigin(), g_vecAttackDir, BloodColor(), newinfo.GetDamage() );
 			CGib::SpawnSpecificStickyGibs( this, 6, 150, 450, "models/gibs/pgib_p3.mdl", 6 );
 			CGib::SpawnSpecificStickyGibs( this, 6, 150, 450, "models/gibs/pgib_p4.mdl", 6 );
-			EmitSound( "Gore.Headshot" );
-			EmitSound("Gore.Decap");
-			m_bDecapitated = true;
-			m_bNoDeathSound = true;
-			SentenceStop();
-			//Event_Killed(info);
+			CorpseDecapitateEffect(newinfo);
 		}
 
 		return true;
@@ -4174,12 +4189,7 @@ bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 			}
 
 			CGib::SpawnSpecificStickyGibs( this, 3, 150, 450, "models/gibs/pgib_p4.mdl", 6 );
-			EmitSound( "Gore.Headshot" );
-			EmitSound("Gore.Decap");
-			m_bDecapitated = true;
-			m_bNoDeathSound = true;
-			SentenceStop();
-			//Event_Killed(info);
+			CorpseDecapitateEffect(newinfo);
 		}
 
 		return true;

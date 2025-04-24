@@ -100,6 +100,7 @@ public:
 	virtual const char*		GetGibModel(appendage_t appendage);
 	virtual bool			CorpseGib(const CTakeDamageInfo& info);
 	virtual bool			CorpseDecapitate(const CTakeDamageInfo& info);
+	virtual void			CorpseDecapitateEffect(const CTakeDamageInfo& info);
 	int						OnTakeDamage_Alive(const CTakeDamageInfo& inputInfo);
 
 	Class_T			Classify( void );

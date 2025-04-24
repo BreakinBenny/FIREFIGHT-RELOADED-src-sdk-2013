@@ -709,7 +709,7 @@ void CAI_BaseNPC::Event_Killed( const CTakeDamageInfo &info )
 		}
 
 		// If the attacker was an NPC or client update my position memory
-		/*if (new_info.GetAttacker()->GetFlags() & (FL_NPC | FL_CLIENT))
+		if (new_info.GetAttacker()->GetFlags() & (FL_NPC | FL_CLIENT))
 		{
 			CBasePlayer* player = ToBasePlayer(pAttacker);
 
@@ -728,7 +728,7 @@ void CAI_BaseNPC::Event_Killed( const CTakeDamageInfo &info )
 					gameeventmanager->FireEvent(event);
 				}
 			}
-		}*/
+		}
 
 		if (GlobalEntity_GetState("player_inbossbattle") == GLOBAL_OFF && sk_gotoboss_ondronekill.GetBool())
 		{
@@ -1047,21 +1047,24 @@ int CAI_BaseNPC::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 		NotifyFriendsOfDamage( info.GetAttacker() );
 	}
 
-	CBasePlayer* player = ToBasePlayer(info.GetAttacker());
-
-	if (player)
+	if (m_iHealth > 0)
 	{
-		IGameEvent* event = gameeventmanager->CreateEvent("npc_hurt");
-		if (event)
-		{
-			event->SetInt("entindex", entindex());
-			event->SetInt("health", MAX(0, m_iHealth));
-			event->SetInt("damageamount", info.GetDamage());
-			event->SetInt("damageamount_consecutive", m_flSumDamage);
-			event->SetInt("priority", 5);	// HLTV event priority, not transmitted
-			event->SetInt("attacker_player", player->GetUserID()); // hurt by other player
+		CBasePlayer* player = ToBasePlayer(info.GetAttacker());
 
-			gameeventmanager->FireEvent(event);
+		if (player)
+		{
+			IGameEvent* event = gameeventmanager->CreateEvent("npc_hurt");
+			if (event)
+			{
+				event->SetInt("entindex", entindex());
+				event->SetInt("health", MAX(0, m_iHealth));
+				event->SetInt("damageamount", info.GetDamage());
+				event->SetInt("damageamount_consecutive", m_flSumDamage);
+				event->SetInt("priority", 5);	// HLTV event priority, not transmitted
+				event->SetInt("attacker_player", player->GetUserID()); // hurt by other player
+
+				gameeventmanager->FireEvent(event);
+			}
 		}
 	}
 
