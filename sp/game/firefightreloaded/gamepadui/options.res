@@ -1686,46 +1686,6 @@
 				}
 			}
             
-            "AutoAim"
-			{
-				"text"			"#GameUI_Autoaim"
-				"type"			"wheelywheel"
-				"convar"		"sk_allow_autoaim"
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#gameui_enabled"
-				}
-			}
-			
-			"AutoTarget"
-			{
-				"text"			"#GameUI_AutoaimController"
-				"type"			"wheelywheel"
-				"convar"		"sv_player_autoaimcrosshair"
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#gameui_enabled"
-				}
-			}
-            
-            "AutoaimMode"
-			{
-				"text"			"#GameUI_AutoaimMode"
-				"type"			"wheelywheel"
-				"convar"		"sk_autoaim_mode"
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#gameui_enabled"
-                    "2"		"#gameui_enabled_controller"
-				}
-			}
-            
             "AutosaveLevelUp"
 			{
 				"text"			"#GameUI_AutosaveLevelUp"
@@ -2724,6 +2684,33 @@
 		"alternating"   "0"
 		"items"
 		{
+            "AutoAim"
+			{
+				"text"			"#GameUI_Autoaim"
+				"type"			"wheelywheel"
+				"convar"		"si_autoaim"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
+            "AutoAimSpeed"
+			{
+				"text"			"#GameUI_AutoaimMagnetism"
+				"type"			"slideyslide"
+				"advanced"		"1"
+				"convar"		"hud_magnetism"
+
+				"min"			"0.1"
+				"max"			"3"
+				"step"			"0.05"
+
+				"textprecision" "2"
+			}
+        
             "Rumble"
 			{
 				"text"			"#GameUI_Rumble"

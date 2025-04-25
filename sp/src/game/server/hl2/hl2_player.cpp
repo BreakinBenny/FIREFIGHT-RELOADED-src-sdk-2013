@@ -159,6 +159,8 @@ static ConVar sv_katana_charge_chargedelaytime("sv_katana_charge_chargedelaytime
 
 static ConVar sv_katana_charge_insanity("sv_katana_charge_insanity", "0", FCVAR_CHEAT);
 
+static ConVar si_autoaim("si_autoaim", "1", FCVAR_ARCHIVE);
+
 extern ConVar sv_player_voice;
 ConVar sv_player_voice_charge("sv_player_voice_charge", "1", FCVAR_ARCHIVE);
 
@@ -4008,7 +4010,7 @@ void CHL2_Player::GetAutoaimVector( autoaim_params_t &params )
 {
 	BaseClass::GetAutoaimVector( params );
 
-	if ( IsX360() )
+	if ( IsX360() || (UTIL_UsingSteamInput() && si_autoaim.GetBool()))
 	{
 		if( IsInAVehicle() )
 		{

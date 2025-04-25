@@ -30,7 +30,7 @@ ConVar hud_reticle_scale("hud_reticle_scale", "1.0" );
 ConVar hud_reticle_minalpha( "hud_reticle_minalpha", "125" );
 ConVar hud_reticle_maxalpha( "hud_reticle_maxalpha", "255" );
 ConVar hud_alpha_speed("hud_reticle_alpha_speed", "700" );
-ConVar hud_magnetism("hud_magnetism", "0.3" );
+ConVar hud_magnetism("hud_magnetism", "0.15", FCVAR_ARCHIVE );
 
 enum 
 {
@@ -69,6 +69,8 @@ private:
 	float	m_alpha;
 	float	m_scale;
 
+	CPanelAnimationVar(Color, m_colorFixedAimed, "FixedReticleAimColor", "250 138 4 255");
+
 	float	m_alphaFixed; // alpha value for the fixed element.
 
 	int		m_textureID_ActiveReticle;
@@ -82,7 +84,9 @@ CHUDAutoAim::CHUDAutoAim( const char *pElementName ) :
 {
 	vgui::Panel *pParent = g_pClientMode->GetViewport();
 	SetParent( pParent );
-	SetHiddenBits( HIDEHUD_CROSSHAIR );
+	//SetHiddenBits( HIDEHUD_CROSSHAIR );
+	//this is so we can see this when aimed
+	SetHiddenBits(HIDEHUD_MISCSTATUS);
 
 	m_textureID_ActiveReticle = -1;
 	m_textureID_FixedReticle = -1;
@@ -150,9 +154,13 @@ bool CHUDAutoAim::ShouldDraw( void )
 	C_BaseHLPlayer *pLocalPlayer = (C_BaseHLPlayer *)C_BasePlayer::GetLocalPlayer();
 	if ( pLocalPlayer )
 	{
-		if( !pLocalPlayer->m_HL2Local.m_bDisplayReticle )
+		CBaseCombatWeapon* pWeapon = pLocalPlayer->GetActiveWeapon();
+		if (pWeapon && !pWeapon->IsIronsighted())
 		{
-			return false;
+			if (!pLocalPlayer->m_HL2Local.m_bDisplayReticle)
+			{
+				return false;
+			}
 		}
 	}
 #endif
@@ -459,9 +467,15 @@ void CHUDAutoAim::Paint()
 		C_BaseHLPlayer *pLocalPlayer = (C_BaseHLPlayer *)C_BasePlayer::GetLocalPlayer();
 		if( pLocalPlayer && pLocalPlayer->m_HL2Local.m_hAutoAimTarget.Get() )
 		{
+#ifdef FR_DLL
+			r = m_colorFixedAimed.r();
+			g = m_colorFixedAimed.g();
+			b = m_colorFixedAimed.b();
+#else
 			r = 250; 
 			g = 138;
 			b = 4;
+#endif
 		}
 
 		clr.SetColor( r,g,b,m_alphaFixed);

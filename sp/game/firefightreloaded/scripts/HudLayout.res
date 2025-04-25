@@ -517,6 +517,7 @@
 		"enabled" "1"
 		"wide"	 "640"
 		"tall"	 "480"
+        "FixedReticleAimColor"  "255 255 255 255"
 	}
 
 	HudCommentary

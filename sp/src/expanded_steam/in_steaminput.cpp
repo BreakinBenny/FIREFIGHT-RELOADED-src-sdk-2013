@@ -160,8 +160,8 @@ static ConVar si_enable_rumble( "si_enable_rumble", "1", FCVAR_ARCHIVE, "Enables
 
 static ConVar si_hintremap( "si_hintremap", "1", FCVAR_ARCHIVE, "Enables the hint remap system, which remaps HUD hints based on the current controller configuration." );
 
-static ConVar si_status("si_status", "0", FCVAR_HIDDEN);
-
+static ConVar si_status("si_status", "0", FCVAR_HIDDEN | FCVAR_USERINFO);
+ 
 static ConVar si_print_action_set( "si_print_action_set", "0" );
 static ConVar si_print_joy_src( "si_print_joy_src", "0" );
 static ConVar si_print_rumble( "si_print_rumble", "0" );
