@@ -1616,6 +1616,8 @@ protected:
 	EHANDLE				m_hEnemyOccluder;	// The entity my enemy is hiding behind.
 
 	float				m_flSumDamage;				// How much consecutive damage I've received
+	float				m_flSumDamageDMGIndicator;
+	int					m_iTimesDamaged;
 	float				m_flLastDamageTime;			// Last time I received damage
 	float				m_flLastPlayerDamageTime;	// Last time I received damage from the player
 	float				m_flLastSawPlayerTime;		// Last time I saw the player

@@ -1904,41 +1904,28 @@
 				}
 			}
             
-            "DamageNumbersRed"
+            "DamageNumbersShowHitCount"
 			{
-				"text"			"#GameUI_CrosshairRed"
-				"type"			"slideyslide"
-				"convar"		"hud_hitdamage_red"
+				"text"			"#GameUI_DamageNumbersShowHitCount"
+				"type"			"wheelywheel"
+				"convar"		"hud_hitdamage_showhitcount"
 
-				"min"			"0"
-				"max"			"255"
-				"step"			"5"
-
-				"textprecision" "2"
+				"options"
+				{
+					"0"		"#GameUI_CrosshairOff"
+					"1"		"#GameUI_CrosshairOn"
+				}
 			}
             
-            "DamageNumbersGreen"
+            "DamageNumbersDelay"
 			{
-				"text"			"#GameUI_CrosshairGreen"
+				"text"			"#GameUI_DamageNumbersDelay"
 				"type"			"slideyslide"
-				"convar"		"hud_hitdamage_green"
+				"convar"		"hud_hitdamage_delay"
 
-				"min"			"0"
-				"max"			"255"
-				"step"			"5"
-
-				"textprecision" "2"
-			}
-            
-            "DamageNumbersBlue"
-			{
-				"text"			"#GameUI_CrosshairBlue"
-				"type"			"slideyslide"
-				"convar"		"hud_hitdamage_blue"
-
-				"min"			"0"
-				"max"			"255"
-				"step"			"5"
+				"min"			"1"
+				"max"			"60"
+				"step"			"0.5"
 
 				"textprecision" "2"
 			}
@@ -1954,6 +1941,58 @@
 					"0"		"#GameUI_CrosshairOff"
 					"1"		"#GameUI_CrosshairOn"
 				}
+			}
+            
+            "DamageNumbersLife"
+			{
+				"text"			"#GameUI_DamageNumbersLife"
+				"type"			"wheelywheel"
+				"convar"		"hud_hitdamage_deathcolor"
+
+				"options"
+				{
+					"0"		"#GameUI_CrosshairOff"
+					"1"		"#GameUI_CrosshairOn"
+				}
+			}
+            
+            "DamageNumbersRed"
+			{
+				"text"			"#GameUI_DamageNumbers_NormalRed"
+				"type"			"slideyslide"
+				"convar"		"hud_hitdamage_red"
+
+				"min"			"0"
+				"max"			"255"
+				"step"			"5"
+
+				"textprecision" "2"
+			}
+            
+            "DamageNumbersGreen"
+			{
+				"text"			"#GameUI_DamageNumbers_NormalGreen"
+				"type"			"slideyslide"
+				"convar"		"hud_hitdamage_green"
+
+				"min"			"0"
+				"max"			"255"
+				"step"			"5"
+
+				"textprecision" "2"
+			}
+            
+            "DamageNumbersBlue"
+			{
+				"text"			"#GameUI_DamageNumbers_NormalBlue"
+				"type"			"slideyslide"
+				"convar"		"hud_hitdamage_blue"
+
+				"min"			"0"
+				"max"			"255"
+				"step"			"5"
+
+				"textprecision" "2"
 			}
             
             "DamageNumbersRedRare"
@@ -2026,6 +2065,45 @@
 				"text"			"#GameUI_DamageNumbers_BossBlue"
 				"type"			"slideyslide"
 				"convar"		"hud_hitdamage_blue_boss"
+
+				"min"			"0"
+				"max"			"255"
+				"step"			"5"
+
+				"textprecision" "2"
+			}
+            
+            "DamageNumbersRedDeath"
+			{
+				"text"			"#GameUI_DamageNumbers_DeathRed"
+				"type"			"slideyslide"
+				"convar"		"hud_hitdamage_red_death"
+
+				"min"			"0"
+				"max"			"255"
+				"step"			"5"
+
+				"textprecision" "2"
+			}
+            
+            "DamageNumbersGreenDeath"
+			{
+				"text"			"#GameUI_DamageNumbers_DeathGreen"
+				"type"			"slideyslide"
+				"convar"		"hud_hitdamage_green_death"
+
+				"min"			"0"
+				"max"			"255"
+				"step"			"5"
+
+				"textprecision" "2"
+			}
+            
+            "DamageNumbersBlueDeath"
+			{
+				"text"			"#GameUI_DamageNumbers_DeathBlue"
+				"type"			"slideyslide"
+				"convar"		"hud_hitdamage_blue_death"
 
 				"min"			"0"
 				"max"			"255"

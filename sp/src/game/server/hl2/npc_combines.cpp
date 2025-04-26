@@ -668,11 +668,6 @@ void CNPC_CombineS::Event_Killed( const CTakeDamageInfo &info )
 		}
 	}
 
-	if (CorpseGib(info))
-	{
-		return;
-	}
-
 	if ( !pPlayer )
 	{
 		CPropVehicleDriveable *pVehicle = dynamic_cast<CPropVehicleDriveable *>( info.GetAttacker() ) ;

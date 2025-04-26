@@ -58,6 +58,7 @@
 #include "movevars_shared.h"
 #include "firefightreloaded/mapinfo.h"
 #include "firefightreloaded/weapon_katana.h"
+#include "hl_gamemovement.h"
 
 #ifdef HL2_EPISODIC
 #include "npc_alyx_episodic.h"
@@ -2457,6 +2458,9 @@ bool CHL2_Player::CheckChargeBash(void)
 //-----------------------------------------------------------------------------
 void CHL2_Player::ChargeBash(void)
 {
+	if (!fr_charge.GetBool())
+		return;
+
 	if (!IsCharging())
 		return;
 
@@ -2507,6 +2511,9 @@ void CHL2_Player::ChargeBash(void)
 
 void CHL2_Player::CheckCharge(void)
 {
+	if (!fr_charge.GetBool())
+		return;
+
 	CBaseCombatWeapon* pKatana = Weapon_OwnsThisType("weapon_katana");
 
 	if (!pKatana)
@@ -2534,6 +2541,9 @@ void CHL2_Player::CheckCharge(void)
 //-----------------------------------------------------------------------------
 void CHL2_Player::DoCharge(void)
 {
+	if (!fr_charge.GetBool())
+		return;
+
 	CBaseCombatWeapon* pKatana = dynamic_cast<CWeaponKatana*>(GetActiveWeapon());
 
 	if (!pKatana)
@@ -2563,6 +2573,9 @@ void CHL2_Player::DoCharge(void)
 
 void CHL2_Player::EndCharge(void)
 {
+	if (!fr_charge.GetBool())
+		return;
+
 	CBaseCombatWeapon* pKatana = dynamic_cast<CWeaponKatana*>(GetActiveWeapon());
 
 	if (!pKatana)
@@ -2592,6 +2605,11 @@ void CHL2_Player::EndCharge(void)
 
 bool CHL2_Player::CanCharge(void)
 {
+	if (!fr_charge.GetBool())
+	{
+		return false;
+	}
+
 	// we can't charge right now
 	if (!sv_katana_charge_insanity.GetBool() && m_fChargeDelayTime > gpGlobals->curtime)
 	{

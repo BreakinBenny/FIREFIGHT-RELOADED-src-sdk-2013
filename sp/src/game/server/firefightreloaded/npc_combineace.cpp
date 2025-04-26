@@ -623,7 +623,9 @@ CTakeDamageInfo CNPC_CombineAce::BulletResistanceLogic(const CTakeDamageInfo& in
 
 	CTakeDamageInfo outputInfo = info;
 
-	if ((GetHealth() > shieldhealth) && !FStrEq(outputInfo.GetAmmoName(), "Katana") && !m_bBulletResistanceBroken)
+	bool canKatanaPierce = (g_pGameRules->GetSkillLevel() > SKILL_EASY && FStrEq(outputInfo.GetAmmoName(), "Katana"));
+
+	if ((GetHealth() > shieldhealth) && !canKatanaPierce && !m_bBulletResistanceBroken)
 	{
 		if (!(outputInfo.GetDamageType() & (DMG_GENERIC)))
 		{
@@ -957,11 +959,6 @@ void CNPC_CombineAce::Event_Killed( const CTakeDamageInfo &info )
 			DropItem("item_healthvial", WorldSpaceCenter() + RandomVector(-4, 4), RandomAngle(0, 360));
 			pHL2GameRules->NPC_DroppedHealth();
 		}
-	}
-
-	if (CorpseGib(info))
-	{
-		return;
 	}
 
 	if ( !pPlayer )

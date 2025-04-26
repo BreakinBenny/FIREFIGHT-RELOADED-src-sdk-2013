@@ -43,7 +43,7 @@
 		"userid"	"short"   	// player index who was hurt				
 		"attacker"	"short"	 	// player index who attacked
 		"health"	"byte"		// remaining health points
-        "damageamount"	"byte"
+        "damageamount"	"long"
 	}
     
     "npc_hurt"
@@ -51,8 +51,10 @@
 		"entindex"	"short"   	// player index who was hurt				
 		"attacker_player"	"short"	 	// player index who attacked
 		"health"	"byte"		// remaining health points
-        "damageamount"	"byte"
-        "damageamount_consecutive"	"byte"
+        "damageamount"	"long"
+        "damageamount_consecutive"	"long"
+        "timeshit"	"long"
+        "alive"	    "bool"
 	}
 	
 	"player_death"				// a game event, name may be 32 charaters long

@@ -82,8 +82,8 @@ ConVar	sv_robust_explosions( "sv_robust_explosions","1", FCVAR_REPLICATED );
 ConVar	sk_dmg_inflict_scale1( "sk_dmg_inflict_scale1", "1.50", FCVAR_REPLICATED);
 ConVar	sk_dmg_inflict_scale2( "sk_dmg_inflict_scale2", "1.00", FCVAR_REPLICATED);
 ConVar	sk_dmg_inflict_scale3( "sk_dmg_inflict_scale3", "0.75", FCVAR_REPLICATED);
-ConVar	sk_dmg_inflict_scale4( "sk_dmg_inflict_scale4", "0.75", FCVAR_REPLICATED);
-ConVar	sk_dmg_inflict_scale5( "sk_dmg_inflict_scale5", "0.75", FCVAR_REPLICATED);
+ConVar	sk_dmg_inflict_scale4( "sk_dmg_inflict_scale4", "0.50", FCVAR_REPLICATED);
+ConVar	sk_dmg_inflict_scale5( "sk_dmg_inflict_scale5", "0.50", FCVAR_REPLICATED);
 
 // Damage scale for damage taken by the player on each skill level.
 ConVar	sk_dmg_take_scale1( "sk_dmg_take_scale1", "0.50", FCVAR_REPLICATED);
@@ -101,9 +101,9 @@ ConVar  r_burningpropslight_override("r_burningpropslight_override", "1", FCVAR_
 // Autoaim scale
 ConVar	sk_autoaim_scale1( "sk_autoaim_scale1", "1.0", FCVAR_REPLICATED);
 ConVar	sk_autoaim_scale2( "sk_autoaim_scale2", "1.0", FCVAR_REPLICATED);
-ConVar	sk_autoaim_scale3( "sk_autoaim_scale3", "0.0", FCVAR_REPLICATED);
-ConVar	sk_autoaim_scale4( "sk_autoaim_scale4", "0.0", FCVAR_REPLICATED);
-ConVar	sk_autoaim_scale5( "sk_autoaim_scale5", "0.0", FCVAR_REPLICATED);
+ConVar	sk_autoaim_scale3( "sk_autoaim_scale3", "1.0", FCVAR_REPLICATED);
+ConVar	sk_autoaim_scale4( "sk_autoaim_scale4", "1.0", FCVAR_REPLICATED);
+ConVar	sk_autoaim_scale5( "sk_autoaim_scale5", "1.0", FCVAR_REPLICATED);
 
 // Quantity scale for ammo received by the player.
 ConVar	sk_ammo_qty_scale1 ( "sk_ammo_qty_scale1", "1.20", FCVAR_REPLICATED);

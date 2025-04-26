@@ -26,6 +26,8 @@ struct NearbyDismount_t
 	float					distSqr;
 };
 
+extern ConVar fr_charge;
+
 //-----------------------------------------------------------------------------
 // Purpose: HL2 specific movement code
 //-----------------------------------------------------------------------------

@@ -6097,6 +6097,12 @@ int CNPC_Hunter::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 //-----------------------------------------------------------------------------
 void CNPC_Hunter::Event_Killed( const CTakeDamageInfo &info )
 {
+	if (IsCurSchedule(SCHED_NPC_FREEZE))
+	{
+		// We're frozen; don't die.
+		return;
+	}
+
 	// Remember the killing blow to make decisions about ragdolling.
 	m_nKillingDamageType = info.GetDamageType();
 

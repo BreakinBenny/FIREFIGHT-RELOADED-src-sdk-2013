@@ -848,10 +848,19 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 
 				CHL2_Player* pEntityHL2 = ToHL2Player(pEntity);
 
-				if (pEntityHL2 && pEntityHL2->m_bIsKicking)
+				if (pEntityHL2)
 				{
-					moneyReward += 30;
-					xpReward += 30;
+					if (pEntityHL2->m_bIsKicking)
+					{
+						moneyReward += 30;
+						xpReward += 30;
+					}
+
+					if (pEntityHL2->IsCharging())
+					{
+						moneyReward += 50;
+						xpReward += 50;
+					}
 				}
 
 				if (pInflictor)

@@ -33,6 +33,13 @@ ConVar	hud_hitdamage_red_rare("hud_hitdamage_red_rare", "252", FCVAR_ARCHIVE);
 ConVar	hud_hitdamage_green_rare("hud_hitdamage_green_rare", "109", FCVAR_ARCHIVE);
 ConVar	hud_hitdamage_blue_rare("hud_hitdamage_blue_rare", "0", FCVAR_ARCHIVE);
 
+ConVar	hud_hitdamage_deathcolor("hud_hitdamage_deathcolor", "1", FCVAR_ARCHIVE);
+ConVar	hud_hitdamage_red_death("hud_hitdamage_red_death", "255", FCVAR_ARCHIVE);
+ConVar	hud_hitdamage_green_death("hud_hitdamage_green_death", "0", FCVAR_ARCHIVE);
+ConVar	hud_hitdamage_blue_death("hud_hitdamage_blue_death", "0", FCVAR_ARCHIVE);
+
+ConVar	hud_hitdamage_showhitcount("hud_hitdamage_showhitcount", "1", FCVAR_ARCHIVE);
+
 extern ConVar hud_drawhistory_time;
 
 DECLARE_HUDELEMENT( CHudHistoryResource );
@@ -82,8 +89,11 @@ void CHudHistoryResource::FireGameEvent(IGameEvent* event)
 			//don't show burn damage.
 			if (iDamage > 1)
 			{
+				const bool bIsAlive = event->GetBool("alive");
+				const int iDMGCount = event->GetInt("timeshit");
+
 				//make damage report as negative.
-				AddToHistory(HISTSLOT_DAMAGE, event->GetInt("entindex"), -iDamage);
+				AddToHistory(HISTSLOT_DAMAGE, event->GetInt("entindex"), -iDamage, bIsAlive, iDMGCount);
 			}
 		}
 	}
@@ -148,7 +158,7 @@ void CHudHistoryResource::AddToHistory( C_BaseCombatWeapon *weapon )
 //-----------------------------------------------------------------------------
 // Purpose: Add a new entry to the pickup history
 //-----------------------------------------------------------------------------
-void CHudHistoryResource::AddToHistory( int iType, int iId, int iCount )
+void CHudHistoryResource::AddToHistory( int iType, int iId, int iCount, bool bIsAlive, int iDMGCount)
 {
 	CHudTexture* hudTex = NULL;
 
@@ -189,16 +199,12 @@ void CHudHistoryResource::AddToHistory( int iType, int iId, int iCount )
 		if (!iCount)
 			return;
 
-		// Get the item's icon
-		hudTex = gHUD.GetIcon("hitmarker");
-		if (hudTex == NULL)
-			return;
-
 		// clear out any ammo pickup denied icons, since we can obviously pickup again
 		for (int i = 0; i < m_PickupHistory.Count(); i++)
 		{
 			if (m_PickupHistory[i].type == HISTSLOT_DAMAGE && m_PickupHistory[i].iId == iId)
 			{
+				//don't persist alive status.
 				if (m_PickupHistory[i].bIsBoss)
 				{
 					bIsBoss = true;
@@ -220,6 +226,7 @@ void CHudHistoryResource::AddToHistory( int iType, int iId, int iCount )
 
 		if (pEntity)
 		{
+			//the damage equals or is above max health, we're DEAD.
 			if (!bIsBoss && pEntity->m_bBoss)
 			{
 				bIsBoss = true;
@@ -231,7 +238,7 @@ void CHudHistoryResource::AddToHistory( int iType, int iId, int iCount )
 		}
 	}
 
-	AddIconToHistory( iType, iId, NULL, iCount, hudTex, bIsRare, bIsBoss);
+	AddIconToHistory( iType, iId, NULL, iCount, hudTex, bIsRare, bIsBoss, bIsAlive, iDMGCount);
 }
 
 //-----------------------------------------------------------------------------
@@ -253,7 +260,7 @@ void CHudHistoryResource::AddToHistory( int iType, const char *szName, int iCoun
 //-----------------------------------------------------------------------------
 // Purpose: adds a history icon
 //-----------------------------------------------------------------------------
-void CHudHistoryResource::AddIconToHistory( int iType, int iId, C_BaseCombatWeapon *weapon, int iCount, CHudTexture *icon, bool bIsRare, bool bIsBoss)
+void CHudHistoryResource::AddIconToHistory( int iType, int iId, C_BaseCombatWeapon *weapon, int iCount, CHudTexture *icon, bool bIsRare, bool bIsBoss, bool bIsAlive, int iDMGCount)
 {
 	m_bNeedsDraw = true;
 
@@ -289,8 +296,17 @@ void CHudHistoryResource::AddIconToHistory( int iType, int iId, C_BaseCombatWeap
 
 	if (iType == HISTSLOT_DAMAGE)
 	{
-		freeslot->bIsRare = bIsRare;
-		freeslot->bIsBoss = bIsBoss;
+		if (bIsAlive)
+		{
+			freeslot->bIsRare = bIsRare;
+			freeslot->bIsBoss = bIsBoss;
+		}
+		else
+		{
+			freeslot->bIsRare = freeslot->bIsBoss = false;
+		}
+		freeslot->bIsAlive = bIsAlive;
+		freeslot->iDMGCount = iDMGCount;
 	}
 
 	if (iType == HISTSLOT_AMMODENIED)
@@ -515,10 +531,28 @@ void CHudHistoryResource::Paint( void )
 						continue;
 
 					itemIcon = m_PickupHistory[i].icon;
+					if (hud_hitdamage_showhitcount.GetBool())
+					{
+						itemIcon = gHUD.GetIcon("hitmarker_hitcount");
+					}
+					else
+					{
+						itemIcon = gHUD.GetIcon("hitmarker");
+					}
+
+					if (!itemIcon)
+						continue;
+
 					bHalfHeight = false;
 					iAmount = m_PickupHistory[i].iCount;
 
-					if (hud_hitdamage_entitytypespecific.GetBool())
+					if (!m_PickupHistory[i].bIsAlive && hud_hitdamage_deathcolor.GetBool())
+					{
+						clr[0] = hud_hitdamage_red_death.GetFloat();
+						clr[1] = hud_hitdamage_green_death.GetFloat();
+						clr[2] = hud_hitdamage_blue_death.GetFloat();
+					}
+					else if (hud_hitdamage_entitytypespecific.GetBool())
 					{
 						if (m_PickupHistory[i].bIsBoss)
 						{
@@ -594,18 +628,26 @@ void CHudHistoryResource::Paint( void )
 			if ( iAmount )
 			{
 				wchar_t text[16];
-				_snwprintf( text, sizeof( text ) / sizeof(wchar_t), L"%i", m_PickupHistory[i].iCount );
+
+				if (m_PickupHistory[i].type == HISTSLOT_DAMAGE && m_PickupHistory[i].iDMGCount > 0 && hud_hitdamage_showhitcount.GetBool())
+				{
+					_snwprintf(text, sizeof(text) / sizeof(wchar_t), L"%i (%iX)", m_PickupHistory[i].iCount, m_PickupHistory[i].iDMGCount);
+				}
+				else
+				{
+					_snwprintf(text, sizeof(text) / sizeof(wchar_t), L"%i", m_PickupHistory[i].iCount);
+				}
 
 				vgui::surface()->DrawSetTextFont( m_hNumberFont );
 				vgui::surface()->DrawSetTextColor( clr );
-				vgui::surface()->DrawSetTextPos( wide - m_flTextInset, ypos + (height - surface()->GetFontTall( m_hNumberFont )) / 2 );
+				vgui::surface()->DrawSetTextPos( wide - ((m_PickupHistory[i].type == HISTSLOT_DAMAGE && hud_hitdamage_showhitcount.GetBool()) ? m_flTextInsetDamage : m_flTextInset), ypos + (height - surface()->GetFontTall(m_hNumberFont)) / 2);
 				vgui::surface()->DrawUnicodeString( text );
 			}
 			else if ( bUseAmmoFullMsg )
 			{
 				vgui::surface()->DrawSetTextFont( m_hTextFont );
 				vgui::surface()->DrawSetTextColor( clr );
-				vgui::surface()->DrawSetTextPos( wide - m_flTextInset, ypos );
+				vgui::surface()->DrawSetTextPos( wide - ((m_PickupHistory[i].type == HISTSLOT_DAMAGE && hud_hitdamage_showhitcount.GetBool()) ? m_flTextInsetDamage : m_flTextInset), ypos );
 				vgui::surface()->DrawUnicodeString( m_wcsAmmoFullMsg );
 			}
 		}

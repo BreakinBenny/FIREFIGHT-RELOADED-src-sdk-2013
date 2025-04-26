@@ -222,6 +222,8 @@ ConVar	ai_spread_pattern_focus_time( "ai_spread_pattern_focus_time","0.8" );
 ConVar	ai_reaction_delay_idle( "ai_reaction_delay_idle","0.3" );
 ConVar	ai_reaction_delay_alert( "ai_reaction_delay_alert", "0.1" );
 
+ConVar hud_hitdamage_delay("hud_hitdamage_delay", "5.0", FCVAR_ARCHIVE);
+
 ConVar ai_strong_optimizations( "ai_strong_optimizations", ( IsX360() ) ? "1" : "0" );
 
 ConVar ai_allow_npcvnpc_killlog("ai_allow_npcvnpc_killlog", "1", FCVAR_ARCHIVE);
@@ -691,13 +693,42 @@ void CAI_BaseNPC::Event_Killed( const CTakeDamageInfo &info )
 			pAttacker = pPlayer;
 	}
 
-	if ((gpGlobals->curtime - m_flLastDamageTime) < 1.0)
+	// If the attacker was an NPC or client update my position memory
+	if (new_info.GetAttacker()->GetFlags() & (FL_NPC | FL_CLIENT))
 	{
-		m_flSumDamage += new_info.GetDamage();
-	}
-	else
-	{
-		m_flSumDamage = new_info.GetDamage();
+		DevMsg("DED %f\n", info.GetDamage());
+
+		if ((gpGlobals->curtime - m_flLastDamageTime) < hud_hitdamage_delay.GetFloat())
+		{
+			m_flSumDamageDMGIndicator += info.GetDamage();
+		}
+		else
+		{
+			m_flSumDamageDMGIndicator = info.GetDamage();
+		}
+
+		m_flLastDamageTime = gpGlobals->curtime;
+		++m_iTimesDamaged;
+
+		CBasePlayer* player = ToBasePlayer(pAttacker);
+
+		if (player)
+		{
+			IGameEvent* event = gameeventmanager->CreateEvent("npc_hurt");
+			if (event)
+			{
+				event->SetInt("entindex", entindex());
+				event->SetInt("health", MAX(0, m_iHealth));
+				event->SetInt("damageamount", new_info.GetDamage());
+				event->SetInt("damageamount_consecutive", m_flSumDamageDMGIndicator);
+				event->SetInt("priority", 5);	// HLTV event priority, not transmitted
+				event->SetInt("attacker_player", player->GetUserID()); // hurt by other player
+				event->SetBool("alive", false);
+				event->SetInt("timeshit", m_iTimesDamaged);
+
+				gameeventmanager->FireEvent(event);
+			}
+		}
 	}
 	
 	if (pAttacker->IsPlayer())
@@ -706,28 +737,6 @@ void CAI_BaseNPC::Event_Killed( const CTakeDamageInfo &info )
 		{
 			new_info.SetAttacker(pAttacker);
 			((CSingleplayRules*)GameRules())->NPCKilled(this, new_info);
-		}
-
-		// If the attacker was an NPC or client update my position memory
-		if (new_info.GetAttacker()->GetFlags() & (FL_NPC | FL_CLIENT))
-		{
-			CBasePlayer* player = ToBasePlayer(pAttacker);
-
-			if (player)
-			{
-				IGameEvent* event = gameeventmanager->CreateEvent("npc_hurt");
-				if (event)
-				{
-					event->SetInt("entindex", entindex());
-					event->SetInt("health", MAX(0, m_iHealth));
-					event->SetInt("damageamount", new_info.GetDamage());
-					event->SetInt("damageamount_consecutive", m_flSumDamage);
-					event->SetInt("priority", 5);	// HLTV event priority, not transmitted
-					event->SetInt("attacker_player", player->GetUserID()); // hurt by other player
-
-					gameeventmanager->FireEvent(event);
-				}
-			}
 		}
 
 		if (GlobalEntity_GetState("player_inbossbattle") == GLOBAL_OFF && sk_gotoboss_ondronekill.GetBool())
@@ -1026,6 +1035,9 @@ int CAI_BaseNPC::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 		ForceGatherConditions();
 
 		// Keep track of how much consecutive damage I have recieved
+
+		DevMsg("LIVE %f\n", info.GetDamage());
+
 		if ((gpGlobals->curtime - m_flLastDamageTime) < 1.0)
 		{
 			m_flSumDamage += info.GetDamage();
@@ -1034,6 +1046,27 @@ int CAI_BaseNPC::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 		{
 			m_flSumDamage = info.GetDamage();
 		}
+
+		if ((gpGlobals->curtime - m_flLastDamageTime) < hud_hitdamage_delay.GetFloat())
+		{
+			if (m_iHealth > 0)
+			{
+				m_flSumDamageDMGIndicator += info.GetDamage();
+			}
+		}
+		else
+		{
+			if (m_iHealth > 0)
+			{
+				m_flSumDamageDMGIndicator = info.GetDamage();
+			}
+		}
+
+		if (m_iHealth > 0)
+		{
+			++m_iTimesDamaged;
+		}
+
 		m_flLastDamageTime = gpGlobals->curtime;
 		if ( info.GetAttacker() && info.GetAttacker()->IsPlayer() )
 			m_flLastPlayerDamageTime = gpGlobals->curtime;
@@ -1059,9 +1092,11 @@ int CAI_BaseNPC::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 				event->SetInt("entindex", entindex());
 				event->SetInt("health", MAX(0, m_iHealth));
 				event->SetInt("damageamount", info.GetDamage());
-				event->SetInt("damageamount_consecutive", m_flSumDamage);
+				event->SetInt("damageamount_consecutive", m_flSumDamageDMGIndicator);
 				event->SetInt("priority", 5);	// HLTV event priority, not transmitted
 				event->SetInt("attacker_player", player->GetUserID()); // hurt by other player
+				event->SetBool("alive", true);
+				event->SetInt("timeshit", m_iTimesDamaged);
 
 				gameeventmanager->FireEvent(event);
 			}
@@ -11211,6 +11246,8 @@ BEGIN_DATADESC( CAI_BaseNPC )
 	DEFINE_FIELD( m_afMemory,					FIELD_INTEGER ),
   	DEFINE_FIELD( m_hEnemyOccluder,			FIELD_EHANDLE ),
   	DEFINE_FIELD( m_flSumDamage,				FIELD_FLOAT ),
+	DEFINE_FIELD(m_flSumDamageDMGIndicator, FIELD_FLOAT),
+	DEFINE_FIELD(m_iTimesDamaged, FIELD_INTEGER),
   	DEFINE_FIELD( m_flLastDamageTime,			FIELD_TIME ),
   	DEFINE_FIELD( m_flLastPlayerDamageTime,			FIELD_TIME ),
 	DEFINE_FIELD( m_flLastSawPlayerTime,			FIELD_TIME ),
@@ -11917,6 +11954,8 @@ CAI_BaseNPC::CAI_BaseNPC(void)
 
 	m_iMySquadSlot				= SQUAD_SLOT_NONE;
 	m_flSumDamage				= 0;
+	m_flSumDamageDMGIndicator	= 0;
+	m_iTimesDamaged				= 0;
 	m_flLastDamageTime			= 0;
 	m_flLastAttackTime			= 0;
 	m_flSoundWaitTime			= 0;

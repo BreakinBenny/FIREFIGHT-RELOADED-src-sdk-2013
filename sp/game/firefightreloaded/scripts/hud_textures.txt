@@ -585,6 +585,13 @@
 				"customxyoffset"	"1"
 				"x_offset"		"65"
 		}
+		"hitmarker_hitcount"
+		{
+				"font"		"Crosshairs"
+				"character"	"Q"
+				"customxyoffset"	"1"
+				"x_offset"		"115"
+		}
 		"chargebow_bolt"
 		{
 				"file"		"VGUI/basic2d_linear/ex_weaponicon_54"

@@ -46,7 +46,7 @@ public:
 	bool		Holster(CBaseCombatWeapon* pSwitchingTo);
 	void		ItemPostFrame(void);
 	void		ImpactEffect(trace_t& traceHit);
-	float		GetDamageForActivity(Activity hitActivity);
+	float		GetDamageForActivity(Activity hitActivity) { return 0; };
 
 	int			GetKillMultiplier() { return m_iKillMultiplier; }
 	

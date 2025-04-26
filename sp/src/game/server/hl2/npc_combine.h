@@ -98,7 +98,7 @@ public:
 
 	bool					BecomeRagdoll(const CTakeDamageInfo& info, const Vector& forceVector);
 	virtual const char*		GetGibModel(appendage_t appendage);
-	virtual bool			CorpseGib(const CTakeDamageInfo& info);
+	virtual CTakeDamageInfo	CorpseGibExt(const CTakeDamageInfo& info);
 	virtual bool			CorpseDecapitate(const CTakeDamageInfo& info);
 	virtual void			CorpseDecapitateEffect(const CTakeDamageInfo& info);
 	int						OnTakeDamage_Alive(const CTakeDamageInfo& inputInfo);

@@ -52,6 +52,8 @@ private:
 		int iId;
 		bool bIsRare;
 		bool bIsBoss;
+		bool bIsAlive;
+		int iDMGCount;
 		CHandle< C_BaseCombatWeapon > m_hWeapon;
 
 		CHudTexture *icon;
@@ -72,7 +74,7 @@ public:
 	virtual void ApplySchemeSettings( vgui::IScheme *pScheme );
 	virtual void FireGameEvent(IGameEvent* event);
 
-	void	AddToHistory( int iType, int iId, int iCount = 0 );
+	void	AddToHistory( int iType, int iId, int iCount = 0, bool bIsAlive = false, int iDMGCount = 0);
 	void	AddToHistory( int iType, const char *szName, int iCount = 0 );
 	void	AddToHistory( C_BaseCombatWeapon *weapon );
 	void	MsgFunc_ItemPickup( bf_read &msg );
@@ -80,7 +82,7 @@ public:
 	
 	void	CheckClearHistory( void );
 	void	SetHistoryGap( int iNewHistoryGap );
-	void	AddIconToHistory( int iType, int iId, C_BaseCombatWeapon *weapon, int iCount, CHudTexture *icon, bool bIsRare = false, bool bIsBoss = false);
+	void	AddIconToHistory( int iType, int iId, C_BaseCombatWeapon *weapon, int iCount, CHudTexture *icon, bool bIsRare = false, bool bIsBoss = false, bool bIsAlive = false, int iDMGCount = 0);
 
 private:
 	// these vars are for hl1-port compatibility
@@ -93,6 +95,7 @@ private:
 	CPanelAnimationVarAliasType( float, m_flHistoryGap, "history_gap", "42", "proportional_float" );
 	CPanelAnimationVarAliasType( float, m_flIconInset, "icon_inset", "28", "proportional_float" );
 	CPanelAnimationVarAliasType( float, m_flTextInset, "text_inset", "26", "proportional_float" );
+	CPanelAnimationVarAliasType(float, m_flTextInsetDamage, "text_inset_damage", "26", "proportional_float");
 	CPanelAnimationVar( vgui::HFont, m_hNumberFont, "NumberFont", "HudNumbersSmall" );
 	CPanelAnimationVar( vgui::HFont, m_hTextFont, "TextFont", "Default" );
 };

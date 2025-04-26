@@ -20,6 +20,7 @@
 	"disable_eye"		"1"
 	"disable_bullet_resistance" "0"
 	"outline_color"		"255 128 128"
+	"decap"			"0"
 	"shield"		"0"
 	"persist"		"0"
 }

@@ -831,6 +831,31 @@ Scheme
 				"custom"	"1"
 			}
 		}
+        HudNumbersSmallHistory
+		{
+			"1"
+			{
+				"name"		"Verdana"
+				"tall"		"14"
+				"weight"	"1000"
+				"scanlines" "0"
+				"antialias" "1"
+				"custom"	"1"
+			}
+		}
+		HudNumbersGlowSmallHistory
+		{
+			"1"
+			{
+				"name"		"Verdana"
+				"tall"		"14"
+				"weight"	"1000"
+				"blur"		"4"
+				"scanlines" "0"
+				"antialias" "1"
+				"custom"	"1"
+			}
+		}
 		HudSelectionNumbers
 		{
 			"1"

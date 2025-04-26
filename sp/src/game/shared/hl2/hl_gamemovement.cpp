@@ -19,7 +19,11 @@ static ConVar sv_ladderautomountdot("sv_ladderautomountdot", "0.4", FCVAR_REPLIC
 static ConVar sv_ladder_useonly("sv_ladder_useonly", "0", FCVAR_REPLICATED, "If set, ladders can only be mounted by pressing +USE");
 
 ConVar	fr_max_charge_speed("fr_max_charge_speed", "750", FCVAR_NOTIFY | FCVAR_REPLICATED | FCVAR_CHEAT);
-ConVar	fr_max_charge_airmove_divisor("fr_max_charge_airmove_divisor", "2", FCVAR_NOTIFY | FCVAR_REPLICATED | FCVAR_CHEAT);
+ConVar	fr_max_charge_airmove_divisor("fr_max_charge_airmove_divisor", "2.5", FCVAR_NOTIFY | FCVAR_REPLICATED | FCVAR_CHEAT);
+
+ConVar fr_charge_allowairmove("fr_charge_allowairmove", "1", FCVAR_ARCHIVE);
+ConVar fr_charge_allowjump("fr_charge_allowjump", "0", FCVAR_ARCHIVE);
+ConVar fr_charge("fr_charge", "1", FCVAR_ARCHIVE);
 
 #define USE_DISMOUNT_SPEED 100
 
@@ -264,6 +268,9 @@ void CHL2GameMovement::ProcessMovement(CBasePlayer* pBasePlayer, CMoveData* pMov
 //-----------------------------------------------------------------------------
 bool CHL2GameMovement::ChargeMove()
 {
+	if (!fr_charge.GetBool())
+		return false;
+
 	if (!GetHL2Player()->IsCharging())
 		return false;
 
@@ -271,8 +278,21 @@ bool CHL2GameMovement::ChargeMove()
 
 	int oldbuttons = mv->m_nButtons;
 
+	if (fr_charge_allowjump.GetBool())
+	{
+		// Was jump button pressed? If so, set velocity to 270 away from ladder.  
+		if (mv->m_nButtons & IN_JUMP)
+		{
+			CheckJumpButton();
+		}
+		else
+		{
+			mv->m_nOldButtons &= ~IN_JUMP;
+		}
+	}
+
 	//calculate air moving
-	if (player->GetGroundEntity() == NULL)
+	if (player->GetGroundEntity() == NULL && fr_charge_allowairmove.GetBool())
 	{
 		//reduce air speed in mid air due to the air acceleration.
 		mv->m_flForwardMove = (fr_max_charge_speed.GetFloat() / fr_max_charge_airmove_divisor.GetFloat());

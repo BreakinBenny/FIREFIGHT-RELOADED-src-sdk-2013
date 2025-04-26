@@ -31,7 +31,6 @@
 static const Vector g_bludgeonMins(-BLUDGEON_HULL_DIM, -BLUDGEON_HULL_DIM, -BLUDGEON_HULL_DIM);
 static const Vector g_bludgeonMaxs(BLUDGEON_HULL_DIM, BLUDGEON_HULL_DIM, BLUDGEON_HULL_DIM);
 extern ConVar sk_plr_dmg_katana;
-extern ConVar sk_npc_dmg_katana;
 static ConVar sv_katana_healthbonus_postdelay("sv_katana_healthbonus_postdelay", "5.0", FCVAR_CHEAT);
 static ConVar sv_katana_healthbonus_maxmultiplier("sv_katana_healthbonus_maxmultiplier", "5", FCVAR_CHEAT);
 static ConVar sv_katana_healthbonus_maxtimestogivebonus("sv_katana_healthbonus_maxtimestogivebonus", "10", FCVAR_CHEAT);
@@ -201,14 +200,13 @@ void CWeaponKatana::PrimaryAttack(void)
 					Vector vecSrc = pPlayer->Weapon_ShootPosition();
 					Vector vecAiming = pPlayer->GetAutoaimVector(AUTOAIM_SCALE_DEFAULT);
 
-					Ammo_t *ammodef = GetAmmoDef()->GetAmmoOfIndex(m_iPrimaryAmmoType);
-					int damage = ammodef->pPlrDmgCVar->GetInt();
+					int damage = sk_plr_dmg_katana.GetInt();
 
 					for (const char* i : g_charEnemiesWithDamageResistance)
 					{
 						if (FClassnameIs(ent, i))
 						{
-							damage = ammodef->pPlrDmgCVar->GetInt() * sv_katana_enemy_damageresistance.GetFloat();
+							damage = sk_plr_dmg_katana.GetInt() * sv_katana_enemy_damageresistance.GetFloat();
 						}
 					}
 
@@ -382,17 +380,4 @@ void CWeaponKatana::ImpactEffect(trace_t& traceHit)
 
 	//FIXME: need new decals
 	UTIL_ImpactTrace(&traceHit, DMG_SLASH);
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: Get the damage amount for the animation we're doing
-// Input  : hitActivity - currently played activity
-// Output : Damage amount
-//-----------------------------------------------------------------------------
-float CWeaponKatana::GetDamageForActivity(Activity hitActivity)
-{
-	if ((GetOwner() != NULL) && (GetOwner()->IsPlayer()))
-		return sk_plr_dmg_katana.GetFloat();
-
-	return sk_npc_dmg_katana.GetFloat();
 }

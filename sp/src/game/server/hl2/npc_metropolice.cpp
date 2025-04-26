@@ -3294,12 +3294,7 @@ void CNPC_MetroPolice::Event_Killed( const CTakeDamageInfo &info )
 		}
 	}
 
-	if (CorpseGib(info))
-	{
-		return;
-	}
-
-	BaseClass::Event_Killed( info );
+	BaseClass::Event_Killed(CorpseGibExt(info));
 }
 
 //-----------------------------------------------------------------------------
@@ -4114,7 +4109,7 @@ void CNPC_MetroPolice::CorpseDecapitateEffect(const CTakeDamageInfo& info)
 	CTakeDamageInfo info2;
 	info2.SetAttacker(info.GetAttacker());
 	info2.SetInflictor(info.GetInflictor());
-	info2.SetDamage(GetHealth());
+	info2.SetDamage(info.GetDamage() + GetHealth());
 	info2.SetDamageForce(info.GetDamageForce());
 	info2.SetDamagePosition(info.GetDamagePosition());
 	info2.SetDamageType(info.GetDamageType());
@@ -4130,6 +4125,11 @@ bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 	if (m_pAttributes != NULL)
 	{
 		gibs = m_pAttributes->GetBool("gibs", true);
+		if (gibs)
+		{
+			//check if we want decapitation kills enabled if gibs are.
+			gibs = m_pAttributes->GetBool("decap", true);
+		}
 	}
 
 	if (newinfo.GetDamageType() & DMG_DISSOLVE)
@@ -4228,10 +4228,10 @@ Vector RagForce(Vector vecDamageDir)
 	return (vecRagForce + vecDamageDir) * 50.0f;
 }
 
-bool CNPC_MetroPolice::CorpseGib(const CTakeDamageInfo& info)
+CTakeDamageInfo CNPC_MetroPolice::CorpseGibExt(const CTakeDamageInfo& info)
 {
 	if (m_bDecapitated)
-		return false;
+		return info;
 
 	bool gibs = true;
 	if (m_pAttributes != NULL)
@@ -4240,22 +4240,16 @@ bool CNPC_MetroPolice::CorpseGib(const CTakeDamageInfo& info)
 	}
 
 	if (info.GetDamageType() & DMG_DISSOLVE)
-		return false;
+		return info;
 
 	if (info.GetDamageType() & DMG_NEVERGIB)
-		return false;
+		return info;
 
 	static ConVarRef violence_hgibs( "violence_hgibs" );
 	if (!(g_Language.GetInt() == LANGUAGE_GERMAN || UTIL_IsLowViolence())
 		&& (violence_hgibs.IsValid() && violence_hgibs.GetBool())
 		&& (info.GetDamageType() & (DMG_BLAST)) && gibs)
 	{
-		if (IsCurSchedule(SCHED_NPC_FREEZE))
-		{
-			// We're frozen; don't die.
-			return false;
-		}
-
 		Vector vecDamageDir = info.GetDamageForce();
 		SpawnBlood(GetAbsOrigin(), g_vecAttackDir, BloodColor(), info.GetDamage());
 		DispatchParticleEffect("smod_blood_gib_r", GetAbsOrigin(), GetAbsAngles(), this);
@@ -4376,12 +4370,10 @@ bool CNPC_MetroPolice::CorpseGib(const CTakeDamageInfo& info)
 		infoNew.AddDamageType(DMG_REMOVENORAGDOLL);
 
 		SentenceStop();
-		m_iHealth = 0;
-		BaseClass::Event_Killed(infoNew);
-		return true;
+		return infoNew;
 	}
 
-	return false;
+	return info;
 }
 
 //-----------------------------------------------------------------------------

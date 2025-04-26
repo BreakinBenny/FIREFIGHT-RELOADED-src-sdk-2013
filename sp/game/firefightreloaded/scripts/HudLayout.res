@@ -320,9 +320,10 @@
 		"tall"	 "270"
 
 		"history_gap"	"35"
-		"icon_inset"	"28"
-		"text_inset"	"26"
-		"NumberFont"	"HudNumbersSmall"
+		"icon_inset"	"32"
+        "text_inset_damage"	"65"
+		"text_inset"	"32"
+		"NumberFont"	"HudNumbersSmallHistory"
 		"PaintBackgroundType"	"2"
 	}
 
