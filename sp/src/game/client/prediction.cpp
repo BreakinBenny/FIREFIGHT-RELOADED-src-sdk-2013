@@ -671,6 +671,7 @@ void CPrediction::SetupMove( C_BasePlayer *player, CUserCmd *ucmd, IMoveHelper *
 	Assert( pHLMove );
 
 	pHLMove->m_bIsSprinting = pHLPlayer->IsSprinting();
+	pHLMove->m_bIsCharging = pHLPlayer->IsCharging();
 #endif
 #endif
 }

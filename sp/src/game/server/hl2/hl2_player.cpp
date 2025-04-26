@@ -70,6 +70,8 @@
 
 #include "rumble_shared.h"
 
+#include "npc_BaseZombie.h"
+
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
@@ -2376,13 +2378,13 @@ void CHL2_Player::ToggleBullettime(void)
 	}
 }
 
-void CHL2_Player::DoChargeBashDamage(trace_t &trace)
+void CHL2_Player::DoChargeBashDamage(trace_t &trace, bool bInstakill)
 {
 	CTakeDamageInfo info;
 	info.SetAttacker(this);
 	info.SetInflictor(this);
 	info.SetWeapon(GetActiveWeapon());
-	info.SetDamage(sk_katana_charge_bashdamage.GetFloat());
+	info.SetDamage(bInstakill ? trace.m_pEnt->GetMaxHealth() : sk_katana_charge_bashdamage.GetFloat());
 	info.SetDamageForce(info.GetDamageForce() * sv_katana_charge_bashvelocitymultiplier.GetFloat());
 	info.SetDamagePosition(trace.endpos);
 	info.SetDamageType(DMG_CLUB);
@@ -2411,14 +2413,30 @@ bool CHL2_Player::CheckChargeBash(void)
 		if (IsCharging())
 		{
 			bool hadToDamage = false;
+			bool instakill = false;
 
 			if (trace.m_pEnt)
 			{
-				if (trace.m_pEnt->IsNPC() && trace.m_pEnt->GetMaxHealth() <= sk_katana_charge_bashdamage.GetFloat())
+				if (trace.m_pEnt->IsNPC())
 				{
-					//smash the enemy since they're in our way, and we can kill them.
-					EmitSound("HL2Player.kick_body");
-					hadToDamage = true;
+					if (trace.m_pEnt->GetMaxHealth() <= sk_katana_charge_bashdamage.GetFloat())
+					{
+						//smash the enemy since they're in our way, and we can kill them.
+						EmitSound("HL2Player.kick_body");
+						hadToDamage = true;
+					}
+					else
+					{
+						//zombie torsos have more health than we can take. Instakill them.
+						CNPC_BaseZombie *pZombie = dynamic_cast<CNPC_BaseZombie*>(trace.m_pEnt);
+
+						if (pZombie && pZombie->IsTorso())
+						{
+							EmitSound("HL2Player.kick_body");
+							hadToDamage = true;
+							instakill = true;
+						}
+					}
 				}
 				else
 				{
@@ -2442,7 +2460,7 @@ bool CHL2_Player::CheckChargeBash(void)
 
 			if (hadToDamage)
 			{
-				DoChargeBashDamage(trace);
+				DoChargeBashDamage(trace, instakill);
 				return false;
 			}
 		}
@@ -2542,6 +2560,10 @@ void CHL2_Player::CheckCharge(void)
 void CHL2_Player::DoCharge(void)
 {
 	if (!fr_charge.GetBool())
+		return;
+
+	//if we're in mid air, don't start the charge unless jumping is on.
+	if (!fr_charge_allowjump.GetBool() && GetGroundEntity() == NULL)
 		return;
 
 	CBaseCombatWeapon* pKatana = dynamic_cast<CWeaponKatana*>(GetActiveWeapon());

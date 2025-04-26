@@ -19,7 +19,7 @@ static ConVar sv_ladderautomountdot("sv_ladderautomountdot", "0.4", FCVAR_REPLIC
 static ConVar sv_ladder_useonly("sv_ladder_useonly", "0", FCVAR_REPLICATED, "If set, ladders can only be mounted by pressing +USE");
 
 ConVar	fr_max_charge_speed("fr_max_charge_speed", "750", FCVAR_NOTIFY | FCVAR_REPLICATED | FCVAR_CHEAT);
-ConVar	fr_max_charge_airmove_divisor("fr_max_charge_airmove_divisor", "2.5", FCVAR_NOTIFY | FCVAR_REPLICATED | FCVAR_CHEAT);
+ConVar	fr_max_charge_airmove_divisor("fr_max_charge_airmove_divisor", "8.5", FCVAR_NOTIFY | FCVAR_REPLICATED | FCVAR_CHEAT);
 
 ConVar fr_charge_allowairmove("fr_charge_allowairmove", "1", FCVAR_ARCHIVE);
 ConVar fr_charge_allowjump("fr_charge_allowjump", "0", FCVAR_ARCHIVE);

@@ -148,6 +148,45 @@
 				}
 			}
             
+            "KatanaCharge"
+			{
+				"text"			"#GameUI_KatanaCharge"
+				"type"			"wheelywheel"
+				"convar"		"fr_charge"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
+            "KatanaChargeAirControl"
+			{
+				"text"			"#GameUI_KatanaChargeAirControl"
+				"type"			"wheelywheel"
+				"convar"		"fr_charge_allowairmove"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
+            "KatanaChargeAllowJump"
+			{
+				"text"			"#GameUI_KatanaChargeAllowJump"
+				"type"			"wheelywheel"
+				"convar"		"fr_charge_allowjump"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
             "Perks"
 			{
 				"text"			"#GameUI_Perks"

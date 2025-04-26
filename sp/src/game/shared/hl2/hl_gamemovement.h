@@ -27,6 +27,8 @@ struct NearbyDismount_t
 };
 
 extern ConVar fr_charge;
+extern ConVar fr_charge_allowairmove;
+extern ConVar fr_charge_allowjump;
 
 //-----------------------------------------------------------------------------
 // Purpose: HL2 specific movement code

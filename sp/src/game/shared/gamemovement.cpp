@@ -67,7 +67,7 @@ ConVar player_limit_jump_speed( "player_limit_jump_speed", "1", FCVAR_REPLICATED
 //Used for bunnyhopping
 ConVar fr_enable_bunnyhop("fr_enable_bunnyhop", "1", FCVAR_ARCHIVE);
 ConVar fr_enable_bunnyhop_legacybehavior("fr_enable_bunnyhop_legacybehavior", "0", FCVAR_ARCHIVE);
-ConVar fr_enable_bunnyhop_speedboost("fr_enable_bunnyhop_speedboost", "0.2", FCVAR_ARCHIVE);
+ConVar fr_enable_bunnyhop_speedboost("fr_enable_bunnyhop_speedboost", "0.1", FCVAR_ARCHIVE);
 
 ConVar fr_floatymove("fr_floatymove", "0", FCVAR_ARCHIVE);
 
@@ -2619,129 +2619,132 @@ bool CGameMovement::CheckJumpButton( void )
 #if defined( HL2_DLL ) || defined( HL2_CLIENT_DLL )
 	//allow us to bunnyhop regardless if we have more than 1 player.
 	CHLMoveData *pMoveData = (CHLMoveData*)mv;
-	//we might need to reconsider some things
-	if (fr_enable_bunnyhop.GetInt() == 1)
+	//don't enable any speed boost when charging.
+	if (!pMoveData->m_bIsCharging)
 	{
-		Vector vecForward;
-		AngleVectors(mv->m_vecViewAngles, &vecForward, NULL, NULL);
-		vecForward.z = 0.0f;
-		VectorNormalize(vecForward);
-		static ConVarRef sv_leagcy_maxspeed("sv_leagcy_maxspeed");
-		if (!fr_enable_bunnyhop_legacybehavior.GetBool() && !sv_leagcy_maxspeed.GetBool())
+		if (fr_enable_bunnyhop.GetInt() == 1)
 		{
-			for (int iAxis = 0; iAxis < 2; ++iAxis)
-			{
-				vecForward[iAxis] *= (mv->m_flForwardMove * fr_enable_bunnyhop_speedboost.GetFloat());
-			}
-		}
-		else
-		{
-			if (!pMoveData->m_bIsSprinting && !player->m_Local.m_bDucked)
+			Vector vecForward;
+			AngleVectors(mv->m_vecViewAngles, &vecForward, NULL, NULL);
+			vecForward.z = 0.0f;
+			VectorNormalize(vecForward);
+			static ConVarRef sv_leagcy_maxspeed("sv_leagcy_maxspeed");
+			if (!fr_enable_bunnyhop_legacybehavior.GetBool() && !sv_leagcy_maxspeed.GetBool())
 			{
 				for (int iAxis = 0; iAxis < 2; ++iAxis)
 				{
-					vecForward[iAxis] *= (mv->m_flForwardMove * 0.5f);
+					vecForward[iAxis] *= (mv->m_flForwardMove * fr_enable_bunnyhop_speedboost.GetFloat());
 				}
 			}
 			else
 			{
-				for (int iAxis = 0; iAxis < 2; ++iAxis)
+				if (!pMoveData->m_bIsSprinting && !player->m_Local.m_bDucked)
 				{
-					vecForward[iAxis] *= (mv->m_flForwardMove * 0.1f);
+					for (int iAxis = 0; iAxis < 2; ++iAxis)
+					{
+						vecForward[iAxis] *= (mv->m_flForwardMove * 0.5f);
+					}
+				}
+				else
+				{
+					for (int iAxis = 0; iAxis < 2; ++iAxis)
+					{
+						vecForward[iAxis] *= (mv->m_flForwardMove * 0.1f);
+					}
 				}
 			}
-		}
 
-		VectorAdd(vecForward, mv->m_vecVelocity, mv->m_vecVelocity);
+			VectorAdd(vecForward, mv->m_vecVelocity, mv->m_vecVelocity);
 
-		float flSpeedBoostPerc = (!pMoveData->m_bIsSprinting && !player->m_Local.m_bDucked) ? 0.5f : 0.1f;
+			float flSpeedBoostPerc = (!pMoveData->m_bIsSprinting && !player->m_Local.m_bDucked) ? 0.5f : 0.1f;
 
-		if (!fr_enable_bunnyhop_legacybehavior.GetBool() && !sv_leagcy_maxspeed.GetBool())
-		{
-			flSpeedBoostPerc = 0.2f;
-		}
-
-		float flSpeedAddition = fabs(mv->m_flForwardMove * flSpeedBoostPerc);
-		float flNewSpeed = (flSpeedAddition + mv->m_vecVelocity.Length2D());
-
-		if (player->m_nWallRunState == WALLRUN_JUMPING) {
-			// Jump out from the wall 
-			float wall_push_scale =
-				//(fabs( cos( DEG2RAD( GetWallRunYaw() ) ) ) ) *
-				flNewSpeed * sv_wallrun_jump_push.GetFloat();
-			VectorScale(player->m_vecWallNorm, wall_push_scale, vecWallPush);
-			VectorAdd(vecWallPush, mv->m_vecVelocity, mv->m_vecVelocity);
-		}
-	}
-	else
-	{
-		Vector vecForward;
-		AngleVectors(mv->m_vecViewAngles, &vecForward);
-		vecForward.z = 0;
-		VectorNormalize(vecForward);
-		
-		// We give a certain percentage of the current forward movement as a bonus to the jump speed.  That bonus is clipped
-		// to not accumulate over time.
-		float flSpeedBoostPerc = (!pMoveData->m_bIsSprinting && !player->m_Local.m_bDucked) ? 0.5f : 0.1f;
-		float flSpeedAddition = fabs(mv->m_flForwardMove * flSpeedBoostPerc);
-		float flMaxSpeed = mv->m_flMaxSpeed + (mv->m_flMaxSpeed * flSpeedBoostPerc);
-		float flNewSpeed = (flSpeedAddition + mv->m_vecVelocity.Length2D());
-
-		// If we're over the maximum, we want to only boost as much as will get us to the goal speed,
-		// with lots of special exceptions for Mobility Mod
-		if ( flNewSpeed > flMaxSpeed && 
-			 !player->m_bIsPowerSliding &&
-			 player->m_nWallRunState == WALLRUN_NOT &&
-			 !coyote_jump)
-		{
-			flSpeedAddition -= flNewSpeed - flMaxSpeed;
-			//Msg( "Limiting speed in jump\n" );
-		}
-
-		if ( player->m_nWallRunState == WALLRUN_JUMPING ||
-			coyote_jump ) {
-			// A wallrun jump is allowed to take them over the max speed, but
-			// acceleration should be limited still
-			flSpeedAddition =
-                MIN( flSpeedAddition,
-					sv_wallrun_jump_boost.GetFloat() * 
-					sv_wallrun_speed.GetFloat() );
-
-			//Msg( "Adding speed in jump\n" );
-		}
-
-
-		if (mv->m_flForwardMove < 0.0f)
-			flSpeedAddition *= -1.0f;
-
-		float oldspeed;
-		oldspeed = mv->m_vecVelocity.Length();
-
-		// certain_restrictions is just sensible speed limits for jump boosts and slide boosts.
-		// Should have been the default behaviour. 
-		if (certain_restrictions.GetBool())
-		{
-			// with restrictions on, don't add speed beyond the max
-			if (oldspeed > sv_maxspeed.GetFloat()) {
-				// already going too fast - no boost
-				flSpeedAddition = 0;
+			if (!fr_enable_bunnyhop_legacybehavior.GetBool() && !sv_leagcy_maxspeed.GetBool())
+			{
+				flSpeedBoostPerc = 0.2f;
 			}
-			else if (flNewSpeed > sv_maxspeed.GetFloat()) {
-				// limit the boost to get us up to maxspeed but no faster
+
+			float flSpeedAddition = fabs(mv->m_flForwardMove * flSpeedBoostPerc);
+			float flNewSpeed = (flSpeedAddition + mv->m_vecVelocity.Length2D());
+
+			if (player->m_nWallRunState == WALLRUN_JUMPING) {
+				// Jump out from the wall 
+				float wall_push_scale =
+					//(fabs( cos( DEG2RAD( GetWallRunYaw() ) ) ) ) *
+					flNewSpeed * sv_wallrun_jump_push.GetFloat();
+				VectorScale(player->m_vecWallNorm, wall_push_scale, vecWallPush);
+				VectorAdd(vecWallPush, mv->m_vecVelocity, mv->m_vecVelocity);
+			}
+		}
+		else
+		{
+			Vector vecForward;
+			AngleVectors(mv->m_vecViewAngles, &vecForward);
+			vecForward.z = 0;
+			VectorNormalize(vecForward);
+
+			// We give a certain percentage of the current forward movement as a bonus to the jump speed.  That bonus is clipped
+			// to not accumulate over time.
+			float flSpeedBoostPerc = (!pMoveData->m_bIsSprinting && !player->m_Local.m_bDucked) ? 0.5f : 0.1f;
+			float flSpeedAddition = fabs(mv->m_flForwardMove * flSpeedBoostPerc);
+			float flMaxSpeed = mv->m_flMaxSpeed + (mv->m_flMaxSpeed * flSpeedBoostPerc);
+			float flNewSpeed = (flSpeedAddition + mv->m_vecVelocity.Length2D());
+
+			// If we're over the maximum, we want to only boost as much as will get us to the goal speed,
+			// with lots of special exceptions for Mobility Mod
+			if (flNewSpeed > flMaxSpeed &&
+				!player->m_bIsPowerSliding &&
+				player->m_nWallRunState == WALLRUN_NOT &&
+				!coyote_jump)
+			{
 				flSpeedAddition -= flNewSpeed - flMaxSpeed;
+				//Msg( "Limiting speed in jump\n" );
 			}
-		}
 
-		// Add it on
-		VectorAdd((vecForward*flSpeedAddition), mv->m_vecVelocity, mv->m_vecVelocity);
+			if (player->m_nWallRunState == WALLRUN_JUMPING ||
+				coyote_jump) {
+				// A wallrun jump is allowed to take them over the max speed, but
+				// acceleration should be limited still
+				flSpeedAddition =
+					MIN(flSpeedAddition,
+						sv_wallrun_jump_boost.GetFloat() *
+						sv_wallrun_speed.GetFloat());
 
-		if (player->m_nWallRunState == WALLRUN_JUMPING) {
-			// Jump out from the wall 
-			float wall_push_scale =
-				//(fabs( cos( DEG2RAD( GetWallRunYaw() ) ) ) ) *
-				 flNewSpeed * sv_wallrun_jump_push.GetFloat();
-			VectorScale( player->m_vecWallNorm, wall_push_scale, vecWallPush );
-			VectorAdd( vecWallPush, mv->m_vecVelocity, mv->m_vecVelocity );
+				//Msg( "Adding speed in jump\n" );
+			}
+
+
+			if (mv->m_flForwardMove < 0.0f)
+				flSpeedAddition *= -1.0f;
+
+			float oldspeed;
+			oldspeed = mv->m_vecVelocity.Length();
+
+			// certain_restrictions is just sensible speed limits for jump boosts and slide boosts.
+			// Should have been the default behaviour. 
+			if (certain_restrictions.GetBool())
+			{
+				// with restrictions on, don't add speed beyond the max
+				if (oldspeed > sv_maxspeed.GetFloat()) {
+					// already going too fast - no boost
+					flSpeedAddition = 0;
+				}
+				else if (flNewSpeed > sv_maxspeed.GetFloat()) {
+					// limit the boost to get us up to maxspeed but no faster
+					flSpeedAddition -= flNewSpeed - flMaxSpeed;
+				}
+			}
+
+			// Add it on
+			VectorAdd((vecForward * flSpeedAddition), mv->m_vecVelocity, mv->m_vecVelocity);
+
+			if (player->m_nWallRunState == WALLRUN_JUMPING) {
+				// Jump out from the wall 
+				float wall_push_scale =
+					//(fabs( cos( DEG2RAD( GetWallRunYaw() ) ) ) ) *
+					flNewSpeed * sv_wallrun_jump_push.GetFloat();
+				VectorScale(player->m_vecWallNorm, wall_push_scale, vecWallPush);
+				VectorAdd(vecWallPush, mv->m_vecVelocity, mv->m_vecVelocity);
+			}
 		}
 	}
 #endif

@@ -178,6 +178,7 @@ public:
 	void CopyRenderColorTo( CBaseEntity *pOther );
 
 	virtual bool ShouldBecomeTorso( const CTakeDamageInfo &info, float flDamageThreshold );
+	virtual bool IsTorso(void) { return m_fIsTorso; }
 	virtual HeadcrabRelease_t ShouldReleaseHeadcrab( const CTakeDamageInfo &info, float flDamageThreshold );
 
 	// Headcrab releasing/breaking apart

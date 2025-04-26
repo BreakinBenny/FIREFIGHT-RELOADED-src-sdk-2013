@@ -696,7 +696,7 @@ void CAI_BaseNPC::Event_Killed( const CTakeDamageInfo &info )
 	// If the attacker was an NPC or client update my position memory
 	if (new_info.GetAttacker()->GetFlags() & (FL_NPC | FL_CLIENT))
 	{
-		DevMsg("DED %f\n", info.GetDamage());
+		//DevMsg("DED %f\n", info.GetDamage());
 
 		if ((gpGlobals->curtime - m_flLastDamageTime) < hud_hitdamage_delay.GetFloat())
 		{
@@ -1036,7 +1036,7 @@ int CAI_BaseNPC::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 
 		// Keep track of how much consecutive damage I have recieved
 
-		DevMsg("LIVE %f\n", info.GetDamage());
+		//DevMsg("LIVE %f\n", info.GetDamage());
 
 		if ((gpGlobals->curtime - m_flLastDamageTime) < 1.0)
 		{

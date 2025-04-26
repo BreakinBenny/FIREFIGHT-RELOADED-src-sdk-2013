@@ -20,6 +20,7 @@ class CHLMoveData : public CMoveData
 {
 public:
 	bool		m_bIsSprinting;
+	bool		m_bIsCharging;
 };
 
 class CFuncLadder;

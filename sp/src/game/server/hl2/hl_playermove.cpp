@@ -97,6 +97,7 @@ void CHLPlayerMove::SetupMove( CBasePlayer *player, CUserCmd *ucmd, IMoveHelper 
 	player->m_flSideMove = ucmd->sidemove;
 
 	pHLMove->m_bIsSprinting = pHLPlayer->IsSprinting();
+	pHLMove->m_bIsCharging = pHLPlayer->IsCharging();
 
 	if ( gpGlobals->frametime != 0 )
 	{
