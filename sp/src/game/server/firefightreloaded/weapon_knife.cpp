@@ -24,6 +24,7 @@
 #include "physics_prop_ragdoll.h"
 #include "effect_dispatch_data.h"
 #include "te_effect_dispatch.h"
+#include "weapon_crossbow.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -149,14 +150,9 @@ void CWeaponKnife::ThrowKnife(void)
 	VectorAngles(vecAiming, angAiming);
 
 	// Create a new entity with CCrossbowBolt private data
-	CBaseEntity* pBolt = CreateEntityByName("knife_bolt");
+	CKnifeBolt* pBolt = CKnifeBolt::BoltCreate(vecSrc, angAiming, pOwner);
 	if (pBolt)
 	{
-		UTIL_SetOrigin(pBolt, vecSrc);
-		pBolt->SetAbsAngles(angAiming);
-		pBolt->Spawn();
-		pBolt->SetOwnerEntity(pOwner);
-
 		if (pOwner->GetWaterLevel() == 3)
 		{
 			pBolt->SetAbsVelocity(vecAiming * THROWNKNIFE_WATER_VELOCITY);

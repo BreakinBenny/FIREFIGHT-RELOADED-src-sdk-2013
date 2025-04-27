@@ -29,6 +29,7 @@
 #include "c_te_effect_dispatch.h"
 #include "stickybolt.h"
 #include "firefightreloaded/c_weapon_knife.h"
+#include "achievementmgr.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -145,7 +146,7 @@ void CreateCrossbowBolt( const Vector &vecOrigin, const Vector &vecDirection )
 	tempents->SpawnTempModel(pModel, vecOrigin - vecDirection * 8, vAngles, Vector(0, 0, 0), 30.0f, FTENT_NONE);
 }
 
-void StickRagdollNow(const Vector &vecOrigin, const Vector &vecDirection, const int flags, C_BaseEntity* const sticker)
+void StickRagdollNow(const Vector &vecOrigin, const Vector &vecDirection, const int flags, C_BaseEntity* const sticker, bool bunlockAch = false)
 {
 	if ( flags & SBFL_STICKRAGDOLL )
 	{
@@ -167,6 +168,18 @@ void StickRagdollNow(const Vector &vecOrigin, const Vector &vecDirection, const 
 		auto knife = dynamic_cast<C_WeaponKnife*>(sticker);
 		if ( knife != nullptr )
 			knife->m_hStuckRagdoll = ragdollEnum.GetRagdoll();
+
+		//due to us being removed shortly when the kill event is fired, 
+		//if the player pinned an enemy while in mid air we have to make sure they did that then award the achievement
+		//(if we havent already)
+		if (bunlockAch && ragdollEnum.GetRagdoll())
+		{
+			CAchievementMgr* pAchievementMgr = dynamic_cast<CAchievementMgr*>(engine->GetAchievementMgr());
+			if (pAchievementMgr)
+			{
+				pAchievementMgr->AwardAchievement(ACHIEVEMENT_FIREFIGHTRELOADED_SKYBORNEPIN);
+			}
+		}
 	}
 }
 
@@ -176,7 +189,10 @@ void StickRagdollNow(const Vector &vecOrigin, const Vector &vecDirection, const 
 //-----------------------------------------------------------------------------
 void StickyBoltCallback( const CEffectData &data )
 {
-	StickRagdollNow( data.m_vOrigin, data.m_vNormal, data.m_fFlags, data.GetEntity() );
+	// i fucking hate this.
+	bool unlockAch = (data.m_nMaterial == 1 && data.m_nDamageType == 1);
+
+	StickRagdollNow( data.m_vOrigin, data.m_vNormal, data.m_fFlags, data.GetEntity(), unlockAch);
 
 	if (data.m_fFlags & SBFL_CROSSBOWBOLT)
 		CreateCrossbowBolt(data.m_vOrigin, data.m_vNormal);

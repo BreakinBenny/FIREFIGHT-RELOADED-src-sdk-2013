@@ -20,6 +20,8 @@
 #define	KATANA_RANGE	165.0f
 #define	KATANA_REFIRE	0.75f
 
+extern ConVar sv_katana_healthbonus_maxmultiplier;
+
 //-----------------------------------------------------------------------------
 // CWeaponKatana
 //-----------------------------------------------------------------------------
@@ -49,6 +51,7 @@ public:
 	float		GetDamageForActivity(Activity hitActivity) { return 0; };
 
 	int			GetKillMultiplier() { return m_iKillMultiplier; }
+	bool		IsKillMultiplierEnabled() { return (g_pGameRules->isInBullettime && m_bKillMultiplier); }
 	
 private:
 	int			m_iKillMultiplier;

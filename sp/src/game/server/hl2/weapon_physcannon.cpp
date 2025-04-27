@@ -44,6 +44,7 @@
 #include "npc_turret_floor.h"
 // NVNT haptic utils
 #include "haptics/haptic_utils.h"
+#include "weapon_knife.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -2896,6 +2897,13 @@ bool CGrabController::UpdateObject( CBasePlayer *pPlayer, float flError )
 	VectorRotate( m_attachedPositionObjectSpace, attachedToWorld, offset );
 
 	SetTargetPosition( end - offset, angles );
+
+	CWeaponKnife *pKnife = dynamic_cast<CWeaponKnife*>(pEntity);
+
+	if (pKnife)
+	{
+		pKnife->DislodgeRagdoll();
+	}
 
 	return true;
 }

@@ -8,6 +8,7 @@
 #define WEAPON_CROSSBOW_H
 
 #include "basecombatcharacter.h"
+#include "Sprite.h"
 
 #if defined( _WIN32 )
 #pragma once
@@ -75,6 +76,8 @@ public:
 	bool	m_bStopPenetrating;
 	bool	m_bCharged;
 	int		m_iDamage;
+	bool	m_bBoltPinnedEnemy;
+	bool	m_bBoltHitFlyingEnemy;
 
 protected:
 
@@ -85,6 +88,36 @@ protected:
 
 	DECLARE_DATADESC();
 	DECLARE_SERVERCLASS();
+};
+
+//-----------------------------------------------------------------------------
+// Crossbow Bolt
+//-----------------------------------------------------------------------------
+class CKnifeBolt : public CBaseCombatCharacter
+{
+	DECLARE_CLASS(CKnifeBolt, CBaseCombatCharacter);
+
+public:
+	~CKnifeBolt();
+
+	Class_T Classify(void) { return CLASS_NONE; }
+
+public:
+	void Spawn(void);
+	void Precache(void);
+	void BubbleThink(void);
+	void BoltTouch(CBaseEntity* pOther);
+	bool CreateVPhysics(void);
+	unsigned int PhysicsSolidMaskForEntity() const;
+	static CKnifeBolt* BoltCreate(const Vector& vecOrigin, const QAngle& angAngles, CBasePlayer* pentOwner = NULL);
+
+public:
+	bool	m_bBoltPinnedEnemy;
+	bool	m_bBoltHitFlyingEnemy;
+
+protected:
+
+	DECLARE_DATADESC();
 };
 
 #endif // WEAPON_ALYXGUN_H

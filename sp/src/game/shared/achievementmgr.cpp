@@ -932,16 +932,6 @@ void CAchievementMgr::AwardAchievement( int iAchievementID )
 	}
 #endif
 
-#ifdef GAME_DLL
-	CBasePlayer *pEntity = UTIL_GetLocalPlayer();
-	
-	if (!pEntity)
-		return;
-
-	pEntity->AddXP(pAchievement->GetPointValue() * pEntity->m_iExpBoostMult);
-	pEntity->AddMoney(pAchievement->GetPointValue() * pEntity->m_iKashBoostMult);
-#endif
-
     //=============================================================================
     // HPE_BEGIN
     //=============================================================================

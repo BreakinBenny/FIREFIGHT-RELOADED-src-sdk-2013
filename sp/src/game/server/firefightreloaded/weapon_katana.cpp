@@ -32,7 +32,7 @@ static const Vector g_bludgeonMins(-BLUDGEON_HULL_DIM, -BLUDGEON_HULL_DIM, -BLUD
 static const Vector g_bludgeonMaxs(BLUDGEON_HULL_DIM, BLUDGEON_HULL_DIM, BLUDGEON_HULL_DIM);
 extern ConVar sk_plr_dmg_katana;
 static ConVar sv_katana_healthbonus_postdelay("sv_katana_healthbonus_postdelay", "5.0", FCVAR_CHEAT);
-static ConVar sv_katana_healthbonus_maxmultiplier("sv_katana_healthbonus_maxmultiplier", "5", FCVAR_CHEAT);
+ConVar sv_katana_healthbonus_maxmultiplier("sv_katana_healthbonus_maxmultiplier", "5", FCVAR_CHEAT);
 static ConVar sv_katana_healthbonus_maxtimestogivebonus("sv_katana_healthbonus_maxtimestogivebonus", "10", FCVAR_CHEAT);
 static ConVar sv_katana_enemy_damageresistance("sv_katana_enemy_damageresistance", "0.2", FCVAR_CHEAT);
 
@@ -232,7 +232,7 @@ void CWeaponKatana::PrimaryAttack(void)
 
 					pPlayer->FireBullets(info);
 
-					if (ent && !ent->IsAlive() && g_pGameRules->isInBullettime && m_bKillMultiplier)
+					if (ent && !ent->IsAlive() && IsKillMultiplierEnabled())
 					{
 						if (m_iKills < sv_katana_healthbonus_maxtimestogivebonus.GetInt())
 						{

@@ -862,6 +862,12 @@
             "FIREFIGHTRELOADED_COMPLETEDTUTORIAL_NAME": "MIT Education",
             "FIREFIGHTRELOADED_COMPLETEDTUTORIAL_DESC": "Complete the FIREFIGHT RELOADED Tutorial.",
             "FIREFIGHTRELOADED_COMPLETEDTUTORIAL_ACHIEVED": "ACHIEVEMENT UNLOCKED:\nMIT Education\nComplete the FIREFIGHT RELOADED Tutorial.",
+            "FIREFIGHTRELOADED_MAXKATANAMULTIPLIER_NAME": "Honorbound",
+            "FIREFIGHTRELOADED_MAXKATANAMULTIPLIER_DESC": "Get to the maximum kill combo multiplier (5 kills by default) while using the Katana in Bullettime mode.",
+            "FIREFIGHTRELOADED_MAXKATANAMULTIPLIER_ACHIEVED": "ACHIEVEMENT UNLOCKED:\nHonorbound\nGet to the maximum kill combo multiplier (5 kills by default) while using the Katana in Bullettime mode.",
+            "FIREFIGHTRELOADED_SKYBORNEPIN_NAME": "Nailed It!",
+            "FIREFIGHTRELOADED_SKYBORNEPIN_DESC": "Pin a enemy to a wall while they are in mid air with the Knife, Charge Bow or Crossbow.",
+            "FIREFIGHTRELOADED_SKYBORNEPIN_ACHIEVED": "ACHIEVEMENT UNLOCKED:\nNailed It!\nPin a enemy to a wall while they are in mid air with the Knife, Charge Bow or Crossbow.",
             "HL2_SAVING": "Saving..."
         }
     }
