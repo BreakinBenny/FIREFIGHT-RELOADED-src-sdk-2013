@@ -11306,6 +11306,7 @@ BEGIN_DATADESC( CAI_BaseNPC )
 	DEFINE_FIELD(m_IsAdvisorDrone, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_iAttributePresetNum, FIELD_INTEGER),
 	DEFINE_FIELD(m_IsWildcard, FIELD_BOOLEAN),
+	DEFINE_FIELD(m_bGrappled, FIELD_BOOLEAN),
 
 	// Satisfy classcheck
 	// DEFINE_FIELD( m_ScheduleHistory, CUtlVector < AIScheduleChoice_t > ),

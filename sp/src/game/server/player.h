@@ -1002,6 +1002,9 @@ public:
 	int	m_rgMaxUpgrades[FIREFIGHT_UPGRADE_MAX];
 
 	int	m_iKillstreak;
+	int	m_iKillstreakCount;
+	int	m_iCompleteKillstreakCount;
+	bool m_bKillstreakAddedForThisLife;
 
 	// Used by gamemovement to check if the entity is stuck.
 	int m_StuckLast;

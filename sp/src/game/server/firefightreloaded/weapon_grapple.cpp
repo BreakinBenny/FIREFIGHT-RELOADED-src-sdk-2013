@@ -240,6 +240,19 @@ void CGrappleHook::HookTouch( CBaseEntity *pOther )
 
 	HandleBattery();
 
+	if (m_hGrappledEntity.Get() != NULL)
+	{
+		if (m_hGrappledEntity->IsNPC())
+		{
+			CAI_BaseNPC* pNPC = m_hGrappledEntity->MyNPCPointer();
+
+			if (pNPC)
+			{
+				pNPC->m_bGrappled = true;
+			}
+		}
+	}
+
 	SetThink(&CGrappleHook::HookedThink);
 	SetNextThink(gpGlobals->curtime);
 }
@@ -717,6 +730,22 @@ bool CWeaponGrapple::CanHolster( void )
 //-----------------------------------------------------------------------------
 void CWeaponGrapple::NotifyHookDied( void )
 {
+	if (m_hHook)
+	{
+		if (m_hHook->m_hGrappledEntity.Get() != NULL)
+		{
+			if (m_hHook->m_hGrappledEntity->IsNPC())
+			{
+				CAI_BaseNPC* pNPC = m_hHook->m_hGrappledEntity->MyNPCPointer();
+
+				if (pNPC)
+				{
+					pNPC->m_bGrappled = false;
+				}
+			}
+		}
+	}
+
 	m_hHook = NULL;
 
 	if ( pBeam )

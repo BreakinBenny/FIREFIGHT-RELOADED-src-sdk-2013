@@ -533,7 +533,7 @@ void CWeaponRailgun::Fire( void )
 	Vector	endPos	= startPos + ( aimDir * MAX_TRACE_LENGTH );*/
 
 	Vector	startPos = pOwner->Weapon_ShootPosition();
-	Vector	aimDir = pOwner->GetAutoaimVector(AUTOAIM_5DEGREES);
+	Vector	aimDir = pOwner->GetAutoaimVector(AUTOAIM_SCALE_DEFAULT);
 
 	Vector vecUp, vecRight;
 	VectorVectors(aimDir, vecRight, vecUp);

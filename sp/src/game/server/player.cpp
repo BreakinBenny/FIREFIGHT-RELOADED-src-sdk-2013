@@ -622,6 +622,9 @@ BEGIN_DATADESC( CBasePlayer )
 	DEFINE_FIELD( m_iFrags, FIELD_INTEGER ),
 	DEFINE_FIELD( m_iDeaths, FIELD_INTEGER ),
 	DEFINE_FIELD(m_iKillstreak, FIELD_INTEGER),
+	DEFINE_FIELD(m_iKillstreakCount, FIELD_INTEGER),
+	DEFINE_FIELD(m_iCompleteKillstreakCount, FIELD_INTEGER),
+	DEFINE_FIELD(m_bKillstreakAddedForThisLife, FIELD_BOOLEAN),
 	DEFINE_FIELD( m_bAllowInstantSpawn, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_flNextDecalTime, FIELD_TIME ),
 	//DEFINE_AUTO_ARRAY( m_szTeamName, FIELD_STRING ), // mp
@@ -6623,6 +6626,7 @@ void CBasePlayer::Spawn( void )
 	//reset killstreaks
 	if (m_iKillstreak > 0)
 	{
+		m_bKillstreakAddedForThisLife = false;
 		m_iKillstreak = 0;
 	}
 

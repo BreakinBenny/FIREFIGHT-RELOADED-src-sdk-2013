@@ -57,13 +57,16 @@ public:
 protected:
 	DECLARE_DATADESC();
 
+public:
+
+	CHandle<CBaseEntity>		m_hGrappledEntity;
+
 private:
 
 	float						m_flNextBatteryDrain;
 	CHandle<CWeaponGrapple>		m_hOwner;
 	CHandle<CBasePlayer>		m_hPlayer;
 	CHandle<CDynamicProp>		m_hBolt;
-	CHandle<CBaseEntity>		m_hGrappledEntity;
 	bool						m_bPlayerWasStanding;
 };
      
@@ -91,7 +94,7 @@ public:
  
 	bool			HasAnyAmmo( void );
  
-	CBaseEntity		*GetHook( void ) { return m_hHook; }
+	CGrappleHook	*GetHook( void ) { return m_hHook; }
 
 	void   	DrawBeam( const Vector &startPos, const Vector &endPos, float width );
 	void	DoImpactEffect( trace_t &tr, int nDamageType );
@@ -105,7 +108,7 @@ private:
 private: 
 	CHandle<CBeam>			pBeam;
 	CHandle<CSprite>		m_pLightGlow;
-	CHandle<CBaseEntity>	m_hHook;
+	CHandle<CGrappleHook>	m_hHook;
 	int						m_nBulletType;
 };
 #endif // WEAPON_GRAPPLE_H

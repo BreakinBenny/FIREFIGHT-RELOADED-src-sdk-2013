@@ -775,6 +775,12 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 				{
 					++pEntity->m_iKillstreak;
 
+					if (!pEntity->m_bKillstreakAddedForThisLife)
+					{
+						++pEntity->m_iKillstreakCount;
+						pEntity->m_bKillstreakAddedForThisLife = true;
+					}
+
 					CFmtStr hint;
 					bool showhint = true;
 
@@ -802,8 +808,11 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 							hint.sprintf("#Valve_Hud_INVINCIBLE");
 							break;
 						case GODLIKE_AMOUNT:
+						{
 							hint.sprintf("#Valve_Hud_GODLIKE");
+							++pEntity->m_iCompleteKillstreakCount;
 							break;
+						}
 						default:
 							showhint = false;
 							break;

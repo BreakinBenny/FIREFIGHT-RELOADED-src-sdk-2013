@@ -14,6 +14,7 @@
 #include "basehlcombatweapon_shared.h"
 #include "ammodef.h"
 #include "weapon_katana.h"
+#include "ai_basenpc.h"
 
 #ifndef MOD_VER
 CAchievementMgr AchievementMgr;
@@ -1021,5 +1022,59 @@ protected:
 	virtual bool ShouldShowProgressNotification() { return false; }
 };
 DECLARE_ACHIEVEMENT(CAchievementSkybornePin, ACHIEVEMENT_FIREFIGHTRELOADED_SKYBORNEPIN, "FIREFIGHTRELOADED_SKYBORNEPIN", 50);
+
+class CAchievementMultiKillstreak : public CFRBaseAchievement
+{
+protected:
+	virtual void Init()
+	{
+		SetFlags(ACH_LISTEN_KILL_ENEMY_EVENTS | ACH_SAVE_GLOBAL);
+		SetGameDirFilter("firefightreloaded");
+		SetGoal(1);
+	}
+
+	virtual void Event_EntityKilled(CBaseEntity* pVictim, CBaseEntity* pAttacker, CBaseEntity* pInflictor, IGameEvent* event)
+	{
+		CBasePlayer* pPlayer = ToBasePlayer(pAttacker);
+		if (!pPlayer)
+			return;
+
+		if (pPlayer->m_iCompleteKillstreakCount > 1)
+		{
+			IncrementCount();
+		}
+	}
+
+	virtual bool ShouldShowProgressNotification() { return false; }
+};
+DECLARE_ACHIEVEMENT(CAchievementMultiKillstreak, ACHIEVEMENT_FIREFIGHTRELOADED_MULTIKILLSTREAK, "FIREFIGHTRELOADED_MULTIKILLSTREAK", 50);
+
+class CAchievementSkyborneDecap : public CFRBaseAchievement
+{
+protected:
+	virtual void Init()
+	{
+		SetFlags(ACH_LISTEN_KILL_ENEMY_EVENTS | ACH_SAVE_GLOBAL);
+		SetGameDirFilter("firefightreloaded");
+		SetGoal(1);
+	}
+
+	virtual void Event_EntityKilled(CBaseEntity* pVictim, CBaseEntity* pAttacker, CBaseEntity* pInflictor, IGameEvent* event)
+	{
+		CAI_BaseNPC* pNPC = pVictim->MyNPCPointer();
+		if (!pNPC)
+			return;
+
+		bool isFallingWithStyle = ((pNPC->GetGroundEntity() == NULL && !(pNPC->GetMoveType() == MOVETYPE_FLY || pNPC->GetMoveType() == MOVETYPE_FLYGRAVITY || pNPC->GetMoveType() == MOVETYPE_VPHYSICS)));
+
+		if (pNPC->m_bDecapitated && isFallingWithStyle)
+		{
+			IncrementCount();
+		}
+	}
+
+	virtual bool ShouldShowProgressNotification() { return false; }
+};
+DECLARE_ACHIEVEMENT(CAchievementSkyborneDecap, ACHIEVEMENT_FIREFIGHTRELOADED_SKYBORNEDECAP, "FIREFIGHTRELOADED_SKYBORNEDECAP", 50);
 
 #endif // GAME_DLL

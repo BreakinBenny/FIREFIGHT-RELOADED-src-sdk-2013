@@ -1431,6 +1431,7 @@ public:
 	bool			m_IsAdvisorDrone;
 	int				m_iAttributePresetNum;
 	bool			m_IsWildcard;
+	bool			m_bGrappled;
 	//-----------------------------------------------------
 	//
 	// Eye position, view offset, head direction, eye direction

@@ -868,6 +868,12 @@
             "FIREFIGHTRELOADED_SKYBORNEPIN_NAME": "Nailed It!",
             "FIREFIGHTRELOADED_SKYBORNEPIN_DESC": "Pin a enemy to a wall while they are in mid air with the Knife, Charge Bow or Crossbow.",
             "FIREFIGHTRELOADED_SKYBORNEPIN_ACHIEVED": "ACHIEVEMENT UNLOCKED:\nNailed It!\nPin a enemy to a wall while they are in mid air with the Knife, Charge Bow or Crossbow.",
+            "FIREFIGHTRELOADED_MULTIKILLSTREAK_NAME": "Killtacular",
+            "FIREFIGHTRELOADED_MULTIKILLSTREAK_DESC": "Get more than one complete kill streaks (through multiple lives) in a playthrough.",
+            "FIREFIGHTRELOADED_MULTIKILLSTREAK_ACHIEVED": "ACHIEVEMENT UNLOCKED:\nKilltacular\nGet more than one complete kill streaks (through multiple lives) in a playthrough.",
+            "FIREFIGHTRELOADED_SKYBORNEDECAP_NAME": "Primal Instinct",
+            "FIREFIGHTRELOADED_SKYBORNEDECAP_DESC": "Deliver a headshot kill (with weapons that can headshot) immediately after sending an enemy into the air.",
+            "FIREFIGHTRELOADED_SKYBORNEDECAP_ACHIEVED": "ACHIEVEMENT UNLOCKED:\nPrimal Instinct\nDeliver a headshot kill (with weapons that can headshot) immediately after sending an enemy into the air.",
             "HL2_SAVING": "Saving..."
         }
     }
