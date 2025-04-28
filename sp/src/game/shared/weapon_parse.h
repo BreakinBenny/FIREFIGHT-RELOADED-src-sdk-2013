@@ -111,7 +111,11 @@ public:
 	QAngle					angIronsightAngOffset;
 	float					flIronsightFOVOffset;
 	Vector					vecAdjustPosOffset;
+	Vector					vecMinAdjustPosOffset;
 	QAngle					angAdjustAngOffset;
+	QAngle					angMinAdjustAngOffset;
+	bool					m_bUseDefaultMinAdjustPos;
+	bool					m_bUseDefaultMinAdjustAng;
 	bool					m_bUseIronsight;
 	bool					m_bUseMagStyleReloads;
 	bool					m_bUseMuzzleSmoke;
@@ -119,6 +123,7 @@ public:
 	bool					m_bUseIronsightCrosshair;
 	float						iDefaultIsFOV;
 	bool					m_bAllowDualWielding;
+	bool					m_bAllowMinAdjust;
 
 	//SMMOD Custom Weapons!
 	//bool	m_sUsesShotgunStyleReloads;

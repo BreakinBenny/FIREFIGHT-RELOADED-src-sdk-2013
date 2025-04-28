@@ -401,6 +401,7 @@ void CBaseViewModel::CalcIronsights(Vector &pos, QAngle &ang)
 
 	if (exp <= 0.001f) //fully not ironsighted; save performance
 	{
+		CalcAdjustedView(pos, ang);
 		return;
 	}
 
@@ -491,9 +492,11 @@ void CBaseViewModel::CalcViewModelView( CBasePlayer *owner, const Vector& eyePos
 		{
 			CalcIronsights(vmorigin, vmangles);
 		}
+		else
+		{
+			CalcAdjustedView(vmorigin, vmangles);
+		}
 	}
-
-	CalcAdjustedView(vmorigin, vmangles);
 
 	SetLocalOrigin(vmorigin);
 	SetLocalAngles(vmangles);

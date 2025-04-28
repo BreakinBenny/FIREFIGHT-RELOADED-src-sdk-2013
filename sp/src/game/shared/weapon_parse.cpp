@@ -618,6 +618,26 @@ void FileWeaponInfo_t::Parse( KeyValues *pKeyValuesData, const char *szWeaponNam
 		angAdjustAngOffset.Init();
 	}
 
+	m_bAllowMinAdjust = pKeyValuesData->GetBool("AllowMinAdjust", 1);
+
+	KeyValues* pAdjustMin = pKeyValuesData->FindKey("AdjustMinimized");
+	if (pAdjustMin)
+	{
+		vecMinAdjustPosOffset.x = pAdjustMin->GetFloat("forward", 0.0f);
+		vecMinAdjustPosOffset.y = pAdjustMin->GetFloat("right", 0.0f);
+		vecMinAdjustPosOffset.z = pAdjustMin->GetFloat("up", 0.0f);
+
+		angMinAdjustAngOffset[PITCH] = pAdjustMin->GetFloat("pitch", 0.0f);
+		angMinAdjustAngOffset[YAW] = pAdjustMin->GetFloat("yaw", 0.0f);
+		angMinAdjustAngOffset[ROLL] = pAdjustMin->GetFloat("roll", 0.0f);
+	}
+	else
+	{
+		m_bUseDefaultMinAdjustPos = true;
+		m_bUseDefaultMinAdjustAng = true;
+		//weapon will take care of these.
+	}
+
 	KeyValues *pWeaponSpec = pKeyValuesData->FindKey("WeaponSpec");
 	if (pWeaponSpec)
 	{
