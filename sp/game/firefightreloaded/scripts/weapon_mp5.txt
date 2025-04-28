@@ -32,6 +32,12 @@ WeaponData
 	"LowerWeapon"			"0"
 	"useironsightcrosshair" 	"1"
 
+	AdjustMinimized
+	{
+		"up"	"-1.5"
+		"right"	"1"
+	}
+
 	IronSight
 	{
 		"right"		"-1.600000"
