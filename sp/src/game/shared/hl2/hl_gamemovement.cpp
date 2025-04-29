@@ -19,10 +19,10 @@ static ConVar sv_ladderautomountdot("sv_ladderautomountdot", "0.4", FCVAR_REPLIC
 static ConVar sv_ladder_useonly("sv_ladder_useonly", "0", FCVAR_REPLICATED, "If set, ladders can only be mounted by pressing +USE");
 
 ConVar	fr_max_charge_speed("fr_max_charge_speed", "750", FCVAR_NOTIFY | FCVAR_REPLICATED | FCVAR_CHEAT);
-ConVar	fr_max_charge_airmove_divisor("fr_max_charge_airmove_divisor", "8.5", FCVAR_NOTIFY | FCVAR_REPLICATED | FCVAR_CHEAT);
 
 ConVar fr_charge_allowairmove("fr_charge_allowairmove", "1", FCVAR_ARCHIVE);
-ConVar fr_charge_allowjump("fr_charge_allowjump", "0", FCVAR_ARCHIVE);
+ConVar fr_charge_allowjump("fr_charge_allowjump", "1", FCVAR_ARCHIVE);
+ConVar fr_charge_superspeed("fr_charge_superspeed", "0", FCVAR_ARCHIVE);
 ConVar fr_charge("fr_charge", "1", FCVAR_ARCHIVE);
 
 #define USE_DISMOUNT_SPEED 100
@@ -263,6 +263,18 @@ void CHL2GameMovement::ProcessMovement(CBasePlayer* pBasePlayer, CMoveData* pMov
 	FinishMove();
 }
 
+float CHL2GameMovement::GetAirSpeedCap(void)
+{
+	if (GetHL2Player()->IsCharging() && fr_charge_allowairmove.GetBool())
+	{
+		return fr_max_charge_speed.GetFloat();
+	}
+	else
+	{
+		return BaseClass::GetAirSpeedCap();
+	}
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -292,17 +304,13 @@ bool CHL2GameMovement::ChargeMove()
 	}
 
 	//calculate air moving
-	if (player->GetGroundEntity() == NULL && fr_charge_allowairmove.GetBool())
+	if (fr_charge_superspeed.GetBool())
 	{
-		//reduce air speed in mid air due to the air acceleration.
-		mv->m_flForwardMove = (fr_max_charge_speed.GetFloat() / fr_max_charge_airmove_divisor.GetFloat());
 		AirMove();
 	}
-	else
-	{
-		// Handle demoman shield charge.
-		mv->m_flForwardMove = fr_max_charge_speed.GetFloat();
-	}
+
+	// Handle demoman shield charge.
+	mv->m_flForwardMove = fr_max_charge_speed.GetFloat();
 
 	mv->m_flSideMove = 0.0f;
 	mv->m_flUpMove = 0.0f;

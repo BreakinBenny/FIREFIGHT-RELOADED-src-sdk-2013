@@ -50,6 +50,7 @@ public:
 	virtual void ProcessMovement(CBasePlayer* pBasePlayer, CMoveData* pMove);
 	virtual void PlayerMove();
 	bool	ChargeMove(void);
+	virtual float	GetAirSpeedCap(void);
 
 private:
 	// See if we are pressing use near a ladder "mount" point and if so, latch us onto the ladder
