@@ -955,6 +955,9 @@ public:
 	virtual INextBot		*MyNextBotPointer( void ) { return NULL; }
 #ifdef NEXT_BOT
 	virtual bool			IsNextBot(void) const { return false; }
+	virtual bool			IsABeing(void) const { return (IsNPC() || IsPlayer() || IsNextBot()); }
+#else
+	virtual bool			IsABeing(void) const { return (IsNPC() || IsPlayer()); }
 #endif
 	virtual float			GetDelay( void ) { return 0; }
 	virtual bool			IsMoving( void );
