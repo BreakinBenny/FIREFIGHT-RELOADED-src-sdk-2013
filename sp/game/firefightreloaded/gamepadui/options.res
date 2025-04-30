@@ -256,6 +256,7 @@
 				"max"			"9999"
 				"step"			"5"
                 "step_adjustment"   "10"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -317,6 +318,7 @@
 				"max"			"9999"
 				"step"			"5"
                 "step_adjustment"   "10"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -424,6 +426,7 @@
 				"max"			"100000"
 				"step"			"5"
                 "step_adjustment"   "20"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -1668,6 +1671,8 @@
 				"min"			"54"
 				"max"			"150"
 				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
                 
                 "instantapply"	"1"
 
@@ -1684,6 +1689,8 @@
 				"min"			"54"
 				"max"			"90"
 				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
                 
                 "instantapply"	"1"
 
@@ -1898,6 +1905,8 @@
 				"min"			"-180"
 				"max"			"180"
 				"step"			"0.01"
+                "step_adjustment"   "10"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -1913,6 +1922,8 @@
 				"min"			"-180"
 				"max"			"180"
 				"step"			"0.01"
+                "step_adjustment"   "10"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -1928,6 +1939,8 @@
 				"min"			"-180"
 				"max"			"180"
 				"step"			"0.01"
+                "step_adjustment"   "10"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -1943,6 +1956,8 @@
 				"min"			"-180"
 				"max"			"180"
 				"step"			"0.01"
+                "step_adjustment"   "10"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -1958,6 +1973,8 @@
 				"min"			"-180"
 				"max"			"180"
 				"step"			"0.01"
+                "step_adjustment"   "10"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -1973,6 +1990,8 @@
 				"min"			"-180"
 				"max"			"180"
 				"step"			"0.01"
+                "step_adjustment"   "10"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2003,6 +2022,8 @@
 				"min"			"-30"
 				"max"			"30"
 				"step"			"0.01"
+                "step_adjustment"   "10"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2018,6 +2039,8 @@
 				"min"			"-30"
 				"max"			"30"
 				"step"			"0.01"
+                "step_adjustment"   "10"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2033,6 +2056,8 @@
 				"min"			"-30"
 				"max"			"30"
 				"step"			"0.01"
+                "step_adjustment"   "10"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}

@@ -563,16 +563,43 @@ class GamepadUISlideySlide : public GamepadUIConvarButton
 public:
     DECLARE_CLASS_SIMPLE( GamepadUISlideySlide, GamepadUIConvarButton );
 
-    GamepadUISlideySlide( const char *pszCvar, const char* pszCvarDepends, bool bInstantApply, float flMin, float flMax, float flStep, float flStepAdjustment, int nTextPrecision, vgui::Panel* pParent, vgui::Panel* pActionSignalTarget, const char *pSchemeFile, const char* pCommand, const char *pText, const char *pDescription )
+    GamepadUISlideySlide( const char *pszCvar, const char* pszCvarDepends, bool bInstantApply, float flMin, float flMax, float flStep, float flStepAdjustment, bool mode, int nTextPrecision, vgui::Panel* pParent, vgui::Panel* pActionSignalTarget, const char *pSchemeFile, const char* pCommand, const char *pText, const char *pDescription )
         : BaseClass( pszCvar, pszCvarDepends, bInstantApply, pParent, pActionSignalTarget, pSchemeFile, pCommand, pText, pDescription )
         , m_flMin( flMin )
         , m_flMax( flMax )
         , m_flStep( flStep )
-        , m_flStepAdjustment( flStepAdjustment )
+        , m_flStepAdjustment(flStepAdjustment)
+        , m_bAllowMulti(mode)
         , nTextPrecision( nTextPrecision )
     {
         vgui::TextTooltip* tooltip = new vgui::TextTooltip(this, NULL);
-        SetTooltip(tooltip, "#GameUI_GamepadUI_SliderTooltip");
+
+        GamepadUIString text = "#GameUI_GamepadUI_SliderTooltip";
+
+        wchar_t wszBuf[1024];
+        char szLocalized[1024];
+
+        if (m_flStepAdjustment > 0)
+        {
+            GamepadUIString text_additional = "#GameUI_GamepadUI_SliderTooltip_Additional";
+#ifdef WIN32
+            V_snwprintf(wszBuf, sizeof(wszBuf), L"%s\n\n%s", text.String(), text_additional.String());
+#else
+            V_snwprintf(wszBuf, sizeof(wszBuf), L"%S\n\n%S", text.String(), text_additional.String());
+#endif
+        }
+        else
+        {
+#ifdef WIN32
+            V_snwprintf(wszBuf, sizeof(wszBuf), L"%s", text.String());
+#else
+            V_snwprintf(wszBuf, sizeof(wszBuf), L"%S", text.String(),);
+#endif
+        }
+
+        g_pVGuiLocalize->ConvertUnicodeToANSI(wszBuf, szLocalized, sizeof(szLocalized));
+
+        SetTooltip(tooltip, szLocalized);
     }
 
     void OnKeyCodePressed( vgui::KeyCode code )
@@ -604,21 +631,54 @@ public:
                 UpdateConVar();
             break;
 
+        case KEY_LSHIFT:
+        case KEY_RSHIFT:
+            if (m_bEditingWithMouse)
+            {
+                m_bDisableStepAdjustment = true;
+            }
+            break;
+
         default:
             BaseClass::OnKeyCodePressed( code );
             break;
         }
     }
 
+    void OnKeyCodeReleased(vgui::KeyCode code)
+    {
+        ButtonCode_t buttonCode = GetBaseButtonCode(code);
+        switch (buttonCode)
+        {
+        case KEY_LSHIFT:
+        case KEY_RSHIFT:
+            if (m_bEditingWithMouse)
+            {
+                m_bDisableStepAdjustment = false;
+            }
+            break;
+        default:
+            BaseClass::OnKeyCodeReleased(code);
+            break;
+        }
+    }
+
     void OnMouseWheeled(int delta) OVERRIDE
     {
-        if (editingWithMouse)
+        if (m_bEditingWithMouse)
         {
             float adjuster = 0;
 
-            if (m_flStepAdjustment > 0.0f)
+            if (!m_bDisableStepAdjustment)
             {
-                adjuster = (m_flStep * m_flStepAdjustment);
+                if (!m_bAllowMulti)
+                {
+                    adjuster = (m_flStep + m_flStepAdjustment);
+                }
+                else
+                {
+                    adjuster = (m_flStep * m_flStepAdjustment);
+                }
             }
 
             float step = (adjuster > 0 ? adjuster : m_flStep);
@@ -633,9 +693,9 @@ public:
 
     void ToggleEditMouseMode()
     {
-        if (!editingWithMouse)
+        if (!m_bEditingWithMouse)
         {
-            editingWithMouse = true;
+            m_bEditingWithMouse = true;
 
             GamepadUIOptionsPanel* pParent = (GamepadUIOptionsPanel*)GetParent();
             if (pParent)
@@ -648,7 +708,7 @@ public:
         }
         else
         {
-            editingWithMouse = false;
+            m_bEditingWithMouse = false;
 
             GamepadUIOptionsPanel* pParent = (GamepadUIOptionsPanel*)GetParent();
             if (pParent)
@@ -701,7 +761,7 @@ public:
             vgui::surface()->DrawPrintText( szValue, V_wcslen( szValue ) );
         }
 
-        if (editingWithMouse)
+        if (m_bEditingWithMouse)
         {
             vgui::surface()->DrawSetColor(m_colSliderBackingMouseEdit);
         }
@@ -713,7 +773,7 @@ public:
 
         float flFill = m_flSliderWidth * ( 1.0f - GetMultiplier() );
 
-        if (editingWithMouse)
+        if (m_bEditingWithMouse)
         {
             vgui::surface()->DrawSetColor(m_colSliderFillMouseEdit);
         }
@@ -729,7 +789,7 @@ public:
         if ( m_cvar.IsValid() )
             m_flValue = m_cvar.GetFloat();
 
-        if (editingWithMouse)
+        if (m_bEditingWithMouse)
         {
             ToggleEditMouseMode();
         }
@@ -739,7 +799,7 @@ public:
     {
         BaseClass::NavigateTo();
 
-        if (editingWithMouse)
+        if (m_bEditingWithMouse)
         {
             ToggleEditMouseMode();
         }
@@ -750,7 +810,7 @@ public:
     {
         BaseClass::NavigateFrom();
 
-        if (editingWithMouse)
+        if (m_bEditingWithMouse)
         {
             ToggleEditMouseMode();
         }
@@ -774,10 +834,12 @@ private:
     float m_flMax = 1.0f;
     float m_flStep = 0.1f;
     float m_flStepAdjustment = 0.0f;
+    bool m_bAllowMulti = false;
 
     int nTextPrecision = -1;
 
-    bool editingWithMouse = false;
+    bool m_bEditingWithMouse = false;
+    bool m_bDisableStepAdjustment = false;
 
     GAMEPADUI_BUTTON_ANIMATED_PROPERTY( Color, m_colSliderBacking, "Slider.Backing", "255 255 255 22", SchemeValueTypes::Color );
     GAMEPADUI_BUTTON_ANIMATED_PROPERTY(Color, m_colSliderBackingMouseEdit, "Slider.BackingMouseEdit", "255 255 255 22", SchemeValueTypes::Color);
@@ -1733,9 +1795,9 @@ void GamepadUIOptionsPanel::OnCommand( char const* pCommand )
         GamepadUIString fmod = "#GameUI_FMOD_Credit";
         wchar_t wszBuf[4096];
 #ifdef WIN32
-        V_snwprintf( wszBuf, 4096, L"%s\n\n%s\n\n%s\n\n%s", bink.String(), miles.String(), voice.String(), fmod.String() );
+        V_snwprintf( wszBuf, sizeof(wszBuf), L"%s\n\n%s\n\n%s\n\n%s", bink.String(), miles.String(), voice.String(), fmod.String() );
 #else
-        V_snwprintf( wszBuf, 4096, L"%S\n\n%S\n\n%S\n\n%S", bink.String(), miles.String(), voice.String(), fmod.String() );
+        V_snwprintf( wszBuf, sizeof(wszBuf), L"%S\n\n%S\n\n%S\n\n%S", bink.String(), miles.String(), voice.String(), fmod.String() );
 #endif
 		new GamepadUIGenericConfirmationPanel( GamepadUIOptionsPanel::GetInstance(), "TechCredits", title.String(), wszBuf,
 		[](){}, true, false);
@@ -2266,9 +2328,10 @@ void GamepadUIOptionsPanel::LoadOptionTabs( const char *pszOptionsFile )
                         float flMax = pItemData->GetFloat( "max", 1.0f );
                         float flStep = pItemData->GetFloat( "step", 0.1f );
                         float flStepAdjustment = pItemData->GetFloat("step_adjustment", 0.0f);
+                        bool bStepAdjustment = pItemData->GetBool("step_adjustment_multiplier");
                         int nTextPrecision = pItemData->GetInt( "textprecision", -1 );
                         auto button = new GamepadUISlideySlide(
-                            pszCvar, pszCvarDepends, bInstantApply, flMin, flMax, flStep, flStepAdjustment, nTextPrecision,
+                            pszCvar, pszCvarDepends, bInstantApply, flMin, flMax, flStep, flStepAdjustment, bStepAdjustment, nTextPrecision,
                             this, this,
                             GAMEPADUI_RESOURCE_FOLDER "schemeoptions_slideyslide.res",
                             "button_pressed",
