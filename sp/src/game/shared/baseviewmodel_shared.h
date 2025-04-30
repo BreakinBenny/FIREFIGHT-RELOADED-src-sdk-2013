@@ -56,7 +56,7 @@ public:
 	virtual void			SendViewModelMatchingSequence( int sequence );
 	virtual void			SetWeaponModel( const char *pszModelname, CBaseCombatWeapon *weapon );
 	virtual void			CalcViewModelLag( Vector& origin, QAngle& angles, QAngle& original_angles );
-	void					CalcIronsights(Vector &pos, QAngle &ang);
+	void					CalcIronsights(Vector &pos, QAngle &ang, Vector& original_pos, QAngle& original_angles);
 	void					CalcAdjustedView(Vector &pos, QAngle &ang);
 	virtual void			CalcViewModelView( CBasePlayer *owner, const Vector& eyePosition, 
 								const QAngle& eyeAngles );

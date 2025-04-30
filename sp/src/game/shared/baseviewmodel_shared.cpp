@@ -386,7 +386,7 @@ void CBaseViewModel::SendViewModelMatchingSequence( int sequence )
 #include "ivieweffects.h"
 #endif
 
-void CBaseViewModel::CalcIronsights(Vector &pos, QAngle &ang)
+void CBaseViewModel::CalcIronsights(Vector &pos, QAngle &ang, Vector& original_pos, QAngle& original_angles)
 {
 	CBaseCombatWeapon *pWeapon = GetOwningWeapon();
 
@@ -401,12 +401,12 @@ void CBaseViewModel::CalcIronsights(Vector &pos, QAngle &ang)
 
 	if (exp <= 0.001f) //fully not ironsighted; save performance
 	{
-		CalcAdjustedView(pos, ang);
+		//CalcAdjustedView(pos, ang);
 		return;
 	}
 
-	Vector newPos = pos;
-	QAngle newAng = ang;
+	Vector newPos = original_pos;
+	QAngle newAng = original_angles;
 
 	Vector vForward, vRight, vUp, vOffset;
 	AngleVectors(newAng, &vForward, &vRight, &vUp);
@@ -445,6 +445,7 @@ void CBaseViewModel::CalcViewModelView( CBasePlayer *owner, const Vector& eyePos
 	// UNDONE: Calc this on the server?  Disabled for now as it seems unnecessary to have this info on the server
 #if defined( CLIENT_DLL )
 	QAngle vmangoriginal = eyeAngles;
+	Vector vmposoriginal = eyePosition;
 	QAngle vmangles = eyeAngles;
 	Vector vmorigin = eyePosition;
 
@@ -454,6 +455,13 @@ void CBaseViewModel::CalcViewModelView( CBasePlayer *owner, const Vector& eyePos
 	//Allow weapon lagging
 	if (pWeapon != NULL)
 	{
+		CalcAdjustedView(vmorigin, vmangles);
+
+		if (pWeapon->HasIronsights())
+		{
+			CalcIronsights(vmorigin, vmangles, vmposoriginal, vmangoriginal);
+		}
+
 #if defined( CLIENT_DLL )
 		if (!prediction->InPrediction())
 #endif
@@ -484,18 +492,6 @@ void CBaseViewModel::CalcViewModelView( CBasePlayer *owner, const Vector& eyePos
 	if( UseVR() )
 	{
 		g_ClientVirtualReality.OverrideViewModelTransform( vmorigin, vmangles, pWeapon && pWeapon->ShouldUseLargeViewModelVROverride() );
-	}
-
-	if (pWeapon != NULL)
-	{
-		if (pWeapon->HasIronsights())
-		{
-			CalcIronsights(vmorigin, vmangles);
-		}
-		else
-		{
-			CalcAdjustedView(vmorigin, vmangles);
-		}
 	}
 
 	SetLocalOrigin(vmorigin);
