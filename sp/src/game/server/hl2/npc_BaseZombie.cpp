@@ -1313,13 +1313,6 @@ void CNPC_BaseZombie::Ignite( float flFlameLifetime, bool bNPCOnly, float flSize
 {
 	BaseClass::Ignite( flFlameLifetime, bNPCOnly, flSize, bCalledByLevelDesigner);
 
-#ifdef HL2_EPISODIC
-	if ( HL2GameRules()->IsAlyxInDarknessMode() == true && GetEffectEntity() != NULL )
-	{
-		GetEffectEntity()->AddEffects( EF_DIMLIGHT );
-	}
-#endif // HL2_EPISODIC
-
 	// Set the zombie up to burn to death in about ten seconds.
 	SetHealth( MIN( m_iHealth, FLAME_DIRECT_DAMAGE_PER_SEC * (ZOMBIE_BURN_TIME + random->RandomFloat( -ZOMBIE_BURN_TIME_NOISE, ZOMBIE_BURN_TIME_NOISE)) ) );
 

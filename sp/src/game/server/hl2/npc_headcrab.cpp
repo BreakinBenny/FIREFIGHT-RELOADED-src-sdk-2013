@@ -2115,13 +2115,6 @@ void CBaseHeadcrab::Ignite( float flFlameLifetime, bool bNPCOnly, float flSize, 
 
 	if( !bWasOnFire )
 	{
-#ifdef HL2_EPISODIC
-		if ( HL2GameRules()->IsAlyxInDarknessMode() == true )
-		{
-			GetEffectEntity()->AddEffects( EF_DIMLIGHT );
-		}
-#endif // HL2_EPISODIC
-
 		// For the poison headcrab, who runs around when ignited
 		SetActivity( TranslateActivity(GetIdealActivity()) );
 	}

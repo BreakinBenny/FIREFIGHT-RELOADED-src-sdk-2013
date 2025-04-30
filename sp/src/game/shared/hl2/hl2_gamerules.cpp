@@ -1752,7 +1752,7 @@ const char *CHalfLife2::GetChatFormat(bool bTeamOnly, CBasePlayer *pPlayer)
 bool CHalfLife2::IsAlyxInDarknessMode()
 {
 #ifdef HL2_EPISODIC
-	if ( alyx_darkness_force.GetBool() )
+	if ( alyx_darkness_force.GetBool())
 		return true;
 
 	return ( GlobalEntity_GetState( "ep_alyx_darknessmode" ) == GLOBAL_ON );

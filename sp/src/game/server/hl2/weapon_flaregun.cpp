@@ -400,7 +400,7 @@ void CFlare::FlareTouch( CBaseEntity *pOther )
 		CBaseAnimating *pAnim;
 
 		pAnim = dynamic_cast<CBaseAnimating*>(pOther);
-		if( pAnim && IsABeing())
+		if( pAnim)
 		{
 			pAnim->Ignite( 30.0f );
 		}

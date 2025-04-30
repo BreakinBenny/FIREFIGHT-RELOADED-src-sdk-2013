@@ -30,7 +30,7 @@ WeaponData
 	"UseMuzzleSmoke"		"1"
 	"useironsights"			"1"
 	"LowerWeapon"			"0"
-	"useironsightcrosshair" 	"1"
+	"useironsightcrosshair" 	"0"
 
 	AdjustMinimized
 	{
@@ -40,16 +40,17 @@ WeaponData
 
 	IronSight
 	{
-		"right"		"-1.600000"
-		"up"		"2.300000"
-		"forward"		"-2.500000"
-		"yaw"		"1.850000"
+		"forward"		"-4"
+		"right"		"-5.34"
+		"up"		"1.89"
+		"pitch"		"-1.15"
 		"fov"		"-5"
 	}
 
 	AdjustCentered
 	{
-		"right"		"-5.2"
+		"right"		"-5.35"
+		"roll"		"-0.90"
 	}
 
 	// Sounds for the weapon. There is a max of 16 sounds per category (i.e. max 16 "single_shot" sounds)

@@ -771,6 +771,13 @@ void CAI_BaseNPC::Ignite( float flFlameLifetime, bool bNPCOnly, float flSize, bo
 {
 	BaseClass::Ignite( flFlameLifetime, bNPCOnly, flSize, bCalledByLevelDesigner );
 
+#ifdef HL2_EPISODIC
+	if (g_pGameRules->ShouldBurningPropsEmitLight() && GetEffectEntity() != NULL)
+	{
+		GetEffectEntity()->AddEffects(EF_DIMLIGHT);
+	}
+#endif // HL2_EPISODIC
+
 	/*
 #ifdef HL2_EPISODIC
 	CBasePlayer *pPlayer = AI_GetSinglePlayer();

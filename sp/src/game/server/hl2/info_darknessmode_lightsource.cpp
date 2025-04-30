@@ -7,6 +7,7 @@
 #include "cbase.h"
 #include "info_darknessmode_lightsource.h"
 #include "ai_debug_shared.h"
+#include "hl2_gamerules.h"
 
 void CV_Debug_Darkness( IConVar *var, const char *pOldString, float flOldValue );
 ConVar g_debug_darkness( "g_debug_darkness", "0", FCVAR_NONE, "Show darkness mode lightsources.", CV_Debug_Darkness );
@@ -390,6 +391,9 @@ void CV_Debug_Darkness( IConVar *pConVar, const char *pOldString, float flOldVal
 //-----------------------------------------------------------------------------
 void AddEntityToDarknessCheck( CBaseEntity *pEntity, float flLightRadius /*=DARKNESS_LIGHTSOURCE_SIZE*/ )
 {
+	if (!HL2GameRules()->IsAlyxInDarknessMode())
+		return;
+
 	// Create a light source, and attach it to the entity
 	CInfoDarknessLightSource *pLightSource = (CInfoDarknessLightSource *) CreateEntityByName( "info_darknessmode_lightsource" );
 	if ( pLightSource )	
@@ -415,6 +419,9 @@ void AddEntityToDarknessCheck( CBaseEntity *pEntity, float flLightRadius /*=DARK
 //-----------------------------------------------------------------------------
 void RemoveEntityFromDarknessCheck( CBaseEntity *pEntity )
 {
+	if (!HL2GameRules()->IsAlyxInDarknessMode())
+		return;
+
 	// Find any light sources parented to this entity, and remove them
 	CBaseEntity *pChild = pEntity->FirstMoveChild();
 	while ( pChild )

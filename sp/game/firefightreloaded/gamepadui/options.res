@@ -1897,7 +1897,7 @@
 
 				"min"			"-180"
 				"max"			"180"
-				"step"			"0.5"
+				"step"			"0.01"
 
 				"textprecision" "2"
 			}
@@ -1912,7 +1912,7 @@
 
 				"min"			"-180"
 				"max"			"180"
-				"step"			"0.5"
+				"step"			"0.01"
 
 				"textprecision" "2"
 			}
@@ -1927,7 +1927,7 @@
 
 				"min"			"-180"
 				"max"			"180"
-				"step"			"0.5"
+				"step"			"0.01"
 
 				"textprecision" "2"
 			}
@@ -1942,7 +1942,7 @@
 
 				"min"			"-180"
 				"max"			"180"
-				"step"			"0.5"
+				"step"			"0.01"
 
 				"textprecision" "2"
 			}
@@ -1957,7 +1957,7 @@
 
 				"min"			"-180"
 				"max"			"180"
-				"step"			"0.5"
+				"step"			"0.01"
 
 				"textprecision" "2"
 			}
@@ -1972,7 +1972,7 @@
 
 				"min"			"-180"
 				"max"			"180"
-				"step"			"0.5"
+				"step"			"0.01"
 
 				"textprecision" "2"
 			}
@@ -2002,7 +2002,7 @@
 
 				"min"			"-30"
 				"max"			"30"
-				"step"			"0.5"
+				"step"			"0.01"
 
 				"textprecision" "2"
 			}
@@ -2017,7 +2017,7 @@
 
 				"min"			"-30"
 				"max"			"30"
-				"step"			"0.5"
+				"step"			"0.01"
 
 				"textprecision" "2"
 			}
@@ -2032,7 +2032,7 @@
 
 				"min"			"-30"
 				"max"			"30"
-				"step"			"0.5"
+				"step"			"0.01"
 
 				"textprecision" "2"
 			}

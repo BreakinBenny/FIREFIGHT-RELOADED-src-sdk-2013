@@ -440,7 +440,7 @@ void CBreakableProp::Ignite( float flFlameLifetime, bool bNPCOnly, float flSize,
 
 	BaseClass::Ignite( flFlameLifetime, bNPCOnly, flSize, bCalledByLevelDesigner );
 
-	if ( g_pGameRules->ShouldBurningPropsEmitLight() )
+	if ( g_pGameRules->ShouldBurningPropsEmitLight() && GetEffectEntity() != NULL)
 	{
 		GetEffectEntity()->AddEffects( EF_DIMLIGHT );
 	}
