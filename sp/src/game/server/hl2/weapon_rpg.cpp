@@ -44,6 +44,8 @@
 static ConVar sk_apc_missile_damage("sk_apc_missile_damage", "15");
 ConVar rpg_missle_use_custom_detonators( "rpg_missle_use_custom_detonators", "1" );
 
+ConVar rpg_missle_custom_position("rpg_missle_custom_position", "0", FCVAR_ARCHIVE);
+
 #define APC_MISSILE_DAMAGE	sk_apc_missile_damage.GetFloat()
 
 const char *g_pLaserDotThink = "LaserThinkContext";
@@ -106,6 +108,7 @@ BEGIN_DATADESC( CMissile )
 	DEFINE_FIELD( m_flGracePeriodEndsAt,	FIELD_TIME ),
 	DEFINE_FIELD( m_flDamage,				FIELD_FLOAT ),
 	DEFINE_FIELD( m_bCreateDangerSounds,	FIELD_BOOLEAN ),
+	DEFINE_FIELD(m_bGuidingDisabled, FIELD_BOOLEAN),
 	
 	// Function Pointers
 	DEFINE_FUNCTION( MissileTouch ),
@@ -495,6 +498,13 @@ void CMissile::GetShootPosition( CLaserDot *pLaserDot, Vector *pShootPosition )
 
 void CMissile::ComputeActualDotPosition( CLaserDot *pLaserDot, Vector *pActualDotPosition, float *pHomingSpeed )
 {
+	if (IsGuidingDisabled())
+	{
+		*pActualDotPosition = GetAbsOrigin();
+		*pHomingSpeed = 0.0f;
+		return;
+	}
+
 	*pHomingSpeed = RPG_HOMING_SPEED;
 	if ( pLaserDot->GetTargetEntity() )
 	{
@@ -756,6 +766,13 @@ void CMissile::RemoveCustomDetonator( CBaseEntity *pEntity )
 	}
 }
 
+//-----------------------------------------------------------------------------
+// Health lost at which augering starts
+//-----------------------------------------------------------------------------
+void CMissile::DisableGuiding()
+{
+	m_bGuidingDisabled = true;
+}
 
 //-----------------------------------------------------------------------------
 // This entity is used to create little force boxes that the helicopter
@@ -943,7 +960,6 @@ BEGIN_DATADESC( CAPCMissile )
 
 	DEFINE_FIELD( m_flReachedTargetTime,	FIELD_TIME ),
 	DEFINE_FIELD( m_flIgnitionTime,			FIELD_TIME ),
-	DEFINE_FIELD( m_bGuidingDisabled,		FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_hSpecificTarget,		FIELD_EHANDLE ),
 	DEFINE_FIELD( m_strHint,				FIELD_STRING ),
 	DEFINE_FIELD( m_flLastHomingSpeed,		FIELD_FLOAT ),
@@ -1121,16 +1137,6 @@ int CAPCMissile::AugerHealth()
 {
 	return m_iMaxHealth - 25;
 }
-
-	
-//-----------------------------------------------------------------------------
-// Health lost at which augering starts
-//-----------------------------------------------------------------------------
-void CAPCMissile::DisableGuiding()
-{
-	m_bGuidingDisabled = true;
-}
-
 	
 //-----------------------------------------------------------------------------
 // Guidance hints
@@ -1226,7 +1232,7 @@ void CAPCMissile::ComputeLeadingPosition( const Vector &vecShootPosition, CBaseE
 //-----------------------------------------------------------------------------
 void CAPCMissile::ComputeActualDotPosition( CLaserDot *pLaserDot, Vector *pActualDotPosition, float *pHomingSpeed )
 {
-	if ( m_bGuidingDisabled )
+	if (IsGuidingDisabled())
 	{
 		*pActualDotPosition = GetAbsOrigin();
 		*pHomingSpeed = 0.0f;
@@ -1356,7 +1362,7 @@ void CAPCMissile::ComputeActualDotPosition( CLaserDot *pLaserDot, Vector *pActua
 	}
 
 	float flDot = DotProduct2D( vecTargetToShooter.AsVector2D(), vecTargetToMissile.AsVector2D() );
-	if ( ( flDot < 0 ) || m_bGuidingDisabled )
+	if ( ( flDot < 0 ) || IsGuidingDisabled())
 	{
 		*pHomingSpeed = 0.0f;
 	}
@@ -1610,7 +1616,12 @@ void CWeaponRPG::Operator_HandleAnimEvent( animevent_t *pEvent, CBaseCombatChara
 void CWeaponRPG::ToggleDualWield(void)
 {
 	//remove missile handle.
-	m_hMissile = NULL;
+	if (m_hMissile)
+	{
+		m_hMissile->DisableGuiding();
+		m_hMissile->m_hOwner = NULL;
+		m_hMissile = NULL;
+	}
 	StopGuiding();
 	BaseClass::ToggleDualWield();
 }
@@ -1668,24 +1679,78 @@ void CWeaponRPG::PrimaryAttack( void )
 
 	Vector	muzzlePoint = pOwner->Weapon_ShootPosition() + vForward * 12.0f + vRight * 6.0f + vUp * -3.0f;
 
+	if (!IsDualWielding())
+	{
+		if (rpg_missle_custom_position.GetInt() == 2 || viewmodel_adjust_user_position_mode.GetInt() == VM_CENTERED)
+		{
+			//shoot from the center.
+			muzzlePoint = pOwner->Weapon_ShootPosition() + vForward * 12.0f + vUp * -3.0f;
+		}
+		else
+		{
+			if (rpg_missle_custom_position.GetInt() == 1)
+			{
+				muzzlePoint = pOwner->Weapon_ShootPosition() + vForward * 12.0f + vRight * -6.0f + vUp * -3.0f;
+			}
+			else
+			{
+				const char* szRightHandVal = engine->GetClientConVarValue(pOwner->entindex(), "cl_righthand");
+
+				if (szRightHandVal)
+				{
+					int iRightHandVal = atoi(szRightHandVal);
+					bool bRightHandBool = (iRightHandVal != 0);
+
+					if (!bRightHandBool)
+					{
+						muzzlePoint = pOwner->Weapon_ShootPosition() + vForward * 12.0f + vRight * -6.0f + vUp * -3.0f;
+					}
+				}
+			}
+		}
+	}
+
 	QAngle vecAngles;
 	VectorAngles( vForward, vecAngles );
-	m_hMissile = CMissile::Create( muzzlePoint, vecAngles, GetOwner()->edict() );
 
-	m_hMissile->m_hOwner = this;
+	CMissile* pMissile = NULL;
 
 	// If the shot is clear to the player, give the missile a grace period
 	trace_t	tr;
 	Vector vecEye = pOwner->EyePosition();
-	UTIL_TraceLine( vecEye, vecEye + vForward * 128, MASK_SHOT, this, COLLISION_GROUP_NONE, &tr );
-	if ( tr.fraction == 1.0 )
+	UTIL_TraceLine(vecEye, vecEye + vForward * 128, MASK_SHOT, this, COLLISION_GROUP_NONE, &tr);
+	bool bSetGracePeriod = (tr.fraction == 1.0);
+
+	if (IsDualWielding())
 	{
-		m_hMissile->SetGracePeriod( 0.3 );
+		pMissile = CMissile::Create(muzzlePoint, vecAngles, GetOwner()->edict());
+		pMissile->DisableGuiding();
+
+		if (bSetGracePeriod)
+		{
+			pMissile->SetGracePeriod(0.3);
+		}
+	}
+	else
+	{
+		m_hMissile = CMissile::Create(muzzlePoint, vecAngles, GetOwner()->edict());
+
+		m_hMissile->m_hOwner = this;
+
+		if (bSetGracePeriod)
+		{
+			m_hMissile->SetGracePeriod(0.3);
+		}
+
+		pMissile = m_hMissile;
 	}
 
 	DecrementAmmo( GetOwner() );
 
-	m_bIsFiringLeft = true;
+	if (IsDualWielding())
+	{
+		m_bIsFiringLeft = true;
+	}
 
 	// Register a muzzleflash for the AI
 	pOwner->SetMuzzleFlashTime( gpGlobals->curtime + 0.5 );
@@ -1724,7 +1789,7 @@ void CWeaponRPG::PrimaryAttack( void )
 		{
 			if( ppAIs[ i ]->m_iClassname == iszStriderClassname )
 			{
-				ppAIs[ i ]->DispatchInteraction( g_interactionPlayerLaunchedRPG, NULL, m_hMissile );
+				ppAIs[ i ]->DispatchInteraction( g_interactionPlayerLaunchedRPG, NULL, pMissile);
 			}
 		}
 	}
@@ -1761,9 +1826,10 @@ void CWeaponRPG::LeftHandAttack(void)
 
 	QAngle vecAngles;
 	VectorAngles(vForward, vecAngles);
-	m_hMissile = CMissile::Create(muzzlePoint, vecAngles, GetOwner()->edict());
 
-	m_hMissile->m_hOwner = this;
+	CMissile* pMissile = CMissile::Create(muzzlePoint, vecAngles, GetOwner()->edict());
+
+	pMissile->DisableGuiding();
 
 	// If the shot is clear to the player, give the missile a grace period
 	trace_t	tr;
@@ -1771,12 +1837,15 @@ void CWeaponRPG::LeftHandAttack(void)
 	UTIL_TraceLine(vecEye, vecEye + vForward * 128, MASK_SHOT, this, COLLISION_GROUP_NONE, &tr);
 	if (tr.fraction == 1.0)
 	{
-		m_hMissile->SetGracePeriod(0.3);
+		pMissile->SetGracePeriod(0.3);
 	}
 
 	DecrementAmmo(GetOwner());
 
-	m_bIsFiringLeft = false;
+	if (IsDualWielding())
+	{
+		m_bIsFiringLeft = false;
+	}
 
 	// Register a muzzleflash for the AI
 	pOwner->SetMuzzleFlashTime(gpGlobals->curtime + 0.5);
@@ -1815,7 +1884,7 @@ void CWeaponRPG::LeftHandAttack(void)
 		{
 			if (ppAIs[i]->m_iClassname == iszStriderClassname)
 			{
-				ppAIs[i]->DispatchInteraction(g_interactionPlayerLaunchedRPG, NULL, m_hMissile);
+				ppAIs[i]->DispatchInteraction(g_interactionPlayerLaunchedRPG, NULL, pMissile);
 			}
 		}
 	}
@@ -2210,7 +2279,6 @@ void CWeaponRPG::CreateLaserPointer( void )
 void CWeaponRPG::NotifyRocketDied( void )
 {
 	m_hMissile = NULL;
-
 	Reload();
 }
 

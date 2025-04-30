@@ -37,13 +37,19 @@ WeaponData
 	{
 		"up"	"-1.5"
 	}
-	
+
 	IronSight
 	{
 		"right"		"-5.80"
 		"up"		"2.2"
 		"forward"		"-10.5"
 		"fov"		"-20"
+	}
+	
+	AdjustCentered
+	{
+		"right"		"-5.80"
+		"up"		"-1.5"
 	}
 
 	// Sounds for the weapon. There is a max of 16 sounds per category (i.e. max 16 "single_shot" sounds)

@@ -34,6 +34,13 @@ WeaponData
 		"yaw"		"-0.750000"
 		"fov"		"-7"
 	}
+
+	AdjustCentered
+	{
+		"right"		"-7.000000"
+		"yaw"		"-0.750000"
+	}
+
 	// Sounds for the weapon. There is a max of 16 sounds per category (i.e. max 16 "single_shot" sounds)
 	SoundData
 	{

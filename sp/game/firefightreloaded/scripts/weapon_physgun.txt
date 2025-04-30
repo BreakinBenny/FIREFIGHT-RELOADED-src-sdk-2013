@@ -27,6 +27,11 @@ WeaponData
 	"LowerWeapon"			"0"
 	"useironsightcrosshair" "0"
 
+	AdjustCentered
+	{
+		"right"		"-11"
+	}
+
 	SoundData
 	{
 		"single_shot"		"Weapon_Physgun.On"

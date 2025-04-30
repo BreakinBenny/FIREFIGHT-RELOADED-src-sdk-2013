@@ -86,9 +86,7 @@ ConVar viewmodel_adjust_user_pitch("viewmodel_adjust_user_pitch", "0", FCVAR_ARC
 ConVar viewmodel_adjust_user_yaw("viewmodel_adjust_user_yaw", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED);
 ConVar viewmodel_adjust_user_roll("viewmodel_adjust_user_roll", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED);
 
-ConVar viewmodel_minimal("viewmodel_minimal", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED);
-ConVar viewmodel_minimal_default_up("viewmodel_minimal_default_up", "-2.5", FCVAR_ARCHIVE | FCVAR_REPLICATED);
-ConVar viewmodel_minimal_default_roll("viewmodel_minimal_default_roll", "-1", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar viewmodel_adjust_user_position_mode("viewmodel_adjust_user_position_mode", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED, "0 = normal/user defined, 1 = minimal mode, 2 = centered");
 
 ConVar weapon_quickswitch("weapon_quickswitch", "1", FCVAR_REPLICATED);
 
@@ -634,42 +632,41 @@ float CBaseCombatWeapon::GetIronsightFOVOffset(void) const
 
 Vector CBaseCombatWeapon::GetAdjustPositionOffset(void) const
 {
-	Vector VMAdjust;
-	bool bUseNormalPos = false;
-
-	if (viewmodel_minimal.GetBool())
-	{
-		if (GetWpnData().m_bAllowMinAdjust)
-		{
-			if (GetWpnData().m_bUseDefaultMinAdjustPos)
-			{
-				VMAdjust = Vector(0, 0, viewmodel_minimal_default_up.GetFloat());
-			}
-			else
-			{
-				VMAdjust = GetWpnData().vecMinAdjustPosOffset;
-			}
-		}
-		else
-		{
-			bUseNormalPos = true;
-		}
-	}
-	else
-	{
-		bUseNormalPos = true;
-	}
-
-	if (bUseNormalPos)
-	{
-		VMAdjust = GetWpnData().vecAdjustPosOffset;
-	}
+	Vector VMAdjust = GetWpnData().vecAdjustPosOffset;
 
 	if (viewmodel_adjust_user_enabled.GetBool())
 	{
 		VMAdjust.x = viewmodel_adjust_user_forward.GetFloat();
 		VMAdjust.y = viewmodel_adjust_user_right.GetFloat();
 		VMAdjust.z = viewmodel_adjust_user_up.GetFloat();
+		return VMAdjust;
+	}
+
+	if (viewmodel_adjust_user_position_mode.GetInt() > VM_NORMAL)
+	{
+		switch(viewmodel_adjust_user_position_mode.GetInt())
+		{
+			case VM_MINIMAL:
+			{
+				if (GetWpnData().m_bAllowMinAdjust)
+				{
+					VMAdjust = GetWpnData().vecMinAdjustPosOffset;
+				}
+				break;
+			}
+
+			case VM_CENTERED:
+			{
+				if (GetWpnData().m_bAllowCenterAdjust && !IsDualWielding())
+				{
+					VMAdjust = GetWpnData().vecCenterAdjustPosOffset;
+				}
+				break;
+			}
+
+			default:
+				break;
+		}
 	}
 
 	return VMAdjust;
@@ -677,42 +674,41 @@ Vector CBaseCombatWeapon::GetAdjustPositionOffset(void) const
 
 QAngle CBaseCombatWeapon::GetAdjustAngleOffset(void) const
 {
-	QAngle VMAngle;
-	bool bUseNormalAng = false;
-
-	if (viewmodel_minimal.GetBool())
-	{
-		if (GetWpnData().m_bAllowMinAdjust)
-		{
-			if (GetWpnData().m_bUseDefaultMinAdjustAng)
-			{
-				VMAngle = QAngle(0,0, viewmodel_minimal_default_roll.GetFloat());
-			}
-			else
-			{
-				VMAngle = GetWpnData().angMinAdjustAngOffset;
-			}
-		}
-		else
-		{
-			bUseNormalAng = true;
-		}
-	}
-	else
-	{
-		bUseNormalAng = true;
-	}
-
-	if (bUseNormalAng)
-	{
-		VMAngle = GetWpnData().angAdjustAngOffset;
-	}
+	QAngle VMAngle = GetWpnData().angAdjustAngOffset;
 
 	if (viewmodel_adjust_user_enabled.GetBool())
 	{
 		VMAngle[PITCH] = viewmodel_adjust_user_pitch.GetFloat();
 		VMAngle[YAW] = viewmodel_adjust_user_yaw.GetFloat();
 		VMAngle[ROLL] = viewmodel_adjust_user_roll.GetFloat();
+		return VMAngle;
+	}
+
+	if (viewmodel_adjust_user_position_mode.GetInt() > VM_NORMAL)
+	{
+		switch (viewmodel_adjust_user_position_mode.GetInt())
+		{
+			case VM_MINIMAL:
+			{
+				if (GetWpnData().m_bAllowMinAdjust)
+				{
+					VMAngle = GetWpnData().angMinAdjustAngOffset;
+				}
+				break;
+			}
+
+			case VM_CENTERED:
+			{
+				if (GetWpnData().m_bAllowCenterAdjust && !IsDualWielding())
+				{
+					VMAngle = GetWpnData().angCenterAdjustAngOffset;
+				}
+				break;
+			}
+
+			default:
+				break;
+		}
 	}
 
 	return VMAngle;

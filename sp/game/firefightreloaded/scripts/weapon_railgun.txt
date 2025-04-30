@@ -34,7 +34,14 @@ WeaponData
 	AdjustMinimized
 	{
 		"up"	"-2.5"
-		"roll"	"-1"
+	}
+
+	AdjustCentered
+	{
+		"right"	"-7.700000"
+		"up"	"-1.450000"
+		"roll"	"0.050000"
+		"yaw"	"2.400000"
 	}
 
 	IronSight

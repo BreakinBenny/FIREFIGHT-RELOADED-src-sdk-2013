@@ -21,6 +21,11 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+ConVar viewmodel_adjust_user_minimal_default_up("viewmodel_adjust_user_minimal_default_up", "-2.5", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar viewmodel_adjust_user_minimal_default_roll("viewmodel_adjust_user_minimal_default_roll", "-1", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+
+ConVar viewmodel_adjust_user_center_default_right("viewmodel_adjust_user_center_default_right", "-5.35", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+
 // The sound categories found in the weapon classname.txt files
 // This needs to match the WeaponSound_t enum in weapon_parse.h
 #if !defined(_STATIC_LINKED) || defined(CLIENT_DLL)
@@ -633,8 +638,28 @@ void FileWeaponInfo_t::Parse( KeyValues *pKeyValuesData, const char *szWeaponNam
 	}
 	else
 	{
-		m_bUseDefaultMinAdjustPos = true;
-		m_bUseDefaultMinAdjustAng = true;
+		vecMinAdjustPosOffset = Vector(0, 0, viewmodel_adjust_user_minimal_default_up.GetFloat());
+		angMinAdjustAngOffset = QAngle(0, 0, viewmodel_adjust_user_minimal_default_roll.GetFloat());
+		//weapon will take care of these.
+	}
+
+	m_bAllowCenterAdjust = pKeyValuesData->GetBool("AllowCenterAdjust", 1);
+
+	KeyValues* pAdjustCenter = pKeyValuesData->FindKey("AdjustCentered");
+	if (pAdjustCenter)
+	{
+		vecCenterAdjustPosOffset.x = pAdjustCenter->GetFloat("forward", 0.0f);
+		vecCenterAdjustPosOffset.y = pAdjustCenter->GetFloat("right", 0.0f);
+		vecCenterAdjustPosOffset.z = pAdjustCenter->GetFloat("up", 0.0f);
+
+		angCenterAdjustAngOffset[PITCH] = pAdjustCenter->GetFloat("pitch", 0.0f);
+		angCenterAdjustAngOffset[YAW] = pAdjustCenter->GetFloat("yaw", 0.0f);
+		angCenterAdjustAngOffset[ROLL] = pAdjustCenter->GetFloat("roll", 0.0f);
+	}
+	else
+	{
+		vecCenterAdjustPosOffset = Vector(0,viewmodel_adjust_user_center_default_right.GetFloat(), 0);
+		angCenterAdjustAngOffset.Init();
 		//weapon will take care of these.
 	}
 

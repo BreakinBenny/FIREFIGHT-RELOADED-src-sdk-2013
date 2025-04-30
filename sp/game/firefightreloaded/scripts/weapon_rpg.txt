@@ -34,6 +34,12 @@ WeaponData
 	"LowerWeapon"			"1"
 	"useironsightcrosshair" "0"
 	"DualWield"	"1"
+	
+	AdjustCentered
+	{
+		"right"		"-20"
+		"up"		"-13"
+	}
 
 	// Sounds for the weapon. There is a max of 16 sounds per category (i.e. max 16 "single_shot" sounds)
 	SoundData

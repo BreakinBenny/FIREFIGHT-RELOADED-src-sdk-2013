@@ -176,6 +176,15 @@ inline Vector UTIL_IntToCone(int val)
 	return cone;
 }
 
+enum UserPositions_t
+{
+	VM_NORMAL,
+	VM_MINIMAL,
+	VM_CENTERED
+};
+
+extern ConVar viewmodel_adjust_user_position_mode;
+
 // The minimum time a hud hint for a weapon should be on screen. If we switch away before
 // this, then teh hud hint counter will be deremented so the hint will be shown again, as
 // if it had never been seen. The total display time for a hud hint is specified in client

@@ -1668,6 +1668,8 @@
 				"min"			"54"
 				"max"			"150"
 				"step"			"1"
+                
+                "instantapply"	"1"
 
 				"textprecision" "2"
 			}
@@ -1682,6 +1684,8 @@
 				"min"			"54"
 				"max"			"90"
 				"step"			"1"
+                
+                "instantapply"	"1"
 
 				"textprecision" "2"
 			}
@@ -1816,6 +1820,184 @@
 				}
 			}
             
+            "VMHeader"
+			{
+				"text"			"#GameUI_VMHeader"
+				"type"			"headeryheader"
+			}
+            
+            "DrawViewModel"
+			{
+				"text"			"#GameUI_ToggleViewmodel"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"r_drawviewmodel"
+                
+                "instantapply"	"1"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+
+			"FlipViewModels"
+			{
+				"text"			"#GameUI_FlipViewModels"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"cl_righthand"
+                
+                "instantapply"	"1"
+
+				"options"
+				{
+					"0"		"#GameUI_FlipLeft"
+					"1"		"#GameUI_FlipRight"
+				}
+			}
+            
+            "ViewModelPos"
+			{
+				"text"			"#GameUI_ViewModelPos"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"viewmodel_adjust_user_position_mode"
+                
+                "instantapply"	"1"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#GameUI_ViewModelPos_Min"
+                    "2"		"#GameUI_ViewModelPos_Center"
+				}
+			}
+            
+            "UserViewModelPos"
+			{
+				"text"			"#GameUI_UserViewModelPos"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"viewmodel_adjust_user_enabled"
+                
+                "instantapply"	"1"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
+            "UserViewModelPos_RPGMissilePosition"
+			{
+				"text"			"#GameUI_UserViewModelPos_RPGMissilePosition"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"rpg_missle_custom_position"
+                
+                "instantapply"	"1"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#GameUI_FlipLeft"
+                    "2"		"#GameUI_ViewModelPos_Center_trim"
+				}
+			}
+            
+            "UserViewModelPos_Forward"
+			{
+				"text"			"#GameUI_UserViewModelPos_Forward"
+				"type"			"slideyslide"
+				"convar"		"viewmodel_adjust_user_forward"
+                
+                "instantapply"	"1"
+
+				"min"			"-180"
+				"max"			"180"
+				"step"			"0.5"
+
+				"textprecision" "2"
+			}
+            
+            "UserViewModelPos_Right"
+			{
+				"text"			"#GameUI_UserViewModelPos_Right"
+				"type"			"slideyslide"
+				"convar"		"viewmodel_adjust_user_right"
+                
+                "instantapply"	"1"
+
+				"min"			"-180"
+				"max"			"180"
+				"step"			"0.5"
+
+				"textprecision" "2"
+			}
+            
+            "UserViewModelPos_Up"
+			{
+				"text"			"#GameUI_UserViewModelPos_Up"
+				"type"			"slideyslide"
+				"convar"		"viewmodel_adjust_user_up"
+                
+                "instantapply"	"1"
+
+				"min"			"-180"
+				"max"			"180"
+				"step"			"0.5"
+
+				"textprecision" "2"
+			}
+            
+            "UserViewModelPos_Pitch"
+			{
+				"text"			"#GameUI_UserViewModelPos_Pitch"
+				"type"			"slideyslide"
+				"convar"		"viewmodel_adjust_user_pitch"
+                
+                "instantapply"	"1"
+
+				"min"			"-180"
+				"max"			"180"
+				"step"			"0.5"
+
+				"textprecision" "2"
+			}
+            
+            "UserViewModelPos_Yaw"
+			{
+				"text"			"#GameUI_UserViewModelPos_Yaw"
+				"type"			"slideyslide"
+				"convar"		"viewmodel_adjust_user_yaw"
+                
+                "instantapply"	"1"
+
+				"min"			"-180"
+				"max"			"180"
+				"step"			"0.5"
+
+				"textprecision" "2"
+			}
+            
+            "UserViewModelPos_Roll"
+			{
+				"text"			"#GameUI_UserViewModelPos_Roll"
+				"type"			"slideyslide"
+				"convar"		"viewmodel_adjust_user_roll"
+                
+                "instantapply"	"1"
+
+				"min"			"-180"
+				"max"			"180"
+				"step"			"0.5"
+
+				"textprecision" "2"
+			}
+            
             "HUDHeader"
 			{
 				"text"			"#GameUI_HUDHeader"
@@ -1850,12 +2032,52 @@
 				}
 			}
             
-            "DrawViewModel"
+            "DeathcamView"
 			{
-				"text"			"#GameUI_ToggleViewmodel"
+				"text"			"#GameUI_DeathcamMode"
 				"type"			"wheelywheel"
-				"advanced"		"1"
-				"convar"		"r_drawviewmodel"
+				"convar"		"cl_deathcam_mode"
+
+				"options"
+				{
+					"0"		"#GameUI_DeathcamMode_HL2"
+					"1"		"#GameUI_DeathcamMode_HL2MP"
+                    "2"		"#GameUI_DeathcamMode_FP"
+				}
+			}
+            
+            "DeathcamViewFPSwitch"
+			{
+				"text"			"#GameUI_DeathcamMode_FP_Switch"
+				"type"			"wheelywheel"
+				"convar"		"cl_deathcam_fp_autoswitch"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#GameUI_DeathcamMode_HL2"
+                    "2"		"#GameUI_DeathcamMode_HL2MP"
+				}
+			}
+            
+            "DeathcamViewFPSwitchMinDistance"
+			{
+				"text"			"#GameUI_DeathcamMode_FP_Switch_MinDist"
+				"type"			"slideyslide"
+				"convar"		"cl_deathcam_fp_autoswitch_mindistance"
+
+				"min"			"1"
+				"max"			"25"
+				"step"			"0.5"
+
+				"textprecision" "2"
+			}
+            
+            "IronsightVignette"
+			{
+				"text"			"#GameUI_IronsightVignette"
+				"type"			"wheelywheel"
+				"convar"		"sv_ironsightvignette"
 
 				"options"
 				{
@@ -1863,19 +2085,39 @@
 					"1"		"#gameui_enabled"
 				}
 			}
-
-			"FlipViewModels"
+            
+            "PlayerDamageFlash"
 			{
-				"text"			"#GameUI_FlipViewModels"
+				"text"			"#GameUI_PlayerDamageFlash"
+				"type"			"slideyslide"
+				"advanced"		"1"
+				"convar"		"sv_player_damageflash_time"
+
+				"min"			"0"
+				"max"			"3"
+				"step"			"0.1"
+
+				"textprecision" "2"
+			}
+            
+            "NPCGlow"
+			{
+				"text"			"#GameUI_GlowEffect"
 				"type"			"wheelywheel"
 				"advanced"		"1"
-				"convar"		"cl_righthand"
+				"convar"		"npc_gloweffect"
 
 				"options"
 				{
-					"0"		"#GameUI_FlipLeft"
-					"1"		"#GameUI_FlipRight"
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
 				}
+			}
+            
+            "HUDHeader_crosshair"
+			{
+				"text"			"#GameUI_CrosshairHeader"
+				"type"			"headeryheader"
 			}
         
             "Crosshair"
@@ -1928,6 +2170,12 @@
 				"step"			"5"
 
 				"textprecision" "2"
+			}
+            
+            "HUDHeader_damage"
+			{
+				"text"			"#GameUI_DamageNumberHeader"
+				"type"			"headeryheader"
 			}
             
             "DamageNumbers"
@@ -2149,88 +2397,6 @@
 				"step"			"5"
 
 				"textprecision" "2"
-			}
-            
-            "DeathcamView"
-			{
-				"text"			"#GameUI_DeathcamMode"
-				"type"			"wheelywheel"
-				"convar"		"cl_deathcam_mode"
-
-				"options"
-				{
-					"0"		"#GameUI_DeathcamMode_HL2"
-					"1"		"#GameUI_DeathcamMode_HL2MP"
-                    "2"		"#GameUI_DeathcamMode_FP"
-				}
-			}
-            
-            "DeathcamViewFPSwitch"
-			{
-				"text"			"#GameUI_DeathcamMode_FP_Switch"
-				"type"			"wheelywheel"
-				"convar"		"cl_deathcam_fp_autoswitch"
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#GameUI_DeathcamMode_HL2"
-                    "2"		"#GameUI_DeathcamMode_HL2MP"
-				}
-			}
-            
-            "DeathcamViewFPSwitchMinDistance"
-			{
-				"text"			"#GameUI_DeathcamMode_FP_Switch_MinDist"
-				"type"			"slideyslide"
-				"convar"		"cl_deathcam_fp_autoswitch_mindistance"
-
-				"min"			"1"
-				"max"			"25"
-				"step"			"0.5"
-
-				"textprecision" "2"
-			}
-            
-            "IronsightVignette"
-			{
-				"text"			"#GameUI_IronsightVignette"
-				"type"			"wheelywheel"
-				"convar"		"sv_ironsightvignette"
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#gameui_enabled"
-				}
-			}
-            
-            "PlayerDamageFlash"
-			{
-				"text"			"#GameUI_PlayerDamageFlash"
-				"type"			"slideyslide"
-				"advanced"		"1"
-				"convar"		"sv_player_damageflash_time"
-
-				"min"			"0"
-				"max"			"3"
-				"step"			"0.1"
-
-				"textprecision" "2"
-			}
-            
-            "NPCGlow"
-			{
-				"text"			"#GameUI_GlowEffect"
-				"type"			"wheelywheel"
-				"advanced"		"1"
-				"convar"		"npc_gloweffect"
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#gameui_enabled"
-				}
 			}
             
             "MobilityHeader"

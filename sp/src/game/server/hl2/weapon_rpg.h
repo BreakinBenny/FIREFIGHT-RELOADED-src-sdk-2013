@@ -51,6 +51,8 @@ public:
 	void	SeekThink( void );
 	void	DumbFire( void );
 	void	SetGracePeriod( float flGracePeriod );
+	void	DisableGuiding();
+	bool	IsGuidingDisabled() { return m_bGuidingDisabled; }
 
 	int		OnTakeDamage_Alive( const CTakeDamageInfo &info );
 	void	Event_Killed( const CTakeDamageInfo &info );
@@ -97,6 +99,7 @@ protected:
 private:
 	float					m_flGracePeriodEndsAt;
 	bool					m_bCreateDangerSounds;
+	bool					m_bGuidingDisabled;
 
 	DECLARE_DATADESC();
 };
@@ -126,7 +129,6 @@ public:
 	void	IgniteDelay( void );
 	void	AugerDelay( float flDelayTime );
 	void	ExplodeDelay( float flDelayTime );
-	void	DisableGuiding();
 #if defined( HL2_DLL )
 	virtual Class_T Classify ( void ) { return CLASS_COMBINE; }
 #endif
@@ -153,7 +155,6 @@ private:
 
 	float	m_flReachedTargetTime;
 	float	m_flIgnitionTime;
-	bool	m_bGuidingDisabled;
 	float   m_flLastHomingSpeed;
 	EHANDLE m_hSpecificTarget;
 	string_t m_strHint;

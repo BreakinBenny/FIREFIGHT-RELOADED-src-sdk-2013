@@ -30,6 +30,11 @@ WeaponData
 	"LowerWeapon"			"0"
 	"useironsightcrosshair" "0"
 
+	AdjustCentered
+	{
+		"right"		"-11"
+	}
+
 	SoundData
 	{
 		// launch held object
