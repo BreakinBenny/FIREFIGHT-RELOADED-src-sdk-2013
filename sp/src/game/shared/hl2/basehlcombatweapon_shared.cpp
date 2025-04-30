@@ -18,6 +18,8 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+ConVar viewmodel_goldsource_stylebob("viewmodel_goldsource_stylebob", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+
 LINK_ENTITY_TO_CLASS( basehlcombatweapon, CBaseHLCombatWeapon );
 
 IMPLEMENT_NETWORKCLASS_ALIASED( BaseHLCombatWeapon , DT_BaseHLCombatWeapon )
@@ -348,19 +350,34 @@ void CBaseHLCombatWeapon::AddViewmodelBob( CBaseViewModel *viewmodel, Vector &or
 
 		CalcViewmodelBob();
 
-		// Apply bob, but scaled down to 40%
-		VectorMA(origin, g_verticalBob * 0.1f, forward, origin);
+		if (viewmodel_goldsource_stylebob.GetInt() == 0)
+		{
+			// Apply bob, but scaled down to 40%
+			VectorMA(origin, g_verticalBob * 0.1f, forward, origin);
 
-		// Z bob a bit more
-		origin[2] += g_verticalBob * 0.1f;
+			// Z bob a bit more
+			origin[2] += g_verticalBob * 0.1f;
 
-		// bob the angles
-		angles[ROLL] += g_verticalBob * 0.5f;
-		angles[PITCH] -= g_verticalBob * 0.4f;
+			// bob the angles
+			angles[ROLL] += g_verticalBob * 0.5f;
+			angles[PITCH] -= g_verticalBob * 0.4f;
 
-		angles[YAW] -= g_lateralBob  * 0.3f;
+			angles[YAW] -= g_lateralBob * 0.3f;
 
-		VectorMA(origin, g_lateralBob * 0.8f, right, origin);
+			VectorMA(origin, g_lateralBob * 0.8f, right, origin);
+		}
+		else
+		{
+			if (viewmodel_goldsource_stylebob.GetInt() > 1)
+			{
+				// throw in a little tilt.
+				angles[ROLL] -= g_verticalBob * 1;
+				angles[PITCH] -= g_verticalBob * 0.3;
+				angles[YAW] -= g_verticalBob * 0.5;
+			}
+
+			VectorMA(origin, g_verticalBob * 0.8f, forward, origin);
+		}
 	}
 	else
 	{
@@ -368,17 +385,22 @@ void CBaseHLCombatWeapon::AddViewmodelBob( CBaseViewModel *viewmodel, Vector &or
 
 		CalcViewmodelBob();
 
-		// Apply bob, but scaled down to 40%
-		VectorMA(origin, g_verticalBob * 0.05f, forward, origin);
+		if (viewmodel_goldsource_stylebob.GetInt() == 0)
+		{
+			// Apply bob, but scaled down to 40%
+			VectorMA(origin, g_verticalBob * 0.05f, forward, origin);
 
-		// Z bob a bit more
-		origin[2] += g_verticalBob * 0.05f;
+			// Z bob a bit more
+			origin[2] += g_verticalBob * 0.05f;
 
-		// bob the angles
-		angles[ROLL] += g_verticalBob * 0.1f;
-		angles[PITCH] -= g_verticalBob * 0.1f;
-
-		angles[YAW] -= g_lateralBob  * 0.1f;
+			// bob the angles
+			angles[ROLL] += g_verticalBob * 0.1f;
+			angles[PITCH] -= g_verticalBob * 0.1f;
+		}
+		else
+		{
+			VectorMA(origin, g_verticalBob * 0.2f, forward, origin);
+		}
 	}
 }
 

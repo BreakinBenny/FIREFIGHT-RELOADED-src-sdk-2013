@@ -1847,6 +1847,52 @@
 					"1"		"#gameui_enabled"
 				}
 			}
+            
+            "ViewModelBob"
+			{
+				"text"			"#GameUI_ViewModelBob"
+				"type"			"wheelywheel"
+				"convar"		"viewmodel_bob"
+                
+                "instantapply"	"1"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
+            "ViewModelBob_Goldsrc"
+			{
+				"text"			"#GameUI_ViewModelBob_Goldsrc"
+				"type"			"wheelywheel"
+				"convar"		"viewmodel_goldsource_stylebob"
+                
+                "instantapply"	"1"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#GameUI_ViewModelBob_Goldsrc_Steam"
+                    "2"		"#GameUI_ViewModelBob_Goldsrc_WON"
+				}
+			}
+            
+            "ViewModelLag"
+			{
+				"text"			"#GameUI_ViewModelLag"
+				"type"			"wheelywheel"
+				"convar"		"viewmodel_lag"
+                
+                "instantapply"	"1"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
 
 			"FlipViewModels"
 			{
@@ -1861,6 +1907,23 @@
 					"0"		"#GameUI_FlipLeft"
 					"1"		"#GameUI_FlipRight"
 				}
+			}
+            
+            "IronsightSpeed"
+			{
+				"text"			"#GameUI_IronsightTime"
+				"type"			"slideyslide"
+				"convar"		"ironsight_speed"
+                
+                "instantapply"	"1"
+
+				"min"			"6.5"
+				"max"			"50"
+				"step"			"0.1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
+
+				"textprecision" "2"
 			}
             
             "ViewModelPos"
@@ -2133,6 +2196,32 @@
 				"min"			"1"
 				"max"			"25"
 				"step"			"0.5"
+
+				"textprecision" "2"
+			}
+			
+			"RollAngle"
+			{
+				"text"			"#GameUI_CameraViewRollAngle"
+				"type"			"slideyslide"
+				"convar"		"sv_rollangle"
+
+				"min"			"0.0"
+				"max"			"14.0"
+				"step"			"0.5"
+
+				"textprecision" "2"
+			}
+
+			"RollSpeed"
+			{
+				"text"			"#GameUI_CameraViewRollSpeed"
+				"type"			"slideyslide"
+				"convar"		"sv_rollspeed"
+
+				"min"			"0"
+				"max"			"200"
+				"step"			"5"
 
 				"textprecision" "2"
 			}
@@ -2784,51 +2873,6 @@
 					"0"		"#gameui_disabled"
 					"1"		"#gameui_enabled"
 				}
-			}
-			
-			"IronsightSpeed"
-			{
-				"text"			"#GameUI_IronsightTime"
-				"type"			"slideyslide"
-				"convar"		"ironsight_speed"
-                "advanced"		"1"
-                "hidden"		"1"
-
-				"min"			"6.5"
-				"max"			"50"
-				"step"			"0.1"
-
-				"textprecision" "2"
-			}
-			
-			"RollAngle"
-			{
-				"text"			"#GameUI_CameraViewRollAngle"
-				"type"			"slideyslide"
-				"convar"		"sv_rollangle"
-				"advanced"		"1"
-                "hidden"		"1"
-
-				"min"			"0.0"
-				"max"			"14.0"
-				"step"			"0.5"
-
-				"textprecision" "2"
-			}
-
-			"RollSpeed"
-			{
-				"text"			"#GameUI_CameraViewRollSpeed"
-				"type"			"slideyslide"
-				"convar"		"sv_rollspeed"
-				"advanced"		"1"
-                "hidden"		"1"
-
-				"min"			"0"
-				"max"			"200"
-				"step"			"5"
-
-				"textprecision" "2"
 			}
 
 			"OldSpawner"

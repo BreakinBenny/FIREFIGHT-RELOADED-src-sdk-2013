@@ -35,6 +35,9 @@ extern ConVar in_forceuser;
 
 ConVar ironsight_speed("ironsight_speed", "15", FCVAR_REPLICATED | FCVAR_ARCHIVE);
 
+ConVar viewmodel_bob("viewmodel_bob", "1", FCVAR_REPLICATED | FCVAR_ARCHIVE);
+ConVar viewmodel_lag("viewmodel_lag", "1", FCVAR_REPLICATED | FCVAR_ARCHIVE);
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -440,7 +443,7 @@ void CBaseViewModel::CalcAdjustedView(Vector &pos, QAngle &ang)
 	//fov is handled by CBaseCombatWeapon
 }
 
-void CBaseViewModel::CalcViewModelView( CBasePlayer *owner, const Vector& eyePosition, const QAngle& eyeAngles )
+void CBaseViewModel::CalcViewModelView(CBasePlayer* owner, const Vector& eyePosition, const QAngle& eyeAngles)
 {
 	// UNDONE: Calc this on the server?  Disabled for now as it seems unnecessary to have this info on the server
 #if defined( CLIENT_DLL )
@@ -449,9 +452,9 @@ void CBaseViewModel::CalcViewModelView( CBasePlayer *owner, const Vector& eyePos
 	QAngle vmangles = eyeAngles;
 	Vector vmorigin = eyePosition;
 
-	
+
 	//CBaseCombatWeapon *pWeapon = m_hWeapon.Get();
-	CBaseCombatWeapon *pWeapon = GetOwningWeapon();
+	CBaseCombatWeapon* pWeapon = GetOwningWeapon();
 	//Allow weapon lagging
 	if (pWeapon != NULL)
 	{
@@ -466,19 +469,34 @@ void CBaseViewModel::CalcViewModelView( CBasePlayer *owner, const Vector& eyePos
 		if (!prediction->InPrediction())
 #endif
 		{
-			// add weapon-specific bob 
-			pWeapon->AddViewmodelBob(this, vmorigin, vmangles);
+			if (viewmodel_bob.GetBool())
+			{
+				// add weapon-specific bob 
+				pWeapon->AddViewmodelBob(this, vmorigin, vmangles);
+			}
+
+			if (viewmodel_lag.GetBool())
+			{
 #if defined ( CSTRIKE_DLL ) || defined(FR_DLL)
-			CalcViewModelLag(vmorigin, vmangles, vmangoriginal);
+				CalcViewModelLag(vmorigin, vmangles, vmangoriginal);
 #endif
+			}
 		}
 	}
-	// Add model-specific bob even if no weapon associated (for head bob for off hand models)
-	AddViewModelBob(owner, vmorigin, vmangles);
+
+	if (viewmodel_bob.GetBool())
+	{
+		// Add model-specific bob even if no weapon associated (for head bob for off hand models)
+		AddViewModelBob(owner, vmorigin, vmangles);
+	}
+
 #if !defined ( CSTRIKE_DLL ) && !defined(FR_DLL)
-	// This was causing weapon jitter when rotating in updated CS:S; original Source had this in above InPrediction block  07/14/10
-	// Add lag
-	CalcViewModelLag(vmorigin, vmangles, vmangoriginal);
+	if (viewmodel_lag.GetBool())
+	{
+		// This was causing weapon jitter when rotating in updated CS:S; original Source had this in above InPrediction block  07/14/10
+		// Add lag
+		CalcViewModelLag(vmorigin, vmangles, vmangoriginal);
+	}
 #endif
 
 #if defined( CLIENT_DLL )
