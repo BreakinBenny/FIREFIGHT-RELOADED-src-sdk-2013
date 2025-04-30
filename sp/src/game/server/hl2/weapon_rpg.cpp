@@ -45,6 +45,9 @@ static ConVar sk_apc_missile_damage("sk_apc_missile_damage", "15");
 ConVar rpg_missle_use_custom_detonators( "rpg_missle_use_custom_detonators", "1" );
 
 ConVar rpg_missle_custom_position("rpg_missle_custom_position", "0", FCVAR_ARCHIVE);
+ConVar rpg_missle_custom_position_forward("rpg_missle_custom_position_forward", "12.0", FCVAR_ARCHIVE);
+ConVar rpg_missle_custom_position_right("rpg_missle_custom_position_right", "6.0", FCVAR_ARCHIVE);
+ConVar rpg_missle_custom_position_up("rpg_missle_custom_position_up", "-3.0", FCVAR_ARCHIVE);
 
 #define APC_MISSILE_DAMAGE	sk_apc_missile_damage.GetFloat()
 
@@ -1681,30 +1684,30 @@ void CWeaponRPG::PrimaryAttack( void )
 
 	if (!IsDualWielding())
 	{
-		if (rpg_missle_custom_position.GetInt() == 2 || viewmodel_adjust_user_position_mode.GetInt() == VM_CENTERED)
+		if (viewmodel_adjust_user_enabled.GetBool() && rpg_missle_custom_position.GetBool())
+		{
+			muzzlePoint = pOwner->Weapon_ShootPosition() + 
+				vForward * rpg_missle_custom_position_forward.GetFloat() + 
+				vRight * rpg_missle_custom_position_right.GetFloat() +
+				vUp * rpg_missle_custom_position_up.GetFloat();
+		}
+		else if (viewmodel_adjust_user_position_mode.GetInt() == VM_CENTERED)
 		{
 			//shoot from the center.
 			muzzlePoint = pOwner->Weapon_ShootPosition() + vForward * 12.0f + vUp * -3.0f;
 		}
 		else
 		{
-			if (rpg_missle_custom_position.GetInt() == 1)
-			{
-				muzzlePoint = pOwner->Weapon_ShootPosition() + vForward * 12.0f + vRight * -6.0f + vUp * -3.0f;
-			}
-			else
-			{
-				const char* szRightHandVal = engine->GetClientConVarValue(pOwner->entindex(), "cl_righthand");
+			const char* szRightHandVal = engine->GetClientConVarValue(pOwner->entindex(), "cl_righthand");
 
-				if (szRightHandVal)
+			if (szRightHandVal)
+			{
+				int iRightHandVal = atoi(szRightHandVal);
+				bool bRightHandBool = (iRightHandVal != 0);
+
+				if (!bRightHandBool)
 				{
-					int iRightHandVal = atoi(szRightHandVal);
-					bool bRightHandBool = (iRightHandVal != 0);
-
-					if (!bRightHandBool)
-					{
-						muzzlePoint = pOwner->Weapon_ShootPosition() + vForward * 12.0f + vRight * -6.0f + vUp * -3.0f;
-					}
+					muzzlePoint = pOwner->Weapon_ShootPosition() + vForward * 12.0f + vRight * -6.0f + vUp * -3.0f;
 				}
 			}
 		}

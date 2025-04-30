@@ -1830,7 +1830,6 @@
 			{
 				"text"			"#GameUI_ToggleViewmodel"
 				"type"			"wheelywheel"
-				"advanced"		"1"
 				"convar"		"r_drawviewmodel"
                 
                 "instantapply"	"1"
@@ -1846,7 +1845,6 @@
 			{
 				"text"			"#GameUI_FlipViewModels"
 				"type"			"wheelywheel"
-				"advanced"		"1"
 				"convar"		"cl_righthand"
                 
                 "instantapply"	"1"
@@ -1862,7 +1860,6 @@
 			{
 				"text"			"#GameUI_ViewModelPos"
 				"type"			"wheelywheel"
-				"advanced"		"1"
 				"convar"		"viewmodel_adjust_user_position_mode"
                 
                 "instantapply"	"1"
@@ -1879,7 +1876,6 @@
 			{
 				"text"			"#GameUI_UserViewModelPos"
 				"type"			"wheelywheel"
-				"advanced"		"1"
 				"convar"		"viewmodel_adjust_user_enabled"
                 
                 "instantapply"	"1"
@@ -1888,23 +1884,6 @@
 				{
 					"0"		"#gameui_disabled"
 					"1"		"#gameui_enabled"
-				}
-			}
-            
-            "UserViewModelPos_RPGMissilePosition"
-			{
-				"text"			"#GameUI_UserViewModelPos_RPGMissilePosition"
-				"type"			"wheelywheel"
-				"advanced"		"1"
-				"convar"		"rpg_missle_custom_position"
-                
-                "instantapply"	"1"
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#GameUI_FlipLeft"
-                    "2"		"#GameUI_ViewModelPos_Center_trim"
 				}
 			}
             
@@ -1993,6 +1972,66 @@
 
 				"min"			"-180"
 				"max"			"180"
+				"step"			"0.5"
+
+				"textprecision" "2"
+			}
+            
+            "UserViewModelPos_RPGMissilePosition"
+			{
+				"text"			"#GameUI_UserViewModelPos_RPGMissilePosition"
+				"type"			"wheelywheel"
+				"convar"		"rpg_missle_custom_position"
+                
+                "instantapply"	"1"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
+            "UserViewModelPos_RPGMissilePosition_Forward"
+			{
+				"text"			"#GameUI_UserViewModelPos_RPGMissilePosition_Forward"
+				"type"			"slideyslide"
+				"convar"		"rpg_missle_custom_position_forward"
+                
+                "instantapply"	"1"
+
+				"min"			"-30"
+				"max"			"30"
+				"step"			"0.5"
+
+				"textprecision" "2"
+			}
+            
+            "UserViewModelPos_RPGMissilePosition_Right"
+			{
+				"text"			"#GameUI_UserViewModelPos_RPGMissilePosition_Right"
+				"type"			"slideyslide"
+				"convar"		"rpg_missle_custom_position_right"
+                
+                "instantapply"	"1"
+
+				"min"			"-30"
+				"max"			"30"
+				"step"			"0.5"
+
+				"textprecision" "2"
+			}
+            
+            "UserViewModelPos_RPGMissilePosition_Up"
+			{
+				"text"			"#GameUI_UserViewModelPos_RPGMissilePosition_Up"
+				"type"			"slideyslide"
+				"convar"		"rpg_missle_custom_position_up"
+                
+                "instantapply"	"1"
+
+				"min"			"-30"
+				"max"			"30"
 				"step"			"0.5"
 
 				"textprecision" "2"

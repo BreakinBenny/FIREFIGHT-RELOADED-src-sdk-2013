@@ -184,6 +184,7 @@ enum UserPositions_t
 };
 
 extern ConVar viewmodel_adjust_user_position_mode;
+extern ConVar viewmodel_adjust_user_enabled;
 
 // The minimum time a hud hint for a weapon should be on screen. If we switch away before
 // this, then teh hud hint counter will be deremented so the hint will be shown again, as
