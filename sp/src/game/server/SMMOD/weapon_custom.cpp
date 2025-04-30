@@ -51,8 +51,6 @@ IMPLEMENT_SERVERCLASS_ST(CWeaponCustom, DT_WeaponCustom)
 END_SEND_TABLE()
 
 BEGIN_DATADESC( CWeaponCustom )
-	DEFINE_FIELD( m_hMissile,			FIELD_EHANDLE ),
-	DEFINE_FIELD( m_hMissile2,			FIELD_EHANDLE ),
 	DEFINE_FIELD( m_bInZoom,			FIELD_BOOLEAN ),
 END_DATADESC()
 
@@ -846,17 +844,13 @@ void CWeaponCustom::ShootBulletsRight(bool isPrimary, bool usePrimaryAmmo)
 #ifdef HL2_DLL
 	extern int g_interactionPlayerLaunchedRPG;
 #endif
+	extern ConVar rpg_missle_custom_position;
+	extern ConVar rpg_missle_custom_position_forward;
+	extern ConVar rpg_missle_custom_position_right;
+	extern ConVar rpg_missle_custom_position_up;
 
 void CWeaponCustom::ShootProjectile( bool isPrimary, bool usePrimaryAmmo )
 {
-
-	// Can't have an active missile out
-	if ( m_hMissile != NULL )
-		return;
-
-	if (m_hMissile2 != NULL)
-		return;
-
 	// Can't be reloading
 	if ( GetActivity() == ACT_VM_RELOAD )
 		return;
@@ -890,10 +884,38 @@ void CWeaponCustom::ShootProjectile( bool isPrimary, bool usePrimaryAmmo )
 
 	Vector	muzzlePoint = pOwner->Weapon_ShootPosition() + vForward * 12.0f + vRight * 6.0f + vUp * -3.0f;
 
+	if (viewmodel_adjust_user_enabled.GetBool() && rpg_missle_custom_position.GetBool())
+	{
+		muzzlePoint = pOwner->Weapon_ShootPosition() +
+			vForward * rpg_missle_custom_position_forward.GetFloat() +
+			vRight * rpg_missle_custom_position_right.GetFloat() +
+			vUp * rpg_missle_custom_position_up.GetFloat();
+	}
+	else if (viewmodel_adjust_user_position_mode.GetInt() == VM_CENTERED)
+	{
+		//shoot from the center.
+		muzzlePoint = pOwner->Weapon_ShootPosition() + vForward * 12.0f + vUp * -3.0f;
+	}
+	else
+	{
+		const char* szRightHandVal = engine->GetClientConVarValue(pOwner->entindex(), "cl_righthand");
+
+		if (szRightHandVal)
+		{
+			int iRightHandVal = atoi(szRightHandVal);
+			bool bRightHandBool = (iRightHandVal != 0);
+
+			if (!bRightHandBool)
+			{
+				muzzlePoint = pOwner->Weapon_ShootPosition() + vForward * 12.0f + vRight * -6.0f + vUp * -3.0f;
+			}
+		}
+	}
+
 	QAngle vecAngles;
 	VectorAngles( vForward, vecAngles );
-	m_hMissile = CMissile::Create( muzzlePoint, vecAngles, GetOwner()->edict() );
-
+	CMissile* pMissile = CMissile::Create( muzzlePoint, vecAngles, GetOwner()->edict() );
+	pMissile->DisableGuiding();
 //	m_hMissile->m_hOwner = this;
 
 	// If the shot is clear to the player, give the missile a grace period
@@ -902,7 +924,7 @@ void CWeaponCustom::ShootProjectile( bool isPrimary, bool usePrimaryAmmo )
 	UTIL_TraceLine( vecEye, vecEye + vForward * 128, MASK_SHOT, this, COLLISION_GROUP_NONE, &tr );
 	if ( tr.fraction == 1.0 )
 	{
-		m_hMissile->SetGracePeriod( 0.3 );
+		pMissile->SetGracePeriod( 0.3 );
 	}
 
 
@@ -980,7 +1002,7 @@ void CWeaponCustom::ShootProjectile( bool isPrimary, bool usePrimaryAmmo )
 		{
 			if( ppAIs[ i ]->m_iClassname == iszStriderClassname )
 			{
-				ppAIs[ i ]->DispatchInteraction( g_interactionPlayerLaunchedRPG, NULL, m_hMissile );
+				ppAIs[ i ]->DispatchInteraction( g_interactionPlayerLaunchedRPG, NULL, pMissile);
 			}
 		}
 	}
@@ -988,14 +1010,6 @@ void CWeaponCustom::ShootProjectile( bool isPrimary, bool usePrimaryAmmo )
 
 void CWeaponCustom::ShootProjectileRight(bool isPrimary, bool usePrimaryAmmo)
 {
-
-	// Can't have an active missile out
-	if (m_hMissile != NULL)
-		return;
-
-	if (m_hMissile2 != NULL)
-		return;
-
 	// Can't be reloading
 	if (GetActivity() == ACT_VM_RELOAD)
 		return;
@@ -1031,8 +1045,8 @@ void CWeaponCustom::ShootProjectileRight(bool isPrimary, bool usePrimaryAmmo)
 
 	QAngle vecAngles;
 	VectorAngles(vForward, vecAngles);
-	m_hMissile = CMissile::Create(muzzlePoint, vecAngles, GetOwner()->edict());
-
+	CMissile* pMissile = CMissile::Create(muzzlePoint, vecAngles, GetOwner()->edict());
+	pMissile->DisableGuiding();
 	//	m_hMissile->m_hOwner = this;
 
 	// If the shot is clear to the player, give the missile a grace period
@@ -1041,9 +1055,8 @@ void CWeaponCustom::ShootProjectileRight(bool isPrimary, bool usePrimaryAmmo)
 	UTIL_TraceLine(vecEye, vecEye + vForward * 128, MASK_SHOT, this, COLLISION_GROUP_NONE, &tr);
 	if (tr.fraction == 1.0)
 	{
-		m_hMissile->SetGracePeriod(0.3);
+		pMissile->SetGracePeriod(0.3);
 	}
-
 
 	// Register a muzzleflash for the AI
 	pOwner->SetMuzzleFlashTime(gpGlobals->curtime + 0.5);
@@ -1119,7 +1132,7 @@ void CWeaponCustom::ShootProjectileRight(bool isPrimary, bool usePrimaryAmmo)
 		{
 			if (ppAIs[i]->m_iClassname == iszStriderClassname)
 			{
-				ppAIs[i]->DispatchInteraction(g_interactionPlayerLaunchedRPG, NULL, m_hMissile);
+				ppAIs[i]->DispatchInteraction(g_interactionPlayerLaunchedRPG, NULL, pMissile);
 			}
 		}
 	}
@@ -1127,14 +1140,6 @@ void CWeaponCustom::ShootProjectileRight(bool isPrimary, bool usePrimaryAmmo)
 
 void CWeaponCustom::ShootProjectileLeft(bool isPrimary, bool usePrimaryAmmo)
 {
-
-	// Can't have an active missile out
-	if (m_hMissile != NULL)
-		return;
-
-	if (m_hMissile2 != NULL)
-		return;
-
 	// Can't be reloading
 	if (GetActivity() == ACT_VM_RELOAD)
 		return;
@@ -1170,8 +1175,8 @@ void CWeaponCustom::ShootProjectileLeft(bool isPrimary, bool usePrimaryAmmo)
 
 	QAngle vecAngles;
 	VectorAngles(vForward, vecAngles);
-	m_hMissile2 = CMissile::Create(muzzlePoint, vecAngles, GetOwner()->edict());
-
+	CMissile* pMissile = CMissile::Create(muzzlePoint, vecAngles, GetOwner()->edict());
+	pMissile->DisableGuiding();
 	//	m_hMissile2->m_hOwner = this;
 
 	// If the shot is clear to the player, give the missile a grace period
@@ -1180,9 +1185,8 @@ void CWeaponCustom::ShootProjectileLeft(bool isPrimary, bool usePrimaryAmmo)
 	UTIL_TraceLine(vecEye, vecEye + vForward * 128, MASK_SHOT, this, COLLISION_GROUP_NONE, &tr);
 	if (tr.fraction == 1.0)
 	{
-		m_hMissile2->SetGracePeriod(0.3);
+		pMissile->SetGracePeriod(0.3);
 	}
-
 
 	// Register a muzzleflash for the AI
 	pOwner->SetMuzzleFlashTime(gpGlobals->curtime + 0.5);
@@ -1258,7 +1262,7 @@ void CWeaponCustom::ShootProjectileLeft(bool isPrimary, bool usePrimaryAmmo)
 		{
 			if (ppAIs[i]->m_iClassname == iszStriderClassname)
 			{
-				ppAIs[i]->DispatchInteraction(g_interactionPlayerLaunchedRPG, NULL, m_hMissile2);
+				ppAIs[i]->DispatchInteraction(g_interactionPlayerLaunchedRPG, NULL, pMissile);
 			}
 		}
 	}

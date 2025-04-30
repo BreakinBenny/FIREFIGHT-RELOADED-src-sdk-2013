@@ -35,8 +35,6 @@ public:
 	void	ShootSMGGrenadeRight(bool isPrimary, bool usePrimaryAmmo);
 	void	ShootSMGGrenadeLeft(bool isPrimary, bool usePrimaryAmmo);
 
-
-
 	//void	ShootFragGrenadeThrow(bool isPrimary, bool usePrimaryAmmo);
 	//void	ShootFragGrenadeRoll(bool isPrimary, bool usePrimaryAmmo);
 	void	ItemPostFrame( void );
@@ -142,9 +140,6 @@ public:
 
 protected:
 		virtual	void	ImpactEffect(trace_t &trace);
-protected: //Why did I not put this in? I have no idea...
-		CHandle<CMissile>	m_hMissile;
-		CHandle<CMissile>	m_hMissile2;
 private:
 	void	CheckZoomToggle(void);
 	void	ToggleZoom(void);
