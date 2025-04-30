@@ -57,14 +57,14 @@ END_DATADESC()
 //=========================================================
 CWeaponCustom::CWeaponCustom( )
 {
-	m_fMinRange1 = GetWpnData().m_sPrimaryMinRange;
-	m_fMaxRange1 = GetWpnData().m_sPrimaryMaxRange;
-	m_fMinRange2 = GetWpnData().m_sSecondaryMinRange;
-	m_fMaxRange2 = GetWpnData().m_sSecondaryMaxRange;
+	m_fMinRange1 = this->GetWpnData().m_sPrimaryMinRange;
+	m_fMaxRange1 = this->GetWpnData().m_sPrimaryMaxRange;
+	m_fMinRange2 = this->GetWpnData().m_sSecondaryMinRange;
+	m_fMaxRange2 = this->GetWpnData().m_sSecondaryMaxRange;
 
-	m_bFiresUnderwater = GetWpnData().m_sCanPrimaryFireUnderwater;
-	m_bAltFiresUnderwater = GetWpnData().m_sCanSecondaryFireUnderwater;
-	m_bReloadsSingly = GetWpnData().m_sCanReloadSingly;
+	m_bFiresUnderwater = this->GetWpnData().m_sCanPrimaryFireUnderwater;
+	m_bAltFiresUnderwater = this->GetWpnData().m_sCanSecondaryFireUnderwater;
+	m_bReloadsSingly = this->GetWpnData().m_sCanReloadSingly;
 }
 
 //-----------------------------------------------------------------------------
@@ -104,40 +104,40 @@ void CWeaponCustom::Equip( CBaseCombatCharacter *pOwner )
 /*
 void CWeaponCustom::ApplyCustomization(void)
 {
-	if (GetWpnData().m_sUsesCustomization)
+	if (this->GetWpnData().m_sUsesCustomization)
 	{
 		CBasePlayer *pPlayer = ToBasePlayer(GetOwner());
 
-		pPlayer->GetViewModel()->m_nSkin = GetWpnData().m_sWeaponSkin;
+		pPlayer->GetViewModel()->m_nSkin = this->GetWpnData().m_sWeaponSkin;
 
-		if (GetWpnData().m_sUsesBodygroupSection1)
+		if (this->GetWpnData().m_sUsesBodygroupSection1)
 		{
-			pPlayer->GetViewModel()->SetBodygroup(GetWpnData().m_sBodygroup1, GetWpnData().m_sSubgroup1);
+			pPlayer->GetViewModel()->SetBodygroup(this->GetWpnData().m_sBodygroup1, this->GetWpnData().m_sSubgroup1);
 		}
 
-		if (GetWpnData().m_sUsesBodygroupSection2)
+		if (this->GetWpnData().m_sUsesBodygroupSection2)
 		{
-			pPlayer->GetViewModel()->SetBodygroup(GetWpnData().m_sBodygroup2, GetWpnData().m_sSubgroup2);
+			pPlayer->GetViewModel()->SetBodygroup(this->GetWpnData().m_sBodygroup2, this->GetWpnData().m_sSubgroup2);
 		}
 
-		if (GetWpnData().m_sUsesBodygroupSection3)
+		if (this->GetWpnData().m_sUsesBodygroupSection3)
 		{
-			pPlayer->GetViewModel()->SetBodygroup(GetWpnData().m_sBodygroup3, GetWpnData().m_sSubgroup3);
+			pPlayer->GetViewModel()->SetBodygroup(this->GetWpnData().m_sBodygroup3, this->GetWpnData().m_sSubgroup3);
 		}
 
-		if (GetWpnData().m_sUsesBodygroupSection4)
+		if (this->GetWpnData().m_sUsesBodygroupSection4)
 		{
-			pPlayer->GetViewModel()->SetBodygroup(GetWpnData().m_sBodygroup4, GetWpnData().m_sSubgroup4);
+			pPlayer->GetViewModel()->SetBodygroup(this->GetWpnData().m_sBodygroup4, this->GetWpnData().m_sSubgroup4);
 		}
 
-		if (GetWpnData().m_sUsesBodygroupSection5)
+		if (this->GetWpnData().m_sUsesBodygroupSection5)
 		{
-			pPlayer->GetViewModel()->SetBodygroup(GetWpnData().m_sBodygroup5, GetWpnData().m_sSubgroup5);
+			pPlayer->GetViewModel()->SetBodygroup(this->GetWpnData().m_sBodygroup5, this->GetWpnData().m_sSubgroup5);
 		}
 
-		if (GetWpnData().m_sUsesBodygroupSection6)
+		if (this->GetWpnData().m_sUsesBodygroupSection6)
 		{
-			pPlayer->GetViewModel()->SetBodygroup(GetWpnData().m_sBodygroup6, GetWpnData().m_sSubgroup6);
+			pPlayer->GetViewModel()->SetBodygroup(this->GetWpnData().m_sBodygroup6, this->GetWpnData().m_sSubgroup6);
 		}
 	}
 }
@@ -145,7 +145,7 @@ void CWeaponCustom::ApplyCustomization(void)
 
 int CWeaponCustom::CapabilitiesGet()
 {
-	if (GetWpnData().m_sCustomMelee)
+	if (this->GetWpnData().m_sCustomMelee)
 	{
 		return bits_CAP_WEAPON_MELEE_ATTACK1;
 	}
@@ -161,14 +161,14 @@ void CWeaponCustom::ItemPostFrame( void )
 	if (!pOwner)
 		return;
 
-	if (GetWpnData().m_sUsesZoom)
+	if (this->GetWpnData().m_sUsesZoom)
 	{
 		CheckZoomToggle();
 	}
 
-	if (!GetWpnData().m_sCustomMelee)
+	if (!this->GetWpnData().m_sCustomMelee)
 	{
-		if (GetWpnData().m_sCustomMeleeSecondary)
+		if (this->GetWpnData().m_sCustomMeleeSecondary)
 		{
 			//Track the duration of the fire
 			//FIXME: Check for IN_ATTACK2 as well?
@@ -357,7 +357,7 @@ void CWeaponCustom::ItemPostFrame( void )
 void CWeaponCustom::ItemBusyFrame(void)
 {
 	// Allow zoom toggling even when we're reloading
-	if (GetWpnData().m_sUsesZoom)
+	if (this->GetWpnData().m_sUsesZoom)
 	{
 		CheckZoomToggle();
 	}
@@ -378,9 +378,9 @@ void CWeaponCustom::FireNPCPrimaryAttack( CBaseCombatCharacter *pOperator, Vecto
 	pOperator->FireBullets( 1, vecShootOrigin, vecShootDir, VECTOR_CONE_PRECALCULATED,
 		MAX_TRACE_LENGTH, m_iPrimaryAmmoType, 2, entindex(), 0 );
 		FireBulletsInfo_t info;
-		info.m_iShots = GetWpnData().m_sPrimaryShotCount;
-		info.m_flDamage = GetWpnData().m_sPrimaryDamage;
-		info.m_iPlayerDamage = GetWpnData().m_sPrimaryDamage;
+		info.m_iShots = this->GetWpnData().m_sPrimaryShotCount;
+		info.m_flDamage = this->GetWpnData().m_sPrimaryDamage;
+		info.m_iPlayerDamage = this->GetWpnData().m_sPrimaryDamage;
 		info.m_vecSrc = vecShootOrigin;
 		info.m_vecDirShooting = vecShootDir;
 		info.m_vecSpread = VECTOR_CONE_PRECALCULATED;
@@ -509,7 +509,7 @@ void CWeaponCustom::ShootBullets( bool isPrimary, bool usePrimaryAmmo )
 	{
 		m_iPrimaryAttacks++;
 	// Make sure we don't fire more than the amount in the clip, if this weapon uses clips
-		if (!GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
 		{
 			if (UsesClipsForAmmo1())
 			{
@@ -523,7 +523,7 @@ void CWeaponCustom::ShootBullets( bool isPrimary, bool usePrimaryAmmo )
 	{
 		m_iSecondaryAttacks++;
 		// Make sure we don't fire more than the amount in the clip, if this weapon uses clips
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			if (UsesClipsForAmmo1())
 			{
@@ -537,7 +537,7 @@ void CWeaponCustom::ShootBullets( bool isPrimary, bool usePrimaryAmmo )
 	{
 		m_iSecondaryAttacks++;
 	// Make sure we don't fire more than the amount in the clip, if this weapon uses clips
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			if (UsesClipsForAmmo2())
 			{
@@ -553,16 +553,16 @@ void CWeaponCustom::ShootBullets( bool isPrimary, bool usePrimaryAmmo )
 	FireBulletsInfo_t info;
 	if(isPrimary)
 	{
-		info.m_iShots = GetWpnData().m_sPrimaryShotCount;
-		info.m_flDamage = GetWpnData().m_sPrimaryDamage;
-		info.m_iPlayerDamage = GetWpnData().m_sPrimaryDamage;
+		info.m_iShots = this->GetWpnData().m_sPrimaryShotCount;
+		info.m_flDamage = this->GetWpnData().m_sPrimaryDamage;
+		info.m_iPlayerDamage = this->GetWpnData().m_sPrimaryDamage;
 		info.m_vecSpread = GetBulletSpreadPrimary();
 	}
 	else
 	{
-		info.m_iShots = GetWpnData().m_sSecondaryShotCount;
-		info.m_flDamage = GetWpnData().m_sSecondaryDamage;
-		info.m_iPlayerDamage = GetWpnData().m_sSecondaryDamage;
+		info.m_iShots = this->GetWpnData().m_sSecondaryShotCount;
+		info.m_flDamage = this->GetWpnData().m_sSecondaryDamage;
+		info.m_iPlayerDamage = this->GetWpnData().m_sSecondaryDamage;
 		info.m_vecSpread = GetBulletSpreadSecondary();
 	}
 	info.m_vecSrc = pPlayer->Weapon_ShootPosition( );
@@ -575,11 +575,11 @@ void CWeaponCustom::ShootBullets( bool isPrimary, bool usePrimaryAmmo )
 	//Factor in the view kick
 	if (isPrimary)
 	{
-		AddViewKick(GetWpnData().m_sPrimaryRecoilEasyDampen, GetWpnData().m_sPrimaryRecoilDegrees, GetWpnData().m_sPrimaryRecoilSeconds);
+		AddViewKick(this->GetWpnData().m_sPrimaryRecoilEasyDampen, this->GetWpnData().m_sPrimaryRecoilDegrees, this->GetWpnData().m_sPrimaryRecoilSeconds);
 	}
 	else
 	{
-		AddViewKick(GetWpnData().m_sSecondaryRecoilEasyDampen, GetWpnData().m_sSecondaryRecoilDegrees, GetWpnData().m_sSecondaryRecoilSeconds);
+		AddViewKick(this->GetWpnData().m_sSecondaryRecoilEasyDampen, this->GetWpnData().m_sSecondaryRecoilDegrees, this->GetWpnData().m_sSecondaryRecoilSeconds);
 	}
 
 	CSoundEnt::InsertSound( SOUND_COMBAT, GetAbsOrigin(), SOUNDENT_VOLUME_MACHINEGUN, 0.2, pPlayer );
@@ -634,7 +634,7 @@ void CWeaponCustom::ShootBulletsLeft(bool isPrimary, bool usePrimaryAmmo)
 	{
 		m_iPrimaryAttacks++;
 		// Make sure we don't fire more than the amount in the clip, if this weapon uses clips
-		if (!GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
 		{
 			if (UsesClipsForAmmo1())
 			{
@@ -648,7 +648,7 @@ void CWeaponCustom::ShootBulletsLeft(bool isPrimary, bool usePrimaryAmmo)
 	{
 		m_iSecondaryAttacks++;
 		// Make sure we don't fire more than the amount in the clip, if this weapon uses clips
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			if (UsesClipsForAmmo1())
 			{
@@ -662,7 +662,7 @@ void CWeaponCustom::ShootBulletsLeft(bool isPrimary, bool usePrimaryAmmo)
 	{
 		m_iSecondaryAttacks++;
 		// Make sure we don't fire more than the amount in the clip, if this weapon uses clips
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			if (UsesClipsForAmmo2())
 			{
@@ -678,16 +678,16 @@ void CWeaponCustom::ShootBulletsLeft(bool isPrimary, bool usePrimaryAmmo)
 	FireBulletsInfo_t info;
 	if (isPrimary)
 	{
-		info.m_iShots = GetWpnData().m_sPrimaryShotCount;
-		info.m_flDamage = GetWpnData().m_sPrimaryDamage;
-		info.m_iPlayerDamage = GetWpnData().m_sPrimaryDamage;
+		info.m_iShots = this->GetWpnData().m_sPrimaryShotCount;
+		info.m_flDamage = this->GetWpnData().m_sPrimaryDamage;
+		info.m_iPlayerDamage = this->GetWpnData().m_sPrimaryDamage;
 		info.m_vecSpread = GetBulletSpreadPrimary();
 	}
 	else
 	{
-		info.m_iShots = GetWpnData().m_sSecondaryShotCount;
-		info.m_flDamage = GetWpnData().m_sSecondaryDamage;
-		info.m_iPlayerDamage = GetWpnData().m_sSecondaryDamage;
+		info.m_iShots = this->GetWpnData().m_sSecondaryShotCount;
+		info.m_flDamage = this->GetWpnData().m_sSecondaryDamage;
+		info.m_iPlayerDamage = this->GetWpnData().m_sSecondaryDamage;
 		info.m_vecSpread = GetBulletSpreadSecondary();
 	}
 	info.m_vecSrc = pPlayer->Weapon_ShootPosition();
@@ -700,11 +700,11 @@ void CWeaponCustom::ShootBulletsLeft(bool isPrimary, bool usePrimaryAmmo)
 	//Factor in the view kick
 	if (isPrimary)
 	{
-		AddViewKick(GetWpnData().m_sPrimaryRecoilEasyDampen, GetWpnData().m_sPrimaryRecoilDegrees, GetWpnData().m_sPrimaryRecoilSeconds);
+		AddViewKick(this->GetWpnData().m_sPrimaryRecoilEasyDampen, this->GetWpnData().m_sPrimaryRecoilDegrees, this->GetWpnData().m_sPrimaryRecoilSeconds);
 	}
 	else
 	{
-		AddViewKick(GetWpnData().m_sSecondaryRecoilEasyDampen, GetWpnData().m_sSecondaryRecoilDegrees, GetWpnData().m_sSecondaryRecoilSeconds);
+		AddViewKick(this->GetWpnData().m_sSecondaryRecoilEasyDampen, this->GetWpnData().m_sSecondaryRecoilDegrees, this->GetWpnData().m_sSecondaryRecoilSeconds);
 	}
 
 	CSoundEnt::InsertSound(SOUND_COMBAT, GetAbsOrigin(), SOUNDENT_VOLUME_MACHINEGUN, 0.2, pPlayer);
@@ -759,7 +759,7 @@ void CWeaponCustom::ShootBulletsRight(bool isPrimary, bool usePrimaryAmmo)
 	{
 		m_iPrimaryAttacks++;
 		// Make sure we don't fire more than the amount in the clip, if this weapon uses clips
-		if (!GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
 		{
 			if (UsesClipsForAmmo1())
 			{
@@ -773,7 +773,7 @@ void CWeaponCustom::ShootBulletsRight(bool isPrimary, bool usePrimaryAmmo)
 	{
 		m_iSecondaryAttacks++;
 		// Make sure we don't fire more than the amount in the clip, if this weapon uses clips
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			if (UsesClipsForAmmo1())
 			{
@@ -787,7 +787,7 @@ void CWeaponCustom::ShootBulletsRight(bool isPrimary, bool usePrimaryAmmo)
 	{
 		m_iSecondaryAttacks++;
 		// Make sure we don't fire more than the amount in the clip, if this weapon uses clips
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			if (UsesClipsForAmmo2())
 			{
@@ -803,16 +803,16 @@ void CWeaponCustom::ShootBulletsRight(bool isPrimary, bool usePrimaryAmmo)
 	FireBulletsInfo_t info;
 	if (isPrimary)
 	{
-		info.m_iShots = GetWpnData().m_sPrimaryShotCount;
-		info.m_flDamage = GetWpnData().m_sPrimaryDamage;
-		info.m_iPlayerDamage = GetWpnData().m_sPrimaryDamage;
+		info.m_iShots = this->GetWpnData().m_sPrimaryShotCount;
+		info.m_flDamage = this->GetWpnData().m_sPrimaryDamage;
+		info.m_iPlayerDamage = this->GetWpnData().m_sPrimaryDamage;
 		info.m_vecSpread = GetBulletSpreadPrimary();
 	}
 	else
 	{
-		info.m_iShots = GetWpnData().m_sSecondaryShotCount;
-		info.m_flDamage = GetWpnData().m_sSecondaryDamage;
-		info.m_iPlayerDamage = GetWpnData().m_sSecondaryDamage;
+		info.m_iShots = this->GetWpnData().m_sSecondaryShotCount;
+		info.m_flDamage = this->GetWpnData().m_sSecondaryDamage;
+		info.m_iPlayerDamage = this->GetWpnData().m_sSecondaryDamage;
 		info.m_vecSpread = GetBulletSpreadSecondary();
 	}
 	info.m_vecSrc = pPlayer->Weapon_ShootPosition();
@@ -825,11 +825,11 @@ void CWeaponCustom::ShootBulletsRight(bool isPrimary, bool usePrimaryAmmo)
 	//Factor in the view kick
 	if (isPrimary)
 	{
-		AddViewKick(GetWpnData().m_sPrimaryRecoilEasyDampen, GetWpnData().m_sPrimaryRecoilDegrees, GetWpnData().m_sPrimaryRecoilSeconds);
+		AddViewKick(this->GetWpnData().m_sPrimaryRecoilEasyDampen, this->GetWpnData().m_sPrimaryRecoilDegrees, this->GetWpnData().m_sPrimaryRecoilSeconds);
 	}
 	else
 	{
-		AddViewKick(GetWpnData().m_sSecondaryRecoilEasyDampen, GetWpnData().m_sSecondaryRecoilDegrees, GetWpnData().m_sSecondaryRecoilSeconds);
+		AddViewKick(this->GetWpnData().m_sSecondaryRecoilEasyDampen, this->GetWpnData().m_sSecondaryRecoilDegrees, this->GetWpnData().m_sSecondaryRecoilSeconds);
 	}
 
 	CSoundEnt::InsertSound(SOUND_COMBAT, GetAbsOrigin(), SOUNDENT_VOLUME_MACHINEGUN, 0.2, pPlayer);
@@ -940,16 +940,16 @@ void CWeaponCustom::ShootProjectile( bool isPrimary, bool usePrimaryAmmo )
 
 	if (isPrimary)
 	{
-		if (GetWpnData().m_sPrimaryHasRecoilRPGMissle)
+		if (this->GetWpnData().m_sPrimaryHasRecoilRPGMissle)
 		{
-			AddViewKick(GetWpnData().m_sPrimaryRecoilEasyDampen, GetWpnData().m_sPrimaryRecoilDegrees, GetWpnData().m_sPrimaryRecoilSeconds);
+			AddViewKick(this->GetWpnData().m_sPrimaryRecoilEasyDampen, this->GetWpnData().m_sPrimaryRecoilDegrees, this->GetWpnData().m_sPrimaryRecoilSeconds);
 		}
 	}
 	else
 	{
-		if (GetWpnData().m_sSecondaryHasRecoilRPGMissle)
+		if (this->GetWpnData().m_sSecondaryHasRecoilRPGMissle)
 		{
-			AddViewKick(GetWpnData().m_sSecondaryRecoilEasyDampen, GetWpnData().m_sSecondaryRecoilDegrees, GetWpnData().m_sSecondaryRecoilSeconds);
+			AddViewKick(this->GetWpnData().m_sSecondaryRecoilEasyDampen, this->GetWpnData().m_sSecondaryRecoilDegrees, this->GetWpnData().m_sSecondaryRecoilSeconds);
 		}
 	}
 
@@ -957,21 +957,21 @@ void CWeaponCustom::ShootProjectile( bool isPrimary, bool usePrimaryAmmo )
 
 	if (isPrimary)
 	{
-		if (!GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else if (usePrimaryAmmo)
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iSecondaryAmmoType);
 		}
@@ -1070,16 +1070,16 @@ void CWeaponCustom::ShootProjectileRight(bool isPrimary, bool usePrimaryAmmo)
 
 	if (isPrimary)
 	{
-		if (GetWpnData().m_sPrimaryHasRecoilRPGMissle)
+		if (this->GetWpnData().m_sPrimaryHasRecoilRPGMissle)
 		{
-			AddViewKick(GetWpnData().m_sPrimaryRecoilEasyDampen, GetWpnData().m_sPrimaryRecoilDegrees, GetWpnData().m_sPrimaryRecoilSeconds);
+			AddViewKick(this->GetWpnData().m_sPrimaryRecoilEasyDampen, this->GetWpnData().m_sPrimaryRecoilDegrees, this->GetWpnData().m_sPrimaryRecoilSeconds);
 		}
 	}
 	else
 	{
-		if (GetWpnData().m_sSecondaryHasRecoilRPGMissle)
+		if (this->GetWpnData().m_sSecondaryHasRecoilRPGMissle)
 		{
-			AddViewKick(GetWpnData().m_sSecondaryRecoilEasyDampen, GetWpnData().m_sSecondaryRecoilDegrees, GetWpnData().m_sSecondaryRecoilSeconds);
+			AddViewKick(this->GetWpnData().m_sSecondaryRecoilEasyDampen, this->GetWpnData().m_sSecondaryRecoilDegrees, this->GetWpnData().m_sSecondaryRecoilSeconds);
 		}
 	}
 
@@ -1087,21 +1087,21 @@ void CWeaponCustom::ShootProjectileRight(bool isPrimary, bool usePrimaryAmmo)
 
 	if (isPrimary)
 	{
-		if (!GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else if (usePrimaryAmmo)
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iSecondaryAmmoType);
 		}
@@ -1200,16 +1200,16 @@ void CWeaponCustom::ShootProjectileLeft(bool isPrimary, bool usePrimaryAmmo)
 
 	if (isPrimary)
 	{
-		if (GetWpnData().m_sPrimaryHasRecoilRPGMissle)
+		if (this->GetWpnData().m_sPrimaryHasRecoilRPGMissle)
 		{
-			AddViewKick(GetWpnData().m_sPrimaryRecoilEasyDampen, GetWpnData().m_sPrimaryRecoilDegrees, GetWpnData().m_sPrimaryRecoilSeconds);
+			AddViewKick(this->GetWpnData().m_sPrimaryRecoilEasyDampen, this->GetWpnData().m_sPrimaryRecoilDegrees, this->GetWpnData().m_sPrimaryRecoilSeconds);
 		}
 	}
 	else
 	{
-		if (GetWpnData().m_sSecondaryHasRecoilRPGMissle)
+		if (this->GetWpnData().m_sSecondaryHasRecoilRPGMissle)
 		{
-			AddViewKick(GetWpnData().m_sSecondaryRecoilEasyDampen, GetWpnData().m_sSecondaryRecoilDegrees, GetWpnData().m_sSecondaryRecoilSeconds);
+			AddViewKick(this->GetWpnData().m_sSecondaryRecoilEasyDampen, this->GetWpnData().m_sSecondaryRecoilDegrees, this->GetWpnData().m_sSecondaryRecoilSeconds);
 		}
 	}
 
@@ -1217,21 +1217,21 @@ void CWeaponCustom::ShootProjectileLeft(bool isPrimary, bool usePrimaryAmmo)
 
 	if (isPrimary)
 	{
-		if (!GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else if (usePrimaryAmmo)
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iSecondaryAmmoType);
 		}
@@ -1319,11 +1319,11 @@ void CWeaponCustom::ShootSMGGrenade(bool isPrimary, bool usePrimaryAmmo)
 	pGrenade->SetThrower(GetOwner());
 	if (isPrimary)
 	{
-		pGrenade->SetDamage(GetWpnData().m_sSMGGrenadePrimaryDamage);
+		pGrenade->SetDamage(this->GetWpnData().m_sSMGGrenadePrimaryDamage);
 	}
 	else
 	{
-		pGrenade->SetDamage(GetWpnData().m_sSMGGrenadeSecondaryDamage);
+		pGrenade->SetDamage(this->GetWpnData().m_sSMGGrenadeSecondaryDamage);
 	}
 
 	// player "shoot" animation
@@ -1332,37 +1332,37 @@ void CWeaponCustom::ShootSMGGrenade(bool isPrimary, bool usePrimaryAmmo)
 
 	if (isPrimary)
 	{
-		if (GetWpnData().m_sPrimaryHasRecoilSMGGrenade)
+		if (this->GetWpnData().m_sPrimaryHasRecoilSMGGrenade)
 		{
-			AddViewKick(GetWpnData().m_sPrimaryRecoilEasyDampen, GetWpnData().m_sPrimaryRecoilDegrees, GetWpnData().m_sPrimaryRecoilSeconds);
+			AddViewKick(this->GetWpnData().m_sPrimaryRecoilEasyDampen, this->GetWpnData().m_sPrimaryRecoilDegrees, this->GetWpnData().m_sPrimaryRecoilSeconds);
 		}
 	}
 	else
 	{
-		if (GetWpnData().m_sSecondaryHasRecoilSMGGrenade)
+		if (this->GetWpnData().m_sSecondaryHasRecoilSMGGrenade)
 		{
-			AddViewKick(GetWpnData().m_sSecondaryRecoilEasyDampen, GetWpnData().m_sSecondaryRecoilDegrees, GetWpnData().m_sSecondaryRecoilSeconds);
+			AddViewKick(this->GetWpnData().m_sSecondaryRecoilEasyDampen, this->GetWpnData().m_sSecondaryRecoilDegrees, this->GetWpnData().m_sSecondaryRecoilSeconds);
 		}
 	}
 
 	// Decrease ammo
 	if (isPrimary)
 	{
-		if (!GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else if (usePrimaryAmmo)
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iSecondaryAmmoType);
 		}
@@ -1431,11 +1431,11 @@ void CWeaponCustom::ShootSMGGrenadeRight(bool isPrimary, bool usePrimaryAmmo)
 	pGrenade->SetThrower(GetOwner());
 	if (isPrimary)
 	{
-		pGrenade->SetDamage(GetWpnData().m_sSMGGrenadePrimaryDamage);
+		pGrenade->SetDamage(this->GetWpnData().m_sSMGGrenadePrimaryDamage);
 	}
 	else
 	{
-		pGrenade->SetDamage(GetWpnData().m_sSMGGrenadeSecondaryDamage);
+		pGrenade->SetDamage(this->GetWpnData().m_sSMGGrenadeSecondaryDamage);
 	}
 
 	// player "shoot" animation
@@ -1445,37 +1445,37 @@ void CWeaponCustom::ShootSMGGrenadeRight(bool isPrimary, bool usePrimaryAmmo)
 
 	if (isPrimary)
 	{
-		if (GetWpnData().m_sPrimaryHasRecoilSMGGrenade)
+		if (this->GetWpnData().m_sPrimaryHasRecoilSMGGrenade)
 		{
-			AddViewKick(GetWpnData().m_sPrimaryRecoilEasyDampen, GetWpnData().m_sPrimaryRecoilDegrees, GetWpnData().m_sPrimaryRecoilSeconds);
+			AddViewKick(this->GetWpnData().m_sPrimaryRecoilEasyDampen, this->GetWpnData().m_sPrimaryRecoilDegrees, this->GetWpnData().m_sPrimaryRecoilSeconds);
 		}
 	}
 	else
 	{
-		if (GetWpnData().m_sSecondaryHasRecoilSMGGrenade)
+		if (this->GetWpnData().m_sSecondaryHasRecoilSMGGrenade)
 		{
-			AddViewKick(GetWpnData().m_sSecondaryRecoilEasyDampen, GetWpnData().m_sSecondaryRecoilDegrees, GetWpnData().m_sSecondaryRecoilSeconds);
+			AddViewKick(this->GetWpnData().m_sSecondaryRecoilEasyDampen, this->GetWpnData().m_sSecondaryRecoilDegrees, this->GetWpnData().m_sSecondaryRecoilSeconds);
 		}
 	}
 
 	// Decrease ammo
 	if (isPrimary)
 	{
-		if (!GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else if (usePrimaryAmmo)
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iSecondaryAmmoType);
 		}
@@ -1544,11 +1544,11 @@ void CWeaponCustom::ShootSMGGrenadeLeft(bool isPrimary, bool usePrimaryAmmo)
 	pGrenade->SetThrower(GetOwner());
 	if (isPrimary)
 	{
-		pGrenade->SetDamage(GetWpnData().m_sSMGGrenadePrimaryDamage);
+		pGrenade->SetDamage(this->GetWpnData().m_sSMGGrenadePrimaryDamage);
 	}
 	else
 	{
-		pGrenade->SetDamage(GetWpnData().m_sSMGGrenadeSecondaryDamage);
+		pGrenade->SetDamage(this->GetWpnData().m_sSMGGrenadeSecondaryDamage);
 	}
 
 	// player "shoot" animation
@@ -1557,37 +1557,37 @@ void CWeaponCustom::ShootSMGGrenadeLeft(bool isPrimary, bool usePrimaryAmmo)
 
 	if (isPrimary)
 	{
-		if (GetWpnData().m_sPrimaryHasRecoilSMGGrenade)
+		if (this->GetWpnData().m_sPrimaryHasRecoilSMGGrenade)
 		{
-			AddViewKick(GetWpnData().m_sPrimaryRecoilEasyDampen, GetWpnData().m_sPrimaryRecoilDegrees, GetWpnData().m_sPrimaryRecoilSeconds);
+			AddViewKick(this->GetWpnData().m_sPrimaryRecoilEasyDampen, this->GetWpnData().m_sPrimaryRecoilDegrees, this->GetWpnData().m_sPrimaryRecoilSeconds);
 		}
 	}
 	else
 	{
-		if (GetWpnData().m_sSecondaryHasRecoilSMGGrenade)
+		if (this->GetWpnData().m_sSecondaryHasRecoilSMGGrenade)
 		{
-			AddViewKick(GetWpnData().m_sSecondaryRecoilEasyDampen, GetWpnData().m_sSecondaryRecoilDegrees, GetWpnData().m_sSecondaryRecoilSeconds);
+			AddViewKick(this->GetWpnData().m_sSecondaryRecoilEasyDampen, this->GetWpnData().m_sSecondaryRecoilDegrees, this->GetWpnData().m_sSecondaryRecoilSeconds);
 		}
 	}
 
 	// Decrease ammo
 	if (isPrimary)
 	{
-		if (!GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else if (usePrimaryAmmo)
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iSecondaryAmmoType);
 		}
@@ -1652,18 +1652,18 @@ void CWeaponCustom::ShootAR2EnergyBall(bool isPrimary, bool usePrimaryAmmo)
 	{
 		CreateCombineBall(vecSrc,
 			vecVelocity,
-			GetWpnData().m_sPrimaryCombineBallRadius,
-			GetWpnData().m_sPrimaryCombineBallMass,
-			GetWpnData().m_sPrimaryCombineBallDuration,
+			this->GetWpnData().m_sPrimaryCombineBallRadius,
+			this->GetWpnData().m_sPrimaryCombineBallMass,
+			this->GetWpnData().m_sPrimaryCombineBallDuration,
 			pOwner);
 	}
 	else
 	{
 		CreateCombineBall(vecSrc,
 			vecVelocity,
-			GetWpnData().m_sSecondaryCombineBallRadius,
-			GetWpnData().m_sSecondaryCombineBallMass,
-			GetWpnData().m_sSecondaryCombineBallDuration,
+			this->GetWpnData().m_sSecondaryCombineBallRadius,
+			this->GetWpnData().m_sSecondaryCombineBallMass,
+			this->GetWpnData().m_sSecondaryCombineBallDuration,
 			pOwner);
 	}
 
@@ -1689,21 +1689,21 @@ void CWeaponCustom::ShootAR2EnergyBall(bool isPrimary, bool usePrimaryAmmo)
 	// Decrease ammo
 	if (isPrimary)
 	{
-		if (!GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else if (usePrimaryAmmo)
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iSecondaryAmmoType);
 		}
@@ -1768,18 +1768,18 @@ void CWeaponCustom::ShootAR2EnergyBallRight(bool isPrimary, bool usePrimaryAmmo)
 	{
 		CreateCombineBall(vecSrc,
 			vecVelocity,
-			GetWpnData().m_sPrimaryCombineBallRadius,
-			GetWpnData().m_sPrimaryCombineBallMass,
-			GetWpnData().m_sPrimaryCombineBallDuration,
+			this->GetWpnData().m_sPrimaryCombineBallRadius,
+			this->GetWpnData().m_sPrimaryCombineBallMass,
+			this->GetWpnData().m_sPrimaryCombineBallDuration,
 			pOwner);
 	}
 	else
 	{
 		CreateCombineBall(vecSrc,
 			vecVelocity,
-			GetWpnData().m_sSecondaryCombineBallRadius,
-			GetWpnData().m_sSecondaryCombineBallMass,
-			GetWpnData().m_sSecondaryCombineBallDuration,
+			this->GetWpnData().m_sSecondaryCombineBallRadius,
+			this->GetWpnData().m_sSecondaryCombineBallMass,
+			this->GetWpnData().m_sSecondaryCombineBallDuration,
 			pOwner);
 	}
 
@@ -1805,21 +1805,21 @@ void CWeaponCustom::ShootAR2EnergyBallRight(bool isPrimary, bool usePrimaryAmmo)
 	// Decrease ammo
 	if (isPrimary)
 	{
-		if (!GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else if (usePrimaryAmmo)
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iSecondaryAmmoType);
 		}
@@ -1884,18 +1884,18 @@ void CWeaponCustom::ShootAR2EnergyBallLeft(bool isPrimary, bool usePrimaryAmmo)
 	{
 		CreateCombineBall(vecSrc,
 			vecVelocity,
-			GetWpnData().m_sPrimaryCombineBallRadius,
-			GetWpnData().m_sPrimaryCombineBallMass,
-			GetWpnData().m_sPrimaryCombineBallDuration,
+			this->GetWpnData().m_sPrimaryCombineBallRadius,
+			this->GetWpnData().m_sPrimaryCombineBallMass,
+			this->GetWpnData().m_sPrimaryCombineBallDuration,
 			pOwner);
 	}
 	else
 	{
 		CreateCombineBall(vecSrc,
 			vecVelocity,
-			GetWpnData().m_sSecondaryCombineBallRadius,
-			GetWpnData().m_sSecondaryCombineBallMass,
-			GetWpnData().m_sSecondaryCombineBallDuration,
+			this->GetWpnData().m_sSecondaryCombineBallRadius,
+			this->GetWpnData().m_sSecondaryCombineBallMass,
+			this->GetWpnData().m_sSecondaryCombineBallDuration,
 			pOwner);
 	}
 
@@ -1921,21 +1921,21 @@ void CWeaponCustom::ShootAR2EnergyBallLeft(bool isPrimary, bool usePrimaryAmmo)
 	// Decrease ammo
 	if (isPrimary)
 	{
-		if (!GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sPrimaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else if (usePrimaryAmmo)
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 	else
 	{
-		if (!GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
+		if (!this->GetWpnData().m_sSecondaryInfiniteAmmoEnabled)
 		{
 			pOwner->RemoveAmmo(1, m_iSecondaryAmmoType);
 		}
@@ -2000,15 +2000,15 @@ Activity CWeaponCustom::GetLeftGunActivity(void)
 
 void CWeaponCustom::PrimaryAttack(void)
 {
-	if (GetWpnData().m_sHasPrimaryFire)
+	if (this->GetWpnData().m_sHasPrimaryFire)
 	{
 		CBasePlayer *pPlayer = ToBasePlayer(GetOwner());
 
-		if (GetWpnData().m_sPrimaryMissleEnabled)
+		if (this->GetWpnData().m_sPrimaryMissleEnabled)
 		{
-			if (GetWpnData().m_sDualWeapons)
+			if (this->GetWpnData().m_sDualWeapons)
 			{
-				if (GetWpnData().m_sFireBothOnPrimary)
+				if (this->GetWpnData().m_sFireBothOnPrimary)
 				{
 					this->ShootProjectileRight(true, true);
 					this->ShootProjectileLeft(true, true);
@@ -2032,11 +2032,11 @@ void CWeaponCustom::PrimaryAttack(void)
 				this->ShootProjectile(true, true);
 			}
 		}
-		if (GetWpnData().m_sPrimarySMGGrenadeEnabled)
+		if (this->GetWpnData().m_sPrimarySMGGrenadeEnabled)
 		{
-			if (GetWpnData().m_sDualWeapons)
+			if (this->GetWpnData().m_sDualWeapons)
 			{
-				if (GetWpnData().m_sFireBothOnPrimary)
+				if (this->GetWpnData().m_sFireBothOnPrimary)
 				{
 					this->ShootSMGGrenadeRight(true, true);
 					this->ShootSMGGrenadeLeft(true, true);
@@ -2060,11 +2060,11 @@ void CWeaponCustom::PrimaryAttack(void)
 				this->ShootSMGGrenade(true, true);
 			}
 		}
-		if (GetWpnData().m_sPrimaryAR2EnergyBallEnabled)
+		if (this->GetWpnData().m_sPrimaryAR2EnergyBallEnabled)
 		{
-			if (GetWpnData().m_sDualWeapons)
+			if (this->GetWpnData().m_sDualWeapons)
 			{
-				if (GetWpnData().m_sFireBothOnPrimary)
+				if (this->GetWpnData().m_sFireBothOnPrimary)
 				{
 					this->ShootAR2EnergyBallRight(true, true);
 					this->ShootAR2EnergyBallLeft(true, true);
@@ -2090,9 +2090,9 @@ void CWeaponCustom::PrimaryAttack(void)
 		}
 		if (IsPrimaryBullet() == true)
 		{
-			if (GetWpnData().m_sDualWeapons)
+			if (this->GetWpnData().m_sDualWeapons)
 			{
-				if (GetWpnData().m_sFireBothOnPrimary)
+				if (this->GetWpnData().m_sFireBothOnPrimary)
 				{
 					ShootBulletsRight(true, true);
 					ShootBulletsLeft(true, true);
@@ -2146,7 +2146,7 @@ void CWeaponCustom::PrimaryAttack(void)
 				}
 			}
 		}
-		if (GetWpnData().m_sCustomMelee)
+		if (this->GetWpnData().m_sCustomMelee)
 		{
 			Swing(false);
 		}
@@ -2156,22 +2156,22 @@ void CWeaponCustom::PrimaryAttack(void)
 //-----------------------------------------------------------------------------
 bool CWeaponCustom::Reload( void )
 {
-	if (GetWpnData().m_sUsesZoom)
+	if (this->GetWpnData().m_sUsesZoom)
 	{
 		CBasePlayer *pPlayer = ToBasePlayer(GetOwner());
 
-		color32 zoomColor = { (byte)GetWpnData().m_sZoomColorRed, (byte)GetWpnData().m_sZoomColorGreen, (byte)GetWpnData().m_sZoomColorBlue, (byte)GetWpnData().m_sZoomColorAlpha };
+		color32 zoomColor = { (byte)this->GetWpnData().m_sZoomColorRed, (byte)this->GetWpnData().m_sZoomColorGreen, (byte)this->GetWpnData().m_sZoomColorBlue, (byte)this->GetWpnData().m_sZoomColorAlpha };
 
 		if (m_bInZoom)
 		{
 			if (pPlayer->SetFOV(this, 0, 0.2f))
 			{
-				if (GetWpnData().m_sUsesZoomSound)
+				if (this->GetWpnData().m_sUsesZoomSound)
 				{
 					WeaponSound(SPECIAL1);
 				}
 				m_bInZoom = false;
-				if (GetWpnData().m_sUsesZoomColor)
+				if (this->GetWpnData().m_sUsesZoomColor)
 				{
 					UTIL_ScreenFade(pPlayer, zoomColor, 0.2f, 0, (FFADE_IN | FFADE_PURGE));
 				}
@@ -2198,22 +2198,22 @@ bool CWeaponCustom::Reload( void )
 
 bool CWeaponCustom::Holster(CBaseCombatWeapon *pSwitchingTo)
 {
-	if (GetWpnData().m_sUsesZoom)
+	if (this->GetWpnData().m_sUsesZoom)
 	{
 		CBasePlayer *pPlayer = ToBasePlayer(GetOwner());
 
-		color32 zoomColor = { (byte)GetWpnData().m_sZoomColorRed, (byte)GetWpnData().m_sZoomColorGreen, (byte)GetWpnData().m_sZoomColorBlue, (byte)GetWpnData().m_sZoomColorAlpha };
+		color32 zoomColor = { (byte)this->GetWpnData().m_sZoomColorRed, (byte)this->GetWpnData().m_sZoomColorGreen, (byte)this->GetWpnData().m_sZoomColorBlue, (byte)this->GetWpnData().m_sZoomColorAlpha };
 
 		if (m_bInZoom)
 		{
 			if (pPlayer->SetFOV(this, 0, 0.2f))
 			{
-				if (GetWpnData().m_sUsesZoomSound)
+				if (this->GetWpnData().m_sUsesZoomSound)
 				{
 					WeaponSound(SPECIAL1);
 				}
 				m_bInZoom = false;
-				if (GetWpnData().m_sUsesZoomColor)
+				if (this->GetWpnData().m_sUsesZoomColor)
 				{
 					UTIL_ScreenFade(pPlayer, zoomColor, 0.2f, 0, (FFADE_IN | FFADE_PURGE));
 				}
@@ -2226,22 +2226,22 @@ bool CWeaponCustom::Holster(CBaseCombatWeapon *pSwitchingTo)
 
 void CWeaponCustom::Drop(const Vector &vecVelocity)
 {
-	if (GetWpnData().m_sUsesZoom)
+	if (this->GetWpnData().m_sUsesZoom)
 	{
 		CBasePlayer *pPlayer = ToBasePlayer(GetOwner());
 
-		color32 zoomColor = { (byte)GetWpnData().m_sZoomColorRed, (byte)GetWpnData().m_sZoomColorGreen, (byte)GetWpnData().m_sZoomColorBlue, (byte)GetWpnData().m_sZoomColorAlpha };
+		color32 zoomColor = { (byte)this->GetWpnData().m_sZoomColorRed, (byte)this->GetWpnData().m_sZoomColorGreen, (byte)this->GetWpnData().m_sZoomColorBlue, (byte)this->GetWpnData().m_sZoomColorAlpha };
 
 		if (m_bInZoom)
 		{
 			if (pPlayer->SetFOV(this, 0, 0.2f))
 			{
-				if (GetWpnData().m_sUsesZoomSound)
+				if (this->GetWpnData().m_sUsesZoomSound)
 				{
 					WeaponSound(SPECIAL1);
 				}
 				m_bInZoom = false;
-				if (GetWpnData().m_sUsesZoomColor)
+				if (this->GetWpnData().m_sUsesZoomColor)
 				{
 					UTIL_ScreenFade(pPlayer, zoomColor, 0.2f, 0, (FFADE_IN | FFADE_PURGE));
 				}
@@ -2254,25 +2254,25 @@ void CWeaponCustom::Drop(const Vector &vecVelocity)
 
 void CWeaponCustom::ToggleZoom(void)
 {
-	if (GetWpnData().m_sUsesZoom)
+	if (this->GetWpnData().m_sUsesZoom)
 	{
 		CBasePlayer *pPlayer = ToBasePlayer(GetOwner());
 
 		if (pPlayer == NULL)
 			return;
 
-		color32 zoomColor = { (byte)GetWpnData().m_sZoomColorRed, (byte)GetWpnData().m_sZoomColorGreen, (byte)GetWpnData().m_sZoomColorBlue, (byte)GetWpnData().m_sZoomColorAlpha };
+		color32 zoomColor = { (byte)this->GetWpnData().m_sZoomColorRed, (byte)this->GetWpnData().m_sZoomColorGreen, (byte)this->GetWpnData().m_sZoomColorBlue, (byte)this->GetWpnData().m_sZoomColorAlpha };
 
 		if (m_bInZoom)
 		{
 			if (pPlayer->SetFOV(this, 0, 0.2f))
 			{
-				if (GetWpnData().m_sUsesZoomSound)
+				if (this->GetWpnData().m_sUsesZoomSound)
 				{
 					WeaponSound(SPECIAL1);
 				}
 				m_bInZoom = false;
-				if (GetWpnData().m_sUsesZoomColor)
+				if (this->GetWpnData().m_sUsesZoomColor)
 				{
 					UTIL_ScreenFade(pPlayer, zoomColor, 0.2f, 0, (FFADE_IN | FFADE_PURGE));
 				}
@@ -2282,12 +2282,12 @@ void CWeaponCustom::ToggleZoom(void)
 		{
 			if (pPlayer->SetFOV(this, 20, 0.05f))
 			{
-				if (GetWpnData().m_sUsesZoomSound)
+				if (this->GetWpnData().m_sUsesZoomSound)
 				{
 					WeaponSound(SPECIAL1);
 				}
 				m_bInZoom = true;
-				if (GetWpnData().m_sUsesZoomColor)
+				if (this->GetWpnData().m_sUsesZoomColor)
 				{
 					UTIL_ScreenFade(pPlayer, zoomColor, 0.2f, 0, (FFADE_OUT | FFADE_PURGE | FFADE_STAYOUT));
 				}
@@ -2319,63 +2319,63 @@ void CWeaponCustom::AddViewKick(float easyDampen, float degrees, float seconds)
 //-----------------------------------------------------------------------------
 void CWeaponCustom::SecondaryAttack( void )
 {
-	if (GetWpnData().m_sHasSecondaryFire)
+	if (this->GetWpnData().m_sHasSecondaryFire)
 	{
 		CBasePlayer *pPlayer = ToBasePlayer(GetOwner());
 
-		if (GetWpnData().m_sSecondaryMissleEnabled)
+		if (this->GetWpnData().m_sSecondaryMissleEnabled)
 		{
-			if (GetWpnData().m_sDualWeapons)
+			if (this->GetWpnData().m_sDualWeapons)
 			{
-				if (GetWpnData().m_sFireBothOnSecondary)
+				if (this->GetWpnData().m_sFireBothOnSecondary)
 				{
-					this->ShootProjectileRight(false, GetWpnData().m_sUsePrimaryAmmo);
-					this->ShootProjectileLeft(false, GetWpnData().m_sUsePrimaryAmmo);
+					this->ShootProjectileRight(false, this->GetWpnData().m_sUsePrimaryAmmo);
+					this->ShootProjectileLeft(false, this->GetWpnData().m_sUsePrimaryAmmo);
 				}
 			}
 			else
 			{
-				this->ShootProjectile(false, GetWpnData().m_sUsePrimaryAmmo);
+				this->ShootProjectile(false, this->GetWpnData().m_sUsePrimaryAmmo);
 			}
 		}
-		if (GetWpnData().m_sSecondarySMGGrenadeEnabled)
+		if (this->GetWpnData().m_sSecondarySMGGrenadeEnabled)
 		{
-			if (GetWpnData().m_sDualWeapons)
+			if (this->GetWpnData().m_sDualWeapons)
 			{
-				if (GetWpnData().m_sFireBothOnSecondary)
+				if (this->GetWpnData().m_sFireBothOnSecondary)
 				{
-					this->ShootSMGGrenadeRight(false, GetWpnData().m_sUsePrimaryAmmo);
-					this->ShootSMGGrenadeLeft(false, GetWpnData().m_sUsePrimaryAmmo);
+					this->ShootSMGGrenadeRight(false, this->GetWpnData().m_sUsePrimaryAmmo);
+					this->ShootSMGGrenadeLeft(false, this->GetWpnData().m_sUsePrimaryAmmo);
 				}
 			}
 			else
 			{
-				this->ShootSMGGrenade(false, GetWpnData().m_sUsePrimaryAmmo);
+				this->ShootSMGGrenade(false, this->GetWpnData().m_sUsePrimaryAmmo);
 			}
 		}
-		if (GetWpnData().m_sSecondaryAR2EnergyBallEnabled)
+		if (this->GetWpnData().m_sSecondaryAR2EnergyBallEnabled)
 		{
-			if (GetWpnData().m_sDualWeapons)
+			if (this->GetWpnData().m_sDualWeapons)
 			{
-				if (GetWpnData().m_sFireBothOnSecondary)
+				if (this->GetWpnData().m_sFireBothOnSecondary)
 				{
-					this->ShootAR2EnergyBallRight(false, GetWpnData().m_sUsePrimaryAmmo);
-					this->ShootAR2EnergyBallLeft(false, GetWpnData().m_sUsePrimaryAmmo);
+					this->ShootAR2EnergyBallRight(false, this->GetWpnData().m_sUsePrimaryAmmo);
+					this->ShootAR2EnergyBallLeft(false, this->GetWpnData().m_sUsePrimaryAmmo);
 				}
 			}
 			else
 			{
-				this->ShootAR2EnergyBall(false, GetWpnData().m_sUsePrimaryAmmo);
+				this->ShootAR2EnergyBall(false, this->GetWpnData().m_sUsePrimaryAmmo);
 			}
 		}
 		if (IsSecondaryBullet())
 		{
-			if (GetWpnData().m_sDualWeapons)
+			if (this->GetWpnData().m_sDualWeapons)
 			{
-				if (GetWpnData().m_sFireBothOnSecondary)
+				if (this->GetWpnData().m_sFireBothOnSecondary)
 				{
-					ShootBulletsRight(false, GetWpnData().m_sUsePrimaryAmmo);
-					ShootBulletsLeft(false, GetWpnData().m_sUsePrimaryAmmo);
+					ShootBulletsRight(false, this->GetWpnData().m_sUsePrimaryAmmo);
+					ShootBulletsLeft(false, this->GetWpnData().m_sUsePrimaryAmmo);
 					if (GetWpnData().m_bUseMuzzleSmoke)
 					{
 						if (g_fr_plr_muzzlesmoke.GetBool())
@@ -2388,7 +2388,7 @@ void CWeaponCustom::SecondaryAttack( void )
 			}
 			else
 			{
-				ShootBullets(false, GetWpnData().m_sUsePrimaryAmmo);
+				ShootBullets(false, this->GetWpnData().m_sUsePrimaryAmmo);
 
 				if (GetWpnData().m_bUseMuzzleSmoke)
 				{
@@ -2400,7 +2400,7 @@ void CWeaponCustom::SecondaryAttack( void )
 			}
 		}
 
-		if (GetWpnData().m_sCustomMelee || GetWpnData().m_sCustomMeleeSecondary)
+		if (this->GetWpnData().m_sCustomMelee || this->GetWpnData().m_sCustomMeleeSecondary)
 		{
 			Swing(true);
 		}
@@ -2415,7 +2415,7 @@ void CWeaponCustom::Hit(trace_t &traceHit, Activity nHitActivity, bool bIsSecond
 	CBasePlayer *pPlayer = ToBasePlayer(GetOwner());
 
 	//Do view kick
-	AddViewKick(GetWpnData().m_sMeleeKickEasyDampen, GetWpnData().m_sMeleeKickDegrees, GetWpnData().m_sMeleeKickSeconds);
+	AddViewKick(this->GetWpnData().m_sMeleeKickEasyDampen, this->GetWpnData().m_sMeleeKickDegrees, this->GetWpnData().m_sMeleeKickSeconds);
 
 	//Make sound for the AI
 	CSoundEnt::InsertSound(SOUND_BULLET_IMPACT, traceHit.endpos, 400, 0.2f, pPlayer);
@@ -2432,7 +2432,7 @@ void CWeaponCustom::Hit(trace_t &traceHit, Activity nHitActivity, bool bIsSecond
 		pPlayer->EyeVectors(&hitDirection, NULL, NULL);
 		VectorNormalize(hitDirection);
 
-		CTakeDamageInfo info(GetOwner(), GetOwner(), GetWpnData().m_sMeleeDamage, DMG_CLUB);
+		CTakeDamageInfo info(GetOwner(), GetOwner(), this->GetWpnData().m_sMeleeDamage, DMG_CLUB);
 
 		if (pPlayer && pHitEntity->IsNPC())
 		{
@@ -2581,14 +2581,14 @@ void CWeaponCustom::Swing(int bIsSecondary)
 	Vector swingStart = pOwner->Weapon_ShootPosition();
 	Vector forward;
 
-	forward = pOwner->GetAutoaimVector(AUTOAIM_SCALE_DEFAULT, GetWpnData().m_sMeleeRange);
+	forward = pOwner->GetAutoaimVector(AUTOAIM_SCALE_DEFAULT, this->GetWpnData().m_sMeleeRange);
 
-	Vector swingEnd = swingStart + forward * GetWpnData().m_sMeleeRange;
+	Vector swingEnd = swingStart + forward * this->GetWpnData().m_sMeleeRange;
 	UTIL_TraceLine(swingStart, swingEnd, MASK_SHOT_HULL, pOwner, COLLISION_GROUP_NONE, &traceHit);
 	Activity nHitActivity = ACT_VM_HITCENTER;
 
 	// Like bullets, bludgeon traces have to trace against triggers.
-	CTakeDamageInfo triggerInfo(GetOwner(), GetOwner(), GetWpnData().m_sMeleeDamage, DMG_CLUB);
+	CTakeDamageInfo triggerInfo(GetOwner(), GetOwner(), this->GetWpnData().m_sMeleeDamage, DMG_CLUB);
 	triggerInfo.SetDamagePosition(traceHit.startpos);
 	triggerInfo.SetDamageForce(forward);
 	TraceAttackToTriggers(triggerInfo, traceHit.startpos, traceHit.endpos, forward);
@@ -2640,7 +2640,7 @@ void CWeaponCustom::Swing(int bIsSecondary)
 		nHitActivity = bIsSecondary ? ACT_VM_MISSCENTER2 : ACT_VM_MISSCENTER;
 
 		// We want to test the first swing again
-		Vector testEnd = swingStart + forward * GetWpnData().m_sMeleeRange;
+		Vector testEnd = swingStart + forward * this->GetWpnData().m_sMeleeRange;
 
 		// See if we happened to hit water
 		ImpactWater(swingStart, testEnd);
@@ -2670,13 +2670,13 @@ void CWeaponCustom::Swing(int bIsSecondary)
 //-----------------------------------------------------------------------------
 void CWeaponCustom::CheckZoomToggle(void)
 {
-	if (GetWpnData().m_sUsesZoom)
+	if (this->GetWpnData().m_sUsesZoom)
 	{
 		CBasePlayer *pPlayer = ToBasePlayer(GetOwner());
 
 		if (!IsIronsighted())
 		{
-			if (GetWpnData().m_sUseZoomOnPrimaryFire)
+			if (this->GetWpnData().m_sUseZoomOnPrimaryFire)
 			{
 				if (pPlayer->m_afButtonPressed & IN_ATTACK)
 				{
@@ -2709,7 +2709,7 @@ int CWeaponCustom::WeaponRangeAttack2Condition( float flDot, float flDist )
 
 int CWeaponCustom::WeaponMeleeAttack1Condition(float flDot, float flDist)
 {
-	if (flDist > GetWpnData().m_sMeleeRange)
+	if (flDist > this->GetWpnData().m_sMeleeRange)
 	{
 		return COND_TOO_FAR_TO_ATTACK;
 	}
