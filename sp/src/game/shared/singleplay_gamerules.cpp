@@ -865,7 +865,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 						xpReward += 30;
 					}
 
-					if ((pEntityHL2->IsGrappling() || pEntityHL2->IsCharging()))
+					if (pEntityHL2->IsCharging())
 					{
 						moneyReward += 50;
 						xpReward += 50;
@@ -1140,11 +1140,6 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 							{
 								// fake it
 								killer_weapon_name = "kick";
-							}
-							else if (pScorerHL2 && (pScorerHL2->IsGrappling() || pScorerHL2->IsCharging()))
-							{
-								// fake it
-								killer_weapon_name = "charge";
 							}
 							else if (pScorer->GetActiveWeapon())
 							{

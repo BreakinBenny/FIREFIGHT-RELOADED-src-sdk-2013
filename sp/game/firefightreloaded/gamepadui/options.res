@@ -187,19 +187,6 @@
 				}
 			}
             
-            "GrappleBash"
-			{
-				"text"			"#GameUI_GrappleBash"
-				"type"			"wheelywheel"
-				"convar"		"fr_grapplebash"
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#gameui_enabled"
-				}
-			}
-            
             "Perks"
 			{
 				"text"			"#GameUI_Perks"

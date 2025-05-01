@@ -453,7 +453,6 @@
             "GameUI_KatanaCharge": "Toggle Katana Charging",
             "GameUI_KatanaChargeAirControl": "Allow Air Control When Charging",
             "GameUI_KatanaChargeAllowJump": "Allow Jumping When Charging",
-            "GameUI_GrappleBash": "Allow Grapple Mid-Air Damage",
             "GameUI_SelectDifficulty": "Combat difficulty (Requires restarting the map)",
             "GameUI_SelectLoadout": "Loadout",
             "GameUI_HardcoreMode": "Hardcore (Gravity Gun and melee only. Permadeath on.)",
