@@ -57,6 +57,11 @@ public:
 		return yOffset;
 	}
 
+	int Scale() const
+	{
+		return scale;
+	}
+
 	int Width() const
 	{
 		return (rc.right - rc.left);
@@ -96,6 +101,7 @@ public:
 	bool		bRenderUsingFont;
 	bool		bHasSeperateXY;
 	int			xOffset, yOffset;
+	float		scale;
 	bool		bPrecached;
 	char		cCharacterInFont;
 	vgui::HFont hFont;

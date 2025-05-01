@@ -29,6 +29,7 @@ struct DeathNoticePlayer
 {
 	char		szName[MAX_PLAYER_NAME_LENGTH];
 	int			iEntIndex;
+	bool		bNPC;
 };
 
 // Contents of each entry in our list of death notices
@@ -65,11 +66,7 @@ public:
 
 private:
 
-	CPanelAnimationVarAliasType(float, m_flXSpacing, "XSpacing", "3", "proportional_float");
-	CPanelAnimationVarAliasType(float, m_flYSpacing, "YSpacing", "3", "proportional_float");
-
 	CPanelAnimationVarAliasType(float, m_flLineHeight, "LineHeight", "15", "proportional_float");
-	CPanelAnimationVarAliasType(float, m_flLineHeightBackgroundOffset, "LineHeightBackgroundOffset", "15", "proportional_float");
 
 	CPanelAnimationVar(float, m_flMaxDeathNotices, "MaxDeathNotices", "4");
 
@@ -78,13 +75,8 @@ private:
 	CPanelAnimationVar(vgui::HFont, m_hTextFont, "TextFont", "HudNumbersTimer");
 
 	CPanelAnimationVar(Color, m_cIconColor, "IconColor", "255 80 0 255");
-	CPanelAnimationVar(float, m_flIconSize, "IconSize", "2");
 
-	CPanelAnimationVar(float, m_flIconOffsetX, "IconOffsetX", "0");
-	CPanelAnimationVar(float, m_flIconOffsetY, "IconOffsetY", "0");
-
-	CPanelAnimationVar(float, m_flBackgroundOffsetX, "BackgroundOffsetX", "0");
-	CPanelAnimationVar(float, m_flBackgroundOffsetY, "BackgroundOffsetY", "0");
+	CPanelAnimationVar(Color, m_cEnemyTextColor, "EnemyTextColor", "255 80 0 255");
 
 	CHudTexture* m_icon;
 
@@ -168,9 +160,6 @@ void CHudDeathNotice::Paint()
 	surface()->DrawSetTextFont(m_hTextFont);
 	surface()->DrawSetTextColor(GameResources()->GetTeamColor(0));
 
-	int xMargin = XRES(10);
-	int xSpacing = UTIL_ComputeStringWidth(m_hTextFont, L" ");
-
 	int iCount = m_DeathNotices.Count();
 	for (int i = 0; i < iCount; i++)
 	{
@@ -252,8 +241,8 @@ void CHudDeathNotice::Paint()
 		}
 
 		// Get the local position for this notice
-		int len = UTIL_ComputeStringWidth(m_hTextFont, victim) + m_flXSpacing;
-		int y = yStart + (m_flLineHeight * i) + m_flYSpacing;
+		int len = UTIL_ComputeStringWidth(m_hTextFont, victim);
+		int y = yStart + (m_flLineHeight * i);
 
 		int iconWide;
 		int iconTall;
@@ -265,9 +254,10 @@ void CHudDeathNotice::Paint()
 		}
 		else
 		{
-			float scale = ((float)ScreenHeight() / 480.0f) / ((float)ScreenWidth() / 640.0f);	//scale based on 640x480
-			iconWide = (int)(scale * ((float)icon->Width() * m_flIconSize));
-			iconTall = (int)(scale * ((float)icon->Height() * m_flIconSize));
+			float scale = (((float)ScreenHeight() / 480.0f) / 2.5f);	//scale based on 640x480
+
+			iconWide = (int)(scale * ((float)icon->Width()));
+			iconTall = (int)(scale * ((float)icon->Height()));
 		}
 
 		int x;
@@ -280,16 +270,6 @@ void CHudDeathNotice::Paint()
 			x = 0;
 		}
 
-		int iKillerTextWide = killer[0] ? UTIL_ComputeStringWidth(m_hTextFont, killer) + xSpacing : 0;
-		int iVictimTextWide = UTIL_ComputeStringWidth(m_hTextFont, victim) + xSpacing;
-
-		int iTotalWide = iKillerTextWide + iconWide + iVictimTextWide + (xMargin * 2) + m_flBackgroundOffsetX;
-
-		int iTotalTall = (m_flLineHeight - m_flLineHeightBackgroundOffset) + m_flBackgroundOffsetY;
-
-		Color col = GetBgColor();
-		surface()->DrawSetColor(col);
-
 		// Only draw killers name if it wasn't a suicide
 		if (!m_DeathNotices[i].iSuicide)
 		{
@@ -298,9 +278,14 @@ void CHudDeathNotice::Paint()
 				x -= UTIL_ComputeStringWidth(m_hTextFont, killer);
 			}
 
-			surface()->DrawFilledRect(x - m_flBackgroundOffsetX, y - m_flBackgroundOffsetY - 1, x + iTotalWide, y + iTotalTall - 1);
-
-			SetColorForNoticePlayer(iKillerTeam);
+			if (m_DeathNotices[i].Killer.bNPC)
+			{
+				surface()->DrawSetTextColor(m_cEnemyTextColor);
+			}
+			else
+			{
+				SetColorForNoticePlayer(iKillerTeam);
+			}
 
 			// Draw killer's name
 			surface()->DrawSetTextPos(x, y);
@@ -308,19 +293,22 @@ void CHudDeathNotice::Paint()
 			surface()->DrawUnicodeString(killer);
 			surface()->DrawGetTextPos(x, y);
 		}
-		else
-		{
-			surface()->DrawFilledRect(x - m_flBackgroundOffsetX, y - m_flBackgroundOffsetY - 1, x + iTotalWide, y + iTotalTall - 1);
-		}
 
 		// Draw death weapon
 		//If we're using a font char, this will ignore iconTall and iconWide
-		int iconOffsetX = (m_DeathNotices[i].iconDeath->bHasSeperateXY ? m_DeathNotices[i].iconDeath->xOffset : m_flIconOffsetX);
-		int iconOffsetY = (m_DeathNotices[i].iconDeath->bHasSeperateXY ? m_DeathNotices[i].iconDeath->yOffset : m_flIconOffsetY);
+		int iconOffsetX = (m_DeathNotices[i].iconDeath->bHasSeperateXY ? m_DeathNotices[i].iconDeath->xOffset : 0);
+		int iconOffsetY = (m_DeathNotices[i].iconDeath->bHasSeperateXY ? m_DeathNotices[i].iconDeath->yOffset : 0);
 		icon->DrawSelf(x + iconOffsetX, y + iconOffsetY, iconWide, iconTall, m_cIconColor);
 		x += iconWide;
 
-		SetColorForNoticePlayer(iVictimTeam);
+		if (m_DeathNotices[i].Victim.bNPC)
+		{
+			surface()->DrawSetTextColor(m_cEnemyTextColor);
+		}
+		else
+		{
+			SetColorForNoticePlayer(iVictimTeam);
+		}
 
 		// Draw victims name
 		surface()->DrawSetTextPos(x, y);
@@ -388,6 +376,8 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		DeathNoticeItem deathMsg;
 		deathMsg.Killer.iEntIndex = killer;
 		deathMsg.Victim.iEntIndex = victim;
+		deathMsg.Killer.bNPC = false;
+		deathMsg.Victim.bNPC = false;
 		Q_strncpy(deathMsg.Killer.szName, killer_name, MAX_PLAYER_NAME_LENGTH);
 		Q_strncpy(deathMsg.Victim.szName, victim_name, MAX_PLAYER_NAME_LENGTH);
 		deathMsg.flDisplayTime = gpGlobals->curtime + hud_deathnotice_time.GetFloat();
@@ -457,6 +447,8 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		// Make a new death notice
 		DeathNoticeItem deathMsg;
 		deathMsg.Killer.iEntIndex = killer;
+		deathMsg.Victim.bNPC = true;
+		deathMsg.Killer.bNPC = false;
 		Q_strncpy(deathMsg.Killer.szName, killer_name, MAX_PLAYER_NAME_LENGTH);
 		Q_strncpy(deathMsg.Victim.szName, victim_name, MAX_PLAYER_NAME_LENGTH);
 		deathMsg.flDisplayTime = gpGlobals->curtime + hud_deathnotice_time.GetFloat();
@@ -546,6 +538,8 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		// Make a new death notice
 		DeathNoticeItem deathMsg;
 		deathMsg.Victim.iEntIndex = victim;
+		deathMsg.Killer.bNPC = true;
+		deathMsg.Victim.bNPC = false;
 		Q_strncpy(deathMsg.Killer.szName, killer_name, MAX_PLAYER_NAME_LENGTH);
 		Q_strncpy(deathMsg.Victim.szName, victim_name, MAX_PLAYER_NAME_LENGTH);
 		deathMsg.flDisplayTime = gpGlobals->curtime + hud_deathnotice_time.GetFloat();

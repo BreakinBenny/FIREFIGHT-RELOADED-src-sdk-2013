@@ -530,7 +530,6 @@ Scheme
 			{
 				"name"		"SMODGUI"
 				"tall"		"15"
-				"weight"	"500"
 				"antialias" "1"
 			}
 		}
@@ -552,7 +551,7 @@ Scheme
 			{
 				"name"		"HalfLife2"
 				"tall"		"30"
-				"weight"	"2000"
+				"weight"	"500"
 				"antialias" "1"
 				"additive"	"1"
 				"custom"	"1"

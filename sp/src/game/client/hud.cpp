@@ -133,6 +133,8 @@ void LoadHudTextures( CUtlDict< CHudTexture *, int >& list, const char *szFilena
 					tex->yOffset = pTemp->GetInt("y_offset", 0);
 				}
 
+				tex->scale = pTemp->GetFloat("scale", 1.0f);
+
 				list.Insert(tex->szShortName, tex);
 
 				pTemp = pTemp->GetNextKey();
@@ -188,6 +190,7 @@ CHudTexture::CHudTexture()
 	bHasSeperateXY = false;
 	xOffset = 0;
 	yOffset = 0;
+	scale = 1.0f;
 	bPrecached = false;
 	cCharacterInFont = 0;
 	hFont = ( vgui::HFont )NULL;
@@ -223,6 +226,8 @@ CHudTexture& CHudTexture::operator =( const CHudTexture& src )
 		xOffset = src.xOffset;
 		yOffset = src.yOffset;
 	}
+
+	scale = src.scale;
 
 	cCharacterInFont = src.cCharacterInFont;
 	hFont = src.hFont;

@@ -174,15 +174,11 @@
 		{
 				"font"		"AmmoIconsKillFeed"
 				"character"	"x"
-                				"customxyoffset"	"1"
-				"y_offset"		"-15"
 		}
 		"weapon_rpg"
 		{
 				"font"		"AmmoIconsKillFeed"
 				"character"	"x"
-                				"customxyoffset"	"1"
-				"y_offset"		"-15"
 		}
 		"npc_killerscanner"
 		{
@@ -276,8 +272,6 @@
 				"y"			"0"
 				"width"		"32"
 				"height"	"32"
-				"customxyoffset"	"1"
-				"y_offset"		"-4"
 		}
         		"npc_manhack_weapon"
 		{
@@ -286,8 +280,6 @@
 				"y"			"0"
 				"width"		"32"
 				"height"	"32"
-				"customxyoffset"	"1"
-				"y_offset"		"-4"
 		}
        		"npc_manhack_friendly"
 		{
@@ -296,8 +288,6 @@
 				"y"			"0"
 				"width"		"32"
 				"height"	"32"
-				"customxyoffset"	"1"
-				"y_offset"		"-4"
 		}
 		"weapon_manhackthrower"
 		{
@@ -306,8 +296,6 @@
 				"y"			"0"
 				"width"		"32"
 				"height"	"32"
-				"customxyoffset"	"1"
-				"y_offset"		"-4"
 		}
 		"kick"
 		{
@@ -318,9 +306,6 @@
 				"y"		"448"
 				"width"		"64"
 				"height"	"32"
-				"customxyoffset"	"1"
-				"x_offset"		"-3"
-				"y_offset"		"-2"
 		}
 		"charge"
 		{
@@ -331,9 +316,6 @@
 				"y"		"544"
 				"width"		"38"
 				"height"		"32"
-				"customxyoffset"	"1"
-				"x_offset"		"-1"
-				"y_offset"		"-2"
 		}
 		"prop_combine_ball"
 		{
@@ -379,8 +361,6 @@
 		{
 				"font"		"WeaponIconsKillFeed2"
 				"character"	"h"
-				"customxyoffset"	"1"
-				"y_offset"		"-13"
 		}
 		"weapon_sniper_rifle"
 		{
@@ -402,8 +382,6 @@
 				"y"		"0"
 				"width"		"64"
 				"height"	"32"
-				"customxyoffset"	"1"
-				"y_offset"		"-13"
 		}
 		"knife_bolt"
 		{
@@ -412,8 +390,6 @@
 				"y"		"0"
 				"width"		"64"
 				"height"	"32"
-				"customxyoffset"	"1"
-				"y_offset"		"-7"
 		}
 		"weapon_katana"
 		{
@@ -422,8 +398,6 @@
 				"y"		"0"
 				"width"		"128"
 				"height"	"32"
-				"customxyoffset"	"1"
-				"y_offset"		"-7"
 		}
 		"weapon_railgun"
 		{
@@ -452,8 +426,6 @@
 		{
 				"font"		"WeaponIconsKillFeed2"
 				"character"	"m"
-				"customxyoffset"	"1"
-				"y_offset"		"-13"
 		}
 		"headshot"
 		{
@@ -465,8 +437,7 @@
 				"width"		"42"
 				"height"		"32"
 				"customxyoffset"	"1"
-				"x_offset"		"-1"
-				"y_offset"		"-2"
+				"y_offset"		"2"
 		}
 		"npc_zombie"
 		{
@@ -552,8 +523,6 @@
 		{
 				"font"		"WeaponIconsKillFeed2"
 				"character"	"f"
-				"customxyoffset"	"1"
-				"y_offset"		"-13"
 		}
 		"weapon_alyxgun"
 		{
@@ -562,8 +531,6 @@
 				"y"		"160"
 				"width"		"64"
 				"height"	"32"
-				"customxyoffset"	"1"
-				"y_offset"		"-6"
 		}
 		"weapon_gatling"
 		{
@@ -572,15 +539,11 @@
 				"y"			"0"
 				"width"		"64"
 				"height"	"32"
-				"customxyoffset"	"1"
-				"y_offset"		"-7"
 		}
 		"weapon_physcannon"
 		{
 				"font"		"WeaponIconsKillFeed2"
 				"character"	"m"
-				"customxyoffset"	"1"
-				"y_offset"		"-13"
 		}
 		"npc_hornet"
 		{
@@ -599,8 +562,6 @@
 		{
 				"font"		"WeaponIconsKillFeed3"
 				"character"	"B"
-				"customxyoffset"	"1"
-				"y_offset"		"5"
 		}
        		 "dualies"
 		{
@@ -612,14 +573,14 @@
 				"font"		"Crosshairs"
 				"character"	"Q"
 				"customxyoffset"	"1"
-				"x_offset"		"65"
+				"x_offset"		"115"
 		}
 		"hitmarker_hitcount"
 		{
 				"font"		"Crosshairs"
 				"character"	"Q"
 				"customxyoffset"	"1"
-				"x_offset"		"115"
+				"x_offset"		"175"
 		}
 		"chargebow_bolt"
 		{
@@ -628,8 +589,6 @@
 				"y"			"0"
 				"width"		"64"
 				"height"	"32"
-				"customxyoffset"	"1"
-				"y_offset"		"-8"
 		}
 		"hunter_flechette"
 		{
@@ -638,8 +597,6 @@
 				"y"		"0"
 				"width"		"64"
 				"height"	"32"
-				"customxyoffset"	"1"
-				"y_offset"		"-6"
 		}
 	}	
 }
