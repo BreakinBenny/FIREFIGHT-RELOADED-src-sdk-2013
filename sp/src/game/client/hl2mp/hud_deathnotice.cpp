@@ -65,6 +65,9 @@ public:
 
 private:
 
+	CPanelAnimationVarAliasType(float, m_flXSpacing, "XSpacing", "3", "proportional_float");
+	CPanelAnimationVarAliasType(float, m_flYSpacing, "YSpacing", "3", "proportional_float");
+
 	CPanelAnimationVarAliasType(float, m_flLineHeight, "LineHeight", "15", "proportional_float");
 	CPanelAnimationVarAliasType(float, m_flLineHeightBackgroundOffset, "LineHeightBackgroundOffset", "15", "proportional_float");
 
@@ -249,8 +252,8 @@ void CHudDeathNotice::Paint()
 		}
 
 		// Get the local position for this notice
-		int len = UTIL_ComputeStringWidth(m_hTextFont, victim);
-		int y = yStart + (m_flLineHeight * i);
+		int len = UTIL_ComputeStringWidth(m_hTextFont, victim) + m_flXSpacing;
+		int y = yStart + (m_flLineHeight * i) + m_flYSpacing;
 
 		int iconWide;
 		int iconTall;

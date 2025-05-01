@@ -149,6 +149,8 @@ ConVar sv_player_bullettime_shop_timescale("sv_player_bullettime_shop_timescale"
 
 ConVar sv_player_grapple("sv_player_grapple", "1", FCVAR_ARCHIVE, "");
 
+ConVar fr_grapplebash("fr_grapplebash", "1", FCVAR_ARCHIVE);
+
 ConVar sv_player_katana("sv_player_katana", "1", FCVAR_ARCHIVE, "");
 
 ConVar sv_suitintro("sv_suitintro", "3", FCVAR_ARCHIVE);
@@ -2383,7 +2385,6 @@ void CHL2_Player::DoChargeBashDamage(trace_t &trace, bool bInstakill)
 	CTakeDamageInfo info;
 	info.SetAttacker(this);
 	info.SetInflictor(this);
-	info.SetWeapon(GetActiveWeapon());
 	info.SetDamage(bInstakill ? trace.m_pEnt->GetMaxHealth() : sk_katana_charge_bashdamage.GetFloat());
 	info.SetDamageForce(info.GetDamageForce() * sv_katana_charge_bashvelocitymultiplier.GetFloat());
 	info.SetDamagePosition(trace.endpos);
@@ -2395,7 +2396,7 @@ void CHL2_Player::DoChargeBashDamage(trace_t &trace, bool bInstakill)
 	ApplyMultiDamage();
 }
 
-bool CHL2_Player::CheckChargeBash(void)
+bool CHL2_Player::CheckBash(void)
 {
 	// Setup the swing range.
 	Vector vecForward;
@@ -2410,7 +2411,7 @@ bool CHL2_Player::CheckChargeBash(void)
 
 	if (trace.DidHit())
 	{
-		if (IsCharging())
+		if (IsCharging() || (IsGrappling() && fr_grapplebash.GetBool()))
 		{
 			bool hadToDamage = false;
 			bool instakill = false;
@@ -2537,7 +2538,7 @@ void CHL2_Player::CheckCharge(void)
 	if (!pKatana)
 		return;
 
-	if (CheckChargeBash() && IsCharging())
+	if (CheckBash() && IsCharging())
 	{
 		EndCharge();
 	}
@@ -2640,7 +2641,7 @@ bool CHL2_Player::CanCharge(void)
 
 	//something is in our way while we're NOT already charging.
 	//this is so the player can continue to charge forward if they killed an enemy.
-	if (CheckChargeBash() && !IsCharging())
+	if (CheckBash() && !IsCharging())
 	{
 		return false;
 	}

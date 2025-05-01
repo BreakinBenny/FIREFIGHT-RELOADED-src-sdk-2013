@@ -287,6 +287,12 @@ void CGrappleHook::HookedThink( void )
 	m_hPlayer->RumbleEffect(RUMBLE_FALL_SHORT, 0, RUMBLE_FLAG_STOP);
 	m_hPlayer->RumbleEffect(RUMBLE_357, 0, RUMBLE_FLAG_RESTART);
 
+	CHL2_Player* pHL2Player = ToHL2Player(m_hPlayer);
+	if (pHL2Player)
+	{
+		pHL2Player->CheckBash();
+	}
+
 	HandleBattery();
 
 	float flDistance = (m_hPlayer->GetAbsOrigin() - GetAbsOrigin()).Length();
