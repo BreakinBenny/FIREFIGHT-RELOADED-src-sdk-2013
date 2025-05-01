@@ -114,7 +114,7 @@ public:
 	void				DoCharge(void);
 	void				EndCharge(void);
 	void				ChargeBash(void);
-	bool				CheckChargeBash(void);
+	bool				CheckBash(void);
 	bool				IsCharging(void) { return m_bCharging; }
 	void				SetCharging(bool bCharging) { m_bCharging = bCharging; }
 	void				DoChargeBashDamage(trace_t &trace, bool bInstakill = false);
