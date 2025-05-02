@@ -587,15 +587,7 @@ void CWeaponShotgun::FillClip( void )
 		{
 			m_iClip1++;
 
-			if (pOwner->IsPlayer())
-			{
-				CBasePlayer* pPlayer = ToBasePlayer(pOwner);
-
-				if (pPlayer && pPlayer->m_iPerkInfiniteAmmo != 1)
-				{
-					pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
-				}
-			}
+			pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 		}
 	}
 }

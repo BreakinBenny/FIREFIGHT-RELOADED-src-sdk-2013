@@ -1058,7 +1058,7 @@ public:
 	bool m_bGotPerkHealthRegen;
 	float m_fRegenRate;
 
-	bool m_bGotInfiniteAmmoFromCheat;
+	CNetworkVar(bool, m_bGotInfiniteAmmoFromCheat);
 	bool m_bGotInfiniteAmmoLegitimately;
 
 	bool m_bIronKick;

@@ -303,6 +303,7 @@ END_RECV_TABLE()
 		RecvPropInt	  ( RECVINFO( m_iFrags ) ),
 		RecvPropInt   ( RECVINFO( m_iMaxExp ) ),
 		RecvPropInt   ( RECVINFO( m_iPerkInfiniteAmmo ) ),
+		RecvPropBool  ( RECVINFO(m_bGotInfiniteAmmoFromCheat ) ),
 		RecvPropInt	  ( RECVINFO( m_iMoney ) ),
 
 #if defined USES_ECON_ITEMS

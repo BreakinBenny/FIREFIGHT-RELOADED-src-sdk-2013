@@ -467,6 +467,7 @@ public:
 	float			m_flConstraintWidth;
 	float			m_flConstraintSpeedFactor;
 	int				m_iPerkInfiniteAmmo;
+	bool			m_bGotInfiniteAmmoFromCheat;
 	
 	// Mobility mod
 	bool m_bIsPowerSliding = false;

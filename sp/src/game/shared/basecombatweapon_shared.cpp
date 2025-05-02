@@ -3083,10 +3083,7 @@ void CBaseCombatWeapon::CheckReload( void )
 				// Add them to the clip
 				m_iClip1 += 1;
 
-				if (pOwner->m_iPerkInfiniteAmmo != 1)
-				{
-					pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
-				}
+				pOwner->RemoveAmmo(1, m_iPrimaryAmmoType);
 
 				Reload();
 				return;
@@ -3133,53 +3130,28 @@ void CBaseCombatWeapon::FinishReload( void )
 				{
 					m_iClip1 = m_bMagazineStyleReloads ? GetMaxClip1() : m_iClip1 + primary;
 
-					if (pOwner->IsPlayer())
-					{
-						CBasePlayer* pPlayer = ToBasePlayer(pOwner);
-
-						if (pPlayer && pPlayer->m_iPerkInfiniteAmmo != 1)
-						{
-							pOwner->RemoveAmmo(m_bMagazineStyleReloads ? GetMaxClip1() : primary, m_iPrimaryAmmoType);
-						}
-					}
+					pOwner->RemoveAmmo(m_bMagazineStyleReloads ? GetMaxClip1() : primary, m_iPrimaryAmmoType);
 				}
 				else
 				{
 					m_iClip1 = pOwner->GetAmmoCount(m_iPrimaryAmmoType);
 
-					if (pOwner->IsPlayer())
-					{
-						CBasePlayer* pPlayer = ToBasePlayer(pOwner);
-
-						if (pPlayer && pPlayer->m_iPerkInfiniteAmmo != 1)
-						{
-							pOwner->RemoveAmmo(GetMaxClip1(), m_iPrimaryAmmoType);
-						}
-					}
+					pOwner->RemoveAmmo(GetMaxClip1(), m_iPrimaryAmmoType);
 				}
 			}
 			else
 			{
 				m_iClip1 += primary;
-
-				if (pOwner->IsPlayer())
-				{
-					CBasePlayer* pPlayer = ToBasePlayer(pOwner);
-
-					if (pPlayer && pPlayer->m_iPerkInfiniteAmmo != 1)
-					{
-						pOwner->RemoveAmmo(primary, m_iPrimaryAmmoType);
-					}
-				}
+				pOwner->RemoveAmmo(primary, m_iPrimaryAmmoType);
 			}
 		}
 
 		// If I use secondary clips, reload secondary
 		if ( UsesClipsForAmmo2() )
 		{
-			int secondary = MIN( GetMaxClip2() - m_iClip2, pOwner->GetAmmoCount(m_iSecondaryAmmoType));
+			int secondary = MIN(GetMaxClip2() - m_iClip2, pOwner->GetAmmoCount(m_iSecondaryAmmoType));
 			m_iClip2 += secondary;
-			pOwner->RemoveAmmo( secondary, m_iSecondaryAmmoType );
+			pOwner->RemoveAmmo(secondary, m_iSecondaryAmmoType);
 		}
 
 		if ( m_bReloadsSingly )

@@ -1393,6 +1393,11 @@ float GivePerkAdjustValue(CBasePlayer* pPlayer, bool perkBool, float perkAmount)
 
 bool GivePerkForID(CBasePlayer* pPlayer, int perkID)
 {
+	if (perkID == FIREFIGHT_PERK_HEALTHREGENERATION && !sv_fr_perks_healthregeneration_perkmode.GetBool())
+	{
+		return false;
+	}
+
 	bool unlocked = false;
 
 	switch (perkID)
@@ -1439,11 +1444,22 @@ bool GivePerkForID(CBasePlayer* pPlayer, int perkID)
 
 void CC_GivePerk(const CCommand& args)
 {
-	CBasePlayer* player = UTIL_GetCommandClient();
-	if (player == nullptr)
-		return;
+	CBasePlayer* pPlayer = UTIL_GetCommandClient();
 
-	GivePerkForID(player, atoi(args[1]));
+	if (pPlayer)
+	{
+		int perkID = atoi(args[1]);
+		bool unlocked = GivePerkForID(pPlayer, perkID);
+
+		if (!unlocked)
+		{
+			Warning("Perk %i cannot be given!\n", perkID);
+		}
+		else
+		{
+			Msg("Perk %i given!\n", perkID);
+		}
+	}
 }
 static ConCommand giveperk("giveperk", CC_GivePerk, "Give a perk.\n", FCVAR_CHEAT);
 
@@ -1525,16 +1541,7 @@ bool CBasePlayer::GiveItemOfType(int itemType,
 			unlocked = GiveAmmoForWeapon(this, pWeaponClassname, isAmmoPrimary, ammoCount);
 			break;
 		case FR_PERK:
-			{
-				if (perkID == FIREFIGHT_PERK_HEALTHREGENERATION && !sv_fr_perks_healthregeneration_perkmode.GetBool())
-				{
-					unlocked = false;
-				}
-				else
-				{
-					unlocked = GivePerkForID(this, perkID);
-				}
-			}
+			unlocked = GivePerkForID(this, perkID);
 			break;
 		case FR_KASHBONUS:
 			unlocked = GiveKashBonus(this);
@@ -10365,6 +10372,7 @@ void CMovementSpeedMod::InputSpeedMod(inputdata_t &data)
 		SendPropInt     (SENDINFO(m_iFrags)),
 		SendPropInt     (SENDINFO(m_iMaxExp)),
 		SendPropInt		(SENDINFO(m_iPerkInfiniteAmmo)),
+		SendPropBool	(SENDINFO(m_bGotInfiniteAmmoFromCheat)),
 		SendPropInt		(SENDINFO(m_iMoney)),
 
 #if defined USES_ECON_ITEMS

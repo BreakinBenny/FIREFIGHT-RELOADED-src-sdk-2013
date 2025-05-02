@@ -118,8 +118,25 @@ void CBaseCombatCharacter::RemoveAmmo( int iCount, int iAmmoIndex )
 	if (iCount <= 0)
 		return;
 
+	CBasePlayer* pPlayer = ToBasePlayer(this);
+
+	bool bIsClip = false;
+
+	if (GetActiveWeapon())
+	{
+		if (GetActiveWeapon()->m_iSecondaryAmmoType == iAmmoIndex && GetActiveWeapon()->UsesClipsForAmmo2())
+		{
+			bIsClip = true;
+		}
+		else if (GetActiveWeapon()->m_iPrimaryAmmoType == iAmmoIndex && GetActiveWeapon()->UsesClipsForAmmo1())
+		{
+			bIsClip = true;
+		}
+	}
+
 	// Infinite ammo?
-	if ( GetAmmoDef()->MaxCarry( iAmmoIndex ) == INFINITE_AMMO )
+	if ( GetAmmoDef()->MaxCarry( iAmmoIndex ) == INFINITE_AMMO || 
+		(pPlayer && pPlayer->m_iPerkInfiniteAmmo == 1 && (bIsClip || (pPlayer->m_bGotInfiniteAmmoFromCheat && !bIsClip))))
 		return;
 
 	// Ammo pickup sound
