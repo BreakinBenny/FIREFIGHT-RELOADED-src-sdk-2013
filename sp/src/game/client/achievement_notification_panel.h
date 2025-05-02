@@ -23,6 +23,8 @@ class CAchievementNotificationPanel : public CHudElement, public EditablePanel
 public:
 	CAchievementNotificationPanel( const char *pElementName );
 
+	static void CreatePanel(const char* pchName, int iCur, int iMax, bool bAllowHUD);
+
 	virtual void	Init();
 	virtual void	ApplySchemeSettings( IScheme *scheme );
 	virtual bool	ShouldDraw( void );
@@ -30,6 +32,8 @@ public:
 	virtual void	LevelInit( void ) { m_flHideTime = 0; }
 	virtual void	FireGameEvent( IGameEvent * event );
 	virtual void	OnTick( void );
+
+	void ShowNotification(const char* pchName, int iCur, int iMax, bool bAllowHUD);
 
 	void AddNotification( const char *szIconBaseName, const wchar_t *pHeading, const wchar_t *pTitle );
 

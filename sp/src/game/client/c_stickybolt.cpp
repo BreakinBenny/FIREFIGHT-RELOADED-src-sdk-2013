@@ -30,9 +30,12 @@
 #include "stickybolt.h"
 #include "firefightreloaded/c_weapon_knife.h"
 #include "achievementmgr.h"
+#include <vgui/ILocalize.h>
+#include "fmtstr.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
+#include <achievement_notification_panel.h>
 
 extern IPhysicsSurfaceProps *physprops;
 IPhysicsObject *GetWorldPhysObject( void );
@@ -43,11 +46,11 @@ class CRagdollBoltEnumerator : public IPartitionEnumerator
 {
 public:
 	//Forced constructor   
-	CRagdollBoltEnumerator( Ray_t& shot, Vector vOrigin )
+	CRagdollBoltEnumerator( Ray_t& shot, Vector vOrigin)
 	{
 		m_ragdoll = nullptr;
 		m_rayShot = shot;
-		m_vWorld = vOrigin;
+		m_vWorld = vOrigin;;
 	}
 
 	//Actual work code
@@ -68,7 +71,7 @@ public:
 		IPhysicsObject	*pPhysicsObject = NULL;
 		
 		//Find the real object we hit.
-		if( tr.physicsbone >= 0 )
+		if (tr.physicsbone >= 0)
 		{
 			if ( pModel->m_pRagdoll )
 			{
@@ -117,6 +120,14 @@ public:
 			ep.m_SoundLevel = SNDLVL_NORM;
 			ep.m_pOrigin = &pEnt->GetAbsOrigin();
 
+			CAchievementMgr* pAchievementMgr = dynamic_cast<CAchievementMgr*>(engine->GetAchievementMgr());
+			if (pAchievementMgr)
+			{
+				int id = ACHIEVEMENT_FIREFIGHTRELOADED_SKYBORNEPIN;
+				pAchievementMgr->AwardAchievement(id);
+				pAchievementMgr->ForceProgressPanel(id);
+			}
+
 			C_BaseEntity::EmitSound( filter, SOUND_FROM_WORLD, ep );
 	
 			return ITERATION_STOP;
@@ -146,7 +157,7 @@ void CreateCrossbowBolt( const Vector &vecOrigin, const Vector &vecDirection )
 	tempents->SpawnTempModel(pModel, vecOrigin - vecDirection * 8, vAngles, Vector(0, 0, 0), 30.0f, FTENT_NONE);
 }
 
-void StickRagdollNow(const Vector &vecOrigin, const Vector &vecDirection, const int flags, C_BaseEntity* const sticker, bool bunlockAch = false)
+void StickRagdollNow(const Vector &vecOrigin, const Vector &vecDirection, const int flags, C_BaseEntity* const sticker)
 {
 	if ( flags & SBFL_STICKRAGDOLL )
 	{
@@ -162,24 +173,12 @@ void StickRagdollNow(const Vector &vecOrigin, const Vector &vecDirection, const 
 
 		shotRay.Init( vecOrigin, vecEnd );
 
-		CRagdollBoltEnumerator	ragdollEnum( shotRay, vecOrigin );
+		CRagdollBoltEnumerator	ragdollEnum( shotRay, vecOrigin);
 		partition->EnumerateElementsAlongRay( PARTITION_CLIENT_RESPONSIVE_EDICTS | PARTITION_ENGINE_NON_STATIC_EDICTS, shotRay, false, &ragdollEnum );
 
 		auto knife = dynamic_cast<C_WeaponKnife*>(sticker);
 		if ( knife != nullptr )
 			knife->m_hStuckRagdoll = ragdollEnum.GetRagdoll();
-
-		//due to us being removed shortly when the kill event is fired, 
-		//if the player pinned an enemy while in mid air we have to make sure they did that then award the achievement
-		//(if we havent already)
-		if (bunlockAch && ragdollEnum.GetRagdoll())
-		{
-			CAchievementMgr* pAchievementMgr = dynamic_cast<CAchievementMgr*>(engine->GetAchievementMgr());
-			if (pAchievementMgr)
-			{
-				pAchievementMgr->AwardAchievement(ACHIEVEMENT_FIREFIGHTRELOADED_SKYBORNEPIN);
-			}
-		}
 	}
 }
 
@@ -189,10 +188,7 @@ void StickRagdollNow(const Vector &vecOrigin, const Vector &vecDirection, const 
 //-----------------------------------------------------------------------------
 void StickyBoltCallback( const CEffectData &data )
 {
-	// i fucking hate this.
-	bool unlockAch = (data.m_nMaterial == 1 && data.m_nDamageType == 1);
-
-	StickRagdollNow( data.m_vOrigin, data.m_vNormal, data.m_fFlags, data.GetEntity(), unlockAch);
+	StickRagdollNow( data.m_vOrigin, data.m_vNormal, data.m_fFlags, data.GetEntity());
 
 	if (data.m_fFlags & SBFL_CROSSBOWBOLT)
 		CreateCrossbowBolt(data.m_vOrigin, data.m_vNormal);

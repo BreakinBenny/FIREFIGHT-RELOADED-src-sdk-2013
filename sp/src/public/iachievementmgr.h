@@ -24,6 +24,7 @@ public:
 	virtual int GetGoal() = 0;
 	virtual int GetCount() = 0;
 	virtual bool IsAchieved() = 0;
+	virtual bool IsExperimental() = 0;
 	virtual int GetPointValue() = 0;
 	virtual bool ShouldSaveWithGame() = 0;
 	virtual bool ShouldHideUntilAchieved() = 0;

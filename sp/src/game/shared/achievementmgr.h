@@ -20,6 +20,8 @@
 
 #define THINK_CLEAR		-1
 
+extern ConVar achievement_showlegacymsgs;
+
 class CAchievementMgr : public CAutoGameSystemPerFrame, public CGameEventListener, public IAchievementMgr
 {
 public:
@@ -74,6 +76,10 @@ public:
 	void SaveGlobalStateIfDirty( bool bAsync = false );
 	void EnsureGlobalStateLoaded();
 	void AwardAchievement( int iAchievementID );
+	bool IsAchievementExperimental(int iAchievementID);
+#ifndef GAME_DLL
+	void ForceProgressPanel(int iAchievementID);
+#endif
 	void UpdateAchievement( int iAchievementID, int nData );
 	void PreRestoreSavedGame();
 	void PostRestoreSavedGame();

@@ -187,11 +187,33 @@ GamepadUIAchievementsPanel::GamepadUIAchievementsPanel( vgui::Panel *pParent, co
         if ( !g_pFullFileSystem->FileExists( szMaterialName ) )
             V_strcpy_safe( szIconName, "vgui/hud/icon_locked.vmt" );
 
+        GamepadUIString achName = ACHIEVEMENT_LOCALIZED_NAME(pCurAchievement);
+
+        wchar_t wszNameBuf[2048];
+
+        if (pCurAchievement->IsExperimental())
+        {
+            GamepadUIString achBeta = "#GameUI_AchievementBeta";
+#ifdef WIN32
+            V_snwprintf(wszNameBuf, sizeof(wszNameBuf), L"%s (%s)", achName.String(), achBeta.String());
+#else
+            V_snwprintf(wszNameBuf, sizeof(wszNameBuf), L"%S (%S)", achName.String(), achBeta.String());
+#endif
+        }
+        else
+        {
+#ifdef WIN32
+            V_snwprintf(wszNameBuf, sizeof(wszNameBuf), L"%s", achName.String());
+#else
+            V_snwprintf(wszNameBuf, sizeof(wszNameBuf), L"%S", achName.String());
+#endif
+        }
+
         auto pAchievementPanel = new GamepadUIAchievement(
             this, this,
             GAMEPADUI_RESOURCE_FOLDER "schemeachievement.res",
             "",
-            ACHIEVEMENT_LOCALIZED_NAME( pCurAchievement ),
+            wszNameBuf,
             ACHIEVEMENT_LOCALIZED_DESC( pCurAchievement ),
             szIconName );
         pAchievementPanel->SetProgress( pCurAchievement->IsAchieved(), pCurAchievement->GetCount(), pCurAchievement->GetGoal() );

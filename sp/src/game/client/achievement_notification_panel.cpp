@@ -19,7 +19,7 @@
 #include <vgui_controls/ImagePanel.h>
 #include "achievement_notification_panel.h"
 #include "steam/steam_api.h"
-#include "iachievementmgr.h"
+#include "achievementmgr.h"
 #include "fmtstr.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
@@ -29,11 +29,17 @@ using namespace vgui;
 
 #define ACHIEVEMENT_NOTIFICATION_DURATION 10.0f
 
-#if MOD_VER
-ConVar	achievement_showlegacymsgs("achievement_showlegacymsgs", "1", FCVAR_ARCHIVE);
-#else
-ConVar	achievement_showlegacymsgs("achievement_showlegacymsgs", "0", FCVAR_ARCHIVE);
-#endif
+void CAchievementNotificationPanel::CreatePanel(const char* pchName, int iCur, int iMax, bool bAllowHUD)
+{
+	if (bAllowHUD)
+	{
+		CAchievementNotificationPanel* pPanel = GET_HUDELEMENT(CAchievementNotificationPanel);
+		if (pPanel)
+		{
+			pPanel->ShowNotification(pchName, iCur, iMax, bAllowHUD);
+		}
+	}
+}
 
 //-----------------------------------------------------------------------------
 // Purpose: 
@@ -106,47 +112,54 @@ void CAchievementNotificationPanel::FireGameEvent( IGameEvent * event )
 		int iCur = event->GetInt( "cur_val" );
 		int iMax = event->GetInt( "max_val" );
 		bool bBeta = event->GetBool("beta");
-		wchar_t szLocalizedName[256]=L"";
 
-		if (achievement_showlegacymsgs.GetBool() || bBeta)
-		{
-			// on X360 we need to show our own achievement progress UI
-			const wchar_t* pchLocalizedName = ACHIEVEMENT_LOCALIZED_NAME_FROM_STR(pchName);
-			Assert(pchLocalizedName);
-			if (!pchLocalizedName || !pchLocalizedName[0])
-				return;
-			Q_wcsncpy(szLocalizedName, pchLocalizedName, sizeof(szLocalizedName));
+		bool allowHUDPanel = (achievement_showlegacymsgs.GetBool() || bBeta);
 
-			// this is achievement progress, compose the message of form: "<name> (<#>/<max>)"
-			wchar_t szFmt[128] = L"";
-			wchar_t szText[512] = L"";
-			wchar_t szNumFound[16] = L"";
-			wchar_t szNumTotal[16] = L"";
-			_snwprintf(szNumFound, ARRAYSIZE(szNumFound), L"%i", iCur);
-			_snwprintf(szNumTotal, ARRAYSIZE(szNumTotal), L"%i", iMax);
+		ShowNotification(pchName, iCur, iMax, allowHUDPanel);
+	}
+}
 
-			const wchar_t* pchFmt = g_pVGuiLocalize->Find("#GameUI_Achievement_Progress_Fmt");
-			if (!pchFmt || !pchFmt[0])
-				return;
-			Q_wcsncpy(szFmt, pchFmt, sizeof(szFmt));
+void CAchievementNotificationPanel::ShowNotification(const char* pchName, int iCur, int iMax, bool bAllowHUD)
+{
+	if (bAllowHUD)
+	{
+		wchar_t szLocalizedName[256] = L"";
+		// on X360 we need to show our own achievement progress UI
+		const wchar_t* pchLocalizedName = ACHIEVEMENT_LOCALIZED_NAME_FROM_STR(pchName);
+		Assert(pchLocalizedName);
+		if (!pchLocalizedName || !pchLocalizedName[0])
+			return;
+		Q_wcsncpy(szLocalizedName, pchLocalizedName, sizeof(szLocalizedName));
 
-			g_pVGuiLocalize->ConstructString(szText, sizeof(szText), szFmt, 3, szLocalizedName, szNumFound, szNumTotal);
-			AddNotification(pchName, g_pVGuiLocalize->Find("#GameUI_Achievement_Progress"), szText);
-		}
+		// this is achievement progress, compose the message of form: "<name> (<#>/<max>)"
+		wchar_t szFmt[128] = L"";
+		wchar_t szText[512] = L"";
+		wchar_t szNumFound[16] = L"";
+		wchar_t szNumTotal[16] = L"";
+		_snwprintf(szNumFound, ARRAYSIZE(szNumFound), L"%i", iCur);
+		_snwprintf(szNumTotal, ARRAYSIZE(szNumTotal), L"%i", iMax);
+
+		const wchar_t* pchFmt = g_pVGuiLocalize->Find("#GameUI_Achievement_Progress_Fmt");
+		if (!pchFmt || !pchFmt[0])
+			return;
+		Q_wcsncpy(szFmt, pchFmt, sizeof(szFmt));
+
+		g_pVGuiLocalize->ConstructString(szText, sizeof(szText), szFmt, 3, szLocalizedName, szNumFound, szNumTotal);
+		AddNotification(pchName, g_pVGuiLocalize->Find("#GameUI_Achievement_Progress"), szText);
+	}
 
 #ifndef NO_STEAM
-		// shouldn't ever get achievement progress if steam not running and user logged in, but check just in case
-		if (!steamapicontext->SteamUserStats())
-		{
-			Msg("Steam not running, achievement progress notification not displayed\n");
-		}
-		else
-		{
-			// use Steam to show achievement progress UI
-			steamapicontext->SteamUserStats()->IndicateAchievementProgress(pchName, iCur, iMax);
-		}
-#endif
+	// shouldn't ever get achievement progress if steam not running and user logged in, but check just in case
+	if (!steamapicontext->SteamUserStats())
+	{
+		Msg("Steam not running, achievement progress notification not displayed\n");
 	}
+	else
+	{
+		// use Steam to show achievement progress UI
+		steamapicontext->SteamUserStats()->IndicateAchievementProgress(pchName, iCur, iMax);
+	}
+#endif
 }
 
 //-----------------------------------------------------------------------------

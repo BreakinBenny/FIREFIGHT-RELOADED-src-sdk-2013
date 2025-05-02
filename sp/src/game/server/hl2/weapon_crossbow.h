@@ -76,8 +76,6 @@ public:
 	bool	m_bStopPenetrating;
 	bool	m_bCharged;
 	int		m_iDamage;
-	bool	m_bBoltPinnedEnemy;
-	bool	m_bBoltHitFlyingEnemy;
 
 protected:
 
@@ -110,10 +108,6 @@ public:
 	bool CreateVPhysics(void);
 	unsigned int PhysicsSolidMaskForEntity() const;
 	static CKnifeBolt* BoltCreate(const Vector& vecOrigin, const QAngle& angAngles, CBasePlayer* pentOwner = NULL);
-
-public:
-	bool	m_bBoltPinnedEnemy;
-	bool	m_bBoltHitFlyingEnemy;
 
 protected:
 

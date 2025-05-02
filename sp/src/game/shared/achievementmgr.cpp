@@ -49,6 +49,12 @@
 
 ConVar	cc_achievement_debug( "achievement_debug", "0", FCVAR_CHEAT | FCVAR_REPLICATED, "Turn on achievement debug msgs." );
 
+#if MOD_VER
+ConVar	achievement_showlegacymsgs("achievement_showlegacymsgs", "1", FCVAR_ARCHIVE);
+#else
+ConVar	achievement_showlegacymsgs("achievement_showlegacymsgs", "0", FCVAR_ARCHIVE);
+#endif
+
 #ifdef CSTRIKE_DLL
 //=============================================================================
 // HPE_BEGIN:
@@ -925,6 +931,11 @@ void CAchievementMgr::AwardAchievement( int iAchievementID )
 	}
 	pAchievement->SetAchieved( true );
 
+	if (pAchievement->GetCount() < pAchievement->GetGoal())
+	{
+		pAchievement->SetCount(pAchievement->GetGoal());
+	}
+
 #ifdef CLIENT_DLL
 	if ( gamestats )
 	{
@@ -1011,6 +1022,40 @@ void CAchievementMgr::UpdateAchievement( int iAchievementID, int nData )
 
 	pAchievement->UpdateAchievement( nData );
 }
+
+bool CAchievementMgr::IsAchievementExperimental(int iAchievementID)
+{
+	CBaseAchievement* pAchievement = GetAchievementByID(iAchievementID);
+	Assert(pAchievement);
+	if (!pAchievement)
+		return false;
+
+	if (!pAchievement->AlwaysEnabled() && !CheckAchievementsEnabled())
+	{
+		Msg("Achievements disabled, ignoring achievement check for %s\n", pAchievement->GetName());
+		return false;
+	}
+
+	return pAchievement->IsExperimental();
+}
+
+#ifndef GAME_DLL
+void CAchievementMgr::ForceProgressPanel(int iAchievementID)
+{
+	CBaseAchievement* pAchievement = GetAchievementByID(iAchievementID);
+	Assert(pAchievement);
+	if (!pAchievement)
+		return;
+
+	if (!pAchievement->AlwaysEnabled() && !CheckAchievementsEnabled())
+	{
+		Msg("Achievements disabled, ignoring achievement panel for %s\n", pAchievement->GetName());
+		return;
+	}
+
+	CAchievementNotificationPanel::CreatePanel(pAchievement->GetName(), pAchievement->GetCount(), pAchievement->GetGoal(), (achievement_showlegacymsgs.GetBool() || pAchievement->IsExperimental()));
+}
+#endif
 
 //-----------------------------------------------------------------------------
 // Purpose: clears state for all achievements

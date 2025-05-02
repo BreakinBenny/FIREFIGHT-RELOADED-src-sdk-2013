@@ -20,6 +20,8 @@ static ConVar sv_ladder_useonly("sv_ladder_useonly", "0", FCVAR_REPLICATED, "If 
 
 ConVar	fr_max_charge_speed("fr_max_charge_speed", "750", FCVAR_NOTIFY | FCVAR_REPLICATED | FCVAR_CHEAT);
 
+ConVar  fr_aircap_multiplier("fr_aircap_multiplier", "4.2", FCVAR_ARCHIVE);
+
 ConVar fr_charge_allowairmove("fr_charge_allowairmove", "1", FCVAR_ARCHIVE);
 ConVar fr_charge_allowjump("fr_charge_allowjump", "1", FCVAR_ARCHIVE);
 ConVar fr_charge_superspeed("fr_charge_superspeed", "0", FCVAR_ARCHIVE);
@@ -271,7 +273,10 @@ float CHL2GameMovement::GetAirSpeedCap(void)
 	}
 	else
 	{
-		return BaseClass::GetAirSpeedCap();
+		float flCap = BaseClass::GetAirSpeedCap();
+		flCap *= fr_aircap_multiplier.GetFloat();
+
+		return flCap;
 	}
 }
 

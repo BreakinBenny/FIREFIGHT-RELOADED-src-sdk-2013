@@ -65,8 +65,6 @@ BEGIN_DATADESC( CCrossbowBolt )
 	DEFINE_FIELD( m_bCharged, FIELD_BOOLEAN ),
 	DEFINE_FIELD(m_iDamage, FIELD_INTEGER),
 	//DEFINE_FIELD( m_pGlowTrail, FIELD_EHANDLE ),
-	DEFINE_FIELD(m_bBoltPinnedEnemy, FIELD_BOOLEAN),
-	DEFINE_FIELD(m_bBoltHitFlyingEnemy, FIELD_BOOLEAN),
 
 END_DATADESC()
 
@@ -192,8 +190,6 @@ void CCrossbowBolt::Spawn( void )
 	// Make us glow until we've hit the wall
 	m_nSkin = BOLT_SKIN_GLOW;
 	m_bStopPenetrating = false;
-	m_bBoltPinnedEnemy = false;
-	m_bBoltHitFlyingEnemy = false;
 }
 
 
@@ -314,11 +310,6 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 			dmgInfo.SetDamagePosition( tr.endpos );
 			pOther->DispatchTraceAttack( dmgInfo, vecNormalizedVel, &tr );
 
-			if (pOther->GetGroundEntity() == NULL && !(pOther->GetMoveType() == MOVETYPE_FLY || pOther->GetMoveType() == MOVETYPE_FLYGRAVITY || pOther->GetMoveType() == MOVETYPE_VPHYSICS))
-			{
-				m_bBoltHitFlyingEnemy = true;
-			}
-
 			CBasePlayer *pPlayer = ToBasePlayer( GetOwnerEntity() );
 			if ( pPlayer )
 				gamestats->Event_WeaponHit(pPlayer, true, "weapon_crossbow", dmgInfo);
@@ -375,19 +366,10 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 
 				if (tr2.m_pEnt == NULL || (tr2.m_pEnt && tr2.m_pEnt->GetMoveType() == MOVETYPE_NONE))
 				{
-					auto anim = dynamic_cast<CBaseAnimating*>(pOther);
-					if (anim != nullptr && anim->CanBecomeRagdoll(true))
-					{
-						m_bBoltPinnedEnemy = true;
-					}
-
 					CEffectData	data;
 
 					data.m_vOrigin = tr2.endpos;
 					data.m_vNormal = vForward;
-					//this falsified data is sent so we can unlock the achievement RIGHT when the ragdoll gets pinned...
-					data.m_nMaterial = (m_bBoltPinnedEnemy ? 1 : 0);
-					data.m_nDamageType = (m_bBoltHitFlyingEnemy ? 1 : 0);
 					if (m_iBoltType == BOLT_CHARGEBOW)
 					{
 						data.m_fFlags = SBFL_CHARGEBOWARROW | SBFL_STICKRAGDOLL;
@@ -568,9 +550,6 @@ BEGIN_DATADESC(CKnifeBolt)
 // Function Pointers
 DEFINE_THINKFUNC(BubbleThink),
 DEFINE_ENTITYFUNC(BoltTouch),
-
-DEFINE_FIELD(m_bBoltPinnedEnemy, FIELD_BOOLEAN),
-DEFINE_FIELD(m_bBoltHitFlyingEnemy, FIELD_BOOLEAN),
 END_DATADESC()
 
 CKnifeBolt* CKnifeBolt::BoltCreate(const Vector& vecOrigin, const QAngle& angAngles, CBasePlayer* pentOwner)
@@ -633,9 +612,6 @@ void CKnifeBolt::Spawn(void)
 
 	SetThink(&CKnifeBolt::BubbleThink);
 	SetNextThink(gpGlobals->curtime + 0.1f);
-
-	m_bBoltPinnedEnemy = false;
-	m_bBoltHitFlyingEnemy = false;
 }
 
 void CKnifeBolt::Precache(void)
@@ -681,11 +657,6 @@ void CKnifeBolt::BoltTouch(CBaseEntity* pOther)
 			dmgInfo.SetDamagePosition(tr.endpos);
 			doneMoving = true;
 			pOther->DispatchTraceAttack(dmgInfo, vecNormalizedVel, &tr);
-
-			if (pOther->GetGroundEntity() == NULL && !(pOther->GetMoveType() == MOVETYPE_FLY || pOther->GetMoveType() == MOVETYPE_FLYGRAVITY || pOther->GetMoveType() == MOVETYPE_VPHYSICS))
-			{
-				m_bBoltHitFlyingEnemy = true;
-			}
 
 			CBasePlayer* pPlayer = ToBasePlayer(GetOwnerEntity());
 			if (pPlayer)
@@ -771,7 +742,7 @@ void CKnifeBolt::BoltTouch(CBaseEntity* pOther)
 				if (anim != nullptr && anim->CanBecomeRagdoll(true))
 				{
 					ragdoll = anim;
-					m_bBoltPinnedEnemy = stuck = true;
+					stuck = true;
 					UTIL_ImpactTrace(&tr2, DMG_BULLET);
 					SetAbsOrigin(tr2.endpos);
 				}
@@ -854,9 +825,6 @@ void CKnifeBolt::BoltTouch(CBaseEntity* pOther)
 		if (dispatchEffect)
 		{
 			data.m_nEntIndex = pWeap->entindex();
-			//this falsified data is sent so we can unlock the achievement RIGHT when the ragdoll gets pinned...
-			data.m_nMaterial = (m_bBoltPinnedEnemy ? 1 : 0);
-			data.m_nDamageType = (m_bBoltHitFlyingEnemy ? 1 : 0);
 			DispatchEffect("BoltImpact", data);
 		}
 
