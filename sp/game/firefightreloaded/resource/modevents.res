@@ -50,7 +50,7 @@
 	{
 		"entindex"	"short"   	// player index who was hurt				
 		"attacker_player"	"short"	 	// player index who attacked
-		"health"	"byte"		// remaining health points
+		"health"	"long"		// remaining health points
         "damageamount"	"long"
         "damageamount_consecutive"	"long"
         "timeshit"	"long"
@@ -66,12 +66,12 @@
 	
 	"npc_death"				// a game event, name may be 32 charaters long
 	{
-		"victimname" "string"   	// user ID who died				
+		"victimname" "string"   	// user ID who died			
 		"attacker"	"short"	 	// user ID who killed
 		"weapon"	"string" 	// weapon name killed used 
         "xpreward"	"short"
 		"moneyreward"	"short"
-        "victim_isally"     "bool"
+        "victim_team"	"short"
 	}
 	
 	"player_death_npc"				// a game event, name may be 32 charaters long
@@ -79,7 +79,7 @@
 		"userid"	"short"   	// user ID who died				
 		"attacker"	"string"	 	// user ID who killed
 		"weapon"	"string" 	// weapon name killed used 
-        "attacker_isally"   "bool"
+        "attacker_team"	"short"
 	}
     
     "npc_death_npc"				// a game event, name may be 32 charaters long
@@ -87,7 +87,7 @@
 		"victimname" "string"   // user ID who died				
 		"attacker"	"string"	 // user ID who killed
 		"weapon"	"string" 	// weapon name killed used 
-        "attacker_isally"   "bool"
-		"victim_isally"     "bool"
+        "attacker_team"	"short"
+		"victim_team"	"short"
 	}
 }

@@ -212,8 +212,6 @@
 		"RightJustify"	  "1"	// If 1, draw notices from the right
 
 		"TextFont"				"DefaultKillFeed"
-        
-        "EnemyTextColor"     "255 72 72 255"
 		
 		"PaintBackgroundType"	"2"
 	}
