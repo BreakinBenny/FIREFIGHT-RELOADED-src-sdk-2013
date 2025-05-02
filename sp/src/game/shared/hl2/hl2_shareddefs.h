@@ -49,12 +49,12 @@ enum
 #define COLOR_FR		Color(0, 120, 255, 255)
 
 //FR FUN COLORS
-#define COLOR_PURPLE	Color(177, 110, 245, 255)
-#define COLOR_ORANGE	Color(245, 139, 73, 255)
+#define COLOR_PURPLE	Color(199, 154, 245, 255)
 #define COLOR_CYAN		Color(73, 216, 245, 255)
 #define COLOR_TURQUOISE	Color(56, 245, 210, 255)
 #define COLOR_PINK		Color(237, 142, 220, 255)
 #define COLOR_MAGENTA	Color(255, 0, 255, 255)
+#define COLOR_YELLOW_NEW	Color(245, 196, 73, 255)
 
 //FR NPC TEAMS. Player still gets TEAM_UNASSIGNED. Used for death notices.
 #define TEAM_RED		2
@@ -70,5 +70,11 @@ enum
 #define TEAM_TURQUOISE	12
 #define TEAM_PINK		13
 #define TEAM_MAGENTA	14
+
+//CHANGE THESE IF YOU ADD A NEW TEAM
+#define TEAM_NPC_FIRST	TEAM_RED
+#define TEAM_NPC_LAST	TEAM_MAGENTA
+
+#define TEAM_RANDOM		15
 
 #endif // HL2_SHAREDDEFS_H

@@ -364,7 +364,7 @@ bool CheckIfActorInstalled(const char *pName)
                 m_pActor->SetString(pszModelCopy, gender);
                 if (m_pActor->SaveToFile(g_pFullFileSystem, path))
                 {
-                    Msg("%s saved as a %s actor. Look in 'scripts/global_actors.txt' if you wish to change it.\n", pszModelCopy, gender);
+                    Msg("%s automatically saved as a %s actor for use with NPCs. Look in 'scripts/global_actors.txt' if you wish to change it.\n", pszModelCopy, gender);
                     return true;
                 }
             }
@@ -393,6 +393,7 @@ void GamepadUIPlayerModelChooser::OnCommand( char const* pCommand )
 
             // exec
             GamepadUI::GetInstance().GetEngineClient()->ClientCmd_Unrestricted(szModelCommand);
+            GamepadUI::GetInstance().GetEngineClient()->ClientCmd_Unrestricted("exec userconfig.cfg\nhost_writeconfig\nmat_savechanges\n");
 
             CheckIfActorInstalled(pszModel);
 

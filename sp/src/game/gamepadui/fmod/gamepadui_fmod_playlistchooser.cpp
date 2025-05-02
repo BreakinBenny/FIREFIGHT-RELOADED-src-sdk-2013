@@ -345,6 +345,7 @@ void GamepadUIPlaylistChooser::OnCommand( char const* pCommand )
 
             // exec
             GamepadUI::GetInstance().GetEngineClient()->ClientCmd_Unrestricted(szPlaylistCommand);
+            GamepadUI::GetInstance().GetEngineClient()->ClientCmd_Unrestricted("exec userconfig.cfg\nhost_writeconfig\nmat_savechanges\n");
             Close();
         }
     }

@@ -601,8 +601,12 @@ void CNPC_PoisonZombie::HandleAnimEvent( animevent_t *pEvent )
 		pCrab->SetActivity( ACT_RANGE_ATTACK1 );
 		pCrab->SetNextThink( gpGlobals->curtime );
 		pCrab->PhysicsSimulate();
+		pCrab->m_isRareEntity = m_isRareEntity;
+		pCrab->m_bBoss = m_bBoss;
 
 		pCrab->GetMotor()->SetIdealYaw( GetAbsAngles().y );
+
+		CopyRenderColorTo(pCrab);
 
 		if ( IsOnFire() )
 		{

@@ -2618,6 +2618,8 @@ void CNPC_BaseZombie::ReleaseHeadcrab(const Vector &vecOrigin, const Vector &vec
 		pCrab->SetNextThink( gpGlobals->curtime );
 		pCrab->PhysicsSimulate();
 		pCrab->SetAbsVelocity( vecVelocity );
+		pCrab->m_isRareEntity = m_isRareEntity;
+		pCrab->m_bBoss = m_bBoss;
 
 		// if I have an enemy, stuff that to the headcrab.
 		CBaseEntity *pEnemy;

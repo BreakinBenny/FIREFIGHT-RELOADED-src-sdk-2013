@@ -7339,10 +7339,13 @@ void CAI_BaseNPC::NPCInit ( void )
 //this portion is for kill feed colors. teams should not be checked instead of NPC relationships.
 void CAI_BaseNPC::AssignKilllogTeams(int teamNumber)
 {
+	bool bCustomTeam = false;
+	int iCustomTeam = TEAM_UNASSIGNED;
+
 	if (teamNumber > TEAM_SPECTATOR)
 	{
-		CBaseEntity::ChangeTeam(teamNumber);
-		return;
+		iCustomTeam = teamNumber;
+		bCustomTeam = true;
 	}
 	else
 	{
@@ -7352,10 +7355,21 @@ void CAI_BaseNPC::AssignKilllogTeams(int teamNumber)
 
 			if (team > TEAM_SPECTATOR)
 			{
-				CBaseEntity::ChangeTeam(team);
-				return;
+				iCustomTeam = team;
+				bCustomTeam = true;
 			}
 		}
+	}
+
+	if (bCustomTeam)
+	{
+		if (iCustomTeam == TEAM_RANDOM)
+		{
+			iCustomTeam = random->RandomInt(TEAM_NPC_FIRST, TEAM_NPC_LAST);
+		}
+
+		CBaseEntity::ChangeTeam(iCustomTeam);
+		return;
 	}
 
 	//not using IsPlayerAlly since we JUST spawned as of the first call. 

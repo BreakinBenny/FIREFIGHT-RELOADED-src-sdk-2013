@@ -76,16 +76,18 @@ C_PlayerResource::C_PlayerResource()
 
 	m_Colors[TEAM_RED] = COLOR_RED;
 	m_Colors[TEAM_BLUE] = COLOR_BLUE;
-	m_Colors[TEAM_YELLOW] = COLOR_YELLOW;
+	m_Colors[TEAM_YELLOW] = COLOR_YELLOW_NEW;
 	m_Colors[TEAM_GREEN] = COLOR_GREEN;
 	m_Colors[TEAM_GREY] = COLOR_GREY;
 	m_Colors[TEAM_WHITE] = COLOR_WHITE;
 	m_Colors[TEAM_BLACK] = COLOR_BLACK;
 	m_Colors[TEAM_PURPLE] = COLOR_PURPLE;
-	m_Colors[TEAM_ORANGE] = COLOR_ORANGE;
+	//"yellow" is orange.....
+	m_Colors[TEAM_ORANGE] = COLOR_YELLOW;
 	m_Colors[TEAM_CYAN] = COLOR_CYAN;
 	m_Colors[TEAM_TURQUOISE] = COLOR_TURQUOISE;
 	m_Colors[TEAM_PINK] = COLOR_PINK;
+	m_Colors[TEAM_MAGENTA] = COLOR_MAGENTA;
 #else
 	m_Colors[TEAM_UNASSIGNED] = COLOR_YELLOW;
 #endif
