@@ -20,46 +20,12 @@
 #include "util_shared.h"
 #include "player_mobility_defs.h"
 
-
+#include "firefightreloaded/fr_shareddefs.h"
 
 #if defined USES_ECON_ITEMS
 #include "game_item_schema.h"
 #include "econ_item_view.h"
 #endif
-
-enum FR_ItemTypes_t
-{
-	FR_HEALTHKIT = 1,
-	FR_BATTERY,
-	FR_HEALTHKIT_BIG,
-	FR_BATTERY_BIG,
-	FR_WEAPON,
-	FR_AMMOWEAPON,
-	FR_AMMO,
-	FR_PERK,
-	FR_KASHBONUS,
-	FR_SERVERCMD,
-	FR_CLIENTCMD,
-	FR_EXPBONUS
-};
-
-enum FR_PerkIDs_t
-{
-	FIREFIGHT_PERK_INFINITEAUXPOWER = 1,
-	FIREFIGHT_PERK_INFINITEAMMO,
-	FIREFIGHT_PERK_HEALTHREGENERATIONRATE,
-	FIREFIGHT_PERK_HEALTHREGENERATION
-};
-
-enum FR_UpgradeIDs_t
-{
-	FIREFIGHT_UPGRADE_MAXHEALTH,
-	FIREFIGHT_UPGRADE_EXPBOOST,
-	FIREFIGHT_UPGRADE_KASHBOOST,
-	FIREFIGHT_UPGRADE_HEALTHREGENERATION_RANGE,
-
-	FIREFIGHT_UPGRADE_MAX
-};
 
 // For queuing and processing usercmds
 class CCommandContext

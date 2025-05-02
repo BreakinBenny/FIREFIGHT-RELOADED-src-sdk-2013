@@ -1004,6 +1004,7 @@ protected:
 	}
 
 	virtual bool ShouldShowProgressNotification() { return false; }
+	virtual bool IsExperimental() { return true; }
 };
 DECLARE_ACHIEVEMENT(CAchievementKillMaxKatanaMultiplier, ACHIEVEMENT_FIREFIGHTRELOADED_MAXKATANAMULTIPLIER, "FIREFIGHTRELOADED_MAXKATANAMULTIPLIER", 50);
 
@@ -1020,6 +1021,7 @@ protected:
 	//earned through entity/s itself
 
 	virtual bool ShouldShowProgressNotification() { return false; }
+	virtual bool IsExperimental() { return true; }
 };
 DECLARE_ACHIEVEMENT(CAchievementSkybornePin, ACHIEVEMENT_FIREFIGHTRELOADED_SKYBORNEPIN, "FIREFIGHTRELOADED_SKYBORNEPIN", 50);
 
@@ -1046,6 +1048,7 @@ protected:
 	}
 
 	virtual bool ShouldShowProgressNotification() { return false; }
+	virtual bool IsExperimental() { return true; }
 };
 DECLARE_ACHIEVEMENT(CAchievementMultiKillstreak, ACHIEVEMENT_FIREFIGHTRELOADED_MULTIKILLSTREAK, "FIREFIGHTRELOADED_MULTIKILLSTREAK", 50);
 
@@ -1074,6 +1077,7 @@ protected:
 	}
 
 	virtual bool ShouldShowProgressNotification() { return false; }
+	virtual bool IsExperimental() { return true; }
 };
 DECLARE_ACHIEVEMENT(CAchievementSkyborneDecap, ACHIEVEMENT_FIREFIGHTRELOADED_SKYBORNEDECAP, "FIREFIGHTRELOADED_SKYBORNEDECAP", 50);
 

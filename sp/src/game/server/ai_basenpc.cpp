@@ -7368,7 +7368,7 @@ void CAI_BaseNPC::AssignKilllogTeams(int teamNumber)
 			iCustomTeam = random->RandomInt(TEAM_NPC_FIRST, TEAM_NPC_LAST);
 		}
 
-		CBaseEntity::ChangeTeam(iCustomTeam);
+		ChangeTeam(iCustomTeam);
 		return;
 	}
 
@@ -7384,20 +7384,70 @@ void CAI_BaseNPC::AssignKilllogTeams(int teamNumber)
 	{
 		if (m_bBoss || m_IsAdvisorDrone)
 		{
-			CBaseEntity::ChangeTeam(TEAM_MAGENTA);
+			ChangeTeam(TEAM_MAGENTA);
 		}
 		else if (m_isRareEntity)
 		{
-			CBaseEntity::ChangeTeam(TEAM_ORANGE);
+			ChangeTeam(TEAM_ORANGE);
 		}
 		else
 		{
-			CBaseEntity::ChangeTeam(TEAM_RED);
+			ChangeTeam(TEAM_RED);
 		}
 	}
 	else
 	{
-		CBaseEntity::ChangeTeam(TEAM_BLUE);
+		ChangeTeam(TEAM_BLUE);
+	}
+}
+
+void CheckColorLimits(int& colVal)
+{
+	if (colVal > 255)
+	{
+		colVal = 255;
+	}
+	else if (colVal < 0)
+	{
+		colVal = 0;
+	}
+}
+
+void CAI_BaseNPC::ChangeTeam(int iTeamNum)
+{
+	CBaseEntity::ChangeTeam(iTeamNum);
+
+	if (m_pAttributes != NULL)
+	{
+		bool useteamcolors = m_pAttributes->GetBool("use_team_colors", 0);
+
+		if (useteamcolors)
+		{
+			Color teamColor = CFRTeamLoader::GetColorForTeam(iTeamNum);
+
+			if (teamColor.GetRawColor() != 0)
+			{
+				bool useteamcolors_materialcolors = m_pAttributes->GetBool("use_team_material_colors", 0);
+
+				int red = (teamColor.r() + m_pAttributes->GetInt("use_team_colors_red_adjust", 0));
+				int green = (teamColor.g() + m_pAttributes->GetInt("use_team_colors_green_adjust", 0));
+				int blue = (teamColor.b() + m_pAttributes->GetInt("use_team_colors_blue_adjust", 0));
+
+				CheckColorLimits(red);
+				CheckColorLimits(green);
+				CheckColorLimits(blue);
+
+				if (useteamcolors_materialcolors)
+				{
+					SetMaterialColorMode(COLORMODE_NORMAL);
+					UpdateMaterialColor(red, green, blue);
+				}
+				else
+				{
+					SetRenderColor(red, green, blue);
+				}
+			}
+		}
 	}
 }
 

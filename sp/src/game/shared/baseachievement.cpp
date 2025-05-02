@@ -394,6 +394,7 @@ void CBaseAchievement::AwardAchievement()
 		event->SetString("achievement_name", GetName());
 		event->SetInt("cur_val", m_iCount);
 		event->SetInt("max_val", m_iGoal);
+		event->SetBool("beta", IsExperimental());
 #ifdef GAME_DLL
 		gameeventmanager->FireEvent(event);
 #else
@@ -490,6 +491,7 @@ void CBaseAchievement::ShowProgressNotification()
 		event->SetString("achievement_name", GetName());
 		event->SetInt("cur_val", m_iCount);
 		event->SetInt("max_val", m_iGoal);
+		event->SetBool("beta", IsExperimental());
 #ifdef GAME_DLL
 		gameeventmanager->FireEvent(event);
 #else

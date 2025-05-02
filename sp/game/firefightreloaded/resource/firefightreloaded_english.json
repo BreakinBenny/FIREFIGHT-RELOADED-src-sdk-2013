@@ -766,7 +766,7 @@
             "GameUI_ViewModelBob_Goldsrc_Steam": "Steam",
             "GameUI_ViewModelLag": "Viewmodel Lag",
             "GameUI_ToggleFloatyMove": "ENDGAME-Style movement.",
-            "GameUI_GravityAdjust": "Movement Gravity",
+            "GameUI_GravityAdjust": "Movement Gravity (Can only be set-in-game, won't save)",
             "GameUI_GravityAdjust_HL2": "Half-Life 2 Gravity",
             "GameUI_GravityAdjust_TF2": "Team Fortress 2 Gravity",
             "GameUI_GravityAdjust_ENDGAME": "ENDGAME Gravity",

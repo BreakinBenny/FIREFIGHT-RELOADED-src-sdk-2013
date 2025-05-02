@@ -37,10 +37,8 @@
 #include "ai_navigator.h"
 #include "tier1/functors.h"
 
-#if FR_DLL
 #include "firefightreloaded/ai_attributes_loader.h"
-#endif
-
+#include "firefightreloaded/fr_shareddefs.h"
 
 #define PLAYER_SQUADNAME "player_squad"
 
@@ -537,6 +535,7 @@ public:
 	virtual void		NPCInit( void ); // derived calls after Spawn()
 	virtual void		LoadInitAttributes(void);
 	virtual void		AssignKilllogTeams(int teamNumber = TEAM_INVALID);
+	virtual void		ChangeTeam(int iTeamNum);
 	virtual void		GiveAttributes(int preset);
 	virtual void		GiveWildcardAttributes(int preset);
 	virtual void		GiveOutline(Vector& outlineColor);

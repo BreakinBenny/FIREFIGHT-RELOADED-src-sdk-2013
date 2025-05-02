@@ -48,6 +48,7 @@ public:
 	void SetStoreProgressInSteam( bool bStoreProgressInSteam ) { m_bStoreProgressInSteam = bStoreProgressInSteam; }
 	bool StoreProgressInSteam() { return m_bStoreProgressInSteam; }
 	virtual bool ShouldShowProgressNotification() { return true; }
+	virtual bool IsExperimental() { return false; }
 	virtual void OnPlayerStatsUpdate() {}
 
 	virtual bool ShouldSaveWithGame();

@@ -247,7 +247,7 @@ enum CastVote
 // The first team that's game specific (i.e. not unassigned / spectator)
 #define FIRST_GAME_TEAM			(LAST_SHARED_TEAM+1)
 
-#define MAX_TEAMS				32	// Max number of teams in a game
+#define MAX_TEAMS				256	// Max number of teams in a game
 #define MAX_TEAM_NAME_LENGTH	32	// Max length of a team's name
 
 // Weapon m_iState
@@ -834,20 +834,6 @@ struct EmitSound_t
 	mutable CUtlVector< Vector >	m_UtlVecSoundOrigin;  ///< Actual sound origin(s) (can be multiple if sound routed through speaker entity(ies) )
 	mutable HSOUNDSCRIPTHANDLE		m_hSoundScriptHandle;
 };
-
-enum FirefightPrimaryGamemodes
-{
-	FIREFIGHT_PRIMARY_DISABLED = -1,
-	FIREFIGHT_PRIMARY_DEFAULT,
-	FIREFIGHT_PRIMARY_COMBINEFIREFIGHT,
-	FIREFIGHT_PRIMARY_XENINVASION,
-	FIREFIGHT_PRIMARY_ANTLIONASSAULT,
-	FIREFIGHT_PRIMARY_ZOMBIESURVIVAL,
-	FIREFIGHT_PRIMARY_FIREFIGHTRUMBLE
-};
-
-//fr defs
-#define MAX_LEVEL 20
 
 #define MAX_ACTORS_IN_SCENE 16
 

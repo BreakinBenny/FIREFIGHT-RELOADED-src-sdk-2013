@@ -105,9 +105,10 @@ void CAchievementNotificationPanel::FireGameEvent( IGameEvent * event )
 		const char *pchName = event->GetString( "achievement_name" );
 		int iCur = event->GetInt( "cur_val" );
 		int iMax = event->GetInt( "max_val" );
+		bool bBeta = event->GetBool("beta");
 		wchar_t szLocalizedName[256]=L"";
 
-		if (achievement_showlegacymsgs.GetBool())
+		if (achievement_showlegacymsgs.GetBool() || bBeta)
 		{
 			// on X360 we need to show our own achievement progress UI
 			const wchar_t* pchLocalizedName = ACHIEVEMENT_LOCALIZED_NAME_FROM_STR(pchName);
@@ -274,6 +275,7 @@ CON_COMMAND_F( achievement_notification_test_event, "Test the hud notification U
 		event->SetString( "achievement_name", "FIREFIGHTRELOADED_KILL10HUNTERSWITHFLECHETTE" );
 		event->SetInt( "cur_val", 1 );
 		event->SetInt( "max_val", 10 );
+		event->SetBool("beta", true);
 		gameeventmanager->FireEvent( event );
 	}
 

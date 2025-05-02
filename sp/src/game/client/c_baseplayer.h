@@ -27,6 +27,8 @@
 #include "GameEventListener.h"
 #include "player_mobility_defs.h"
 
+#include "firefightreloaded/fr_shareddefs.h"
+
 #if defined USES_ECON_ITEMS
 #include "econ_item.h"
 #include "game_item_schema.h"

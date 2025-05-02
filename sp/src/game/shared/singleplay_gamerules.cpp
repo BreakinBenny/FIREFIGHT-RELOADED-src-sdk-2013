@@ -213,6 +213,32 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 		Q_FixSlashes(mapname);
 		Q_strlower(mapname);
 
+		const char* cfgfilemain = defaultcfgfile.GetString();
+
+		if (cfgfilemain && cfgfilemain[0])
+		{
+			char szCommand[256];
+
+			DevMsg("Executing default gamemode config file %s\n", cfgfilemain);
+			Q_snprintf(szCommand, sizeof(szCommand), "exec %s\n", cfgfilemain);
+			engine->ServerCommand(szCommand);
+		}
+
+		KeyValues* pInfo = CMapInfo::GetMapInfoData();
+
+		if (pInfo != NULL)
+		{
+			const char* customMapCFGFile = pInfo->GetString("additional_cfg", "");
+
+			if (customMapCFGFile[0])
+			{
+				char szCommand[256];
+				DevMsg("Executing custom map config file %s\n", customMapCFGFile);
+				Q_snprintf(szCommand, sizeof(szCommand), "exec %s\n", customMapCFGFile);
+				engine->ServerCommand(szCommand);
+			}
+		}
+
 		if (g_fr_spawneroldfunctionality.GetBool())
 		{
 			SetGamemode(g_gamemode.GetInt());
@@ -287,7 +313,6 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 			const char* cfgfileaa = antlionassaultcfgfile.GetString();
 			const char* cfgfilezs = zombiesurvivalcfgfile.GetString();
 			const char* cfgfilefr = firefightrumblecfgfile.GetString();
-			const char* cfgfilemain = defaultcfgfile.GetString();
 
 			switch (g_pGameRules->GetGamemode())
 			{
@@ -342,31 +367,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 				}
 				break;
 			default:
-			case FIREFIGHT_PRIMARY_DEFAULT:
-				if (cfgfilemain && cfgfilemain[0])
-				{
-					char szCommand[256];
-
-					DevMsg("Executing default gamemode config file %s\n", cfgfilemain);
-					Q_snprintf(szCommand, sizeof(szCommand), "exec %s\n", cfgfilemain);
-					engine->ServerCommand(szCommand);
-				}
 				break;
-			}
-
-			KeyValues* pInfo = CMapInfo::GetMapInfoData();
-
-			if (pInfo != NULL)
-			{
-				const char* customMapCFGFile = pInfo->GetString("additional_cfg","");
-
-				if (customMapCFGFile[0])
-				{
-					char szCommand[256];
-					DevMsg("Executing custom map config file %s\n", customMapCFGFile);
-					Q_snprintf(szCommand, sizeof(szCommand), "exec %s\n", customMapCFGFile);
-					engine->ServerCommand(szCommand);
-				}
 			}
 		}
 	}

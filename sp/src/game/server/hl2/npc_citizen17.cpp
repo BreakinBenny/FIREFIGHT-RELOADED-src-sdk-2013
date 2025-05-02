@@ -2444,6 +2444,9 @@ void CNPC_Citizen::HandleAnimEvent( animevent_t *pEvent )
 #if HL2_EPISODIC
 		if ( USE_EXPERIMENTAL_MEDIC_CODE() && IsMedic() )
 		{
+			if (HasSpawnFlags(SF_CITIZEN_ENEMY))
+				return;
+
 			CBaseCombatCharacter *pTarget = dynamic_cast<CBaseCombatCharacter *>( GetTarget() );
 			Assert(pTarget);
 			if ( pTarget )
@@ -3971,6 +3974,9 @@ bool CNPC_Citizen::FValidateHintType( CAI_Hint *pHint )
 //-----------------------------------------------------------------------------
 bool CNPC_Citizen::CanHeal()
 { 
+	if (HasSpawnFlags(SF_CITIZEN_ENEMY))
+		return false;
+
 	if ( !IsMedic() && !IsAmmoResupplier() )
 		return false;
 
@@ -3991,6 +3997,9 @@ bool CNPC_Citizen::CanHeal()
 //-----------------------------------------------------------------------------
 bool CNPC_Citizen::ShouldHealTarget( CBaseEntity *pTarget, bool bActiveUse )
 {
+	if (HasSpawnFlags(SF_CITIZEN_ENEMY))
+		return false;
+
 	Disposition_t disposition = IRelationType(pTarget);
 	
 	if ( !pTarget && ( disposition != D_LI && disposition != D_NU ))
@@ -4001,9 +4010,6 @@ bool CNPC_Citizen::ShouldHealTarget( CBaseEntity *pTarget, bool bActiveUse )
 		return false;
 
 	bool bTargetIsPlayer = pTarget->IsPlayer();
-
-	if (HasSpawnFlags(SF_CITIZEN_ENEMY) && bTargetIsPlayer)
-		return false;
 
 	// Don't heal or give ammo to targets in vehicles
 	CBaseCombatCharacter *pCCTarget = pTarget->MyCombatCharacterPointer();
@@ -4110,6 +4116,9 @@ bool CNPC_Citizen::ShouldHealTarget( CBaseEntity *pTarget, bool bActiveUse )
 //-----------------------------------------------------------------------------
 bool CNPC_Citizen::ShouldHealTossTarget( CBaseEntity *pTarget, bool bActiveUse )
 {
+	if (HasSpawnFlags(SF_CITIZEN_ENEMY))
+		return false;
+
 	if (pTarget == NULL || pTarget == nullptr)
 		return false;
 

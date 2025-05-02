@@ -68,7 +68,7 @@ float GetWallRunBoost( void )
 	return sv_wallrun_boost.GetFloat();
 }
 
-ConVar	sv_gravity		( "sv_gravity", DEFAULT_GRAVITY_STRING, FCVAR_NOTIFY | FCVAR_REPLICATED | FCVAR_ARCHIVE, "World gravity." );
+ConVar	sv_gravity		( "sv_gravity", DEFAULT_GRAVITY_STRING, FCVAR_NOTIFY | FCVAR_REPLICATED, "World gravity." );
 
 // Mobility 
 

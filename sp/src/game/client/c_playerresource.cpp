@@ -12,7 +12,7 @@
 #ifdef HL2MP
 #include "hl2mp_gamerules.h"
 #elif FR_DLL
-#include "hl2_shareddefs.h"
+#include "fr_shareddefs.h"
 #endif
 
 // memdbgon must be the last include file in a .cpp file!!!
@@ -73,21 +73,7 @@ C_PlayerResource::C_PlayerResource()
 	m_Colors[TEAM_UNASSIGNED] = COLOR_YELLOW;
 #elif FR_DLL
 	m_Colors[TEAM_UNASSIGNED] = COLOR_BLUE;
-
-	m_Colors[TEAM_RED] = COLOR_RED;
-	m_Colors[TEAM_BLUE] = COLOR_BLUE;
-	m_Colors[TEAM_YELLOW] = COLOR_YELLOW_NEW;
-	m_Colors[TEAM_GREEN] = COLOR_GREEN;
-	m_Colors[TEAM_GREY] = COLOR_GREY;
-	m_Colors[TEAM_WHITE] = COLOR_WHITE;
-	m_Colors[TEAM_BLACK] = COLOR_BLACK;
-	m_Colors[TEAM_PURPLE] = COLOR_PURPLE;
-	//"yellow" is orange.....
-	m_Colors[TEAM_ORANGE] = COLOR_YELLOW;
-	m_Colors[TEAM_CYAN] = COLOR_CYAN;
-	m_Colors[TEAM_TURQUOISE] = COLOR_TURQUOISE;
-	m_Colors[TEAM_PINK] = COLOR_PINK;
-	m_Colors[TEAM_MAGENTA] = COLOR_MAGENTA;
+	CFRTeamLoader::LoadColors(m_Colors);
 #else
 	m_Colors[TEAM_UNASSIGNED] = COLOR_YELLOW;
 #endif
