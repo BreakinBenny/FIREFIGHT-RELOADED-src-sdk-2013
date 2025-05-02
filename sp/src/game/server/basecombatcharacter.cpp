@@ -2810,6 +2810,26 @@ Relationship_t *CBaseCombatCharacter::FindEntityRelationship( CBaseEntity *pTarg
 	return &m_DefaultRelationship[ Classify() ][ pTarget->Classify() ];
 }
 
+Relationship_t* CBaseCombatCharacter::FindClassRelationship(int iClass)
+{
+	// First check for specific relationship with this edict
+	int i;
+	if (iClass != CLASS_NONE)
+	{
+		// Then check for relationship with this edict's class
+		for (i = 0; i < m_Relationship.Count(); i++)
+		{
+			if (iClass == m_Relationship[i].classType)
+			{
+				return &m_Relationship[i];
+			}
+		}
+	}
+	AllocateDefaultRelationships();
+	// If none found return the default
+	return &m_DefaultRelationship[Classify()][iClass];
+}
+
 Disposition_t CBaseCombatCharacter::IRelationType ( CBaseEntity *pTarget )
 {
 	if ( pTarget )
@@ -2827,6 +2847,21 @@ int CBaseCombatCharacter::IRelationPriority( CBaseEntity *pTarget )
 	if ( pTarget )
 		return FindEntityRelationship( pTarget )->priority;
 	return 0;
+}
+
+Disposition_t CBaseCombatCharacter::IClassRelationType(int iClass)
+{
+	return FindClassRelationship(iClass)->disposition;
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: describes the relationship between two types of NPC.
+// Input  :
+// Output :
+//-----------------------------------------------------------------------------
+int CBaseCombatCharacter::IClassRelationPriority(int iClass)
+{
+	return FindClassRelationship(iClass)->priority;
 }
 
 //-----------------------------------------------------------------------------

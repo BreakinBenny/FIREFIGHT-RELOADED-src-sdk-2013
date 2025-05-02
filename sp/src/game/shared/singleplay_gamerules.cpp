@@ -1065,11 +1065,14 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 			NpcName killer_name;
 			GetNPCName(killer_name, pKiller);
 
+			int team = pKiller->GetTeamNumber();
+
 			IGameEvent* event = gameeventmanager->CreateEvent("player_death_npc");
 			if (event)
 			{
 				event->SetInt("userid", pVictim->GetUserID());
 				event->SetString("attacker", killer_name);
+				event->SetInt("attacker_team", team);
 				event->SetInt("customkill", info.GetDamageCustom());
 				event->SetInt("priority", 7);	// HLTV event priority, not transmitted
 				event->SetString("weapon", killer_weapon_name);
@@ -1166,11 +1169,14 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 			NpcName vic_name;
 			GetNPCName(vic_name, pVictim);
 
+			int team = pVictim->GetTeamNumber();
+
 			IGameEvent* event = gameeventmanager->CreateEvent("npc_death");
 			if (event)
 			{
 				event->SetInt("attacker", killer_ID);
 				event->SetString("victimname", vic_name);
+				event->SetInt("victim_team", team);
 				event->SetInt("customkill", info.GetDamageCustom());
 				event->SetInt("xpreward", xpReward);
 				event->SetInt("moneyreward", moneyReward);
@@ -1246,11 +1252,16 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 			NpcName vic_name;
 			GetNPCName(vic_name, pNPCVictim);
 
+			int kteam = pNPCKiller->GetTeamNumber();
+			int vteam = pNPCVictim->GetTeamNumber();
+
 			IGameEvent* event = gameeventmanager->CreateEvent("npc_death_npc");
 			if (event)
 			{
 				event->SetString("attacker", att_name);
 				event->SetString("victimname", vic_name);
+				event->SetInt("victim_team", vteam);
+				event->SetInt("attacker_team", kteam);
 				event->SetInt("customkill", info.GetDamageCustom());
 				event->SetInt("priority", 7);	// HLTV event priority, not transmitted
 				event->SetString("weapon", killer_weapon_name);

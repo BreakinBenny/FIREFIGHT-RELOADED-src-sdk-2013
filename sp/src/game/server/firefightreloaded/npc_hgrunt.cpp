@@ -1097,6 +1097,7 @@ void CHGrunt::Spawn()
 void CHGrunt::BecomeFriendly()
 {
 	m_fIsFriendly = true;
+	AssignKilllogTeams(TEAM_BLUE);
 	CapabilitiesAdd(bits_CAP_NO_HIT_PLAYER | bits_CAP_FRIENDLY_DMG_IMMUNE);
 }
 

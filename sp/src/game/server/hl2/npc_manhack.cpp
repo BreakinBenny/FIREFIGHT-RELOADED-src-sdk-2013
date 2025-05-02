@@ -39,6 +39,7 @@
 #include "soundent.h"
 #include "ammodef.h"
 #include "world.h"
+#include "hl2_shareddefs.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -2625,6 +2626,7 @@ void CNPC_Manhack::Activate()
 void CNPC_Manhack::BecomeFriendly()
 {
 	m_bIsFriendly = true;
+	AssignKilllogTeams(TEAM_BLUE);
 	CapabilitiesAdd(bits_CAP_NO_HIT_PLAYER | bits_CAP_FRIENDLY_DMG_IMMUNE);
 }
 

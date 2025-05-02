@@ -4199,6 +4199,9 @@ void CNPC_Citizen::Heal()
 
 	CBaseEntity *pTarget = GetTarget();
 
+	if (!pTarget)
+		return;
+
 	bool bTargetIsPlayer = pTarget->IsPlayer();
 
 	if (HasSpawnFlags(SF_CITIZEN_ENEMY) && bTargetIsPlayer)

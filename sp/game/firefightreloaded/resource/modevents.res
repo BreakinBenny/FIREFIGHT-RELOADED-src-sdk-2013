@@ -71,6 +71,7 @@
 		"weapon"	"string" 	// weapon name killed used 
         "xpreward"	"short"
 		"moneyreward"	"short"
+        "victim_isally"     "bool"
 	}
 	
 	"player_death_npc"				// a game event, name may be 32 charaters long
@@ -78,6 +79,7 @@
 		"userid"	"short"   	// user ID who died				
 		"attacker"	"string"	 	// user ID who killed
 		"weapon"	"string" 	// weapon name killed used 
+        "attacker_isally"   "bool"
 	}
     
     "npc_death_npc"				// a game event, name may be 32 charaters long
@@ -85,5 +87,7 @@
 		"victimname" "string"   // user ID who died				
 		"attacker"	"string"	 // user ID who killed
 		"weapon"	"string" 	// weapon name killed used 
+        "attacker_isally"   "bool"
+		"victim_isally"     "bool"
 	}
 }

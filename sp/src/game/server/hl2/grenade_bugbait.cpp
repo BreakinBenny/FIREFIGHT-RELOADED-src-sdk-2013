@@ -235,6 +235,7 @@ void CGrenadeBugBait::BugBaitTouch( CBaseEntity *pOther )
 								}
 							}
 
+							pNpc->AssignKilllogTeams(TEAM_BLUE);
 
 							CAI_BaseNPC* pNpcOther = (CAI_BaseNPC*)pOther;
 							if (pNpcOther)
@@ -276,6 +277,8 @@ void CGrenadeBugBait::BugBaitTouch( CBaseEntity *pOther )
 						CNPC_Antlion* pAntlion = (CNPC_Antlion*)pAI;
 						if (pAntlion)
 						{
+							pAI->AssignKilllogTeams(TEAM_BLUE);
+
 							CAI_BaseNPC* pNpc = (CAI_BaseNPC*)pOther;
 							if (pNpc)
 							{

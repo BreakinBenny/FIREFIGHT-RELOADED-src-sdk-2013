@@ -1,11 +1,9 @@
 "UnlitGeneric"
 {
 	"$baseTexture" "HUD/d_images"
-	"$translucent"		"1"
-	"$vertexcolor"		"1"
-	"$vertexalpha"		"1"
-	"$ignorez"			"1"
-//	"$additive"			1
-	"$no_fullbright"	1
-	"%keywords" "tf"
+	"$additive" "1"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$alpha"	"0.7"
+	"$ignorez"     "1"
 }

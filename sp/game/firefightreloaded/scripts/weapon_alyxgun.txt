@@ -50,19 +50,19 @@ WeaponData
 	{
 		"weapon"
 		{
-			"file"		"sprites/hud_weapons"
-			"x"		"0"
-			"y"		"160"
-			"width"		"64"
-			"height"	"32"
+			"file"		"sprites/weapons/hud_weapon_alyxgun"
+			"x"			"0"
+			"y"			"0"
+			"width"		"128"
+			"height"	"64"
 		}
 		"weapon_s"
 		{
-			"file"		"sprites/hud_weapons"
-			"x"		"0"
-			"y"		"160"
-			"width"		"64"
-			"height"	"32"
+			"file"		"sprites/weapons/hud_weapon_alyxgun"
+			"x"			"0"
+			"y"			"0"
+			"width"		"128"
+			"height"	"64"
 		}
 		"ammo"
 		{

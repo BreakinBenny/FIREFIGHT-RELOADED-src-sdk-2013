@@ -330,9 +330,14 @@ public:
 	virtual Disposition_t	IRelationType( CBaseEntity *pTarget );
 	virtual int				IRelationPriority( CBaseEntity *pTarget );
 
+	virtual Disposition_t	IClassRelationType(int iClass);
+	virtual int				IClassRelationPriority(int iClass);
+
 	virtual void			SetLightingOriginRelative( CBaseEntity *pLightingOrigin );
 
 	Relationship_t			*FindEntityRelationship( CBaseEntity *pTarget );
+
+	Relationship_t			*FindClassRelationship(int iClass);
 
 public:
 	

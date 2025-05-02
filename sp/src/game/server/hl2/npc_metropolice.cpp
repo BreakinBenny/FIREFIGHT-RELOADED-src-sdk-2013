@@ -781,6 +781,7 @@ void CNPC_MetroPolice::Spawn( void )
 void CNPC_MetroPolice::BecomeFriendly()
 {
 	m_bIsFriendly = true;
+	AssignKilllogTeams(TEAM_BLUE);
 	CapabilitiesAdd(bits_CAP_NO_HIT_PLAYER | bits_CAP_FRIENDLY_DMG_IMMUNE);
 }
 

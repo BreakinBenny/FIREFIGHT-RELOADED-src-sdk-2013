@@ -29,7 +29,8 @@ struct DeathNoticePlayer
 {
 	char		szName[MAX_PLAYER_NAME_LENGTH];
 	int			iEntIndex;
-	bool		bNPC;
+	//only needed for NPCs.
+	int			iTeamNumber;
 };
 
 // Contents of each entry in our list of death notices
@@ -75,8 +76,6 @@ private:
 	CPanelAnimationVar(vgui::HFont, m_hTextFont, "TextFont", "HudNumbersTimer");
 
 	CPanelAnimationVar(Color, m_cIconColor, "IconColor", "255 80 0 255");
-
-	CPanelAnimationVar(Color, m_cEnemyTextColor, "EnemyTextColor", "255 80 0 255");
 
 	CHudTexture* m_icon;
 
@@ -176,8 +175,23 @@ void CHudDeathNotice::Paint()
 
 		if (g_PR)
 		{
-			iKillerTeam = g_PR->GetTeam(m_DeathNotices[i].Killer.iEntIndex);
-			iVictimTeam = g_PR->GetTeam(m_DeathNotices[i].Victim.iEntIndex);
+			if (m_DeathNotices[i].Victim.iTeamNumber != TEAM_INVALID)
+			{
+				iVictimTeam = m_DeathNotices[i].Victim.iTeamNumber;
+			}
+			else
+			{
+				iVictimTeam = g_PR->GetTeam(m_DeathNotices[i].Victim.iEntIndex);
+			}
+
+			if (m_DeathNotices[i].Killer.iTeamNumber != TEAM_INVALID)
+			{
+				iKillerTeam = m_DeathNotices[i].Killer.iTeamNumber;
+			}
+			else
+			{
+				iKillerTeam = g_PR->GetTeam(m_DeathNotices[i].Killer.iEntIndex);
+			}
 		}
 
 		if (m_DeathNotices[i].Victim.szName[0] == '#')
@@ -254,7 +268,7 @@ void CHudDeathNotice::Paint()
 		}
 		else
 		{
-			float scale = (((float)ScreenHeight() / 480.0f) / 2.5f);	//scale based on 640x480
+			float scale = (((float)ScreenHeight() / 480.0f) / 2.3f);	//scale based on 640x480
 
 			iconWide = (int)(scale * ((float)icon->Width()));
 			iconTall = (int)(scale * ((float)icon->Height()));
@@ -278,14 +292,7 @@ void CHudDeathNotice::Paint()
 				x -= UTIL_ComputeStringWidth(m_hTextFont, killer);
 			}
 
-			if (m_DeathNotices[i].Killer.bNPC)
-			{
-				surface()->DrawSetTextColor(m_cEnemyTextColor);
-			}
-			else
-			{
-				SetColorForNoticePlayer(iKillerTeam);
-			}
+			SetColorForNoticePlayer(iKillerTeam);
 
 			// Draw killer's name
 			surface()->DrawSetTextPos(x, y);
@@ -301,14 +308,7 @@ void CHudDeathNotice::Paint()
 		icon->DrawSelf(x + iconOffsetX, y + iconOffsetY, iconWide, iconTall, m_cIconColor);
 		x += iconWide;
 
-		if (m_DeathNotices[i].Victim.bNPC)
-		{
-			surface()->DrawSetTextColor(m_cEnemyTextColor);
-		}
-		else
-		{
-			SetColorForNoticePlayer(iVictimTeam);
-		}
+		SetColorForNoticePlayer(iVictimTeam);
 
 		// Draw victims name
 		surface()->DrawSetTextPos(x, y);
@@ -376,8 +376,6 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		DeathNoticeItem deathMsg;
 		deathMsg.Killer.iEntIndex = killer;
 		deathMsg.Victim.iEntIndex = victim;
-		deathMsg.Killer.bNPC = false;
-		deathMsg.Victim.bNPC = false;
 		Q_strncpy(deathMsg.Killer.szName, killer_name, MAX_PLAYER_NAME_LENGTH);
 		Q_strncpy(deathMsg.Victim.szName, victim_name, MAX_PLAYER_NAME_LENGTH);
 		deathMsg.flDisplayTime = gpGlobals->curtime + hud_deathnotice_time.GetFloat();
@@ -426,6 +424,7 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		int killer = engine->GetPlayerForUserID(event->GetInt("attacker"));
 		const char* victim = event->GetString("victimname");
 		const char* killedwith = event->GetString("weapon");
+		int victimteam = event->GetInt("victim_team");
 
 		// Do we have too many death messages in the queue?
 		if (m_DeathNotices.Count() > 0 &&
@@ -447,8 +446,9 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		// Make a new death notice
 		DeathNoticeItem deathMsg;
 		deathMsg.Killer.iEntIndex = killer;
-		deathMsg.Victim.bNPC = true;
-		deathMsg.Killer.bNPC = false;
+		//the player's team is managed by player resource.
+		deathMsg.Killer.iTeamNumber = TEAM_INVALID;
+		deathMsg.Victim.iTeamNumber = victimteam;
 		Q_strncpy(deathMsg.Killer.szName, killer_name, MAX_PLAYER_NAME_LENGTH);
 		Q_strncpy(deathMsg.Victim.szName, victim_name, MAX_PLAYER_NAME_LENGTH);
 		deathMsg.flDisplayTime = gpGlobals->curtime + hud_deathnotice_time.GetFloat();
@@ -517,6 +517,7 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		const char* killer = event->GetString("attacker");
 		int victim = engine->GetPlayerForUserID(event->GetInt("userid"));
 		const char* killedwith = event->GetString("weapon");
+		int killerteam = event->GetInt("attacker_team");
 
 		// Do we have too many death messages in the queue?
 		if (m_DeathNotices.Count() > 0 &&
@@ -538,8 +539,9 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		// Make a new death notice
 		DeathNoticeItem deathMsg;
 		deathMsg.Victim.iEntIndex = victim;
-		deathMsg.Killer.bNPC = true;
-		deathMsg.Victim.bNPC = false;
+		//the player's team is managed by player resource.
+		deathMsg.Victim.iTeamNumber = TEAM_INVALID;
+		deathMsg.Killer.iTeamNumber = killerteam;
 		Q_strncpy(deathMsg.Killer.szName, killer_name, MAX_PLAYER_NAME_LENGTH);
 		Q_strncpy(deathMsg.Victim.szName, victim_name, MAX_PLAYER_NAME_LENGTH);
 		deathMsg.flDisplayTime = gpGlobals->curtime + hud_deathnotice_time.GetFloat();
@@ -589,6 +591,8 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		const char* killer = event->GetString("attacker");
 		const char* victim = event->GetString("victimname");
 		const char* killedwith = event->GetString("weapon");
+		int victimteam = event->GetInt("victim_team");
+		int killerteam = event->GetInt("attacker_team");
 
 		// Do we have too many death messages in the queue?
 		if (m_DeathNotices.Count() > 0 &&
@@ -609,6 +613,8 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 
 		// Make a new death notice
 		DeathNoticeItem deathMsg;
+		deathMsg.Victim.iTeamNumber = victimteam;
+		deathMsg.Killer.iTeamNumber = killerteam;
 		Q_strncpy(deathMsg.Killer.szName, killer_name, MAX_PLAYER_NAME_LENGTH);
 		Q_strncpy(deathMsg.Victim.szName, victim_name, MAX_PLAYER_NAME_LENGTH);
 		deathMsg.flDisplayTime = gpGlobals->curtime + hud_deathnotice_time.GetFloat();

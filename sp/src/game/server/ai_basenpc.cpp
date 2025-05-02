@@ -7332,6 +7332,58 @@ void CAI_BaseNPC::NPCInit ( void )
 	else
 	{
 		m_pAttributes = NULL;
+		AssignKilllogTeams();
+	}
+}
+
+//this portion is for kill feed colors. teams should not be checked instead of NPC relationships.
+void CAI_BaseNPC::AssignKilllogTeams(int teamNumber)
+{
+	if (teamNumber > TEAM_SPECTATOR)
+	{
+		CBaseEntity::ChangeTeam(teamNumber);
+		return;
+	}
+	else
+	{
+		if (m_pAttributes != NULL)
+		{
+			int team = m_pAttributes->GetInt("team", TEAM_INVALID);
+
+			if (team > TEAM_SPECTATOR)
+			{
+				CBaseEntity::ChangeTeam(team);
+				return;
+			}
+		}
+	}
+
+	//not using IsPlayerAlly since we JUST spawned as of the first call. 
+	//we're risking a crash by trying to find the player if we call IsPlayerAlly.
+
+	bool IsAlly = (Classify() == CLASS_PLAYER
+		|| Classify() == CLASS_PLAYER_ALLY
+		|| Classify() == CLASS_PLAYER_ALLY_VITAL
+		|| Classify() == CLASS_PLAYER_NPC);
+
+	if (!IsAlly)
+	{
+		if (m_bBoss || m_IsAdvisorDrone)
+		{
+			CBaseEntity::ChangeTeam(TEAM_MAGENTA);
+		}
+		else if (m_isRareEntity)
+		{
+			CBaseEntity::ChangeTeam(TEAM_ORANGE);
+		}
+		else
+		{
+			CBaseEntity::ChangeTeam(TEAM_RED);
+		}
+	}
+	else
+	{
+		CBaseEntity::ChangeTeam(TEAM_BLUE);
 	}
 }
 
@@ -7424,6 +7476,13 @@ void CAI_BaseNPC::LoadInitAttributes()
 			m_isRareEntity = rare;
 		}
 
+		bool boss = m_pAttributes->GetBool("is_boss", 0);
+
+		if (boss && !m_bBoss)
+		{
+			m_bBoss = boss;
+		}
+
 		bool showOutlines = m_pAttributes->GetBool("has_outlines", 0);
 
 		if (showOutlines && !m_denyOutlines)
@@ -7451,6 +7510,8 @@ void CAI_BaseNPC::LoadInitAttributes()
 
 		m_iAttributePresetNum = m_pAttributes->presetNum;
 		m_IsWildcard = m_pAttributes->wildcard;
+
+		AssignKilllogTeams();
 	}
 }
 

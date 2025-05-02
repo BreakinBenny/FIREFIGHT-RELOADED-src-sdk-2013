@@ -213,7 +213,7 @@
 
 		"TextFont"				"DefaultKillFeed"
         
-        "EnemyTextColor"     "255 64 64 255"
+        "EnemyTextColor"     "255 72 72 255"
 		
 		"PaintBackgroundType"	"2"
 	}

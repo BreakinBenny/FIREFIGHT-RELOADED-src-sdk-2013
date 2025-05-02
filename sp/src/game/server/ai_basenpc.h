@@ -536,6 +536,7 @@ public:
 	virtual bool 		CreateVPhysics();
 	virtual void		NPCInit( void ); // derived calls after Spawn()
 	virtual void		LoadInitAttributes(void);
+	virtual void		AssignKilllogTeams(int teamNumber = TEAM_INVALID);
 	virtual void		GiveAttributes(int preset);
 	virtual void		GiveWildcardAttributes(int preset);
 	virtual void		GiveOutline(Vector& outlineColor);
