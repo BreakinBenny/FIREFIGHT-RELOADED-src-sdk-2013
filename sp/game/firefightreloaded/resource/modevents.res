@@ -90,4 +90,12 @@
         "attacker_team"	"short"
 		"victim_team"	"short"
 	}
+    
+    "achievement_event"
+	{
+		"achievement_name"	"string"	// non-localized name of achievement
+		"cur_val"		"short"		// # of steps toward achievement
+		"max_val"		"short"		// total # of steps in achievement
+        "beta"	        "bool"
+	}
 }
