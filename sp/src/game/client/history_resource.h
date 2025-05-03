@@ -96,6 +96,7 @@ private:
 	CPanelAnimationVarAliasType( float, m_flIconInset, "icon_inset", "28", "proportional_float" );
 	CPanelAnimationVarAliasType( float, m_flTextInset, "text_inset", "26", "proportional_float" );
 	CPanelAnimationVarAliasType(float, m_flTextInsetDamage, "text_inset_damage", "26", "proportional_float");
+	CPanelAnimationVarAliasType(float, m_flTextInsetDamageHit, "text_inset_damage_hit_offset", "0", "proportional_float");
 	CPanelAnimationVar( vgui::HFont, m_hNumberFont, "NumberFont", "HudNumbersSmall" );
 	CPanelAnimationVar( vgui::HFont, m_hTextFont, "TextFont", "Default" );
 };

@@ -111,6 +111,14 @@ void CSatchelCharge::CreateEffects( void )
 	m_hGlowSprite->TurnOn();
 }
 
+void CSatchelCharge::SatchelExplode(void)
+{
+	ExplosionCreate(GetAbsOrigin() + Vector(0, 0, 16), GetAbsAngles(), GetThrower(), GetDamage(), 200,
+		SF_ENVEXPLOSION_NOSPARKS | SF_ENVEXPLOSION_NODLIGHTS | SF_ENVEXPLOSION_NOSMOKE, 0.0f, this);
+
+	UTIL_Remove(this);
+}
+
 //-----------------------------------------------------------------------------
 // Purpose:
 // Input  :
@@ -118,12 +126,8 @@ void CSatchelCharge::CreateEffects( void )
 //-----------------------------------------------------------------------------
 void CSatchelCharge::InputExplode( inputdata_t &inputdata )
 {
-	ExplosionCreate( GetAbsOrigin() + Vector( 0, 0, 16 ), GetAbsAngles(), GetThrower(), GetDamage(), 200, 
-		SF_ENVEXPLOSION_NOSPARKS | SF_ENVEXPLOSION_NODLIGHTS | SF_ENVEXPLOSION_NOSMOKE, 0.0f, this);
-
-	UTIL_Remove( this );
+	SatchelExplode();
 }
-
 
 void CSatchelCharge::SatchelThink( void )
 {

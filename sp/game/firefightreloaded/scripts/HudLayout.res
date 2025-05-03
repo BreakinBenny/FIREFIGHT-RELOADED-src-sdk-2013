@@ -314,7 +314,8 @@
 
 		"history_gap"	"35"
 		"icon_inset"	"32"
-        "text_inset_damage"	"65"
+        "text_inset_damage"	"50"
+        "text_inset_damage_hit_offset"	"35"
 		"text_inset"	"32"
 		"NumberFont"	"HudNumbersSmallHistory"
 		"PaintBackgroundType"	"2"

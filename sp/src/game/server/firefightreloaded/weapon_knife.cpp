@@ -437,6 +437,8 @@ void CWeaponKnife::ImpactEffect(trace_t &traceHit)
 
 void CWeaponKnife::DislodgeRagdoll()
 {
+	//this causes a bug where it spawns a serverside ragdoll somewhere in the map
+	/*
 	auto ragdoll = dynamic_cast<CBaseAnimating*>(m_hStuckRagdoll.Get());
 	if ( ragdoll != nullptr && ragdoll->IsRagdoll() )
 	{
@@ -450,6 +452,7 @@ void CWeaponKnife::DislodgeRagdoll()
 			ragdoll->Remove();
 		}
 	}
+	*/
 
 	CEffectData data;
 	data.m_nEntIndex = entindex();

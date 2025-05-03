@@ -36,7 +36,7 @@ ConVar sk_weapon_ar2_alt_fire_radius( "sk_weapon_ar2_alt_fire_radius", "10" );
 ConVar sk_weapon_ar2_alt_fire_duration( "sk_weapon_ar2_alt_fire_duration", "2" );
 ConVar sk_weapon_ar2_alt_fire_mass( "sk_weapon_ar2_alt_fire_mass", "150" );
 
-ConVar weapon_ar2_maxbulletsfired("weapon_ar2_maxbulletsfired", "5");
+ConVar weapon_ar2_maxbulletsfired("weapon_ar2_maxbulletsfired", "5", FCVAR_ARCHIVE);
 
 //=========================================================
 //=========================================================

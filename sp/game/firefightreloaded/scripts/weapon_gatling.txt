@@ -14,7 +14,7 @@ WeaponData
 	"clip_size"				"-1"
 	"clip2_size"			"-1"
 
-	"default_clip"			"1000"
+	"default_clip"			"750"
 	"default_clip2"			"-1"
 
 	"primary_ammo"			"gatling"

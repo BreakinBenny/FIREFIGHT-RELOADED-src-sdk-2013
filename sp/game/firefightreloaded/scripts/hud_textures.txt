@@ -587,14 +587,14 @@
 				"font"		"Crosshairs"
 				"character"	"Q"
 				"customxyoffset"	"1"
-				"x_offset"		"115"
+				"x_offset"		"125"
 		}
 		"hitmarker_hitcount"
 		{
 				"font"		"Crosshairs"
 				"character"	"Q"
 				"customxyoffset"	"1"
-				"x_offset"		"175"
+				"x_offset"		"205"
 		}
 		"chargebow_bolt"
 		{

@@ -20,6 +20,8 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+ConVar weapon_slam_thrown_activationdelay("weapon_slam_thrown_activationdelay", "0.10", FCVAR_ARCHIVE);
+
 #define	SLAM_PRIMARY_VOLUME		450
 
 BEGIN_DATADESC( CWeapon_SLAM )
@@ -220,10 +222,7 @@ void CWeapon_SLAM::SatchelDetonate()
 		CSatchelCharge *pSatchel = dynamic_cast<CSatchelCharge *>(pEntity);
 		if (pSatchel->m_bIsLive && pSatchel->GetThrower() && GetOwner() && pSatchel->GetThrower() == GetOwner())
 		{
-			//pSatchel->Use( GetOwner(), GetOwner(), USE_ON, 0 );
-			//variant_t emptyVariant;
-			//pSatchel->AcceptInput( "Explode", NULL, NULL, emptyVariant, 5 );
-			g_EventQueue.AddEvent( pSatchel, "Explode", 0.20, GetOwner(), GetOwner() );
+			g_EventQueue.AddEvent( pSatchel, "Explode", weapon_slam_thrown_activationdelay.GetFloat(), GetOwner(), GetOwner());
 		}
 	}
 	// Play sound for pressing the detonator
@@ -599,7 +598,6 @@ void CWeapon_SLAM::SLAMThink( void )
 {
 	if ( m_flWallSwitchTime > gpGlobals->curtime )
 		 return;
-
 
 	// If not in tripmine mode we need to check to see if we are close to
 	// a wall. If we are we go into satchel_attach mode

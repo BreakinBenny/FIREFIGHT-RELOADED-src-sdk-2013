@@ -816,6 +816,38 @@
 				"textprecision" "2"
 			}
             
+            "AR2ScopedBullets"
+			{
+				"text"			"#GameUI_AR2ScopedBullets"
+				"type"			"slideyslide"
+				"convar"		"weapon_ar2_maxbulletsfired"
+                "advanced"		"1"
+                "hidden"		"1"
+
+				"min"			"1"
+				"max"			"30"
+				"step"			"1"
+
+				"textprecision" "2"
+			}
+            
+            "SLAMActivationDelay"
+			{
+				"text"			"#GameUI_SLAMActivationDelay"
+				"type"			"slideyslide"
+				"convar"		"weapon_slam_thrown_activationdelay"
+                "advanced"		"1"
+                "hidden"		"1"
+
+				"min"			"0"
+				"max"			"1"
+				"step"			"0.01"
+                "step_adjustment"   "10"
+                "step_adjustment_multiplier" "1"
+
+				"textprecision" "2"
+			}
+            
             "PumpSecondaryFire"
 			{
 				"text"			"#GameUI_PumpSecondaryFire"
@@ -2371,7 +2403,9 @@
 
 				"min"			"0"
 				"max"			"255"
-				"step"			"5"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2384,7 +2418,9 @@
 
 				"min"			"0"
 				"max"			"255"
-				"step"			"5"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2397,7 +2433,9 @@
 
 				"min"			"0"
 				"max"			"255"
-				"step"			"5"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2481,7 +2519,9 @@
 
 				"min"			"0"
 				"max"			"255"
-				"step"			"5"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2494,7 +2534,9 @@
 
 				"min"			"0"
 				"max"			"255"
-				"step"			"5"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2507,7 +2549,9 @@
 
 				"min"			"0"
 				"max"			"255"
-				"step"			"5"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2520,7 +2564,9 @@
 
 				"min"			"0"
 				"max"			"255"
-				"step"			"5"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2533,7 +2579,9 @@
 
 				"min"			"0"
 				"max"			"255"
-				"step"			"5"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2546,7 +2594,9 @@
 
 				"min"			"0"
 				"max"			"255"
-				"step"			"5"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2559,7 +2609,9 @@
 
 				"min"			"0"
 				"max"			"255"
-				"step"			"5"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2572,7 +2624,9 @@
 
 				"min"			"0"
 				"max"			"255"
-				"step"			"5"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2585,7 +2639,9 @@
 
 				"min"			"0"
 				"max"			"255"
-				"step"			"5"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2598,7 +2654,9 @@
 
 				"min"			"0"
 				"max"			"255"
-				"step"			"5"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2611,7 +2669,9 @@
 
 				"min"			"0"
 				"max"			"255"
-				"step"			"5"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
@@ -2624,7 +2684,39 @@
 
 				"min"			"0"
 				"max"			"255"
-				"step"			"5"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
+
+				"textprecision" "2"
+			}
+            
+            "DamageNumbersMaxDamage"
+			{
+				"text"			"#GameUI_DamageNumbersMaxDamage"
+				"type"			"slideyslide"
+				"convar"		"hud_hitdamage_maxdamage"
+
+				"min"			"0"
+				"max"			"9999"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
+
+				"textprecision" "2"
+			}
+            
+            "DamageNumbersMaxHits"
+			{
+				"text"			"#GameUI_DamageNumbersMaxHits"
+				"type"			"slideyslide"
+				"convar"		"hud_hitdamage_maxcount"
+
+				"min"			"0"
+				"max"			"999"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
 
 				"textprecision" "2"
 			}
