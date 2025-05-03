@@ -45,7 +45,6 @@ void RegisterUserMessages( void )
 	usermessages->Register( "LogoTimeMsg", 4 );
 	usermessages->Register( "AchievementEvent", -1 );
 	usermessages->Register( "UpdateJalopyRadar", -1 );
-	usermessages->Register( "AchievementHintText", -1 );
 	usermessages->Register( "LevelHintText", -1 );
 	usermessages->Register( "PerkHintText", -1 );
 
