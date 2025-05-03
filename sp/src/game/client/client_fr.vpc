@@ -236,7 +236,6 @@ $Project "Client (FR)"
 
 			$Folder	"HUD Elements"
 			{
-				$File	"firefightreloaded\hud_achievementhintdisplay.cpp"
 				$File	"firefightreloaded\hud_exp.cpp"
 				$File	"firefightreloaded\hud_level.cpp"
 				$File	"firefightreloaded\hud_levelhintdisplay.cpp"
