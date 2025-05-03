@@ -40,6 +40,8 @@ ConVar	hud_hitdamage_blue_death("hud_hitdamage_blue_death", "0", FCVAR_ARCHIVE);
 
 ConVar	hud_hitdamage_showhitcount("hud_hitdamage_showhitcount", "1", FCVAR_ARCHIVE);
 
+ConVar	hud_hitdamage_maxcount("hud_hitdamage_maxcount", "999", FCVAR_ARCHIVE);
+
 extern ConVar hud_drawhistory_time;
 
 DECLARE_HUDELEMENT( CHudHistoryResource );
@@ -306,7 +308,19 @@ void CHudHistoryResource::AddIconToHistory( int iType, int iId, C_BaseCombatWeap
 			freeslot->bIsRare = freeslot->bIsBoss = false;
 		}
 		freeslot->bIsAlive = bIsAlive;
-		freeslot->iDMGCount = iDMGCount;
+
+		if (iDMGCount > hud_hitdamage_maxcount.GetInt())
+		{
+			freeslot->iDMGCount = hud_hitdamage_maxcount.GetInt();
+		}
+		else if (iDMGCount < 0)
+		{
+			freeslot->iDMGCount = 0;
+		}
+		else
+		{
+			freeslot->iDMGCount = iDMGCount;
+		}
 	}
 
 	if (iType == HISTSLOT_AMMODENIED)

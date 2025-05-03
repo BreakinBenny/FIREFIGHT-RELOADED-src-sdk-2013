@@ -95,7 +95,7 @@ protected:
 	float					m_flDelayedFire;
 	bool					m_bShotDelayed;
 	int						m_nVentPose;
-	bool					m_bFiredFirstBullet;
+	bool					m_bFiredHeadshotBullets;
 	
 	DECLARE_ACTTABLE();
 	DECLARE_DATADESC();

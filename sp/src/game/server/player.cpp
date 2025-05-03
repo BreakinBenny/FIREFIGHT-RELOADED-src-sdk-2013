@@ -8620,7 +8620,10 @@ bool CBasePlayer::ClientCommand( const CCommand &args )
 	}
 	else if (stricmp(cmd, "healthkit") == 0)
 	{
-		if (GetHealth() < GetMaxHealthValue())
+		//we should be going to our max health and not the player's
+		//pre-set value.
+		//if (GetHealth() < GetMaxHealthValue())
+		if (GetHealth() < GetMaxHealth())
 		{
 			int moneyAmount = atoi(args[1]);
 

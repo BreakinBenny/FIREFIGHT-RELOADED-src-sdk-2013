@@ -321,10 +321,10 @@ void CWeaponGatling::PrimaryAttack(void)
 		// MUST call sound before removing a round from the clip of a CHLMachineGun
 		WeaponSound(SINGLE, m_flNextPrimaryAttack);
 		m_flNextPrimaryAttack = m_flNextPrimaryAttack + fireRate;
-		iBulletsToFire++;
+		iBulletsToFire += 3;
 	}
 
-	pPlayer->RemoveAmmo(iBulletsToFire, m_iPrimaryAmmoType);
+	pPlayer->RemoveAmmo(1, m_iPrimaryAmmoType);
 
 	m_iPrimaryAttacks++;
 	gamestats->Event_WeaponFired(pPlayer, true, GetClassname());

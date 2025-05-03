@@ -36,6 +36,8 @@ ConVar sk_weapon_ar2_alt_fire_radius( "sk_weapon_ar2_alt_fire_radius", "10" );
 ConVar sk_weapon_ar2_alt_fire_duration( "sk_weapon_ar2_alt_fire_duration", "2" );
 ConVar sk_weapon_ar2_alt_fire_mass( "sk_weapon_ar2_alt_fire_mass", "150" );
 
+ConVar weapon_ar2_maxbulletsfired("weapon_ar2_maxbulletsfired", "5");
+
 //=========================================================
 //=========================================================
 
@@ -46,7 +48,7 @@ BEGIN_DATADESC( CWeaponAR2 )
 	//DEFINE_FIELD( m_nVentPose, FIELD_INTEGER ),
     DEFINE_FIELD( m_bZoomed,	FIELD_BOOLEAN ),
     DEFINE_FIELD( m_iFireMode, FIELD_INTEGER ),
-	DEFINE_FIELD(m_bFiredFirstBullet, FIELD_BOOLEAN ),
+	DEFINE_FIELD(m_bFiredHeadshotBullets, FIELD_BOOLEAN),
 
 END_DATADESC()
 
@@ -130,7 +132,7 @@ CWeaponAR2::CWeaponAR2( )
 	m_nVentPose		= -1;
 
 	m_bAltFiresUnderwater = false;
-	m_bFiredFirstBullet = false;
+	m_bFiredHeadshotBullets = false;
 }
 
 //-----------------------------------------------------------------------------
@@ -201,13 +203,16 @@ void CWeaponAR2::PrimaryAttack(void)
 	info.m_flDistance = MAX_TRACE_LENGTH;
 	info.m_iAmmoType = m_iPrimaryAmmoType;
 	info.m_flDamage = info.m_iPlayerDamage = (m_bZoomed ? (def->PlrDamage(m_iPrimaryAmmoType) * 2.5) : def->PlrDamage(m_iPrimaryAmmoType));
-	info.m_nDamageFlags = ((m_bZoomed && !m_bFiredFirstBullet) ? (def->DamageType(info.m_iAmmoType) | DMG_SNIPER) : def->DamageType(info.m_iAmmoType));
+	info.m_nDamageFlags = ((m_bZoomed && !m_bFiredHeadshotBullets) ? (def->DamageType(info.m_iAmmoType) | DMG_SNIPER) : def->DamageType(info.m_iAmmoType));
 	info.m_iTracerFreq = 2;
 	pPlayer->FireBullets(info);
 
-	if (!m_bFiredFirstBullet)
+	if (!m_bFiredHeadshotBullets)
 	{
-		m_bFiredFirstBullet = true;
+		if (m_nShotsFired >= weapon_ar2_maxbulletsfired.GetInt())
+		{
+			m_bFiredHeadshotBullets = true;
+		}
 	}
 
 	//Factor in the view kick
@@ -242,7 +247,6 @@ void CWeaponAR2::PrimaryAttack(void)
 //-----------------------------------------------------------------------------
 void CWeaponAR2::ItemPostFrame( void )
 {
-
 	// See if we need to fire off our secondary round
 	if ( m_bShotDelayed && gpGlobals->curtime > m_flDelayedFire )
 	{
@@ -331,7 +335,13 @@ void CWeaponAR2::ItemPostFrame( void )
 		}
 	}
 
-	BaseClass::ItemPostFrame();
+	// Debounce the recoiling counter if we're not zoomed
+	if (!m_bZoomed && ((pOwner->m_nButtons & IN_ATTACK) == false))
+	{
+		m_nShotsFired = 0;
+	}
+
+	CBaseCombatWeapon::ItemPostFrame();
 }
 
 //-----------------------------------------------------------------------------
@@ -583,9 +593,11 @@ bool CWeaponAR2::Reload( void )
 	if ( m_bShotDelayed )
 		return false;
 
-	if (m_bFiredFirstBullet)
+	if (m_bFiredHeadshotBullets)
 	{
-		m_bFiredFirstBullet = false;
+		//reset m_nShotsFired so we can instantly fire headshot bullets again.
+		m_nShotsFired = 0;
+		m_bFiredHeadshotBullets = false;
 	}
 
 	return BaseClass::Reload();

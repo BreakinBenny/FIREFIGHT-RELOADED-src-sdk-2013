@@ -700,15 +700,16 @@ void CAI_BaseNPC::Event_Killed( const CTakeDamageInfo &info )
 
 		if ((gpGlobals->curtime - m_flLastDamageTime) < hud_hitdamage_delay.GetFloat())
 		{
+			m_iTimesDamaged++;
 			m_flSumDamageDMGIndicator += info.GetDamage();
 		}
 		else
 		{
+			m_iTimesDamaged = 1;
 			m_flSumDamageDMGIndicator = info.GetDamage();
 		}
 
 		m_flLastDamageTime = gpGlobals->curtime;
-		++m_iTimesDamaged;
 
 		CBasePlayer* player = ToBasePlayer(pAttacker);
 
@@ -1058,6 +1059,7 @@ int CAI_BaseNPC::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 		{
 			if (m_iHealth > 0)
 			{
+				m_iTimesDamaged++;
 				m_flSumDamageDMGIndicator += info.GetDamage();
 			}
 		}
@@ -1065,13 +1067,9 @@ int CAI_BaseNPC::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 		{
 			if (m_iHealth > 0)
 			{
+				m_iTimesDamaged = 1;
 				m_flSumDamageDMGIndicator = info.GetDamage();
 			}
-		}
-
-		if (m_iHealth > 0)
-		{
-			++m_iTimesDamaged;
 		}
 
 		m_flLastDamageTime = gpGlobals->curtime;
