@@ -124,8 +124,11 @@ public:
 			if (pAchievementMgr)
 			{
 				int id = ACHIEVEMENT_FIREFIGHTRELOADED_SKYBORNEPIN;
-				pAchievementMgr->AwardAchievement(id);
-				pAchievementMgr->ForceProgressPanel(id);
+				if (pAchievementMgr->CanAchieve(id) && !pAchievementMgr->HasAchieved(id))
+				{
+					pAchievementMgr->AwardAchievement(id);
+					pAchievementMgr->ForceProgressPanel(id);
+				}
 			}
 
 			C_BaseEntity::EmitSound( filter, SOUND_FROM_WORLD, ep );

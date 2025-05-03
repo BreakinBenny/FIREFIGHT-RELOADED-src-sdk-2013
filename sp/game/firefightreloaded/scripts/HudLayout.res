@@ -401,24 +401,6 @@
 		"PaintBackgroundType"	"2"
 	}
 	
-	HudAchievementHintDisplay
-	{
-		"fieldName"	"HudAchievementHintDisplay"
-		"visible"	"0"
-		"enabled" 	"1"
-		"xpos"		"r120"
-		"ypos"		"r260"
-		"wide"		"100"
-		"tall"		"200"
-		"text_xpos"	"8"
-		"text_ypos"	"8"
-		"text_xgap"	"8"
-		"text_ygap"	"8"
-		"TextColor"	"FgColor"
-
-		"PaintBackgroundType"	"2"
-	}
-	
 	HudLevelHintDisplay
 	{
 		"fieldName"	"HudLevelHintDisplay"
@@ -591,7 +573,7 @@
 		"visible"				"1"
 		"enabled"				"1"
 		"xpos"					"0"
-		"ypos"					"180"
+		"ypos"					"375"
 		"wide"					"f10"
 		"tall"					"100"
 	}

@@ -203,7 +203,7 @@ void CBaseAchievement::IncrementCount( int iOptIncrement )
 {
 	if ( !IsAchieved() && LocalPlayerCanEarn() )
 	{
-		if ( !AlwaysEnabled() && !m_pAchievementMgr->CheckAchievementsEnabled() )
+		if ( !m_pAchievementMgr->CanAchieve(m_iAchievementID))
 		{
 			Msg( "Achievements disabled, ignoring achievement progress for %s\n", GetName() );
 			return;
@@ -438,7 +438,7 @@ void CBaseAchievement::EnsureComponentBitSetAndEvaluate( int iBitNumber )
 	// see if we already have gotten this component
 	if ( 0 == ( iBitMask & m_iComponentBits ) )
 	{				
-		if ( !AlwaysEnabled() && !m_pAchievementMgr->CheckAchievementsEnabled() )
+		if (!m_pAchievementMgr->CanAchieve(m_iAchievementID))
 		{
 			Msg( "Achievements disabled, ignoring achievement component for %s\n", GetName() );
 			return;

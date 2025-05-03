@@ -68,6 +68,10 @@ public:
 
 	CBaseAchievement *GetAchievementByName( const char *pchName );
 	bool	HasAchieved( const char *pchName );
+	bool	HasAchieved( int iAchievementID);
+
+	bool	CanAchieve(const char* pchName);
+	bool	CanAchieve(int iAchievementID);
 
 	void UploadUserData();
 	void DownloadUserData();

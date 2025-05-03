@@ -643,6 +643,30 @@ bool CAchievementMgr::HasAchieved( const char *pchName )
 	return false;
 }
 
+bool CAchievementMgr::HasAchieved(int iAchievementID)
+{
+	CBaseAchievement* pAchievement = GetAchievementByID(iAchievementID);
+	if (pAchievement)
+		return pAchievement->IsAchieved();
+	return false;
+}
+
+bool CAchievementMgr::CanAchieve(const char* pchName)
+{
+	CBaseAchievement* pAchievement = GetAchievementByName(pchName);
+	if (pAchievement)
+		return (pAchievement->AlwaysEnabled() || CheckAchievementsEnabled());
+	return false;
+}
+
+bool CAchievementMgr::CanAchieve(int iAchievementID)
+{
+	CBaseAchievement* pAchievement = GetAchievementByID(iAchievementID);
+	if (pAchievement)
+		return (pAchievement->AlwaysEnabled() || CheckAchievementsEnabled());
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: downloads user data from Steam or XBox Live
 //-----------------------------------------------------------------------------
@@ -915,7 +939,7 @@ void CAchievementMgr::AwardAchievement( int iAchievementID )
 	if ( !pAchievement )
 		return;
 
-	if ( !pAchievement->AlwaysEnabled() && !CheckAchievementsEnabled() )
+	if (!CanAchieve(iAchievementID))
 	{
 		Msg( "Achievements disabled, ignoring achievement unlock for %s\n", pAchievement->GetName() );
 		return;
@@ -1005,7 +1029,7 @@ void CAchievementMgr::UpdateAchievement( int iAchievementID, int nData )
 	if ( !pAchievement )
 		return;
 
-	if ( !pAchievement->AlwaysEnabled() && !CheckAchievementsEnabled() )
+	if (!CanAchieve(iAchievementID))
 	{
 		Msg( "Achievements disabled, ignoring achievement update for %s\n", pAchievement->GetName() );
 		return;
@@ -1030,7 +1054,7 @@ bool CAchievementMgr::IsAchievementExperimental(int iAchievementID)
 	if (!pAchievement)
 		return false;
 
-	if (!pAchievement->AlwaysEnabled() && !CheckAchievementsEnabled())
+	if (!CanAchieve(iAchievementID))
 	{
 		Msg("Achievements disabled, ignoring achievement check for %s\n", pAchievement->GetName());
 		return false;
@@ -1047,7 +1071,7 @@ void CAchievementMgr::ForceProgressPanel(int iAchievementID)
 	if (!pAchievement)
 		return;
 
-	if (!pAchievement->AlwaysEnabled() && !CheckAchievementsEnabled())
+	if (!CanAchieve(iAchievementID))
 	{
 		Msg("Achievements disabled, ignoring achievement panel for %s\n", pAchievement->GetName());
 		return;
