@@ -45,43 +45,19 @@ WeaponData
 	{
 		"weapon"
 		{
-			"file"		"sprites/weapons/knife_icon"
+			"file"		"sprites/weapons/hud_weapons_knife"
 			"x"		"0"
 			"y"		"0"
-			"width"		"64"
-			"height"	"32"
+			"width"		"256"
+			"height"		"64"
 		}
 		"weapon_s"
 		{
-			"file"		"sprites/weapons/knife_icon"
+			"file"		"sprites/weapons/hud_weapons_knife"
 			"x"		"0"
 			"y"		"0"
-			"width"		"64"
-			"height"	"32"
-		}
-		"weapon_small"
-		{
-			"file"		"sprites/weapons/knife_icon"
-			"x"		"0"
-			"y"		"0"
-			"width"		"64"
-			"height"	"32"
-		}
-		"ammo"
-		{
-			"file"		"sprites/weapons/knife_icon"
-			"x"		"0"
-			"y"		"0"
-			"width"		"64"
-			"height"	"32"
-		}
-		"ammo2"
-		{
-			"file"		"sprites/640hud7"
-			"x"			"48"
-			"y"			"72"
-			"width"		"24"
-			"height"	"24"
+			"width"		"256"
+			"height"		"64"
 		}
 		"crosshair"
 		{

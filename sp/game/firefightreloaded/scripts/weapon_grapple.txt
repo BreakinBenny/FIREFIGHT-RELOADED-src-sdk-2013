@@ -46,18 +46,19 @@ WeaponData
 	{
 		"weapon"
 		{
-				"font"		"WeaponIcons"
-				"character"	"d"
+			"file"		"sprites/weapons/hud_weapons_grapple"
+			"x"			"0"
+			"y"			"0"
+			"width"		"128"
+			"height"	"64"
 		}
 		"weapon_s"
-		{	
-				"font"		"WeaponIconsSelected"
-				"character"	"d"
-		}
-		"weapon_small"
 		{
-				"font"		"WeaponIconsSmall"
-				"character"	"d"
+			"file"		"sprites/weapons/hud_weapons_grapple"
+			"x"			"0"
+			"y"			"0"
+			"width"		"128"
+			"height"	"64"
 		}
 		"ammo"
 		{

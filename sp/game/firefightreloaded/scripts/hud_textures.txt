@@ -385,27 +385,27 @@
 		}
 		"weapon_knife"
 		{
-				"file"		"sprites/weapons/knife_icon"
-				"x"		"0"
-				"y"		"0"
-				"width"		"64"
-				"height"	"32"
-		}
-		"knife_bolt"
-		{
-				"file"		"sprites/weapons/knife_icon"
-				"x"		"0"
-				"y"		"0"
-				"width"		"64"
-				"height"	"32"
-		}
-		"weapon_katana"
-		{
-				"file"		"sprites/weapons/hud_weapons_katana"
+				"file"		"sprites/weapons/hud_weapons_knife_killicon"
 				"x"		"0"
 				"y"		"0"
 				"width"		"128"
-				"height"	"32"
+				"height"		"32"
+		}
+		"knife_bolt"
+		{
+				"file"		"sprites/weapons/hud_weapons_knife_killicon"
+				"x"		"0"
+				"y"		"0"
+				"width"		"128"
+				"height"		"32"
+		}
+		"weapon_katana"
+		{
+				"file"		"sprites/weapons/hud_weapons_katana_killicon"
+				"x"		"0"
+				"y"		"0"
+				"width"		"128"
+				"height"		"32"
 		}
 		"weapon_railgun"
 		{
@@ -609,8 +609,8 @@
 				"file"		"sprites/weapons/flechette_icon"
 				"x"		"0"
 				"y"		"0"
-				"width"		"64"
-				"height"	"32"
+				"width"		"128"
+				"height"		"32"
 		}
 	}	
 }

@@ -16,7 +16,9 @@ FRTeam_t CFRTeamLoader::FRTeamMap[] =
 	{ TEAM_CYAN,			COLOR_CYAN },
 	{ TEAM_TURQUOISE,		COLOR_TURQUOISE },
 	{ TEAM_PINK,			COLOR_PINK },
-	{ TEAM_MAGENTA,			COLOR_MAGENTA }
+	{ TEAM_MAGENTA,			COLOR_MAGENTA },
+	{ TEAM_SMOD,			COLOR_FR_OLD },
+	{ TEAM_FR,				COLOR_FR },
 };
 
 Color CFRTeamLoader::GetColorForTeam(int iTeamNumber)
@@ -37,8 +39,8 @@ Color CFRTeamLoader::GetColorForTeam(int iTeamNumber)
 
 void CFRTeamLoader::LoadColors(Color* colorArray)
 {
-	for (int i = 0; i < ARRAYSIZE(CFRTeamLoader::FRTeamMap); i++)
+	for (int i = 0; i < ARRAYSIZE(FRTeamMap); i++)
 	{
-		colorArray[CFRTeamLoader::FRTeamMap[i].id] = CFRTeamLoader::FRTeamMap[i].col;
+		colorArray[FRTeamMap[i].id] = FRTeamMap[i].col;
 	}
 }

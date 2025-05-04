@@ -2,7 +2,7 @@
 "npc_hunter_preset6"
 {
 	"name"		"projectile testing hunter"
-	"team"		"15"
+	"team"		"-2"
 	"new_model"		"models/hunter_colorable.mdl"
 	"is_rare"		"1"
 	"new_projectile_random"	"1"

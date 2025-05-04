@@ -7340,7 +7340,7 @@ void CAI_BaseNPC::AssignKilllogTeams(int teamNumber)
 	bool bCustomTeam = false;
 	int iCustomTeam = TEAM_UNASSIGNED;
 
-	if (teamNumber > TEAM_SPECTATOR)
+	if (teamNumber == TEAM_ANY || teamNumber > TEAM_SPECTATOR)
 	{
 		iCustomTeam = teamNumber;
 		bCustomTeam = true;
@@ -7351,7 +7351,7 @@ void CAI_BaseNPC::AssignKilllogTeams(int teamNumber)
 		{
 			int team = m_pAttributes->GetInt("team", TEAM_INVALID);
 
-			if (team > TEAM_SPECTATOR)
+			if (team == TEAM_ANY || team > TEAM_SPECTATOR)
 			{
 				iCustomTeam = team;
 				bCustomTeam = true;
@@ -7361,9 +7361,11 @@ void CAI_BaseNPC::AssignKilllogTeams(int teamNumber)
 
 	if (bCustomTeam)
 	{
-		if (iCustomTeam == TEAM_RANDOM)
+		if (iCustomTeam == TEAM_ANY)
 		{
-			iCustomTeam = random->RandomInt(TEAM_NPC_FIRST, TEAM_NPC_LAST);
+			CUniformRandomStream teamRandom;
+			teamRandom.SetSeed((int)gpGlobals->curtime);
+			iCustomTeam = teamRandom.RandomInt(TEAM_NPC_FIRST, TEAM_NPC_LAST);
 		}
 
 		ChangeTeam(iCustomTeam);

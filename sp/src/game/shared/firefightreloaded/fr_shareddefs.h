@@ -127,12 +127,12 @@ enum FR_UpgradeIDs_t
 #define TEAM_TURQUOISE	12
 #define TEAM_PINK		13
 #define TEAM_MAGENTA	14
+#define TEAM_SMOD		15
+#define TEAM_FR			16
 
 //CHANGE THESE IF YOU ADD A NEW TEAM
 #define TEAM_NPC_FIRST	TEAM_RED
-#define TEAM_NPC_LAST	TEAM_MAGENTA
-
-#define TEAM_RANDOM		15
+#define TEAM_NPC_LAST	TEAM_FR
 
 typedef struct
 {
@@ -143,6 +143,7 @@ typedef struct
 class CFRTeamLoader
 {
 public:
+
 	static FRTeam_t FRTeamMap[];
 	static Color GetColorForTeam(int iTeamNumber);
 	static void LoadColors(Color *colorArray);

@@ -69,16 +69,16 @@ WeaponData
 				"file"		"sprites/weapons/hud_weapon_grenadelauncher"
 				"x"			"0"
 				"y"			"0"
-				"width"		"128"
-				"height"	"64"
+				"width"			"256"
+				"height"			"64"
 		}
 		"weapon_s"
 		{	
 				"file"		"sprites/weapons/hud_weapon_grenadelauncher"
 				"x"			"0"
 				"y"			"0"
-				"width"		"128"
-				"height"	"64"
+				"width"			"256"
+				"height"			"64"
 		}
 		"ammo"
 		{

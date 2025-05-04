@@ -52,32 +52,24 @@ WeaponData
 			"file"		"sprites/weapons/hud_weapons_katana"
 			"x"		"0"
 			"y"		"0"
-			"width"		"128"
-			"height"	"32"
+			"width"		"256"
+			"height"		"64"
 		}
 		"weapon_s"
 		{
 			"file"		"sprites/weapons/hud_weapons_katana"
 			"x"		"0"
 			"y"		"0"
-			"width"		"128"
-			"height"	"32"
-		}
-		"weapon_small"
-		{
-			"file"		"sprites/weapons/hud_weapons_katana"
-			"x"		"0"
-			"y"		"0"
-			"width"		"128"
-			"height"	"32"
+			"width"		"256"
+			"height"		"64"
 		}
 		"ammo"
 		{
 			"file"		"sprites/weapons/hud_weapons_katana"
 			"x"		"0"
 			"y"		"0"
-			"width"		"128"
-			"height"	"32"
+			"width"		"256"
+			"height"		"64"
 		}
 		"ammo2"
 		{
