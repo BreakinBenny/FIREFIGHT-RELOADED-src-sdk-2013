@@ -1,0 +1,43 @@
+//#Playlist
+//WARNING: DO NOT REMOVE THESE TOP COMMENTS.
+//FABRICATOR REQUIRES THE FIRST COMMENT TO LOAD THIS FILE.
+
+"default_fr_invasion"
+{
+	//FR tracks here
+	"1"
+	{
+		"path"	"music/FR_theme2.mp3"
+		"title"	"LIMITLESS POTENTIAL"
+		"artist"	"Bitl Development Studio"
+		"album"	"FirefightReloadedInvasion"
+	}
+	"2"
+	{
+		"path"	"music/FR_Combat6.mp3"
+		"title"	"WALLHAMMER"
+		"artist"	"Bitl Development Studio"
+		"album"	"FirefightReloadedInvasion"
+	}
+	"3"
+	{
+		"path"	"music/FR_Combat8.mp3"
+		"title"	"DEBRIDE AND CAUTERIZE"
+		"artist"	"Bitl Development Studio"
+		"album"	"FirefightReloadedInvasion"
+	}
+	"4"
+	{
+		"path"	"music/FR_Combat7.mp3"
+		"title"	"AXEBANE"
+		"artist"	"Bitl Development Studio"
+		"album"	"FirefightReloadedInvasion"
+	}
+	"5"
+	{
+		"path"	"music/FR_Combat9.mp3"
+		"title"	"CHOKEHOLD"
+		"artist"	"Bitl Development Studio"
+		"album"	"FirefightReloadedInvasion"
+	}
+}
