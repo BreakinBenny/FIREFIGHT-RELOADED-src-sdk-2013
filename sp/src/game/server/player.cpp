@@ -133,6 +133,7 @@ ConVar sk_savedroppedweapons("sk_savedroppedweapons", "0", FCVAR_ARCHIVE);
 ConVar player_defaulthealth("player_defaulthealth", "200", FCVAR_ARCHIVE, "");
 ConVar player_defaultarmor("player_defaultarmor", "200", FCVAR_REPLICATED | FCVAR_ARCHIVE, "");
 ConVar player_maxarmor("player_maxarmor", "500", FCVAR_REPLICATED | FCVAR_ARCHIVE, "");
+ConVar player_defaulthealthoverchargecap("player_defaulthealthoverchargecap", "9999", FCVAR_ARCHIVE, "");
 
 ConVar sv_autosave_levelup("sv_autosave_levelup", "1", FCVAR_ARCHIVE);
 
@@ -6314,10 +6315,17 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 			}
 		}
 
-		if (GetHealth() > GetMaxHealthValue())
+		int internalMaxHealth = pNode->GetInt("healthoverchargecap", 0);
+
+		if (internalMaxHealth > 0)
+		{
+			SetMaxHealth(internalMaxHealth);
+		}
+
+		/*if (GetHealth() > GetMaxHealthValue())
 		{
 			SetHealth(GetMaxHealthValue());
-		}
+		}*/
 
 		int armorNum = pNode->GetInt("armor", 0);
 		bool setMaxArmor = pNode->GetBool("setmaxarmor", false);
@@ -6596,7 +6604,7 @@ void CBasePlayer::Spawn( void )
 	SetBlocksLOS( false );
 	
 	m_iHealth			= m_MaxHealthVal;
-	m_iMaxHealth		= INT_MAX;
+	m_iMaxHealth		= player_defaulthealthoverchargecap.GetInt();
 
 	// Clear all flags except for FL_FULLEDICT
 	if ( GetFlags() & FL_FAKECLIENT )

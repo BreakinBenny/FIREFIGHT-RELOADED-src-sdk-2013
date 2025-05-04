@@ -238,7 +238,7 @@ ConVar snd_fmod_musicsystem("snd_fmod_musicsystem", "1", FCVAR_ARCHIVE);
 ConVar snd_fmod_musicsystem_forceshuffle("snd_fmod_musicsystem_forceshuffle", "0", FCVAR_ARCHIVE);
 ConVar snd_fmod_musicsystem_playlist("snd_fmod_musicsystem_playlist", "scripts/playlists/default.txt", FCVAR_ARCHIVE, "");
 
-ConVar snd_fmod_musicsystem_devmessages("snd_fmod_musicsystem_devmessages", "0", FCVAR_DEVELOPMENTONLY);
+ConVar snd_fmod_musicsystem_devmessages("snd_fmod_musicsystem_devmessages", "0");
 
 void CC_ReloadSystem(void)
 {

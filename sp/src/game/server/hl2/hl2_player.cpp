@@ -1915,19 +1915,19 @@ void CHL2_Player::Spawn(void)
 
 	if (sv_suitintro.GetInt() == 1)
 	{
-		SetSuitUpdate("!HEV_AAx", false, SUIT_REPEAT_OK);
+		SetSuitUpdate("!HEV_AAx", false, SUIT_NEXT_IN_10MIN);
 	}
 	else if (sv_suitintro.GetInt() == 2)
 	{
-		SetSuitUpdate("!HEV_A0", false, SUIT_REPEAT_OK);
+		SetSuitUpdate("!HEV_A0", false, SUIT_NEXT_IN_10MIN);
 	}
 	else if (sv_suitintro.GetInt() == 3)
 	{
-		SetSuitUpdate("!HEV_FR_BOOTUP", false, SUIT_REPEAT_OK);
+		SetSuitUpdate("!HEV_FR_BOOTUP", false, SUIT_NEXT_IN_10MIN);
 	}
 	else if (sv_suitintro.GetInt() == 4)
 	{
-		SetSuitUpdate("HEV_FR_BOOTUP_SHORT", false, SUIT_REPEAT_OK);
+		SetSuitUpdate("HEV_FR_BOOTUP_SHORT", false, SUIT_NEXT_IN_10MIN);
 	}
 
 	DeterminePlayerModel();
@@ -2602,6 +2602,11 @@ void CHL2_Player::EndCharge(void)
 	//bash into whatever.
 	ChargeBash();
 
+	EndChargeInternal();
+}
+
+void CHL2_Player::EndChargeInternal(void)
+{
 	SetCharging(false);
 	DeriveMaxSpeed();
 
@@ -3999,6 +4004,9 @@ void CHL2_Player::Event_Killed( const CTakeDamageInfo &info )
 			}
 		}
 	}
+
+	//stop fucking charging you IDIOT.
+	EndChargeInternal();
 
 	m_lifeState = LIFE_DEAD;
 

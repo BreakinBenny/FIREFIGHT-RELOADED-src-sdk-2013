@@ -10,6 +10,7 @@
 		"setmaxhealth"	"1"
 		"armor"		"100"
 		"setmaxarmor"	"1"
+		"healthoverchargecap" "450"
 		"preventweaponpickup" "1"
 		"permadeath" 	"1"
 	}

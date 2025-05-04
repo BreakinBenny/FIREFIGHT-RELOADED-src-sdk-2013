@@ -291,7 +291,10 @@ void CClientThinkList::PerformThinkFunctions()
 	int i;
 	for ( i = 0; i < nThinkCount; ++i )
 	{
-		PerformThinkFunction( ppThinkEntryList[i], gpGlobals->curtime );		
+		if (ppThinkEntryList[i])
+		{
+			PerformThinkFunction(ppThinkEntryList[i], gpGlobals->curtime);
+		}
 	}
 
 	m_bInThinkLoop = false;

@@ -48,16 +48,16 @@ WeaponData
 			"file"		"sprites/weapons/hud_weapons_knife"
 			"x"		"0"
 			"y"		"0"
-			"width"		"256"
-			"height"		"64"
+			"width"		"128"
+			"height"		"32"
 		}
 		"weapon_s"
 		{
 			"file"		"sprites/weapons/hud_weapons_knife"
 			"x"		"0"
 			"y"		"0"
-			"width"		"256"
-			"height"		"64"
+			"width"		"128"
+			"height"		"32"
 		}
 		"crosshair"
 		{

@@ -112,6 +112,7 @@ public:
 	bool				CanCharge(void);
 	void				DoCharge(void);
 	void				EndCharge(void);
+	void				EndChargeInternal(void);
 	void				ChargeBash(void);
 	bool				CheckBash(void);
 	bool				IsCharging(void) { return m_bCharging; }

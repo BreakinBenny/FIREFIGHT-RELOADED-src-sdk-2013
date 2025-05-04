@@ -179,7 +179,7 @@
 		"visible" "1"
 		"enabled" "1"
 		"SmallBoxSize" "50"
-		"LargeBoxWide" "178"
+		"LargeBoxWide" "198"
 		"LargeBoxTall" "50"
 		"BoxGap" "4"
 		"SelectionNumberXPos" "4"
