@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "8869"
-	"mapversion" "166"
+	"mapversion" "167"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -89,7 +89,7 @@ bgimages_plus
 world
 {
 	"id" "1"
-	"mapversion" "166"
+	"mapversion" "167"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -27574,6 +27574,8 @@ entity
 		"OnDeath" "cmd,AddOutput,npc_kill *,0,-1"
 		"OnDeath" "screeneffect,StopEffect,1,0,-1"
 		"OnDeath" "overlay,StopOverlays,,0,-1"
+		"OnDeath" "turret1,Disable,,0,-1"
+		"OnDeath" "turret2,Disable,,0,-1"
 	}
 	"origin" "-1 -936 711"
 	editor
