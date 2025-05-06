@@ -38,7 +38,8 @@
 "OutroCreditsNames"
 {
 	"FIREFIGHT RELOADED" "ClientTitleFont"
-	"E N D G A M E" "ClientTitleFontSmall"
+	//"E N D G A M E" "ClientTitleFontSmall"
+	"I N V A S I O N" "ClientTitleFontSmall"
 	"PROJECT TWILIGHT"   "CreditsOutroText"
 	" "	"CreditsOutroText"
 	"Asset Credits:"	"CreditsOutroText"
