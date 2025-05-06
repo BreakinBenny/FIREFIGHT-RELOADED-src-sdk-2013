@@ -1186,7 +1186,6 @@ void CNPC_Advisor::RunTask( const Task_t *pTask )
 					pPlayer->StopWallRunSound();
 
 					pPlayer->SetGroundEntity(NULL);
-					pPlayer->DeriveMaxSpeed();
 					pPlayer->m_flCoyoteTime = 0;
 					pPlayer->m_Local.m_vecTargetPunchAngle.Set(ROLL, 0);
 					pPlayer->m_vecLastWallRunPos = pPlayer->GetAbsOrigin();
@@ -1863,6 +1862,7 @@ void CNPC_Advisor::Dronify(CBaseEntity* pOther)
 			//we need the outline to determine who is a drone.
 			pNPC->m_denyOutlines = false;
 			pNPC->GiveWildcardAttributes(1);
+			pNPC->AssignKilllogTeams();
 		}
 	}
 }

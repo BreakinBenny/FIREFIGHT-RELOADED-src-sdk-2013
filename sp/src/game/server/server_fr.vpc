@@ -432,8 +432,6 @@ $Project "Server (FR)"
 			$File	"$SRCDIR\game\shared\firefightreloaded\singleplayer_animstate.cpp"
 			$File	"$SRCDIR\game\shared\firefightreloaded\singleplayer_animstate.h"
 			$File	"firefightreloaded\node_placement.cpp"
-            $File	"$SRCDIR\game\shared\firefightreloaded\mapinfo.cpp"
-			$File	"$SRCDIR\game\shared\firefightreloaded\mapinfo.h"
             $File	"$SRCDIR\game\shared\firefightreloaded\fr_shareddefs.cpp"
 			$File	"$SRCDIR\game\shared\firefightreloaded\fr_shareddefs.h"
 

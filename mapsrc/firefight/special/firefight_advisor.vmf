@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "8869"
-	"mapversion" "165"
+	"mapversion" "166"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -89,7 +89,7 @@ bgimages_plus
 world
 {
 	"id" "1"
-	"mapversion" "165"
+	"mapversion" "166"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -25858,7 +25858,7 @@ entity
 {
 	"id" "4670"
 	"classname" "player_speedmod"
-	"spawnflags" "189"
+	"spawnflags" "253"
 	"targetname" "speedmod"
 	"origin" "-81.2399 509.611 129"
 	editor
@@ -27571,7 +27571,9 @@ entity
 		"OnStopPlayerPin" "overlay,StopOverlays,,0,-1"
 		"OnPlayerPin" "screeneffect,StartEffect,5,0,-1"
 		"OnStopPlayerPin" "screeneffect,StopEffect,1,0,-1"
-		"OnDeath" "servercmd,AddOutput,npc_kill *,0,-1"
+		"OnDeath" "cmd,AddOutput,npc_kill *,0,-1"
+		"OnDeath" "screeneffect,StopEffect,1,0,-1"
+		"OnDeath" "overlay,StopOverlays,,0,-1"
 	}
 	"origin" "-1 -936 711"
 	editor
@@ -27640,20 +27642,6 @@ entity
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 4000]"
-	}
-}
-entity
-{
-	"id" "21043"
-	"classname" "point_servercommand"
-	"targetname" "servercmd"
-	"origin" "-24 508 129"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 0]"
 	}
 }
 cameras

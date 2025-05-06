@@ -8,6 +8,7 @@
 #define WEAPON_KATANA_H
 
 #include "basebludgeonweapon.h"
+#include "fr_shareddefs.h"
 
 #if defined( _WIN32 )
 #pragma once
@@ -42,6 +43,8 @@ public:
 
 	void		AddViewKick( void );
 
+	void		Equip(CBaseCombatCharacter* pOwner);
+
 	void		PrimaryAttack(void);
 	void		SecondaryAttack(void);
 	bool		CanHolster(void);
@@ -58,6 +61,8 @@ private:
 	int			m_iKills;
 	float		m_flLastKill;
 	bool		m_bKillMultiplier;
+
+	FRKeyValuesLoader m_kvEnemyResist;
 };
 
 #endif // WEAPON_KATANA_H

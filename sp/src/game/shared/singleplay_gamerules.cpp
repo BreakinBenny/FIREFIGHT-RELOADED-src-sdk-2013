@@ -8,7 +8,7 @@
 #include "singleplay_gamerules.h"
 #include "fmtstr.h"
 #include "hl2_shareddefs.h"
-#include "firefightreloaded/mapinfo.h"
+#include "firefightreloaded/fr_shareddefs.h"
 
 #ifdef CLIENT_DLL
 

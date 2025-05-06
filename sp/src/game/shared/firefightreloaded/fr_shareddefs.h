@@ -6,6 +6,7 @@
 #endif
 
 #include "const.h"
+#include "KeyValues.h"
 #include "Color.h"
 #include "shareddefs.h"
 
@@ -147,6 +148,21 @@ public:
 	static FRTeam_t FRTeamMap[];
 	static Color GetColorForTeam(int iTeamNumber);
 	static void LoadColors(Color *colorArray);
+};
+
+class FRKeyValuesLoader
+{
+public:
+	void LoadEntries(const char* fileName, const char* kvHeader);
+	bool FindEntry(string_t query);
+	string_t	GrabRandomEntryString(void);
+	CUtlVector<string_t> m_storedVector;
+};
+
+class CMapInfo
+{
+public:
+	static KeyValues* GetMapInfoData();
 };
 
 #endif // FR_SHAREDDEFS_H

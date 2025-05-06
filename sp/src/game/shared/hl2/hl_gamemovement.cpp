@@ -254,7 +254,7 @@ void CHL2GameMovement::ProcessMovement(CBasePlayer* pBasePlayer, CMoveData* pMov
 	mv = pMove;
 
 	// The max speed is currently set to the scout - if this changes we need to change this!
-	mv->m_flMaxSpeed = sv_maxspeed.GetFloat();
+	mv->m_flMaxSpeed = sv_maxspeed.GetFloat() * player->GetLaggedMovementValue();
 
 	// Handle charging demomens
 	ChargeMove();
@@ -291,7 +291,7 @@ bool CHL2GameMovement::ChargeMove()
 	if (!GetHL2Player()->IsCharging())
 		return false;
 
-	mv->m_flMaxSpeed = fr_max_charge_speed.GetFloat();
+	mv->m_flMaxSpeed = fr_max_charge_speed.GetFloat() * player->GetLaggedMovementValue();
 
 	int oldbuttons = mv->m_nButtons;
 

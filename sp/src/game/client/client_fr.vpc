@@ -201,8 +201,6 @@ $Project "Client (FR)"
 			$File 	"firefightreloaded\fr_rendertargets.h"
 			$File	"firefightreloaded\fr_storemenuex.cpp"
 			$File	"firefightreloaded\fr_storemenuex.h"
-            $File	"$SRCDIR\game\shared\firefightreloaded\mapinfo.cpp"
-			$File	"$SRCDIR\game\shared\firefightreloaded\mapinfo.h"
             $File	"$SRCDIR\game\shared\firefightreloaded\fr_shareddefs.cpp"
 			$File	"$SRCDIR\game\shared\firefightreloaded\fr_shareddefs.h"
             

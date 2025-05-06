@@ -2,7 +2,6 @@
 #include "fmodmanager.h"
 #include "filesystem.h"
 #include "c_baseplayer.h"
-#include "firefightreloaded/mapinfo.h"
 #include "tier3/tier3.h"
 #include "tier1/iconvar.h"
 #include <vgui/ILocalize.h>

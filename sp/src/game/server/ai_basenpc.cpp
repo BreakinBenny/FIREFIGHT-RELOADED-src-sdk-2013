@@ -7330,8 +7330,9 @@ void CAI_BaseNPC::NPCInit ( void )
 	else
 	{
 		m_pAttributes = NULL;
-		AssignKilllogTeams();
 	}
+
+	AssignKilllogTeams();
 }
 
 //this portion is for kill feed colors. teams should not be checked instead of NPC relationships.
@@ -7340,7 +7341,7 @@ void CAI_BaseNPC::AssignKilllogTeams(int teamNumber)
 	bool bCustomTeam = false;
 	int iCustomTeam = TEAM_UNASSIGNED;
 
-	if (teamNumber == TEAM_ANY || teamNumber > TEAM_SPECTATOR)
+	if (teamNumber != TEAM_INVALID)
 	{
 		iCustomTeam = teamNumber;
 		bCustomTeam = true;
@@ -7351,7 +7352,7 @@ void CAI_BaseNPC::AssignKilllogTeams(int teamNumber)
 		{
 			int team = m_pAttributes->GetInt("team", TEAM_INVALID);
 
-			if (team == TEAM_ANY || team > TEAM_SPECTATOR)
+			if (teamNumber != TEAM_INVALID)
 			{
 				iCustomTeam = team;
 				bCustomTeam = true;
@@ -7574,8 +7575,6 @@ void CAI_BaseNPC::LoadInitAttributes()
 
 		m_iAttributePresetNum = m_pAttributes->presetNum;
 		m_IsWildcard = m_pAttributes->wildcard;
-
-		AssignKilllogTeams();
 	}
 }
 

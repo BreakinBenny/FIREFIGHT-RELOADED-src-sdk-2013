@@ -34,16 +34,7 @@ extern ConVar sk_plr_dmg_katana;
 static ConVar sv_katana_healthbonus_postdelay("sv_katana_healthbonus_postdelay", "5.0", FCVAR_CHEAT);
 ConVar sv_katana_healthbonus_maxmultiplier("sv_katana_healthbonus_maxmultiplier", "5", FCVAR_CHEAT);
 static ConVar sv_katana_healthbonus_maxtimestogivebonus("sv_katana_healthbonus_maxtimestogivebonus", "10", FCVAR_CHEAT);
-static ConVar sv_katana_enemy_damageresistance("sv_katana_enemy_damageresistance", "0.2", FCVAR_CHEAT);
-
-const char* g_charEnemiesWithDamageResistance[] =
-{
-	"npc_antlionguard",
-	"npc_antlionguardian",
-	"npc_hunter",
-	"npc_combine_ace",
-	"npc_advisor"
-};
+static ConVar sk_katana_enemy_damageresistance("sk_katana_enemy_damageresistance", "0.2");
 
 //-----------------------------------------------------------------------------
 // CWeaponKatana
@@ -90,6 +81,12 @@ CWeaponKatana::CWeaponKatana( void )
 	m_iKills = 0;
 	m_flLastKill = 0;
 	m_bKillMultiplier = true;
+}
+
+void CWeaponKatana::Equip(CBaseCombatCharacter* pOwner)
+{
+	m_kvEnemyResist.LoadEntries("scripts/katana_enemy_damageresist.txt", "KatanaDMGResist");
+	BaseClass::Equip(pOwner);
 }
 
 //-----------------------------------------------------------------------------
@@ -202,12 +199,11 @@ void CWeaponKatana::PrimaryAttack(void)
 
 					int damage = sk_plr_dmg_katana.GetInt();
 
-					for (const char* i : g_charEnemiesWithDamageResistance)
+					bool foundEnemy = m_kvEnemyResist.FindEntry(MAKE_STRING(ent->GetClassname()));
+
+					if (foundEnemy)
 					{
-						if (FClassnameIs(ent, i))
-						{
-							damage = sk_plr_dmg_katana.GetInt() * sv_katana_enemy_damageresistance.GetFloat();
-						}
+						damage = sk_plr_dmg_katana.GetInt() * sk_katana_enemy_damageresistance.GetFloat();
 					}
 
 					//CAmmoDef* def = GetAmmoDef();
@@ -245,13 +241,6 @@ void CWeaponKatana::PrimaryAttack(void)
 								m_flLastKill = gpGlobals->curtime + sv_katana_healthbonus_postdelay.GetFloat();
 								const char* hintMultiplier = CFmtStr("%ix!", m_iKillMultiplier);
 								pPlayer->ShowLevelMessage(hintMultiplier);
-
-								CHL2_Player* pHL2Player = ToHL2Player(pPlayer);
-
-								if (pHL2Player)
-								{
-									pHL2Player->DeriveMaxSpeed();
-								}
 							}
 						}
 					}

@@ -67,7 +67,7 @@
 #include "hl2/grenade_spit.h"
 #include "hl2/grenade_ar2.h"
 #include "gameweaponmanager.h"
-#include "firefightreloaded/mapinfo.h"
+#include "firefightreloaded/fr_shareddefs.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"

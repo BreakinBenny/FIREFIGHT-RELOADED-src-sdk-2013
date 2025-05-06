@@ -277,7 +277,6 @@ void CGrappleHook::HookedThink( void )
 	m_hPlayer->SetGroundEntity(NULL);
 	m_hPlayer->m_nWallRunState = WALLRUN_NOT;
 	m_hPlayer->StopWallRunSound();
-	m_hPlayer->DeriveMaxSpeed();
 	m_hPlayer->m_flCoyoteTime = 0;
 	m_hPlayer->m_Local.m_vecTargetPunchAngle.Set(ROLL, 0);
 	m_hPlayer->m_vecLastWallRunPos = m_hPlayer->GetAbsOrigin();

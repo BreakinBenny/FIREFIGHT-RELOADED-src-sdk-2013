@@ -85,7 +85,7 @@
 #include "weapon_physcannon.h"
 #endif
 
-#include "firefightreloaded/mapinfo.h"
+#include "firefightreloaded/fr_shareddefs.h"
 
 ConVar autoaim_max_dist( "autoaim_max_dist", "2160" ); // 2160 = 180 feet
 ConVar autoaim_max_deflect( "autoaim_max_deflect", "0.99" );
@@ -108,6 +108,7 @@ static ConVar sv_maxusrcmdprocessticks( "sv_maxusrcmdprocessticks", "24", FCVAR_
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
+#include <hl2_player.h>
 
 //static ConVar old_armor( "player_old_armor", "0" );
 static ConVar armor_mode("player_armor_mode", "2", FCVAR_ARCHIVE);

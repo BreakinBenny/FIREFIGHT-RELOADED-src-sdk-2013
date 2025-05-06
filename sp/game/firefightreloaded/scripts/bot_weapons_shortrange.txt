@@ -1,0 +1,8 @@
+"BotShortRangeWeapons"
+{
+	"class" 	"weapon_shotgun"
+	"class" 	"weapon_pistol"
+	"class"	"weapon_crowbar"
+	"class" 	"weapon_357"
+	"class" 	"weapon_xm1014"
+}

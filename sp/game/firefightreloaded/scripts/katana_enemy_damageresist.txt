@@ -1,0 +1,8 @@
+"KatanaDMGResist"
+{
+	"enemy"	"npc_antlionguard"
+	"enemy"	"npc_antlionguardian"
+	"enemy"	"npc_hunter"
+	"enemy"	"npc_combine_ace"
+	"enemy"	"npc_advisor"
+}

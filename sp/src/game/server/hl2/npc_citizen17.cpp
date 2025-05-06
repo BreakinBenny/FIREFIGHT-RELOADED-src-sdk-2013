@@ -289,77 +289,6 @@ static const char *g_ppszModelLocs[] =
 	"Group03%s",
 };
 
-//npc_playerbot migration
-
-const char* g_charPlayerbotMidRangeWeapons[] =
-{
-	"weapon_smg1",
-	"weapon_ar2",
-	"weapon_railgun",
-	"weapon_m249para",
-	"weapon_sniper_rifle",
-	"weapon_mp5",
-	"weapon_oicw",
-	"weapon_rpg",
-	"weapon_grenadelauncher"
-};
-
-const char* g_charPlayerbotShortRangeWeapons[] =
-{
-	"weapon_shotgun",
-	"weapon_pistol",
-	"weapon_crowbar",
-	"weapon_357",
-	"weapon_xm1014"
-};
-
-const char* g_charAvailablePlayerbotModels[] =
-{
-	"models/player/playermodels/gordon.mdl",
-	"models/player/playermodels/gordon_old.mdl",
-	"models/player/playermodels/male_01.mdl",
-	"models/player/playermodels/male_02.mdl",
-	"models/player/playermodels/male_03.mdl",
-	"models/player/playermodels/male_04.mdl",
-	"models/player/playermodels/male_05.mdl",
-	"models/player/playermodels/male_06.mdl",
-	"models/player/playermodels/male_07.mdl",
-	"models/player/playermodels/male_08.mdl",
-	"models/player/playermodels/male_09.mdl",
-	"models/player/playermodels/female_01.mdl",
-	"models/player/playermodels/female_02.mdl",
-	"models/player/playermodels/female_03.mdl",
-	"models/player/playermodels/female_04.mdl",
-	"models/player/playermodels/female_06.mdl",
-	"models/player/playermodels/female_07.mdl",
-	"models/player/playermodels/gascit_gmadador.mdl",
-	"models/player/playermodels/american_assault.mdl",
-	"models/player/playermodels/american_mg.mdl",
-	"models/player/playermodels/american_rifleman.mdl",
-	"models/player/playermodels/american_rocket.mdl",
-	"models/player/playermodels/american_sniper.mdl",
-	"models/player/playermodels/american_support.mdl",
-	"models/player/playermodels/ct_gign.mdl",
-	"models/player/playermodels/ct_gsg9.mdl",
-	"models/player/playermodels/ct_sas.mdl",
-	"models/player/playermodels/ct_urban.mdl",
-	"models/player/playermodels/t_arctic.mdl",
-	"models/player/playermodels/t_guerilla.mdl",
-	"models/player/playermodels/t_leet.mdl",
-	"models/player/playermodels/t_phoenix.mdl",
-	"models/player/playermodels/resis_engineer_female.mdl",
-	"models/player/playermodels/resis_engineer_male.mdl",
-	"models/player/playermodels/resis_medic_female.mdl",
-	"models/player/playermodels/resis_medic_male.mdl",
-	"models/player/playermodels/resis_normal_female.mdl",
-	"models/player/playermodels/resis_normal_male.mdl",
-	"models/player/playermodels/resis_sniper_female.mdl",
-	"models/player/playermodels/resis_sniper_male.mdl",
-	"models/player/playermodels/resis_soldier_female.mdl",
-	"models/player/playermodels/resis_soldier_male.mdl"
-};
-
-
 #define IsExcludedHead( type, bMedic, iHead) false // see XBox codeline for an implementation
 
 //------------------------------------------------------------------------------
@@ -624,6 +553,9 @@ void CNPC_Citizen::Precache()
 	SelectModel();
 	SelectExpressionType();
 
+	m_kvBotShortRangeWeapons.LoadEntries("scripts/bot_weapons_shortrange.txt", "BotShortRangeWeapons");
+	m_kvBotMidRangeWeapons.LoadEntries("scripts/bot_weapons_midrange.txt", "BotMidRangeWeapons");
+
 	if (!HasSpawnFlags(SF_CITIZEN_USE_PLAYERBOT_AI))
 	{
 		if (!npc_citizen_dont_precache_all.GetBool())
@@ -635,14 +567,18 @@ void CNPC_Citizen::Precache()
 	{
 		PrecacheModel(STRING(GetModelName()));
 
-		for (const char* i : g_charPlayerbotShortRangeWeapons)
+		FOR_EACH_VEC(m_kvBotShortRangeWeapons.m_storedVector, i)
 		{
-			UTIL_PrecacheOther(i);
+			string_t choice = m_kvBotShortRangeWeapons.m_storedVector[i];
+			const char* choiceStr = STRING(choice);
+			UTIL_PrecacheOther(choiceStr);
 		}
 
-		for (const char* i : g_charPlayerbotMidRangeWeapons)
+		FOR_EACH_VEC(m_kvBotMidRangeWeapons.m_storedVector, i2)
 		{
-			UTIL_PrecacheOther(i);
+			string_t choice2 = m_kvBotMidRangeWeapons.m_storedVector[i2];
+			const char* choiceStr2 = STRING(choice2);
+			UTIL_PrecacheOther(choiceStr2);
 		}
 	}
 
@@ -707,44 +643,6 @@ void CNPC_Citizen::PrecacheAllOfType( CitizenType_t type )
 	}
 }
 
-CUtlVector<string_t> m_botScriptNames;
-
-void LoadBotNames(void)
-{
-	m_botScriptNames.RemoveAll();
-
-	KeyValues* pKV = new KeyValues("BotNames");
-	if (pKV->LoadFromFile(filesystem, "scripts/bot_names.txt", "GAME"))
-	{
-		FOR_EACH_VALUE(pKV, pSubData)
-		{
-			if (FStrEq(pSubData->GetString(), ""))
-				continue;
-
-			string_t iName = AllocPooledString(pSubData->GetString());
-			if (m_botScriptNames.Find(iName) == m_botScriptNames.InvalidIndex())
-				m_botScriptNames[m_botScriptNames.AddToTail()] = iName;
-		}
-	}
-
-	//KeyValuesDumpAsDevMsg(pKV, 1);
-
-	pKV->deleteThis();
-}
-
-const char* NewNameSelection(void)
-{
-	if (m_botScriptNames.Count() == 0)
-		return "MISSINGNO";
-
-	int nPoneNames = m_botScriptNames.Count();
-	int randomChoice = rand() % nPoneNames;
-	string_t iszName = m_botScriptNames[randomChoice];
-	const char* pszName = STRING(iszName);
-
-	return pszName;
-}
-
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 void CNPC_Citizen::Spawn()
@@ -796,7 +694,7 @@ void CNPC_Citizen::Spawn()
 	}
 	else
 	{
-		LoadBotNames();
+		m_kvBotNames.LoadEntries("scripts/bot_names.txt", "BotNames");
 		//replace with sk_player_bot_health
 		SetHealth(sk_player_bot_health.GetInt());
 		SetMaxHealth(sk_player_bot_health.GetInt());
@@ -869,7 +767,7 @@ void CNPC_Citizen::Spawn()
 
 	if (HasSpawnFlags(SF_CITIZEN_USE_PLAYERBOT_AI))
 	{
-		SetName(MAKE_STRING(NewNameSelection()));
+		SetName(m_kvBotNames.GrabRandomEntryString());
 	}
 }
 
@@ -1067,8 +965,9 @@ void CNPC_Citizen::SelectModel()
 		int iShouldUsePlayersModel = random->RandomInt(0, 5);
 		const char* modelName = "";
 
-		int nModels = ARRAYSIZE(g_charAvailablePlayerbotModels);
-		int randomChoiceModels = rand() % nModels;
+		m_kvBotModels.LoadEntries("scripts/bot_models.txt", "BotNames");
+		string_t selModel_t = m_kvBotModels.GrabRandomEntryString();
+		const char* selectedModel = STRING(selModel_t);
 
 		if (iShouldUsePlayersModel == 1 && npc_playerbot_useplayersmodel.GetBool())
 		{
@@ -1084,7 +983,7 @@ void CNPC_Citizen::SelectModel()
 				if (!NPCAnim)
 				{
 					Warning("npc_player: Using pre-selected model. Use debug_check_incompatible_models for more info.\n");
-					modelName = g_charAvailablePlayerbotModels[randomChoiceModels];
+					modelName = selectedModel;
 				}
 				else
 				{
@@ -1093,12 +992,12 @@ void CNPC_Citizen::SelectModel()
 			}
 			else
 			{
-				modelName = g_charAvailablePlayerbotModels[randomChoiceModels];
+				modelName = selectedModel;
 			}
 		}
 		else
 		{
-			modelName = g_charAvailablePlayerbotModels[randomChoiceModels];
+			modelName = selectedModel;
 		}
 
 		SetModelName(AllocPooledString(modelName));
@@ -1111,15 +1010,14 @@ void CNPC_Citizen::GiveWeapons(void)
 	if (m_spawnEquipment != NULL_STRING)
 		return;
 
-	int nWeaponsMid = ARRAYSIZE(g_charPlayerbotMidRangeWeapons);
-	int randomChoiceMid = rand() % nWeaponsMid;
-	const char* pRandomNameMid = g_charPlayerbotMidRangeWeapons[randomChoiceMid];
+	string_t strRandomNameMid = m_kvBotMidRangeWeapons.GrabRandomEntryString();
+	const char* pRandomNameMid = STRING(strRandomNameMid);
+
 	GiveWeapon(pRandomNameMid);
 	DevMsg("PLAYER: GIVING MID RANGE WEAPON %s.\n", pRandomNameMid);
 
-	int nWeaponsShort = ARRAYSIZE(g_charPlayerbotShortRangeWeapons);
-	int randomChoiceShort = rand() % nWeaponsShort;
-	const char* pRandomNameShort = g_charPlayerbotShortRangeWeapons[randomChoiceShort];
+	string_t strRandomNameShort = m_kvBotShortRangeWeapons.GrabRandomEntryString();
+	const char* pRandomNameShort = STRING(strRandomNameShort);
 	GiveWeapon(pRandomNameShort);
 	DevMsg("PLAYER: GIVING SHORT RANGE WEAPON %s.\n", pRandomNameShort);
 }
@@ -1219,30 +1117,31 @@ CBaseCombatWeapon* CNPC_Citizen::GetNextBestWeaponBot(CBaseCombatWeapon* pCurren
 				float flDist = (GetLocalOrigin() - enemy->GetLocalOrigin()).Length();
 				float weaponRange = BotWeaponRangeDetermine(flDist);
 
+				const char* szClassname = pCheck->GetClassname();
+				string_t strClassname = MAKE_STRING(szClassname);
+
 				if (weaponRange == SKILL_SHORT_RANGE)
 				{
-					for (const char* ip : g_charPlayerbotShortRangeWeapons)
+					bool hasWeaponSR = m_kvBotShortRangeWeapons.FindEntry(strClassname);
+
+					if (hasWeaponSR)
 					{
-						if (FClassnameIs(pCheck, ip))
-						{
-							DevMsg("PLAYER: SETTING %s AS BEST SHORT RANGE.\n", pCheck->GetClassname());
-							// if this weapon is useable, flag it as the best
-							pBest = pCheck;
-							break;
-						}
+						DevMsg("PLAYER: SETTING %s AS BEST SHORT RANGE.\n", pCheck->GetClassname());
+						// if this weapon is useable, flag it as the best
+						pBest = pCheck;
+						break;
 					}
 				}
 				else if (weaponRange == SKILL_MID_RANGE)
 				{
-					for (const char* ic : g_charPlayerbotMidRangeWeapons)
+					bool hasWeaponMR = m_kvBotMidRangeWeapons.FindEntry(strClassname);
+
+					if (hasWeaponMR)
 					{
-						if (FClassnameIs(pCheck, ic))
-						{
-							DevMsg("PLAYER: SETTING %s AS BEST MID RANGE.\n", pCheck->GetClassname());
-							// if this weapon is useable, flag it as the best
-							pBest = pCheck;
-							break;
-						}
+						DevMsg("PLAYER: SETTING %s AS BEST MID RANGE.\n", pCheck->GetClassname());
+						// if this weapon is useable, flag it as the best
+						pBest = pCheck;
+						break;
 					}
 				}
 			}
@@ -1282,12 +1181,12 @@ static inline bool searchArrayOfStrings( const char *needle, const char* (&hayst
 
 bool CNPC_Citizen::Weapon_CanUse( CBaseCombatWeapon *pWeapon )
 {
+	if (!HasSpawnFlags(SF_CITIZEN_USE_PLAYERBOT_AI))
+		return BaseClass::Weapon_CanUse(pWeapon);
+
 	const char* className = pWeapon->GetClassname();
-	return BaseClass::Weapon_CanUse(pWeapon) &&
-		(
-			searchArrayOfStrings( className, g_charPlayerbotMidRangeWeapons )
-			|| searchArrayOfStrings( className, g_charPlayerbotShortRangeWeapons )
-		);
+	string_t query = MAKE_STRING(className);
+	return BaseClass::Weapon_CanUse(pWeapon) && (m_kvBotShortRangeWeapons.FindEntry(query) || m_kvBotMidRangeWeapons.FindEntry(query));
 }
 
 bool CNPC_Citizen::Weapon_Switch(CBaseCombatWeapon* pWeapon)

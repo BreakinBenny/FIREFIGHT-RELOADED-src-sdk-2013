@@ -56,7 +56,6 @@
 #include "func_break.h"
 #include "ammodef.h"
 #include "movevars_shared.h"
-#include "firefightreloaded/mapinfo.h"
 #include "firefightreloaded/weapon_katana.h"
 #include "hl_gamemovement.h"
 
@@ -646,6 +645,8 @@ void CHL2_Player::RemoveSuit( void )
 
 void CHL2_Player::HandleSpeedChanges( void )
 {
+	DeriveMaxSpeed();
+
 	int buttonsChanged = m_afButtonPressed | m_afButtonReleased;
 	if (sv_leagcy_maxspeed.GetBool())
 	{
@@ -1855,8 +1856,6 @@ void CHL2_Player::Spawn(void)
 		InitSprinting();
 	}
 
-	DeriveMaxSpeed();
-
 	InitBullettime();
 
 	// Setup our flashlight values
@@ -2026,7 +2025,9 @@ void CHL2_Player::DeriveMaxSpeed( void )
 		}
 	}
 
-	SetMaxSpeed( newMaxSpeed );
+	float speed = (newMaxSpeed * GetLaggedMovementValue());
+
+	SetMaxSpeed(speed);
 }
 
 //-----------------------------------------------------------------------------
@@ -2085,7 +2086,6 @@ void CHL2_Player::StartSprinting( void )
 	
 
 	m_fIsSprinting = true;
-	DeriveMaxSpeed();
 }
 
 
@@ -2099,8 +2099,6 @@ void CHL2_Player::StopSprinting( void )
 	}
 
 	m_fIsSprinting = false;
-
-	DeriveMaxSpeed();
 
 	if ( sv_stickysprint.GetBool() )
 	{
@@ -2129,7 +2127,6 @@ void CHL2_Player::EnableSprint( bool bEnable )
 void CHL2_Player::StartWalking( void )
 {
 	m_fIsWalking = true;
-	DeriveMaxSpeed();
 }
 
 //-----------------------------------------------------------------------------
@@ -2137,7 +2134,6 @@ void CHL2_Player::StartWalking( void )
 void CHL2_Player::StopWalking( void )
 {
 	m_fIsWalking = false;
-	DeriveMaxSpeed();
 }
 
 //-----------------------------------------------------------------------------
@@ -2570,7 +2566,6 @@ void CHL2_Player::DoCharge(void)
 	m_fChargeTime = gpGlobals->curtime + sv_katana_charge_chargetime.GetFloat();
 
 	SetCharging(true);
-	DeriveMaxSpeed();
 
 	if (sv_player_voice.GetBool() && sv_player_voice_charge.GetBool())
 	{
@@ -2608,7 +2603,6 @@ void CHL2_Player::EndCharge(void)
 void CHL2_Player::EndChargeInternal(void)
 {
 	SetCharging(false);
-	DeriveMaxSpeed();
 
 	if (sv_player_voice.GetBool() && sv_player_voice_charge.GetBool())
 	{

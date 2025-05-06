@@ -15,7 +15,6 @@
 #include "decals.h"
 #include "coordsize.h"
 #include "rumble_shared.h"
-#include "firefightreloaded/mapinfo.h"
 
 #if defined(HL2_DLL) || defined(HL2_CLIENT_DLL)
 #include "hl_movedata.h"
@@ -683,7 +682,6 @@ void CGameMovement::EndWallRun( void )
 	player->StopWallRunSound();
 
 	SetGroundEntity( NULL );
-	player->DeriveMaxSpeed();
 
 	Vector vecWallPush;
 	VectorScale(player->m_vecWallNorm, 16.0f, vecWallPush);

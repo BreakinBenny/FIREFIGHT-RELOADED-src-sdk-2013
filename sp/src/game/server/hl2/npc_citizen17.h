@@ -9,8 +9,8 @@
 #define	NPC_CITIZEN_H
 
 #include "npc_playercompanion.h"
-
 #include "ai_behavior_functank.h"
+#include "fr_shareddefs.h"
 
 struct SquadCandidate_t;
 
@@ -351,6 +351,11 @@ private:
 	bool					m_bNotifyNavFailBlocked;
 	bool					m_bNeverLeavePlayerSquad; // Don't leave the player squad unless killed, or removed via Entity I/O. 
 	
+	//-----------------------------------------------------
+	FRKeyValuesLoader m_kvBotNames;
+	FRKeyValuesLoader m_kvBotModels;
+	FRKeyValuesLoader m_kvBotMidRangeWeapons;
+	FRKeyValuesLoader m_kvBotShortRangeWeapons;
 	//-----------------------------------------------------
 	
 	DECLARE_DATADESC();

@@ -9,7 +9,7 @@
 #include "filesystem.h"
 #include "KeyValues.h"
 #include "randnpcloader.h"
-#include "firefightreloaded/mapinfo.h"
+#include "firefightreloaded/fr_shareddefs.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"

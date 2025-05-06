@@ -8,8 +8,6 @@
 #ifndef MAPADD_H
 #define MAPADD_H
 
-#include "firefightreloaded/mapinfo.h"
-
 #include "cbase.h"
  
 class CMapAdd : public CBaseEntity

@@ -1,0 +1,12 @@
+"BotMidRangeWeapons"
+{
+	"class" 	"weapon_smg1"
+	"class" 	"weapon_ar2"
+	"class"	"weapon_railgun"
+	"class" 	"weapon_m249para"
+	"class" 	"weapon_sniper_rifle"
+	"class" 	"weapon_mp5"
+	"class" 	"weapon_oicw"
+	"class" 	"weapon_rpg"
+	"class" 	"weapon_grenadelauncher"
+}

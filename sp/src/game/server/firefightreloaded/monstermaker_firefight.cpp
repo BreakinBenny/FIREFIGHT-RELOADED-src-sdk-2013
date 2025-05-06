@@ -26,7 +26,7 @@
 #include "randnpcloader.h"
 #include "npc_combineace.h"
 #include "npc_citizen17.h"
-#include "mapinfo.h"
+#include "fr_shareddefs.h"
 #include "npc_hgrunt.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
@@ -867,6 +867,11 @@ void CNPCMakerFirefight::MakeNPC()
 	pent->m_iExtraMoney = entry->extraMoney;
 	pent->SetSquadName(m_SquadName);
 	pent->SetHintGroup(m_strHintGroup);
+
+	/*if (pent->GetTeamNumber() <= TEAM_SPECTATOR)
+	{
+		pent->AssignKilllogTeams();
+	}*/
 
 	ChildPreSpawn(pent);
 
