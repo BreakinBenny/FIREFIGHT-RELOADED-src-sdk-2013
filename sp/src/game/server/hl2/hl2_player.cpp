@@ -2023,6 +2023,16 @@ float CHL2_Player::DeriveMaxSpeed( void )
 		}
 	}
 
+	float fMaxSpeed = sv_maxspeed.GetFloat();
+	if (newMaxSpeed > fMaxSpeed)
+	{
+		newMaxSpeed = fMaxSpeed;
+	}
+	else if (newMaxSpeed < 0.0f)
+	{
+		newMaxSpeed = 0.0f;
+	}
+
 	float speed = (newMaxSpeed * GetLaggedMovementValue());
 
 	return speed;
