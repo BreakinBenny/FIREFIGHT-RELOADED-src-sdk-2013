@@ -352,7 +352,7 @@ public:
 	virtual void StopPowerSlideSound( void ); 
 	virtual void PlayWallRunSound( Vector &vecOrigin );
 	virtual void StopWallRunSound( void );
-	virtual float DeriveMaxSpeed(void) { return sv_maxspeed.GetFloat(); }
+	virtual float DeriveMaxSpeed(void) { return (GetPlayerMaxSpeed() * GetLaggedMovementValue()); }
 
 	Vector  GetEscapeVel() { return m_vecCornerEscapeVel; }
 	void    SetEscapeVel( Vector vecNewYaw ) { m_vecCornerEscapeVel = vecNewYaw; }

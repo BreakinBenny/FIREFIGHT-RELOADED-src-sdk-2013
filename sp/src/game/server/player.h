@@ -825,7 +825,7 @@ public:
 	// Here so that derived classes can use the expresser
 	virtual CAI_Expresser *GetExpresser() { return NULL; };
 
-	virtual float DeriveMaxSpeed(void) { return sv_maxspeed.GetFloat(); }
+	virtual float DeriveMaxSpeed(void) { return (GetPlayerMaxSpeed() * GetLaggedMovementValue()); }
 
 #if !defined(NO_STEAM)
 	//----------------------------
