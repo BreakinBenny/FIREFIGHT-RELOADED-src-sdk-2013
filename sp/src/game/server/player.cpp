@@ -40,7 +40,6 @@
 #include "igamemovement.h"
 #include "saverestoretypes.h"
 #include "iservervehicle.h"
-#include "movevars_shared.h"
 #include "vcollide_parse.h"
 #include "player_command.h"
 #include "vehicle_base.h"

@@ -26,6 +26,7 @@
 #include "igameevents.h"
 #include "GameEventListener.h"
 #include "player_mobility_defs.h"
+#include "movevars_shared.h"
 
 #include "firefightreloaded/fr_shareddefs.h"
 
@@ -351,7 +352,7 @@ public:
 	virtual void StopPowerSlideSound( void ); 
 	virtual void PlayWallRunSound( Vector &vecOrigin );
 	virtual void StopWallRunSound( void );
-	virtual void DeriveMaxSpeed( void ) {};
+	virtual float DeriveMaxSpeed(void) { return sv_maxspeed.GetFloat(); }
 
 	Vector  GetEscapeVel() { return m_vecCornerEscapeVel; }
 	void    SetEscapeVel( Vector vecNewYaw ) { m_vecCornerEscapeVel = vecNewYaw; }

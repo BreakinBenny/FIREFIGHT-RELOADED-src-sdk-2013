@@ -19,6 +19,7 @@
 #include "SoundEmitterSystem/isoundemittersystembase.h"
 #include "util_shared.h"
 #include "player_mobility_defs.h"
+#include "movevars_shared.h"
 
 #include "firefightreloaded/fr_shareddefs.h"
 
@@ -824,7 +825,7 @@ public:
 	// Here so that derived classes can use the expresser
 	virtual CAI_Expresser *GetExpresser() { return NULL; };
 
-	virtual void DeriveMaxSpeed( void ) {};
+	virtual float DeriveMaxSpeed(void) { return sv_maxspeed.GetFloat(); }
 
 #if !defined(NO_STEAM)
 	//----------------------------
