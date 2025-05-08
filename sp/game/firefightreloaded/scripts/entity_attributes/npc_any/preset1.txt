@@ -13,5 +13,6 @@
 	//spawns a vortex on death that takes level 20 players to a different map.
 	"advisor_drone"		"1"
 	"is_rare"			"1"
+	"team"		"14"
 	"persist"		"0"
 }
