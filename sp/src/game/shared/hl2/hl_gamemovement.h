@@ -51,6 +51,7 @@ public:
 	virtual void PlayerMove();
 	bool	ChargeMove(void);
 	virtual float	GetAirSpeedCap(void);
+	virtual bool	CheckJumpButton(void);	// Overridden by each game.
 
 private:
 	// See if we are pressing use near a ladder "mount" point and if so, latch us onto the ladder

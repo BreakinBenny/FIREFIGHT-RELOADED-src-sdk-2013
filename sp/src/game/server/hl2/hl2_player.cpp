@@ -2561,10 +2561,6 @@ void CHL2_Player::DoCharge(void)
 	if (!fr_charge.GetBool())
 		return;
 
-	//if we're in mid air, don't start the charge unless jumping is on.
-	if (!fr_charge_allowjump.GetBool() && GetGroundEntity() == NULL)
-		return;
-
 	CBaseCombatWeapon* pKatana = dynamic_cast<CWeaponKatana*>(GetActiveWeapon());
 
 	if (!pKatana)
@@ -3791,8 +3787,8 @@ void DeliverDamageForce(CHL2_Player* pPlayer, float damage)
 {
 	Vector forward, up;
 	AngleVectors(pPlayer->GetLocalAngles(), &forward, NULL, &up);
-	forward = forward * 50 * damage;
-	up = up * 50 * damage;
+	forward = forward * 100 * damage;
+	up = up * 100 * damage;
 
 	pPlayer->VelocityPunch(-forward);
 	pPlayer->VelocityPunch(up);

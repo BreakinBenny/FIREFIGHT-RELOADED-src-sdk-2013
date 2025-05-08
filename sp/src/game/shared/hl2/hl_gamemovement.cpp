@@ -281,6 +281,23 @@ float CHL2GameMovement::GetAirSpeedCap(void)
 }
 
 //-----------------------------------------------------------------------------
+// Purpose: Check the state of the jump button - we might need to jump or double
+//         jump
+//-----------------------------------------------------------------------------
+bool CHL2GameMovement::CheckJumpButton(void)
+{
+	//when charging, check if we can jump. if we can't, cancel the jump button but keep us in the air.
+	//this is so we can simulate jump charging.
+	if (GetHL2Player()->IsCharging() && !fr_charge_allowjump.GetBool())
+	{
+		mv->m_nOldButtons |= IN_JUMP;
+		return false;
+	}
+
+	return BaseClass::CheckJumpButton();
+}
+
+//-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
 bool CHL2GameMovement::ChargeMove()
@@ -295,17 +312,14 @@ bool CHL2GameMovement::ChargeMove()
 
 	int oldbuttons = mv->m_nButtons;
 
-	if (fr_charge_allowjump.GetBool())
+	// Was jump button pressed? If so, set velocity to 270 away from ladder.  
+	if (mv->m_nButtons & IN_JUMP)
 	{
-		// Was jump button pressed? If so, set velocity to 270 away from ladder.  
-		if (mv->m_nButtons & IN_JUMP)
-		{
-			CheckJumpButton();
-		}
-		else
-		{
-			mv->m_nOldButtons &= ~IN_JUMP;
-		}
+		CheckJumpButton();
+	}
+	else
+	{
+		mv->m_nOldButtons &= ~IN_JUMP;
 	}
 
 	//calculate air moving

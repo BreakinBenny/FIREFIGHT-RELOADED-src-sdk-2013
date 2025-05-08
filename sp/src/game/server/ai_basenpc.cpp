@@ -965,7 +965,7 @@ int CAI_BaseNPC::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 			}
 
 			VectorNormalize(hitDirection);
-			ApplyAbsVelocityImpulse(hitDirection * 200 + up * 150);
+			ApplyAbsVelocityImpulse(hitDirection * 800 + up * 300);
 		}
 	}
 
