@@ -23,7 +23,7 @@ ConVar	fr_max_charge_speed("fr_max_charge_speed", "750", FCVAR_NOTIFY | FCVAR_RE
 ConVar  fr_aircap_multiplier("fr_aircap_multiplier", "4.2", FCVAR_ARCHIVE);
 
 ConVar fr_charge_allowairmove("fr_charge_allowairmove", "1", FCVAR_ARCHIVE);
-ConVar fr_charge_allowjump("fr_charge_allowjump", "1", FCVAR_ARCHIVE);
+ConVar fr_charge_allowjump("fr_charge_allowjump", "0", FCVAR_ARCHIVE);
 ConVar fr_charge_superspeed("fr_charge_superspeed", "0", FCVAR_ARCHIVE);
 ConVar fr_charge("fr_charge", "1", FCVAR_ARCHIVE);
 
@@ -256,6 +256,7 @@ void CHL2GameMovement::ProcessMovement(CBasePlayer* pBasePlayer, CMoveData* pMov
 	// The max speed is currently set to the scout - if this changes we need to change this!
 	//mv->m_flMaxSpeed = sv_maxspeed.GetFloat() * player->GetLaggedMovementValue();
 	mv->m_flMaxSpeed = player->DeriveMaxSpeed();
+	DevMsg("%f\n", mv->m_flMaxSpeed);
 
 	// Handle charging demomens
 	ChargeMove();

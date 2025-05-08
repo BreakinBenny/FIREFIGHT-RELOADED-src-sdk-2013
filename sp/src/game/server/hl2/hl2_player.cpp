@@ -2384,7 +2384,7 @@ void CHL2_Player::DoChargeBashDamage(trace_t &trace, bool bInstakill)
 	info.SetDamage(bInstakill ? trace.m_pEnt->GetMaxHealth() : sk_katana_charge_bashdamage.GetFloat());
 	info.SetDamageForce(info.GetDamageForce() * sv_katana_charge_bashvelocitymultiplier.GetFloat());
 	info.SetDamagePosition(trace.endpos);
-	info.SetDamageType(DMG_CLUB);
+	info.SetDamageType(DMG_CLUB | DMG_BLAST | DMG_NEVERGIB);
 
 	Vector dir;
 	AngleVectors(GetAbsAngles(), &dir);
@@ -3789,8 +3789,8 @@ void DeliverDamageForce(CHL2_Player* pPlayer, float damage)
 {
 	Vector forward, up;
 	AngleVectors(pPlayer->GetLocalAngles(), &forward, NULL, &up);
-	forward = forward * 100 * damage;
-	up = up * 100 * damage;
+	forward = forward * 50 * damage;
+	up = up * 50 * damage;
 
 	pPlayer->VelocityPunch(-forward);
 	pPlayer->VelocityPunch(up);
