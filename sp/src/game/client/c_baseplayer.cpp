@@ -22,6 +22,7 @@
 #include "c_playerresource.h"
 #include "iclientvehicle.h"
 #include "view_shared.h"
+#include "movevars_shared.h"
 #include "prediction.h"
 #include "tier0/vprof.h"
 #include "filesystem.h"

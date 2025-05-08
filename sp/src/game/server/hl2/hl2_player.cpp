@@ -645,6 +645,8 @@ void CHL2_Player::RemoveSuit( void )
 
 void CHL2_Player::HandleSpeedChanges( void )
 {
+	DeriveMaxSpeed();
+
 	int buttonsChanged = m_afButtonPressed | m_afButtonReleased;
 	if (sv_leagcy_maxspeed.GetBool())
 	{
@@ -1967,7 +1969,7 @@ void CHL2_Player::InitSprinting( void )
 
 extern ConVar fr_max_charge_speed;
 
-float CHL2_Player::DeriveMaxSpeed( void )
+void CHL2_Player::DeriveMaxSpeed( void )
 {
 	float newMaxSpeed;
 	CWeaponKatana* pKatana = nullptr;
@@ -2035,7 +2037,7 @@ float CHL2_Player::DeriveMaxSpeed( void )
 
 	float speed = (newMaxSpeed * GetLaggedMovementValue());
 
-	return speed;
+	SetMaxSpeed(speed);
 }
 
 //-----------------------------------------------------------------------------
