@@ -1862,7 +1862,6 @@ void CNPC_Advisor::Dronify(CBaseEntity* pOther)
 			//we need the outline to determine who is a drone.
 			pNPC->m_denyOutlines = false;
 			pNPC->GiveWildcardAttributes(1);
-			pNPC->AssignKilllogTeams();
 		}
 	}
 }

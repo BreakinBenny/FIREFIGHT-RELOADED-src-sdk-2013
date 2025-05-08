@@ -7346,17 +7346,15 @@ void CAI_BaseNPC::AssignKilllogTeams(int teamNumber)
 		iCustomTeam = teamNumber;
 		bCustomTeam = true;
 	}
-	else
-	{
-		if (m_pAttributes != NULL)
-		{
-			int team = m_pAttributes->GetInt("team", TEAM_INVALID);
 
-			if (teamNumber != TEAM_INVALID)
-			{
-				iCustomTeam = team;
-				bCustomTeam = true;
-			}
+	if (m_pAttributes != NULL)
+	{
+		int team = m_pAttributes->GetInt("team", TEAM_INVALID);
+
+		if (team != TEAM_INVALID)
+		{
+			iCustomTeam = team;
+			bCustomTeam = true;
 		}
 	}
 
@@ -7383,7 +7381,7 @@ void CAI_BaseNPC::AssignKilllogTeams(int teamNumber)
 
 	if (!IsAlly)
 	{
-		if (m_bBoss || m_IsAdvisorDrone)
+		if (m_bBoss)
 		{
 			ChangeTeam(TEAM_MAGENTA);
 		}
@@ -7575,6 +7573,8 @@ void CAI_BaseNPC::LoadInitAttributes()
 
 		m_iAttributePresetNum = m_pAttributes->presetNum;
 		m_IsWildcard = m_pAttributes->wildcard;
+
+		AssignKilllogTeams();
 	}
 }
 

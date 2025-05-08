@@ -10237,6 +10237,7 @@ void CMovementSpeedMod::InputSpeedMod(inputdata_t &data)
 				if ( pPlayer->GetActiveWeapon() )
 				{
 					pPlayer->Weapon_SetLast( pPlayer->GetActiveWeapon() );
+					pPlayer->GetActiveWeapon()->DisableIronsights();
 					pPlayer->GetActiveWeapon()->Holster();
 					pPlayer->ClearActiveWeapon();
 				}
