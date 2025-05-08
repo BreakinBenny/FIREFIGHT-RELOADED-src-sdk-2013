@@ -432,11 +432,6 @@
 				"font"		"WeaponIconsKillFeed3"
 				"character"	"x"
 		}
-        		"weapon_physgun"
-		{
-				"font"		"WeaponIconsKillFeed2"
-				"character"	"m"
-		}
 		"headshot"
 		{
 				//"font"		"WeaponIconsKillFeed3"
@@ -556,6 +551,15 @@
 		{
 				"font"		"WeaponIconsKillFeed2"
 				"character"	"m"
+				"customxyoffset"	"1"
+				"y_offset"		"-8"
+		}
+		"weapon_physgun"
+		{
+				"font"		"WeaponIconsKillFeed2"
+				"character"	"m"
+				"customxyoffset"	"1"
+				"y_offset"		"-8"
 		}
 		"npc_hornet"
 		{
