@@ -34,6 +34,7 @@ extern ConVar sk_plr_dmg_katana;
 static ConVar sv_katana_healthbonus_postdelay("sv_katana_healthbonus_postdelay", "5.0", FCVAR_CHEAT);
 ConVar sv_katana_healthbonus_maxmultiplier("sv_katana_healthbonus_maxmultiplier", "5", FCVAR_CHEAT);
 static ConVar sv_katana_healthbonus_maxtimestogivebonus("sv_katana_healthbonus_maxtimestogivebonus", "10", FCVAR_CHEAT);
+static ConVar sv_katana_charge_damagebonus("sv_katana_charge_damagebonus", "2", FCVAR_CHEAT);
 static ConVar sk_katana_enemy_damageresistance("sk_katana_enemy_damageresistance", "0.2");
 
 //-----------------------------------------------------------------------------
@@ -108,6 +109,19 @@ void CWeaponKatana::AddViewKick( void )
 	pPlayer->ViewPunch( punchAng ); 
 }
 
+float CWeaponKatana::GetRange(void)
+{ 
+	CHL2_Player* pPlayer = ToHL2Player(GetOwner());
+
+	if ((pPlayer && pPlayer->IsCharging()) || g_pGameRules->isInBullettime)
+	{
+		return KATANA_RANGE_CHARGING;
+	}
+	else
+	{
+		return KATANA_RANGE;
+	}
+}
 
 //-----------------------------------------------------------------------------
 // Purpose: Primary fire button attack
@@ -203,7 +217,14 @@ void CWeaponKatana::PrimaryAttack(void)
 
 					if (foundEnemy)
 					{
-						damage = sk_plr_dmg_katana.GetInt() * sk_katana_enemy_damageresistance.GetFloat();
+						damage = damage * sk_katana_enemy_damageresistance.GetFloat();
+					}
+
+					CHL2_Player* pHL2Player = ToHL2Player(GetOwner());
+
+					if ((pHL2Player && pHL2Player->IsCharging()))
+					{
+						damage = damage * sv_katana_charge_damagebonus.GetInt();
 					}
 
 					//CAmmoDef* def = GetAmmoDef();

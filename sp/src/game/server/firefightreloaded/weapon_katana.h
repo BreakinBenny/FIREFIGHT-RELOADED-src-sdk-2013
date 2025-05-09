@@ -18,7 +18,8 @@
 #error weapon_katana.h must not be included in hl2mp. The windows compiler will use the wrong class elsewhere if it is.
 #endif
 
-#define	KATANA_RANGE	165.0f
+#define	KATANA_RANGE	72.0f
+#define	KATANA_RANGE_CHARGING	128.0f
 #define	KATANA_REFIRE	0.75f
 
 extern ConVar sv_katana_healthbonus_maxmultiplier;
@@ -38,7 +39,7 @@ public:
 
 	CWeaponKatana();
 
-	float		GetRange( void )		{	return	KATANA_RANGE;	}
+	float		GetRange(void);
 	float		GetFireRate( void )		{	return	KATANA_REFIRE;	}
 
 	void		AddViewKick( void );
