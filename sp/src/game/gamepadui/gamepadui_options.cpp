@@ -593,7 +593,7 @@ public:
 #ifdef WIN32
             V_snwprintf(wszBuf, sizeof(wszBuf), L"%s", text.String());
 #else
-            V_snwprintf(wszBuf, sizeof(wszBuf), L"%S", text.String(),);
+            V_snwprintf(wszBuf, sizeof(wszBuf), L"%S", text.String());
 #endif
         }
 
