@@ -1220,7 +1220,7 @@ const bool UTIL_SteamInput_AreControllersConnected()
 	if (!pPlayer)
 		return false;
 
-	const char* szStatus = engine->GetClientConVarValue(engine->IndexOfEdict(pPlayer->edict()), "si_status");
+	const char* szStatus = engine->GetClientConVarValue(engine->IndexOfEdict(pPlayer->edict()), "steaminput_status");
 
 	if (szStatus && *szStatus)
 	{

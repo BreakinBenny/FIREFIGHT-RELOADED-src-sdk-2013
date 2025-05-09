@@ -15,7 +15,7 @@
 
 //-------------------------------------------
 
-CON_COMMAND( si_print_state, "" )
+CON_COMMAND( steaminput_print_state, "" )
 {
 	if (!g_pSteamInput)
 		return;
@@ -43,7 +43,7 @@ CON_COMMAND( si_print_state, "" )
 	Msg( "%s\n", szState );
 }
 
-CON_COMMAND( si_restart, "" )
+CON_COMMAND( steaminput_restart, "" )
 {
 	if (!g_pSteamInput)
 		return;

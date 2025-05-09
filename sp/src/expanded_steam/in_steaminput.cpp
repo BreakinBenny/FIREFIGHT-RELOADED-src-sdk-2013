@@ -150,22 +150,22 @@ CON_COMMAND( pause_menu, "Shortcut to toggle pause menu" )
 
 //-------------------------------------------
 
-static ConVar si_current_cfg( "si_current_cfg", "0", FCVAR_ARCHIVE, "Steam Input's current controller." );
+static ConVar steaminput_current_cfg( "steaminput_current_cfg", "0", FCVAR_ARCHIVE, "Steam Input's current controller." );
 
-static ConVar si_force_glyph_controller( "si_force_glyph_controller", "-1", FCVAR_ARCHIVE, "Forces glyphs to translate to the specified ESteamInputType." );
+static ConVar steaminput_force_glyph_controller( "steaminput_force_glyph_controller", "-1", FCVAR_ARCHIVE, "Forces glyphs to translate to the specified ESteamInputType." );
 
-static ConVar si_use_glyphs( "si_use_glyphs", "1", FCVAR_ARCHIVE, "Whether or not to use controller glyphs for hints." );
+static ConVar steaminput_use_glyphs( "steaminput_use_glyphs", "1", FCVAR_ARCHIVE, "Whether or not to use controller glyphs for hints." );
 
-static ConVar si_enable_rumble( "si_enable_rumble", "1", FCVAR_ARCHIVE, "Enables controller rumble triggering vibration events in Steam Input. If disabled, rumble is directed back to the input system as before." );
+static ConVar steaminput_enable_rumble( "steaminput_enable_rumble", "1", FCVAR_ARCHIVE, "Enables controller rumble triggering vibration events in Steam Input. If disabled, rumble is directed back to the input system as before." );
 
-static ConVar si_hintremap( "si_hintremap", "1", FCVAR_ARCHIVE, "Enables the hint remap system, which remaps HUD hints based on the current controller configuration." );
+static ConVar steaminput_hintremap( "steaminput_hintremap", "1", FCVAR_ARCHIVE, "Enables the hint remap system, which remaps HUD hints based on the current controller configuration." );
 
-static ConVar si_status("si_status", "0", FCVAR_HIDDEN | FCVAR_USERINFO);
+static ConVar steaminput_status("steaminput_status", "0", FCVAR_HIDDEN | FCVAR_USERINFO);
  
-static ConVar si_print_action_set( "si_print_action_set", "0" );
-static ConVar si_print_joy_src( "si_print_joy_src", "0" );
-static ConVar si_print_rumble( "si_print_rumble", "0" );
-static ConVar si_print_hintremap( "si_print_hintremap", "0" );
+static ConVar steaminput_print_action_set( "steaminput_print_action_set", "0" );
+static ConVar steaminput_print_joy_src( "steaminput_print_joy_src", "0" );
+static ConVar steaminput_print_rumble( "steaminput_print_rumble", "0" );
+static ConVar steaminput_print_hintremap( "steaminput_print_hintremap", "0" );
 
 //-------------------------------------------
 
@@ -252,7 +252,7 @@ public:
 	void GetGlyphPNGsForCommand( CUtlVector<const char*> &szImgList, const char *pszCommand, int &iSize, int iStyle ) override;
 	void GetGlyphSVGsForCommand( CUtlVector<const char*> &szImgList, const char *pszCommand ) override;
 
-	virtual bool UseGlyphs() override { return si_use_glyphs.GetBool(); };
+	virtual bool UseGlyphs() override { return steaminput_use_glyphs.GetBool(); };
 	void GetButtonStringsForCommand( const char *pszCommand, CUtlVector<const char *> &szStringList, int iActionSet = -1 ) override;
 
 	//-------------------------------------------
@@ -358,12 +358,12 @@ void CSource2013SteamInput::InitSteamInput()
 	{
 		Msg( "SteamInput didn't initialize\n" );
 
-		if (si_current_cfg.GetString()[0] != '0')
+		if (steaminput_current_cfg.GetString()[0] != '0')
 		{
 			Msg("Reverting leftover Steam Input cvars\n");
 			g_pEngineClient->ClientCmd_Unrestricted( "exec steam_uninput.cfg" );
-			g_pEngineClient->ClientCmd_Unrestricted( SteamInput_VarArgs( "exec steam_uninput_%s.cfg", si_current_cfg.GetString() ) );
-			si_status.SetValue("0");
+			g_pEngineClient->ClientCmd_Unrestricted( SteamInput_VarArgs( "exec steam_uninput_%s.cfg", steaminput_current_cfg.GetString() ) );
+			steaminput_status.SetValue("0");
 		}
 
 		return;
@@ -568,22 +568,22 @@ void CSource2013SteamInput::PostInit()
 				DeckConnected( inputHandles[0] );
 			}
 		}
-		else if (si_current_cfg.GetString()[0] != '0')
+		else if (steaminput_current_cfg.GetString()[0] != '0')
 		{
 			Msg("Reverting leftover Steam Input cvars\n");
 			g_pEngineClient->ClientCmd_Unrestricted( "exec steam_uninput.cfg" );
-			g_pEngineClient->ClientCmd_Unrestricted( SteamInput_VarArgs( "exec steam_uninput_%s.cfg", si_current_cfg.GetString() ) );
+			g_pEngineClient->ClientCmd_Unrestricted( SteamInput_VarArgs( "exec steam_uninput_%s.cfg", steaminput_current_cfg.GetString() ) );
 
-			si_current_cfg.SetValue( "0" );
-			si_status.SetValue("0");
+			steaminput_current_cfg.SetValue( "0" );
+			steaminput_status.SetValue("0");
 		}
 	}
 	else
 	{
 		// Sometimes, the archived value overwrites the cvar. This is a compromise to make sure that doesn't happen
 		ESteamInputType inputType = SteamInput()->GetInputTypeForHandle( m_nControllerHandle );
-		si_current_cfg.SetValue( IdentifyControllerParam( inputType ) );
-		si_status.SetValue("1");
+		steaminput_current_cfg.SetValue( IdentifyControllerParam( inputType ) );
+		steaminput_status.SetValue("1");
 	}
 }
 
@@ -656,8 +656,8 @@ void CSource2013SteamInput::InputDeviceConnected( InputHandle_t nDeviceHandle )
 	if (pszInputPrintType)
 	{
 		g_pEngineClient->ClientCmd_Unrestricted( SteamInput_VarArgs( "exec steam_input_%s.cfg", pszInputPrintType ) );
-		si_current_cfg.SetValue( pszInputPrintType );
-		si_status.SetValue("1");
+		steaminput_current_cfg.SetValue( pszInputPrintType );
+		steaminput_status.SetValue("1");
 	}
 
 	if (g_pEngineClient->IsConnected() )
@@ -685,8 +685,8 @@ void CSource2013SteamInput::InputDeviceDisconnected( InputHandle_t nDeviceHandle
 		g_pEngineClient->ClientCmd_Unrestricted( SteamInput_VarArgs( "exec steam_uninput_%s.cfg", pszInputPrintType ) );
 	}
 
-	si_current_cfg.SetValue( "0" );
-	si_status.SetValue("0");
+	steaminput_current_cfg.SetValue( "0" );
+	steaminput_status.SetValue("0");
 
 	if ( g_pEngineClient->IsConnected() )
 	{
@@ -718,8 +718,8 @@ void CSource2013SteamInput::InputDeviceChanged( InputHandle_t nOldHandle, InputH
 	if (pszNewInputPrintType)
 	{
 		g_pEngineClient->ClientCmd_Unrestricted( SteamInput_VarArgs( "exec steam_input_%s.cfg", pszNewInputPrintType ) );
-		si_current_cfg.SetValue( pszNewInputPrintType );
-		si_status.SetValue("1");
+		steaminput_current_cfg.SetValue( pszNewInputPrintType );
+		steaminput_status.SetValue("1");
 	}
 }
 
@@ -732,8 +732,8 @@ void CSource2013SteamInput::DeckConnected( InputHandle_t nDeviceHandle )
 
 	g_pEngineClient->ClientCmd_Unrestricted( "exec steam_input.cfg" );
 	g_pEngineClient->ClientCmd_Unrestricted( "exec steam_input_deck.cfg" );
-	si_current_cfg.SetValue( "deck" );
-	si_status.SetValue("1");
+	steaminput_current_cfg.SetValue( "deck" );
+	steaminput_status.SetValue("1");
 }
 
 //-------------------------------------------
@@ -813,7 +813,7 @@ void CSource2013SteamInput::RunFrame( ActionSet_t &iActionSet )
 
 		m_iLastActionSet = iActionSet;
 
-		if (si_print_action_set.GetBool())
+		if (steaminput_print_action_set.GetBool())
 		{
 			switch (iActionSet)
 			{
@@ -1258,7 +1258,7 @@ void CSource2013SteamInput::GetJoystickValues( float &flForward, float &flSide, 
 		flYaw = m_analogCameraData.x * MAX_BUTTONSAMPLE;
 	}
 
-	if (si_print_joy_src.GetBool())
+	if (steaminput_print_joy_src.GetBool())
 	{
 		Msg( "moveData = %i (%f, %f)\ncameraData = %i (%f, %f)\n\n",
 			m_analogMoveData.eMode, m_analogMoveData.x, m_analogMoveData.y,
@@ -1271,7 +1271,7 @@ void CSource2013SteamInput::GetJoystickValues( float &flForward, float &flSide, 
 
 void CSource2013SteamInput::SetRumble( InputHandle_t nController, float fLeftMotor, float fRightMotor, int userId )
 {
-	if (!IsEnabled() || !si_enable_rumble.GetBool())
+	if (!IsEnabled() || !steaminput_enable_rumble.GetBool())
 	{
 		g_pInputSystem->SetRumble( fLeftMotor, fRightMotor, userId );
 		return;
@@ -1284,7 +1284,7 @@ void CSource2013SteamInput::SetRumble( InputHandle_t nController, float fLeftMot
 		nController = m_nControllerHandle;
 	SteamInput()->TriggerVibrationExtended( nController, fLeftMotor, fRightMotor, fLeftMotor, fRightMotor);
 
-	if (si_print_rumble.GetBool())
+	if (steaminput_print_rumble.GetBool())
 	{
 		Msg("fLeftMotor = %f, fRightMotor = %f [STARTED]\n", fLeftMotor, fRightMotor);
 	}
@@ -1292,7 +1292,7 @@ void CSource2013SteamInput::SetRumble( InputHandle_t nController, float fLeftMot
 
 void CSource2013SteamInput::StopRumble(InputHandle_t nController)
 {
-	if (!IsEnabled() || !si_enable_rumble.GetBool())
+	if (!IsEnabled() || !steaminput_enable_rumble.GetBool())
 	{
 		g_pInputSystem->StopRumble();
 		return;
@@ -1303,7 +1303,7 @@ void CSource2013SteamInput::StopRumble(InputHandle_t nController)
 
 	SteamInput()->TriggerVibrationExtended(nController, 0, 0, 0, 0);
 
-	//if (si_print_rumble.GetBool())
+	//if (steaminput_print_rumble.GetBool())
 	//{
 	//	Msg("fLeftMotor = 0, fRightMotor = 0 [STOPPED]\n");
 	//}
@@ -1514,9 +1514,9 @@ void CSource2013SteamInput::GetGlyphPNGsForCommand( CUtlVector<const char *> &sz
 
 	FOR_EACH_VEC( actionOrigins, i )
 	{
-		if (si_force_glyph_controller.GetInt() != -1)
+		if (steaminput_force_glyph_controller.GetInt() != -1)
 		{
-			EInputActionOrigin translatedOrigin = SteamInput()->TranslateActionOrigin( (ESteamInputType)si_force_glyph_controller.GetInt(), actionOrigins[i] );
+			EInputActionOrigin translatedOrigin = SteamInput()->TranslateActionOrigin( (ESteamInputType)steaminput_force_glyph_controller.GetInt(), actionOrigins[i] );
 			if (translatedOrigin != k_EInputActionOrigin_None)
 				actionOrigins[i] = translatedOrigin;
 		}
@@ -1535,9 +1535,9 @@ void CSource2013SteamInput::GetGlyphSVGsForCommand( CUtlVector<const char *> &sz
 
 	FOR_EACH_VEC( actionOrigins, i )
 	{
-		if (si_force_glyph_controller.GetInt() != -1)
+		if (steaminput_force_glyph_controller.GetInt() != -1)
 		{
-			actionOrigins[i] = SteamInput()->TranslateActionOrigin( (ESteamInputType)si_force_glyph_controller.GetInt(), actionOrigins[i] );
+			actionOrigins[i] = SteamInput()->TranslateActionOrigin( (ESteamInputType)steaminput_force_glyph_controller.GetInt(), actionOrigins[i] );
 		}
 
 		szImgList.AddToTail( SteamInput()->GetGlyphSVGForActionOrigin( actionOrigins[i], 0 ) );
@@ -1622,7 +1622,7 @@ void CSource2013SteamInput::LoadHintRemap( const char *pszFileName )
 
 void CSource2013SteamInput::RemapHudHint( const char **ppszInputHint )
 {
-	if (!si_hintremap.GetBool())
+	if (!steaminput_hintremap.GetBool())
 		return;
 
 	const char *pszInputHint = *ppszInputHint;
@@ -1640,14 +1640,14 @@ void CSource2013SteamInput::RemapHudHint( const char **ppszInputHint )
 		if (iRemap != -1 && m_HintRemaps[i].nRemapConds.Count() <= 0)
 			continue;
 
-		if (si_print_hintremap.GetBool())
+		if (steaminput_print_hintremap.GetBool())
 			Msg( "Hint Remap: Testing hint remap for %s to %s...\n", pszInputHint, m_HintRemaps[i].pszNewHint );
 
 		bool bPass = true;
 
 		for (int i2 = 0; i2 < m_HintRemaps[i].nRemapConds.Count(); i2++)
 		{
-			if (si_print_hintremap.GetBool())
+			if (steaminput_print_hintremap.GetBool())
 				Msg( "	Hint Remap: Testing remap condition %i (param %s)\n", m_HintRemaps[i].nRemapConds[i2].iType, m_HintRemaps[i].nRemapConds[i2].szParam );
 
 			switch (m_HintRemaps[i].nRemapConds[i2].iType)
@@ -1675,12 +1675,12 @@ void CSource2013SteamInput::RemapHudHint( const char **ppszInputHint )
 
 		if (bPass)
 		{
-			if (si_print_hintremap.GetBool())
+			if (steaminput_print_hintremap.GetBool())
 				Msg( "Hint Remap: Hint remap for %s to %s succeeded\n", pszInputHint, m_HintRemaps[i].pszNewHint );
 
 			iRemap = i;
 		}
-		else if (si_print_hintremap.GetBool())
+		else if (steaminput_print_hintremap.GetBool())
 		{
 			Msg( "Hint Remap: Hint remap for %s to %s did not pass\n", pszInputHint, m_HintRemaps[i].pszNewHint );
 		}
@@ -1688,14 +1688,14 @@ void CSource2013SteamInput::RemapHudHint( const char **ppszInputHint )
 
 	if (iRemap != -1)
 	{
-		if (si_print_hintremap.GetBool())
+		if (steaminput_print_hintremap.GetBool())
 			Msg( "Hint Remap: Remapping hint %s to %s\n", pszInputHint, m_HintRemaps[iRemap].pszNewHint );
 
 		*ppszInputHint = m_HintRemaps[iRemap].pszNewHint;
 	}
 	else
 	{
-		if (si_print_hintremap.GetBool())
+		if (steaminput_print_hintremap.GetBool())
 			Msg( "Hint Remap: Didn't find a hint for %s to remap to\n", pszInputHint );
 	}
 }
