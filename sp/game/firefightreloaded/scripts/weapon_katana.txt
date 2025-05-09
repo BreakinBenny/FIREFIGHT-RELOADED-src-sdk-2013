@@ -27,7 +27,8 @@ WeaponData
 	"LowerWeapon"			"0"
 	"useironsightcrosshair" "0"
 	"MeleeWeapon"			"1"
-	"AllowCenterAdjust"	"0"
+	"AllowCenterAdjust"			"0"
+	"AllowCenterFlip"			"1"
 
 	AdjustMinimized
 	{

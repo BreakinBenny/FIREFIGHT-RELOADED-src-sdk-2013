@@ -26,6 +26,7 @@ WeaponData
 	"useironsights"			"0"
 	"LowerWeapon"			"0"
 	"useironsightcrosshair" "0"
+	"AllowCenterFlip"			"1"
 
 	AdjustCentered
 	{

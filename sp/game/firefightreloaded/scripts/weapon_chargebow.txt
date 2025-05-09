@@ -27,6 +27,7 @@ WeaponData
 	"useironsightcrosshair" 	"1"
 	"AllowMinAdjust"	"0"
 	"AllowCenterAdjust"	"0"
+	"AllowCenterFlip"			"1"
 
 	// Sounds for the weapon. There is a max of 16 sounds per category (i.e. max 16 "single_shot" sounds)
 	SoundData

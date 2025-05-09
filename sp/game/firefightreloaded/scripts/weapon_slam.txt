@@ -27,7 +27,8 @@ WeaponData
 	"LowerWeapon"			"0"
 	"useironsightcrosshair" 	"0"
 	"autoswitchfrom"		"0"
-	"AllowCenterAdjust"	"0"
+	"AllowCenterAdjust"		"0"
+	"AllowCenterFlip"			"1"
 
 	// Weapon Sprite data is loaded by the Client DLL.
 	TextureData

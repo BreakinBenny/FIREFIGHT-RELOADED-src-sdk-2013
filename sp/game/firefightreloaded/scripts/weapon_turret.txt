@@ -30,6 +30,7 @@ WeaponData
 	"MeleeWeapon"			"1"
 	"AllowCenterAdjust"	"0"
 	"AllowMinAdjust"	"0"
+	"AllowCenterFlip"			"1"
 
 	Adjust
 	{

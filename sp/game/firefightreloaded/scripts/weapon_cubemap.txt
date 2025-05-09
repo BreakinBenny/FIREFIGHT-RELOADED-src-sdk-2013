@@ -24,12 +24,12 @@ WeaponData
 	"item_flags"			"0"
 	
 	"BuiltRightHanded" 		"1" 
-	"AllowFlipping" 		"1"
+	"AllowFlipping" 		"0"
 	"UseMuzzleSmoke"		"0"
 	"useironsights"			"0"
 	"LowerWeapon"			"0"
-	"useironsightcrosshair" "0"
-	"AllowCenterAdjust"	"0"
+	"useironsightcrosshair" 	"0"
+	"AllowCenterAdjust"		"0"
 
 	// Weapon Sprite data is loaded by the Client DLL.
 	TextureData

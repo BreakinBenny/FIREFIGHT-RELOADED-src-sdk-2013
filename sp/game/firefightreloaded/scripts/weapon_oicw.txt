@@ -21,7 +21,7 @@ WeaponData
 	"secondary_ammo"		"None"
 
 	"weight"				"2"
-    "rumble"			    "4"
+    	"rumble"			   	 "4"
 	"item_flags"			"0"
 	
 	"BuiltRightHanded" 		"1" 
@@ -31,6 +31,7 @@ WeaponData
 	"useironsights"			"0"
 	"LowerWeapon"			"1"
 	"useironsightcrosshair" 	"0"
+	"AllowCenterFlip"			"1"
 
 	AdjustMinimized
 	{

@@ -27,6 +27,7 @@ WeaponData
 	"useironsights"			"1"
 	"LowerWeapon"			"1"
 	"useironsightcrosshair" "0"
+	"AllowCenterFlip"			"1"
 	
 	IronSight
 	{
