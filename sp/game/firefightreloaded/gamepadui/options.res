@@ -3220,7 +3220,7 @@
 			{
 				"text"			"#GameUI_Autoaim"
 				"type"			"wheelywheel"
-				"convar"		"si_autoaim"
+				"convar"		"steaminput_autoaim"
 
 				"options"
 				{
@@ -3248,7 +3248,7 @@
 				"text"			"#GameUI_Rumble"
 				"type"			"wheelywheel"
 				"advanced"		"1"
-				"convar"		"si_enable_rumble"
+				"convar"		"steaminput_enable_rumble"
 
 				"options"
 				{
