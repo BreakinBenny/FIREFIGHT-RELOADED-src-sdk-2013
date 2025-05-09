@@ -905,7 +905,9 @@ void CWeaponCustom::ShootProjectile( bool isPrimary, bool usePrimaryAmmo )
 			int iRightHandVal = atoi(szRightHandVal);
 			bool bRightHandBool = (iRightHandVal != 0);
 
-			if (!bRightHandBool)
+			bool isFlipped = (GetWpnData().m_bBuiltRightHanded != bRightHandBool && GetWpnData().m_bAllowFlipping);
+
+			if (isFlipped)
 			{
 				muzzlePoint = pOwner->Weapon_ShootPosition() + vForward * 12.0f + vRight * -6.0f + vUp * -3.0f;
 			}
