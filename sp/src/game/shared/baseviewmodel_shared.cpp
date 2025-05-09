@@ -550,6 +550,8 @@ void CBaseViewModel::CalcViewModelView(CBasePlayer* owner, const Vector& eyePosi
 //-----------------------------------------------------------------------------
 void CBaseViewModel::CalcViewModelLag( Vector& origin, QAngle& angles, QAngle& original_angles )
 {
+	// UNDONE: Calc this on the server?  Disabled for now as it seems unnecessary to have this info on the server
+#if defined( CLIENT_DLL )
 	Vector vOriginalOrigin = origin;
 	QAngle vOriginalAngles = angles;
 
@@ -564,18 +566,12 @@ void CBaseViewModel::CalcViewModelLag( Vector& origin, QAngle& angles, QAngle& o
 		Vector vDifference;
 		VectorSubtract( forward, m_vecLastFacing, vDifference );
 
-		CBaseCombatWeapon* pWeapon = GetOwningWeapon();
-
 		float flSpeed = 5.0f;
-
-		if (pWeapon != NULL && pWeapon->IsIronsighted())
-		{
-			flSpeed = 2.5f;
-		}
 
 		// If we start to lag too far behind, we'll increase the "catch up" speed.  Solves the problem with fast cl_yawspeed, m_yaw or joysticks
 		//  rotating quickly.  The old code would slam lastfacing with origin causing the viewmodel to pop to a new position
 		float flDiff = vDifference.Length();
+
 		if ( (flDiff > g_fMaxViewModelLag) && (g_fMaxViewModelLag > 0.0f) )
 		{
 			float flScale = flDiff / g_fMaxViewModelLag;
@@ -586,6 +582,7 @@ void CBaseViewModel::CalcViewModelLag( Vector& origin, QAngle& angles, QAngle& o
 		VectorMA( m_vecLastFacing, flSpeed * gpGlobals->frametime, vDifference, m_vecLastFacing );
 		// Make sure it doesn't grow out of control!!!
 		VectorNormalize( m_vecLastFacing );
+
 		VectorMA( origin, 5.0f, vDifference * -1.0f, origin );
 
 		Assert( m_vecLastFacing.IsValid() );
@@ -608,8 +605,9 @@ void CBaseViewModel::CalcViewModelLag( Vector& origin, QAngle& angles, QAngle& o
 
 	//FIXME: These are the old settings that caused too many exposed polys on some models
 	VectorMA( origin, -pitch * 0.035f,	forward,	origin );
-	VectorMA( origin, -pitch * 0.03f,		right,	origin );
+	VectorMA(origin, -pitch * 0.03f, right, origin);
 	VectorMA( origin, -pitch * 0.02f,		up,		origin);
+#endif
 }
 
 //-----------------------------------------------------------------------------

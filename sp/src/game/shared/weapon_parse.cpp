@@ -644,6 +644,7 @@ void FileWeaponInfo_t::Parse( KeyValues *pKeyValuesData, const char *szWeaponNam
 	}
 
 	m_bAllowCenterAdjust = pKeyValuesData->GetBool("AllowCenterAdjust", 1);
+	m_bCenterAllowFlipped = pKeyValuesData->GetBool("AllowCenterFlip", 0);
 
 	KeyValues* pAdjustCenter = pKeyValuesData->FindKey("AdjustCentered");
 	if (pAdjustCenter)

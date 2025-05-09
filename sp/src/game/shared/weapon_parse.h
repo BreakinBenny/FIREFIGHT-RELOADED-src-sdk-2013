@@ -121,7 +121,7 @@ public:
 	QAngle					angCenterAdjustAngOffset;
 	Vector					vecCenterAdjustPosOffset;
 	bool					m_bAllowCenterAdjust;
-	bool					m_bUsingCenterAdjust;
+	bool					m_bCenterAllowFlipped;
 
 	bool					m_bUseIronsight;
 	bool					m_bUseMagStyleReloads;

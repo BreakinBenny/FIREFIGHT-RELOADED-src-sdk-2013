@@ -42,30 +42,48 @@ CPredictedViewModel::~CPredictedViewModel()
 #ifdef CLIENT_DLL
 ConVar cl_wpn_sway_interp( "cl_wpn_sway_interp", "0.1", FCVAR_CLIENTDLL );
 ConVar cl_wpn_sway_scale( "cl_wpn_sway_scale", "1.0", FCVAR_CLIENTDLL|FCVAR_CHEAT );
+ConVar cl_wpn_sway_scale_ironsight("cl_wpn_sway_scale_ironsight", "0.5", FCVAR_CLIENTDLL | FCVAR_CHEAT);
 #endif
 
 void CPredictedViewModel::CalcViewModelLag( Vector& origin, QAngle& angles, QAngle& original_angles )
 {
-	#ifdef CLIENT_DLL
-		// Calculate our drift
-		Vector	forward, right, up;
-		AngleVectors( angles, &forward, &right, &up );
+#ifdef CLIENT_DLL
+	// Calculate our drift
+	Vector	forward, right, up;
+	AngleVectors( angles, &forward, &right, &up );
 		
-		// Add an entry to the history.
-		m_vLagAngles = angles;
-		m_LagAnglesHistory.NoteChanged( gpGlobals->curtime, cl_wpn_sway_interp.GetFloat(), false );
+	// Add an entry to the history.
+	m_vLagAngles = angles;
+	m_LagAnglesHistory.NoteChanged( gpGlobals->curtime, cl_wpn_sway_interp.GetFloat(), false );
 		
-		// Interpolate back 100ms.
-		m_LagAnglesHistory.Interpolate( gpGlobals->curtime, cl_wpn_sway_interp.GetFloat() );
+	// Interpolate back 100ms.
+	m_LagAnglesHistory.Interpolate( gpGlobals->curtime, cl_wpn_sway_interp.GetFloat() );
 		
-		// Now take the 100ms angle difference and figure out how far the forward vector moved in local space.
-		Vector vLaggedForward;
-		QAngle angleDiff = m_vLagAngles - angles;
-		AngleVectors( -angleDiff, &vLaggedForward, 0, 0 );
-		Vector vForwardDiff = Vector(1,0,0) - vLaggedForward;
+	// Now take the 100ms angle difference and figure out how far the forward vector moved in local space.
+	Vector vLaggedForward;
+	QAngle angleDiff = m_vLagAngles - angles;
+	AngleVectors( -angleDiff, &vLaggedForward, 0, 0 );
+	Vector vForwardDiff = Vector(1,0,0) - vLaggedForward;
 
-		// Now offset the origin using that.
+	// Now offset the origin using that.
+	CBaseCombatWeapon* pWeapon = GetOwningWeapon();
+
+	if (pWeapon && pWeapon->IsIronsighted())
+	{
+		vForwardDiff *= cl_wpn_sway_scale_ironsight.GetFloat();
+	}
+	else
+	{
 		vForwardDiff *= cl_wpn_sway_scale.GetFloat();
-		origin += forward*vForwardDiff.x + right*-vForwardDiff.y + up*vForwardDiff.z;
-	#endif
+	}
+
+	if (ShouldFlipViewModel())
+	{
+		origin += forward * vForwardDiff.x + right * vForwardDiff.y + up * vForwardDiff.z;
+	}
+	else
+	{
+		origin += forward * vForwardDiff.x + right * -vForwardDiff.y + up * vForwardDiff.z;
+	}
+#endif
 }

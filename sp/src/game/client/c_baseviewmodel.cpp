@@ -200,7 +200,7 @@ inline bool C_BaseViewModel::ShouldFlipViewModel()
 	CBaseCombatWeapon *pWeapon = GetOwningWeapon();
 	if ( pWeapon )
 	{
-		if (pWeapon->IsDualWielding() || viewmodel_adjust_user_position_mode.GetInt() == VM_CENTERED)
+		if (pWeapon->IsDualWielding() || (viewmodel_adjust_user_position_mode.GetInt() == VM_CENTERED && !pWeapon->GetWpnData().m_bCenterAllowFlipped))
 			return false;
 
 		const FileWeaponInfo_t *pInfo = &pWeapon->GetWpnData();
