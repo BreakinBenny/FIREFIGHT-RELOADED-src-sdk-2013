@@ -6305,32 +6305,31 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 				DevMsg("SET m_rgMaxUpgrades[FIREFIGHT_UPGRADE_MAXHEALTH] TO %i\n", m_rgMaxUpgrades[FIREFIGHT_UPGRADE_MAXHEALTH]);
 			}
 
+			bool maxHealthChanges = false;
+
+			if (setMaxHealth)
+			{
+				SetMaxHealthValue(healthNum);
+				maxHealthChanges = true;
+			}
+
+			if (maxHealthNum > 0)
+			{
+				SetMaxHealthValue(maxHealthNum);
+				maxHealthChanges = true;
+			}
+
+			if (!maxHealthChanges)
+			{
+				SetMaxHealthValue(player_defaulthealthoverchargecap.GetInt());
+			}
+
 			if (incrementHealth)
 			{
-				if (setMaxHealth)
-				{
-					IncrementMaxHealthValue(healthNum);
-				}
-
-				if (maxHealthNum > 0)
-				{
-					IncrementMaxHealthValue(maxHealthNum);
-				}
-
 				IncrementHealthValue(healthNum);
 			}
 			else
 			{
-				if (setMaxHealth)
-				{
-					SetMaxHealthValue(healthNum);
-				}
-
-				if (maxHealthNum > 0)
-				{
-					SetMaxHealthValue(maxHealthNum);
-				}
-
 				SetHealth(healthNum);
 			}
 		}
@@ -6347,32 +6346,31 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 
 		if (armorNum > 0)
 		{
+			bool maxArmorChanges = false;
+
+			if (setMaxArmor)
+			{
+				SetMaxArmorValue(armorNum);
+				maxArmorChanges = true;
+			}
+
+			if (maxArmorNum > 0)
+			{
+				SetMaxArmorValue(maxArmorNum);
+				maxArmorChanges = true;
+			}
+
+			if (!maxArmorChanges)
+			{
+				SetMaxArmorValue(player_maxarmor.GetInt());
+			}
+
 			if (incrementArmor)
 			{
-				if (setMaxArmor)
-				{
-					IncrementMaxArmorValue(armorNum);
-				}
-
-				if (maxArmorNum > 0)
-				{
-					IncrementMaxArmorValue(maxArmorNum);
-				}
-
 				IncrementArmorValue(armorNum);
 			}
 			else
 			{
-				if (setMaxArmor)
-				{
-					SetMaxArmorValue(armorNum);
-				}
-
-				if (maxArmorNum > 0)
-				{
-					SetMaxArmorValue(maxArmorNum);
-				}
-
 				SetArmorValue(armorNum);
 			}
 		}

@@ -6,8 +6,8 @@
 {
 	"1"
 	{
-		"health"		"100"
-		"setmaxhealth"	"1"
+		"health"		"200"
+		"maxhealth"	"100"
 		"armor"		"100"
 		"setmaxarmor"	"1"
 		"healthoverchargecap" "450"

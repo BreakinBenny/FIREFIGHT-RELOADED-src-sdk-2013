@@ -6,8 +6,8 @@
 {
 	"1"
 	{
-		"health"		"400"
-		"setmaxhealth"	"1"
+		"health"		"500"
+		"maxhealth"	"400"
 		"armor"		"600"
 		"setmaxarmor"	"1"
 		"level"		"20"
