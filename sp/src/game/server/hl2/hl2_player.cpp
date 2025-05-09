@@ -140,7 +140,7 @@ ConVar sk_kick_shake_propmass("sk_kick_shake_propmass", "150");
 ConVar sv_player_shootinzoom("sv_player_shootinzoom", "1", FCVAR_ARCHIVE);
 
 ConVar sv_player_rocketjumping("sv_player_rocketjumping", "1", FCVAR_ARCHIVE);
-ConVar sv_player_damageforce_self("sv_player_damageforce_self", "3", FCVAR_CHEAT);
+ConVar sv_player_damageforce_self("sv_player_damageforce_self", "2.3", FCVAR_CHEAT);
 ConVar sv_player_damagescale_self("sv_player_damagescale_self", "0.35", FCVAR_CHEAT);
 
 ConVar sv_player_bullettime_timescale("sv_player_bullettime_timescale", "35", FCVAR_ARCHIVE);
@@ -160,6 +160,9 @@ static ConVar sk_katana_charge_bashdamage("sk_katana_charge_bashdamage", "0");
 static ConVar sv_katana_charge_bashvelocitymultiplier("sv_katana_charge_bashvelocitymultiplier", "5", FCVAR_CHEAT);
 static ConVar sv_katana_charge_chargetime("sv_katana_charge_chargetime", "2", FCVAR_CHEAT);
 static ConVar sv_katana_charge_chargedelaytime("sv_katana_charge_chargedelaytime", "4", FCVAR_CHEAT);
+static ConVar sv_katana_charge_damageresistance("sv_katana_charge_damageresistance", "0.60", FCVAR_CHEAT);
+
+static ConVar sv_player_grapple_damageresistance("sv_player_grapple_damageresistance", "0.75", FCVAR_CHEAT);
 
 static ConVar sv_katana_charge_insanity("sv_katana_charge_insanity", "0", FCVAR_CHEAT);
 
@@ -1381,6 +1384,12 @@ CBaseEntity* CHL2_Player::CheckKickPropAction(CBaseViewModel* vm, const Vector& 
 			pBreak->DispatchTraceAttack(dmgInfo, hitDirection, &tr);
 			ApplyMultiDamage();
 		}
+		else
+		{
+			//ent should be a prop or breakable with this function.
+			//if it's an NPC, we should NULL it out since we deal with NPCs differently.
+			pEntity = NULL;
+		}
 	}
 
 	return pEntity;
@@ -1460,22 +1469,6 @@ void CHL2_Player::KickAttack(void)
 					return;
 				}
 
-				CBreakable* pBreak = dynamic_cast <CBreakable*>(CheckKickPropAction(vm, Weapon_ShootPosition(), vecEnd, Vector(-16, -16, -16), Vector(16, 16, 16), KickDamageProps, KickThrowForceMult));
-				if (pBreak)
-				{
-					RumbleEffect(RUMBLE_357, 0, RUMBLE_FLAG_RESTART);
-					EmitSound("HL2Player.kick_wall");
-					return;
-				}
-
-				CPhysicsProp* pProp = dynamic_cast<CPhysicsProp*>(CheckKickPropAction(vm, Weapon_ShootPosition(), vecEnd, Vector(-16, -16, -16), Vector(16, 16, 16), KickDamageProps, KickThrowForceMult));
-				if (pProp)
-				{
-					RumbleEffect(RUMBLE_357, 0, RUMBLE_FLAG_RESTART);
-					EmitSound("HL2Player.kick_wall");
-					return;
-				}
-
 				CBaseEntity* Victim = CheckTraceHullAttack(Weapon_ShootPosition(), vecEnd, Vector(-16, -16, -16), Vector(16, 16, 16), KickDamageFlightBoost, (DMG_CLUB | DMG_BLAST | DMG_NEVERGIB), KickThrowForceMult, true);
 				if (Victim && Victim->IsNPC())
 				{
@@ -1483,7 +1476,7 @@ void CHL2_Player::KickAttack(void)
 					//don't kick striders, only deliver damage.
 					if (FClassnameIs(Victim, "npc_strider"))
 					{
-						CAmmoDef *ammodef = GetAmmoDef();
+						CAmmoDef* ammodef = GetAmmoDef();
 						Vector vecAiming = BaseClass::GetAutoaimVector(AUTOAIM_SCALE_DEFAULT);
 
 						FireBulletsInfo_t info;
@@ -1505,6 +1498,17 @@ void CHL2_Player::KickAttack(void)
 
 					EmitSound("HL2Player.kick_body");
 					return;
+				}
+				else
+				{
+					CBaseEntity* pEnt = CheckKickPropAction(vm, Weapon_ShootPosition(), vecEnd, Vector(-16, -16, -16), Vector(16, 16, 16), KickDamageProps, KickThrowForceMult);
+
+					if (pEnt)
+					{
+						RumbleEffect(RUMBLE_357, 0, RUMBLE_FLAG_RESTART);
+						EmitSound("HL2Player.kick_wall");
+						return;
+					}
 				}
 			}
 
@@ -3910,9 +3914,19 @@ int CHL2_Player::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 		}
 	}
 
+	CTakeDamageInfo info2 = info;
+
+	if (IsGrappling())
+	{
+		info2.ScaleDamage(sv_player_grapple_damageresistance.GetFloat());
+	}
+	else if (IsCharging())
+	{
+		info2.ScaleDamage(sv_katana_charge_damageresistance.GetFloat());
+	}
 
 	// Call the base class implementation
-	return BaseClass::OnTakeDamage_Alive( info );
+	return BaseClass::OnTakeDamage_Alive( info2 );
 }
 
 //-----------------------------------------------------------------------------

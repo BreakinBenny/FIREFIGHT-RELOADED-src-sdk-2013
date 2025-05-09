@@ -72,6 +72,7 @@ ConVar sk_combine_ace_shielddamage_normal("sk_combine_ace_shielddamage_normal", 
 ConVar sk_combine_ace_shielddamage_hard("sk_combine_ace_shielddamage_hard", "1");
 ConVar sk_combine_ace_shielddamage_explosive_multiplier("sk_combine_ace_shielddamage_explosive_multiplier", "0.55");
 ConVar sk_combine_ace_shielddamage_shock_multiplier("sk_combine_ace_shielddamage_shock_multiplier", "0.6");
+ConVar sk_combine_ace_shielddamage_kick_multiplier("sk_combine_ace_shielddamage_kick_multiplier", "0.25");
  
 // Whether or not the combine guard should spawn health on death
 ConVar combine_ace_spawn_health("combine_ace_spawn_health", "1");
@@ -623,32 +624,12 @@ CTakeDamageInfo CNPC_CombineAce::BulletResistanceLogic(const CTakeDamageInfo& in
 
 	CTakeDamageInfo outputInfo = info;
 
-	bool canKatanaPierce = (g_pGameRules->GetSkillLevel() > SKILL_EASY && FStrEq(outputInfo.GetAmmoName(), "Katana"));
+	bool canKatanaPierce = (g_pGameRules->GetSkillLevel() == SKILL_EASY && FStrEq(outputInfo.GetAmmoName(), "Katana"));
 
 	if ((GetHealth() > shieldhealth) && !canKatanaPierce && !m_bBulletResistanceBroken)
 	{
 		if (!(outputInfo.GetDamageType() & (DMG_GENERIC)))
 		{
-			//allow ourself to get launched by kick or explosives, but don't take a lot of damage.
-			if (info.GetDamageType() & DMG_BLAST /*|| (info.GetDamageType() & DMG_CLUB && info.GetDamage() >= MIN_KICK_KNOCKBACK_DAMAGE)*/)
-			{
-				Vector hitDirection, up;
-
-				CBasePlayer* pPlayer = ToBasePlayer(info.GetAttacker());
-				if (pPlayer)
-				{
-					pPlayer->EyeVectors(&hitDirection, NULL, &up);
-				}
-				else
-				{
-					hitDirection = GetAbsOrigin();
-					up = GetAbsVelocity();
-				}
-
-				VectorNormalize(hitDirection);
-				ApplyAbsVelocityImpulse(hitDirection * 800 + up * 300);
-			}
-
 			SetBloodColor(BLOOD_COLOR_MECH);
 			if (ptr != NULL)
 			{
@@ -661,11 +642,18 @@ CTakeDamageInfo CNPC_CombineAce::BulletResistanceLogic(const CTakeDamageInfo& in
 			{
 				if (outputInfo.GetDamageType() & DMG_BLAST)
 				{
-					outputInfo.SetDamage(outputInfo.GetDamage() * sk_combine_ace_shielddamage_explosive_multiplier.GetFloat());
+					if (outputInfo.GetDamageType() & DMG_CLUB)
+					{
+						outputInfo.ScaleDamage(sk_combine_ace_shielddamage_kick_multiplier.GetFloat());
+					}
+					else
+					{
+						outputInfo.ScaleDamage(sk_combine_ace_shielddamage_explosive_multiplier.GetFloat());
+					}
 				}
 				else if (outputInfo.GetDamageType() & DMG_SHOCK)
 				{
-					outputInfo.SetDamage(outputInfo.GetDamage() * sk_combine_ace_shielddamage_shock_multiplier.GetFloat());
+					outputInfo.ScaleDamage(sk_combine_ace_shielddamage_shock_multiplier.GetFloat());
 				}
 				else
 				{
@@ -691,11 +679,11 @@ CTakeDamageInfo CNPC_CombineAce::BulletResistanceLogic(const CTakeDamageInfo& in
 	if ((GetHealth() <= shieldhealth) && !m_bBulletResistanceBroken)
 	{
 		//this is so rpg rockets don't instantly kill us when our shield breaks.
+		SetHealth(GetMaxHealth());
 		outputInfo.SetDamage(0.0f);
 		outputInfo.SetDamageType(DMG_GENERIC);
 		CBroadcastRecipientFilter filter2;
 		te->BeamRingPoint(filter2, 0.0, GetAbsOrigin() + Vector(0, 0, 16), 16, 500, m_iSpriteTexture, 0, 0, 0, 0.2, 24, 16, 0, 254, 189, 255, 50, 0);
-		SetHealth(GetMaxHealth());
 		//i'm going to regret this
 		SpeakSentence("SHIELDDANGER", SENTENCE_PRIORITY_NORMAL, SENTENCE_CRITERIA_NORMAL);
 		EmitSound("Weapon_StriderBuster.Detonate");

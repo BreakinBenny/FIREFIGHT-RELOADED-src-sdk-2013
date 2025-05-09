@@ -22,6 +22,8 @@
 #include "rumble_shared.h"
 #include "gamestats.h"
 #include "hl2_player.h"
+#include "npc_combineace.h"
+#include "npc_advisor.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -217,7 +219,32 @@ void CWeaponKatana::PrimaryAttack(void)
 
 					if (foundEnemy)
 					{
-						damage = damage * sk_katana_enemy_damageresistance.GetFloat();
+						bool applyDamageResist = false;
+
+						CNPC_CombineAce* pAce = dynamic_cast<CNPC_CombineAce*>(ent);
+						if (pAce)
+						{
+							if (pAce->m_bBulletResistanceBroken)
+							{
+								applyDamageResist = true;
+							}
+						}
+						else
+						{
+							CNPC_Advisor* pAdvisor = dynamic_cast<CNPC_Advisor*>(ent);
+							if (pAdvisor)
+							{
+								if (pAdvisor->m_bBulletResistanceBroken)
+								{
+									applyDamageResist = true;
+								}
+							}
+						}
+
+						if (applyDamageResist)
+						{
+							damage = damage * sk_katana_enemy_damageresistance.GetFloat();
+						}
 					}
 
 					CHL2_Player* pHL2Player = ToHL2Player(GetOwner());

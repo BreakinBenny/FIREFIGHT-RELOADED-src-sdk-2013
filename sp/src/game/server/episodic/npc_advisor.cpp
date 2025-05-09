@@ -70,6 +70,7 @@ extern ConVar sk_combine_ace_shielddamage_normal;
 extern ConVar sk_combine_ace_shielddamage_hard;
 extern ConVar sk_combine_ace_shielddamage_explosive_multiplier;
 extern ConVar sk_combine_ace_shielddamage_shock_multiplier;
+extern ConVar sk_combine_ace_shielddamage_kick_multiplier;
 // ConVar advisor_staging_duration("
 #endif
 
@@ -312,11 +313,18 @@ CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info,
 			{
 				if (outputInfo.GetDamageType() & DMG_BLAST)
 				{
-					outputInfo.SetDamage(outputInfo.GetDamage() * sk_combine_ace_shielddamage_explosive_multiplier.GetFloat());
+					if (outputInfo.GetDamageType() & DMG_CLUB)
+					{
+						outputInfo.ScaleDamage(sk_combine_ace_shielddamage_kick_multiplier.GetFloat());
+					}
+					else
+					{
+						outputInfo.ScaleDamage(sk_combine_ace_shielddamage_explosive_multiplier.GetFloat());
+					}
 				}
 				else if (outputInfo.GetDamageType() & DMG_SHOCK)
 				{
-					outputInfo.SetDamage(outputInfo.GetDamage() * sk_combine_ace_shielddamage_shock_multiplier.GetFloat());
+					outputInfo.ScaleDamage(sk_combine_ace_shielddamage_shock_multiplier.GetFloat());
 				}
 				else
 				{
@@ -342,11 +350,11 @@ CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info,
 	if ((GetHealth() <= shieldmaxhealth) && !m_bBulletResistanceBroken)
 	{
 		//this is so rpg rockets don't instantly kill us when our shield breaks.
+		SetHealth(GetMaxHealth());
 		outputInfo.SetDamage(0.0f);
 		outputInfo.SetDamageType(DMG_GENERIC);
 		CBroadcastRecipientFilter filter2;
 		te->BeamRingPoint(filter2, 0.0, GetAbsOrigin() + Vector(0, 0, 16), 16, 500, m_iSpriteTexture, 0, 0, 0, 0.2, 24, 16, 0, 254, 189, 255, 50, 0);
-		SetHealth(GetMaxHealth());
 		//i'm going to regret this
 		EmitSound("Weapon_StriderBuster.Detonate");
 		EmitSound("NPC_Advisor.Scream");
