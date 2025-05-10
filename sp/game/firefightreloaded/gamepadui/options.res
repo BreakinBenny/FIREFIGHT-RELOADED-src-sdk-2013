@@ -689,6 +689,19 @@
 				"textprecision" "2"
 			}
             
+            "GaussBeam"
+			{
+				"text"			"#GameUI_GaussBeamOption"
+				"type"			"wheelywheel"
+				"convar"		"sv_gauss_jeep_beam"
+
+				"options"
+				{
+					"0"		"#Song_Album_HalfLife"
+					"1"		"#Song_Album_HalfLife2"
+				}
+			}
+            
             "HUDHeader"
 			{
 				"text"			"#GameUI_HUDHeader"
@@ -3938,20 +3951,6 @@
 				{
 					"0"		"#gameui_disabled"
 					"1"		"#gameui_enabled"
-				}
-			}
-            
-            "GaussBeam"
-			{
-				"text"			"#GameUI_GaussBeamOption"
-				"type"			"wheelywheel"
-				"advanced"		"1"
-				"convar"		"sv_gauss_jeep_beam"
-
-				"options"
-				{
-					"0"		"#Song_Album_HalfLife"
-					"1"		"#Song_Album_HalfLife2"
 				}
 			}
 
