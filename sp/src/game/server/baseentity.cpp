@@ -1515,6 +1515,9 @@ void CBaseEntity::TakeDamage( const CTakeDamageInfo &inputInfo )
 	{
 		CTakeDamageInfo info = inputInfo;
 		
+		// for whatever reason, this causes a crash in some instances, possibly due to our entities not using modifiers.
+		// Since FR doesn't use modifiers, i'm disabling this unless I add them in later.
+		
 		// Scale the damage by the attacker's modifier.
 		if ( info.GetAttacker() )
 		{
@@ -1533,9 +1536,13 @@ void CBaseEntity::TakeDamage( const CTakeDamageInfo &inputInfo )
 //-----------------------------------------------------------------------------
 // Purpose: Returns a value that scales all damage done by this entity.
 //-----------------------------------------------------------------------------
-float CBaseEntity::GetAttackDamageScale( CBaseEntity *pVictim )
+float CBaseEntity::GetAttackDamageScale( CBaseEntity* pVictim )
 {
 	float flScale = 1;
+
+	if (m_DamageModifiers.Count() <= 0)
+		return flScale;
+
 	FOR_EACH_LL( m_DamageModifiers, i )
 	{
 		if ( !m_DamageModifiers[i]->IsDamageDoneToMe() )
@@ -1549,19 +1556,22 @@ float CBaseEntity::GetAttackDamageScale( CBaseEntity *pVictim )
 //-----------------------------------------------------------------------------
 // Purpose: Returns a value that scales all damage done to this entity
 //-----------------------------------------------------------------------------
-float CBaseEntity::GetReceivedDamageScale( CBaseEntity *pAttacker )
+float CBaseEntity::GetReceivedDamageScale( CBaseEntity* pAttacker )
 {
 	float flScale = 1;
+
+	if (m_DamageModifiers.Count() <= 0)
+		return flScale;
+
 	FOR_EACH_LL( m_DamageModifiers, i )
 	{
-		if (m_DamageModifiers[i] && m_DamageModifiers[i]->IsDamageDoneToMe() )
+		if ( m_DamageModifiers[i]->IsDamageDoneToMe() )
 		{
 			flScale *= m_DamageModifiers[i]->GetModifier();
 		}
 	}
 	return flScale;
 }
-
 
 //-----------------------------------------------------------------------------
 // Purpose: Applies forces to our physics object in response to damage.

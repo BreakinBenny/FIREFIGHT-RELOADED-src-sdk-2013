@@ -5077,6 +5077,9 @@ float C_BaseEntity::GetAttackDamageScale( void )
 	float flScale = 1;
 // Not hooked up to prediction yet
 #if 0
+	if (m_DamageModifiers.Count() <= 0)
+		return flScale;
+
 	FOR_EACH_LL( m_DamageModifiers, i )
 	{
 		if ( !m_DamageModifiers[i]->IsDamageDoneToMe() )
