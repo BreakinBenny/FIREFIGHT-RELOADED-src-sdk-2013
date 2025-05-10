@@ -127,6 +127,26 @@
 	"7"
 	{
 		"entity"	"npc_maker_firefight"
+		"x"	"-5940.5225"
+		"y"	"8914.175"
+		"z"	"466.03125"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"StartDisabled"	"0"
+			"targetname"	"Spawner"
+			"NPCSquadName"	"Squad"
+			"RareNPCRarity"	"5"
+			"SpawnFrequency"	"5"
+			"MaxLiveChildren"	"15"
+			"MaxLiveRareNPCs"	"5"
+		}
+	}
+	"8"
+	{
+		"entity"	"npc_maker_firefight"
 		"x"	"-3168.3147"
 		"y"	"6398.993"
 		"z"	"-24.129395"
@@ -144,7 +164,7 @@
 			"MaxLiveRareNPCs"	"5"
 		}
 	}
-	"8"
+	"9"
 	{
 		"entity"	"npc_maker_firefight"
 		"x"	"-7350.372"
@@ -164,7 +184,7 @@
 			"MaxLiveRareNPCs"	"5"
 		}
 	}
-	"9"
+	"10"
 	{
 		"entity"	"item_lightarmor"
 		"x"	"-6267.402"
@@ -178,7 +198,7 @@
 			"targetname"	"LightArmor"
 		}
 	}
-	"10"
+	"11"
 	{
 		"entity"	"item_heavyarmor"
 		"x"	"-6098.907"
