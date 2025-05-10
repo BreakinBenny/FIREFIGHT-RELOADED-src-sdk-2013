@@ -7373,11 +7373,7 @@ void CAI_BaseNPC::AssignKilllogTeams(int teamNumber)
 
 	//not using IsPlayerAlly since we JUST spawned as of the first call. 
 	//we're risking a crash by trying to find the player if we call IsPlayerAlly.
-
-	bool IsAlly = (Classify() == CLASS_PLAYER
-		|| Classify() == CLASS_PLAYER_ALLY
-		|| Classify() == CLASS_PLAYER_ALLY_VITAL
-		|| Classify() == CLASS_PLAYER_NPC);
+	bool IsAlly = (IClassRelationType(CLASS_PLAYER) == D_LI);
 
 	if (!IsAlly)
 	{

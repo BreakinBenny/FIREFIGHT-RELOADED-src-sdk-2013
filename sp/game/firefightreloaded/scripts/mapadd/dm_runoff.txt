@@ -4,471 +4,362 @@
 
 "MapAdd"
 {
-    "1"
-    {
-        "entity" "npc_maker_firefight"
-        //Positions
-        "x" "9427.141602"
-        "y" "1714.180420"
-        "z" "-1323.109497"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "Spawner_1"
-            "RareNPCRarity"    "5"
-            "StartDisabled"    "0"
-            "NPCSquadName"    "Squad_1"
-            "SpawnFrequency"    "10"
-            "MaxLiveChildren"    "25"
-            "MaxLiveRareNPCs"    "6"
-        }
-    }
-    "2"
-    {
-        "entity" "npc_maker_firefight"
-        //Positions
-        "x" "8191.250488"
-        "y" "362.908295"
-        "z" "-245.968750"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "Spawner_2"
-            "RareNPCRarity"    "5"
-            "StartDisabled"    "0"
-            "NPCSquadName"    "Squad_2"
-            "SpawnFrequency"    "10"
-            "MaxLiveChildren"    "25"
-            "MaxLiveRareNPCs"    "6"
-        }
-    }
-    "3"
-    {
-        "entity" "npc_maker_firefight"
-        //Positions
-        "x" "10235.916992"
-        "y" "2837.090088"
-        "z" "-245.968750"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "Spawner_3"
-            "RareNPCRarity"    "5"
-            "StartDisabled"    "0"
-            "NPCSquadName"    "Squad_3"
-            "SpawnFrequency"    "10"
-            "MaxLiveChildren"    "25"
-            "MaxLiveRareNPCs"    "6"
-        }
-    }
-    "4"
-    {
-        "entity" "npc_maker_firefight"
-        //Positions
-        "x" "7965.219727"
-        "y" "1129.359741"
-        "z" "-424.603729"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "Spawner_4"
-            "RareNPCRarity"    "5"
-            "StartDisabled"    "0"
-            "NPCSquadName"    "Squad_4"
-            "SpawnFrequency"    "10"
-            "MaxLiveChildren"    "25"
-            "MaxLiveRareNPCs"    "6"
-        }
-    }
-    "5"
-    {
-        "entity" "npc_maker_firefight"
-        //Positions
-        "x" "7577.802246"
-        "y" "3392.148193"
-        "z" "-417.506927"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "Spawner_5"
-            "RareNPCRarity"    "5"
-            "StartDisabled"    "0"
-            "NPCSquadName"    "Squad_5"
-            "SpawnFrequency"    "10"
-            "MaxLiveChildren"    "25"
-            "MaxLiveRareNPCs"    "6"
-        }
-    }
-    "6"
-    {
-        "entity" "npc_maker_firefight"
-        //Positions
-        "x" "11639.679688"
-        "y" "3848.536865"
-        "z" "-471.562134"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "Spawner_6"
-            "RareNPCRarity"    "5"
-            "StartDisabled"    "0"
-            "AllowLargeNPCs" "1"
-            "NPCSquadName"    "Squad_6"
-            "SpawnFrequency"    "10"
-            "MaxLiveChildren"    "25"
-            "MaxLiveRareNPCs"    "6"
-        }
-    }
-    "7"
-    {
-        "entity" "npc_maker_firefight"
-        //Positions
-        "x" "10699.782227"
-        "y" "813.497375"
-        "z" "-453.143311"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "Spawner_7"
-            "RareNPCRarity"    "5"
-            "StartDisabled"    "0"
-            "NPCSquadName"    "Squad_7"
-            "SpawnFrequency"    "10"
-            "MaxLiveChildren"    "25"
-            "MaxLiveRareNPCs"    "6"
-        }
-    }
-    "8"
-    {
-        "entity" "npc_maker_firefight"
-        //Positions
-        "x" "9906.450195"
-        "y" "1480.214355"
-        "z" "-245.968750"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "Spawner_8"
-            "RareNPCRarity"    "5"
-            "StartDisabled"    "0"
-            "NPCSquadName"    "Squad_8"
-            "SpawnFrequency"    "15"
-            "MaxLiveChildren"    "10"
-            "MaxLiveRareNPCs"    "6"
-        }
-    }
-    "9"
-    {
-        "entity" "npc_maker_firefight"
-        //Positions
-        "x" "11688.894531"
-        "y" "2386.165771"
-        "z" "-481.695007"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "Spawner_9"
-            "RareNPCRarity"    "5"
-            "StartDisabled"    "0"
-            "AllowLargeNPCs" "1"
-            "NPCSquadName"    "Squad_9"
-            "SpawnFrequency"    "15"
-            "MaxLiveChildren"    "10"
-            "MaxLiveRareNPCs"    "6"
-        }
-    }
-    "10"
-    {
-        "entity" "npc_maker_firefight"
-        //Positions
-        "x" "10305.256836"
-        "y" "1952.802856"
-        "z" "-245.968750"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "Spawner_10"
-            "RareNPCRarity"    "5"
-            "StartDisabled"    "0"
-            "NPCSquadName"    "Squad_10"
-            "SpawnFrequency"    "15"
-            "MaxLiveChildren"    "10"
-            "MaxLiveRareNPCs"    "6"
-        }
-    }
-    "11"
-    {
-        "entity" "item_lightarmor"
-        //Positions
-        "x" "8699.246094"
-        "y" "1976.938843"
-        "z" "-245.968750"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "LightArmor1"
-        }
-    }
-    "12"
-    {
-        "entity" "item_lightarmor"
-        //Positions
-        "x" "10631.163086"
-        "y" "2636.471436"
-        "z" "-245.968750"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "LightArmor2"
-        }
-    }
-    "13"
-    {
-        "entity" "item_lightarmor"
-        //Positions
-        "x" "9779.701172"
-        "y" "1917.682983"
-        "z" "-245.968750"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "LightArmor3"
-        }
-    }
-    
-    "14"
-    {
-        "entity" "item_lightarmor"
-        //Positions
-        "x" "7660.932129"
-        "y" "398.204559"
-        "z" "-232.914551"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "LightArmor4"
-        }
-    }
-
-    "15"
-    {
-        "entity" "item_heavyarmor"
-        //Positions
-        "x" "10978.808594"
-        "y" "1942.048950"
-        "z" "-245.968750"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "HeavyArmor1"
-        }
-    }
-
-    "16"
-    {
-        "entity" "item_heavyarmor"
-        //Positions
-        "x" "8290.391602"
-        "y" "1511.826172"
-        "z" "-419.783875"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "HeavyArmor2"
-        }
-    }
-
-    "17"
-    {
-        "entity" "item_heavyarmor"
-        //Positions
-        "x" "11799.101563"
-        "y" "1933.580566"
-        "z" "-466.660797"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "HeavyArmor3"
-        }
-    }
-    "18"
-    {
-        "entity" "item_crate_firefight"
-        //Positions
-        "x" "7671.153320"
-        "y" "1821.388550"
-        "z" "-245.968750"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname"     "Crate1"
-            "ItemClass1"    "weapon_sniper_rifle"
-            "ItemClass2"    "weapon_smg1"
-            "ItemClass3"    "weapon_shotgun"
-            "ItemClass4"    "weapon_railgun"
-            "ItemClass5"    "weapon_ar2"
-            "ItemClass6"    "weapon_m249para"
-            "ItemClass7"    "item_ammo_grenade"
-            "ItemClass8"    "weapon_rpg"
-            "ItemClass9"    "item_slam_ammo"
-            "ItemClass10"    "weapon_357"
-            "ItemCount"        "1"
-            "CrateAppearance"    "models/items/item_beacon_crate.mdl"
-        }
-    }
-    "19"
-    {
-        "entity" "item_crate_firefight"
-        //Positions
-        "x" "12006.997070"
-        "y" "3841.779785"
-        "z" "-434.661682"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname"     "Crate2"
-            "ItemClass1"    "weapon_sniper_rifle"
-            "ItemClass2"    "weapon_smg1"
-            "ItemClass3"    "weapon_shotgun"
-            "ItemClass4"    "weapon_gauss"
-            "ItemClass5"    "weapon_ar2"
-            "ItemClass6"    "weapon_m249para"
-            "ItemClass7"    "item_ammo_grenade"
-            "ItemClass8"    "weapon_rpg"
-            "ItemClass9"    "item_slam_ammo"
-            "ItemClass10"    "weapon_357"
-            "ItemCount"        "1"
-            "CrateAppearance"    "models/items/item_beacon_crate.mdl"
-        }
-    }
-    "20"
-    {
-        "entity" "item_crate_firefight"
-        //Positions
-        "x" "10926.751953"
-        "y" "1706.945313"
-        "z" "-245.968750"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname"     "Crate3"
-            "ItemClass1"    "weapon_sniper_rifle"
-            "ItemClass2"    "weapon_smg1"
-            "ItemClass3"    "weapon_shotgun"
-            "ItemClass4"    "weapon_railgun"
-            "ItemClass5"    "weapon_ar2"
-            "ItemClass6"    "weapon_m249para"
-            "ItemClass7"    "item_ammo_grenade"
-            "ItemClass8"    "weapon_rpg"
-            "ItemClass9"    "item_slam_ammo"
-            "ItemClass10"    "weapon_357"
-            "ItemCount"        "1"
-            "CrateAppearance"    "models/items/item_beacon_crate.mdl"
-        }
-    }
-    "21"
-    {
-        "entity" "item_crate_firefight"
-        //Positions
-        "x" "10640.175781"
-        "y" "1521.380859"
-        "z" "-245.968750"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname"     "Crate4"
-            "ItemClass1"    "weapon_sniper_rifle"
-            "ItemClass2"    "weapon_smg1"
-            "ItemClass3"    "weapon_shotgun"
-            "ItemClass4"    "weapon_gauss"
-            "ItemClass5"    "weapon_ar2"
-            "ItemClass6"    "weapon_m249para"
-            "ItemClass7"    "item_ammo_grenade"
-            "ItemClass8"    "weapon_rpg"
-            "ItemClass9"    "item_slam_ammo"
-            "ItemClass10"    "weapon_357"
-            "ItemCount"        "1"
-            "CrateAppearance"    "models/items/item_beacon_crate.mdl"
-        }
-    }
-    "22"
-    {
-        "entity" "weapon_railgun"
-        //Positions
-        "x" "10814.666992"
-        "y" "1624.169312"
-        "z" "-245.968750"
-        //Rotations
-        "roll"  "0"  
-        "yaw"   "0"
-        "pitch" "0"
-        "KeyValues"
-        {
-            "targetname" "Railgun"
-            "StartDisabled"	"0"
-        }
-    }
+	"1"
+	{
+		"entity"	"npc_maker_firefight"
+		"x"	"9427.142"
+		"y"	"1714.1804"
+		"z"	"-1323.1095"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"Spawner_1"
+			"RareNPCRarity"	"5"
+			"StartDisabled"	"0"
+			"NPCSquadName"	"Squad_1"
+			"SpawnFrequency"	"10"
+			"MaxLiveChildren"	"25"
+			"MaxLiveRareNPCs"	"6"
+		}
+	}
+	"2"
+	{
+		"entity"	"npc_maker_firefight"
+		"x"	"8191.2505"
+		"y"	"362.9083"
+		"z"	"-245.96875"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"Spawner_2"
+			"RareNPCRarity"	"5"
+			"StartDisabled"	"0"
+			"NPCSquadName"	"Squad_2"
+			"SpawnFrequency"	"10"
+			"MaxLiveChildren"	"25"
+			"MaxLiveRareNPCs"	"6"
+		}
+	}
+	"3"
+	{
+		"entity"	"npc_maker_firefight"
+		"x"	"10235.917"
+		"y"	"2837.09"
+		"z"	"-245.96875"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"Spawner_3"
+			"RareNPCRarity"	"5"
+			"StartDisabled"	"0"
+			"NPCSquadName"	"Squad_3"
+			"SpawnFrequency"	"10"
+			"MaxLiveChildren"	"25"
+			"MaxLiveRareNPCs"	"6"
+		}
+	}
+	"4"
+	{
+		"entity"	"npc_maker_firefight"
+		"x"	"7965.2197"
+		"y"	"1129.3597"
+		"z"	"-424.60373"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"Spawner_4"
+			"RareNPCRarity"	"5"
+			"StartDisabled"	"0"
+			"NPCSquadName"	"Squad_4"
+			"SpawnFrequency"	"10"
+			"MaxLiveChildren"	"40"
+			"MaxLiveRareNPCs"	"6"
+		}
+	}
+	"5"
+	{
+		"entity"	"npc_maker_firefight"
+		"x"	"7577.8022"
+		"y"	"3392.1482"
+		"z"	"-417.50693"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"Spawner_5"
+			"RareNPCRarity"	"5"
+			"StartDisabled"	"0"
+			"NPCSquadName"	"Squad_5"
+			"SpawnFrequency"	"10"
+			"MaxLiveChildren"	"25"
+			"MaxLiveRareNPCs"	"6"
+		}
+	}
+	"6"
+	{
+		"entity"	"npc_maker_firefight"
+		"x"	"11639.68"
+		"y"	"3848.5369"
+		"z"	"-471.56213"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"Spawner_6"
+			"RareNPCRarity"	"5"
+			"StartDisabled"	"0"
+			"AllowLargeNPCs"	"1"
+			"NPCSquadName"	"Squad_6"
+			"SpawnFrequency"	"10"
+			"MaxLiveChildren"	"50"
+			"MaxLiveRareNPCs"	"6"
+		}
+	}
+	"7"
+	{
+		"entity"	"npc_maker_firefight"
+		"x"	"10305.257"
+		"y"	"1952.8029"
+		"z"	"-245.96875"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"Spawner_10"
+			"RareNPCRarity"	"5"
+			"StartDisabled"	"0"
+			"NPCSquadName"	"Squad_10"
+			"SpawnFrequency"	"15"
+			"MaxLiveChildren"	"10"
+			"MaxLiveRareNPCs"	"6"
+		}
+	}
+	"8"
+	{
+		"entity"	"item_lightarmor"
+		"x"	"8699.246"
+		"y"	"1976.9388"
+		"z"	"-245.96875"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"LightArmor1"
+		}
+	}
+	"9"
+	{
+		"entity"	"item_lightarmor"
+		"x"	"10631.163"
+		"y"	"2636.4714"
+		"z"	"-245.96875"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"LightArmor2"
+		}
+	}
+	"10"
+	{
+		"entity"	"item_lightarmor"
+		"x"	"9779.701"
+		"y"	"1917.683"
+		"z"	"-245.96875"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"LightArmor3"
+		}
+	}
+	"11"
+	{
+		"entity"	"item_lightarmor"
+		"x"	"7660.932"
+		"y"	"398.20456"
+		"z"	"-232.91455"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"LightArmor4"
+		}
+	}
+	"12"
+	{
+		"entity"	"item_heavyarmor"
+		"x"	"10978.809"
+		"y"	"1942.049"
+		"z"	"-245.96875"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"HeavyArmor1"
+		}
+	}
+	"13"
+	{
+		"entity"	"item_heavyarmor"
+		"x"	"8290.392"
+		"y"	"1511.8262"
+		"z"	"-419.78387"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"HeavyArmor2"
+		}
+	}
+	"14"
+	{
+		"entity"	"item_heavyarmor"
+		"x"	"11799.102"
+		"y"	"1933.5806"
+		"z"	"-466.6608"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"HeavyArmor3"
+		}
+	}
+	"15"
+	{
+		"entity"	"item_crate_firefight"
+		"x"	"7671.1533"
+		"y"	"1821.3885"
+		"z"	"-245.96875"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"Crate1"
+			"ItemClass1"	"weapon_sniper_rifle"
+			"ItemClass2"	"weapon_smg1"
+			"ItemClass3"	"weapon_shotgun"
+			"ItemClass4"	"weapon_railgun"
+			"ItemClass5"	"weapon_ar2"
+			"ItemClass6"	"weapon_m249para"
+			"ItemClass7"	"item_ammo_grenade"
+			"ItemClass8"	"weapon_rpg"
+			"ItemClass9"	"item_slam_ammo"
+			"ItemClass10"	"weapon_357"
+			"ItemCount"	"1"
+			"CrateAppearance"	"models/items/item_beacon_crate.mdl"
+		}
+	}
+	"16"
+	{
+		"entity"	"item_crate_firefight"
+		"x"	"12006.997"
+		"y"	"3841.7798"
+		"z"	"-434.66168"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"Crate2"
+			"ItemClass1"	"weapon_sniper_rifle"
+			"ItemClass2"	"weapon_smg1"
+			"ItemClass3"	"weapon_shotgun"
+			"ItemClass4"	"weapon_gauss"
+			"ItemClass5"	"weapon_ar2"
+			"ItemClass6"	"weapon_m249para"
+			"ItemClass7"	"item_ammo_grenade"
+			"ItemClass8"	"weapon_rpg"
+			"ItemClass9"	"item_slam_ammo"
+			"ItemClass10"	"weapon_357"
+			"ItemCount"	"1"
+			"CrateAppearance"	"models/items/item_beacon_crate.mdl"
+		}
+	}
+	"17"
+	{
+		"entity"	"item_crate_firefight"
+		"x"	"10926.752"
+		"y"	"1706.9453"
+		"z"	"-245.96875"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"Crate3"
+			"ItemClass1"	"weapon_sniper_rifle"
+			"ItemClass2"	"weapon_smg1"
+			"ItemClass3"	"weapon_shotgun"
+			"ItemClass4"	"weapon_railgun"
+			"ItemClass5"	"weapon_ar2"
+			"ItemClass6"	"weapon_m249para"
+			"ItemClass7"	"item_ammo_grenade"
+			"ItemClass8"	"weapon_rpg"
+			"ItemClass9"	"item_slam_ammo"
+			"ItemClass10"	"weapon_357"
+			"ItemCount"	"1"
+			"CrateAppearance"	"models/items/item_beacon_crate.mdl"
+		}
+	}
+	"18"
+	{
+		"entity"	"item_crate_firefight"
+		"x"	"10640.176"
+		"y"	"1521.3809"
+		"z"	"-245.96875"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"Crate4"
+			"ItemClass1"	"weapon_sniper_rifle"
+			"ItemClass2"	"weapon_smg1"
+			"ItemClass3"	"weapon_shotgun"
+			"ItemClass4"	"weapon_gauss"
+			"ItemClass5"	"weapon_ar2"
+			"ItemClass6"	"weapon_m249para"
+			"ItemClass7"	"item_ammo_grenade"
+			"ItemClass8"	"weapon_rpg"
+			"ItemClass9"	"item_slam_ammo"
+			"ItemClass10"	"weapon_357"
+			"ItemCount"	"1"
+			"CrateAppearance"	"models/items/item_beacon_crate.mdl"
+		}
+	}
+	"19"
+	{
+		"entity"	"weapon_railgun"
+		"x"	"10814.667"
+		"y"	"1624.1693"
+		"z"	"-245.96875"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"targetname"	"Railgun"
+			"StartDisabled"	"0"
+		}
+	}
 }
