@@ -47,6 +47,7 @@ Running with Scissors for the kick sound effects.
 Devteam53 and ChalkyMalky for the Zombine Texture base.
 GeneralEcchi for their HEV arms on L4D2 rig.
 Mrfunreal for their lights.rad fix.
+LeonelC for various asset contributions, most notably the Cyberdiver Katana reskin.
 
 Code Credits:
 Sirmasters from BSNOOCH, for making the Mapadd, Kick, and Custom Weapon code. (Part of SMMOD)

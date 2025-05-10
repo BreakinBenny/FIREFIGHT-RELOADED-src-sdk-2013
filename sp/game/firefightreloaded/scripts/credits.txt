@@ -107,6 +107,8 @@
 	" "	"CreditsOutroText"
 	"Mrfunreal for their lights.rad fix. "	"CreditsOutroText"
 	" "	"CreditsOutroText"
+	"LeonelC for various asset contributions, most notably the Cyberdiver Katana reskin."	"CreditsOutroText"
+	" "	"CreditsOutroText"
 	"Code Credits:"	"CreditsOutroText"
 	" "	"CreditsOutroText"
 	"Sirmasters from BSNOOCH, for making the Mapadd, Kick,"	"CreditsOutroText"
