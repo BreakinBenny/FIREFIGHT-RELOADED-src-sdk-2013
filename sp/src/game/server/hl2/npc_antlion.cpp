@@ -4050,15 +4050,15 @@ bool CNPC_Antlion::ShouldGib( const CTakeDamageInfo &info )
 		return true;
 	}
 
-	if ( info.GetDamageType() & (DMG_NEVERGIB|DMG_DISSOLVE) )
-		return false;
-
 #ifdef HL2_EPISODIC
 	if ( IsWorker() && ANTLION_WORKERS_BURST() )
 		return !m_bDontExplode;
 #endif
 
-	if ( info.GetDamageType() & (DMG_ALWAYSGIB|DMG_BLAST) )
+	if (info.GetDamageType() & (DMG_NEVERGIB | DMG_DISSOLVE | DMG_SNIPER))
+		return false;
+
+	if ( info.GetDamageType() & (DMG_ALWAYSGIB|DMG_BLAST) && !(info.GetDamageType() & DMG_CLUB))
 		return true;
 
 	/*if (m_iHealth < -20)

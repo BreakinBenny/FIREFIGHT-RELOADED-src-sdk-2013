@@ -4101,7 +4101,7 @@
 				"text"			"#GameUI_NPCRemoveTime"
 				"type"			"slideyslide"
 				"advanced"		"1"
-				"convar"		"ai_disappear_time"
+				"convar"		"ai_disappear_idle_time"
 
 				"min"			"0"
 				"max"			"600"
@@ -4115,7 +4115,7 @@
 				"text"			"#GameUI_NPCRemoveTimeRare"
 				"type"			"slideyslide"
 				"advanced"		"1"
-				"convar"		"ai_disappear_time_rare"
+				"convar"		"ai_disappear_idle_time_rare"
 
 				"min"			"0"
 				"max"			"600"
@@ -4143,7 +4143,7 @@
 				"text"			"#GameUI_NPCFPSControl"
 				"type"			"wheelywheel"
 				"advanced"		"1"
-				"convar"		"ai_fps_control"
+				"convar"		"ai_disappear_fps_control"
 
 				"options"
 				{
@@ -4157,7 +4157,7 @@
 				"text"			"#GameUI_NPCFPSTarget"
 				"type"			"slideyslide"
 				"advanced"		"1"
-				"convar"		"ai_fps_control_target"
+				"convar"		"ai_disappear_fps_control_target"
 
 				"min"			"10"
 				"max"			"300"
@@ -4171,7 +4171,7 @@
 				"text"			"#GameUI_NPCFPSMode"
 				"type"			"wheelywheel"
 				"advanced"		"1"
-				"convar"		"ai_fps_control_mode"
+				"convar"		"ai_disappear_fps_control_mode"
 
 				"options"
 				{

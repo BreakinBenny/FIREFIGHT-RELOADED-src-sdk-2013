@@ -1842,7 +1842,7 @@
 {
  	"channel"    "CHAN_ITEM"
  	"volume"     "0.35"
- 	"soundlevel" "SNDLVL_IDLE"
+ 	"soundlevel" "SNDLVL_NORM"
  	"pitch"      "100"
  	"wave"       "weapons/katana/katana_equip.wav"
 }
@@ -1852,17 +1852,33 @@
  	"channel"    "CHAN_WEAPON"
  	"volume"     "0.35"
  	"soundlevel" "SNDLVL_NORM"
- 	"pitch"      "100"
- 	"wave"       "weapons/katana/katana_swing.wav"
+	"pitch"	"95,105"
+	
+	"rndwave"
+	{
+		"wave"       		"weapons/katana/tf_katana_01.wav"
+		"wave"       		"weapons/katana/tf_katana_02.wav"
+		"wave"       		"weapons/katana/tf_katana_03.wav"
+		"wave"       		"weapons/katana/tf_katana_04.wav"
+		"wave"       		"weapons/katana/tf_katana_05.wav"
+		"wave"       		"weapons/katana/tf_katana_06.wav"
+	}
 }
 
 "Katana.Hit"
 {
  	"channel"    "CHAN_WEAPON"
- 	"volume"     "0.35"
+ 	"volume"	"0.45"
  	"soundlevel" "SNDLVL_NORM"
- 	"pitch"      "100"
- 	"wave"       "weapons/katana/katana_hit.wav"
+	"pitch"	"95,105"
+
+	"rndwave"
+	{
+		"wave"       		"weapons/katana/katana_hit1.wav"
+		"wave"       		"weapons/katana/katana_hit2.wav"
+		"wave"       		"weapons/katana/katana_hit3.wav"
+		"wave"       		"weapons/katana/katana_hit4.wav"
+	}
 }
 
 "Katana.HitWorld"
@@ -1870,8 +1886,15 @@
  	"channel"    "CHAN_WEAPON"
  	"volume"     "0.35"
  	"soundlevel" "SNDLVL_NORM"
- 	"pitch"      "100"
- 	"wave"       "weapons/katana/katana_hitworld.wav"
+	"pitch"	"95,105"
+
+	"rndwave"
+	{
+		 "wave"       		"weapons/katana/katana_hitworld1.wav"
+		"wave"       		"weapons/katana/katana_hitworld2.wav"
+		"wave"       		"weapons/katana/katana_hitworld3.wav"
+		"wave"       		"weapons/katana/katana_hitworld4.wav"
+	}
 }
 
 "Katana.Ready"
