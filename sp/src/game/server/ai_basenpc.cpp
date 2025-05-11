@@ -149,15 +149,15 @@ ConVar	ai_efficiency_override( "ai_efficiency_override", "0" );
 ConVar	ai_debug_efficiency( "ai_debug_efficiency", "0" );
 ConVar	ai_debug_dyninteractions( "ai_debug_dyninteractions", "0", FCVAR_NONE, "Debug the NPC dynamic interaction system." );
 ConVar	ai_frametime_limit( "ai_frametime_limit", "50", FCVAR_NONE, "frametime limit for min efficiency AIE_NORMAL (in sec's)." );
-ConVar	ai_disappear("ai_disappear", "1", FCVAR_ARCHIVE, "Makes idling AI disappear after a specified amount of time.");
-ConVar	ai_disappear_time("ai_disappear_time", "60", FCVAR_ARCHIVE, "Time to make an NPC disappear.");
-ConVar	ai_disappear_time_rare("ai_disappear_time_rare", "30", FCVAR_ARCHIVE, "Additional time to make rare NPC disappear.");
+ConVar	ai_disappear("ai_disappear", "1", FCVAR_ARCHIVE, "Makes idling AIs disappear after a specified amount of time.");
+ConVar	ai_disappear_idle_time("ai_disappear_idle_time", "30", FCVAR_ARCHIVE, "Time to make an NPC disappear.");
+ConVar	ai_disappear_idle_time_rare("ai_disappear_idle_time_rare", "15", FCVAR_ARCHIVE, "Additional time to make rare NPCs disappear.");
 
 ConVar	ai_disappear_max_distance("ai_disappear_max_distance", "3584", FCVAR_ARCHIVE, "If the NPC is this far away from the enemy, it might be considered for deletion.");
 
-ConVar	ai_fps_control("ai_fps_control", "1", FCVAR_ARCHIVE, "Allow NPCs to remove themselves based on framerate.");
-ConVar	ai_fps_control_target("ai_fps_control_target", "60", FCVAR_ARCHIVE, "The framerate target we should be reaching.");
-ConVar	ai_fps_control_mode("ai_fps_control_mode", "1", FCVAR_ARCHIVE, "0: remove npcs that are far away and are non visible. 1: remove npcs that are non visible. 2: no checks are used when deleting NPCs.");
+ConVar	ai_disappear_fps_control("ai_disappear_fps_control", "1", FCVAR_ARCHIVE, "Allow NPCs to remove themselves based on framerate.");
+ConVar	ai_disappear_fps_control_target("ai_disappear_fps_control_target", "40", FCVAR_ARCHIVE, "The framerate target we should be reaching.");
+ConVar	ai_disappear_fps_control_mode("ai_disappear_fps_control_mode", "1", FCVAR_ARCHIVE, "0: remove npcs that are far away and are non visible. 1: remove npcs that are non visible. 2: no checks are used when deleting NPCs.");
 
 ConVar	ai_disappear_debugmsg_overload("ai_disappear_debugmsg_overload", "0", FCVAR_NONE, "");
 
@@ -4275,7 +4275,7 @@ void CAI_BaseNPC::NPCOptimization()
 	{
 		bool fpsRemoval = false;
 
-		if (ai_fps_control.GetBool())
+		if (ai_disappear_fps_control.GetBool())
 		{
 			m_framerate = 0.9 * m_framerate + (1.0 - 0.9) * gpGlobals->absoluteframetime;
 
@@ -4286,7 +4286,7 @@ void CAI_BaseNPC::NPCOptimization()
 
 			//Msg("FPS: %i\n", fps);
 
-			fpsRemoval = (fps < ai_fps_control_target.GetInt());
+			fpsRemoval = (fps < ai_disappear_fps_control_target.GetInt());
 		}
 
 		CBaseEntity* pEnemy = GetEnemy();
@@ -4304,18 +4304,18 @@ void CAI_BaseNPC::NPCOptimization()
 		bool isNotClose = (EnemyDistance(pEnemy) > dist);
 		bool isDeleteable = (isNotVisible && isNotClose);
 
-		if (ai_fps_control_mode.GetInt() == 1)
+		if (ai_disappear_fps_control_mode.GetInt() == 1)
 		{
 			isDeleteable = isNotVisible;
 		}
-		else if (ai_fps_control_mode.GetInt() >= 2)
+		else if (ai_disappear_fps_control_mode.GetInt() >= 2)
 		{
 			isDeleteable = true;
 		}
 
 		bool enableVisualCheck = false;
 
-		if (ai_fps_control_mode.GetInt() < 2)
+		if (ai_disappear_fps_control_mode.GetInt() < 2)
 		{
 			enableVisualCheck = true;
 		}
@@ -4331,11 +4331,11 @@ void CAI_BaseNPC::NPCOptimization()
 			{
 				if (gpGlobals->curtime >= m_fVisualCheckTime)
 				{
-					if (ai_fps_control_mode.GetInt() == 0)
+					if (ai_disappear_fps_control_mode.GetInt() == 0)
 					{
 						DevWarning("Deleted NPC %s (%s). Reason: Low FPS, Not Visible, Too Far\n", GetEntityName(), GetClassname());
 					}
-					else if (ai_fps_control_mode.GetInt() == 1)
+					else if (ai_disappear_fps_control_mode.GetInt() == 1)
 					{
 						DevWarning("Deleted NPC %s (%s). Reason: Low FPS, Not Visible\n", GetEntityName(), GetClassname());
 					}
@@ -4369,7 +4369,7 @@ void CAI_BaseNPC::NPCOptimization()
 			}
 			else
 			{
-				m_fIdleTime = gpGlobals->curtime + ai_disappear_time.GetFloat() + (m_isRareEntity ? ai_disappear_time_rare.GetFloat() : 0);
+				m_fIdleTime = gpGlobals->curtime + ai_disappear_idle_time.GetFloat() + (m_isRareEntity ? ai_disappear_idle_time_rare.GetFloat() : 0);
 			}
 		}
 	}
@@ -12147,7 +12147,7 @@ CAI_BaseNPC::CAI_BaseNPC(void)
 
 	if (ai_disappear.GetBool())
 	{
-		m_fIdleTime = gpGlobals->curtime + ai_disappear_time.GetFloat() + (m_isRareEntity ? ai_disappear_time_rare.GetFloat() : 0);
+		m_fIdleTime = gpGlobals->curtime + ai_disappear_idle_time.GetFloat() + (m_isRareEntity ? ai_disappear_idle_time_rare.GetFloat() : 0);
 		m_fVisualCheckTime = gpGlobals->curtime + 9999.0f;
 	}
 }

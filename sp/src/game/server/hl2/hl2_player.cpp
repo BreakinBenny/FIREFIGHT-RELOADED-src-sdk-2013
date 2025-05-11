@@ -3992,6 +3992,8 @@ void CHL2_Player::Event_KilledOther( CBaseEntity *pVictim, const CTakeDamageInfo
 #endif
 }
 
+extern ConVar sv_player_extinguish_on_death;
+
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 void CHL2_Player::Event_Killed( const CTakeDamageInfo &info )
@@ -4009,12 +4011,15 @@ void CHL2_Player::Event_Killed( const CTakeDamageInfo &info )
 	}
 	else if (info.GetDamageType() & (DMG_BLAST | DMG_BURN))
 	{
-		if (m_hRagdoll)
+		if (!sv_player_extinguish_on_death.GetBool())
 		{
-			CBaseAnimating* pRagdoll = (CBaseAnimating*)CBaseEntity::Instance(m_hRagdoll);
-			if (info.GetDamageType() & (DMG_BURN | DMG_BLAST))
+			if (m_hRagdoll)
 			{
-				pRagdoll->Ignite(45, false, 10);
+				CBaseAnimating* pRagdoll = (CBaseAnimating*)CBaseEntity::Instance(m_hRagdoll);
+				if (pRagdoll)
+				{
+					pRagdoll->Ignite(45, false, 10);
+				}
 			}
 		}
 	}

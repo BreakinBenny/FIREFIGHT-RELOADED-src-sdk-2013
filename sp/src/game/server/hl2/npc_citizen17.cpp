@@ -2765,7 +2765,7 @@ int CNPC_Citizen::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 
 	if( IsInSquad() && (info.GetDamageType() & DMG_BLAST) && info.GetInflictor() )
 	{
-		if( npc_citizen_explosive_resist.GetBool() )
+		if( npc_citizen_explosive_resist.GetBool() && !HasSpawnFlags(SF_CITIZEN_USE_PLAYERBOT_AI))
 		{
 			// Blast damage. If this kills a squad member, give the 
 			// remaining citizens a resistance bonus to this inflictor
