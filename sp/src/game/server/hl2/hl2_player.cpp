@@ -70,6 +70,7 @@
 #include "rumble_shared.h"
 
 #include "npc_BaseZombie.h"
+#include "npc_agrunt.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -2422,6 +2423,13 @@ bool CHL2_Player::CheckBash(void)
 			{
 				if (trace.m_pEnt->IsNPC())
 				{
+					CHornet* pHornet = dynamic_cast<CHornet*>(trace.m_pEnt);
+					if (pHornet)
+					{
+						pHornet->DieTouch(this);
+						return false;
+					}
+
 					if (trace.m_pEnt->GetMaxHealth() <= sk_katana_charge_bashdamage.GetFloat())
 					{
 						//smash the enemy since they're in our way, and we can kill them.

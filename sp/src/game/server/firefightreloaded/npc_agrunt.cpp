@@ -89,7 +89,7 @@ void CHornet::Spawn( void )
 	SetBloodColor(DONT_BLEED);
 	
 	// hornets don't live as long in FR, period.
-	m_flStopAttack = gpGlobals->curtime + 3.5;
+	m_flStopAttack = gpGlobals->curtime + 1.5f;
 
 	m_flFieldOfView = 0.9; // +- 25 degrees
 
