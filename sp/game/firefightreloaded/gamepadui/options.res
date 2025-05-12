@@ -722,6 +722,48 @@
 				}
 			}
             
+            "DrawFPS"
+			{
+				"text"			"#GameUI_DrawFPS"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"cl_showfps"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
+            "DrawPos"
+			{
+				"text"			"#GameUI_DrawPos"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"cl_showpos"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
+            "DrawBattery"
+			{
+				"text"			"#GameUI_DrawBattery"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"cl_showbattery"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
             "ZoomDraw"
 			{
 				"text"			"#GameUI_ZoomDraw"
