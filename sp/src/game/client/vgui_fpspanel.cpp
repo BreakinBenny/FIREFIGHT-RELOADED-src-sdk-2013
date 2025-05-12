@@ -22,9 +22,9 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-static ConVar cl_showfps( "cl_showfps", "0", 0, "Draw fps meter at top of screen (1 = fps, 2 = smooth fps)" );
-static ConVar cl_showpos( "cl_showpos", "0", 0, "Draw current position at top of screen" );
-static ConVar cl_showbattery( "cl_showbattery", "0", 0, "Draw current battery level at top of screen when on battery power" );
+static ConVar cl_showfps( "cl_showfps", "0", FCVAR_ARCHIVE, "Draw fps meter at top of screen (1 = fps, 2 = smooth fps)" );
+static ConVar cl_showpos( "cl_showpos", "0", FCVAR_ARCHIVE, "Draw current position at top of screen" );
+static ConVar cl_showbattery( "cl_showbattery", "0", FCVAR_ARCHIVE, "Draw current battery level at top of screen when on battery power" );
 
 extern bool g_bDisplayParticlePerformance;
 int GetParticlePerformance();
@@ -127,7 +127,7 @@ void CFPSPanel::ComputeSize( void )
 		y += XBOX_MINBORDERSAFE * tall;
 	}
 	SetPos( x, y );
-	SetSize( FPS_PANEL_WIDTH, 4 * vgui::surface()->GetFontTall( m_hFont ) + 8 );
+	SetSize( FPS_PANEL_WIDTH, 5 * vgui::surface()->GetFontTall( m_hFont ) + 10 );
 }
 
 void CFPSPanel::ApplySchemeSettings(vgui::IScheme *pScheme)
@@ -162,7 +162,8 @@ bool CFPSPanel::ShouldDraw( void )
 	if ( g_bDisplayParticlePerformance )
 		return true;
 	if ( ( !cl_showfps.GetInt() || ( gpGlobals->absoluteframetime <= 0 ) ) &&
-		 ( !cl_showpos.GetInt() ) )
+		 ( !cl_showpos.GetInt() ) &&  
+		 ( !cl_showbattery.GetInt() ) )
 	{
 		m_bLastDraw = false;
 		return false;
@@ -291,7 +292,7 @@ void CFPSPanel::Paint()
 			}
 		}
 
-		g_pMatSystemSurface->DrawColoredText( m_hFont, x, 2+ i * ( vgui::surface()->GetFontTall( m_hFont ) + 2 ), 
+		g_pMatSystemSurface->DrawColoredText(  m_hFont, x, 2 + i * ( vgui::surface()->GetFontTall( m_hFont ) + 2 ), 
 											  255, 255, 255, 255, 
 											  "pos:  %.02f %.02f %.02f", 
 											  vecOrigin.x, vecOrigin.y, vecOrigin.z );
@@ -324,18 +325,20 @@ void CFPSPanel::Paint()
 			m_BatteryPercent = steamapicontext->SteamUtils()->GetCurrentBatteryPower();
 			m_lastBatteryPercent = gpGlobals->realtime;
 		}
+
+		i++;
 		
 		if ( m_BatteryPercent > 0 )
 		{
 			if ( m_BatteryPercent == 255 )
 			{
-				g_pMatSystemSurface->DrawColoredText( m_hFont, x, 2+ i * ( vgui::surface()->GetFontTall( m_hFont ) + 2 ), 
+				g_pMatSystemSurface->DrawColoredText( m_hFont, x, 2 + i * ( vgui::surface()->GetFontTall( m_hFont ) + 2 ), 
 													 255, 255, 255, 255,  "battery: On AC" );	
 			}
 			else
 			{
-				g_pMatSystemSurface->DrawColoredText( m_hFont, x, 2+ i * ( vgui::surface()->GetFontTall( m_hFont ) + 2 ), 
-											 255, 255, 255, 255,  "battery:  %d%%",m_BatteryPercent );	
+				g_pMatSystemSurface->DrawColoredText(  m_hFont, x, 2 + i * ( vgui::surface()->GetFontTall( m_hFont ) + 2 ), 
+													255, 255, 255, 255,  "battery:  %d%%",m_BatteryPercent );	
 			}
 		}
 	}
@@ -361,7 +364,7 @@ public:
 		if ( fpsPanel )
 		{
 			fpsPanel->SetParent( (vgui::Panel *)NULL );
-			delete fpsPanel;
+			fpsPanel->MarkForDeletion();
 			fpsPanel = NULL;
 		}
 	}
@@ -780,7 +783,7 @@ public:
 		if ( ioPanel )
 		{
 			ioPanel->SetParent( (vgui::Panel *)NULL );
-			delete ioPanel;
+			ioPanel->MarkForDeletion();
 			ioPanel = NULL;
 		}
 	}
