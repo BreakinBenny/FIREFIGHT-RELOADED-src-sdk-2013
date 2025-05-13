@@ -2423,7 +2423,7 @@ bool CHL2_Player::CheckBash(void)
 			{
 				if (trace.m_pEnt->IsNPC())
 				{
-					CHornet* pHornet = dynamic_cast<CHornet*>(trace.m_pEnt);
+					CNPC_Hornet* pHornet = dynamic_cast<CNPC_Hornet*>(trace.m_pEnt);
 					if (pHornet)
 					{
 						pHornet->DieTouch(this);

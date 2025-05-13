@@ -93,9 +93,9 @@ extern int iHornetPuff;
 //=========================================================
 // Hornet - this is the projectile that the Alien Grunt fires.
 //=========================================================
-class CHornet : public CAI_BaseNPC
+class CNPC_Hornet : public CAI_BaseNPC
 {
-	DECLARE_CLASS(CHornet, CAI_BaseNPC);
+	DECLARE_CLASS(CNPC_Hornet, CAI_BaseNPC);
 public:
 	DECLARE_DATADESC();
 
@@ -112,6 +112,7 @@ public:
 	void StartTrack(void);
 	void Event_Killed(const CTakeDamageInfo &info);
 	void DartTouch(CBaseEntity* pOther);
+	void Reflect(void);
 	bool CanBecomeRagdoll(void) { return false; }
 	
 	virtual unsigned int PhysicsSolidMaskForEntity() const;

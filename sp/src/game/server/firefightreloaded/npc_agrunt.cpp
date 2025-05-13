@@ -1,9 +1,9 @@
 /***
 *
 *	Copyright (c) 1996-2001, Valve LLC. All rights reserved.
-*	
-*	This product contains software technology licensed from Id 
-*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
+*
+*	This product contains software technology licensed from Id
+*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc.
 *	All Rights Reserved.
 *
 *   This source code contains proprietary and confidential information of
@@ -48,67 +48,83 @@ int iHornetTrail;
 int iHornetPuff;
 int g_iAGruntSquadIndex = 0;
 
-ConVar sk_agrunt_health( "sk_agrunt_health", "0" );
-ConVar sk_agrunt_dmg_punch( "sk_agrunt_dmg_punch", "0" );
+ConVar sk_agrunt_health("sk_agrunt_health", "0");
+ConVar sk_agrunt_dmg_punch("sk_agrunt_dmg_punch", "0");
 ConVar sk_npc_dmg_hornet("sk_npc_dmg_hornet", "0", FCVAR_REPLICATED);
+ConVar sk_hornet_nightmare_speedmultiplier("sk_hornet_nightmare_speedmultiplier", "2.5", FCVAR_CHEAT);
 
 void TE_BeamFollow(IRecipientFilter& filter, float delay,
 	int iEntIndex, int modelIndex, int haloIndex, float life, float width, float endWidth,
 	float fadeLength, float r, float g, float b, float a);
 
-LINK_ENTITY_TO_CLASS( npc_hornet, CHornet );
+LINK_ENTITY_TO_CLASS(npc_hornet, CNPC_Hornet);
 
 //=========================================================
 // Save/Restore
 //=========================================================
-BEGIN_DATADESC( CHornet )
-	DEFINE_FIELD( m_flStopAttack, FIELD_TIME ),
-	DEFINE_FIELD( m_iHornetType, FIELD_INTEGER ),
-	DEFINE_FIELD( m_flFlySpeed, FIELD_FLOAT ),
+BEGIN_DATADESC(CNPC_Hornet)
+	DEFINE_FIELD(m_flStopAttack, FIELD_TIME),
+	DEFINE_FIELD(m_iHornetType, FIELD_INTEGER),
+	DEFINE_FIELD(m_flFlySpeed, FIELD_FLOAT),
 	DEFINE_FIELD(m_vecEnemyLKP, FIELD_POSITION_VECTOR),
-	
-	DEFINE_ENTITYFUNC( DieTouch ),
-	DEFINE_THINKFUNC( StartDart ),
-	DEFINE_THINKFUNC( StartTrack ),
-	DEFINE_ENTITYFUNC( DartTouch ),
-	DEFINE_ENTITYFUNC( TrackTouch ),
-	DEFINE_THINKFUNC( TrackTarget ),
+
+	DEFINE_ENTITYFUNC(DieTouch),
+	DEFINE_THINKFUNC(StartDart),
+	DEFINE_THINKFUNC(StartTrack),
+	DEFINE_ENTITYFUNC(DartTouch),
+	DEFINE_ENTITYFUNC(TrackTouch),
+	DEFINE_THINKFUNC(TrackTarget),
 END_DATADESC()
 
 //=========================================================
 //=========================================================
-void CHornet::Spawn( void )
+void CNPC_Hornet::Spawn(void)
 {
 	Precache();
 
-	SetMoveType( MOVETYPE_FLY );
-	SetSolid( SOLID_BBOX );
+	SetMoveType(MOVETYPE_FLY);
+	SetSolid(SOLID_BBOX);
 	m_takedamage = DAMAGE_YES;
-	AddFlag( FL_NPC );
+	AddFlag(FL_NPC);
 	SetHealth(1);// weak!
 	SetBloodColor(DONT_BLEED);
-	
+
 	// hornets don't live as long in FR, period.
-	m_flStopAttack = gpGlobals->curtime + 1.5f;
+	m_flStopAttack = gpGlobals->curtime + 2.5f;
 
 	m_flFieldOfView = 0.9; // +- 25 degrees
 
-	if ( random->RandomInt( 1, 5 ) <= 2 )
+	if (g_pGameRules->GetSkillLevel() > SKILL_HARD)
 	{
 		m_iHornetType = HORNET_TYPE_RED;
-		m_flFlySpeed = HORNET_RED_SPEED;
+		m_flFlySpeed = HORNET_RED_SPEED * sk_hornet_nightmare_speedmultiplier.GetFloat();
 	}
-	else
+	else if (g_pGameRules->GetSkillLevel() < SKILL_MEDIUM)
 	{
 		m_iHornetType = HORNET_TYPE_ORANGE;
 		m_flFlySpeed = HORNET_ORANGE_SPEED;
+	}
+	else
+	{
+		int max = ((g_pGameRules->GetSkillLevel() == SKILL_HARD) ? 3 : 5);
+
+		if (random->RandomInt(1, max) <= 2)
+		{
+			m_iHornetType = HORNET_TYPE_RED;
+			m_flFlySpeed = HORNET_RED_SPEED;
+		}
+		else
+		{
+			m_iHornetType = HORNET_TYPE_ORANGE;
+			m_flFlySpeed = HORNET_ORANGE_SPEED;
+		}
 	}
 
 	SetModel( "models/hornet.mdl" );
 	UTIL_SetSize( this, Vector( -4, -4, -4 ), Vector( 4, 4, 4 ) );
 
-	SetTouch( &CHornet::DieTouch );
-	SetThink( &CHornet::StartTrack );
+	SetTouch( &CNPC_Hornet::DieTouch );
+	SetThink( &CNPC_Hornet::StartTrack );
 	
 	SetNextThink( gpGlobals->curtime + 0.1f );
 	ResetSequenceInfo();
@@ -118,7 +134,7 @@ void CHornet::Spawn( void )
 	m_vecEnemyLKP = vec3_origin;
 }
 
-void CHornet::Precache()
+void CNPC_Hornet::Precache()
 {
 	PrecacheModel("models/hornet.mdl");
 
@@ -132,7 +148,7 @@ void CHornet::Precache()
 //=========================================================
 // hornets will never get mad at each other, no matter who the owner is.
 //=========================================================
-Disposition_t CHornet::IRelationType( CBaseEntity *pTarget )
+Disposition_t CNPC_Hornet::IRelationType( CBaseEntity *pTarget )
 {
 	if (FClassnameIs(pTarget, GetClassname()))
 	{
@@ -145,7 +161,7 @@ Disposition_t CHornet::IRelationType( CBaseEntity *pTarget )
 //=========================================================
 // ID's Hornet as their owner
 //=========================================================
-Class_T	CHornet::Classify ( void )
+Class_T	CNPC_Hornet::Classify ( void )
 {
 	return CLASS_ALIEN_BIOWEAPON;
 }
@@ -153,17 +169,17 @@ Class_T	CHornet::Classify ( void )
 //=========================================================
 // StartTrack - starts a hornet out tracking its target
 //=========================================================
-void CHornet :: StartTrack ( void )
+void CNPC_Hornet :: StartTrack ( void )
 {
 	IgniteTrail();
 
-	SetTouch( &CHornet::TrackTouch );
-	SetThink( &CHornet::TrackTarget );
+	SetTouch( &CNPC_Hornet::TrackTouch );
+	SetThink( &CNPC_Hornet::TrackTarget );
 
 	SetNextThink( gpGlobals->curtime + 0.1f );
 }
 
-void CHornet::Event_Killed(const CTakeDamageInfo &info)
+void CNPC_Hornet::Event_Killed(const CTakeDamageInfo &info)
 {
 	CPASAttenuationFilter filter(this);
 	EmitSound(filter, entindex(), "Hornet.Die");
@@ -176,17 +192,17 @@ void CHornet::Event_Killed(const CTakeDamageInfo &info)
 //=========================================================
 // StartDart - starts a hornet out just flying straight.
 //=========================================================
-void CHornet :: StartDart ( void )
+void CNPC_Hornet :: StartDart ( void )
 {
 	IgniteTrail();
 
-	SetTouch( &CHornet::DartTouch );
+	SetTouch( &CNPC_Hornet::DartTouch );
 
 	SetThink( &CBaseEntity::SUB_Remove );
 	SetNextThink( gpGlobals->curtime + 4 );
 }
 
-void CHornet::IgniteTrail( void )
+void CNPC_Hornet::IgniteTrail( void )
 {
 /*
 
@@ -246,7 +262,7 @@ old colors
 //=========================================================
 // Hornet is flying, gently tracking target
 //=========================================================
-void CHornet::TrackTarget(void)
+void CNPC_Hornet::TrackTarget(void)
 {
 	Vector	vecFlightDir;
 	Vector	vecDirToEnemy;
@@ -336,7 +352,7 @@ void CHornet::TrackTarget(void)
 	VectorAngles(GetAbsVelocity(), angNewAngles);
 	SetAbsAngles(angNewAngles);
 
-	SetSolid(SOLID_BBOX);
+	//SetSolid(SOLID_BBOX);
 
 	// if hornet is close to the enemy, jet in a straight line for a half second.
 	// (only in the single player game)
@@ -362,7 +378,7 @@ void CHornet::TrackTarget(void)
 	}
 }
 
-unsigned int CHornet::PhysicsSolidMaskForEntity() const
+unsigned int CNPC_Hornet::PhysicsSolidMaskForEntity() const
 {
 	return (BaseClass::PhysicsSolidMaskForEntity() | CONTENTS_HITBOX) 
 		& ~CONTENTS_MONSTERCLIP
@@ -372,7 +388,7 @@ unsigned int CHornet::PhysicsSolidMaskForEntity() const
 //=========================================================
 // Tracking Hornet hit something
 //=========================================================
-void CHornet::TrackTouch ( CBaseEntity *pOther )
+void CNPC_Hornet::TrackTouch ( CBaseEntity *pOther )
 {
 	if ( (pOther->IsSolid() || 
 		!pOther->IsSolidFlagSet(FSOLID_VOLUME_CONTENTS)) && 
@@ -382,18 +398,7 @@ void CHornet::TrackTouch ( CBaseEntity *pOther )
 		int nRelationship = IRelationType( pOther );
 		if ( nRelationship > D_HT )
 		{
-			// hit something we don't want to hurt, so turn around.
-			
-			Vector vecVel = GetAbsVelocity();
-
-			VectorNormalize( vecVel );
-
-			vecVel.x *= -1;
-			vecVel.y *= -1;
-
-			SetAbsOrigin( GetAbsOrigin() + vecVel * 4 ); // bounce the hornet off a bit.
-			SetAbsVelocity( vecVel * m_flFlySpeed );
-
+			Reflect();
 			return;
 		}
 	}
@@ -401,12 +406,12 @@ void CHornet::TrackTouch ( CBaseEntity *pOther )
 	DieTouch(pOther);
 }
 
-void CHornet::DartTouch( CBaseEntity *pOther )
+void CNPC_Hornet::DartTouch( CBaseEntity *pOther )
 {
 	DieTouch( pOther );
 }
 
-void CHornet::DieTouch( CBaseEntity *pOther )
+void CNPC_Hornet::DieTouch( CBaseEntity *pOther )
 {
 	if ( pOther && (pOther->IsSolid() || !pOther->IsSolidFlagSet(FSOLID_VOLUME_CONTENTS)))
 	{
@@ -420,12 +425,27 @@ void CHornet::DieTouch( CBaseEntity *pOther )
 	}
 }
 
+void CNPC_Hornet::Reflect(void)
+{
+	// hit something we don't want to hurt, so turn around.
+
+	Vector vecVel = GetAbsVelocity();
+
+	VectorNormalize(vecVel);
+
+	vecVel.x *= -1;
+	vecVel.y *= -1;
+
+	SetAbsOrigin(GetAbsOrigin() + vecVel * 4); // bounce the hornet off a bit.
+	SetAbsVelocity(vecVel * m_flFlySpeed);
+}
+
 int iAgruntMuzzleFlash;
 int ACT_THREAT_DISPLAY;
 
-class CAGrunt : public CAI_BaseNPC
+class CNPC_AGrunt : public CAI_BaseNPC
 {
-	DECLARE_CLASS(CAGrunt, CAI_BaseNPC);
+	DECLARE_CLASS(CNPC_AGrunt, CAI_BaseNPC);
 public:
 	DECLARE_DATADESC();
 	DEFINE_CUSTOM_AI;
@@ -467,9 +487,9 @@ public:
 	float	m_flNextWordTime;
 	float	m_flLastDamaged;
 };
-LINK_ENTITY_TO_CLASS( npc_agrunt, CAGrunt );
+LINK_ENTITY_TO_CLASS( npc_agrunt, CNPC_AGrunt );
 
-BEGIN_DATADESC(CAGrunt)
+BEGIN_DATADESC(CNPC_AGrunt)
 	DEFINE_FIELD( m_fCanHornetAttack, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_flNextHornetAttackCheck, FIELD_TIME ),
 	DEFINE_FIELD( m_flNextPainTime, FIELD_TIME ),
@@ -482,7 +502,7 @@ END_DATADESC()
 // IRelationPriority - overridden because Human Grunts are 
 // Alien Grunt's nemesis.
 //=========================================================
-int	 CAGrunt::IRelationPriority(CBaseEntity* pTarget)
+int	 CNPC_AGrunt::IRelationPriority(CBaseEntity* pTarget)
 {
 	if (FClassnameIs(pTarget, "npc_hgrunt"))
 	{
@@ -495,7 +515,7 @@ int	 CAGrunt::IRelationPriority(CBaseEntity* pTarget)
 //=========================================================
 // TraceAttack
 //=========================================================
-void CAGrunt::TraceAttack(const CTakeDamageInfo &info, const Vector &vecDir, trace_t *ptr)
+void CNPC_AGrunt::TraceAttack(const CTakeDamageInfo &info, const Vector &vecDir, trace_t *ptr)
 {
 	CTakeDamageInfo newinfo = info;
 	
@@ -545,7 +565,7 @@ void CAGrunt::TraceAttack(const CTakeDamageInfo &info, const Vector &vecDir, tra
 //=========================================================
 // StopTalking - won't speak again for 10-20 seconds.
 //=========================================================
-void CAGrunt::StopTalking( void )
+void CNPC_AGrunt::StopTalking( void )
 {
 	m_flNextWordTime = m_flNextSpeakTime = gpGlobals->curtime + 10 + random->RandomInt(0, 10);
 }
@@ -553,7 +573,7 @@ void CAGrunt::StopTalking( void )
 //=========================================================
 // ShouldSpeak - Should this agrunt be talking?
 //=========================================================
-bool CAGrunt::ShouldSpeak( void )
+bool CNPC_AGrunt::ShouldSpeak( void )
 {
 	if ( m_flNextSpeakTime > gpGlobals->curtime )
 	{
@@ -580,7 +600,7 @@ bool CAGrunt::ShouldSpeak( void )
 //=========================================================
 // PrescheduleThink 
 //=========================================================
-void CAGrunt::PrescheduleThink ( void )
+void CNPC_AGrunt::PrescheduleThink ( void )
 {
 	BaseClass::PrescheduleThink();
 	
@@ -611,7 +631,7 @@ void CAGrunt::PrescheduleThink ( void )
 // link them as a group.  returns the group size
 //
 //=========================================================
-int CAGrunt::SquadRecruit(int searchRadius, int maxMembers)
+int CNPC_AGrunt::SquadRecruit(int searchRadius, int maxMembers)
 {
 	int squadCount;
 	int iMyClass = Classify();// cache this monster's class
@@ -634,7 +654,7 @@ int CAGrunt::SquadRecruit(int searchRadius, int maxMembers)
 
 		while (pEntity)
 		{
-			CAGrunt* pRecruit = (CAGrunt*)pEntity->MyNPCPointer();
+			CNPC_AGrunt* pRecruit = (CNPC_AGrunt*)pEntity->MyNPCPointer();
 
 			if (pRecruit)
 			{
@@ -666,7 +686,7 @@ int CAGrunt::SquadRecruit(int searchRadius, int maxMembers)
 			if (!FClassnameIs(pEntity, GetClassname()))
 				continue;
 
-			CAGrunt* pRecruit = (CAGrunt*)pEntity->MyNPCPointer();
+			CNPC_AGrunt* pRecruit = (CNPC_AGrunt*)pEntity->MyNPCPointer();
 
 			if (pRecruit && pRecruit != this && pRecruit->IsAlive() && !pRecruit->m_hCine)
 			{
@@ -704,7 +724,7 @@ int CAGrunt::SquadRecruit(int searchRadius, int maxMembers)
 	return squadCount;
 }
 
-void CAGrunt::StartNPC(void)
+void CNPC_AGrunt::StartNPC(void)
 {
 	if (!m_pSquad)
 	{
@@ -732,7 +752,7 @@ void CAGrunt::StartNPC(void)
 //=========================================================
 // DieSound
 //=========================================================
-void CAGrunt::DeathSound (const CTakeDamageInfo &info)
+void CNPC_AGrunt::DeathSound (const CTakeDamageInfo &info)
 {
 	StopTalking();
 
@@ -743,7 +763,7 @@ void CAGrunt::DeathSound (const CTakeDamageInfo &info)
 //=========================================================
 // AlertSound
 //=========================================================
-void CAGrunt::AlertSound ( void )
+void CNPC_AGrunt::AlertSound ( void )
 {
 	StopTalking();
 
@@ -754,7 +774,7 @@ void CAGrunt::AlertSound ( void )
 //=========================================================
 // AttackSound
 //=========================================================
-void CAGrunt::AttackSound ( void )
+void CNPC_AGrunt::AttackSound ( void )
 {
 	StopTalking();
 
@@ -765,7 +785,7 @@ void CAGrunt::AttackSound ( void )
 //=========================================================
 // PainSound
 //=========================================================
-void CAGrunt::PainSound (const CTakeDamageInfo &info)
+void CNPC_AGrunt::PainSound (const CTakeDamageInfo &info)
 {
 	if ( m_flNextPainTime > gpGlobals->curtime )
 	{
@@ -784,7 +804,7 @@ void CAGrunt::PainSound (const CTakeDamageInfo &info)
 // Classify - indicates this monster's place in the 
 // relationship table.
 //=========================================================
-Class_T	CAGrunt::Classify ( void )
+Class_T	CNPC_AGrunt::Classify ( void )
 {
 	return CLASS_ALIEN_MILITARY;
 }
@@ -793,7 +813,7 @@ Class_T	CAGrunt::Classify ( void )
 // MaxYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-float CAGrunt::MaxYawSpeed ( void )
+float CNPC_AGrunt::MaxYawSpeed ( void )
 {
 	int ys;
 
@@ -816,12 +836,12 @@ float CAGrunt::MaxYawSpeed ( void )
 // of sounds this monster regards. In the base class implementation,
 // monsters care about all sounds, but no scents.
 //=========================================================
-int CAGrunt::GetSoundInterests( void )
+int CNPC_AGrunt::GetSoundInterests( void )
 {
 	return	(SOUND_WORLD | SOUND_COMBAT | SOUND_PLAYER | SOUND_DANGER);
 }
 
-void CAGrunt::PunchEnemy(bool right)
+void CNPC_AGrunt::PunchEnemy(bool right)
 {
 	Vector vecMins = GetHullMins();
 	Vector vecMaxs = GetHullMaxs();
@@ -869,7 +889,7 @@ void CAGrunt::PunchEnemy(bool right)
 //
 // Returns number of events handled, 0 if none.
 //=========================================================
-void CAGrunt :: HandleAnimEvent( animevent_t *pEvent )
+void CNPC_AGrunt :: HandleAnimEvent( animevent_t *pEvent )
 {
 	switch( pEvent->event )
 	{
@@ -915,22 +935,25 @@ void CAGrunt :: HandleAnimEvent( animevent_t *pEvent )
 			CPVSFilter filter(GetAbsOrigin());
 			te->Sprite(filter, 0.0, &vecArmPos, iAgruntMuzzleFlash, random->RandomFloat(0.4, 0.8), 128);
 
-			CBaseEntity* pHornet = CBaseEntity::Create("npc_hornet", vecArmPos, QAngle(0, 0, 0), this);
-			Vector vForward;
-			AngleVectors(angDir, &vForward);
+			CNPC_Hornet* pHornet = (CNPC_Hornet*)CBaseEntity::Create("npc_hornet", vecArmPos, QAngle(0, 0, 0), this);
+			if (pHornet)
+			{
+				Vector vForward;
+				AngleVectors(angDir, &vForward);
 
-			pHornet->SetAbsVelocity(vForward * 300);
-			pHornet->SetOwnerEntity(this);
+				pHornet->SetAbsVelocity(vForward * 300);
+				pHornet->SetOwnerEntity(this);
+
+				CAI_BaseNPC* pHornetMonster = (CAI_BaseNPC*)pHornet->MyNPCPointer();
+
+				if (pHornetMonster)
+				{
+					pHornetMonster->SetEnemy(GetEnemy());
+				}
+			}
 
 			CPASAttenuationFilter filter2(this);
 			EmitSound(filter2, entindex(), "Weapon_Hornetgun.Single");
-
-			CAI_BaseNPC* pHornetMonster = (CAI_BaseNPC*)pHornet->MyNPCPointer();
-
-			if (pHornetMonster)
-			{
-				pHornetMonster->SetEnemy(GetEnemy());
-			}
 		}
 		break;
 
@@ -961,7 +984,7 @@ void CAGrunt :: HandleAnimEvent( animevent_t *pEvent )
 //=========================================================
 // Spawn
 //=========================================================
-void CAGrunt::Spawn()
+void CNPC_AGrunt::Spawn()
 {
 	Precache();
 
@@ -985,7 +1008,7 @@ void CAGrunt::Spawn()
 	m_HackedGunPos		= Vector( 24, 64, 48 );
 
 	m_flNextSpeakTime	= m_flNextWordTime = gpGlobals->curtime + 10 + random->RandomInt(0, 10);
-	
+
 	//HACK
 	g_iAGruntSquadIndex = 0;
 
@@ -997,7 +1020,7 @@ void CAGrunt::Spawn()
 //=========================================================
 // Precache - precaches all resources this monster needs
 //=========================================================
-void CAGrunt::Precache()
+void CNPC_AGrunt::Precache()
 {
 	PrecacheModel("models/agrunt.mdl");
 
@@ -1022,7 +1045,7 @@ void CAGrunt::Precache()
 // because they can use their smart weapons against unseen
 // enemies. Base class doesn't attack anyone it can't see.
 //=========================================================
-bool CAGrunt::FCanCheckAttacks ( void )
+bool CNPC_AGrunt::FCanCheckAttacks ( void )
 {
 	if ( !HasCondition( COND_ENEMY_TOO_FAR ) )
 	{
@@ -1038,7 +1061,7 @@ bool CAGrunt::FCanCheckAttacks ( void )
 // MeleeAttack1Conditions - alien grunts zap the crap out of 
 // any enemy that gets too close. 
 //=========================================================
-int CAGrunt::MeleeAttack1Conditions( float flDot, float flDist )
+int CNPC_AGrunt::MeleeAttack1Conditions( float flDot, float flDist )
 {
 	if ( HasCondition(COND_SEE_ENEMY) 
 		&& flDist <= AGRUNT_MELEE_DIST 
@@ -1058,7 +1081,7 @@ int CAGrunt::MeleeAttack1Conditions( float flDot, float flDist )
 // tracelines are done, so we may not want to do this every
 // server frame. Definitely not while firing. 
 //=========================================================
-int CAGrunt::RangeAttack1Conditions( float flDot, float flDist )
+int CNPC_AGrunt::RangeAttack1Conditions( float flDot, float flDist )
 {
 	if ( gpGlobals->curtime < m_flNextHornetAttackCheck )
 	{
@@ -1101,7 +1124,7 @@ int CAGrunt::RangeAttack1Conditions( float flDot, float flDist )
 //=========================================================
 // StartTask
 //=========================================================
-void CAGrunt::StartTask ( const Task_t *pTask )
+void CNPC_AGrunt::StartTask ( const Task_t *pTask )
 {
 	switch ( pTask->iTask )
 	{
@@ -1192,7 +1215,7 @@ void CAGrunt::StartTask ( const Task_t *pTask )
 // monster's member function to get a pointer to a schedule
 // of the proper type.
 //=========================================================
-int CAGrunt::SelectSchedule( void )
+int CNPC_AGrunt::SelectSchedule( void )
 {
 	if ( HasCondition( COND_HEAR_DANGER ) )
 	{
@@ -1254,7 +1277,7 @@ int CAGrunt::SelectSchedule( void )
 
 //=========================================================
 //=========================================================
-int CAGrunt::TranslateSchedule( int iType ) 
+int CNPC_AGrunt::TranslateSchedule( int iType ) 
 {
 	switch	( iType )
 	{
@@ -1295,7 +1318,7 @@ int CAGrunt::TranslateSchedule( int iType )
 // AI Schedules Specific to this monster
 //=========================================================
 
-AI_BEGIN_CUSTOM_NPC(npc_agrunt, CAGrunt)
+AI_BEGIN_CUSTOM_NPC(npc_agrunt, CNPC_AGrunt)
 
 	DECLARE_ACTIVITY( ACT_THREAT_DISPLAY )
 
