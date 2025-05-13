@@ -139,7 +139,7 @@ void CFPSPanel::ComputeSize( void )
 
 	if (cl_showfps_proportionalfont.GetBool())
 	{
-		width = width * 1.5f;
+		width = width * 1.7f;
 	}
 
 	int x = wide - width;
