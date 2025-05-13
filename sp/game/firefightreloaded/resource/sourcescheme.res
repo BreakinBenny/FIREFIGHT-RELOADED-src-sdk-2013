@@ -270,6 +270,22 @@ Scheme
 				"outline"	 "1"
 			}
 		}
+		"DefaultFixedOutlineLarge"
+		{
+			"1"
+			{
+				"name"		 "Lucida Console" [$WINDOWS]
+				"name"		 "Lucida Console" [$X360]
+				"name"		 "Verdana" [$POSIX]
+				"tall"		 "22" [$LINUX]
+				"tall"		 "19" [$OSX]
+				"tall"		 "18"
+				"tall_lodef" "23"
+				"tall_hidef" "36"
+				"weight"	 "0"
+				"outline"	 "1"
+			}
+		}
 		"Default"
 		{
 			"1"

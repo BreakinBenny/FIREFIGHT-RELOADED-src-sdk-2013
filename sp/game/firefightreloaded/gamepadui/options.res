@@ -231,6 +231,8 @@
 				"type"			"slideyslide"
 				"convar"		"fov_desired"
 				"advanced"		"1"
+				
+				"instantapply"	"1"
 
 				"min"			"54"
 				"max"			"150"
@@ -249,6 +251,8 @@
 				"type"			"slideyslide"
 				"convar"		"viewmodel_fov"
 				"advanced"		"1"
+				
+				"instantapply"	"1"
 
 				"min"			"54"
 				"max"			"90"
@@ -728,11 +732,14 @@
 				"type"			"wheelywheel"
 				"advanced"		"1"
 				"convar"		"cl_showfps"
+				
+				"instantapply"	"1"
 
 				"options"
 				{
 					"0"		"#gameui_disabled"
 					"1"		"#gameui_enabled"
+					"2"		"#gameui_enabled_SmoothFPS"
 				}
 			}
             
@@ -742,6 +749,8 @@
 				"type"			"wheelywheel"
 				"advanced"		"1"
 				"convar"		"cl_showpos"
+				
+				"instantapply"	"1"
 
 				"options"
 				{
@@ -756,6 +765,24 @@
 				"type"			"wheelywheel"
 				"advanced"		"1"
 				"convar"		"cl_showbattery"
+				
+				"instantapply"	"1"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+			
+			"DrawFPSProportionalFont"
+			{
+				"text"			"#GameUI_DrawFPSProportionalFont"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"cl_showfps_proportionalfont"
+				
+				"instantapply"	"1"
 
 				"options"
 				{

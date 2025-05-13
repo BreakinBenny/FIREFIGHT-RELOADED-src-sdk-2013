@@ -506,6 +506,8 @@
             "GameUI_DrawFPS": "Show the FPS",
             "GameUI_DrawPos": "Show the player's position",
             "GameUI_DrawBattery": "Show the battery level (on laptops or handhelds)",
+            "GameUI_DrawFPSProportionalFont": "Use a proportional font for FPS, position and battery level",
+            "gameui_enabled_SmoothFPS": "Enabled (Average FPS)",
             "GameUI_SpawnerMaxDistance": "Distance to disable spawners at",
             "GameUI_SpawnerMaxDistanceOverrideFactor": "Spawner Distance Override Adjustment Factor",
             "GameUI_ClassicBlood": "Classic 2004 Blood",
