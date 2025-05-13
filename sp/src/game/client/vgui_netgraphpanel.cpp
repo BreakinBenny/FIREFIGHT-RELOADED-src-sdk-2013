@@ -181,7 +181,7 @@ private:
 	void				PaintLineArt( int x, int y, int w, int graphtype, int maxmsgbytes );
 	void				DrawLargePacketSizes( int x, int w, int graphtype, float warning_threshold );
 
-	HFont			GetNetgraphFont()
+	HFont				GetNetgraphFont()
 	{
 		return net_graphproportionalfont.GetBool() ? m_hFontProportional : m_hFont;
 	}
@@ -327,6 +327,7 @@ void CNetGraphPanel::OnFontChanged()
 void CNetGraphPanel::ApplySchemeSettings(IScheme *pScheme)
 {
 	BaseClass::ApplySchemeSettings(pScheme);
+	g_pNetGraphPanel = this;
 
 	m_hFont = pScheme->GetFont( "DefaultFixedOutline", false );
 	m_hFontProportional = pScheme->GetFont( "DefaultFixedOutline", true );
