@@ -97,7 +97,7 @@ void CNPC_Hornet::Spawn(void)
 	if (g_pGameRules->GetSkillLevel() > SKILL_HARD)
 	{
 		m_iHornetType = HORNET_TYPE_RED;
-		m_flFlySpeed = HORNET_RED_SPEED * sk_hornet_nightmare_speedmultiplier.GetFloat();
+		m_flFlySpeed = HORNET_RED_SPEED * ((g_pGameRules->GetSkillLevel() > SKILL_VERYHARD) ? sk_hornet_nightmare_speedmultiplier.GetFloat() : 1.0f);
 	}
 	else if (g_pGameRules->GetSkillLevel() < SKILL_MEDIUM)
 	{
@@ -1093,10 +1093,12 @@ int CNPC_AGrunt::RangeAttack1Conditions( float flDot, float flDist )
 			}
 		}
 	}
+
+	float dist = ((g_pGameRules->GetSkillLevel() >= SKILL_HARD) ? (AGRUNT_RANGED_DIST * sk_hornet_nightmare_speedmultiplier.GetFloat()) : AGRUNT_RANGED_DIST);
 	
 	if ( HasCondition( COND_SEE_ENEMY ) 
 		&& flDist >= AGRUNT_MELEE_DIST 
-		&& flDist <= AGRUNT_RANGED_DIST 
+		&& flDist <= dist
 		&& flDot >= AGRUNT_RANGED_DOT)
 	{
 		trace_t tr;
