@@ -4361,7 +4361,7 @@ void CAI_BaseNPC::NPCOptimization()
 		}
 		else if (gpGlobals->curtime >= m_fIdleTime)
 		{
-			if (isDeleteable)
+			if ((m_NPCState != NPC_STATE_COMBAT) && isDeleteable)
 			{
 				// If I don't have an enemy, or if I do and they should be visible and I can't see them,
 				// then I've idled long enough. Get rid of me.
