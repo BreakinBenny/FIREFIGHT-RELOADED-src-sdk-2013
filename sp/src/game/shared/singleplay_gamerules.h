@@ -90,6 +90,7 @@ public:
 	virtual int IPointsForKill(CBasePlayer *pAttacker, CBasePlayer *pKilled);
 	virtual void PlayerKilled( CBasePlayer *pVictim, const CTakeDamageInfo &info );
 	virtual void NPCKilled(CBaseEntity *pVictim, const CTakeDamageInfo &info);
+	virtual const char* GetDamageCustomString(const CTakeDamageInfo& info);
 	virtual void DeathNotice(CBasePlayer *pVictim, const CTakeDamageInfo &info);
 	virtual void DeathNoticeNPC(CBaseEntity* pVictim, const CTakeDamageInfo& info, int xpReward, int moneyReward);
 	void GetNPCName(char *npcName, CBaseEntity* pVictim);

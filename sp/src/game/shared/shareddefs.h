@@ -684,6 +684,7 @@ struct FireBulletsInfo_t
 		m_pAttacker = NULL;
 		m_nFlags = 0;
 		m_nDamageFlags = 0;
+		m_nCustomDamageFlags = 0;
 		m_pAdditionalIgnoreEnt = NULL;
 		m_flDamageForceScale = 1.0f;
 
@@ -710,6 +711,7 @@ struct FireBulletsInfo_t
 		m_pAttacker = NULL;
 		m_nFlags = 0;
 		m_nDamageFlags = 0;
+		m_nCustomDamageFlags = 0;
 		m_pAdditionalIgnoreEnt = NULL;
 		m_flDamageForceScale = 1.0f;
 		m_bPrimaryAttack = bPrimaryAttack;
@@ -727,11 +729,12 @@ struct FireBulletsInfo_t
 	int m_iPlayerDamage;	// Damage to be used instead of m_flDamage if we hit a player
 	int m_nFlags;			// See FireBulletsFlags_t
 	int m_nDamageFlags;
+	int m_nCustomDamageFlags;
 	float m_flDamageForceScale;
 	CBaseEntity *m_pAttacker;
 	CBaseEntity *m_pAdditionalIgnoreEnt;
 	bool m_bPrimaryAttack;
-	//these 2 will not be changed by bullettypes except for projectiles, the game will automate this process.
+	//this will not be changed by bullettypes except for projectiles, the game will automate this process.
 	bool m_bAffectedByBullettime;
 };
 

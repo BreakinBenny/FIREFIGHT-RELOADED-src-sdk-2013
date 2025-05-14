@@ -203,7 +203,7 @@ void CWeaponAR2::PrimaryAttack(void)
 	info.m_flDistance = MAX_TRACE_LENGTH;
 	info.m_iAmmoType = m_iPrimaryAmmoType;
 	info.m_flDamage = info.m_iPlayerDamage = (m_bZoomed ? (def->PlrDamage(m_iPrimaryAmmoType) * 2.5) : def->PlrDamage(m_iPrimaryAmmoType));
-	info.m_nDamageFlags = ((m_bZoomed && !m_bFiredHeadshotBullets) ? (def->DamageType(info.m_iAmmoType) | DMG_SNIPER) : def->DamageType(info.m_iAmmoType));
+	info.m_nCustomDamageFlags = ((m_bZoomed && !m_bFiredHeadshotBullets) ? FR_DMG_CUSTOM_HEADSHOT : 0);
 	info.m_iTracerFreq = 2;
 	pPlayer->FireBullets(info);
 

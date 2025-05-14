@@ -472,10 +472,7 @@ int CNPC_Combine::OnTakeDamage_Alive(const CTakeDamageInfo& inputInfo)
 		else if (FClassnameIs(info.GetInflictor(), "prop_physics") ||
 			FClassnameIs(info.GetInflictor(), "prop_physics_multiplayer"))
 		{
-			if (info.GetDamageType() & DMG_SLASH)
-			{
-				CorpseDecapitate(info);
-			}
+			CorpseDecapitate(info);
 		}
 	}
 
@@ -533,7 +530,7 @@ bool CNPC_Combine::CorpseDecapitate(const CTakeDamageInfo& info)
 		&& (violence_hgibs.IsValid() && violence_hgibs.GetBool())
 		&& g_fr_headshotgore.GetBool() && gibs;
 
-	if ((newinfo.GetDamageType() & (DMG_SNIPER)))
+	if (newinfo.GetDamageType() & (DMG_SNIPER) || newinfo.GetDamageCustom() == FR_DMG_CUSTOM_HEADSHOT)
 	{
 		if ( shouldAnimateDecap )
 		{
@@ -554,7 +551,7 @@ bool CNPC_Combine::CorpseDecapitate(const CTakeDamageInfo& info)
 
 		return true;
 	}
-	else if ((newinfo.GetDamageType() & (DMG_SLASH)))
+	else if (newinfo.GetDamageType() & (DMG_SLASH) || newinfo.GetDamageCustom() == FR_DMG_CUSTOM_DECAPITATION)
 	{
 		if ( shouldAnimateDecap )
 		{

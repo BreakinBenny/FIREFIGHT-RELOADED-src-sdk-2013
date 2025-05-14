@@ -643,7 +643,7 @@ CON_COMMAND_F_COMPLETION(npc_create, "Creates an NPC of the given type where the
 			baseNPC->Classify() == CLASS_VORTIGAUNT ||
 			baseNPC->Classify() == CLASS_PLAYER_NPC ||
 			(baseNPC->Classify() == CLASS_ANTLION &&
-				GlobalEntity_GetState("antlion_allied") == GLOBAL_ON && g_pGameRules->GetGamemode() != FIREFIGHT_PRIMARY_ANTLIONASSAULT))
+				GlobalEntity_GetState("antlion_allied") == GLOBAL_ON && g_pGameRules->GetGamemode() != FR_GAMEMODE_ANTLIONASSAULT))
 		{
 			if (!baseNPC->IsGlowEffectActive() && !baseNPC->m_denyOutlines)
 			{
@@ -751,7 +751,7 @@ CON_COMMAND_F_COMPLETION(npc_create_aimed, "Creates an NPC aimed away from the p
 			baseNPC->Classify() == CLASS_VORTIGAUNT ||
 			baseNPC->Classify() == CLASS_PLAYER_NPC ||
 			(baseNPC->Classify() == CLASS_ANTLION &&
-				GlobalEntity_GetState("antlion_allied") == GLOBAL_ON && g_pGameRules->GetGamemode() != FIREFIGHT_PRIMARY_ANTLIONASSAULT))
+				GlobalEntity_GetState("antlion_allied") == GLOBAL_ON && g_pGameRules->GetGamemode() != FR_GAMEMODE_ANTLIONASSAULT))
 		{
 			if (!baseNPC->IsGlowEffectActive() && !baseNPC->m_denyOutlines)
 			{

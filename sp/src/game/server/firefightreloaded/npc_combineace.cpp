@@ -642,7 +642,7 @@ CTakeDamageInfo CNPC_CombineAce::BulletResistanceLogic(const CTakeDamageInfo& in
 			{
 				if (outputInfo.GetDamageType() & DMG_BLAST)
 				{
-					if (outputInfo.GetDamageType() & DMG_CLUB)
+					if (outputInfo.GetDamageCustom() == FR_DMG_CUSTOM_KICK)
 					{
 						outputInfo.ScaleDamage(sk_combine_ace_shielddamage_kick_multiplier.GetFloat());
 					}
@@ -799,14 +799,10 @@ float CNPC_CombineAce::GetHitgroupDamageMultiplier( int iHitGroup, const CTakeDa
 			//for katanas, we should make it so decapitations
 			//happen if we hit the chest of an enemy
 			//to improve responsiveness.
-			if (info.GetDamageType() & (DMG_SLASH))
+			if (CorpseDecapitate(info))
 			{
-				// Soldiers take double headshot damage
-				if (CorpseDecapitate(info))
-				{
-					//we're dead by this point, lol
-					return BaseClass::GetHitgroupDamageMultiplier(iHitGroup, info);
-				}
+				//we're dead by this point, lol
+				return BaseClass::GetHitgroupDamageMultiplier(iHitGroup, info);
 			}
 		}
 	}

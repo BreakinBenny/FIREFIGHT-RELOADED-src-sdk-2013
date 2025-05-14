@@ -313,7 +313,7 @@ CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info,
 			{
 				if (outputInfo.GetDamageType() & DMG_BLAST)
 				{
-					if (outputInfo.GetDamageType() & DMG_CLUB)
+					if (outputInfo.GetDamageCustom() == FR_DMG_CUSTOM_KICK)
 					{
 						outputInfo.ScaleDamage(sk_combine_ace_shielddamage_kick_multiplier.GetFloat());
 					}

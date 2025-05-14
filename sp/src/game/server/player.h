@@ -964,7 +964,7 @@ public:
 	int m_iExpBoostMult;
 	int m_iKashBoostMult;
 	int m_iHealthRegenBoostMult;
-	int	m_rgMaxUpgrades[FIREFIGHT_UPGRADE_MAX];
+	int	m_rgMaxUpgrades[FR_UPGRADE_MAX];
 
 	int	m_iKillstreak;
 	int	m_iKillstreakCount;

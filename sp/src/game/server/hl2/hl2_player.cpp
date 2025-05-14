@@ -1296,6 +1296,7 @@ CBaseEntity* CHL2_Player::CheckKickPropAction(CBaseViewModel* vm, const Vector& 
 	}
 
 	CTakeDamageInfo	dmgInfo(this, this, iDamage, (/*DMG_PHYSGUN |*/ DMG_CLUB));
+	dmgInfo.SetDamageCustom(FR_DMG_CUSTOM_KICK);
 
 	// COLLISION_GROUP_PROJECTILE does some handy filtering that's very appropriate for this type of attack, as well. (sjb) 7/25/2007
 	CTraceFilterMelee traceFilter(this, COLLISION_GROUP_NONE, &dmgInfo, flForceScale, false);
@@ -1396,6 +1397,54 @@ CBaseEntity* CHL2_Player::CheckKickPropAction(CBaseViewModel* vm, const Vector& 
 	return pEntity;
 }
 
+CBaseEntity* CHL2_Player::CheckTraceKickAttack(const Vector& vStart, const Vector& vEnd, const Vector& mins, const Vector& maxs, int iDamage, int iDmgType, float flForceScale, bool bDamageAnyNPC)
+{
+	CTakeDamageInfo	dmgInfo(this, this, iDamage, iDmgType);
+	dmgInfo.SetDamageCustom(FR_DMG_CUSTOM_KICK);
+
+	// COLLISION_GROUP_PROJECTILE does some handy filtering that's very appropriate for this type of attack, as well. (sjb) 7/25/2007
+	CTraceFilterMelee traceFilter(this, COLLISION_GROUP_PROJECTILE, &dmgInfo, flForceScale, bDamageAnyNPC);
+
+	Ray_t ray;
+	ray.Init(vStart, vEnd, mins, maxs);
+
+	trace_t tr;
+	enginetrace->TraceRay(ray, MASK_SHOT_HULL, &traceFilter, &tr);
+
+	CBaseEntity* pEntity = traceFilter.m_pHit;
+
+	if (pEntity == NULL)
+	{
+		// See if perhaps I'm trying to claw/bash someone who is standing on my head.
+		Vector vecTopCenter;
+		Vector vecEnd;
+		Vector vecMins, vecMaxs;
+
+		// Do a tracehull from the top center of my bounding box.
+		vecTopCenter = GetAbsOrigin();
+		CollisionProp()->WorldSpaceAABB(&vecMins, &vecMaxs);
+		vecTopCenter.z = vecMaxs.z + 1.0f;
+		vecEnd = vecTopCenter;
+		vecEnd.z += 2.0f;
+
+		ray.Init(vecTopCenter, vEnd, mins, maxs);
+		enginetrace->TraceRay(ray, MASK_SHOT_HULL, &traceFilter, &tr);
+
+		pEntity = traceFilter.m_pHit;
+	}
+
+	if (pEntity)
+	{
+		if (!pEntity->CanBeHitByMeleeAttack(this))
+		{
+			// If we touched something, but it shouldn't be hit, return nothing.
+			pEntity = NULL;
+		}
+	}
+
+	return pEntity;
+}
+
 void CHL2_Player::KickAttack(void)
 {
 	MDLCACHE_CRITICAL_SECTION();
@@ -1470,32 +1519,10 @@ void CHL2_Player::KickAttack(void)
 					return;
 				}
 
-				CBaseEntity* Victim = CheckTraceHullAttack(Weapon_ShootPosition(), vecEnd, Vector(-16, -16, -16), Vector(16, 16, 16), KickDamageFlightBoost, (DMG_CLUB | DMG_BLAST | DMG_NEVERGIB), KickThrowForceMult, true);
+				CBaseEntity* Victim = CheckTraceKickAttack(Weapon_ShootPosition(), vecEnd, Vector(-16, -16, -16), Vector(16, 16, 16), KickDamageFlightBoost, (DMG_CLUB), KickThrowForceMult, true);
 				if (Victim && Victim->IsNPC())
 				{
 					RumbleEffect(RUMBLE_357, 0, RUMBLE_FLAG_RESTART);
-					//don't kick striders, only deliver damage.
-					if (FClassnameIs(Victim, "npc_strider"))
-					{
-						CAmmoDef* ammodef = GetAmmoDef();
-						Vector vecAiming = BaseClass::GetAutoaimVector(AUTOAIM_SCALE_DEFAULT);
-
-						FireBulletsInfo_t info;
-						info.m_iShots = 3;
-						info.m_vecSrc = Weapon_ShootPosition();
-						info.m_vecDirShooting = vecAiming;
-						info.m_vecSpread = VECTOR_CONE_2DEGREES;
-						info.m_flDistance = kick_range;
-						info.m_iAmmoType = ammodef->Index("RPG_Round");
-						info.m_iTracerFreq = 0;
-						info.m_flDamage = KickDamageFlightBoost;
-						info.m_pAttacker = this;
-						info.m_nFlags = 0;
-						info.m_bPrimaryAttack = true;
-						info.m_nDamageFlags = (DMG_CLUB | DMG_BLAST);
-
-						FireBullets(info);
-					}
 
 					EmitSound("HL2Player.kick_body");
 					return;
@@ -2391,7 +2418,16 @@ void CHL2_Player::DoChargeBashDamage(trace_t &trace, bool bInstakill)
 	info.SetDamage(bInstakill ? trace.m_pEnt->GetMaxHealth() : sk_katana_charge_bashdamage.GetFloat());
 	info.SetDamageForce(info.GetDamageForce() * sv_katana_charge_bashvelocitymultiplier.GetFloat());
 	info.SetDamagePosition(trace.endpos);
-	info.SetDamageType(DMG_CLUB | DMG_BLAST | DMG_NEVERGIB);
+	info.SetDamageType(DMG_CLUB);
+
+	int customDamage = FR_DMG_CUSTOM_CHARGE;
+
+	if (IsGrappling() && fr_grapplebash.GetBool())
+	{
+		customDamage = FR_DMG_CUSTOM_CHARGE_GRAPPLE;
+	}
+
+	info.SetDamageCustom(customDamage);
 
 	Vector dir;
 	AngleVectors(GetAbsAngles(), &dir);

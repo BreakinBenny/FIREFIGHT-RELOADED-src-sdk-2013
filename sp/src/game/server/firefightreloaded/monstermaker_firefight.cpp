@@ -947,7 +947,7 @@ void CNPCMakerFirefight::MakeNPC()
 		pent->Classify() == CLASS_VORTIGAUNT ||
 		pent->Classify() == CLASS_PLAYER_NPC ||
 		(pent->Classify() == CLASS_ANTLION &&
-			GlobalEntity_GetState("antlion_allied") == GLOBAL_ON && g_pGameRules->GetGamemode() != FIREFIGHT_PRIMARY_ANTLIONASSAULT))
+			GlobalEntity_GetState("antlion_allied") == GLOBAL_ON && g_pGameRules->GetGamemode() != FR_GAMEMODE_ANTLIONASSAULT))
 	{
 		if (!pent->IsGlowEffectActive() && !pent->m_denyOutlines)
 		{

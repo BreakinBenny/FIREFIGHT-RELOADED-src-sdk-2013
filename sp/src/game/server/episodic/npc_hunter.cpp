@@ -6728,7 +6728,19 @@ void CNPC_Hunter::CreateRailgunProjectile(const Vector& vecSrc, Vector& vecShoot
 	int iDamage = (bOvercharged ? (int)(definedDamage * 2) : definedDamage);
 	DevMsg("RAILGUN DAMAGE: %i\n", iDamage);
 
-	FireBullets(1, VecShootOrigin, vecShootDir, vec3_origin, MAX_TRACE_LENGTH, m_iPrimaryAmmoType, 0, -1, -1, iDamage, this);
+	FireBulletsInfo_t info;
+	info.m_iShots = 1;
+	info.m_vecSrc = VecShootOrigin;
+	info.m_vecDirShooting = vecShootDir;
+	info.m_vecSpread = vec3_origin;
+	info.m_flDistance = MAX_TRACE_LENGTH;
+	info.m_iAmmoType = m_iPrimaryAmmoType;
+	info.m_iTracerFreq = 0;
+	info.m_flDamage = iDamage;
+	info.m_pAttacker = this;
+	info.m_nCustomDamageFlags = FR_DMG_CUSTOM_HUNTER_RAILGUN;
+
+	FireBullets(info);
 
 	EmitSound("Weapon_Railgun.Single");
 	CSoundEnt::InsertSound(SOUND_COMBAT | SOUND_CONTEXT_GUNFIRE, GetAbsOrigin(), SOUNDENT_VOLUME_MACHINEGUN, 0.2, this, SOUNDENT_CHANNEL_WEAPON, GetEnemy());
@@ -6784,10 +6796,18 @@ void CNPC_Hunter::CreateAR2Round(const Vector& vecSrc, const Vector& vecDir, Vec
 {
 	CSoundEnt::InsertSound(SOUND_COMBAT | SOUND_CONTEXT_GUNFIRE, GetAbsOrigin(), SOUNDENT_VOLUME_MACHINEGUN, 0.2, this, SOUNDENT_CHANNEL_WEAPON, GetEnemy());
 
-	FireBullets(1, vecSrc, vecDir, spread, MAX_COORD_RANGE, GetAmmoDef()->Index("AR2"), 1);
+	FireBulletsInfo_t info;
+	info.m_iShots = 1;
+	info.m_vecSrc = vecSrc;
+	info.m_vecDirShooting = vecDir;
+	info.m_vecSpread = spread;
+	info.m_flDistance = MAX_COORD_RANGE;
+	info.m_iAmmoType = GetAmmoDef()->Index("AR2");
+	info.m_iTracerFreq = 1;
+	info.m_nCustomDamageFlags = FR_DMG_CUSTOM_HUNTER_AR2;
+
+	FireBullets(info);
 }
-
-
 
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------

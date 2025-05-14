@@ -251,7 +251,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 			{
 				bSkipFuncCheck = true;
 			}
-			SetGamemode(FIREFIGHT_PRIMARY_COMBINEFIREFIGHT);
+			SetGamemode(FR_GAMEMODE_COMBINEFIREFIGHT);
 			DevMsg("Automatically setting the gamemode to COMBINE FIREFIGHT due to mapname.\n");
 		}
 		else if (V_stristr(mapname, "xi_"))
@@ -260,7 +260,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 			{
 				bSkipFuncCheck = true;
 			}
-			SetGamemode(FIREFIGHT_PRIMARY_XENINVASION);
+			SetGamemode(FR_GAMEMODE_XENINVASION);
 			DevMsg("Automatically setting the gamemode to XEN INVASION due to mapname.\n");
 		}
 		else if (V_stristr(mapname, "aa_"))
@@ -269,7 +269,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 			{
 				bSkipFuncCheck = true;
 			}
-			SetGamemode(FIREFIGHT_PRIMARY_ANTLIONASSAULT);
+			SetGamemode(FR_GAMEMODE_ANTLIONASSAULT);
 			DevMsg("Automatically setting the gamemode to ANTLION ASSAULT due to mapname.\n");
 		}
 		else if (V_stristr(mapname, "zs_"))
@@ -278,7 +278,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 			{
 				bSkipFuncCheck = true;
 			}
-			SetGamemode(FIREFIGHT_PRIMARY_ZOMBIESURVIVAL);
+			SetGamemode(FR_GAMEMODE_ZOMBIESURVIVAL);
 			DevMsg("Automatically setting the gamemode to ZOMBIE SURVIVAL due to mapname.\n");
 		}
 		else if (V_stristr(mapname, "fr_"))
@@ -287,7 +287,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 			{
 				bSkipFuncCheck = true;
 			}
-			SetGamemode(FIREFIGHT_PRIMARY_FIREFIGHTRUMBLE);
+			SetGamemode(FR_GAMEMODE_FIREFIGHTRUMBLE);
 			DevMsg("Automatically setting the gamemode to FIREFIGHT RUMBLE due to mapname.\n");
 		}
 		else
@@ -302,10 +302,10 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 
 		if (bSkipFuncCheck || g_fr_spawneroldfunctionality.GetBool())
 		{
-			if (GetGamemode() == FIREFIGHT_PRIMARY_DEFAULT)
+			if (GetGamemode() == FR_GAMEMODE_DEFAULT)
 			{
 				DevMsg("No gamemode defined! Randomizing gamemodes.\n");
-				SetGamemodeRandom(FIREFIGHT_PRIMARY_COMBINEFIREFIGHT, FIREFIGHT_PRIMARY_FIREFIGHTRUMBLE);
+				SetGamemodeRandom(FR_GAMEMODE_COMBINEFIREFIGHT, FR_GAMEMODE_FIREFIGHTRUMBLE);
 			}
 
 			const char* cfgfilecf = combinefirefightcfgfile.GetString();
@@ -316,7 +316,8 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 
 			switch (g_pGameRules->GetGamemode())
 			{
-			case FIREFIGHT_PRIMARY_COMBINEFIREFIGHT:
+			case FR_GAMEMODE_COMBINEFIREFIGHT:
+			{
 				if (cfgfilecf && cfgfilecf[0])
 				{
 					char szCommand[256];
@@ -326,7 +327,9 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 					engine->ServerCommand(szCommand);
 				}
 				break;
-			case FIREFIGHT_PRIMARY_XENINVASION:
+			}
+			case FR_GAMEMODE_XENINVASION:
+			{
 				if (cfgfilexi && cfgfilexi[0])
 				{
 					char szCommand[256];
@@ -336,7 +339,9 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 					engine->ServerCommand(szCommand);
 				}
 				break;
-			case FIREFIGHT_PRIMARY_ANTLIONASSAULT:
+			}
+			case FR_GAMEMODE_ANTLIONASSAULT:
+			{
 				if (cfgfileaa && cfgfileaa[0])
 				{
 					char szCommand[256];
@@ -346,7 +351,9 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 					engine->ServerCommand(szCommand);
 				}
 				break;
-			case FIREFIGHT_PRIMARY_ZOMBIESURVIVAL:
+			}
+			case FR_GAMEMODE_ZOMBIESURVIVAL:
+			{
 				if (cfgfilezs && cfgfilezs[0])
 				{
 					char szCommand[256];
@@ -356,7 +363,9 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 					engine->ServerCommand(szCommand);
 				}
 				break;
-			case FIREFIGHT_PRIMARY_FIREFIGHTRUMBLE:
+			}
+			case FR_GAMEMODE_FIREFIGHTRUMBLE:
+			{
 				if (cfgfilefr && cfgfilefr[0])
 				{
 					char szCommand[256];
@@ -366,6 +375,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 					engine->ServerCommand(szCommand);
 				}
 				break;
+			}
 			default:
 				break;
 			}
@@ -848,29 +858,14 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 					xpReward += 50;
 				}
 
-				CAI_BaseNPC* pNPC = (CAI_BaseNPC*)pVictim;
-
-				if (pNPC && pNPC->m_bDecapitated)
+				if (info.GetDamageCustom() == FR_DMG_CUSTOM_KICK ||
+					info.GetDamageCustom() == FR_DMG_CUSTOM_CHARGE ||
+					info.GetDamageCustom() == FR_DMG_CUSTOM_CHARGE_GRAPPLE ||
+					info.GetDamageCustom() == FR_DMG_CUSTOM_HEADSHOT ||
+					info.GetDamageCustom() == FR_DMG_CUSTOM_DECAPITATION)
 				{
 					moneyReward += 50;
 					xpReward += 50;
-				}
-
-				CHL2_Player* pEntityHL2 = ToHL2Player(pEntity);
-
-				if (pEntityHL2)
-				{
-					if (pEntityHL2->m_bIsKicking)
-					{
-						moneyReward += 30;
-						xpReward += 30;
-					}
-
-					if ((pEntityHL2->IsGrappling() || pEntityHL2->IsCharging()))
-					{
-						moneyReward += 50;
-						xpReward += 50;
-					}
 				}
 
 				if (pInflictor)
@@ -958,6 +953,27 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 		DeathNoticeNPC(pVictim, info, xpReward, moneyReward);
 	}
 
+	const char* CSingleplayRules::GetDamageCustomString(const CTakeDamageInfo& info) 
+	{ 
+		switch (info.GetDamageCustom())
+		{
+			case FR_DMG_CUSTOM_KICK:
+				return "kick";
+			case FR_DMG_CUSTOM_CHARGE:
+			case FR_DMG_CUSTOM_CHARGE_GRAPPLE:
+				return "charge";
+			case FR_DMG_CUSTOM_HUNTER_AR2:
+				return "weapon_ar2";
+			case FR_DMG_CUSTOM_HUNTER_RAILGUN:
+				return "weapon_railgun";
+			case FR_DMG_CUSTOM_HEADSHOT:
+			case FR_DMG_CUSTOM_DECAPITATION:
+				return "headshot";
+			default:
+				return "world";
+		}
+	}
+
 	//=========================================================
 	// Deathnotice. 
 	//=========================================================
@@ -1003,15 +1019,8 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 					{
 						if (pInflictor == pScorer)
 						{
-							CHL2_Player* pScorerHL2 = ToHL2Player(pScorer);
-
 							// If the inflictor is the killer,  then it must be their current weapon doing the damage
-							if (pScorerHL2 && pScorerHL2->m_bIsKicking)
-							{
-								// fake it
-								killer_weapon_name = "kick";
-							}
-							else if (pScorer->GetActiveWeapon())
+							if (pScorer->GetActiveWeapon())
 							{
 								killer_weapon_name = pScorer->GetActiveWeapon()->GetClassname();
 							}
@@ -1043,24 +1052,32 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 		{
 			CAI_BaseNPC *pNPC = pKiller->MyNPCPointer();
 
-			if (pNPC)
+			// Custom damage type?
+			if (info.GetDamageCustom())
 			{
-				if (pNPC->GetActiveWeapon())
+				killer_weapon_name = GetDamageCustomString(info);
+			}
+			else
+			{
+				if (pNPC)
 				{
-					killer_weapon_name = pNPC->GetActiveWeapon()->GetClassname();
-				}
-				else if (pInflictor)
-				{
-					killer_weapon_name = STRING(pInflictor->m_iClassname);  // it's just that easy
+					if (pNPC->GetActiveWeapon())
+					{
+						killer_weapon_name = pNPC->GetActiveWeapon()->GetClassname();
+					}
+					else if (pInflictor)
+					{
+						killer_weapon_name = STRING(pInflictor->m_iClassname);  // it's just that easy
+					}
+					else
+					{
+						killer_weapon_name = STRING(pKiller->m_iClassname);
+					}
 				}
 				else
 				{
 					killer_weapon_name = STRING(pKiller->m_iClassname);
 				}
-			}
-			else
-			{
-				killer_weapon_name = STRING(pKiller->m_iClassname);
 			}
 
 			NpcName killer_name;
@@ -1079,6 +1096,10 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 				event->SetString("weapon", killer_weapon_name);
 				gameeventmanager->FireEvent(event);
 			}
+		}
+		else
+		{ 
+			DevWarning("Killer %s is not an NPC or a player..... Inflictor is set to %s.\n", pKiller->GetClassname(), pInflictor->GetClassname());
 		}
 	}
 
@@ -1131,7 +1152,6 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 					{
 						if (pInflictor == pScorer)
 						{
-							CHL2_Player* pScorerHL2 = ToHL2Player(pScorer);
 							CAI_BaseNPC* pNPC = pVictim->MyNPCPointer();
 
 							// If the inflictor is the killer,  then it must be their current weapon doing the damage
@@ -1139,16 +1159,6 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 							{
 								// fake it
 								killer_weapon_name = "headshot";
-							}
-							else if (pScorerHL2 && pScorerHL2->m_bIsKicking)
-							{
-								// fake it
-								killer_weapon_name = "kick";
-							}
-							else if (pScorerHL2 && (pScorerHL2->IsGrappling() || pScorerHL2->IsCharging()))
-							{
-								// fake it
-								killer_weapon_name = "charge";
 							}
 							else if (pScorer->GetActiveWeapon())
 							{
@@ -1234,17 +1244,24 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 				return;
 			}
 
-			if (pNPCKiller->GetActiveWeapon())
+			if (info.GetDamageCustom())
 			{
-				killer_weapon_name = pNPCKiller->GetActiveWeapon()->GetClassname();
-			}
-			else if (pNPCInflictor)
-			{
-				killer_weapon_name = STRING(pNPCInflictor->m_iClassname);  // it's just that easy
+				killer_weapon_name = GetDamageCustomString(info);
 			}
 			else
 			{
-				killer_weapon_name = STRING(pNPCKiller->m_iClassname);
+				if (pNPCKiller->GetActiveWeapon())
+				{
+					killer_weapon_name = pNPCKiller->GetActiveWeapon()->GetClassname();
+				}
+				else if (pNPCInflictor)
+				{
+					killer_weapon_name = STRING(pNPCInflictor->m_iClassname);  // it's just that easy
+				}
+				else
+				{
+					killer_weapon_name = STRING(pNPCKiller->m_iClassname);
+				}
 			}
 
 			NpcName att_name;

@@ -339,7 +339,7 @@ int CGameRules::GetGamemode()
 	}
 	else
 	{
-		return FIREFIGHT_PRIMARY_DEFAULT;
+		return FR_GAMEMODE_DEFAULT;
 	}
 }
 
@@ -347,23 +347,23 @@ const char* CGameRules::GetGamemodeName()
 {
 	const char* gamemodeName = "none";
 
-	if (GetGamemode() == FIREFIGHT_PRIMARY_COMBINEFIREFIGHT)
+	if (GetGamemode() == FR_GAMEMODE_COMBINEFIREFIGHT)
 	{
 		gamemodeName = "combine_firefight";
 	}
-	else if (GetGamemode() == FIREFIGHT_PRIMARY_XENINVASION)
+	else if (GetGamemode() == FR_GAMEMODE_XENINVASION)
 	{
 		gamemodeName = "xen_invasion";
 	}
-	else if (GetGamemode() == FIREFIGHT_PRIMARY_ANTLIONASSAULT)
+	else if (GetGamemode() == FR_GAMEMODE_ANTLIONASSAULT)
 	{
 		gamemodeName = "antlion_assault";
 	}
-	else if (GetGamemode() == FIREFIGHT_PRIMARY_ZOMBIESURVIVAL)
+	else if (GetGamemode() == FR_GAMEMODE_ZOMBIESURVIVAL)
 	{
 		gamemodeName = "zombie_survival";
 	}
-	else if (GetGamemode() == FIREFIGHT_PRIMARY_FIREFIGHTRUMBLE)
+	else if (GetGamemode() == FR_GAMEMODE_FIREFIGHTRUMBLE)
 	{
 		gamemodeName = "firefight_rumble";
 	}
@@ -375,23 +375,23 @@ const char* CGameRules::GetGamemodeName_ServerBrowser()
 {
 	const char* gamemodeName = "N/A";
 
-	if (GetGamemode() == FIREFIGHT_PRIMARY_COMBINEFIREFIGHT)
+	if (GetGamemode() == FR_GAMEMODE_COMBINEFIREFIGHT)
 	{
 		gamemodeName = "COMBINE FIREFIGHT";
 	}
-	else if (GetGamemode() == FIREFIGHT_PRIMARY_XENINVASION)
+	else if (GetGamemode() == FR_GAMEMODE_XENINVASION)
 	{
 		gamemodeName = "XEN INVASION";
 	}
-	else if (GetGamemode() == FIREFIGHT_PRIMARY_ANTLIONASSAULT)
+	else if (GetGamemode() == FR_GAMEMODE_ANTLIONASSAULT)
 	{
 		gamemodeName = "ANTLION ASSAULT";
 	}
-	else if (GetGamemode() == FIREFIGHT_PRIMARY_ZOMBIESURVIVAL)
+	else if (GetGamemode() == FR_GAMEMODE_ZOMBIESURVIVAL)
 	{
 		gamemodeName = "ZOMBIE SURVIVAL";
 	}
-	else if (GetGamemode() == FIREFIGHT_PRIMARY_FIREFIGHTRUMBLE)
+	else if (GetGamemode() == FR_GAMEMODE_FIREFIGHTRUMBLE)
 	{
 		gamemodeName = "FIREFIGHT RUMBLE";
 	}

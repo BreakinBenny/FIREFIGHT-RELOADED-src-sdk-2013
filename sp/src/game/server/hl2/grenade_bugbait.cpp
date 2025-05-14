@@ -200,7 +200,7 @@ void CGrenadeBugBait::BugBaitTouch( CBaseEntity *pOther )
 
 #if defined(FR_DLL)
 	//in FR, allow us to use bugbait to get antlions over to our side.
-	if (g_pGameRules->GetGamemode() != FIREFIGHT_PRIMARY_ANTLIONASSAULT && !g_fr_lonewolf.GetBool())
+	if (g_pGameRules->GetGamemode() != FR_GAMEMODE_ANTLIONASSAULT && !g_fr_lonewolf.GetBool())
 	{
 		if (GlobalEntity_GetState("antlion_allied") != GLOBAL_ON)
 		{

@@ -3895,7 +3895,7 @@ bool CNPC_Antlion::IsLightDamage( const CTakeDamageInfo &info )
 //-----------------------------------------------------------------------------
 bool CNPC_Antlion::IsAllied( void )
 {
-	return ( GlobalEntity_GetState( "antlion_allied" ) == GLOBAL_ON && g_pGameRules->GetGamemode() != FIREFIGHT_PRIMARY_ANTLIONASSAULT && !g_fr_lonewolf.GetBool());
+	return ( GlobalEntity_GetState( "antlion_allied" ) == GLOBAL_ON && g_pGameRules->GetGamemode() != FR_GAMEMODE_ANTLIONASSAULT && !g_fr_lonewolf.GetBool());
 }
 
 //-----------------------------------------------------------------------------

@@ -523,14 +523,10 @@ float CNPC_CombineS::GetHitgroupDamageMultiplier( int iHitGroup, const CTakeDama
 		//for katanas, we should make it so decapitations
 		//happen if we hit the chest of an enemy
 		//to improve responsiveness.
-		if (info.GetDamageType() & (DMG_SLASH))
+		if (CorpseDecapitate(info))
 		{
-			// Soldiers take double headshot damage
-			if (CorpseDecapitate(info))
-			{
-				//we're dead by this point, lol
-				return BaseClass::GetHitgroupDamageMultiplier(iHitGroup, info);
-			}
+			//we're dead by this point, lol
+			return BaseClass::GetHitgroupDamageMultiplier(iHitGroup, info);
 		}
 	}
 

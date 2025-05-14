@@ -1613,6 +1613,8 @@ void CBaseEntity::FireBullets(const FireBulletsInfo_t& info)
 		nDamageType = pAmmoDef->DamageType(info.m_iAmmoType);
 	}
 
+	int	nCustomDamage = info.m_nCustomDamageFlags;
+
 	int			nAmmoFlags = pAmmoDef->Flags(info.m_iAmmoType);
 
 	bool bDoServerEffects = true;
@@ -1668,6 +1670,8 @@ void CBaseEntity::FireBullets(const FireBulletsInfo_t& info)
 
 	ClearMultiDamage();
 	g_MultiDamage.SetDamageType(nDamageType | DMG_NEVERGIB);
+
+	g_MultiDamage.SetDamageCustom(nCustomDamage);
 
 	Vector vecDir;
 	Vector vecEnd;
@@ -1843,6 +1847,7 @@ void CBaseEntity::FireBullets(const FireBulletsInfo_t& info)
 		// Clip the ray to the first collided solid returned from traceline
 		CTakeDamageInfo triggerInfo(pAttacker, pAttacker, info.m_flDamage, nDamageType);
 		CalculateBulletDamageForce(&triggerInfo, info.m_iAmmoType, vecDir, tr.endpos);
+		triggerInfo.SetDamageCustom(nCustomDamage);
 		triggerInfo.ScaleDamageForce(info.m_flDamageForceScale);
 		triggerInfo.SetAmmoType(info.m_iAmmoType);
 #ifdef GAME_DLL
@@ -1913,6 +1918,7 @@ void CBaseEntity::FireBullets(const FireBulletsInfo_t& info)
 				CTakeDamageInfo dmgInfo(this, pAttacker, flActualDamage, nActualDamageType);
 				ModifyFireBulletsDamage(&dmgInfo);
 				CalculateBulletDamageForce(&dmgInfo, info.m_iAmmoType, vecDir, tr.endpos);
+				dmgInfo.SetDamageCustom(nCustomDamage);
 				dmgInfo.ScaleDamageForce(info.m_flDamageForceScale);
 				dmgInfo.SetAmmoType(info.m_iAmmoType);
 				tr.m_pEnt->DispatchTraceAttack(dmgInfo, vecDir, &tr);

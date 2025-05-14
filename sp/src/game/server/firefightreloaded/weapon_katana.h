@@ -19,7 +19,7 @@
 #endif
 
 #define	KATANA_RANGE	72.0f
-#define	KATANA_RANGE_CHARGING	128.0f
+#define	KATANA_RANGE_CHARGING	144.0f
 #define	KATANA_REFIRE	1.0f
 
 extern ConVar sv_katana_healthbonus_maxmultiplier;

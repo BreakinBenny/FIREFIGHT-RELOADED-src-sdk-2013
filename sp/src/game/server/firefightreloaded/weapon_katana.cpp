@@ -261,7 +261,7 @@ void CWeaponKatana::PrimaryAttack(void)
 					info.m_vecSrc = vecSrc;
 					info.m_vecDirShooting = vecAiming;
 					info.m_vecSpread = VECTOR_CONE_4DEGREES;
-					info.m_flDistance = GetRange() * 2;
+					info.m_flDistance = GetRange();
 					info.m_iAmmoType = m_iPrimaryAmmoType;
 					info.m_iTracerFreq = 0;
 					info.m_flDamage = damage;

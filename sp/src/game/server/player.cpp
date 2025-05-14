@@ -959,7 +959,7 @@ CBasePlayer::CBasePlayer( )
 	m_bForcedLoadout = false;
 	m_szForcedLoadoutName = "";
 
-	for (int i = 0; i < FIREFIGHT_UPGRADE_MAX; i++)
+	for (int i = 0; i < FR_UPGRADE_MAX; i++)
 	{
 		m_rgMaxUpgrades[i] = 0;
 		DevMsg("SET m_rgMaxUpgrades[%i] TO %i\n", i, m_rgMaxUpgrades[i]);
@@ -1395,7 +1395,7 @@ float GivePerkAdjustValue(CBasePlayer* pPlayer, bool perkBool, float perkAmount)
 
 bool GivePerkForID(CBasePlayer* pPlayer, int perkID)
 {
-	if (perkID == FIREFIGHT_PERK_HEALTHREGENERATION && !sv_fr_perks_healthregeneration_perkmode.GetBool())
+	if (perkID == FR_PERK_HEALTHREGENERATION && !sv_fr_perks_healthregeneration_perkmode.GetBool())
 	{
 		return false;
 	}
@@ -1404,15 +1404,17 @@ bool GivePerkForID(CBasePlayer* pPlayer, int perkID)
 
 	switch (perkID)
 	{
-		case FIREFIGHT_PERK_INFINITEAMMO:
+		case FR_PERK_INFINITEAMMO:
+		{
 			if (pPlayer->m_iPerkInfiniteAmmo == 0)
 			{
 				pPlayer->m_iPerkInfiniteAmmo = GivePerk(pPlayer, sv_fr_perks_infiniteammo.GetBool());
-				unlocked = (pPlayer->m_iPerkInfiniteAmmo > 0); 
+				unlocked = (pPlayer->m_iPerkInfiniteAmmo > 0);
 				pPlayer->m_bGotInfiniteAmmoLegitimately = true;
 			}
 			break;
-		case FIREFIGHT_PERK_HEALTHREGENERATIONRATE:
+		}
+		case FR_PERK_HEALTHREGENERATIONRATE:
 		{
 			if (pPlayer->m_bGotPerkHealthRegen && pPlayer->m_iPerkHealthRegen == 1)
 			{
@@ -1420,9 +1422,9 @@ bool GivePerkForID(CBasePlayer* pPlayer, int perkID)
 				pPlayer->m_fRegenRate = pPlayer->m_fRegenRate + regenRateAdd;
 				unlocked = (regenRateAdd > 0);
 			}
+			break;
 		}
-		break;
-		case FIREFIGHT_PERK_HEALTHREGENERATION:
+		case FR_PERK_HEALTHREGENERATION:
 			if (!pPlayer->m_bGotPerkHealthRegen && pPlayer->m_iPerkHealthRegen == 0)
 			{
 				//m_iPerkHealthRegen = 1 on non classic mode.
@@ -1432,7 +1434,7 @@ bool GivePerkForID(CBasePlayer* pPlayer, int perkID)
 			}
 			break;
 		default:
-		case FIREFIGHT_PERK_INFINITEAUXPOWER:
+		case FR_PERK_INFINITEAUXPOWER:
 			if (pPlayer->m_iPerkInfiniteAuxPower == 0)
 			{
 				pPlayer->m_iPerkInfiniteAuxPower = GivePerk(pPlayer, sv_fr_perks_infiniteauxpower.GetBool());
@@ -1573,7 +1575,7 @@ bool CBasePlayer::GiveRewardItem(KeyValues* pData)
 	const char* pWeaponClassName = pData->GetString("weapon_classname", "weapon_crowbar");
 	bool pIsAmmoPrimary = pData->GetBool("ammo_isprimary", true);
 	int pAmmoNum = pData->GetInt("ammo_num", 1);
-	int pPerkID = pData->GetInt("perk_id", FIREFIGHT_PERK_INFINITEAUXPOWER);
+	int pPerkID = pData->GetInt("perk_id", FR_PERK_INFINITEAUXPOWER);
 	const char* pCMD = pData->GetString("command", "echo \"No command specified\"");
 	const char* rewardName = pData->GetString("name", "");
 
@@ -1809,25 +1811,33 @@ void CBasePlayer::Market_SetUpgrade(int upgradeID, int limit)
 	{
 		switch (upgradeID)
 		{
-		case FIREFIGHT_UPGRADE_MAXHEALTH:
-			IncrementMaxHealthValue(sv_health_boost_val.GetInt(), player_defaulthealth.GetInt() + (sv_health_boost_val.GetInt() * limit));
-			IncrementHealthValue(sv_health_boost_val.GetInt(), player_defaulthealth.GetInt() + (sv_health_boost_val.GetInt() * limit));
-			DevMsg("SET MAX HEALTH TO %i\n", GetMaxHealthValue());
-			break;
-		case FIREFIGHT_UPGRADE_EXPBOOST:
-			GiveEXPBonus(this);
-			break;
-		case FIREFIGHT_UPGRADE_KASHBOOST:
-			GiveKashBonus(this);
-			break;
-		case FIREFIGHT_UPGRADE_HEALTHREGENERATION_RANGE:
-			m_iHealthRegenBoostMult++;
-			DevMsg("SET REGEN INTERVAL TO %f. DIVISOR: %f\n", 
-				sv_regeneration_interval.GetFloat() * m_iHealthRegenBoostMult, 
-				m_iHealth / (sv_regeneration_interval.GetFloat() * m_iHealthRegenBoostMult));
-			break;
-		default:
-			break;
+			case FR_UPGRADE_MAXHEALTH:
+			{
+				IncrementMaxHealthValue(sv_health_boost_val.GetInt(), player_defaulthealth.GetInt() + (sv_health_boost_val.GetInt() * limit));
+				IncrementHealthValue(sv_health_boost_val.GetInt(), player_defaulthealth.GetInt() + (sv_health_boost_val.GetInt() * limit));
+				DevMsg("SET MAX HEALTH TO %i\n", GetMaxHealthValue());
+				break;
+			}
+			case FR_UPGRADE_EXPBOOST:
+			{
+				GiveEXPBonus(this);
+				break;
+			}
+			case FR_UPGRADE_KASHBOOST:
+			{
+				GiveKashBonus(this);
+				break;
+			}
+			case FR_UPGRADE_HEALTHREGENERATION_RANGE:
+			{
+				m_iHealthRegenBoostMult++;
+				DevMsg("SET REGEN INTERVAL TO %f. DIVISOR: %f\n",
+					sv_regeneration_interval.GetFloat() * m_iHealthRegenBoostMult,
+					m_iHealth / (sv_regeneration_interval.GetFloat() * m_iHealthRegenBoostMult));
+				break;
+			}
+			default:
+				break;
 		}
 
 		m_rgMaxUpgrades[upgradeID]++;
@@ -6312,8 +6322,8 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 
 				if (resetUpgrades)
 				{
-					m_rgMaxUpgrades[FIREFIGHT_UPGRADE_MAXHEALTH] = 0;
-					DevMsg("SET m_rgMaxUpgrades[FIREFIGHT_UPGRADE_MAXHEALTH] TO %i\n", m_rgMaxUpgrades[FIREFIGHT_UPGRADE_MAXHEALTH]);
+					m_rgMaxUpgrades[FR_UPGRADE_MAXHEALTH] = 0;
+					DevMsg("SET m_rgMaxUpgrades[FIREFIGHT_UPGRADE_MAXHEALTH] TO %i\n", m_rgMaxUpgrades[FR_UPGRADE_MAXHEALTH]);
 				}
 			}
 
