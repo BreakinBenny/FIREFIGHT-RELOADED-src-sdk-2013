@@ -264,7 +264,7 @@ public:
 	bool				IsIlluminatedByFlashlight( CBaseEntity *pEntity, float *flReturnDot );
 	void				SetFlashlightPowerDrainScale( float flScale ) { m_flFlashlightPowerDrainScale = flScale; }
 
-	CBaseEntity* CheckKickPropAction(CBaseViewModel* vm, const Vector& vStart, const Vector& vEnd, const Vector& mins, const Vector& maxs, int iDamage, float flForceScale);
+	CBaseEntity* CheckKickPropAction(const Vector& vStart, const Vector& vEnd, const Vector& mins, const Vector& maxs, int iDamage, float flForceScale);
 	virtual CBaseEntity* CheckTraceKickAttack(const Vector& vStart, const Vector& vEnd, const Vector& mins, const Vector& maxs, int iDamage, int iDmgType, float flForceScale = 1.0f, bool bDamageAnyNPC = false);
 	
 	void		KickAttack(void);

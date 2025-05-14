@@ -1265,6 +1265,115 @@ void CHL2_Player::PreThink(void)
 	}
 }
 
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+class CTraceFilterKick : public CTraceFilterEntitiesOnly
+{
+public:
+	// It does have a base, but we'll never network anything below here..
+	DECLARE_CLASS_NOBASE(CTraceFilterKick);
+
+	CTraceFilterKick(const IHandleEntity* passentity, int collisionGroup, CTakeDamageInfo* dmgInfo, float flForceScale, bool bDamageAnyNPC)
+		: m_pPassEnt(passentity), m_collisionGroup(collisionGroup), m_dmgInfo(dmgInfo), m_pHit(NULL), m_flForceScale(flForceScale), m_bDamageAnyNPC(bDamageAnyNPC)
+	{
+	}
+
+	virtual bool ShouldHitEntity(IHandleEntity* pHandleEntity, int contentsMask);
+
+public:
+	const IHandleEntity* m_pPassEnt;
+	int					m_collisionGroup;
+	CTakeDamageInfo* m_dmgInfo;
+	CBaseEntity* m_pHit;
+	float				m_flForceScale;
+	bool				m_bDamageAnyNPC;
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+// Input  : *pHandleEntity - 
+//			contentsMask - 
+// Output : Returns true on success, false on failure.
+//-----------------------------------------------------------------------------
+bool CTraceFilterKick::ShouldHitEntity(IHandleEntity* pHandleEntity, int contentsMask)
+{
+	if (!StandardFilterRules(pHandleEntity, contentsMask))
+		return false;
+
+	if (!PassServerEntityFilter(pHandleEntity, m_pPassEnt))
+		return false;
+
+	// Don't test if the game code tells us we should ignore this collision...
+	CBaseEntity* pEntity = EntityFromEntityHandle(pHandleEntity);
+
+	if (pEntity)
+	{
+		if (!pEntity->ShouldCollide(m_collisionGroup, contentsMask))
+			return false;
+
+		if (!g_pGameRules->ShouldCollide(m_collisionGroup, pEntity->GetCollisionGroup()))
+			return false;
+
+		if (pEntity->m_takedamage == DAMAGE_NO)
+			return false;
+
+		if (m_pPassEnt && !pEntity->CanBeHitByMeleeAttack(const_cast<CBaseEntity*>(EntityFromEntityHandle(m_pPassEnt))))
+			return false;
+
+		Vector	attackDir = pEntity->WorldSpaceCenter() - m_dmgInfo->GetAttacker()->WorldSpaceCenter();
+		VectorNormalize(attackDir);
+
+		CTakeDamageInfo info = (*m_dmgInfo);
+		CalculateMeleeDamageForce(&info, attackDir, info.GetAttacker()->WorldSpaceCenter(), m_flForceScale);
+
+		CBaseCombatCharacter* pBCC = info.GetAttacker()->MyCombatCharacterPointer();
+		CBaseCombatCharacter* pVictimBCC = pEntity->MyCombatCharacterPointer();
+
+		// Only do these comparisons between NPCs
+		if (pBCC && pVictimBCC)
+		{
+			// Can only damage other NPCs that we hate
+			if (m_bDamageAnyNPC || pBCC->IRelationType(pEntity) == D_HT)
+			{
+				if (info.GetDamage())
+				{
+					pEntity->TakeDamage(info);
+				}
+
+				// Put a combat sound in
+				CSoundEnt::InsertSound(SOUND_COMBAT, info.GetDamagePosition(), 200, 0.2f, info.GetAttacker());
+
+				m_pHit = pEntity;
+				return true;
+			}
+		}
+		else
+		{
+			if (!m_pHit)
+				m_pHit = pEntity;
+
+			// Make sure if the player is holding this, he drops it
+			Pickup_ForcePlayerToDropThisObject(pEntity);
+
+			CBreakable* pBreak = dynamic_cast <CBreakable*>(pEntity);
+
+			//props have their own interaction with the kick.
+			if (pBreak)
+			{
+				if (info.GetAttacker())
+				{
+					pBreak->Break(info.GetAttacker());
+				}
+			}
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
 extern ConVar ai_show_hull_attacks;
 //------------------------------------------------------------------------------
 // Purpose :	start and end trace position, amount 
@@ -1276,13 +1385,8 @@ extern ConVar ai_show_hull_attacks;
 // Input   :
 // Output  :
 //------------------------------------------------------------------------------
-CBaseEntity* CHL2_Player::CheckKickPropAction(CBaseViewModel* vm, const Vector& vStart, const Vector& vEnd, const Vector& mins, const Vector& maxs, int iDamage, float flForceScale)
+CBaseEntity* CHL2_Player::CheckKickPropAction(const Vector& vStart, const Vector& vEnd, const Vector& mins, const Vector& maxs, int iDamage, float flForceScale)
 {
-	if (!vm)
-	{
-		return NULL;
-	}
-
 	// Handy debuging tool to visualize HullAttack trace
 	if (ai_show_hull_attacks.GetBool())
 	{
@@ -1299,7 +1403,7 @@ CBaseEntity* CHL2_Player::CheckKickPropAction(CBaseViewModel* vm, const Vector& 
 	dmgInfo.SetDamageCustom(FR_DMG_CUSTOM_KICK);
 
 	// COLLISION_GROUP_PROJECTILE does some handy filtering that's very appropriate for this type of attack, as well. (sjb) 7/25/2007
-	CTraceFilterMelee traceFilter(this, COLLISION_GROUP_NONE, &dmgInfo, flForceScale, false);
+	CTraceFilterKick traceFilter(this, COLLISION_GROUP_PROJECTILE, &dmgInfo, flForceScale, false);
 
 	Ray_t ray;
 	ray.Init(vStart, vEnd, mins, maxs);
@@ -1335,17 +1439,11 @@ CBaseEntity* CHL2_Player::CheckKickPropAction(CBaseViewModel* vm, const Vector& 
 		pEntity = NULL;
 	}
 
-	CPhysicsProp* pProp = dynamic_cast<CPhysicsProp*>(pEntity);
-	if (pProp)
+	if (pEntity)
 	{
-		if ((pProp->GetMoveType() == MOVETYPE_VPHYSICS) || (pProp->GetMoveType() == MOVETYPE_PUSH))
+		IPhysicsObject* pPhysicsObject = pEntity->VPhysicsGetObject();
+		if (pPhysicsObject != NULL)
 		{
-			IPhysicsObject* pPhysicsObject = pProp->VPhysicsGetObject();
-			if (pPhysicsObject == NULL)
-			{
-				return NULL;
-			}
-
 			Vector hitDirection;
 			EyeVectors(&hitDirection, NULL, NULL);
 			VectorNormalize(hitDirection);
@@ -1363,34 +1461,18 @@ CBaseEntity* CHL2_Player::CheckKickPropAction(CBaseViewModel* vm, const Vector& 
 			}
 
 			pPhysicsObject->SetVelocity(&vecForce, &angVelocity);
-			pProp->OnPropKicked(vm);
+
+			CPhysicsProp* pProp = dynamic_cast<CPhysicsProp*>(pEntity);
+
+			if (pProp)
+			{
+				pProp->OnPropKicked(this);
+			}
 
 			if (pPhysicsObject->GetMass() >= sk_kick_shake_propmass.GetFloat())
 			{
 				UTIL_ScreenShake(this->WorldSpaceCenter(), 15.0, 25.0, 0.5, 150, SHAKE_START);
 			}
-		}
-	}
-	else
-	{
-		CBreakable* pBreak = dynamic_cast <CBreakable*>(pEntity);
-
-		if (pBreak)
-		{
-			dmgInfo.SetDamage(pEntity->GetHealth());
-			Vector hitDirection;
-			EyeVectors(&hitDirection, NULL, NULL);
-			VectorNormalize(hitDirection);
-			CalculateMeleeDamageForce(&dmgInfo, hitDirection, tr.endpos, 0.7f);
-			dmgInfo.SetDamagePosition(tr.endpos);
-			pBreak->DispatchTraceAttack(dmgInfo, hitDirection, &tr);
-			ApplyMultiDamage();
-		}
-		else
-		{
-			//ent should be a prop or breakable with this function.
-			//if it's an NPC, we should NULL it out since we deal with NPCs differently.
-			pEntity = NULL;
 		}
 	}
 
@@ -1399,11 +1481,23 @@ CBaseEntity* CHL2_Player::CheckKickPropAction(CBaseViewModel* vm, const Vector& 
 
 CBaseEntity* CHL2_Player::CheckTraceKickAttack(const Vector& vStart, const Vector& vEnd, const Vector& mins, const Vector& maxs, int iDamage, int iDmgType, float flForceScale, bool bDamageAnyNPC)
 {
+	// Handy debuging tool to visualize HullAttack trace
+	if (ai_show_hull_attacks.GetBool())
+	{
+		float length = (vEnd - vStart).Length();
+		Vector direction = (vEnd - vStart);
+		VectorNormalize(direction);
+		Vector hullMaxs = maxs;
+		hullMaxs.x = length + hullMaxs.x;
+		NDebugOverlay::BoxDirection(vStart, mins, hullMaxs, direction, 100, 255, 255, 20, 1.0);
+		NDebugOverlay::BoxDirection(vStart, mins, maxs, direction, 255, 0, 0, 20, 1.0);
+	}
+
 	CTakeDamageInfo	dmgInfo(this, this, iDamage, iDmgType);
 	dmgInfo.SetDamageCustom(FR_DMG_CUSTOM_KICK);
 
 	// COLLISION_GROUP_PROJECTILE does some handy filtering that's very appropriate for this type of attack, as well. (sjb) 7/25/2007
-	CTraceFilterMelee traceFilter(this, COLLISION_GROUP_PROJECTILE, &dmgInfo, flForceScale, bDamageAnyNPC);
+	CTraceFilterKick traceFilter(this, COLLISION_GROUP_PROJECTILE, &dmgInfo, flForceScale, bDamageAnyNPC);
 
 	Ray_t ray;
 	ray.Init(vStart, vEnd, mins, maxs);
@@ -1529,7 +1623,7 @@ void CHL2_Player::KickAttack(void)
 				}
 				else
 				{
-					CBaseEntity* pEnt = CheckKickPropAction(vm, Weapon_ShootPosition(), vecEnd, Vector(-16, -16, -16), Vector(16, 16, 16), KickDamageProps, KickThrowForceMult);
+					CBaseEntity* pEnt = CheckKickPropAction(Weapon_ShootPosition(), vecEnd, Vector(-16, -16, -16), Vector(16, 16, 16), KickDamageProps, KickThrowForceMult);
 
 					if (pEnt)
 					{

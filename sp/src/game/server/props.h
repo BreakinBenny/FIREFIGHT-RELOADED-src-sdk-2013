@@ -357,7 +357,7 @@ public:
 	void OnPhysGunPickup( CBasePlayer *pPhysGunUser, PhysGunPickup_t reason );
 	void OnPhysGunDrop( CBasePlayer *pPhysGunUser, PhysGunDrop_t reason );
 
-	void OnPropKicked(CBaseViewModel* vm);
+	void OnPropKicked(CBasePlayer *pPlayer);
 	void OnKickedThink(void);
 
 	bool GetPropDataAngles( const char *pKeyName, QAngle &vecAngles );

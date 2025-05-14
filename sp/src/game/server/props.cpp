@@ -2822,12 +2822,35 @@ void CPhysicsProp::OnPhysGunDrop( CBasePlayer *pPhysGunUser, PhysGunDrop_t Reaso
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void CPhysicsProp::OnPropKicked(CBaseViewModel *vm)
+void CPhysicsProp::OnPropKicked(CBasePlayer* pPlayer)
 {
+	CBaseViewModel* vm = pPlayer->GetViewModel(1);
+
 	if (!vm)
 	{
 		return;
 	}
+
+	IPhysicsObject* pPhysicsObject = VPhysicsGetObject();
+	if (pPhysicsObject && !pPhysicsObject->IsMoveable())
+	{
+		if (!HasSpawnFlags(SF_PHYSPROP_ENABLE_ON_PHYSCANNON))
+			return;
+
+		EnableMotion();
+
+		if (HasInteraction(PROPINTER_PHYSGUN_WORLD_STICK))
+		{
+			SetCollisionGroup(COLLISION_GROUP_INTERACTIVE_DEBRIS);
+		}
+	}
+
+	if (pPhysicsObject && (pPhysicsObject->GetGameFlags() & FVPHYSICS_WAS_THROWN))
+	{
+		PhysClearGameFlags(pPhysicsObject, FVPHYSICS_WAS_THROWN);
+	}
+
+	SetPhysicsAttacker(pPlayer, gpGlobals->curtime);
 
 	int	idealSequence = vm->SelectWeightedSequence(ACT_VM_PRIMARYATTACK);
 
@@ -2848,6 +2871,16 @@ void CPhysicsProp::OnKickedThink(void)
 {
 	if (m_flLastKick < gpGlobals->curtime)
 	{
+		if (HasInteraction(PROPINTER_PHYSGUN_LAUNCH_SPIN_Z))
+		{
+			AngularImpulse angVel(0, 0, 5000.0);
+			VPhysicsGetObject()->AddVelocity(NULL, &angVel);
+
+			// no angular drag on this object anymore
+			float angDrag = 0.0f;
+			VPhysicsGetObject()->SetDragCoefficient(NULL, &angDrag);
+		}
+
 		PhysSetGameFlags(VPhysicsGetObject(), FVPHYSICS_WAS_THROWN);
 		m_bFirstCollisionAfterLaunch = true;
 		SetThink(NULL);
