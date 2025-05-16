@@ -99,13 +99,13 @@ void CServerGameDLL::LevelInit_ParseAllEntities( const char *pMapEntities )
 
 	if (pInfo != NULL)
 	{
-		const char* customMapCFGFile = pInfo->GetString("additional_label", "");
+		const char* customMapAddLabel = pInfo->GetString("additional_mapadd_label", "");
 
-		if (customMapCFGFile[0])
+		if (customMapAddLabel[0])
 		{
 			if (pMapadd)
 			{
-				pMapadd->RunLabel(customMapCFGFile);
+				pMapadd->RunLabel(customMapAddLabel);
 			}
 		}
 	}
