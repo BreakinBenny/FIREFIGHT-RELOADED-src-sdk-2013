@@ -42,7 +42,9 @@ class CNPC_CombineAce : public CNPC_Combine
 
 public: 
 	void		Spawn( void );
+#ifdef GLOWS_ENABLE
 	void		CreateShieldOutline(void);
+#endif
 	void		LoadInitAttributes(void);
 	void		Precache( void );
 	int			RangeAttack1Conditions(float flDot, float flDist);

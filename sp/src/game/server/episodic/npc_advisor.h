@@ -148,7 +148,9 @@ public:
 	void Event_Killed(const CTakeDamageInfo &info);
 
 	//bullet resistance
+#ifdef GLOWS_ENABLE
 	void				EnableBulletResistanceOutline(void);
+#endif
 	CTakeDamageInfo		BulletResistanceLogic(const CTakeDamageInfo& info, trace_t* ptr);
 	virtual bool		PassesDamageFilter(const CTakeDamageInfo& info);
 	bool				m_bBulletResistanceBroken;

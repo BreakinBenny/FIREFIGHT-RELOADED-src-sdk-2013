@@ -221,6 +221,7 @@ void CNPC_Advisor::Spawn()
 
 #if NPC_ADVISOR_HAS_BEHAVIOR
 
+#ifdef GLOWS_ENABLE
 void CNPC_Advisor::EnableBulletResistanceOutline()
 {
 	if (!m_bBulletResistanceBroken)
@@ -237,20 +238,25 @@ void CNPC_Advisor::EnableBulletResistanceOutline()
 		}
 	}
 }
+#endif
 
 void CNPC_Advisor::LoadInitAttributes()
 {
 	if (m_pAttributes != NULL)
 	{
 		int disableBulletResistance = m_pAttributes->GetInt("disable_bullet_resistance", 0);
+#ifdef GLOWS_ENABLE
 		bool showOutlines = m_pAttributes->GetBool("has_outlines", 0);
+#endif
 
 		if (disableBulletResistance == 0)
 		{
+#ifdef GLOWS_ENABLE
 			if (showOutlines)
 			{
 				m_denyOutlines = true;
 			}
+#endif
 
 			if (m_bBulletResistanceBroken)
 			{
@@ -259,10 +265,12 @@ void CNPC_Advisor::LoadInitAttributes()
 		}
 		else if (disableBulletResistance == 1)
 		{
+#ifdef GLOWS_ENABLE
 			if (showOutlines)
 			{
 				m_denyOutlines = false;
 			}
+#endif
 
 			if (!m_bBulletResistanceBroken)
 			{
@@ -270,6 +278,7 @@ void CNPC_Advisor::LoadInitAttributes()
 			}
 		}
 
+#ifdef GLOWS_ENABLE
 		bool disableBulletResistanceOutline = m_pAttributes->GetBool("disable_bullet_resistance_outline", 0);
 
 		if (disableBulletResistanceOutline)
@@ -283,6 +292,7 @@ void CNPC_Advisor::LoadInitAttributes()
 				m_bImportantOutline = false;
 			}
 		}
+#endif
 	}
 
 	BaseClass::LoadInitAttributes();
@@ -361,6 +371,7 @@ CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info,
 		SetBloodColor(BLOOD_COLOR_GREEN);
 		m_bBulletResistanceBroken = true;
 
+#ifdef GLOWS_ENABLE
 		if (!m_bBulletResistanceOutlineDisabled)
 		{
 			RemoveGlowEffect();
@@ -369,6 +380,7 @@ CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info,
 			Vector outline = Vector(255, 0, 0);
 			GiveOutline(outline);
 		}
+#endif
 	}
 
 	return outputInfo;
@@ -1868,7 +1880,9 @@ void CNPC_Advisor::Dronify(CBaseEntity* pOther)
 
 			//our beam will turn them into DRONES.
 			//we need the outline to determine who is a drone.
+#ifdef GLOWS_ENABLE
 			pNPC->m_denyOutlines = false;
+#endif
 			pNPC->GiveWildcardAttributes(1);
 		}
 	}
@@ -2058,7 +2072,9 @@ bool CNPC_Advisor::QueryHearSound( CSound *pSound )
 //-----------------------------------------------------------------------------
 void CNPC_Advisor::InputSetTurnOnBulletResistanceOutline(inputdata_t& inputdata)
 {
+#ifdef GLOWS_ENABLE
 	EnableBulletResistanceOutline();
+#endif
 }
 
 //-----------------------------------------------------------------------------

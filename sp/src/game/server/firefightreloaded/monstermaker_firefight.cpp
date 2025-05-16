@@ -949,12 +949,14 @@ void CNPCMakerFirefight::MakeNPC()
 		(pent->Classify() == CLASS_ANTLION &&
 			GlobalEntity_GetState("antlion_allied") == GLOBAL_ON && g_pGameRules->GetGamemode() != FR_GAMEMODE_ANTLIONASSAULT))
 	{
+#ifdef GLOWS_ENABLE
 		if (!pent->IsGlowEffectActive() && !pent->m_denyOutlines)
 		{
 			Vector allyColor = Vector(26, 77, 153);
 			pent->m_bImportantOutline = true;
 			pent->GiveOutline(allyColor);
 		}
+#endif
 
 		if (!g_fr_lonewolf.GetBool())
 		{

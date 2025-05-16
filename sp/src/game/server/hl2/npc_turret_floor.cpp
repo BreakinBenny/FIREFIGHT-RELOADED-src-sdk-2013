@@ -1475,6 +1475,7 @@ void CNPC_FloorTurret::ReturnToLife( void )
 	m_lifeState = LIFE_ALIVE;
 	SetCollisionGroup( COLLISION_GROUP_NONE );
 
+#ifdef GLOWS_ENABLE
 	if (Classify() == CLASS_PLAYER_ALLY)
 	{
 		if (!IsGlowEffectActive() && !m_denyOutlines)
@@ -1485,6 +1486,7 @@ void CNPC_FloorTurret::ReturnToLife( void )
 			GiveOutline(oldColor);
 		}
 	}
+#endif
 
 	// Become active again
 	Enable();

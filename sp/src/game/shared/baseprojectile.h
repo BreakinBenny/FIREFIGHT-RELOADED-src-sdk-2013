@@ -14,9 +14,9 @@
 #include "cbase.h"
 
 #ifdef GAME_DLL
-#include "baseanimating.h"
+#include "basecombatcharacter.h"
 #else
-#include "c_baseanimating.h"
+#include "c_basecombatcharacter.h"
 #endif
 
 #ifdef CLIENT_DLL
@@ -28,10 +28,10 @@
 // Base Projectile.
 //
 //=============================================================================
-class CBaseProjectile : public CBaseAnimating
+class CBaseProjectile : public CBaseCombatCharacter
 {
 public:
-	DECLARE_CLASS( CBaseProjectile, CBaseAnimating );
+	DECLARE_CLASS( CBaseProjectile, CBaseCombatCharacter);
 	DECLARE_NETWORKCLASS();
 
 	CBaseProjectile();

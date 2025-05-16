@@ -7318,7 +7318,9 @@ void CAI_BaseNPC::NPCInit ( void )
 
 	m_EnemiesSerialNumber = -1;
 
+#ifdef GLOWS_ENABLE
 	m_denyOutlines = false;
+#endif
 
 	m_iAttributePresetNum = -1;
 	m_IsWildcard = false;
@@ -7543,6 +7545,7 @@ void CAI_BaseNPC::LoadInitAttributes()
 			m_bBoss = boss;
 		}
 
+#ifdef GLOWS_ENABLE
 		bool showOutlines = m_pAttributes->GetBool("has_outlines", 0);
 
 		if (showOutlines && !m_denyOutlines)
@@ -7560,6 +7563,7 @@ void CAI_BaseNPC::LoadInitAttributes()
 				m_denyOutlines = true;
 			}
 		}
+#endif
 
 		m_IsAdvisorDrone = m_pAttributes->GetBool("advisor_drone", 0);
 
@@ -7603,6 +7607,7 @@ void CAI_BaseNPC::GiveWildcardAttributes(int preset)
 	}
 }
 
+#ifdef GLOWS_ENABLE
 void CAI_BaseNPC::GiveOutline(Vector& outlineColor)
 {
 	if (m_bGlowEnabled)
@@ -7613,6 +7618,7 @@ void CAI_BaseNPC::GiveOutline(Vector& outlineColor)
 	m_vOutlineColor = outlineColor;
 	AddGlowEffect();
 }
+#endif
 
 float CAI_BaseNPC::GetSequenceGroundSpeed(CStudioHdr* pStudioHdr, int iSequence)
 {
@@ -11418,8 +11424,10 @@ BEGIN_DATADESC( CAI_BaseNPC )
 	DEFINE_FIELD( m_bPerformAvoidance,			FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_bIsMoving,					FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_bFadeCorpse,				FIELD_BOOLEAN ),
+#ifdef GLOWS_ENABLE
 	DEFINE_FIELD(m_vOutlineColor,				FIELD_VECTOR),
 	DEFINE_FIELD(m_bImportantOutline,			FIELD_BOOLEAN),
+#endif
 	DEFINE_FIELD( m_iDeathPose,					FIELD_INTEGER ),
 	DEFINE_FIELD( m_iDeathFrame,				FIELD_INTEGER ),
 	DEFINE_FIELD( m_bCheckContacts,				FIELD_BOOLEAN ),
@@ -11531,8 +11539,10 @@ IMPLEMENT_SERVERCLASS_ST( CAI_BaseNPC, DT_AI_BaseNPC )
 	SendPropBool( SENDINFO( m_bPerformAvoidance ) ),
 	SendPropBool( SENDINFO( m_bIsMoving ) ),
 	SendPropBool( SENDINFO( m_bFadeCorpse ) ),
+#ifdef GLOWS_ENABLE
 	SendPropVector(SENDINFO(m_vOutlineColor) ),
 	SendPropBool(SENDINFO(m_bImportantOutline)),
+#endif
 	SendPropInt( SENDINFO( m_iDeathPose ), ANIMATION_SEQUENCE_BITS ),
 	SendPropInt( SENDINFO( m_iDeathFrame ), 5 ),
 	SendPropBool( SENDINFO( m_bSpeedModActive ) ),

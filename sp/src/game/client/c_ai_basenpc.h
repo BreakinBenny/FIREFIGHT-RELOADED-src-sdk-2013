@@ -41,10 +41,12 @@ public:
 	void					OnDataChanged( DataUpdateType_t type );
 	bool					ImportantRagdoll( void ) { return m_bImportanRagdoll;	}
 
+#ifdef GLOWS_ENABLE
 	virtual void			GetGlowEffectColor(float* r, float* g, float* b);
 
 public:
 	Vector m_vOutlineColor;
+#endif
 
 private:
 	C_AI_BaseNPC( const C_AI_BaseNPC & ); // not defined, not accessible
@@ -59,7 +61,9 @@ private:
 	bool m_bIsMoving;
 	bool m_bFadeCorpse;
 	bool m_bShowOutlines;
+#ifdef GLOWS_ENABLE
 	bool m_bImportantOutline;
+#endif
 
 	bool m_bSpeedModActive;
 	bool m_bImportanRagdoll;

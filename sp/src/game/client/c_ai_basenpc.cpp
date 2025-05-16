@@ -17,7 +17,9 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+#ifdef GLOWS_ENABLE
 static ConVar npc_gloweffect("npc_gloweffect", "1", FCVAR_ARCHIVE);
+#endif
 
 #define PING_MAX_TIME	2.0
 
@@ -26,8 +28,10 @@ IMPLEMENT_CLIENTCLASS_DT( C_AI_BaseNPC, DT_AI_BaseNPC, CAI_BaseNPC )
 	RecvPropBool( RECVINFO( m_bPerformAvoidance ) ),
 	RecvPropBool( RECVINFO( m_bIsMoving ) ),
 	RecvPropBool( RECVINFO( m_bFadeCorpse ) ),
+#ifdef GLOWS_ENABLE
 	RecvPropVector(RECVINFO(m_vOutlineColor)),
 	RecvPropBool(RECVINFO(m_bImportantOutline)),
+#endif
 	RecvPropInt( RECVINFO ( m_iDeathPose) ),
 	RecvPropInt( RECVINFO( m_iDeathFrame) ),
 	RecvPropInt( RECVINFO( m_iSpeedModRadius ) ),
@@ -147,6 +151,7 @@ void C_AI_BaseNPC::ClientThink( void )
 #endif
 }
 
+#ifdef GLOWS_ENABLE
 void C_AI_BaseNPC::GetGlowEffectColor(float* r, float* g, float* b)
 {
 	float vr = m_vOutlineColor.x / 255;
@@ -157,9 +162,11 @@ void C_AI_BaseNPC::GetGlowEffectColor(float* r, float* g, float* b)
 	*g = vg;
 	*b = vb;
 }
+#endif
 
 void C_AI_BaseNPC::OnDataChanged( DataUpdateType_t type )
 {
+#ifdef GLOWS_ENABLE
 	if (IsAlive())
 	{
 		if (npc_gloweffect.GetBool() || m_bImportantOutline)
@@ -175,6 +182,7 @@ void C_AI_BaseNPC::OnDataChanged( DataUpdateType_t type )
 			UpdateGlowEffect(color, 1.0);
 		}
 	}
+#endif
 
 	BaseClass::OnDataChanged( type );
 

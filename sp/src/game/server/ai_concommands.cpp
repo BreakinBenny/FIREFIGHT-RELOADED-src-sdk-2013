@@ -638,6 +638,7 @@ CON_COMMAND_F_COMPLETION(npc_create, "Creates an NPC of the given type where the
 			}
 		}
 
+#ifdef GLOWS_ENABLE
 		if (baseNPC->Classify() == CLASS_PLAYER_ALLY ||
 			baseNPC->Classify() == CLASS_PLAYER_ALLY_VITAL ||
 			baseNPC->Classify() == CLASS_VORTIGAUNT ||
@@ -652,6 +653,7 @@ CON_COMMAND_F_COMPLETION(npc_create, "Creates an NPC of the given type where the
 				baseNPC->GiveOutline(allyColor);
 			}
 		}
+#endif
 
 		// Now attempt to drop into the world
 		CBasePlayer* pPlayer = UTIL_GetCommandClient();
@@ -746,6 +748,7 @@ CON_COMMAND_F_COMPLETION(npc_create_aimed, "Creates an NPC aimed away from the p
 			}
 		}
 
+#ifdef GLOWS_ENABLE
 		if (baseNPC->Classify() == CLASS_PLAYER_ALLY ||
 			baseNPC->Classify() == CLASS_PLAYER_ALLY_VITAL ||
 			baseNPC->Classify() == CLASS_VORTIGAUNT ||
@@ -760,6 +763,7 @@ CON_COMMAND_F_COMPLETION(npc_create_aimed, "Creates an NPC aimed away from the p
 				baseNPC->GiveOutline(allyColor);
 			}
 		}
+#endif
 
 		// Now attempt to drop into the world
 		QAngle angles;

@@ -106,7 +106,9 @@ BEGIN_DATADESC( CBaseCombatCharacter )
 	DEFINE_FIELD( m_bForceServerRagdoll, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_bPreventWeaponPickup, FIELD_BOOLEAN ),
 
+#ifdef GLOWS_ENABLE
 	DEFINE_FIELD(m_bGlowEnabled, FIELD_BOOLEAN),
+#endif
 
 	DEFINE_INPUTFUNC( FIELD_VOID, "KilledNPC", InputKilledNPC ),
 

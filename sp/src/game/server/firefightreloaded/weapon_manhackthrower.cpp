@@ -146,9 +146,11 @@ void CWeaponManhackThrower::SpawnManhack(void)
 			pPhysicsObject->AddVelocity(&vecThrow, &angImp);
 		}
 
+#ifdef GLOWS_ENABLE
 		Vector allyColor = Vector(26, 77, 153);
 		pManhack->m_bImportantOutline = true;
 		pManhack->GiveOutline(allyColor);
+#endif
 
 		WeaponSound(SPECIAL1);
 	}

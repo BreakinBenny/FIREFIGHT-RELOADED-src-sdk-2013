@@ -246,7 +246,9 @@ void CNPC_CombineAce::Spawn( void )
 		AddEFlags(EFL_NO_MEGAPHYSCANNON_RAGDOLL);
 	}
 
+#ifdef GLOWS_ENABLE
 	CreateShieldOutline();
+#endif
 
 	/*
 #if HL2_EPISODIC
@@ -263,6 +265,7 @@ bool CNPC_CombineAce::AllowedToIgnite(void)
 	return m_bBulletResistanceBroken;
 }
 
+#ifdef GLOWS_ENABLE
 void CNPC_CombineAce::CreateShieldOutline()
 {
 	if (IsGlowEffectActive())
@@ -295,6 +298,7 @@ void CNPC_CombineAce::CreateShieldOutline()
 		GiveOutline(outline);
 	}
 }
+#endif
 
 void CNPC_CombineAce::LoadInitAttributes()
 {
@@ -333,14 +337,18 @@ void CNPC_CombineAce::LoadInitAttributes()
 		}
 
 		int disableBulletResistance = m_pAttributes->GetInt("disable_bullet_resistance", 0);
+#ifdef GLOWS_ENABLE
 		bool showOutlines = m_pAttributes->GetBool("has_outlines", 0);
+#endif
 		
 		if (disableBulletResistance == 0)
 		{
+#ifdef GLOWS_ENABLE
 			if (showOutlines)
 			{
 				m_denyOutlines = true;
 			}
+#endif
 
 			if (m_bBulletResistanceBroken)
 			{
@@ -349,10 +357,12 @@ void CNPC_CombineAce::LoadInitAttributes()
 		}
 		else if (disableBulletResistance == 1)
 		{
+#ifdef GLOWS_ENABLE
 			if (showOutlines)
 			{
 				m_denyOutlines = false;
 			}
+#endif
 
 			if (!m_bBulletResistanceBroken)
 			{
@@ -360,6 +370,7 @@ void CNPC_CombineAce::LoadInitAttributes()
 			}
 		}
 
+#ifdef GLOWS_ENABLE
 		bool disableBulletResistanceOutline = m_pAttributes->GetBool("disable_bullet_resistance_outline", 0);
 
 		if (disableBulletResistanceOutline)
@@ -375,6 +386,7 @@ void CNPC_CombineAce::LoadInitAttributes()
 		}
 
 		CreateShieldOutline();
+#endif
 	}
 
 	BaseClass::LoadInitAttributes();
@@ -689,10 +701,12 @@ CTakeDamageInfo CNPC_CombineAce::BulletResistanceLogic(const CTakeDamageInfo& in
 		EmitSound("Weapon_StriderBuster.Detonate");
 		SetBloodColor(BLOOD_COLOR_RED);
 		RemoveEFlags(EFL_NO_MEGAPHYSCANNON_RAGDOLL);
+#ifdef GLOWS_ENABLE
 		if (!m_bBulletResistanceOutlineDisabled)
 		{
 			RemoveGlowEffect();
 		}
+#endif
 		m_bBulletResistanceBroken = true;
 	}
 

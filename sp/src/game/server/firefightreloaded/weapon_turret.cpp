@@ -47,7 +47,9 @@ public:
 
 		AddEFlags(EFL_DIRTY_ABSTRANSFORM);
 
+#ifdef GLOWS_ENABLE
 		m_bImportantOutline = true;
+#endif
 		SetModel(FLOOR_TURRET_WEAPON_MODEL);
 
 		SetRenderMode(kRenderTransColor);
@@ -75,8 +77,10 @@ public:
 		SetRenderMode(kRenderTransColor);
 		SetRenderColor(clrHighlightColor.r(), clrHighlightColor.g(), clrHighlightColor.b(), 150);
 		
+#ifdef GLOWS_ENABLE
 		Vector outlineColor = Vector(clrHighlightColor.r(), clrHighlightColor.g(), clrHighlightColor.b());
 		GiveOutline(outlineColor);
+#endif
 	}
 
 	void SetStatus(HologramStatus statusToReport) { status = statusToReport; }

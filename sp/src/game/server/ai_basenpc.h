@@ -538,7 +538,9 @@ public:
 	virtual void		ChangeTeam(int iTeamNum);
 	virtual void		GiveAttributes(int preset);
 	virtual void		GiveWildcardAttributes(int preset);
+#ifdef GLOWS_ENABLE
 	virtual void		GiveOutline(Vector& outlineColor);
+#endif
 	virtual float		GetSequenceGroundSpeed(CStudioHdr* pStudioHdr, int iSequence);
 	inline float		GetSequenceGroundSpeed(int iSequence) { return GetSequenceGroundSpeed(GetModelPtr(), iSequence); }
 	void				NPCInitThink( void );
@@ -1426,7 +1428,9 @@ private:
 public:
 	CAttributesLoader* m_pAttributes;
 	bool			m_bDisableInitAttributes;
+#ifdef GLOWS_ENABLE
 	bool			m_denyOutlines;
+#endif
 	bool			m_IgnoreWeaponActivities;
 	bool			m_IsAdvisorDrone;
 	int				m_iAttributePresetNum;
@@ -2157,8 +2161,10 @@ public:
 	CNetworkVar( bool,	m_bIsMoving );
 	CNetworkVar( bool,  m_bFadeCorpse );
 	CNetworkVar( bool,  m_bImportanRagdoll );
+#ifdef GLOWS_ENABLE
 	CNetworkVector(m_vOutlineColor);
 	CNetworkVar(bool, m_bImportantOutline);
+#endif
 
 	CNetworkVar( bool,  m_bSpeedModActive );
 	CNetworkVar( int,   m_iSpeedModRadius );
