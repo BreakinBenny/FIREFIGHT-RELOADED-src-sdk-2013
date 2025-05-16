@@ -6638,9 +6638,9 @@ void CNPC_Hunter::CreateSpitProjectile(const Vector& vecSrc, Vector& vecShoot, Q
 	CGrenadeSpit* pGrenade = (CGrenadeSpit*)CreateEntityByName("grenade_spit");
 	pGrenade->SetAbsOrigin(vecSrc);
 	pGrenade->SetAbsAngles(angShoot);
-	DispatchSpawn(pGrenade);
 	pGrenade->SetThrower(this);
 	pGrenade->SetOwnerEntity(this);
+	DispatchSpawn(pGrenade);
 
 	if (nShotNum == 0)
 	{
@@ -6664,9 +6664,9 @@ void CNPC_Hunter::CreateSMGGrenade(const Vector& vecSrc, Vector& vecShoot, QAngl
 	CGrenadeAR2* pGrenade = (CGrenadeAR2*)CreateEntityByName("grenade_ar2");
 	pGrenade->SetAbsOrigin(vecSrc);
 	pGrenade->SetAbsAngles(angShoot);
-	DispatchSpawn(pGrenade);
 	pGrenade->SetThrower(this);
 	pGrenade->SetOwnerEntity(this);
+	DispatchSpawn(pGrenade);
 
 	if (nShotNum == 0)
 	{

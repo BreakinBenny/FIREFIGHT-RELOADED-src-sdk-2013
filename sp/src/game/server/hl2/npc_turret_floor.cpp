@@ -2029,7 +2029,7 @@ float CNPC_FloorTurret::GetAttackDamageScale( CBaseEntity *pVictim )
 	CBaseCombatCharacter *pBCC = pVictim->MyCombatCharacterPointer();
 
 	// Do extra damage to antlions & combine
-	if ( pBCC )
+	if (!IsWeaponTurret() && pBCC )
 	{
 		if ( pBCC->Classify() == CLASS_ANTLION )
 			return 2.0;

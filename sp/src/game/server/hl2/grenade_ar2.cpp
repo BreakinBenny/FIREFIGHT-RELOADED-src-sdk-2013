@@ -174,6 +174,12 @@ void CGrenadeAR2::Spawn( void )
 			m_hSmokeTrail->FollowEntity(this);
 		}
 	}
+
+	//set it to glow for better visibility.
+	if (GetOwnerEntity() && GetOwnerEntity()->IsNPC())
+	{
+		SetRenderMode(kRenderWorldGlow);
+	}
 }
 
 //-----------------------------------------------------------------------------

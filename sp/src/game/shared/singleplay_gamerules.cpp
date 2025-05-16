@@ -1206,6 +1206,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 
 			//playerbots are allowed to have suicide notifs.
 			bool isPlayerbot = (FClassnameIs(pVictim, "npc_playerbot") || FClassnameIs(pVictim, "npc_playerbot_enemy"));
+			bool isInflictorNotNPC = false;
 
 			if (pNPCVictim)
 			{
@@ -1222,7 +1223,14 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 				}
 				else
 				{
-					return;
+					//must be a flechette. do the same checks
+					if (pInflictor == pNPCVictim)
+						return;
+
+					if (pInflictor->GetClassname() == pNPCVictim->GetClassname())
+						return;
+
+					isInflictorNotNPC = true;
 				}
 
 				if (pNPCKiller)
@@ -1259,6 +1267,10 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 				else if (pNPCInflictor)
 				{
 					killer_weapon_name = STRING(pNPCInflictor->m_iClassname);  // it's just that easy
+				}
+				else if (isInflictorNotNPC)
+				{
+					killer_weapon_name = STRING(pInflictor->m_iClassname);  // it's just that easy
 				}
 				else
 				{

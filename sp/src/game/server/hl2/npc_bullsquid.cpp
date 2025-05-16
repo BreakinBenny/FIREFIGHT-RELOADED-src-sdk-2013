@@ -413,9 +413,9 @@ void CNPC_Bullsquid::CreateDefaultProjectile(const Vector &vSpitPos, Vector &vec
 	CGrenadeSpit* pGrenade = (CGrenadeSpit*)CreateEntityByName("grenade_spit");
 	pGrenade->SetAbsOrigin(vSpitPos);
 	pGrenade->SetAbsAngles(vec3_angle);
-	DispatchSpawn(pGrenade);
 	pGrenade->SetThrower(this);
 	pGrenade->SetOwnerEntity(this);
+	DispatchSpawn(pGrenade);
 
 	if (i == 0)
 	{
@@ -437,11 +437,12 @@ void CNPC_Bullsquid::CreateDefaultProjectile(const Vector &vSpitPos, Vector &vec
 void CNPC_Bullsquid::CreateSMGGrenadeProjectile(const Vector& vSpitPos, Vector &vecToss, float flVelocity, int i)
 {
 	//Create the grenade
-	CGrenadeAR2* pGrenade = (CGrenadeAR2*)Create("grenade_ar2", vSpitPos, vec3_angle, this);
-	pGrenade->SetMoveType(MOVETYPE_FLYGRAVITY, MOVECOLLIDE_FLY_BOUNCE);
+	CGrenadeAR2* pGrenade = (CGrenadeAR2*)CreateEntityByName("grenade_ar2");
+	pGrenade->SetAbsOrigin(vSpitPos);
+	pGrenade->SetAbsAngles(vec3_angle);
 	pGrenade->SetThrower(this);
-	pGrenade->SetGravity(0.5);
-	pGrenade->SetDamage(sk_npc_dmg_smg1_grenade.GetFloat());
+	pGrenade->SetOwnerEntity(this);
+	DispatchSpawn(pGrenade);
 
 	if (i == 0)
 	{
