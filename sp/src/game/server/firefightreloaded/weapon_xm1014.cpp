@@ -27,7 +27,12 @@
 #include "tier0/memdbgon.h"
 
 extern ConVar sk_auto_reload_time;
-extern ConVar sk_plr_num_shotgun_pellets;
+
+extern ConVar sk_plr_dmg_buckshot_xm1014;
+extern ConVar sk_npc_dmg_buckshot_xm1014;
+
+extern ConVar sk_plr_num_xm1014_pellets;
+extern ConVar sk_npc_num_xm1014_pellets;
 
 class CWeaponXM1014 : public CBaseHLCombatWeapon
 {
@@ -199,19 +204,18 @@ void CWeaponXM1014::FireNPCPrimaryAttack(CBaseCombatCharacter* pOperator, bool b
 		}
 	}
 
-	CAmmoDef* def = GetAmmoDef();
-
 	FireBulletsInfo_t info;
-	info.m_iShots = 6;
+	CAmmoDef* def = GetAmmoDef();
+	int dmgType = def->DamageType(info.m_iAmmoType);
+
+	info.m_iShots = sk_npc_num_xm1014_pellets.GetInt();
 	info.m_vecSrc = vecShootOrigin;
 	info.m_vecDirShooting = vecShootDir;
 	info.m_vecSpread = GetBulletSpread();
 	info.m_flDistance = MAX_TRACE_LENGTH;
 	info.m_iTracerFreq = 0;
 	info.m_iAmmoType = m_iPrimaryAmmoType;
-
-	int dmgType = def->DamageType(info.m_iAmmoType);
-
+	info.m_flDamage = info.m_iPlayerDamage = sk_npc_dmg_buckshot_xm1014.GetFloat();
 	info.m_nDamageFlags = (dmgType &= ~DMG_SNIPER);
 
 	pOperator->FireBullets(info);
@@ -462,24 +466,24 @@ void CWeaponXM1014::PrimaryAttack( void )
 	Vector	vecAiming	= pPlayer->GetAutoaimVector( AUTOAIM_SCALE_DEFAULT );	
 
 	pPlayer->SetMuzzleFlashTime( gpGlobals->curtime + 1.0 );
-	
-	CAmmoDef* def = GetAmmoDef();
 
-	// Fire the bullets, and force the first shot to be perfectly accuracy
+	// Fire the bullets, and force the first shot to be perfectly accurate
 	FireBulletsInfo_t info;
-	info.m_iShots = 6;
+	info.m_iShots = sk_plr_num_xm1014_pellets.GetInt();
 	info.m_vecSrc = vecSrc;
 	info.m_vecDirShooting = vecAiming;
 	info.m_vecSpread = GetBulletSpread();
 	info.m_flDistance = MAX_TRACE_LENGTH;
 	info.m_iTracerFreq = 0;
 	info.m_iAmmoType = m_iPrimaryAmmoType;
+	info.m_flDamage = info.m_iPlayerDamage = sk_plr_dmg_buckshot_xm1014.GetFloat();
 	info.m_nFlags = FIRE_BULLETS_FIRST_SHOT_ACCURATE;
 	info.m_bPrimaryAttack = true;
 
+	CAmmoDef* def = GetAmmoDef();
 	int dmgType = def->DamageType(info.m_iAmmoType);
+	info.m_nDamageFlags = (!IsIronsighted() ? (dmgType &= ~DMG_SNIPER) : dmgType);
 
-	info.m_nDamageFlags = !IsIronsighted() ? (dmgType &= ~DMG_SNIPER) : dmgType;
 	pPlayer->FireBullets(info);
 	
 	pPlayer->ViewPunch( QAngle( random->RandomFloat( -2, -1 ), random->RandomFloat( -2, 2 ), 0 ) );

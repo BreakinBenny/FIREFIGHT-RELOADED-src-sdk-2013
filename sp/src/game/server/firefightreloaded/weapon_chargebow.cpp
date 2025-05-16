@@ -224,27 +224,31 @@ void CWeaponChargebow::ItemPostFrame( void )
 		m_bCharged = true;
 	}
 
+	if (pOwner)
+	{
+		if ((pOwner->m_nButtons & IN_ATTACK2))
+		{
+			SendWeaponAnim(ACT_VM_IDLE);
+			m_flNextPrimaryAttack = m_flNextSecondaryAttack = gpGlobals->curtime + 0.75;
+
+			SetWeaponIdleTime(gpGlobals->curtime + SequenceDuration(ACT_VM_PRIMARYATTACK));
+
+			m_fDrawbackFinished = false;
+			m_fChargeTime = gpGlobals->curtime + FLT_MAX;
+			m_bPlayedChargeSound = false;
+			m_bCharged = false;
+			WeaponIdle();
+			pOwner->m_nButtons &= ~(IN_ATTACK | IN_ATTACK2);
+			return;
+		}
+	}
+
 	if (m_fDrawbackFinished)
 	{
 		if (pOwner)
 		{
 			if (!(pOwner->m_nButtons & IN_ATTACK))
 			{
-				if ((pOwner->m_nButtons & IN_ATTACK2))
-				{
-					SendWeaponAnim(ACT_VM_IDLE);
-					m_flNextPrimaryAttack = m_flNextSecondaryAttack = gpGlobals->curtime + 0.75;
-
-					SetWeaponIdleTime(gpGlobals->curtime + SequenceDuration(ACT_VM_PRIMARYATTACK));
-
-					m_fDrawbackFinished = false;
-					m_fChargeTime = gpGlobals->curtime + FLT_MAX;
-					m_bPlayedChargeSound = false;
-					m_bCharged = false;
-					WeaponIdle();
-					return;
-				}
-
 				FireBolt();
 
 				// Signal a reload

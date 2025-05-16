@@ -796,13 +796,19 @@ float CNPC_CombineAce::GetHitgroupDamageMultiplier( int iHitGroup, const CTakeDa
 	case HITGROUP_CHEST:
 		if (m_bBulletResistanceBroken)
 		{
-			//for katanas, we should make it so decapitations
-			//happen if we hit the chest of an enemy
-			//to improve responsiveness.
-			if (CorpseDecapitate(info))
+			if (g_fr_headshotgore_allowchestshot.GetBool())
 			{
-				//we're dead by this point, lol
-				return BaseClass::GetHitgroupDamageMultiplier(iHitGroup, info);
+				//originally for katanas, we made it so decapitations
+				//happen if we hit the chest of an enemy
+				//to improve responsiveness.
+				//
+				//for whatever reason though due to this, whenever we shoot an enemy in the pelvis
+				//it counts as a headshot.
+				if (CorpseDecapitate(info))
+				{
+					//we're dead by this point, lol
+					return BaseClass::GetHitgroupDamageMultiplier(iHitGroup, info);
+				}
 			}
 		}
 	}

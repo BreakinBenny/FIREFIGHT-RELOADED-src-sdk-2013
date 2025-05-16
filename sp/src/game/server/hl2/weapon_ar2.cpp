@@ -36,7 +36,8 @@ ConVar sk_weapon_ar2_alt_fire_radius( "sk_weapon_ar2_alt_fire_radius", "10" );
 ConVar sk_weapon_ar2_alt_fire_duration( "sk_weapon_ar2_alt_fire_duration", "2" );
 ConVar sk_weapon_ar2_alt_fire_mass( "sk_weapon_ar2_alt_fire_mass", "150" );
 
-ConVar weapon_ar2_maxbulletsfired("weapon_ar2_maxbulletsfired", "5", FCVAR_ARCHIVE);
+ConVar sk_weapon_ar2_scope_damagemultiplier("sk_weapon_ar2_scope_damagemultiplier", "1.5");
+ConVar sk_weapon_ar2_scope_maxbulletsfired("sk_weapon_ar2_scope_maxbulletsfired", "5", FCVAR_ARCHIVE);
 
 //=========================================================
 //=========================================================
@@ -202,14 +203,14 @@ void CWeaponAR2::PrimaryAttack(void)
 	info.m_vecSpread = pPlayer->GetAttackSpread(this);
 	info.m_flDistance = MAX_TRACE_LENGTH;
 	info.m_iAmmoType = m_iPrimaryAmmoType;
-	info.m_flDamage = info.m_iPlayerDamage = (m_bZoomed ? (def->PlrDamage(m_iPrimaryAmmoType) * 2.5) : def->PlrDamage(m_iPrimaryAmmoType));
-	info.m_nCustomDamageFlags = ((m_bZoomed && !m_bFiredHeadshotBullets) ? FR_DMG_CUSTOM_HEADSHOT : 0);
+	info.m_flDamage = info.m_iPlayerDamage = (m_bZoomed ? (def->PlrDamage(m_iPrimaryAmmoType) * sk_weapon_ar2_scope_damagemultiplier.GetFloat()) : def->PlrDamage(m_iPrimaryAmmoType));
+	info.m_nDamageFlags = ((m_bZoomed && !m_bFiredHeadshotBullets) ? (def->DamageType(info.m_iAmmoType) | DMG_SNIPER) : def->DamageType(info.m_iAmmoType));
 	info.m_iTracerFreq = 2;
 	pPlayer->FireBullets(info);
 
 	if (!m_bFiredHeadshotBullets)
 	{
-		if (m_nShotsFired >= weapon_ar2_maxbulletsfired.GetInt())
+		if (m_nShotsFired >= sk_weapon_ar2_scope_maxbulletsfired.GetInt())
 		{
 			m_bFiredHeadshotBullets = true;
 		}

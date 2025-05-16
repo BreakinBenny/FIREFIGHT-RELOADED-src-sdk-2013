@@ -4021,13 +4021,19 @@ float CNPC_MetroPolice::GetHitgroupDamageMultiplier(int iHitGroup, const CTakeDa
 			return 2.0f;
 		}
 	case HITGROUP_CHEST:
-		//for katanas, we should make it so decapitations
-		//happen if we hit the chest of an enemy
-		//to improve responsiveness.
-		if (CorpseDecapitate(info))
+		if (g_fr_headshotgore_allowchestshot.GetBool())
 		{
-			//we're dead by this point, lol
-			return BaseClass::GetHitgroupDamageMultiplier(iHitGroup, info);
+			//originally for katanas, we made it so decapitations
+			//happen if we hit the chest of an enemy
+			//to improve responsiveness.
+			//
+			//for whatever reason though due to this, whenever we shoot an enemy in the pelvis
+			//it counts as a headshot.
+			if (CorpseDecapitate(info))
+			{
+				//we're dead by this point, lol
+				return BaseClass::GetHitgroupDamageMultiplier(iHitGroup, info);
+			}
 		}
 	}
 
@@ -4140,7 +4146,7 @@ bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 		&& (violence_hgibs.IsValid() && violence_hgibs.GetBool())
 		&& g_fr_headshotgore.GetBool() && gibs;
 
-	if (newinfo.GetDamageType() & (DMG_SNIPER) || newinfo.GetDamageCustom() == FR_DMG_CUSTOM_HEADSHOT)
+	if (newinfo.GetDamageType() & (DMG_SNIPER))
 	{
 		if ( shouldAnimateDecap )
 		{
@@ -4161,7 +4167,7 @@ bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 
 		return true;
 	}
-	else if (newinfo.GetDamageType() & (DMG_SLASH) || newinfo.GetDamageCustom() == FR_DMG_CUSTOM_DECAPITATION)
+	else if (newinfo.GetDamageType() & (DMG_SLASH))
 	{
 		if ( shouldAnimateDecap )
 		{

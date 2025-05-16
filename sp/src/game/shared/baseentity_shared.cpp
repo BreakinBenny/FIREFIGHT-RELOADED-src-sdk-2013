@@ -1909,7 +1909,7 @@ void CBaseEntity::FireBullets(const FireBulletsInfo_t& info)
 			}
 			else
 			{
-				nActualDamageType = nDamageType | ((flActualDamage > 16) ? DMG_ALWAYSGIB : DMG_NEVERGIB);
+				nActualDamageType = ((flActualDamage > 16) ? (nDamageType | DMG_ALWAYSGIB) : nDamageType);
 			}
 
 			if (!bHitWater || ((info.m_nFlags & FIRE_BULLETS_DONT_HIT_UNDERWATER) == 0))

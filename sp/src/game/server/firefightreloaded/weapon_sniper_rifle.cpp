@@ -66,7 +66,7 @@ public:
 	virtual const Vector& GetBulletSpread( void )
 	{
 		static const Vector cone = VECTOR_CONE_3DEGREES;
-		static const Vector zoomcone = VECTOR_CONE_1DEGREES;
+		static const Vector zoomcone = vec3_origin;
 		if (IsWeaponZoomed())
 		{
 			return zoomcone;
@@ -181,7 +181,7 @@ CWeaponSniperRifle::CWeaponSniperRifle( void )
 	m_bReverseZoomOrder = false;
 
 	m_fMinRange1 = 0;
-	m_fMaxRange1 = 99999;
+	m_fMaxRange1 = MAX_TRACE_LENGTH;
 }
 
 //-----------------------------------------------------------------------------

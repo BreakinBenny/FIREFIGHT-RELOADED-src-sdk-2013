@@ -662,7 +662,7 @@ float CNPC_BaseZombie::GetHitgroupDamageMultiplier( int iHitGroup, const CTakeDa
 		{
 			if (!(g_Language.GetInt() == LANGUAGE_GERMAN || UTIL_IsLowViolence()) && g_fr_headshotgore.GetBool() && !m_bNoHeadshotGore)
 			{
-				if (!IsHeadless() && (info.GetDamageType() & (DMG_SNIPER) || info.GetDamageCustom() == FR_DMG_CUSTOM_HEADSHOT) && !(info.GetDamageType() & DMG_NEVERGIB) && !FClassnameIs(this, "npc_poisonzombie"))
+				if (!IsHeadless() && (info.GetDamageType() & (DMG_SNIPER)) && !(info.GetDamageType() & DMG_NEVERGIB) && !FClassnameIs(this, "npc_poisonzombie"))
 				{
 					DispatchParticleEffect("smod_headshot_y", PATTACH_POINT_FOLLOW, this, "headcrab", true);
 					CGib::SpawnSpecificStickyGibs(this, 3, 750, 1500, "models/gibs/agib_p3.mdl", 6);
@@ -1109,7 +1109,7 @@ bool CNPC_BaseZombie::IsChopped( const CTakeDamageInfo &info )
 		}
 	}
 
-	if (info.GetDamageType() & DMG_SLASH || info.GetDamageCustom() == FR_DMG_CUSTOM_DECAPITATION)
+	if (info.GetDamageType() & DMG_SLASH)
 		return true;
 
 	if (info.GetDamageType() & DMG_BLAST)
@@ -2403,7 +2403,7 @@ void CNPC_BaseZombie::Event_Killed( const CTakeDamageInfo &info )
 	//i don't know where past bitl got this from but this doesn't crash the game anymore......
 	if (!(g_Language.GetInt() == LANGUAGE_GERMAN || UTIL_IsLowViolence()) && 
 		info.GetDamageType() & (DMG_ALWAYSGIB | DMG_BLAST) && 
-		(info.GetDamageType() & (DMG_SLASH) || info.GetDamageCustom() == FR_DMG_CUSTOM_DECAPITATION) && 
+		(info.GetDamageType() & (DMG_SLASH)) && 
 		!(info.GetDamageType() & (DMG_NEVERGIB | DMG_DISSOLVE)) 
 		&& !m_fIsTorso && 
 		!FClassnameIs(this, "npc_poisonzombie"))

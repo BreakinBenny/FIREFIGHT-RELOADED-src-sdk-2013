@@ -126,7 +126,7 @@ CWeaponRailgun::CWeaponRailgun( void )
 	m_bJustRecovered = false;
 
 	m_fMinRange1 = 0;
-	m_fMaxRange1 = 99999;
+	m_fMaxRange1 = MAX_TRACE_LENGTH;
 }
 
 //-----------------------------------------------------------------------------
@@ -176,8 +176,8 @@ void CWeaponRailgun::FireNPCPrimaryAttack(CBaseCombatCharacter* pOperator, bool 
 	info.m_iShots = 1;
 	info.m_vecSrc = vecShootOrigin;
 	info.m_vecDirShooting = vecShootDir;
-	info.m_vecSpread = vec3_origin;
-	info.m_flDistance = MAX_TRACE_LENGTH;
+	info.m_vecSpread = GetBulletSpread();
+	info.m_flDistance = m_fMaxRange1;
 	info.m_iAmmoType = m_iPrimaryAmmoType;
 	info.m_iTracerFreq = 0;
 	info.m_flDamage = iDamage;
@@ -549,7 +549,7 @@ void CWeaponRailgun::Fire( void )
 
 	aimDir = aimDir + x * GetBulletSpread().x * vecRight + y * GetBulletSpread().y * vecUp;
 
-	Vector	endPos = startPos + (aimDir * MAX_TRACE_LENGTH);
+	Vector	endPos = startPos + (aimDir * m_fMaxRange1);
 	
 	//Shoot a shot straight out
 	trace_t	tr;
@@ -566,8 +566,8 @@ void CWeaponRailgun::Fire( void )
 	info.m_iShots = 1;
 	info.m_vecSrc = startPos;
 	info.m_vecDirShooting = aimDir;
-	info.m_vecSpread = vec3_origin;
-	info.m_flDistance = MAX_TRACE_LENGTH;
+	info.m_vecSpread = GetBulletSpread();
+	info.m_flDistance = m_fMaxRange1;
 	info.m_iAmmoType = m_iPrimaryAmmoType;
 	info.m_iTracerFreq = 0;
 	info.m_iPlayerDamage = info.m_flDamage = iDamage;

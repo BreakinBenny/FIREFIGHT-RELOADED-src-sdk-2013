@@ -59,8 +59,7 @@ public:
 	void	DrawBeam(const Vector& startPos, const Vector& endPos);
 	virtual const Vector& GetBulletSpread(void)
 	{
-		static Vector cone = VECTOR_CONE_1DEGREES;
-		return cone;
+		return vec3_origin;
 	}
 	float GetFireRate(void)
 	{

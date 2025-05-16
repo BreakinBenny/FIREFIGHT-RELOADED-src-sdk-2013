@@ -858,11 +858,16 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 					xpReward += 50;
 				}
 
+				CAI_BaseNPC* pNPC = (CAI_BaseNPC*)pVictim;
+				if (pNPC && pNPC->m_bDecapitated)
+				{
+					moneyReward += 50;
+					xpReward += 50;
+				}
+
 				if (info.GetDamageCustom() == FR_DMG_CUSTOM_KICK ||
 					info.GetDamageCustom() == FR_DMG_CUSTOM_CHARGE ||
-					info.GetDamageCustom() == FR_DMG_CUSTOM_CHARGE_GRAPPLE ||
-					info.GetDamageCustom() == FR_DMG_CUSTOM_HEADSHOT ||
-					info.GetDamageCustom() == FR_DMG_CUSTOM_DECAPITATION)
+					info.GetDamageCustom() == FR_DMG_CUSTOM_CHARGE_GRAPPLE)
 				{
 					moneyReward += 50;
 					xpReward += 50;
@@ -966,9 +971,6 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 				return "weapon_ar2";
 			case FR_DMG_CUSTOM_HUNTER_RAILGUN:
 				return "weapon_railgun";
-			case FR_DMG_CUSTOM_HEADSHOT:
-			case FR_DMG_CUSTOM_DECAPITATION:
-				return "headshot";
 			default:
 				return "world";
 		}

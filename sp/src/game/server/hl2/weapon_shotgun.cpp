@@ -28,6 +28,7 @@
 
 extern ConVar sk_auto_reload_time;
 extern ConVar sk_plr_num_shotgun_pellets;
+extern ConVar sk_npc_num_shotgun_pellets;
 
 ConVar	sv_combine_shotgunner_secondaryfire("sv_combine_shotgunner_secondaryfire", "1", FCVAR_ARCHIVE);
 ConVar	sv_combine_shotgunner_secondaryfire_chance("sv_combine_shotgunner_secondaryfire_chance", "5", FCVAR_ARCHIVE);
@@ -241,35 +242,23 @@ void CWeaponShotgun::FireNPCPrimaryAttack(CBaseCombatCharacter* pOperator, bool 
 	CAmmoDef* def = GetAmmoDef();
 	int dmgType = def->DamageType(info.m_iAmmoType);
 
+	info.m_iShots = sk_npc_num_shotgun_pellets.GetInt() * (bSecondary ? 2 : 1);
+	info.m_vecSrc = vecShootOrigin;
+	info.m_vecDirShooting = vecShootDir;
+	info.m_vecSpread = GetBulletSpread();
+	info.m_flDistance = MAX_TRACE_LENGTH;
+	info.m_iTracerFreq = 0;
+	info.m_iAmmoType = m_iPrimaryAmmoType;
+
 	if (bSecondary)
 	{
-		info.m_iShots = 12;
-		info.m_vecSrc = vecShootOrigin;
-		info.m_vecDirShooting = vecShootDir;
-		info.m_vecSpread = GetBulletSpread();
-		info.m_flDistance = MAX_TRACE_LENGTH;
-		info.m_iTracerFreq = 0;
-		info.m_iAmmoType = m_iPrimaryAmmoType;
-
 		int randInt = random->RandomInt(0, 3);
 		info.m_nDamageFlags = (randInt == 3) ? (dmgType | DMG_BLAST) : dmgType;
-
-		pOperator->FireBullets(info);
 	}
-	else
-	{
-		info.m_iShots = 8;
-		info.m_vecSrc = vecShootOrigin;
-		info.m_vecDirShooting = vecShootDir;
-		info.m_vecSpread = GetBulletSpread();
-		info.m_flDistance = MAX_TRACE_LENGTH;
-		info.m_iTracerFreq = 0;
-		info.m_iAmmoType = m_iPrimaryAmmoType;
 
-		info.m_nDamageFlags = (dmgType &= ~DMG_SNIPER);
+	info.m_nDamageFlags = (dmgType &= ~DMG_SNIPER);
 
-		pOperator->FireBullets(info);
-	}
+	pOperator->FireBullets(info);
 }
 
 bool CanUseSecondaryFire(CBaseCombatCharacter* pOperator)
@@ -683,8 +672,6 @@ void CWeaponShotgun::PrimaryAttack( void )
 	Vector	vecAiming	= pPlayer->GetAutoaimVector( AUTOAIM_SCALE_DEFAULT );	
 
 	pPlayer->SetMuzzleFlashTime( gpGlobals->curtime + 1.0 );
-	
-	CAmmoDef* def = GetAmmoDef();
 
 	// Fire the bullets, and force the first shot to be perfectly accuracy
 	FireBulletsInfo_t info;
@@ -698,8 +685,8 @@ void CWeaponShotgun::PrimaryAttack( void )
 	info.m_nFlags = FIRE_BULLETS_FIRST_SHOT_ACCURATE;
 	info.m_bPrimaryAttack = true;
 
+	CAmmoDef* def = GetAmmoDef();
 	int dmgType = def->DamageType(info.m_iAmmoType);
-
 	info.m_nDamageFlags = (dmgType &= ~DMG_SNIPER);
 
 	pPlayer->ViewPunch(QAngle(random->RandomFloat(-2, -1), random->RandomFloat(-2, 2), 0));
@@ -787,7 +774,7 @@ void CWeaponShotgun::SecondaryAttack( void )
 	CAmmoDef* def = GetAmmoDef();
 
 	FireBulletsInfo_t info;
-	info.m_iShots = 12;
+	info.m_iShots = sk_plr_num_shotgun_pellets.GetInt() * 2;
 	info.m_vecSrc = vecSrc;
 	info.m_vecDirShooting = vecAiming;
 	info.m_vecSpread = GetBulletSpread();

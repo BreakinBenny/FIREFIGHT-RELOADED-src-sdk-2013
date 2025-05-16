@@ -108,8 +108,6 @@ enum EFRDmgCustom
 	FR_DMG_CUSTOM_CHARGE_GRAPPLE, // Marks this as CHARGE damage from the Grapple
 	FR_DMG_CUSTOM_HUNTER_AR2, // Damaged by a Ministrider
 	FR_DMG_CUSTOM_HUNTER_RAILGUN, // Damaged by a Rail Hunter
-	FR_DMG_CUSTOM_HEADSHOT, // Alternate way to do headshot damage.
-	FR_DMG_CUSTOM_DECAPITATION,  // Alternate way to do decap damage.
 
 	FR_DMG_CUSTOM_END // END
 };
