@@ -912,6 +912,20 @@
 					"1"		"#gameui_enabled"
 				}
 			}
+			
+			"GlowEffectGlobal"
+			{
+				"text"			"#GameUI_GlowEffectGlobal"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"glow_outline_effect_enable"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
             
             "HUDHeader_crosshair"
 			{

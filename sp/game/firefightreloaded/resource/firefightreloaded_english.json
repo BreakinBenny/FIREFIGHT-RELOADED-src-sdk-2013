@@ -521,6 +521,7 @@
             "GameUI_NPCLimit": "NPC Limit",
             "GameUI_EdictTolerance": "Entity Tolerance",
             "GameUI_GlowEffect": "Toggle outlines on 'non-important' NPCs.",
+            "GameUI_GlowEffectGlobal": "Toggle outlines on all entities.",
             "GameUI_FasterWeaponSwitch": "Allow the player to fire right when the weapon is deployed.",
             "Valve_Duck_Toggle": "Duck (Toggle)",
             "Valve_Duck": "Duck (Hold)",
