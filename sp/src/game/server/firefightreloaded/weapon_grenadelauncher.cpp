@@ -139,6 +139,9 @@ CWeaponGrenadeLauncher::CWeaponGrenadeLauncher( )
 	m_bFiresUnderwater = false;
 	//we only load 1 shell
 	m_bReloadsSingly = true;
+
+	m_fMinRange1 = 0;// No minimum range. 
+	m_fMaxRange1 = 1400;
 }
 
 //-----------------------------------------------------------------------------
@@ -336,7 +339,7 @@ void CWeaponGrenadeLauncher::PrimaryAttack( void )
 	gamestats->Event_WeaponFired( pPlayer, false, GetClassname() );
 }
 
-#define	COMBINE_MIN_GRENADE_CLEAR_DIST 256
+#define	COMBINE_MIN_GRENADE_CLEAR_DIST 128
 
 //-----------------------------------------------------------------------------
 // Purpose: 
@@ -357,12 +360,6 @@ int CWeaponGrenadeLauncher::WeaponRangeAttack1Condition()
 	if (gpGlobals->curtime < m_flNextGrenadeCheck )
 	return m_lastGrenadeCondition;
 	*/
-
-	// -----------------------
-	// If moving, don't check.
-	// -----------------------
-	if (npcOwner->IsMoving())
-		return COND_NONE;
 
 	CBaseEntity *pEnemy = npcOwner->GetEnemy();
 
@@ -435,7 +432,7 @@ int CWeaponGrenadeLauncher::WeaponRangeAttack1Condition()
 		// JAY: HL1 keeps checking - test?
 		//m_flNextGrenadeCheck = gpGlobals->curtime;
 		m_flNextGrenadeCheck = gpGlobals->curtime + 0.3; // 1/3 second.
-		return (COND_CAN_RANGE_ATTACK2);
+		return (COND_CAN_RANGE_ATTACK1);
 	}
 	else
 	{
