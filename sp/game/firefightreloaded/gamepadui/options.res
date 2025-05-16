@@ -2204,7 +2204,7 @@
 			{
 				"text"			"#GameUI_AR2ScopedBullets"
 				"type"			"slideyslide"
-				"convar"		"weapon_ar2_maxbulletsfired"
+				"convar"		"sk_weapon_ar2_scope_maxbulletsfired"
                 "advanced"		"1"
                 
 
