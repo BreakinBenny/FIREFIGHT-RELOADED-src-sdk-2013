@@ -44,9 +44,6 @@ ConVar	  sk_smg1_grenade_radius		( "sk_smg1_grenade_radius","0");
 ConVar	  sk_m79_grenade_radius		    ( "sk_m79_grenade_radius","0");
 
 ConVar	  smg1_grenade_glass_passthrough	("smg1_grenade_glass_passthrough", "1", FCVAR_ARCHIVE);
-#ifdef GLOWS_ENABLE
-ConVar	  smg1_grenade_npc_outline			("smg1_grenade_npc_outline", "1", FCVAR_ARCHIVE);
-#endif
 
 ConVar g_CV_SmokeTrail("smg1_grenade_old_smoke_trail", "0", FCVAR_ARCHIVE); // temporary dust explosion switch
 
@@ -177,22 +174,6 @@ void CGrenadeAR2::Spawn( void )
 			m_hSmokeTrail->FollowEntity(this);
 		}
 	}
-
-#ifdef GLOWS_ENABLE
-	if (smg1_grenade_npc_outline.GetBool())
-	{
-		//set it to glow for better visibility.
-		if (GetOwnerEntity() && GetOwnerEntity()->IsNPC())
-		{
-			if (m_bGlowEnabled)
-			{
-				RemoveGlowEffect();
-			}
-
-			AddGlowEffect();
-		}
-	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
