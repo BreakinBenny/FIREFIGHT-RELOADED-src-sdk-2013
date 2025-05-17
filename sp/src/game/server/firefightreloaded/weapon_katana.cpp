@@ -8,7 +8,6 @@
 
 #include "cbase.h"
 #include "basehlcombatweapon.h"
-#include "player.h"
 #include "gamerules.h"
 #include "ammodef.h"
 #include "mathlib/mathlib.h"
@@ -21,7 +20,6 @@
 #include "weapon_katana.h"
 #include "rumble_shared.h"
 #include "gamestats.h"
-#include "hl2_player.h"
 #include "npc_combineace.h"
 #include "npc_advisor.h"
 
@@ -33,10 +31,12 @@
 static const Vector g_bludgeonMins(-BLUDGEON_HULL_DIM, -BLUDGEON_HULL_DIM, -BLUDGEON_HULL_DIM);
 static const Vector g_bludgeonMaxs(BLUDGEON_HULL_DIM, BLUDGEON_HULL_DIM, BLUDGEON_HULL_DIM);
 extern ConVar sk_plr_dmg_katana;
-static ConVar sv_katana_healthbonus_postdelay("sv_katana_healthbonus_postdelay", "5.0", FCVAR_CHEAT);
-ConVar sv_katana_healthbonus_maxmultiplier("sv_katana_healthbonus_maxmultiplier", "5", FCVAR_CHEAT);
-static ConVar sv_katana_healthbonus_maxtimestogivebonus("sv_katana_healthbonus_maxtimestogivebonus", "10", FCVAR_CHEAT);
-ConVar sv_katana_healthbonus_suitpower("sv_katana_healthbonus_suitpower", "20", FCVAR_CHEAT);
+
+static ConVar sv_katana_killmultiplier_postdelay("sv_katana_killmultiplier_postdelay", "5.0", FCVAR_CHEAT);
+ConVar sv_katana_killmultiplier_maxmultiplier("sv_katana_killmultiplier_maxmultiplier", "5", FCVAR_CHEAT);
+static ConVar sv_katana_killmultiplier_maxtimestogivebonus("sv_katana_killmultiplier_maxtimestogivebonus", "10", FCVAR_CHEAT);
+ConVar sv_katana_killmultiplier_suitpower("sv_katana_killmultiplier_suitpower", "20", FCVAR_CHEAT);
+
 static ConVar sv_katana_charge_damagebonus("sv_katana_charge_damagebonus", "2", FCVAR_CHEAT);
 static ConVar sk_katana_enemy_damageresistance("sk_katana_enemy_damageresistance", "0.2");
 
@@ -82,9 +82,8 @@ IMPLEMENT_ACTTABLE(CWeaponKatana);
 //-----------------------------------------------------------------------------
 CWeaponKatana::CWeaponKatana( void )
 {
-	m_iKillMultiplierCount = 0;
-	m_iKills = 0;
 	m_flLastKill = 0;
+	ResetKillMultiplier();
 	m_bKillMultiplier = true;
 }
 
@@ -215,46 +214,7 @@ void CWeaponKatana::PrimaryAttack(void)
 					Vector vecSrc = pPlayer->Weapon_ShootPosition();
 					Vector vecAiming = pPlayer->GetAutoaimVector(AUTOAIM_SCALE_DEFAULT);
 
-					int damage = sk_plr_dmg_katana.GetInt();
-
-					bool foundEnemy = m_kvEnemyResist.FindEntry(MAKE_STRING(ent->GetClassname()));
-
-					if (foundEnemy)
-					{
-						bool applyDamageResist = false;
-
-						CNPC_CombineAce* pAce = dynamic_cast<CNPC_CombineAce*>(ent);
-						if (pAce)
-						{
-							if (pAce->m_bBulletResistanceBroken)
-							{
-								applyDamageResist = true;
-							}
-						}
-						else
-						{
-							CNPC_Advisor* pAdvisor = dynamic_cast<CNPC_Advisor*>(ent);
-							if (pAdvisor)
-							{
-								if (pAdvisor->m_bBulletResistanceBroken)
-								{
-									applyDamageResist = true;
-								}
-							}
-						}
-
-						if (applyDamageResist)
-						{
-							damage = damage * sk_katana_enemy_damageresistance.GetFloat();
-						}
-					}
-
 					CHL2_Player* pHL2Player = ToHL2Player(GetOwner());
-
-					if (pHL2Player && pHL2Player->IsCharging())
-					{
-						damage = damage * sv_katana_charge_damagebonus.GetInt();
-					}
 
 					//CAmmoDef* def = GetAmmoDef();
 
@@ -266,7 +226,7 @@ void CWeaponKatana::PrimaryAttack(void)
 					info.m_flDistance = GetRange();
 					info.m_iAmmoType = m_iPrimaryAmmoType;
 					info.m_iTracerFreq = 0;
-					info.m_flDamage = damage;
+					info.m_flDamage = info.m_iPlayerDamage = CalculateDamage(ent, pHL2Player);
 
 					//int dmgType = def->DamageType(info.m_iAmmoType);
 					//info.m_nDamageFlags = g_pGameRules->isInBullettime ? (dmgType &= ~DMG_NEVERGIB) : dmgType;
@@ -278,28 +238,7 @@ void CWeaponKatana::PrimaryAttack(void)
 
 					pPlayer->FireBullets(info);
 
-					if (ent && !ent->IsAlive() && IsKillMultiplierEnabled())
-					{
-						if (m_iKills < sv_katana_healthbonus_maxtimestogivebonus.GetInt())
-						{
-							m_iKills++;
-
-							if (m_iKillMultiplierCount < sv_katana_healthbonus_maxmultiplier.GetInt())
-							{
-								m_iKillMultiplierCount++;
-								pPlayer->TakeHealth((ent->GetMaxHealth() * 0.5) * m_iKillMultiplierCount, DMG_GENERIC);
-								m_flLastKill = gpGlobals->curtime + sv_katana_healthbonus_postdelay.GetFloat();
-								const char* hintMultiplier = CFmtStr("%ix!", m_iKillMultiplierCount);
-								pPlayer->ShowLevelMessage(hintMultiplier);
-
-								if (pHL2Player && m_iLastSuitCharge < sv_katana_healthbonus_maxmultiplier.GetInt())
-								{
-									m_iLastSuitCharge++;
-									pHL2Player->SuitPower_Charge(sv_katana_healthbonus_suitpower.GetFloat() * m_iKillMultiplierCount);
-								}
-							}
-						}
-					}
+					ActivateKillMultiplier(ent, pHL2Player);
 
 					WeaponSound(MELEE_HIT);
 				}
@@ -323,6 +262,53 @@ void CWeaponKatana::PrimaryAttack(void)
 	m_flNextSecondaryAttack = gpGlobals->curtime + GetFireRate();
 
 	CSoundEnt::InsertSound(SOUND_COMBAT, GetAbsOrigin(), 300, 0.2, GetOwner());
+}
+
+int CWeaponKatana::CalculateDamage(CBaseEntity* pVictim, CHL2_Player* pAttacker)
+{
+	if (!pAttacker)
+		return;
+
+	int damage = sk_plr_dmg_katana.GetInt();
+
+	bool foundEnemy = m_kvEnemyResist.FindEntry(MAKE_STRING(pVictim->GetClassname()));
+
+	if (foundEnemy)
+	{
+		bool applyDamageResist = false;
+
+		CNPC_CombineAce* pAce = dynamic_cast<CNPC_CombineAce*>(pVictim);
+		if (pAce)
+		{
+			if (pAce->m_bBulletResistanceBroken)
+			{
+				applyDamageResist = true;
+			}
+		}
+		else
+		{
+			CNPC_Advisor* pAdvisor = dynamic_cast<CNPC_Advisor*>(pVictim);
+			if (pAdvisor)
+			{
+				if (pAdvisor->m_bBulletResistanceBroken)
+				{
+					applyDamageResist = true;
+				}
+			}
+		}
+
+		if (applyDamageResist)
+		{
+			damage = damage * sk_katana_enemy_damageresistance.GetFloat();
+		}
+	}
+
+	if (pAttacker && pAttacker->IsCharging())
+	{
+		damage = damage * sv_katana_charge_damagebonus.GetInt();
+	}
+
+	return damage;
 }
 
 bool CWeaponKatana::CanHolster(void)
@@ -363,9 +349,7 @@ bool CWeaponKatana::Holster(CBaseCombatWeapon* pSwitchingTo)
 
 	if (m_iKillMultiplierCount > 0)
 	{
-		m_iKillMultiplierCount = 0;
-		m_iKills = 0;
-		m_iLastSuitCharge = 0;
+		ResetKillMultiplier();
 	}
 
 	return BaseClass::Holster(pSwitchingTo);
@@ -377,9 +361,7 @@ void CWeaponKatana::ItemPostFrame(void)
 	{
 		if (m_iKillMultiplierCount > 0)
 		{
-			m_iKillMultiplierCount = 0;
-			m_iKills = 0;
-			m_iLastSuitCharge = 0;
+			ResetKillMultiplier();
 		}
 
 		if (m_flLastKill > gpGlobals->curtime && m_bKillMultiplier)
@@ -389,7 +371,7 @@ void CWeaponKatana::ItemPostFrame(void)
 	}
 	else
 	{
-		if (m_iKills >= sv_katana_healthbonus_maxtimestogivebonus.GetInt())
+		if (m_iKills >= sv_katana_killmultiplier_maxtimestogivebonus.GetInt())
 		{
 			m_bKillMultiplier = false;
 		}
@@ -402,19 +384,53 @@ void CWeaponKatana::ItemPostFrame(void)
 		}
 	}
 
-	if ((m_iKills < sv_katana_healthbonus_maxtimestogivebonus.GetInt() && m_iKillMultiplierCount > 0 && g_pGameRules->isInBullettime) ||
+	if ((m_iKills < sv_katana_killmultiplier_maxtimestogivebonus.GetInt() && m_iKillMultiplierCount > 0 && g_pGameRules->isInBullettime) ||
 		!g_pGameRules->isInBullettime)
 	{
 		if (m_flLastKill < gpGlobals->curtime && !m_bKillMultiplier)
 		{
-			m_iKillMultiplierCount = 0;
-			m_iKills = 0;
-			m_iLastSuitCharge = 0;
+			ResetKillMultiplier();
 			m_bKillMultiplier = true;
 		}
 	}
 
 	BaseClass::ItemPostFrame();
+}
+
+void CWeaponKatana::ResetKillMultiplier(void)
+{
+	m_iKillMultiplierCount = 0;
+	m_iKills = 0;
+	m_iLastSuitCharge = 0;
+}
+
+void CWeaponKatana::ActivateKillMultiplier(CBaseEntity* pVictim, CHL2_Player* pAttacker)
+{
+	if (!pAttacker)
+		return;
+
+	if (pVictim && !pVictim->IsAlive() && IsKillMultiplierEnabled())
+	{
+		if (m_iKills < sv_katana_killmultiplier_maxtimestogivebonus.GetInt())
+		{
+			m_iKills++;
+
+			if (m_iKillMultiplierCount < sv_katana_killmultiplier_maxmultiplier.GetInt())
+			{
+				m_iKillMultiplierCount++;
+				pAttacker->TakeHealth((pVictim->GetMaxHealth() * 0.5) * m_iKillMultiplierCount, DMG_GENERIC);
+				m_flLastKill = gpGlobals->curtime + sv_katana_killmultiplier_postdelay.GetFloat();
+				const char* hintMultiplier = CFmtStr("%ix!", m_iKillMultiplierCount);
+				pAttacker->ShowLevelMessage(hintMultiplier);
+
+				if (m_iLastSuitCharge < sv_katana_killmultiplier_maxmultiplier.GetInt())
+				{
+					m_iLastSuitCharge++;
+					pAttacker->SuitPower_Charge(sv_katana_killmultiplier_suitpower.GetFloat() * m_iKillMultiplierCount);
+				}
+			}
+		}
+	}
 }
 
 //-----------------------------------------------------------------------------

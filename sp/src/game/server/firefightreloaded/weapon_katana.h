@@ -9,6 +9,7 @@
 
 #include "basebludgeonweapon.h"
 #include "fr_shareddefs.h"
+#include "hl2_player.h"
 
 #if defined( _WIN32 )
 #pragma once
@@ -54,8 +55,14 @@ public:
 	void		ImpactEffect(trace_t& traceHit);
 	float		GetDamageForActivity(Activity hitActivity) { return 0; };
 
-	int			GetKillMultiplier() { return m_iKillMultiplierCount; }
-	bool		IsKillMultiplierEnabled() { return (g_pGameRules->isInBullettime && m_bKillMultiplier); }
+	int			GetKillMultiplier(void) { return m_iKillMultiplierCount; }
+	bool		IsKillMultiplierEnabled(void) { return (g_pGameRules->isInBullettime && m_bKillMultiplier); }
+
+	void		ResetKillMultiplier(void);
+
+	void		ActivateKillMultiplier(CBaseEntity *pVictim, CHL2_Player* pAttacker);
+
+	int			CalculateDamage(CBaseEntity* pVictim, CHL2_Player* pAttacker);
 	
 private:
 	int			m_iKillMultiplierCount;
