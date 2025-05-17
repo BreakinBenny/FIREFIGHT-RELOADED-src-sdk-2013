@@ -189,6 +189,7 @@ void CAttributesLoader::SwitchEntityColor(CBaseEntity* ent, const char* szString
 	Color newColor = GetColor(szString);
 	if (newColor.GetRawColor() != 0)
 	{
+		//Msg("%i %i %i %i\n", newColor.r(), newColor.g(), newColor.b(), newColor.a());
 		ent->SetRenderColor(newColor.r(), newColor.g(), newColor.b(), newColor.a());
 	}
 }

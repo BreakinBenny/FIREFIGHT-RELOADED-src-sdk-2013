@@ -36,63 +36,61 @@ public:
 	}
 	//this version uses a hex code and converts it into an RGB
 	//credits to kalei for suggesting this :3
-	Color( char *_hexCode )
+	Color(char* _hexCode)
 	{
-		char *col = _hexCode;
+		char* col = _hexCode;
 
-		//check if FF or #F exist at the beginning.
-		//if they don't, return a raw color of 0.
-		if (!col[0] && !col[1])
+		//check if # exists at the beginning.
+		//if it doesn't, return a raw color of 0.
+		if (col[8] || col[6])
+		{
+			col = col + 1;
+		}
+		else
 		{
 			*((int*)this) = 0;
 			return;
 		}
 
-		if ( col[8] )
-		{
-			col = col + 1;
-		}
-
-		int r = V_nibble( col[0] ) << 4 | V_nibble( col[1] );
-		int g = V_nibble( col[2] ) << 4 | V_nibble( col[3] );
-		int b = V_nibble( col[4] ) << 4 | V_nibble( col[5] );
+		int r = V_nibble(col[0]) << 4 | V_nibble(col[1]);
+		int g = V_nibble(col[2]) << 4 | V_nibble(col[3]);
+		int b = V_nibble(col[4]) << 4 | V_nibble(col[5]);
 		int a = 0;
 
-		if ( col[6] && col[7] )
+		if (col[6] && col[7])
 		{
-			a = V_nibble( col[6] ) << 4 | V_nibble( col[7] );
+			a = V_nibble(col[6]) << 4 | V_nibble(col[7]);
 		}
 
-		SetColor( r, g, b, a );
+		SetColor(r, g, b, a);
 	}
-	Color( wchar_t *_hexCode )
+	Color(wchar_t* _hexCode)
 	{
-		wchar_t *col = _hexCode;
+		wchar_t* col = _hexCode;
 
-		//check if FF or #F exist at the beginning.
-		//if they don't, return a raw color of 0.
-		if (!col[0] && !col[1])
+		//check if # exists at the beginning.
+		//if it doesn't, return a raw color of 0.
+		if (col[8] || col[6])
+		{
+			col = col + 1;
+		}
+		else
 		{
 			*((int*)this) = 0;
 			return;
 		}
 
-		if ( col[8] )
-		{
-			col = col + 1;
-		}
-
-		int r = V_nibble( col[0] ) << 4 | V_nibble( col[1] );
-		int g = V_nibble( col[2] ) << 4 | V_nibble( col[3] );
-		int b = V_nibble( col[4] ) << 4 | V_nibble( col[5] );
+		int r = V_nibble(col[0]) << 4 | V_nibble(col[1]);
+		int g = V_nibble(col[2]) << 4 | V_nibble(col[3]);
+		int b = V_nibble(col[4]) << 4 | V_nibble(col[5]);
 		int a = 0;
 
-		if ( col[6] && col[7] )
+		if (col[6] && col[7])
 		{
-			a = V_nibble( col[6] ) << 4 | V_nibble( col[7] );
+			a = V_nibble(col[6]) << 4 | V_nibble(col[7]);
 		}
 
-		SetColor( r, g, b, a );
+		SetColor(r, g, b, a);
 	}
 	
 	// set the color
