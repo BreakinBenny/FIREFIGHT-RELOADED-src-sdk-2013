@@ -5,8 +5,10 @@
 	"team"		"-2"
 	"new_model"		"models/hunter_colorable.mdl"
 	"is_rare"		"1"
-	"new_projectile_random"	"1"
-	"new_material_color_random"	"1"
+	//"new_projectile_random"	"1"
+	//"new_material_color_random"	"1"
+	"use_team_colors"	"1"
+	"use_team_material_colors"	"1"
 	"manual_spawn"	"1"
 	"persist"		"0"
 }
