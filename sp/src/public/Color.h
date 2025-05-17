@@ -40,6 +40,14 @@ public:
 	{
 		char *col = _hexCode;
 
+		//check if FF or #F exist at the beginning.
+		//if they don't, return a raw color of 0.
+		if (!col[0] && !col[1])
+		{
+			*((int*)this) = 0;
+			return;
+		}
+
 		if ( col[8] )
 		{
 			col = col + 1;
@@ -60,6 +68,14 @@ public:
 	Color( wchar_t *_hexCode )
 	{
 		wchar_t *col = _hexCode;
+
+		//check if FF or #F exist at the beginning.
+		//if they don't, return a raw color of 0.
+		if (!col[0] && !col[1])
+		{
+			*((int*)this) = 0;
+			return;
+		}
 
 		if ( col[8] )
 		{
