@@ -115,19 +115,42 @@ enum EFRDmgCustom
 #define MAX_LEVEL 20
 
 //FR COLORS
-#define COLOR_FR_OLD	Color(84, 84, 255, 255)
-#define COLOR_FR		Color(0, 120, 255, 255)
+#define COLOR_FR_OLD		Color("#FF5454FF")
+#define COLOR_FR			Color("#0078FFFF")
 
 //FR FUN COLORS
-#define COLOR_PURPLE	Color(199, 154, 245, 255)
-#define COLOR_CYAN		Color(73, 216, 245, 255)
-#define COLOR_TURQUOISE	Color(56, 245, 210, 255)
-#define COLOR_PINK		Color(237, 142, 220, 255)
-#define COLOR_MAGENTA	Color(255, 0, 255, 255)
-#define COLOR_YELLOW_NEW	Color(245, 196, 73, 255)
+#define COLOR_PURPLE		Color("#C79AF5FF")
+#define COLOR_CYAN			Color("#49D8F5FF")
+#define COLOR_TURQUOISE		Color("#38F5D2FF")
+#define COLOR_PINK			Color("#ED8EDCFF")
+#define COLOR_MAGENTA		Color("#FF00FFFF")
+#define COLOR_YELLOW_NEW	Color("#F5C449FF")
 
-//FR NPC TEAMS. Player still gets TEAM_UNASSIGNED. Used for death notices.
-#define TEAM_RED		2
+//tf2 quality/skin colors
+//items
+#define COLOR_UNIQUE		Color("#FFD700FF")
+#define COLOR_VINTAGE		Color("#476291FF")
+#define COLOR_GENUINE		Color("#4D7455FF")
+#define COLOR_STRANGE		Color("#CF6A32FF")
+#define COLOR_UNUSUAL		Color("#8650ACFF")
+#define COLOR_HAUNTED		Color("#38F3ABFF")
+#define COLOR_COLLECTORS	Color("#AA0000FF")
+#define COLOR_COMMUNITY		Color("#70B04AFF")
+#define COLOR_VALVE			Color("#A50F79FF")
+//paints
+#define COLOR_CIVILIAN		Color("#B0C3D9FF")
+#define COLOR_FREELANCE		Color("#5E98D9FF")
+#define COLOR_MERCENARY		Color("#4B69FFFF")
+#define COLOR_COMMANDO		Color("#8847FFFF")
+#define COLOR_ASSASSIN		Color("#D32CE6FF")
+#define COLOR_ELITE			Color("#EB4B4BFF")
+
+//Available Teams (represents killfeed/killog colors):
+//TEAM_ANY				-2 (Used for random teams)
+
+//Generic Colors:
+
+#define TEAM_RED		2 //(Default for NPCs)
 #define TEAM_BLUE		3
 #define TEAM_YELLOW		4
 #define TEAM_GREEN		5
@@ -135,22 +158,44 @@ enum EFRDmgCustom
 #define TEAM_WHITE		7
 #define TEAM_BLACK		8
 #define TEAM_PURPLE		9
-#define TEAM_ORANGE		10
+#define TEAM_ORANGE		10 //(Default for Rare NPCs)
 #define TEAM_CYAN		11
 #define TEAM_TURQUOISE	12
 #define TEAM_PINK		13
-#define TEAM_MAGENTA	14
+#define TEAM_MAGENTA	14 //(Default for Boss/Advisor/Advisor Drones)
+
+//Special Colors:
+
 #define TEAM_SMOD		15
 #define TEAM_FR			16
 
+//TF2 Quality/War Paint Colors:
+
+#define TEAM_UNIQUE		17
+#define TEAM_VINTAGE	18
+#define TEAM_GENUINE	19
+#define TEAM_STRANGE	20 
+#define TEAM_UNUSUAL	21
+#define TEAM_HAUNTED	22
+#define TEAM_COLLECTORS	23
+#define TEAM_COMMUNITY	24
+#define TEAM_VALVE		25
+#define TEAM_CIVILIAN	26
+#define TEAM_FREELANCE	27
+#define TEAM_MERCENARY	28
+#define TEAM_COMMANDO	29
+#define TEAM_ASSASSIN	30
+#define TEAM_ELITE		31
+
 //CHANGE THESE IF YOU ADD A NEW TEAM
 #define TEAM_NPC_FIRST	TEAM_RED
-#define TEAM_NPC_LAST	TEAM_FR
+#define TEAM_NPC_LAST	TEAM_ELITE
 
 typedef struct
 {
 	int id;
 	Color col;
+	const char* name;
 } FRTeam_t;
 
 class CFRTeamLoader
@@ -159,6 +204,7 @@ public:
 
 	static FRTeam_t FRTeamMap[];
 	static Color GetColorForTeam(int iTeamNumber);
+	static const char* GetNameForTeam(int iTeamNumber);
 	static void LoadColors(Color *colorArray);
 };
 

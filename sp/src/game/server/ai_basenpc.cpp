@@ -7447,6 +7447,8 @@ void CAI_BaseNPC::ChangeTeam(int iTeamNum)
 			}
 		}
 	}
+
+	DevMsg("%s (ID: %i) assigned to team %s\n", GetClassname(), entindex(), CFRTeamLoader::GetNameForTeam(iTeamNum));
 }
 
 void CAI_BaseNPC::LoadInitAttributes()
