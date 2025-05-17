@@ -2644,6 +2644,18 @@ void CNPC_BaseZombie::ReleaseHeadcrab(const Vector &vecOrigin, const Vector &vec
 		CopyRenderColorTo( pCrab );
 
 		pCrab->Activate();
+
+		if (m_iAttributePresetNum > -1)
+		{
+			if (m_IsWildcard)
+			{
+				pCrab->GiveWildcardAttributes(m_iAttributePresetNum);
+			}
+			else
+			{
+				pCrab->GiveAttributes(m_iAttributePresetNum);
+			}
+		}
 	}
 
 	if( fRemoveHead )
