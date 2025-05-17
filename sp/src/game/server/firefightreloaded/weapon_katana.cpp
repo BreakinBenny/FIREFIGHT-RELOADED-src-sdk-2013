@@ -36,6 +36,7 @@ extern ConVar sk_plr_dmg_katana;
 static ConVar sv_katana_healthbonus_postdelay("sv_katana_healthbonus_postdelay", "5.0", FCVAR_CHEAT);
 ConVar sv_katana_healthbonus_maxmultiplier("sv_katana_healthbonus_maxmultiplier", "5", FCVAR_CHEAT);
 static ConVar sv_katana_healthbonus_maxtimestogivebonus("sv_katana_healthbonus_maxtimestogivebonus", "10", FCVAR_CHEAT);
+ConVar sv_katana_healthbonus_suitpower("sv_katana_healthbonus_suitpower", "20", FCVAR_CHEAT);
 static ConVar sv_katana_charge_damagebonus("sv_katana_charge_damagebonus", "2", FCVAR_CHEAT);
 static ConVar sk_katana_enemy_damageresistance("sk_katana_enemy_damageresistance", "0.2");
 
@@ -52,10 +53,11 @@ PRECACHE_WEAPON_REGISTER( weapon_katana );
 #endif
 
 BEGIN_DATADESC(CWeaponKatana)
-DEFINE_FIELD(m_iKillMultiplier, FIELD_INTEGER),
+DEFINE_FIELD(m_iKillMultiplierCount, FIELD_INTEGER),
 DEFINE_FIELD(m_iKills, FIELD_INTEGER),
 DEFINE_FIELD(m_flLastKill, FIELD_TIME),
-DEFINE_FIELD(m_bKillMultiplier, FIELD_BOOLEAN)
+DEFINE_FIELD(m_bKillMultiplier, FIELD_BOOLEAN),
+DEFINE_FIELD(m_iLastSuitCharge, FIELD_INTEGER)
 END_DATADESC()
 
 acttable_t CWeaponKatana::m_acttable[] = 
@@ -80,7 +82,7 @@ IMPLEMENT_ACTTABLE(CWeaponKatana);
 //-----------------------------------------------------------------------------
 CWeaponKatana::CWeaponKatana( void )
 {
-	m_iKillMultiplier = 0;
+	m_iKillMultiplierCount = 0;
 	m_iKills = 0;
 	m_flLastKill = 0;
 	m_bKillMultiplier = true;
@@ -249,7 +251,7 @@ void CWeaponKatana::PrimaryAttack(void)
 
 					CHL2_Player* pHL2Player = ToHL2Player(GetOwner());
 
-					if ((pHL2Player && pHL2Player->IsCharging()))
+					if (pHL2Player && pHL2Player->IsCharging())
 					{
 						damage = damage * sv_katana_charge_damagebonus.GetInt();
 					}
@@ -280,15 +282,21 @@ void CWeaponKatana::PrimaryAttack(void)
 					{
 						if (m_iKills < sv_katana_healthbonus_maxtimestogivebonus.GetInt())
 						{
-							m_iKills += 1;
+							m_iKills++;
 
-							if (m_iKillMultiplier < sv_katana_healthbonus_maxmultiplier.GetInt())
+							if (m_iKillMultiplierCount < sv_katana_healthbonus_maxmultiplier.GetInt())
 							{
-								m_iKillMultiplier += 1;
-								pPlayer->TakeHealth((ent->GetMaxHealth() * 0.5) * m_iKillMultiplier, DMG_GENERIC);
+								m_iKillMultiplierCount++;
+								pPlayer->TakeHealth((ent->GetMaxHealth() * 0.5) * m_iKillMultiplierCount, DMG_GENERIC);
 								m_flLastKill = gpGlobals->curtime + sv_katana_healthbonus_postdelay.GetFloat();
-								const char* hintMultiplier = CFmtStr("%ix!", m_iKillMultiplier);
+								const char* hintMultiplier = CFmtStr("%ix!", m_iKillMultiplierCount);
 								pPlayer->ShowLevelMessage(hintMultiplier);
+
+								if (pHL2Player && m_iLastSuitCharge < sv_katana_healthbonus_maxmultiplier.GetInt())
+								{
+									m_iLastSuitCharge++;
+									pHL2Player->SuitPower_Charge(sv_katana_healthbonus_suitpower.GetFloat() * m_iKillMultiplierCount);
+								}
 							}
 						}
 					}
@@ -322,7 +330,7 @@ bool CWeaponKatana::CanHolster(void)
 	CHL2_Player* pPlayer = ToHL2Player(GetOwner());
 
 	//this is dumb. why does it bug out when we get the 357??
-	if ((pPlayer && pPlayer->IsCharging()) || (g_pGameRules->isInBullettime && m_iKillMultiplier > 0))
+	if ((pPlayer && pPlayer->IsCharging()) || (g_pGameRules->isInBullettime && m_iKillMultiplierCount > 0))
 	{
 		return false;
 	}
@@ -353,10 +361,11 @@ bool CWeaponKatana::Holster(CBaseCombatWeapon* pSwitchingTo)
 		}
 	}
 
-	if (m_iKillMultiplier > 0)
+	if (m_iKillMultiplierCount > 0)
 	{
-		m_iKillMultiplier = 0;
+		m_iKillMultiplierCount = 0;
 		m_iKills = 0;
+		m_iLastSuitCharge = 0;
 	}
 
 	return BaseClass::Holster(pSwitchingTo);
@@ -366,10 +375,11 @@ void CWeaponKatana::ItemPostFrame(void)
 {
 	if (!g_pGameRules->isInBullettime)
 	{
-		if (m_iKillMultiplier > 0)
+		if (m_iKillMultiplierCount > 0)
 		{
-			m_iKillMultiplier = 0;
+			m_iKillMultiplierCount = 0;
 			m_iKills = 0;
+			m_iLastSuitCharge = 0;
 		}
 
 		if (m_flLastKill > gpGlobals->curtime && m_bKillMultiplier)
@@ -385,20 +395,21 @@ void CWeaponKatana::ItemPostFrame(void)
 		}
 		else
 		{
-			if (m_flLastKill < gpGlobals->curtime && m_iKillMultiplier > 0)
+			if (m_flLastKill < gpGlobals->curtime && m_iKillMultiplierCount > 0)
 			{
-				m_iKillMultiplier = 0;
+				m_iKillMultiplierCount = 0;
 			}
 		}
 	}
 
-	if ((m_iKills < sv_katana_healthbonus_maxtimestogivebonus.GetInt() && m_iKillMultiplier > 0 && g_pGameRules->isInBullettime) || 
+	if ((m_iKills < sv_katana_healthbonus_maxtimestogivebonus.GetInt() && m_iKillMultiplierCount > 0 && g_pGameRules->isInBullettime) ||
 		!g_pGameRules->isInBullettime)
 	{
 		if (m_flLastKill < gpGlobals->curtime && !m_bKillMultiplier)
 		{
-			m_iKillMultiplier = 0;
+			m_iKillMultiplierCount = 0;
 			m_iKills = 0;
+			m_iLastSuitCharge = 0;
 			m_bKillMultiplier = true;
 		}
 	}

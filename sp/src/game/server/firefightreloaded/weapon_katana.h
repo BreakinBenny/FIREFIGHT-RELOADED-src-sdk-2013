@@ -54,14 +54,15 @@ public:
 	void		ImpactEffect(trace_t& traceHit);
 	float		GetDamageForActivity(Activity hitActivity) { return 0; };
 
-	int			GetKillMultiplier() { return m_iKillMultiplier; }
+	int			GetKillMultiplier() { return m_iKillMultiplierCount; }
 	bool		IsKillMultiplierEnabled() { return (g_pGameRules->isInBullettime && m_bKillMultiplier); }
 	
 private:
-	int			m_iKillMultiplier;
+	int			m_iKillMultiplierCount;
 	int			m_iKills;
 	float		m_flLastKill;
 	bool		m_bKillMultiplier;
+	int			m_iLastSuitCharge;
 
 	FRKeyValuesLoader m_kvEnemyResist;
 };

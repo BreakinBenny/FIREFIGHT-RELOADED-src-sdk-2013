@@ -2098,20 +2098,10 @@ extern ConVar fr_max_charge_speed;
 void CHL2_Player::DeriveMaxSpeed( void )
 {
 	float newMaxSpeed;
-	CWeaponKatana* pKatana = nullptr;
-
-	if (GetActiveWeapon())
-	{
-		pKatana = dynamic_cast<CWeaponKatana*>(GetActiveWeapon());
-	}
 
 	if (IsCharging())
 	{
 		newMaxSpeed = fr_max_charge_speed.GetFloat();
-	}
-	else if (IsInBullettime() && pKatana && pKatana->GetKillMultiplier() > 0)
-	{
-		newMaxSpeed = FR_BULLETTIME_SPEED * pKatana->GetKillMultiplier();
 	}
 	else if ( m_nWallRunState >= WALLRUN_RUNNING )
 	{
@@ -2162,6 +2152,21 @@ void CHL2_Player::DeriveMaxSpeed( void )
 					newMaxSpeed = FR_NORM_SPEED;
 				}
 			}
+		}
+	}
+
+	if (IsInBullettime())
+	{
+		CWeaponKatana* pKatana = nullptr;
+
+		if (GetActiveWeapon())
+		{
+			pKatana = dynamic_cast<CWeaponKatana*>(GetActiveWeapon());
+		}
+
+		if (pKatana && pKatana->GetKillMultiplier() > 0)
+		{
+			newMaxSpeed = newMaxSpeed * pKatana->GetKillMultiplier();
 		}
 	}
 
