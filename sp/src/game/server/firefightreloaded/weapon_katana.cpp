@@ -38,6 +38,7 @@ static ConVar sv_katana_killmultiplier_maxtimestogivebonus("sv_katana_killmultip
 ConVar sv_katana_killmultiplier_suitpower("sv_katana_killmultiplier_suitpower", "20", FCVAR_CHEAT);
 
 static ConVar sv_katana_charge_damagebonus("sv_katana_charge_damagebonus", "2", FCVAR_CHEAT);
+
 static ConVar sk_katana_enemy_damageresistance("sk_katana_enemy_damageresistance", "0.2");
 
 //-----------------------------------------------------------------------------
@@ -266,9 +267,6 @@ void CWeaponKatana::PrimaryAttack(void)
 
 int CWeaponKatana::CalculateDamage(CBaseEntity* pVictim, CHL2_Player* pAttacker)
 {
-	if (!pAttacker)
-		return;
-
 	int damage = sk_plr_dmg_katana.GetInt();
 
 	bool foundEnemy = m_kvEnemyResist.FindEntry(MAKE_STRING(pVictim->GetClassname()));
@@ -303,7 +301,10 @@ int CWeaponKatana::CalculateDamage(CBaseEntity* pVictim, CHL2_Player* pAttacker)
 		}
 	}
 
-	if (pAttacker && pAttacker->IsCharging())
+	if (!pAttacker)
+		return damage;
+
+	if (pAttacker->IsCharging())
 	{
 		damage = damage * sv_katana_charge_damagebonus.GetInt();
 	}

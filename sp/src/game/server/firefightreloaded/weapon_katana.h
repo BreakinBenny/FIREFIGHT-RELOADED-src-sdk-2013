@@ -23,7 +23,7 @@
 #define	KATANA_RANGE_CHARGING	144.0f
 #define	KATANA_REFIRE	1.0f
 
-extern ConVar sv_katana_healthbonus_maxmultiplier;
+extern ConVar sv_katana_killmultiplier_maxmultiplier;
 
 //-----------------------------------------------------------------------------
 // CWeaponKatana

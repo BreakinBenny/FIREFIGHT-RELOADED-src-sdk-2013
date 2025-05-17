@@ -995,7 +995,7 @@ protected:
 				if (!pKatana->IsKillMultiplierEnabled())
 					return;
 
-				if (pKatana->GetKillMultiplier() == sv_katana_healthbonus_maxmultiplier.GetInt() - 1)
+				if (pKatana->GetKillMultiplier() == sv_katana_killmultiplier_maxmultiplier.GetInt() - 1)
 				{
 					IncrementCount();
 				}
