@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "8869"
-	"mapversion" "167"
+	"mapversion" "168"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -89,7 +89,7 @@ bgimages_plus
 world
 {
 	"id" "1"
-	"mapversion" "167"
+	"mapversion" "168"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -25763,7 +25763,7 @@ entity
 	"message" "music/fr_boss_battle_loop.wav"
 	"pitch" "100"
 	"spawnflags" "81"
-	"targetname" "bossmusic"
+	"targetname" "bossmusic2"
 	"volume" "7"
 	"origin" "-106.976 617.408 129"
 	editor
@@ -27565,7 +27565,7 @@ entity
 		"OnDeath" "msg,ShowMessage,,0,-1"
 		"OnDeath" "fade,Fade,,0,-1"
 		"OnDeath" "speedmod,ModifySpeed,0,0,-1"
-		"OnDeath" "bossmusic,StopSound,,0,-1"
+		"OnBreakShield" "bossmusic,StopSound,,0,-1"
 		"OnDeath" "bossach,FireEvent,,0,-1"
 		"OnPlayerPin" "overlay,StartOverlays,,0,-1"
 		"OnStopPlayerPin" "overlay,StopOverlays,,0,-1"
@@ -27576,6 +27576,8 @@ entity
 		"OnDeath" "overlay,StopOverlays,,0,-1"
 		"OnDeath" "turret1,Disable,,0,-1"
 		"OnDeath" "turret2,Disable,,0,-1"
+		"OnDeath" "bossmusic2,StopSound,,0,-1"
+		"OnBreakShield" "bossmusic2,PlaySound,,0,-1"
 	}
 	"origin" "-1 -936 711"
 	editor
@@ -27644,6 +27646,25 @@ entity
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 4000]"
+	}
+}
+entity
+{
+	"id" "21038"
+	"classname" "ambient_fmod"
+	"maxdistance" "1250"
+	"message" "music/fr_boss_battle_loop.wav"
+	"pitch" "100"
+	"spawnflags" "81"
+	"targetname" "bossmusic"
+	"volume" "7"
+	"origin" "-170 625 128"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 0]"
 	}
 }
 cameras
