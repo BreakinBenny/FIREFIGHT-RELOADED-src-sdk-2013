@@ -767,7 +767,6 @@ void CKnifeBolt::BoltTouch(CBaseEntity* pOther)
 		if (pOther->GetMoveType() == MOVETYPE_NONE && !(tr.surface.flags & SURF_SKY) && !(tr.contents & CONTENTS_PLAYERCLIP))
 		{
 			EmitSound("Weapon_Crossbow.BoltHitWorld");
-			m_bHit = true;
 
 			// if what we hit is static architecture, can stay around for a while.
 			Vector vecDir = GetAbsVelocity();
@@ -793,6 +792,8 @@ void CKnifeBolt::BoltTouch(CBaseEntity* pOther)
 			}
 			else
 			{
+				m_bHit = true;
+
 				//FIXME: We actually want to stick (with hierarchy) to what we've hit
 				SetMoveType(MOVETYPE_NONE);
 
