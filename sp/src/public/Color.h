@@ -26,16 +26,59 @@ public:
 	{
 		*((int *)this) = 0;
 	}
-	Color(int _r,int _g,int _b)
+	// These first two support RGB and RGBA in Color255 and Color1 formats.
+	Color(float _r, float _g, float _b)
 	{
-		SetColor(_r, _g, _b, 0);
+		int r = (int)_r;
+		if (_r < 1)
+		{
+			r = (_r * 255.0f);
+		}
+
+		int g = (int)_g;
+		if (_g < 1)
+		{
+			g = (_g * 255.0f);
+		}
+
+		int b = (int)_b;
+		if (_b < 1)
+		{
+			b = (_b * 255.0f);
+		}
+
+		SetColor(r, g, b, 0);
 	}
-	Color(int _r,int _g,int _b,int _a)
+	Color(float _r, float _g, float _b, float _a)
 	{
-		SetColor(_r, _g, _b, _a);
+		int r = (int)_r;
+		if (_r < 1)
+		{
+			r = (_r * 255.0f);
+		}
+
+		int g = (int)_g;
+		if (_g < 1)
+		{
+			g = (_g * 255.0f);
+		}
+
+		int b = (int)_b;
+		if (_b < 1)
+		{
+			b = (_b * 255.0f);
+		}
+
+		int a = (int)_a;
+		if (_a < 1)
+		{
+			a = (_a * 255.0f);
+		}
+
+		SetColor(r, g, b, a);
 	}
-	//this version uses a hex code and converts it into an RGB
-	//credits to kalei for suggesting this :3
+	// These two support hex code strings in 3 digit (without alpha), 6 digit (without alpha) and 9 digit (with alpha)
+	// credits to kalei for suggesting this :3
 	Color(char* _hexCode)
 	{
 		char* col = _hexCode;
@@ -52,14 +95,27 @@ public:
 			return;
 		}
 
-		int r = V_nibble(col[0]) << 4 | V_nibble(col[1]);
-		int g = V_nibble(col[2]) << 4 | V_nibble(col[3]);
-		int b = V_nibble(col[4]) << 4 | V_nibble(col[5]);
+		int r = 0;
+		int g = 0;
+		int b = 0;
 		int a = 0;
 
-		if (col[6] && col[7])
+		if (Q_strlen(col) == 3)
 		{
-			a = V_nibble(col[6]) << 4 | V_nibble(col[7]);
+			r = V_nibble(col[0]) << 4;
+			g = V_nibble(col[1]) << 4;
+			b = V_nibble(col[2]) << 4;
+		}
+		else
+		{
+			r = V_nibble(col[0]) << 4 | V_nibble(col[1]);
+			g = V_nibble(col[2]) << 4 | V_nibble(col[3]);
+			b = V_nibble(col[4]) << 4 | V_nibble(col[5]);
+
+			if (col[6] && col[7])
+			{
+				a = V_nibble(col[6]) << 4 | V_nibble(col[7]);
+			}
 		}
 
 		SetColor(r, g, b, a);
@@ -80,14 +136,27 @@ public:
 			return;
 		}
 
-		int r = V_nibble(col[0]) << 4 | V_nibble(col[1]);
-		int g = V_nibble(col[2]) << 4 | V_nibble(col[3]);
-		int b = V_nibble(col[4]) << 4 | V_nibble(col[5]);
+		int r = 0;
+		int g = 0;
+		int b = 0;
 		int a = 0;
 
-		if (col[6] && col[7])
+		if (wcslen(col) == 3)
 		{
-			a = V_nibble(col[6]) << 4 | V_nibble(col[7]);
+			r = V_nibble(col[0]) << 4;
+			g = V_nibble(col[1]) << 4;
+			b = V_nibble(col[2]) << 4;
+		}
+		else
+		{
+			r = V_nibble(col[0]) << 4 | V_nibble(col[1]);
+			g = V_nibble(col[2]) << 4 | V_nibble(col[3]);
+			b = V_nibble(col[4]) << 4 | V_nibble(col[5]);
+
+			if (col[6] && col[7])
+			{
+				a = V_nibble(col[6]) << 4 | V_nibble(col[7]);
+			}
 		}
 
 		SetColor(r, g, b, a);
