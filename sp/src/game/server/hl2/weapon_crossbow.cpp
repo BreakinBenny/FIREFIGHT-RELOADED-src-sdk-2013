@@ -550,6 +550,8 @@ BEGIN_DATADESC(CKnifeBolt)
 // Function Pointers
 DEFINE_THINKFUNC(BubbleThink),
 DEFINE_ENTITYFUNC(BoltTouch),
+
+DEFINE_FIELD(m_bHit, FIELD_BOOLEAN),
 END_DATADESC()
 
 CKnifeBolt* CKnifeBolt::BoltCreate(const Vector& vecOrigin, const QAngle& angAngles, CBasePlayer* pentOwner)
@@ -598,7 +600,7 @@ void CKnifeBolt::Spawn(void)
 {
 	Precache();
 
-	SetModel("models/knife_proj.mdl");
+	SetModel("models/weapons/knife_proj.mdl");
 
 	SetMoveType(MOVETYPE_FLYGRAVITY, MOVECOLLIDE_FLY_CUSTOM);
 	UTIL_SetSize(this, -Vector(0.3f, 0.3f, 0.3f), Vector(0.3f, 0.3f, 0.3f));
@@ -608,6 +610,13 @@ void CKnifeBolt::Spawn(void)
 	// Make sure we're updated if we're underwater
 	UpdateWaterState();
 
+	// Start our idle activity
+	SetSequence(SelectWeightedSequence(ACT_RANGE_ATTACK_THROW));
+	SetCycle(random->RandomFloat(1.0f, 1.5f));
+	ResetSequenceInfo();
+
+	m_bHit = false;
+
 	SetTouch(&CKnifeBolt::BoltTouch);
 
 	SetThink(&CKnifeBolt::BubbleThink);
@@ -616,7 +625,7 @@ void CKnifeBolt::Spawn(void)
 
 void CKnifeBolt::Precache(void)
 {
-	PrecacheModel("models/knife_proj.mdl");
+	PrecacheModel("models/weapons/knife_proj.mdl");
 	PrecacheModel("sprites/light_glow02_noz.vmt");
 }
 
@@ -758,6 +767,7 @@ void CKnifeBolt::BoltTouch(CBaseEntity* pOther)
 		if (pOther->GetMoveType() == MOVETYPE_NONE && !(tr.surface.flags & SURF_SKY) && !(tr.contents & CONTENTS_PLAYERCLIP))
 		{
 			EmitSound("Weapon_Crossbow.BoltHitWorld");
+			m_bHit = true;
 
 			// if what we hit is static architecture, can stay around for a while.
 			Vector vecDir = GetAbsVelocity();
@@ -850,6 +860,15 @@ void CKnifeBolt::BoltTouch(CBaseEntity* pOther)
 //-----------------------------------------------------------------------------
 void CKnifeBolt::BubbleThink(void)
 {
+	if (m_bHit)
+	{
+		SetSequence(SelectWeightedSequence(ACT_IDLE));
+	}
+	else
+	{
+		StudioFrameAdvance();
+	}
+
 	QAngle angNewAngles;
 
 	VectorAngles(GetAbsVelocity(), angNewAngles);

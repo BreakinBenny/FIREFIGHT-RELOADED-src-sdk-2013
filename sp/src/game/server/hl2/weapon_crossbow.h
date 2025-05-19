@@ -111,6 +111,8 @@ public:
 
 protected:
 
+	bool m_bHit;
+
 	DECLARE_DATADESC();
 };
 
