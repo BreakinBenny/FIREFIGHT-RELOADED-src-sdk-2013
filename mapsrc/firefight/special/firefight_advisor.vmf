@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "8869"
-	"mapversion" "168"
+	"mapversion" "169"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -89,7 +89,7 @@ bgimages_plus
 world
 {
 	"id" "1"
-	"mapversion" "168"
+	"mapversion" "169"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -25760,7 +25760,7 @@ entity
 	"id" "5323"
 	"classname" "ambient_fmod"
 	"maxdistance" "1250"
-	"message" "music/fr_boss_battle_loop.wav"
+	"message" "music/fr_boss_battle_loop_phase2.wav"
 	"pitch" "100"
 	"spawnflags" "81"
 	"targetname" "bossmusic2"
@@ -27653,7 +27653,7 @@ entity
 	"id" "21038"
 	"classname" "ambient_fmod"
 	"maxdistance" "1250"
-	"message" "music/fr_boss_battle_loop.wav"
+	"message" "music/fr_boss_battle_loop_phase1.wav"
 	"pitch" "100"
 	"spawnflags" "81"
 	"targetname" "bossmusic"

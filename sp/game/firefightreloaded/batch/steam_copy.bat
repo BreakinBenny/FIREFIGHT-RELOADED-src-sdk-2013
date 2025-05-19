@@ -47,6 +47,7 @@ XCOPY "%CD%\firefightreloaded_pak_004.vpk" "%basedir%" /y
 XCOPY "%CD%\firefightreloaded_pak_dir.vpk" "%basedir%" /y
 XCOPY "%CD%\firefightreloaded_sound_000.vpk" "%basedir%" /y
 XCOPY "%CD%\firefightreloaded_sound_001.vpk" "%basedir%" /y
+XCOPY "%CD%\firefightreloaded_sound_002.vpk" "%basedir%" /y
 XCOPY "%CD%\firefightreloaded_sound_dir.vpk" "%basedir%" /y
 if %debug%==1 pause
 
