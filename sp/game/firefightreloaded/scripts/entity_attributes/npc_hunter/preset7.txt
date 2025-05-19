@@ -2,7 +2,7 @@
 "npc_hunter_preset7"
 {
 	"name"		"null pointer hunter test"
-	"new_color"	"#ff00ff"
+	"new_color"	"#f0f"
 	"team"		"19"
 	"is_rare"		"1"
 	"manual_spawn"	"1"
