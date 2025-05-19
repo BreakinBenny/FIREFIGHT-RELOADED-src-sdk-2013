@@ -209,7 +209,7 @@ public:
 
 	void StopPinPlayer(inputdata_t &inputdata);
 
-	COutputEvent m_OnPickingThrowable, m_OnThrowWarn, m_OnThrow, m_OnPlayerPin, m_OnStopPlayerPin;
+	COutputEvent m_OnPickingThrowable, m_OnThrowWarn, m_OnThrow, m_OnPlayerPin, m_OnStopPlayerPin, m_OnBreakShield;
 
 	enum { kMaxThrownObjectsTracked = 4 };
 #endif

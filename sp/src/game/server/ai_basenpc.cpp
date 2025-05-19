@@ -946,8 +946,11 @@ int CAI_BaseNPC::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 
 	Vector vecDir = vec3_origin;
 
-	if (info.GetDamageType() & DMG_BLAST || 
-		(info.GetDamageCustom() == FR_DMG_CUSTOM_KICK || info.GetDamageCustom() == FR_DMG_CUSTOM_CHARGE || info.GetDamageCustom() == FR_DMG_CUSTOM_CHARGE_GRAPPLE))
+	bool isKnockback = (info.GetDamageCustom() == FR_DMG_CUSTOM_KICK || 
+						info.GetDamageCustom() == FR_DMG_CUSTOM_CHARGE || 
+						info.GetDamageCustom() == FR_DMG_CUSTOM_CHARGE_GRAPPLE);
+
+	if (info.GetDamageType() & DMG_BLAST || (isKnockback))
 	{
 		//striders use MOVETYPE_FLY
 		if (GetMoveType() != MOVETYPE_FLY)
@@ -966,6 +969,7 @@ int CAI_BaseNPC::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 			}
 
 			VectorNormalize(hitDirection);
+
 			ApplyAbsVelocityImpulse(hitDirection * 800 + up * 300);
 		}
 	}

@@ -135,8 +135,9 @@ BEGIN_DATADESC( CNPC_Advisor )
 	DEFINE_OUTPUT( m_OnThrowWarn, "OnThrowWarn" ),
 	DEFINE_OUTPUT( m_OnThrow, "OnThrow" ),
 	DEFINE_OUTPUT( m_OnHealthIsNow, "OnHealthIsNow" ),
-	DEFINE_OUTPUT(m_OnPlayerPin, "OnPlayerPin"),
-	DEFINE_OUTPUT(m_OnStopPlayerPin, "OnStopPlayerPin"),
+	DEFINE_OUTPUT( m_OnPlayerPin, "OnPlayerPin" ),
+	DEFINE_OUTPUT( m_OnStopPlayerPin, "OnStopPlayerPin" ),
+	DEFINE_OUTPUT( m_OnBreakShield, "OnBreakShield" ),
 
 	DEFINE_INPUTFUNC( FIELD_FLOAT,   "SetThrowRate",    InputSetThrowRate ),
 	DEFINE_INPUTFUNC( FIELD_STRING,  "WrenchImmediate", InputWrenchImmediate ),
@@ -369,7 +370,6 @@ CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info,
 		EmitSound("Weapon_StriderBuster.Detonate");
 		EmitSound("NPC_Advisor.Scream");
 		SetBloodColor(BLOOD_COLOR_GREEN);
-		m_bBulletResistanceBroken = true;
 
 #ifdef GLOWS_ENABLE
 		if (!m_bBulletResistanceOutlineDisabled)
@@ -381,6 +381,17 @@ CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info,
 			GiveOutline(outline);
 		}
 #endif
+
+		m_bBulletResistanceBroken = true;
+
+		if (outputInfo.GetAttacker())
+		{
+			m_OnBreakShield.FireOutput(this, outputInfo.GetAttacker());
+		}
+		else
+		{
+			m_OnBreakShield.FireOutput(this, this);
+		}
 	}
 
 	return outputInfo;

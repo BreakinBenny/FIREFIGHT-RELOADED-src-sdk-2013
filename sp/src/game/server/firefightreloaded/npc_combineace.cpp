@@ -708,6 +708,15 @@ CTakeDamageInfo CNPC_CombineAce::BulletResistanceLogic(const CTakeDamageInfo& in
 		}
 #endif
 		m_bBulletResistanceBroken = true;
+
+		if (outputInfo.GetAttacker())
+		{
+			m_OnBreakShield.FireOutput(this, outputInfo.GetAttacker());
+		}
+		else
+		{
+			m_OnBreakShield.FireOutput(this, this);
+		}
 	}
 
 	if (m_bBulletResistanceBroken)
@@ -1099,6 +1108,8 @@ BEGIN_DATADESC( CNPC_CombineAce )
 	DEFINE_FIELD(m_pEyeTrail, FIELD_CLASSPTR),
 	DEFINE_FIELD(m_bBulletResistanceBroken, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_bBulletResistanceOutlineDisabled, FIELD_BOOLEAN),
+
+	DEFINE_OUTPUT(m_OnBreakShield, "OnBreakShield"),
 
 END_DATADESC()
 #endif

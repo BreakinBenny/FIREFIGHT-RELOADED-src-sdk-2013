@@ -81,6 +81,8 @@ public:
 	bool					m_bBulletResistanceBroken;
 	bool					m_bBulletResistanceOutlineDisabled;
 
+	COutputEvent m_OnBreakShield;
+
 private:
 	bool		ShouldHitPlayer( const Vector &targetDir, float targetDist );
 	void		SetEyeState(aceEyeState_t state);

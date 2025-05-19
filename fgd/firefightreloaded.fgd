@@ -44,6 +44,8 @@
 		"2" : "Yes"
 	]
 	
+	output OnBreakShield(void)       : "Fires when the player breaks the Ace's shield"
+	
 	input Assault(target_destination) : "Start an assault. Parameter passed in should be the name of the rally point."
 	input SetTacticalVariant(integer) : "Sets this soldier's tactical variant based on integer value."
 ]
@@ -99,6 +101,7 @@
 	output OnHealthIsNow(integer)       : "When I am damaged, my hitpoints thereafter"
     output OnPlayerPin(void)       : "Fires when the player gets pinned"
     output OnStopPlayerPin(void)       : "Fires when the player gets unpinned"
+	output OnBreakShield(void)       : "Fires when the player breaks the Advisor's shield"
 	
 	input SetThrowRate(float) : "Advisor will throw an object once per this many seconds (plus a little more)"
 	input WrenchImmediate(string) : "Advisor will immediately start levitating all objects with this name"
