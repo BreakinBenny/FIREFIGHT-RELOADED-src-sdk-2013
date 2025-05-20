@@ -23,10 +23,8 @@
 #include "ai_task.h"
 #include "activitylist.h"
 
-#if NPC_ADVISOR_HAS_BEHAVIOR
 // how long it will take an object to get hauled to the staging point
 #define STAGING_OBJECT_FALLOFF_TIME 0.15f
-#endif
 
 //
 // Spawnflags.
@@ -38,7 +36,7 @@
 #define ADVISOR_MELEE_LEFT					( 3 )
 #define ADVISOR_MELEE_RIGHT					( 4 )
 
-#if NPC_ADVISOR_HAS_BEHAVIOR
+
 //
 // Custom schedules.
 //
@@ -71,7 +69,7 @@ enum
 {
 	COND_ADVISOR_PHASE_INTERRUPT = LAST_SHARED_CONDITION,
 };
-#endif
+
 
 class CNPC_Advisor;
 
@@ -107,9 +105,7 @@ class CNPC_Advisor : public CAI_BaseActor
 {
 	DECLARE_CLASS( CNPC_Advisor, CAI_BaseActor);
 
-#if NPC_ADVISOR_HAS_BEHAVIOR
 	DECLARE_SERVERCLASS();
-#endif
 
 public:
 
@@ -130,10 +126,16 @@ public:
 	virtual float MaxYawSpeed();
 
 	virtual void LoadInitAttributes(void);
+
+	void SetupGlobalModelData();
+	void SetAim(const Vector& aimDir, float flInterval);
+	void RelaxAim(float flInterval);
+	void UpdateAim();
+	void NPCThink();
 	
 	virtual Class_T Classify();
 
-#if NPC_ADVISOR_HAS_BEHAVIOR
+
 	virtual int GetSoundInterests();
 	virtual int SelectSchedule();
 	virtual void StartTask( const Task_t *pTask );
@@ -158,22 +160,24 @@ public:
 	int					OnTakeDamage_Alive(const CTakeDamageInfo& info);
 	void				TraceAttack(const CTakeDamageInfo& inputInfo, const Vector& vecDir, trace_t* ptr, CDmgAccumulator* pAccumulator);
 
-	void	MovetoTarget(Vector vecTarget);
+	void	MovetoTarget(Vector vecTarget, float flInterval);
 	void	Touch(CBaseEntity* pOther);
 	void	Dronify(CBaseEntity* pOther);
+
+	Vector	VelocityToAvoidObstacles(float flInterval);
 
 private:
 	int					m_iSpriteTexture;
 
 public:
-#endif
+
 
 	virtual void PainSound( const CTakeDamageInfo &info );
 	virtual void DeathSound( const CTakeDamageInfo &info );
 	virtual void IdleSound();
 	virtual void AlertSound();
 
-#if NPC_ADVISOR_HAS_BEHAVIOR
+
 	virtual bool QueryHearSound( CSound *pSound );
 	virtual void GatherConditions( void );
 
@@ -183,17 +187,13 @@ public:
 	void Write_BeamOn(CBaseEntity* pEnt); 	///< write a message turning a beam on
 	void Write_BeamOff(CBaseEntity* pEnt);   	///< write a message turning a beam off
 	void Write_AllBeamsOff(void);				///< tell client to kill all beams
-#else
-	inline bool DidThrow(const CBaseEntity *pEnt) { return false; }
-#endif
+
 
 	virtual bool IsHeavyDamage( const CTakeDamageInfo &info );
 	virtual int	 OnTakeDamage( const CTakeDamageInfo &info );
 
 	virtual const impactdamagetable_t &GetPhysicsImpactDamageTable( void );
 	COutputInt   m_OnHealthIsNow;
-
-#if NPC_ADVISOR_HAS_BEHAVIOR
 
 	DEFINE_CUSTOM_AI;
 
@@ -212,21 +212,18 @@ public:
 	COutputEvent m_OnPickingThrowable, m_OnThrowWarn, m_OnThrow, m_OnPlayerPin, m_OnStopPlayerPin, m_OnBreakShield;
 
 	enum { kMaxThrownObjectsTracked = 4 };
-#endif
+
 
 	DECLARE_DATADESC();
 
 protected:
 
-#if NPC_ADVISOR_HAS_BEHAVIOR
 	Vector GetThrowFromPos( CBaseEntity *pEnt ); ///< Get the position in which we shall hold an object prior to throwing it
-#endif
 
 	bool CanLevitateEntity( CBaseEntity *pEntity, int minMass, int maxMass );
 	void StartLevitatingObjects( void );
 
 
-#if NPC_ADVISOR_HAS_BEHAVIOR
 	// void PurgeThrownObjects(); ///< clean out the recently thrown objects array
 	void AddToThrownObjects(CBaseEntity *pEnt); ///< add to the recently thrown objects array
 
@@ -238,7 +235,6 @@ protected:
 
 	/// push everything out of the way between an object I'm about to throw and the player.
 	void PreHurlClearTheWay( CBaseEntity *pThrowable, const Vector &toPos );
-#endif
 
 	CUtlVector<EHANDLE>	m_physicsObjects;
 	CUtlVector<EHANDLE>	m_droneObjects;
@@ -249,7 +245,12 @@ protected:
 	EHANDLE m_hLevitateGoal2;
 	EHANDLE m_hLevitationArea;
 
-#if NPC_ADVISOR_HAS_BEHAVIOR
+	float			m_aimYaw;
+	float			m_aimPitch;
+
+	static int gm_nAimYawPoseParam;
+	static int gm_nAimPitchPoseParam;
+
 	// EHANDLE m_hThrowEnt;
 	CUtlVector<EHANDLE>	m_hvStagedEnts;
 	CUtlVector<EHANDLE>	m_hvStagingPositions; 
@@ -270,14 +271,10 @@ protected:
 	float   m_flaRecentlyThrownObjectTimes[kMaxThrownObjectsTracked];
 
 	float  m_fllastDronifiedTime;
-#endif
 
 	string_t m_iszLevitateGoal1;
 	string_t m_iszLevitateGoal2;
 	string_t m_iszLevitationArea;
-
-
-#if NPC_ADVISOR_HAS_BEHAVIOR
 	string_t m_iszStagingEntities;
 	string_t m_iszPriorityEntityGroupName;
 
@@ -295,7 +292,6 @@ protected:
 	// unsigned char m_pickFailures; // the number of times we have tried to pick a throwable and failed 
 
 	Vector m_vSavedLeadVel; ///< save off player velocity for leading a bit before actually pelting them. 
-#endif
 };
 
 #endif

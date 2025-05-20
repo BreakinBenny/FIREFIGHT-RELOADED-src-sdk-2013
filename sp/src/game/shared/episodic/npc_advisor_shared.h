@@ -15,9 +15,8 @@
 
 // Set this to 0 to disable the advisor's special AI behavior (all that object chucking), 
 // which we did in Ep2 to make him a scripted creature.
-#define NPC_ADVISOR_HAS_BEHAVIOR 1
+//#define NPC_ADVISOR_HAS_BEHAVIOR 1
 
-#if NPC_ADVISOR_HAS_BEHAVIOR
 // Message ID constants used for communciation between client and server.
 enum 
 {
@@ -27,6 +26,5 @@ enum
 	ADVISOR_MSG_START_ELIGHT,
 	ADVISOR_MSG_STOP_ELIGHT,
 };
-#endif
 
 #endif // NPC_ADVISOR_SHARED_H

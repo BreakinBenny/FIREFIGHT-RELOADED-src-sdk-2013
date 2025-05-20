@@ -10,8 +10,6 @@
 // this file contains the definitions for the message ID constants (eg ADVISOR_MSG_START_BEAM etc)
 #include "npc_advisor_shared.h"
 
-#if NPC_ADVISOR_HAS_BEHAVIOR
-
 #include "particles_simple.h"
 #include "citadel_effects_shared.h"
 #include "particles_attractor.h"
@@ -240,9 +238,6 @@ void C_NPC_Advisor::StopElight()
 		el->die = gpGlobals->curtime;
 	}
 }
-
-
-#endif
 
 /******************************************************
  * Tenser, said the Tensor.                           *

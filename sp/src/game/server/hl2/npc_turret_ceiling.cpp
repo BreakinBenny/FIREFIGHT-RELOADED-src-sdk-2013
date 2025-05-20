@@ -263,7 +263,7 @@ void CNPC_CeilingTurret::Precache( void )
 	PrecacheScriptSound( "NPC_CeilingTurret.Move" );
 	PrecacheScriptSound( "NPC_CeilingTurret.Active" );
 	PrecacheScriptSound( "NPC_CeilingTurret.Alert" );
-	PrecacheScriptSound( "NPC_CeilingTurret.ShotSounds" );
+	PrecacheScriptSound( "NPC_FloorTurret.ShotSounds" );
 	PrecacheScriptSound( "NPC_CeilingTurret.Ping" );
 	PrecacheScriptSound( "NPC_CeilingTurret.Die" );
 
@@ -856,7 +856,7 @@ void CNPC_CeilingTurret::Shoot( const Vector &vecSrc, const Vector &vecDirToEnem
 	}
 
 	FireBullets( info );
-	EmitSound( "NPC_CeilingTurret.ShotSounds" );
+	EmitSound( "NPC_FloorTurret.ShotSounds" );
 	DoMuzzleFlash();
 }
 
