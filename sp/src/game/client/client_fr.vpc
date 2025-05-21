@@ -192,7 +192,6 @@ $Project "Client (FR)"
 		$Folder	"FIREFIGHT RELOADED DLL"
 		{
 			$File	"$SRCDIR\game\shared\firefightreloaded\achievements_firefightreloaded.cpp"
-			$File	"firefightreloaded\firefightreloaded_clientcmds.cpp"
 			$File	"$SRCDIR\game\shared\firefightreloaded\singleplayer_animstate.cpp"
 			$File	"$SRCDIR\game\shared\firefightreloaded\singleplayer_animstate.h"
 			$File	"$SRCDIR\game\shared\firefightreloaded\fr_ragdoll.cpp"

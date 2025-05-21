@@ -283,6 +283,7 @@ CBaseAnimating::CBaseAnimating()
 	m_pIk = NULL;
 	m_iIKCounter = 0;
 
+	EnableDynamicModels();
 	InitStepHeightAdjust();
 
 	m_flModelScale = 1.0f;

@@ -727,6 +727,7 @@ C_BaseAnimating::C_BaseAnimating() :
 	m_bStoreRagdollInfo = false;
 	m_pRagdollInfo = NULL;
 
+	EnableDynamicModels();
 	m_flPlaybackRate = 1.0f;
 
 	m_nEventSequence = -1;

@@ -64,7 +64,7 @@ ConVar advisor_enable_droning("advisor_enable_droning", "1", FCVAR_ARCHIVE);
 
 ConVar advisor_droning_wait_time("advisor_droning_wait_time", "60", FCVAR_ARCHIVE);
 
-ConVar advisor_floatdistance("advisor_floatdistance", "256", FCVAR_ARCHIVE);
+ConVar advisor_floatdistance("advisor_floatdistance", "1024", FCVAR_ARCHIVE);
 
 ConVar advisor_headposemultiplier_yaw("advisor_headposemultiplier_yaw", "1000", FCVAR_ARCHIVE);
 ConVar advisor_headposemultiplier_pitch("advisor_headposemultiplier_pitch", "1", FCVAR_ARCHIVE);
@@ -293,8 +293,8 @@ void CNPC_Advisor::UpdateAim()
 
 	float flInterval = GetAnimTimeInterval();
 
-	if (GetEnemy() &&
-		GetState() != NPC_STATE_SCRIPT)
+	if (GetEnemy() /*&&
+		GetState() != NPC_STATE_SCRIPT*/)
 	{
 		Vector vecShootOrigin;
 
@@ -1015,7 +1015,7 @@ Vector CNPC_Advisor::VelocityToAvoidObstacles(float flInterval)
 	// --------------------------------
 	float flMinGroundDist = advisor_floatdistance.GetFloat();
 	AI_TraceLine(GetAbsOrigin(), GetAbsOrigin() + Vector(0, 0, -flMinGroundDist),
-		MASK_NPCSOLID_BRUSHONLY | CONTENTS_WATER, this, COLLISION_GROUP_NONE, &tr);
+		MASK_NPCSOLID | CONTENTS_WATER, this, COLLISION_GROUP_NONE, &tr);
 	if (tr.fraction < 1)
 	{
 		// Clamp veloctiy
@@ -1026,6 +1026,7 @@ Vector CNPC_Advisor::VelocityToAvoidObstacles(float flInterval)
 
 		return Vector(0, 0, 50 / tr.fraction);
 	}
+
 	return vec3_origin;
 }
 
