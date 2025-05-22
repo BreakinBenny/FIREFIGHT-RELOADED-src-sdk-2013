@@ -2656,6 +2656,8 @@ void CNPC_BaseZombie::ReleaseHeadcrab(const Vector &vecOrigin, const Vector &vec
 				pCrab->GiveAttributes(m_iAttributePresetNum);
 			}
 		}
+
+		pCrab->ChangeTeam(GetTeamNumber());
 	}
 
 	if( fRemoveHead )

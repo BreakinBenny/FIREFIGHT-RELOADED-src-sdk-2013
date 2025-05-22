@@ -39,6 +39,7 @@ ConVar advisor_use_impact_table("advisor_use_impact_table","1",FCVAR_NONE,"If tr
 
 ConVar sk_advisor_melee_dmg("sk_advisor_melee_dmg", "0");
 ConVar sk_advisor_pin_dmg("sk_advisor_pin_dmg", "0");
+ConVar sk_advisor_shielddamage_cball_multiplier("sk_advisor_shielddamage_cball_multiplier", "0.045");
 
 ConVar advisor_throw_velocity( "advisor_throw_velocity", "15000", FCVAR_ARCHIVE);
 ConVar advisor_throw_rate( "advisor_throw_rate", "0.5", FCVAR_ARCHIVE);					// Throw an object every 4 seconds.
@@ -54,7 +55,7 @@ ConVar advisor_bulletresistance_throw_rate("advisor_bulletresistance_throw_rate"
 ConVar advisor_bulletresistance_staging_num("advisor_bulletresistance_staging_num", "5", FCVAR_ARCHIVE, "Advisor will queue up this many objects to throw at Gordon.");
 ConVar advisor_disablebulletresistance("advisor_disablebulletresistance", "0", FCVAR_ARCHIVE);
 
-ConVar advisor_flingentity_force("advisor_flingentity_force", "125", FCVAR_ARCHIVE);
+ConVar advisor_flingentity_force("advisor_flingentity_force", "62", FCVAR_ARCHIVE);
 
 ConVar advisor_speed("advisor_speed", "250", FCVAR_ARCHIVE);
 ConVar advisor_bulletresistance_speed("advisor_bulletresistance_speed", "120", FCVAR_ARCHIVE);
@@ -64,7 +65,9 @@ ConVar advisor_enable_droning("advisor_enable_droning", "1", FCVAR_ARCHIVE);
 
 ConVar advisor_droning_wait_time("advisor_droning_wait_time", "60", FCVAR_ARCHIVE);
 
-ConVar advisor_floatdistance("advisor_floatdistance", "1024", FCVAR_ARCHIVE);
+ConVar advisor_floatdistance("advisor_floatdistance", "256", FCVAR_ARCHIVE);
+
+ConVar advisor_pinwhenbelow("advisor_pinwhenbelow", "100", FCVAR_ARCHIVE);
 
 ConVar advisor_headposemultiplier_yaw("advisor_headposemultiplier_yaw", "1000", FCVAR_ARCHIVE);
 ConVar advisor_headposemultiplier_pitch("advisor_headposemultiplier_pitch", "1", FCVAR_ARCHIVE);
@@ -115,7 +118,7 @@ BEGIN_DATADESC( CNPC_Advisor )
 	DEFINE_FIELD( m_hPlayerPinPos, FIELD_EHANDLE ),
 	DEFINE_FIELD( m_playerPinFailsafeTime, FIELD_TIME ),
 	DEFINE_FIELD( m_playerPinDamage, FIELD_INTEGER),
-	DEFINE_FIELD(m_playerPinnedBecauseWallRunning, FIELD_BOOLEAN),
+	DEFINE_FIELD(m_playerPinnedBecauseInCover, FIELD_BOOLEAN),
 
 	// DEFINE_FIELD( m_hThrowEnt, FIELD_EHANDLE ),
 	DEFINE_FIELD( m_flThrowPhysicsTime, FIELD_TIME ),
@@ -403,20 +406,20 @@ CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info,
 
 	int shieldmaxhealth = GetMaxHealth() * 0.5;
 
-	if ((GetHealth() > shieldmaxhealth) && !m_bBulletResistanceBroken)
+	//always take a reduced amount of damage from Combine balls. 
+	if (!(IRelationType(outputInfo.GetAttacker()) == D_LI))
 	{
-		if (!(outputInfo.GetDamageType() & (DMG_GENERIC)))
+		if ((GetHealth() > shieldmaxhealth) && !m_bBulletResistanceBroken)
 		{
-			SetBloodColor(BLOOD_COLOR_MECH);
-			if (ptr != NULL)
+			if (!(outputInfo.GetDamageType() & (DMG_GENERIC)))
 			{
-				CPVSFilter filter(ptr->endpos);
-				te->ArmorRicochet(filter, 0.0, &ptr->endpos, &ptr->plane.normal);
-			}
+				SetBloodColor(BLOOD_COLOR_MECH);
+				if (ptr != NULL)
+				{
+					CPVSFilter filter(ptr->endpos);
+					te->ArmorRicochet(filter, 0.0, &ptr->endpos, &ptr->plane.normal);
+				}
 
-			//squad doesn't cause any damage unless our shield is down.
-			if (!(IRelationType(outputInfo.GetAttacker()) == D_LI))
-			{
 				if (outputInfo.GetDamageType() & DMG_BLAST)
 				{
 					if (outputInfo.GetDamageCustom() == FR_DMG_CUSTOM_KICK)
@@ -446,11 +449,11 @@ CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info,
 
 				outputInfo.AddDamageType(DMG_NEVERGIB);
 			}
-			else
-			{
-				outputInfo.SetDamage(0.0f);
-			}
 		}
+	}
+	else
+	{
+		outputInfo.SetDamage(0.0f);
 	}
 
 	if ((GetHealth() <= shieldmaxhealth) && !m_bBulletResistanceBroken)
@@ -496,29 +499,53 @@ CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info,
 //---------------------------------------------------------
 void CNPC_Advisor::TraceAttack(const CTakeDamageInfo& inputInfo, const Vector& vecDir, trace_t* ptr, CDmgAccumulator* pAccumulator)
 {
+	CTakeDamageInfo outputInfo = inputInfo;
+
+	if (!(IRelationType(outputInfo.GetAttacker()) == D_LI))
+	{
+		CBaseEntity* inflictor = outputInfo.GetInflictor();
+		if (UTIL_IsAR2CombineBall(inflictor))
+		{
+			//combine balls
+			outputInfo.ScaleDamage(sk_advisor_shielddamage_cball_multiplier.GetFloat());
+		}
+	}
+
 	// special interaction with combine balls
 	if (!m_bBulletResistanceBroken)
 	{
-		CTakeDamageInfo bulletResistanceInfo = BulletResistanceLogic(inputInfo, ptr);
+		CTakeDamageInfo bulletResistanceInfo = BulletResistanceLogic(outputInfo, ptr);
 		BaseClass::TraceAttack(bulletResistanceInfo, vecDir, ptr, pAccumulator);
 	}
 	else
 	{
-		BaseClass::TraceAttack(inputInfo, vecDir, ptr, pAccumulator);
+		BaseClass::TraceAttack(outputInfo, vecDir, ptr, pAccumulator);
 	}
 }
 
 int CNPC_Advisor::OnTakeDamage_Alive(const CTakeDamageInfo& info)
 {
+	CTakeDamageInfo outputInfo = info;
+
+	if (!(IRelationType(outputInfo.GetAttacker()) == D_LI))
+	{
+		CBaseEntity* inflictor = outputInfo.GetInflictor();
+		if (UTIL_IsAR2CombineBall(inflictor))
+		{
+			//combine balls
+			outputInfo.ScaleDamage(sk_advisor_shielddamage_cball_multiplier.GetFloat());
+		}
+	}
+
 	// special interaction with combine balls
 	if (!m_bBulletResistanceBroken)
 	{
-		CTakeDamageInfo bulletResistanceInfo = BulletResistanceLogic(info, NULL);
+		CTakeDamageInfo bulletResistanceInfo = BulletResistanceLogic(outputInfo, NULL);
 		return BaseClass::OnTakeDamage_Alive(bulletResistanceInfo);
 	}
 	else
 	{
-		return BaseClass::OnTakeDamage_Alive(info);
+		return BaseClass::OnTakeDamage_Alive(outputInfo);
 	}
 }
 
@@ -526,18 +553,11 @@ int CNPC_Advisor::OnTakeDamage_Alive(const CTakeDamageInfo& info)
 bool CNPC_Advisor::PassesDamageFilter(const CTakeDamageInfo& info)
 {
 	CBaseEntity* inflictor = info.GetInflictor();
-	CBaseEntity* attacker = info.GetAttacker();
-	//way to make it so we don't recieve kick damage.
-	CBasePlayer* player = (inflictor->IsPlayer() ? (CBasePlayer*)inflictor : (attacker->IsPlayer() ? (CBasePlayer*)attacker : NULL));
 
-	if (player)
+	//passes, but has a damage resistance
+	if (UTIL_IsAR2CombineBall(inflictor))
 	{
-		CHL2_Player* hlPlayer = (CHL2_Player*)player;
-
-		if (hlPlayer && hlPlayer->m_bIsKicking)
-		{
-			return false;
-		}
+		return true;
 	}
 
 	if ((info.GetDamageType() & DMG_CRUSH))
@@ -546,11 +566,6 @@ bool CNPC_Advisor::PassesDamageFilter(const CTakeDamageInfo& info)
 	}
 
 	if ((info.GetDamageType() & DMG_BURN))
-	{
-		return false;
-	}
-
-	if (UTIL_IsAR2CombineBall(inflictor))
 	{
 		return false;
 	}
@@ -1030,6 +1045,13 @@ Vector CNPC_Advisor::VelocityToAvoidObstacles(float flInterval)
 	return vec3_origin;
 }
 
+bool IsEntMoving(CBaseEntity* pEnt)
+{
+	DevMsg("ent movement - x: %f y: %f\n", fabs(pEnt->GetAbsVelocity().x), fabs(pEnt->GetAbsVelocity().y));
+	return !(fabs(pEnt->GetAbsVelocity().x) < advisor_pinwhenbelow.GetFloat() &&
+		fabs(pEnt->GetAbsVelocity().y) < advisor_pinwhenbelow.GetFloat());
+}
+
 //-----------------------------------------------------------------------------
 // todo: find a way to guarantee that objects are made pickupable again when bailing out of a task
 //-----------------------------------------------------------------------------
@@ -1287,7 +1309,7 @@ void CNPC_Advisor::RunTask( const Task_t *pTask )
 					beamonce = 1;
 					m_bStopMoving = false;
 					m_playerPinDamage = 0;
-					if (m_playerPinnedBecauseWallRunning)
+					if (m_playerPinnedBecauseInCover)
 					{
 						m_hPlayerPinPos.Set(NULL);
 					}
@@ -1306,7 +1328,7 @@ void CNPC_Advisor::RunTask( const Task_t *pTask )
 					beamonce = 1;
 					m_bStopMoving = false;
 					m_playerPinDamage = 0;
-					if (m_playerPinnedBecauseWallRunning)
+					if (m_playerPinnedBecauseInCover)
 					{
 						m_hPlayerPinPos.Set(NULL);
 					}
@@ -1314,7 +1336,7 @@ void CNPC_Advisor::RunTask( const Task_t *pTask )
 					m_playerPinOutputCalled = false;
 					Warning("Advisor did not leave PIN PLAYER mode. Aborting due to failsafe!\n");
 					TaskFail("Advisor did not leave PIN PLAYER mode. Aborting due to failsafe!\n");
-					FlingPlayer(pPinEnt, advisor_flingentity_force.GetFloat(), true);
+					FlingEntity(pPinEnt, advisor_flingentity_force.GetFloat(), true);
 					break;
 				}
 
@@ -1327,7 +1349,7 @@ void CNPC_Advisor::RunTask( const Task_t *pTask )
 					beamonce = 1;
 					m_bStopMoving = false;
 					m_playerPinDamage = 0;
-					if (m_playerPinnedBecauseWallRunning)
+					if (m_playerPinnedBecauseInCover)
 					{
 						m_hPlayerPinPos.Set(NULL);
 					}
@@ -1335,6 +1357,20 @@ void CNPC_Advisor::RunTask( const Task_t *pTask )
 					m_playerPinOutputCalled = false;
 					TaskFail("Player is not the enemy?!");
 					break;
+				}
+
+				CBasePlayer* pPlayer = ToBasePlayer(GetEnemy());
+				if (pPlayer)
+				{
+					if (m_playerPinnedBecauseInCover)
+					{
+						//check to make sure the player is STILL behind cover before we zap him.
+						if (IsEntMoving(pPlayer))
+						{
+							TaskFail("Player moved out of cover");
+							break;
+						}
+					}
 				}
 
 				//FUgly, yet I can't think right now a quicker solution to only make one beam on this loop case
@@ -1347,7 +1383,6 @@ void CNPC_Advisor::RunTask( const Task_t *pTask )
 				GetEnemy()->SetMoveType(MOVETYPE_NONE); //MOVETYPE_FLY
 				GetEnemy()->SetGravity(0);
 
-				CBasePlayer* pPlayer = ToBasePlayer(GetEnemy());
 				if (pPlayer)
 				{
 					pPlayer->m_nWallRunState = WALLRUN_NOT;
@@ -1472,33 +1507,30 @@ void CNPC_Advisor::Event_Killed(const CTakeDamageInfo &info)
 //----------------------------------------------------------------------------------------------
 // WEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE-*BZZT*
 //----------------------------------------------------------------------------------------------
-void CNPC_Advisor::FlingPlayer(CBaseEntity* pEnt, float force, bool upVector)
+void CNPC_Advisor::FlingEntity(CBaseEntity* pEnt, float force, bool upVector)
 {
 	if (pEnt)
 	{
-		StopSound("NPC_Advisor.Blast");
-		EmitSound("NPC_Advisor.Blast");
+		//the player is blasting us.
+		if (pEnt != this)
+		{
+			StopSound("NPC_Advisor.Blast");
+			EmitSound("NPC_Advisor.Blast");
+		}
+
+		Vector forward2, up2;
+		AngleVectors(pEnt->GetLocalAngles(), &forward2, NULL, &up2);
+
+		forward2 = forward2 * force * sk_advisor_melee_dmg.GetFloat();
+		pEnt->VelocityPunch(-forward2);
 
 		if (upVector)
 		{
-			Vector forward2, up2;
-			AngleVectors(pEnt->GetLocalAngles(), &forward2, NULL, &up2);
-			forward2 = forward2 * force * sk_advisor_melee_dmg.GetFloat();
 			up2 = up2 * force * sk_advisor_melee_dmg.GetFloat();
-			pEnt->VelocityPunch(-forward2);
 			pEnt->VelocityPunch(up2);
-		}
-		else
-		{
-			Vector forward2;
-			AngleVectors(pEnt->GetLocalAngles(), &forward2, NULL, NULL);
-			forward2 = forward2 * force * sk_advisor_melee_dmg.GetFloat();
-			pEnt->VelocityPunch(-forward2);
 		}
 	}
 }
-
-
 
 // helper function for testing whether or not an avisor is allowed to grab an object
 static bool AdvisorCanPickObject(CBasePlayer *pPlayer, CBaseEntity *pEnt)
@@ -1965,16 +1997,20 @@ int CNPC_Advisor::SelectSchedule()
 						m_bStopMoving = true;
 						return SCHED_ADVISOR_TOSS_PLAYER;
 					}
-					else if (pPlayer && (pPlayer->m_nWallRunState == WALLRUN_RUNNING))
+					else if (pPlayer)
 					{
-						if (!m_hPlayerPinPos.IsValid())
+						if (!IsEntMoving(pPlayer))
 						{
-							m_hPlayerPinPos.Set(pPlayer);
-							m_playerPinnedBecauseWallRunning = true;
-						}
+							//If he's not moving, pin him down.
+							if (!m_hPlayerPinPos.IsValid())
+							{
+								m_hPlayerPinPos.Set(pPlayer);
+								m_playerPinnedBecauseInCover = true;
+							}
 
-						m_bStopMoving = true;
-						return SCHED_ADVISOR_TOSS_PLAYER;
+							m_bStopMoving = true;
+							return SCHED_ADVISOR_TOSS_PLAYER;
+						}
 					}
 					else if (advisor_enable_droning.GetBool() &&
 						((m_fllastDronifiedTime < gpGlobals->curtime) &&
@@ -2000,11 +2036,11 @@ void CNPC_Advisor::Touch(CBaseEntity* pOther)
 {
 	if (pOther->IsPlayer())
 	{
-		FlingPlayer(pOther, advisor_flingentity_force.GetFloat());
+		FlingEntity(pOther, advisor_flingentity_force.GetFloat());
 	}
 	else if (pOther->IsNPC())
 	{
-		FlingPlayer(pOther, advisor_flingentity_force.GetFloat());
+		FlingEntity(pOther, advisor_flingentity_force.GetFloat());
 	}
 }
 
@@ -2044,7 +2080,7 @@ void CNPC_Advisor::HandleAnimEvent(animevent_t *pEvent)
 		if (pHurt)
 		{
 			//Toss them back!
-			FlingPlayer(pHurt, advisor_flingentity_force.GetFloat());
+			FlingEntity(pHurt, advisor_flingentity_force.GetFloat());
 
 			if (pHurt->GetFlags() & (FL_NPC | FL_CLIENT))
 			{
@@ -2069,7 +2105,7 @@ void CNPC_Advisor::HandleAnimEvent(animevent_t *pEvent)
 		if (pHurt)
 		{
 			//Toss them back!
-			FlingPlayer(pHurt, advisor_flingentity_force.GetFloat());
+			FlingEntity(pHurt, advisor_flingentity_force.GetFloat());
 
 			if (pHurt->GetFlags() & (FL_NPC | FL_CLIENT))
 			{

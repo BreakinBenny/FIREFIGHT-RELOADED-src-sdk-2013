@@ -366,6 +366,8 @@ static ConVar cl_discord_devbuild("cl_discord_devbuild", "0", FCVAR_DEVELOPMENTO
 static ConVar cl_discord("cl_discord", "1", FCVAR_ARCHIVE);
 #endif
 
+static ConVar cl_steam_presence("cl_steam_presence", "1", FCVAR_ARCHIVE);
+
 #ifndef STEAM_INPUT
 ConVar cl_glyphtype("cl_glyphtype", "0", FCVAR_ARCHIVE);
 #endif
@@ -1256,6 +1258,21 @@ int CHLClient::Init( CreateInterfaceFn appSystemFactory, CreateInterfaceFn physi
 	}
 #endif
 
+	ISteamFriends* pSteamFriends = steamapicontext->SteamFriends();
+
+	if (pSteamFriends)
+	{
+		if (cl_steam_presence.GetBool())
+		{
+			pSteamFriends->SetRichPresence("gamemap", nullptr);
+			pSteamFriends->SetRichPresence("steam_display", "#FR_RichPresence_MainMenu");
+		}
+		else
+		{
+			pSteamFriends->ClearRichPresence();
+		}
+	}
+
 	//InitCustomWeapon();
 
 	return true;
@@ -1471,6 +1488,13 @@ void CHLClient::Shutdown( void )
 		Discord_Shutdown();
 	}
 #endif
+
+	ISteamFriends* pSteamFriends = steamapicontext->SteamFriends();
+
+	if (pSteamFriends)
+	{
+		pSteamFriends->ClearRichPresence();
+	}
 	
 	// This call disconnects the VGui libraries which we rely on later in the shutdown path, so don't do it
 //	DisconnectTier3Libraries( );
@@ -1965,6 +1989,21 @@ void CHLClient::LevelInitPreEntity( char const* pMapName )
 	}
 #endif
 
+	ISteamFriends* pSteamFriends = steamapicontext->SteamFriends();
+
+	if (pSteamFriends)
+	{
+		if (cl_steam_presence.GetBool())
+		{
+			pSteamFriends->SetRichPresence("gamemap", pMapName);
+			pSteamFriends->SetRichPresence("steam_display", "#FR_RichPresence_InGame");
+		}
+		else
+		{
+			pSteamFriends->ClearRichPresence();
+		}
+	}
+
 	gHUD.LevelInit();
 
 #if defined( REPLAY_ENABLED )
@@ -2025,7 +2064,7 @@ void CHLClient::ResetStringTablePointers()
 //-----------------------------------------------------------------------------
 // Purpose: Per level de-init
 //-----------------------------------------------------------------------------
-void CHLClient::LevelShutdown( void )
+void CHLClient::LevelShutdown(void)
 {
 	// HACK: Bogus, but the logic is too complicated in the engine
 	if (!g_bLevelInitialized)
@@ -2034,7 +2073,7 @@ void CHLClient::LevelShutdown( void )
 	g_bLevelInitialized = false;
 
 	// Disable abs recomputations when everything is shutting down
-	CBaseEntity::EnableAbsRecomputations( false );
+	CBaseEntity::EnableAbsRecomputations(false);
 
 	// Level shutdown sequence.
 	// First do the pre-entity shutdown of all systems
@@ -2051,8 +2090,8 @@ void CHLClient::LevelShutdown( void )
 	// Now release/delete the entities
 	cl_entitylist->Release();
 
-	C_BaseEntityClassList *pClassList = s_pClassLists;
-	while ( pClassList )
+	C_BaseEntityClassList* pClassList = s_pClassLists;
+	while (pClassList)
 	{
 		pClassList->LevelShutdown();
 		pClassList = pClassList->m_pNextClassList;
@@ -2064,7 +2103,7 @@ void CHLClient::LevelShutdown( void )
 	g_pView->LevelShutdown();
 	beams->ClearBeams();
 	ParticleMgr()->RemoveAllEffects();
-	
+
 	StopAllRumbleEffects();
 
 #if defined(GAMEPADUI)
@@ -2118,6 +2157,21 @@ void CHLClient::LevelShutdown( void )
 		}
 	}
 #endif
+
+	ISteamFriends* pSteamFriends = steamapicontext->SteamFriends();
+
+	if (pSteamFriends)
+	{
+		if (cl_steam_presence.GetBool())
+		{
+			pSteamFriends->SetRichPresence("gamemap", nullptr);
+			pSteamFriends->SetRichPresence("steam_display", "#FR_RichPresence_MainMenu");
+		}
+		else
+		{
+			pSteamFriends->ClearRichPresence();
+		}
+	}
 
 	internalCenterPrint->Clear();
 

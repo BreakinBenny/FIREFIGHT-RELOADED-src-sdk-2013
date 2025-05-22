@@ -68,6 +68,7 @@ enum
 enum
 {
 	COND_ADVISOR_PHASE_INTERRUPT = LAST_SHARED_CONDITION,
+	COND_ADVISOR_BEGIN_MELEE_ATTACK,
 };
 
 
@@ -141,7 +142,7 @@ public:
 	virtual void StartTask( const Task_t *pTask );
 	virtual void RunTask( const Task_t *pTask );
 	virtual void OnScheduleChange( void );
-	void FlingPlayer(CBaseEntity *pEnt, float force, bool upVector = false);
+	void FlingEntity(CBaseEntity *pEnt, float force, bool upVector = false);
 	virtual	bool		AllowedToIgnite(void) { return false; }
 
 	void HandleAnimEvent(animevent_t *pEvent);
@@ -263,7 +264,7 @@ protected:
 	EHANDLE m_hPlayerPinPos;
 	float  m_playerPinFailsafeTime;
 	int  m_playerPinDamage;
-	bool  m_playerPinnedBecauseWallRunning;
+	bool  m_playerPinnedBecauseInCover;
 	bool  m_playerPinOutputCalled;
 
 	// keep track of up to four objects after we have thrown them, to prevent oscillation or levitation of recently thrown ammo.
