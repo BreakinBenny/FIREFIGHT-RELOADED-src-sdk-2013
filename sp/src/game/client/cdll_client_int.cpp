@@ -363,7 +363,7 @@ static ConVar cl_discord_devbuild("cl_discord_devbuild", "1", FCVAR_DEVELOPMENTO
 static ConVar cl_discord_devbuild("cl_discord_devbuild", "0", FCVAR_DEVELOPMENTONLY | FCVAR_CHEAT);
 #endif
 
-static ConVar cl_discord_presence("cl_discord_presence", "1", FCVAR_ARCHIVE);
+static ConVar cl_discord("cl_discord", "1", FCVAR_ARCHIVE);
 #endif
 
 static ConVar cl_steam_presence("cl_steam_presence", "1", FCVAR_ARCHIVE);
@@ -1195,21 +1195,20 @@ int CHLClient::Init( CreateInterfaceFn appSystemFactory, CreateInterfaceFn physi
 #endif
 
 #if defined( WIN32 )
-	//init discord specifically so we can enable/disable the rpc at any time.
-	DiscordEventHandlers handlers;
-	memset(&handlers, 0, sizeof(handlers));
-	handlers.ready = HandleDiscordReady;
-	handlers.disconnected = HandleDiscordDisconnected;
-	handlers.errored = HandleDiscordError;
-	handlers.joinGame = HandleDiscordJoin;
-	handlers.spectateGame = HandleDiscordSpectate;
-	handlers.joinRequest = HandleDiscordJoinRequest;
-	char appid[255];
-	sprintf(appid, "%d", engine->GetAppID());
-	Discord_Initialize(cl_discord_appid.GetString(), &handlers, 1, appid);
-
-	if (cl_discord_presence.GetBool())
+	if (cl_discord.GetBool())
 	{
+		DiscordEventHandlers handlers;
+		memset(&handlers, 0, sizeof(handlers));
+		handlers.ready = HandleDiscordReady;
+		handlers.disconnected = HandleDiscordDisconnected;
+		handlers.errored = HandleDiscordError;
+		handlers.joinGame = HandleDiscordJoin;
+		handlers.spectateGame = HandleDiscordSpectate;
+		handlers.joinRequest = HandleDiscordJoinRequest;
+		char appid[255];
+		sprintf(appid, "%d", engine->GetAppID());
+		Discord_Initialize(cl_discord_appid.GetString(), &handlers, 1, appid);
+
 		if (!g_bTextMode)
 		{
 			DiscordRichPresence discordPresence;
@@ -1256,10 +1255,6 @@ int CHLClient::Init( CreateInterfaceFn appSystemFactory, CreateInterfaceFn physi
 
 			Discord_UpdatePresence(&discordPresence);
 		}
-	}
-	else
-	{
-		Discord_ClearPresence();
 	}
 #endif
 
@@ -1488,7 +1483,10 @@ void CHLClient::Shutdown( void )
 #endif
 	
 #if defined( WIN32 )
-	Discord_Shutdown();
+	if (cl_discord.GetBool())
+	{
+		Discord_Shutdown();
+	}
 #endif
 
 	ISteamFriends* pSteamFriends = steamapicontext->SteamFriends();
@@ -1946,7 +1944,7 @@ void CHLClient::LevelInitPreEntity( char const* pMapName )
 #endif
 
 #if defined( WIN32 )
-	if (cl_discord_presence.GetBool())
+	if (cl_discord.GetBool())
 	{
 		if (!g_bTextMode)
 		{
@@ -1988,10 +1986,6 @@ void CHLClient::LevelInitPreEntity( char const* pMapName )
 			}
 			Discord_UpdatePresence(&discordPresence);
 		}
-	}
-	else
-	{
-		Discord_ClearPresence();
 	}
 #endif
 
@@ -2123,7 +2117,7 @@ void CHLClient::LevelShutdown(void)
 	gHUD.LevelShutdown();
 
 #if defined( WIN32 )
-	if (cl_discord_presence.GetBool())
+	if (cl_discord.GetBool())
 	{
 		if (!g_bTextMode)
 		{
@@ -2161,10 +2155,6 @@ void CHLClient::LevelShutdown(void)
 			}
 			Discord_UpdatePresence(&discordPresence);
 		}
-	}
-	else
-	{
-		Discord_ClearPresence();
 	}
 #endif
 
