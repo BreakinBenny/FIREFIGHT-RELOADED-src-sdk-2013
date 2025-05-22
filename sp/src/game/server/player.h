@@ -871,7 +871,7 @@ public:
 	bool IsAtMaxLevel();
 	int GetMaxLevel();
 	int GetXpToLevelUp(int level);
-	void CheckLevel();
+	void CheckLevel(bool restored = false);
 	virtual void LevelUp();
 	void SetLevel(int set = 1) { m_iLevel = set; }
 

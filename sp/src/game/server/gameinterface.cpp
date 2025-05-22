@@ -863,10 +863,14 @@ bool CServerGameDLL::GameInit( void )
 	engine->ServerExecute( );
 	CBaseEntity::sm_bAccurateTriggerBboxChecks = true;
 
-	IGameEvent *event = gameeventmanager->CreateEvent( "game_init" );
-	if ( event )
+	// due to a corruption heap crash, I decided to make sure the gameeventmanager exists and renamed the variable.
+	if (gameeventmanager)
 	{
-		gameeventmanager->FireEvent( event );
+		IGameEvent* ievent = gameeventmanager->CreateEvent("game_init");
+		if (ievent)
+		{
+			gameeventmanager->FireEvent(ievent);
+		}
 	}
 
 	return true;

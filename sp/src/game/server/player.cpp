@@ -1118,7 +1118,7 @@ void CBasePlayer::SetBonusChallenge( int iBonusChallenge )
 	m_iBonusChallenge = iBonusChallenge;
 }
 
-void CBasePlayer::CheckLevel()
+void CBasePlayer::CheckLevel(bool restored)
 {
 	if (!g_fr_classic.GetBool())
 	{
@@ -1133,33 +1133,46 @@ void CBasePlayer::CheckLevel()
 		}
 	}
 
-	if (IsAtMaxLevel() && !g_fr_classic.GetBool())
+	if (!g_fr_classic.GetBool())
 	{
-		IGameEvent* event = gameeventmanager->CreateEvent("player_maxlevel");
-		if (event)
+		if (IsAtMaxLevel())
 		{
-			event->SetInt("userid", GetUserID());
-			gameeventmanager->FireEvent(event);
-		}
-
-		if (!m_bIronKick)
-		{
-			/*if (!GlobalEntity_IsInTable("super_phys_gun"))
+			if (!restored)
 			{
-				GlobalEntity_Add(MAKE_STRING("super_phys_gun"), gpGlobals->mapname, GLOBAL_ON);
+				IGameEvent* event = gameeventmanager->CreateEvent("player_maxlevel");
+				if (event)
+				{
+					event->SetInt("userid", GetUserID());
+					gameeventmanager->FireEvent(event);
+				}
 			}
-			else
+
+			if (!m_bIronKick)
 			{
-				GlobalEntity_SetState(MAKE_STRING("super_phys_gun"), GLOBAL_ON);
-			}*/
+				/*if (!GlobalEntity_IsInTable("super_phys_gun"))
+				{
+					GlobalEntity_Add(MAKE_STRING("super_phys_gun"), gpGlobals->mapname, GLOBAL_ON);
+				}
+				else
+				{
+					GlobalEntity_SetState(MAKE_STRING("super_phys_gun"), GLOBAL_ON);
+				}*/
 
-			HL2GameRules()->SetMegaPhyscannonActive();
-			Weapon_Switch(Weapon_OwnsThisType("weapon_physcannon"));
+				HL2GameRules()->SetMegaPhyscannonActive();
+				Weapon_Switch(Weapon_OwnsThisType("weapon_physcannon"));
+			}
+
+			CFmtStr hint;
+			hint.sprintf("#GameUI_MaximumLevel");
+			ShowLevelMessage(hint.Access());
 		}
-
-		CFmtStr hint;
-		hint.sprintf("#GameUI_MaximumLevel");
-		ShowLevelMessage(hint.Access());
+		else
+		{
+			if (restored)
+			{
+				HL2GameRules()->SetMegaPhyscannonInActive();
+			}
+		}
 	}
 }
 
@@ -7075,7 +7088,6 @@ void CBasePlayer::OnRestore( void )
 {
 	BaseClass::OnRestore();
 
-
 	SetViewEntity( m_hViewEntity );
 	SetDefaultFOV(m_iDefaultFOV);		// force this to reset if zero
 
@@ -7083,6 +7095,8 @@ void CBasePlayer::OnRestore( void )
 	m_nVehicleViewSavedFrame = 0;
 
 	m_nBodyPitchPoseParam = LookupPoseParameter( "body_pitch" );
+
+	CheckLevel(true);
 }
 
 /* void CBasePlayer::SetTeamName( const char *pTeamName )
