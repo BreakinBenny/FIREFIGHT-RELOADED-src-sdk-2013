@@ -316,15 +316,21 @@ static void RecvProxy_SolidFlags( const CRecvProxyData *pData, void *pStruct, vo
 static void RecvProxy_OBBMinsPreScaled( const CRecvProxyData *pData, void *pStruct, void *pOut )
 {
 	CCollisionProperty *pProp = ((CCollisionProperty*)pStruct);
-	Vector &vecMins = *((Vector*)pData->m_Value.m_Vector);
-	pProp->SetCollisionBounds( vecMins, pProp->OBBMaxsPreScaled() );
+	if (pProp)
+	{
+		Vector& vecMins = *((Vector*)pData->m_Value.m_Vector);
+		pProp->SetCollisionBounds(vecMins, pProp->OBBMaxsPreScaled());
+	}
 }
 
 static void RecvProxy_OBBMaxsPreScaled( const CRecvProxyData *pData, void *pStruct, void *pOut )
 {
 	CCollisionProperty *pProp = ((CCollisionProperty*)pStruct);
-	Vector &vecMaxs = *((Vector*)pData->m_Value.m_Vector);
-	pProp->SetCollisionBounds( pProp->OBBMinsPreScaled(), vecMaxs );
+	if (pProp)
+	{
+		Vector& vecMaxs = *((Vector*)pData->m_Value.m_Vector);
+		pProp->SetCollisionBounds(pProp->OBBMinsPreScaled(), vecMaxs);
+	}
 }
 
 static void RecvProxy_VectorDirtySurround( const CRecvProxyData *pData, void *pStruct, void *pOut )
