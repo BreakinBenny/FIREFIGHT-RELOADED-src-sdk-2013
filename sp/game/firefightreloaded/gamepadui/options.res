@@ -1317,6 +1317,32 @@
 				"type"			"headeryheader"
                 "advanced"		"1"
 			}
+			
+			"DiscordRichPresence"
+			{
+				"text"			"#GameUI_DiscordRichPresence"
+				"type"			"wheelywheel"
+				"convar"		"cl_discord_presence"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+			
+			"SteamRichPresence"
+			{
+				"text"			"#GameUI_SteamRichPresence"
+				"type"			"wheelywheel"
+				"convar"		"cl_steam_presence"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
             
             "BullettimeBulletSpeed"
 			{

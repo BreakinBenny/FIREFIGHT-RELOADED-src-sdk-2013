@@ -415,6 +415,7 @@
             "GameUI_AdvisorBulletResistSpeed": "Shielded Advisor Fly Speed",
             "GameUI_NPCCorpseServer": "Toggle Serverside Ragdolls",
             "GameUI_DiscordRichPresence": "Toggle Discord Rich Presence",
+            "GameUI_SteamRichPresence": "Toggle Steam Rich Presence",
             "GameUI_Perks": "Toggle the Perk System",
             "GameUI_Perks_HealthRegen": "Toggle the HEALTH REGENERATION Perk",
             "GameUI_Perks_InfiniteAuxPower": "Toggle the INFINITE AUX POWER Perk",
