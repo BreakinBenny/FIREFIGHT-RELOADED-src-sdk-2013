@@ -119,7 +119,8 @@ public:
 
         //queue a click.
         m_bClicked = true;
-        m_flWaitTime = GamepadUI::GetInstance().GetTime() + 0.1f;
+        SetButtonDescription(GamepadUIString("#FR_Store_GamepadUI_Verify"));
+        m_flWaitTime = GamepadUI::GetInstance().GetTime() + 0.2f;
     }
 
     void VerifyPurchase()
