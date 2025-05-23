@@ -119,6 +119,8 @@ public:
 
         //queue a click.
         m_bClicked = true;
+        // add to the purchase count
+        m_iItemPurchases++;
         SetButtonDescription(GamepadUIString("#FR_Store_GamepadUI_Verify"));
         m_flWaitTime = GamepadUI::GetInstance().GetTime() + 0.2f;
     }
@@ -131,6 +133,8 @@ public:
         //if we can afford the item, make sure we heven't went to the limit already.
         if (money >= m_iKashValue && m_iItemLimit > 0 && m_iItemPurchases >= m_iItemLimit)
         {
+            // lower the purchase count
+            m_iItemPurchases--;
             SetButtonDescription(GamepadUIString("#FR_Store_GamepadUI_AlreadyPurchased"));
             return;
         }
@@ -140,14 +144,17 @@ public:
         {
             if (money < m_iKashValue)
             {
-                //if we're below the budget, we deny.
+                // if we're below the budget, we deny.
                 SetButtonDescription(GamepadUIString("#FR_Store_GamepadUI_Denied"));
             }
             else
             {
-                //if we're above, we deny for a different reason.
+                // if we're above, we deny for a different reason.
                 SetButtonDescription(GamepadUIString("#FR_Store_GamepadUI_AlreadyPurchased"));
             }
+
+            // lower the purchase count
+            m_iItemPurchases--;
             return;
         }
         else
@@ -155,9 +162,6 @@ public:
             //set the cash amount tracking to the current value.
             m_iCurCurrencyAmount = money;
         }
-
-        // add to the purchase count
-        m_iItemPurchases++;
 
         //check if we can afford it
         if (m_iItemPurchases == 1)

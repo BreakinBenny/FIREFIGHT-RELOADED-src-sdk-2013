@@ -889,7 +889,7 @@ public:
 		//i hate this i hate this i hate this i hate this i hate this i hate this i hate this i hate this 
 		//i hate this i hate this i hate this i hate this i hate this i hate this i hate this i hate this 
 		//i hate this i hate this i hate this i hate this i hate this i hate this i hate this i hate this 
-		static ConVarRef player_cur_money("player_cur_money");
+		ConVarRef player_cur_money("player_cur_money");
 		player_cur_money.SetValue(m_iMoney);
 
 		if (m_iMoney <= 0)
@@ -900,7 +900,7 @@ public:
 	void AddMoney(int add = 1)
 	{ 
 		m_iMoney += add;
-		static ConVarRef player_cur_money("player_cur_money");
+		ConVarRef player_cur_money("player_cur_money");
 		player_cur_money.SetValue(m_iMoney);
 
 		//probably not required but we need to handle negative amounts of money as well.
@@ -912,7 +912,7 @@ public:
 	void RemoveMoney(int remove = 1) 
 	{
 		m_iMoney -= remove;
-		static ConVarRef player_cur_money("player_cur_money");
+		ConVarRef player_cur_money("player_cur_money");
 		player_cur_money.SetValue(m_iMoney);
 
 		if (m_iMoney <= 0)
@@ -922,7 +922,7 @@ public:
 	}
 	void ResetMoney() 
 	{ 
-		static ConVarRef player_cur_money("player_cur_money");
+		ConVarRef player_cur_money("player_cur_money");
 		player_cur_money.SetValue(m_iMoney);
 		m_iMoney = 0; 
 	}
