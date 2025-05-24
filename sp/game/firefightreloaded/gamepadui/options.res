@@ -1322,7 +1322,7 @@
 			{
 				"text"			"#GameUI_DiscordRichPresence"
 				"type"			"wheelywheel"
-				"convar"		"cl_discord_presence"
+				"convar"		"cl_discord"
 
 				"options"
 				{

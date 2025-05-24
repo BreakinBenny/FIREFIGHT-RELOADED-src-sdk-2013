@@ -635,6 +635,7 @@
             "FR_Store_GamepadUI_Purchased_Multiple": "PURCHASED x%s1. CHECK STATUS IN-GAME",
             "FR_Store_GamepadUI_Denied": "INSUFFICENT FUNDS",
             "FR_Store_GamepadUI_AlreadyPurchased": "YOU CANNOT PURCHASE MORE OF THIS ITEM",
+            "FR_Store_GamepadUI_Verify": "VERIFYING. PLEASE WAIT...",
             "FRMP_Min_Players": "Min. players",
             "GameUI_Rumble": "Rumble",
             "GameUI_RumbleStrength": "Rumble Strength",
