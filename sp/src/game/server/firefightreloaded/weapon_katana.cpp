@@ -86,6 +86,7 @@ CWeaponKatana::CWeaponKatana( void )
 	m_flLastKill = 0;
 	ResetKillMultiplier();
 	m_bKillMultiplier = true;
+	m_nSkin = 0;
 }
 
 void CWeaponKatana::Equip(CBaseCombatCharacter* pOwner)
@@ -239,6 +240,61 @@ void CWeaponKatana::PrimaryAttack(void)
 
 					pPlayer->FireBullets(info);
 
+					if (ent)
+					{
+						bool usesShield = false;
+
+						CNPC_CombineAce* pAce = dynamic_cast<CNPC_CombineAce*>(ent);
+						if (pAce)
+						{
+							if (!pAce->m_bBulletResistanceBroken)
+							{
+								usesShield = true;
+							}
+						}
+						else
+						{
+							CNPC_Advisor* pAdvisor = dynamic_cast<CNPC_Advisor*>(ent);
+							if (pAdvisor)
+							{
+								if (!pAdvisor->m_bBulletResistanceBroken)
+								{
+									usesShield = true;
+								}
+							}
+						}
+
+						if (!usesShield)
+						{
+							if (ent->BloodColor() == BLOOD_COLOR_RED)
+							{
+								m_nSkin = 1;
+
+								CBaseViewModel* pVM = pPlayer->GetViewModel();
+
+								if (pVM)
+								{
+									pVM->m_nSkin = 1;
+								}
+							}
+							else if (ent->BloodColor() == BLOOD_COLOR_YELLOW ||
+								ent->BloodColor() == BLOOD_COLOR_ZOMBIE ||
+								ent->BloodColor() == BLOOD_COLOR_GREEN ||
+								ent->BloodColor() == BLOOD_COLOR_ANTLION_WORKER ||
+								ent->BloodColor() == BLOOD_COLOR_ANTLION)
+							{
+								m_nSkin = 2;
+
+								CBaseViewModel* pVM = pPlayer->GetViewModel();
+
+								if (pVM)
+								{
+									pVM->m_nSkin = 2;
+								}
+							}
+						}
+					}
+
 					ActivateKillMultiplier(ent, pHL2Player);
 
 					WeaponSound(MELEE_HIT);
@@ -353,6 +409,21 @@ bool CWeaponKatana::Holster(CBaseCombatWeapon* pSwitchingTo)
 		ResetKillMultiplier();
 	}
 
+	/*
+	CBasePlayer* pPlayer = ToBasePlayer(GetOwner());
+
+	if (pPlayer)
+	{
+		m_nSkin = 0;
+
+		CBaseViewModel* pVM = pPlayer->GetViewModel();
+
+		if (pVM)
+		{
+			pVM->m_nSkin = 0;
+		}
+	}*/
+
 	return BaseClass::Holster(pSwitchingTo);
 }
 
@@ -392,6 +463,24 @@ void CWeaponKatana::ItemPostFrame(void)
 		{
 			ResetKillMultiplier();
 			m_bKillMultiplier = true;
+		}
+	}
+
+	CBasePlayer* pPlayer = ToBasePlayer(GetOwner());
+
+	if (pPlayer)
+	{
+		//wash it off if we're in water.
+		if (pPlayer->GetWaterLevel() >= 3)
+		{
+			m_nSkin = 0;
+
+			CBaseViewModel* pVM = pPlayer->GetViewModel();
+
+			if (pVM)
+			{
+				pVM->m_nSkin = 0;
+			}
 		}
 	}
 

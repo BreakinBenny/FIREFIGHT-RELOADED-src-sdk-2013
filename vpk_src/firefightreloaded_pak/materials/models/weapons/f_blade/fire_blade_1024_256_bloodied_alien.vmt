@@ -1,8 +1,8 @@
 "VertexLitGeneric"
 {
 	// Original shader: VertexLitTexture
-	"$baseTexture" "models\weapons\F_BLADE\fire_blade_1024_256"
-	"$bumpmap" "models\weapons\F_BLADE/fire_blade_1024_256_normal.vtf"
+	"$baseTexture" "models\weapons\F_BLADE\fire_blade_1024_256_bloodied_alien"
+	"$bumpmap" "models\weapons\F_BLADE/fire_blade_1024_256_normal"
 	"$envmap" "env_cubemap"	
 	"$normalmapalphaenvmapmask" 1
 	"$envmapcontrast" 1
