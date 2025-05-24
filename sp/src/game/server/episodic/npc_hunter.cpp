@@ -1049,7 +1049,9 @@ public:
 				float entMass = PhysGetEntityMass( pEntity ) ;
 				if ( entMass < m_minMass )
 				{
-					if ( entMass < m_minMass * 0.666f || pEntity->CollisionProp()->BoundingRadius() < (assert_cast<const CAI_BaseNPC *>(EntityFromEntityHandle( m_pPassEnt )))->GetHullHeight() )
+					const CAI_BaseNPC* pPassNPC = (assert_cast<const CAI_BaseNPC*>(EntityFromEntityHandle(m_pPassEnt)));
+
+					if ( entMass < m_minMass * 0.666f || pPassNPC && (pEntity->CollisionProp()->BoundingRadius() < pPassNPC->GetHullHeight()) )
 					{
 						return false;
 					}

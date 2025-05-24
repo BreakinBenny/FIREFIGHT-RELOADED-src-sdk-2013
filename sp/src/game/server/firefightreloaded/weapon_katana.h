@@ -53,10 +53,10 @@ public:
 	bool		Holster(CBaseCombatWeapon* pSwitchingTo);
 	void		ItemPostFrame(void);
 	void		ImpactEffect(trace_t& traceHit);
-	float		GetDamageForActivity(Activity hitActivity) { return 0; };
 
 	int			GetKillMultiplier(void) { return m_iKillMultiplierCount; }
 	bool		IsKillMultiplierEnabled(void) { return (g_pGameRules->isInBullettime && m_bKillMultiplier); }
+	virtual	float	GetDamageForActivity(Activity hitActivity);
 
 	void		ResetKillMultiplier(void);
 

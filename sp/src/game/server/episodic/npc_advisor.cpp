@@ -1301,7 +1301,7 @@ void CNPC_Advisor::RunTask( const Task_t *pTask )
 			{
 				// bail out if the pin entity went away.
 				CBaseEntity* pPinEnt = m_hPlayerPinPos;
-				if (!pPinEnt)
+				if (!pPinEnt || (pPinEnt && !pPinEnt->IsAlive()))
 				{
 					GetEnemy()->SetGravity(1.0f);
 					GetEnemy()->SetMoveType(MOVETYPE_WALK);
@@ -1367,11 +1367,14 @@ void CNPC_Advisor::RunTask( const Task_t *pTask )
 						//check to make sure the player is STILL behind cover before we zap him.
 						if (IsEntMoving(pPlayer))
 						{
+							m_bStopMoving = false;
 							TaskFail("Player moved out of cover");
 							break;
 						}
 					}
 				}
+				
+				m_bStopMoving = true;
 
 				//FUgly, yet I can't think right now a quicker solution to only make one beam on this loop case
 				if (beamonce == 1)
@@ -1501,6 +1504,26 @@ void CNPC_Advisor::Event_Killed(const CTakeDamageInfo &info)
 		m_bStopMoving = false;
 		beamonce = 1;
 	}
+
+	CBasePlayer* pPlayer = UTIL_GetNearestPlayer(GetAbsOrigin());
+	
+	if (pPlayer)
+	{
+		//HACK to give the player god mode for the credit sequence..
+		pPlayer->AddFlag(FL_GODMODE);
+	}
+
+	CAI_BaseNPC** ppAIs = g_AI_Manager.AccessAIs();
+
+	// kill all remaining NPCs in the level.
+	for (int i = 0; i < g_AI_Manager.NumAIs(); i++)
+	{
+		if (ppAIs[i] == NULL || ppAIs[i] == this)
+			continue;
+
+		UTIL_Remove(ppAIs[i]);
+	}
+
 	BaseClass::Event_Killed(info);
 }
 
@@ -1994,32 +2017,29 @@ int CNPC_Advisor::SelectSchedule()
 					CBasePlayer* pPlayer = ToBasePlayer(GetEnemy());
 					if (m_hPlayerPinPos.IsValid())//false
 					{
-						m_bStopMoving = true;
 						return SCHED_ADVISOR_TOSS_PLAYER;
 					}
-					else if (pPlayer)
+					else if (pPlayer && !IsEntMoving(pPlayer))
 					{
-						if (!IsEntMoving(pPlayer))
+						//If he's not moving, pin him down.
+						if (!m_hPlayerPinPos.IsValid())
 						{
-							//If he's not moving, pin him down.
-							if (!m_hPlayerPinPos.IsValid())
-							{
-								m_hPlayerPinPos.Set(pPlayer);
-								m_playerPinnedBecauseInCover = true;
-							}
-
-							m_bStopMoving = true;
-							return SCHED_ADVISOR_TOSS_PLAYER;
+							m_hPlayerPinPos.Set(pPlayer);
+							m_playerPinnedBecauseInCover = true;
 						}
+
+						return SCHED_ADVISOR_TOSS_PLAYER;
 					}
 					else if (advisor_enable_droning.GetBool() &&
 						((m_fllastDronifiedTime < gpGlobals->curtime) &&
 							(advisor_enable_premature_droning.GetBool() || m_bBulletResistanceBroken)))
 					{
+						m_bStopMoving = false;
 						return SCHED_ADVISOR_DRONIFY;
 					}
 					else
 					{
+						m_bStopMoving = false;
 						return SCHED_ADVISOR_COMBAT;
 					}
 				}

@@ -754,9 +754,12 @@ void CAI_BaseNPC::Event_Killed( const CTakeDamageInfo &info )
 				(pPlayer->GetLevel() == sk_gotoboss_onlevel.GetInt()) :
 				(pPlayer->FragCount() >= sk_gotoboss_classic_onkillcount.GetInt());
 
+			bool doesWeaponCreatePortal = (!(FStrEq(pWeapon->GetClassname(), "weapon_physcannon") && PlayerHasMegaPhysCannon()) && 
+										   !pWeapon->IsMeleeWeapon());
+
 			if (PlayerFulfillsRequirements && 
 				m_IsAdvisorDrone && 
-				!(FStrEq(pWeapon->GetClassname(), "weapon_physcannon") && PlayerHasMegaPhysCannon()))
+				doesWeaponCreatePortal)
 			{
 				//spawn a portal to send him to our daddy.
 				CBaseGrenade* hopwire = HopWire_Create_Simple(origin, angle, this, 1.0f, true);

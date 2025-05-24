@@ -39,7 +39,7 @@ ConVar sv_katana_killmultiplier_suitpower("sv_katana_killmultiplier_suitpower", 
 
 static ConVar sv_katana_charge_damagebonus("sv_katana_charge_damagebonus", "2", FCVAR_CHEAT);
 
-static ConVar sk_katana_enemy_damageresistance("sk_katana_enemy_damageresistance", "0.2");
+static ConVar sk_katana_enemy_damageresistance("sk_katana_enemy_damageresistance", "0.5");
 
 //-----------------------------------------------------------------------------
 // CWeaponKatana
@@ -362,7 +362,20 @@ int CWeaponKatana::CalculateDamage(CBaseEntity* pVictim, CHL2_Player* pAttacker)
 
 	if (pAttacker->IsCharging())
 	{
-		damage = damage * sv_katana_charge_damagebonus.GetInt();
+		damage = damage * sv_katana_charge_damagebonus.GetFloat();
+	}
+
+	return damage;
+}
+
+float CWeaponKatana::GetDamageForActivity(Activity hitActivity)
+{ 
+	float damage = sk_plr_dmg_katana.GetFloat();
+	CHL2_Player* pPlayer = ToHL2Player(GetOwner());
+
+	if (pPlayer && pPlayer->IsCharging())
+	{
+		damage = damage * sv_katana_charge_damagebonus.GetFloat();
 	}
 
 	return damage;

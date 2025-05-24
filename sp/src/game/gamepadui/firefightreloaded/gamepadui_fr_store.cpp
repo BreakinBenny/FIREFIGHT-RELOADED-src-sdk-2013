@@ -100,6 +100,7 @@ public:
     void Initalize()
     {
         m_iItemPurchases = 0;
+        m_iValidPurchaseClicks = 0;
         m_flWaitTime = 0.0f;
         m_bClicked = false;
     }
@@ -167,28 +168,10 @@ public:
         m_iItemPurchases++;
 
         //check if we can afford it
-        if (m_iItemPurchases == 1)
-        {
-            //tell us that we have exceeded the limit already.
-            if (m_iItemLimit == 1)
-            {
-                SetButtonDescription(GamepadUIString("#FR_Store_GamepadUI_Purchased_LimitExceeded"));
-            }
-            //normal purchase message
-            else
-            {
-                SetButtonDescription(GamepadUIString("#FR_Store_GamepadUI_Purchased"));
-            }
-        }
-        //handle purchasing of multiple items.
-        else if (m_iItemPurchases < m_iItemLimit || m_iItemLimit <= 0)
+        if (m_iItemPurchases < m_iItemLimit || m_iItemLimit <= 0)
         {
             char szPurchases[1024];
-#ifdef _WIN32
-            itoa(m_iItemPurchases, szPurchases, 10);
-#else
-            Q_snprintf(szPurchases, sizeof(szPurchases), "%d", m_iItemPurchases);
-#endif
+            Q_snprintf(szPurchases, sizeof(szPurchases), "%d", m_iValidPurchaseClicks);
 
             wchar_t wzPurchases[1024];
             g_pVGuiLocalize->ConvertANSIToUnicode(szPurchases, wzPurchases, sizeof(wzPurchases));
@@ -399,11 +382,7 @@ void GamepadUIStore::CreateItemList()
         wchar_t num[32];
         wchar_t* chapter = g_pVGuiLocalize->Find("#Valve_Hud_MONEY");
         char szPrice[1024];
-#ifdef _WIN32
-        itoa(itemPrice, szPrice, 10);
-#else
-        Q_snprintf( szPrice, sizeof(szPrice), "%d", itemPrice );
-#endif
+        Q_snprintf(szPrice, sizeof(szPrice), "%d", itemPrice);
 
         g_pVGuiLocalize->ConvertANSIToUnicode(szPrice, num, sizeof(num));
         _snwprintf(text, ARRAYSIZE(text), L"%ls %ls", num, chapter ? chapter : L"KASH");

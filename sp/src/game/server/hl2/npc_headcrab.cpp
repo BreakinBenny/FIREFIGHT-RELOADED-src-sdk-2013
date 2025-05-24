@@ -1753,7 +1753,7 @@ int CBaseHeadcrab::OnTakeDamage_Alive( const CTakeDamageInfo &inputInfo )
 		info.SetDamage( m_iHealth );
 	}
 
-	if( info.GetDamageType() & DMG_BLAST && !(info.GetDamageType() & DMG_CLUB) )
+	if( info.GetDamageType() & DMG_BLAST && !((info.GetDamageType() & DMG_CLUB) && (info.GetDamageType() & DMG_BUCKSHOT)))
 	{
 		if( random->RandomInt( 0 , 1 ) == 0 )
 		{
