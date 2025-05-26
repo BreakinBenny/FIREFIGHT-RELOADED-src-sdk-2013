@@ -19,6 +19,7 @@
 #include "tier0/memdbgon.h"
 
 static ConVar fr_charge_frametime_scaling("fr_charge_frametime_scaling", "1", FCVAR_REPLICATED | FCVAR_CHEAT, "When enabled, scale yaw limiting based on client performance (frametime).");
+static ConVar fr_charge_turn_rate_multiplier("fr_charge_turn_rate_multiplier", "3", FCVAR_ARCHIVE);
 static const float YAW_CAP_SCALE_MIN = 0.2f;
 static const float YAW_CAP_SCALE_MAX = 2.f;
 
@@ -69,6 +70,8 @@ IPredictionSystem *IPredictionSystem::g_pPredictionSystems = NULL;
 float CalculateChargeCap(void)
 {
 	float flCap = 0.45f;
+
+	flCap *= fr_charge_turn_rate_multiplier.GetFloat();
 
 	// Scale yaw cap based on frametime to prevent differences in turn effectiveness due to variable framerate (between clients mainly)
 	if (fr_charge_frametime_scaling.GetBool())

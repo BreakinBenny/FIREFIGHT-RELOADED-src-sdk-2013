@@ -458,6 +458,7 @@
             "GameUI_KatanaCharge": "Toggle Katana Charging",
             "GameUI_KatanaChargeAirControl": "Allow Air Control When Charging",
             "GameUI_KatanaChargeAllowJump": "Allow Jumping When Charging",
+            "GameUI_KatanaChargeTurnRateMultiplier": "Katana Turn Rate Multiplier",
             "GameUI_AR2ScopedBullets": "Amount of AR2 bullets that can headshot when scoped (per mag)",
             "GameUI_SLAMActivationDelay": "Thrown SLAM Detonation Delay",
             "GameUI_GrappleBash": "Allow Grapple Mid-Air Damage",

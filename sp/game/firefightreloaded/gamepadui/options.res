@@ -192,6 +192,26 @@
 					"1"		"#gameui_enabled"
 				}
 			}
+			
+			"KatanaChargeTurnRateMultiplier"
+			{
+				"text"			"#GameUI_KatanaChargeTurnRateMultiplier"
+				"type"			"slideyslide"
+				"convar"		"fr_charge_turn_rate_multiplier"
+				"advanced"		"1"
+				
+				"instantapply"	"1"
+
+				"min"			"1"
+				"max"			"100"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
+                
+                "instantapply"	"1"
+
+				"textprecision" "2"
+			}
             
             "GrappleBash"
 			{

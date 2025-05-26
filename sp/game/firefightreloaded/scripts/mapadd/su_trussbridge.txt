@@ -22,8 +22,8 @@
             "StartDisabled"    "0"
             "NPCSquadName"    "Floor_1_Squad_1"
             "SpawnFrequency"    "5"
-            "MaxLiveChildren"    "18"
-            "MaxLiveRareNPCs"    "5"
+            "MaxLiveChildren"    "9"
+            "MaxLiveRareNPCs"    "3"
         }
     }
     "2"
@@ -44,8 +44,8 @@
             "StartDisabled"    "0"
             "NPCSquadName"    "Floor_1_Squad_2"
             "SpawnFrequency"    "5"
-            "MaxLiveChildren"    "18"
-            "MaxLiveRareNPCs"    "5"
+            "MaxLiveChildren"    "9"
+            "MaxLiveRareNPCs"    "3"
         }
     }
     "3"
@@ -66,7 +66,7 @@
             "StartDisabled"    "0"
             "NPCSquadName"    "Floor_2_Squad_1"
             "SpawnFrequency"    "5"
-            "MaxLiveChildren"    "18"
+            "MaxLiveChildren"    "15"
             "MaxLiveRareNPCs"    "5"
         }
     }
@@ -88,7 +88,7 @@
             "StartDisabled"    "0"
             "NPCSquadName"    "Floor_2_Squad_2"
             "SpawnFrequency"    "5"
-            "MaxLiveChildren"    "18"
+            "MaxLiveChildren"    "15"
             "MaxLiveRareNPCs"    "5"
         }
     }
@@ -110,7 +110,7 @@
             "StartDisabled"    "0"
             "NPCSquadName"    "Floor_2_Squad_3"
             "SpawnFrequency"    "5"
-            "MaxLiveChildren"    "18"
+            "MaxLiveChildren"    "15"
             "MaxLiveRareNPCs"    "5"
         }
     }
@@ -132,7 +132,7 @@
             "StartDisabled"    "0"
             "NPCSquadName"    "Floor_2_Squad_4"
             "SpawnFrequency"    "5"
-            "MaxLiveChildren"    "18"
+            "MaxLiveChildren"    "15"
             "MaxLiveRareNPCs"    "5"
         }
     }
