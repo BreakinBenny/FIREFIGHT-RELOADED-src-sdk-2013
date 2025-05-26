@@ -46,6 +46,23 @@ CPredictedViewModel::~CPredictedViewModel()
 ConVar cl_wpn_sway_interp( "cl_wpn_sway_interp", "0.1", FCVAR_CLIENTDLL );
 ConVar cl_wpn_sway_scale( "cl_wpn_sway_scale", "1.0", FCVAR_CLIENTDLL|FCVAR_CHEAT );
 ConVar cl_wpn_sway_scale_ironsight("cl_wpn_sway_scale_ironsight", "0.05", FCVAR_CLIENTDLL | FCVAR_CHEAT);
+
+//used to fix compile on Linux.
+bool IsFlipped(CBaseCombatWeapon* pWeapon)
+{
+	ConVar* cl_righthand = cvar->FindVar("cl_righthand");
+
+	if (pWeapon)
+	{
+		if (pWeapon->IsDualWielding() || (viewmodel_adjust_user_position_mode.GetInt() == VM_CENTERED && !pWeapon->GetWpnData().m_bCenterAllowFlipped))
+			return false;
+
+		const FileWeaponInfo_t* pInfo = &pWeapon->GetWpnData();
+		return pInfo->m_bAllowFlipping && pInfo->m_bBuiltRightHanded != cl_righthand->GetBool();
+	}
+
+	return !cl_righthand->GetBool(); // hack for scout ball projeciles to have properly flipped viewmodels
+}
 #endif
 
 void CPredictedViewModel::CalcViewModelLag( Vector& origin, QAngle& angles, QAngle& original_angles )
@@ -80,7 +97,7 @@ void CPredictedViewModel::CalcViewModelLag( Vector& origin, QAngle& angles, QAng
 		vForwardDiff *= cl_wpn_sway_scale.GetFloat();
 	}
 
-	if (ShouldFlipViewModel())
+	if (IsFlipped(pWeapon))
 	{
 		origin += forward * vForwardDiff.x + right * vForwardDiff.y + up * vForwardDiff.z;
 	}
