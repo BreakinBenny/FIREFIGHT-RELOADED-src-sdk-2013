@@ -5,6 +5,9 @@
 //=============================================================================//
 #include "cbase.h"
 #include "predicted_viewmodel.h"
+#ifdef CLIENT_DLL
+#include "c_baseviewmodel.h"
+#endif
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
