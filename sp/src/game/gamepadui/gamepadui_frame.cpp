@@ -24,20 +24,6 @@ void GamepadUIFrame::ApplySchemeSettings( vgui::IScheme* pScheme )
 {
     BaseClass::ApplySchemeSettings( pScheme );
 
-    // Josh: Big load of common default state for us
-    MakeReadyForUse();
-    SetMoveable( false );
-    SetCloseButtonVisible( false );
-    SetMinimizeButtonVisible( false );
-    SetMaximizeButtonVisible( false );
-    SetMenuButtonResponsive( false );
-    SetMinimizeToSysTrayButtonVisible( false );
-    SetSizeable( false );
-    SetDeleteSelfOnClose( true );
-    SetPaintBackgroundEnabled( false );
-    SetPaintBorderEnabled( false );
-    SetTitleBarVisible( false );
-
 	int nParentW, nParentH;
 	GetParent()->GetSize( nParentW, nParentH );
 	SetBounds( 0, 0, nParentW, nParentH );
@@ -46,6 +32,20 @@ void GamepadUIFrame::ApplySchemeSettings( vgui::IScheme* pScheme )
     m_hTitleFont = pScheme->GetFont( "Title.Font", true );
     m_hGenericFont = pScheme->GetFont( "Generic.Text.Font", true );
     m_hPromptFont = pScheme->GetFont("Button.Prompt.Font", true);
+
+    // Josh: Big load of common default state for us
+    MakeReadyForUse();
+    SetMoveable(false);
+    SetCloseButtonVisible(false);
+    SetMinimizeButtonVisible(false);
+    SetMaximizeButtonVisible(false);
+    SetMenuButtonResponsive(false);
+    SetMinimizeToSysTrayButtonVisible(false);
+    SetSizeable(false);
+    SetDeleteSelfOnClose(true);
+    SetPaintBackgroundEnabled(false);
+    SetPaintBorderEnabled(false);
+    SetTitleBarVisible(false);
 }
 
 void GamepadUIFrame::OnThink()

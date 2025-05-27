@@ -430,7 +430,8 @@ void GamepadUIStore::OnThink()
     UpdateFrameTitle();
     LayoutStoreButtons();
 
-    if (!GamepadUI::GetInstance().IsInLevel())
+    if (!GamepadUI::GetInstance().IsInLevel() || 
+        GamepadUI::GetInstance().GetEngineClient()->IsPlayingDemo())
     {
         OutOfBusiness();
     }
