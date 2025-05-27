@@ -200,6 +200,8 @@ $Project "Client (FR)"
 			$File 	"firefightreloaded\fr_rendertargets.h"
 			$File	"firefightreloaded\fr_storemenuex.cpp"
 			$File	"firefightreloaded\fr_storemenuex.h"
+			$File	"firefightreloaded\demo_support\fr_demo_support.cpp"
+			$File	"firefightreloaded\demo_support\fr_demo_support.h"
             $File	"$SRCDIR\game\shared\firefightreloaded\fr_shareddefs.cpp"
 			$File	"$SRCDIR\game\shared\firefightreloaded\fr_shareddefs.h"
             

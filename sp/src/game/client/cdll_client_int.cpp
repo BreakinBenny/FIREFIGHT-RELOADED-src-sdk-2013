@@ -2895,10 +2895,16 @@ bool CHLClient::CanRecordDemo( char *errorMsg, int length ) const
 
 void CHLClient::OnDemoRecordStart( char const* pDemoBaseName )
 {
+
 }
 
 void CHLClient::OnDemoRecordStop()
 {
+	IGameEvent* event = gameeventmanager->CreateEvent("ds_stop");
+	if (event)
+	{
+		gameeventmanager->FireEventClientSide(event);
+	}
 }
 
 void CHLClient::OnDemoPlaybackStart( char const* pDemoBaseName )
