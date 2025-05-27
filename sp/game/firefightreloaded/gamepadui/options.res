@@ -1363,6 +1363,19 @@
 					"1"		"#gameui_enabled"
 				}
 			}
+			
+			"DemoSupport"
+			{
+				"text"			"#GameUI_DemoSupport"
+				"type"			"wheelywheel"
+				"convar"		"ds_enable"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
             
             "BullettimeBulletSpeed"
 			{

@@ -98,4 +98,7 @@
 		"max_val"		"short"		// total # of steps in achievement
         "beta"	        "bool"
 	}
+	
+	"ds_stop"
+	{}
 }
