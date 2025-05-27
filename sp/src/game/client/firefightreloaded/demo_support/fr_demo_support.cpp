@@ -9,6 +9,8 @@
 #include "fr_demo_support.h"
 #include "vguicenterprint.h"
 #include "time.h"
+#include <vgui/ISurface.h>
+#include <vgui_controls/Controls.h>
 
 // Global singleton
 static CFRDemoSupport g_DemoSupport;
@@ -16,7 +18,8 @@ static CFRDemoSupport g_DemoSupport;
 ConVar ds_enable( "ds_enable", "0", FCVAR_CLIENTDLL | FCVAR_DONTRECORD | FCVAR_ARCHIVE, "Demo support - enable automatic .dem file recording and features. 0 - Manual, 1 - Auto-record all matches", true, 0, true, 3 ); 
 ConVar ds_dir( "ds_dir", "demos", FCVAR_CLIENTDLL | FCVAR_DONTRECORD | FCVAR_ARCHIVE, "Demo support - will put all files into this folder under the gamedir. 24 characters max." );
 ConVar ds_prefix( "ds_prefix", "fr_", FCVAR_CLIENTDLL | FCVAR_DONTRECORD | FCVAR_ARCHIVE, "Demo support - will prefix files with this string. 24 characters max." );
-ConVar ds_sound("ds_sound", "1", FCVAR_CLIENTDLL | FCVAR_DONTRECORD | FCVAR_ARCHIVE, "Demo support - play start/stop sound for demo recording.", true, 0, true, 1);
+ConVar ds_sound("ds_sound", "1", FCVAR_CLIENTDLL | FCVAR_DONTRECORD | FCVAR_ARCHIVE, "Demo support - play start sound for demo recording.", true, 0, true, 1);
+ConVar ds_sound_file("ds_sound_file", "buttons/button1.wav", FCVAR_CLIENTDLL | FCVAR_DONTRECORD | FCVAR_ARCHIVE, "Demo support - name of the sound to play when demo recording starts.");
 
 CON_COMMAND_F( ds_record, "Demo support - start recording a demo.", FCVAR_CLIENTDLL | FCVAR_DONTRECORD )
 {
@@ -246,11 +249,7 @@ bool CFRDemoSupport::StartRecording( void )
 
 	if (ds_sound.GetBool())
 	{
-		CBasePlayer* pLocalPlayer = CBasePlayer::GetLocalPlayer();
-		if (pLocalPlayer)
-		{
-			pLocalPlayer->EmitSound("DemoSupport.StartRecording");
-		}
+		vgui::surface()->PlaySound(ds_sound_file.GetString());
 	}
 
 	char szMessage[MAX_PATH] = { 0 };
@@ -277,15 +276,6 @@ void CFRDemoSupport::StopRecording( bool bFromEngine /* = false */ )
 	if ( !bFromEngine )
 	{
 		StopDemoRecording();
-	}
-
-	if (ds_sound.GetBool())
-	{
-		CBasePlayer* pLocalPlayer = CBasePlayer::GetLocalPlayer();
-		if (pLocalPlayer)
-		{
-			pLocalPlayer->EmitSound("DemoSupport.EndRecording");
-		}
 	}
 
 	char szMessage[MAX_PATH] = { 0 };
