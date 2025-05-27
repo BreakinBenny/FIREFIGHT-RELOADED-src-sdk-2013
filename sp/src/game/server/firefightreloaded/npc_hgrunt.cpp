@@ -1220,6 +1220,24 @@ void CHGrunt::StartTask ( const Task_t *pTask )
 		SpeakSentence();
 		TaskComplete();
 		break;
+
+	case TASK_GRUNT_SELECT_IDEAL_ATTACK_SEQUENCE:
+		if (m_fStanding)
+		{
+			SetIdealActivity(ACT_IDLE_ANGRY);
+		}
+		else
+		{
+			SetIdealActivity(ACT_CROUCH);
+		}
+
+		TaskComplete();
+		break;
+
+	case TASK_GRUNT_SUPPRESS_HANDSIGNAL:
+		SetIdealActivity(ACT_SIGNAL2);
+		TaskComplete();
+		break;
 	
 	case TASK_WALK_PATH:
 	case TASK_RUN_PATH:
@@ -1263,6 +1281,25 @@ void CHGrunt::RunTask( const Task_t *pTask )
 			GetMotor()->SetIdealYawToTargetAndUpdate( GetAbsOrigin() + m_vecTossVelocity * 64, AI_KEEP_YAW_SPEED );
 
 			if ( FacingIdeal() )
+			{
+				TaskComplete();
+			}
+			break;
+		}
+	case TASK_GRUNT_SUPPRESS_HANDSIGNAL:
+		{
+			CBaseEntity* pTarget;
+
+			if (GetTarget() && pTask->iTask == TASK_PLAY_SEQUENCE_FACE_TARGET)
+				pTarget = GetTarget();
+			else
+				pTarget = GetEnemy();
+			if (pTarget)
+			{
+				GetMotor()->SetIdealYawAndUpdate(pTarget->GetAbsOrigin() - GetLocalOrigin(), AI_KEEP_YAW_SPEED);
+			}
+
+			if (IsActivityFinished())
 			{
 				TaskComplete();
 			}
@@ -1563,7 +1600,7 @@ int CHGrunt::SelectSchedule( void )
 				//!!!KELLY - this individual just realized he's out of bullet ammo. 
 				// He's going to try to find cover to run to and reload, but rarely, if 
 				// none is available, he'll drop and reload in the open here. 
-				return SCHED_GRUNT_HIDE_RELOAD;
+				return SCHED_GRUNT_COVER_AND_RELOAD;
 			}
 			
 // damaged just a little
@@ -1791,7 +1828,7 @@ int CHGrunt::TranslateSchedule( int scheduleType )
 				}
 			}
 		}
-	case SCHED_GRUNT_TAKE_COVER_FAILED:
+	case SCHED_GRUNT_TAKECOVER_FAILED:
 		{
 			if ( HasCondition( COND_CAN_RANGE_ATTACK1 ) && OccupyStrategySlotRange( SQUAD_SLOT_ATTACK1, SQUAD_SLOT_ATTACK2 ) )
 			{
@@ -1809,11 +1846,8 @@ int CHGrunt::TranslateSchedule( int scheduleType )
 			{
 				m_fStanding = random->RandomInt( 0, 1 ) != 0;
 			}
-		 
-			if ( m_fStanding )
-				return SCHED_GRUNT_RANGE_ATTACK1B;
-			else
-				return SCHED_GRUNT_RANGE_ATTACK1A;
+
+			return SCHED_GRUNT_RANGE_ATTACK1;
 		}
 
 	case SCHED_RANGE_ATTACK2:
@@ -1826,33 +1860,24 @@ int CHGrunt::TranslateSchedule( int scheduleType )
 			{
 				if ( !m_pSquad->IsLeader( this ) )
 				{
-					return SCHED_GRUNT_FAIL;
+					return SCHED_GRUNT_ELOF_FAIL;
 				}
 			}
 
-			return SCHED_GRUNT_VICTORY_DANCE;
+			return SCHED_VICTORY_DANCE;
 		}
 	case SCHED_GRUNT_SUPPRESS:
 		{
 			if ( GetEnemy()->IsPlayer() && m_fFirstEncounter )
 			{
 				m_fFirstEncounter = FALSE;// after first encounter, leader won't issue handsigns anymore when he has a new enemy
-				return SCHED_GRUNT_SIGNAL_SUPPRESS;
 			}
-			else
-			{
-				return SCHED_GRUNT_SUPPRESS;
-			}
+
+			return SCHED_GRUNT_SUPPRESS;
 		}
 	case SCHED_FAIL:
 		{
-			if ( GetEnemy() != NULL )
-			{
-				// grunt has an enemy, so pick a different default fail schedule most likely to help recover.
-				return SCHED_GRUNT_COMBAT_FAIL;
-			}
-
-			return SCHED_GRUNT_FAIL;
+			return SCHED_GRUNT_ELOF_FAIL;
 		}
 	case SCHED_GRUNT_REPEL:
 		{
@@ -2032,6 +2057,8 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 	DECLARE_TASK( TASK_GRUNT_FACE_TOSS_DIR )
 	DECLARE_TASK( TASK_GRUNT_SPEAK_SENTENCE )
 	DECLARE_TASK( TASK_GRUNT_CHECK_FIRE )
+	DECLARE_TASK(TASK_GRUNT_SELECT_IDEAL_ATTACK_SEQUENCE)
+	DECLARE_TASK(TASK_GRUNT_SUPPRESS_HANDSIGNAL)
 		
 	DECLARE_SQUADSLOT( SQUAD_SLOT_GRENADE1 )
 	DECLARE_SQUADSLOT( SQUAD_SLOT_GRENADE2 )
@@ -2039,11 +2066,11 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 	DECLARE_SQUADSLOT( SQUAD_SLOT_CHARGE2 )
 
 	//=========================================================
-	// > SCHED_GRUNT_FAIL
+	// > SCHED_GRUNT_ELOF_FAIL
 	//=========================================================
 	DEFINE_SCHEDULE
 	(
-		SCHED_GRUNT_FAIL,
+		SCHED_GRUNT_ELOF_FAIL,
 	
 		"	Tasks"
 		"		TASK_STOP_MOVING		0"
@@ -2057,47 +2084,6 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 	)
 	
 	//=========================================================
-	// > SCHED_GRUNT_COMBAT_FAIL
-	//=========================================================
-	DEFINE_SCHEDULE
-	(
-		SCHED_GRUNT_COMBAT_FAIL,
-	
-		"	Tasks"
-		"		TASK_STOP_MOVING		0"
-		"		TASK_SET_ACTIVITY		ACTIVITY:ACT_IDLE"
-		"		TASK_WAIT_FACE_ENEMY	2"
-		"		TASK_WAIT_PVS			0"
-		"	"
-		"	Interrupts"
-		"		COND_CAN_RANGE_ATTACK1"
-		)
-	
-	//=========================================================
-	// > SCHED_GRUNT_VICTORY_DANCE
-	// Victory dance!
-	//=========================================================
-	DEFINE_SCHEDULE
-	(
-		SCHED_GRUNT_VICTORY_DANCE,
-	
-		"	Tasks"
-		"		TASK_STOP_MOVING				0"
-		"		TASK_FACE_ENEMY					0"
-		"		TASK_WAIT						1.5"
-		"		TASK_GET_PATH_TO_ENEMY_CORPSE	0"
-		"		TASK_WALK_PATH					0"
-		"		TASK_WAIT_FOR_MOVEMENT			0"
-		"		TASK_FACE_ENEMY					0"
-		"		TASK_PLAY_SEQUENCE				ACTIVITY:ACT_VICTORY_DANCE"
-		"	"
-		"	Interrupts"
-		"		COND_NEW_ENEMY"
-		"		COND_LIGHT_DAMAGE"
-		"		COND_HEAVY_DAMAGE"
-	)
-	
-	//=========================================================
 	// > SCHED_GRUNT_ESTABLISH_LINE_OF_FIRE
 	// Establish line of fire - move to a position that allows
 	// the grunt to attack.
@@ -2107,39 +2093,11 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 		SCHED_GRUNT_ESTABLISH_LINE_OF_FIRE,
 	
 		"	Tasks"
-		"		TASK_SET_FAIL_SCHEDULE		SCHEDULE:SCHED_GRUNT_ESTABLISH_LINE_OF_FIRE_RETRY"
+		"		TASK_SET_FAIL_SCHEDULE		SCHEDULE:SCHED_GRUNT_ELOF_FAIL"
 		"		TASK_GET_PATH_TO_ENEMY		0"
 		"		TASK_GRUNT_SPEAK_SENTENCE	0"
 		"		TASK_RUN_PATH				0"
 		"		TASK_WAIT_FOR_MOVEMENT		0"
-		"	"
-		"	Interrupts"
-		"		COND_NEW_ENEMY"
-		"		COND_ENEMY_DEAD"
-		"		COND_LIGHT_DAMAGE"
-		"		COND_HEAVY_DAMAGE"
-		"		COND_CAN_RANGE_ATTACK1"
-		"		COND_CAN_MELEE_ATTACK1"
-		"		COND_CAN_RANGE_ATTACK2"
-		"		COND_CAN_MELEE_ATTACK2"
-		"		COND_HEAR_DANGER"
-	)
-
-	//=========================================================
-	// This is a schedule I added that borrows some HL2 technology
-	// to be smarter in cases where HL1 was pretty dumb. I've wedged
-	// this between ESTABLISH_LINE_OF_FIRE and TAKE_COVER_FROM_ENEMY (sjb)
-	//=========================================================
-	DEFINE_SCHEDULE
-	(
-		SCHED_GRUNT_ESTABLISH_LINE_OF_FIRE_RETRY,
-	
-		"	Tasks"
-		"		TASK_SET_FAIL_SCHEDULE			SCHEDULE:SCHED_GRUNT_TAKE_COVER_FROM_ENEMY"
-		"		TASK_GET_PATH_TO_ENEMY_LKP_LOS	0"
-		"		TASK_GRUNT_SPEAK_SENTENCE		0"
-		"		TASK_RUN_PATH					0"
-		"		TASK_WAIT_FOR_MOVEMENT			0"
 		"	"
 		"	Interrupts"
 		"		COND_NEW_ENEMY"
@@ -2171,67 +2129,6 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 		"		COND_HEAR_DANGER"
 	)
 	
-	
-	//=========================================================
-	// > SCHED_GRUNT_COMBAT_FACE
-	//=========================================================
-	DEFINE_SCHEDULE
-	(
-		SCHED_GRUNT_COMBAT_FACE,
-	
-		"	Tasks"
-		"		TASK_STOP_MOVING		0"
-		"		TASK_SET_ACTIVITY		ACTIVITY:ACT_IDLE"
-		"		TASK_FACE_ENEMY			0"
-		"		TASK_WAIT				1.5"
-		"		TASK_SET_SCHEDULE		SCHEDULE:SCHED_GRUNT_SWEEP"
-		"	"
-		"	Interrupts"
-		"		COND_NEW_ENEMY"
-		"		COND_ENEMY_DEAD"
-		"		COND_CAN_RANGE_ATTACK1"
-		"		COND_CAN_RANGE_ATTACK2"
-	)
-	
-	
-	//=========================================================
-	// > SCHED_GRUNT_SIGNAL_SUPPRESS
-	// Suppressing fire - don't stop shooting until the clip is
-	// empty or grunt gets hurt.
-	//=========================================================
-	DEFINE_SCHEDULE
-	(
-		SCHED_GRUNT_SIGNAL_SUPPRESS,
-	
-		"	Tasks"
-		"		TASK_STOP_MOVING				0"
-		"		TASK_FACE_IDEAL					0"
-		"		TASK_PLAY_SEQUENCE_FACE_ENEMY	ACTIVITY:ACT_SIGNAL2"
-		"		TASK_FACE_ENEMY					0"
-		"		TASK_GRUNT_CHECK_FIRE			0"
-		"		TASK_RANGE_ATTACK1				0"
-		"		TASK_FACE_ENEMY					0"
-		"		TASK_GRUNT_CHECK_FIRE			0"
-		"		TASK_RANGE_ATTACK1				0"
-		"		TASK_FACE_ENEMY					0"
-		"		TASK_GRUNT_CHECK_FIRE			0"
-		"		TASK_RANGE_ATTACK1				0"
-		"		TASK_FACE_ENEMY					0"
-		"		TASK_GRUNT_CHECK_FIRE			0"
-		"		TASK_RANGE_ATTACK1				0"
-		"		TASK_FACE_ENEMY					0"
-		"		TASK_GRUNT_CHECK_FIRE			0"
-		"		TASK_RANGE_ATTACK1				0"
-		"	"
-		"	Interrupts"
-		"		COND_ENEMY_DEAD"
-		"		COND_LIGHT_DAMAGE"
-		"		COND_HEAVY_DAMAGE"
-		"		COND_GRUNT_NOFIRE"
-		"		COND_NO_PRIMARY_AMMO"
-		"		COND_HEAR_DANGER"
-	)
-	
 	//=========================================================
 	// > SCHED_GRUNT_SUPPRESS
 	//=========================================================
@@ -2241,6 +2138,8 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 	
 		"	Tasks"
 		"		TASK_STOP_MOVING			0"
+		"		TASK_FACE_IDEAL				0"
+		"		TASK_GRUNT_SUPPRESS_HANDSIGNAL	0"
 		"		TASK_FACE_ENEMY				0"
 		"		TASK_GRUNT_CHECK_FIRE		0"
 		"		TASK_RANGE_ATTACK1			0"
@@ -2265,31 +2164,6 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 		"		COND_NO_PRIMARY_AMMO"
 		"		COND_HEAR_DANGER"
 	)
-	
-	//=========================================================
-	// > SCHED_GRUNT_WAIT_IN_COVER
-	// grunt wait in cover - we don't allow danger or the ability
-	// to attack to break a grunt's run to cover schedule, but
-	// when a grunt is in cover, we do want them to attack if they can.
-	//=========================================================
-	DEFINE_SCHEDULE
-	(
-		SCHED_GRUNT_WAIT_IN_COVER,
-	
-		"	Tasks"
-		"		TASK_STOP_MOVING		0"
-		"		TASK_SET_ACTIVITY		ACTIVITY:ACT_IDLE"
-		"		TASK_WAIT_FACE_ENEMY	1"
-		"	"
-		"	Interrupts"
-		"		COND_NEW_ENEMY"
-		"		COND_HEAR_DANGER"
-		"		COND_CAN_RANGE_ATTACK1"
-		"		COND_CAN_RANGE_ATTACK2"
-		"		COND_CAN_MELEE_ATTACK1"
-		"		COND_CAN_MELEE_ATTACK2"
-	)
-	
 	
 	//=========================================================
 	// > SCHED_GRUNT_TAKE_COVER
@@ -2301,14 +2175,14 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 	
 		"	Tasks"
 		"		TASK_STOP_MOVING			0"
-		"		TASK_SET_FAIL_SCHEDULE		SCHEDULE:SCHED_GRUNT_TAKE_COVER_FAILED"
+		"		TASK_SET_FAIL_SCHEDULE		SCHEDULE:SCHED_GRUNT_TAKECOVER_FAILED"
 		"		TASK_WAIT					0.2"
 		"		TASK_FIND_COVER_FROM_ENEMY	0"
 		"		TASK_GRUNT_SPEAK_SENTENCE	0"
 		"		TASK_RUN_PATH				0"
 		"		TASK_WAIT_FOR_MOVEMENT		0"
 		"		TASK_REMEMBER				MEMORY:INCOVER"
-		"		TASK_SET_SCHEDULE			SCHEDULE:SCHED_GRUNT_WAIT_IN_COVER"
+		"		TASK_SET_SCHEDULE			SCHEDULE:SCHED_STANDOFF"
 		"	"
 		"	Interrupts"
 	)
@@ -2330,7 +2204,7 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 		"		TASK_CLEAR_MOVE_WAIT					0"
 		"		TASK_RUN_PATH							0"
 		"		TASK_WAIT_FOR_MOVEMENT					0"
-		"		TASK_SET_SCHEDULE						SCHEDULE:SCHED_GRUNT_WAIT_IN_COVER"
+		"		TASK_SET_SCHEDULE						SCHEDULE:SCHED_STANDOFF"
 		"	"
 		"	Interrupts"
 	)
@@ -2346,28 +2220,27 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 		"	Tasks"
 		"		TASK_FACE_ENEMY				0"
 		"		TASK_RANGE_ATTACK2			0"
-		"		TASK_SET_SCHEDULE			SCHEDULE:SCHED_GRUNT_TAKE_COVER_FROM_ENEMY"
+		"		TASK_SET_SCHEDULE			SCHEDULE:SCHED_GRUNT_TAKECOVER"
 		"	"
 		"	Interrupts"
 	)
 	
 	//=========================================================
-	// > SCHED_GRUNT_HIDE_RELOAD
+	// > SCHED_GRUNT_COVER_AND_RELOAD
 	// Grunt reload schedule
 	//=========================================================
 	DEFINE_SCHEDULE
 	(
-		SCHED_GRUNT_HIDE_RELOAD,
+		SCHED_GRUNT_COVER_AND_RELOAD,
 	
 		"	Tasks"
 		"		TASK_STOP_MOVING				0"
-		"		TASK_SET_FAIL_SCHEDULE			SCHEDULE:SCHED_GRUNT_RELOAD"
+		"		TASK_SET_FAIL_SCHEDULE			SCHEDULE:SCHED_RELOAD"
 		"		TASK_FIND_COVER_FROM_ENEMY		0"
 		"		TASK_RUN_PATH					0"
 		"		TASK_WAIT_FOR_MOVEMENT			0"
 		"		TASK_REMEMBER					MEMORY:INCOVER"
-		"		TASK_FACE_ENEMY					0"
-		"		TASK_PLAY_SEQUENCE				ACTIVITY:ACT_RELOAD"
+		"		TASK_RELOAD						0"
 		"	"
 		"	Interrupts"
 		"		COND_HEAVY_DAMAGE"
@@ -2400,51 +2273,15 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 	)
 	
 	//=========================================================
-	// > SCHED_GRUNT_RANGE_ATTACK1A
-	// primary range attack. Overriden because base class stops attacking when the enemy is occluded.
-	// grunt's grenade toss requires the enemy be occluded.
+	// > SCHED_GRUNT_RANGE_ATTACK1
 	//=========================================================
 	DEFINE_SCHEDULE
 	(
-		SCHED_GRUNT_RANGE_ATTACK1A,
+		SCHED_GRUNT_RANGE_ATTACK1,
 	
 		"	Tasks"
 		"		TASK_STOP_MOVING					0"
-		"		TASK_PLAY_SEQUENCE_FACE_ENEMY		ACTIVITY:ACT_CROUCH"
-		"		TASK_GRUNT_CHECK_FIRE				0"
-		"		TASK_RANGE_ATTACK1					0"
-		"		TASK_FACE_ENEMY						0"
-		"		TASK_GRUNT_CHECK_FIRE				0"
-		"		TASK_RANGE_ATTACK1					0"
-		"		TASK_FACE_ENEMY						0"
-		"		TASK_GRUNT_CHECK_FIRE				0"
-		"		TASK_RANGE_ATTACK1					0"
-		"		TASK_FACE_ENEMY						0"
-		"		TASK_GRUNT_CHECK_FIRE				0"
-		"		TASK_RANGE_ATTACK1					0"
-		"	"
-		"	Interrupts"
-		"		COND_NEW_ENEMY"
-		"		COND_ENEMY_DEAD"
-		"		COND_HEAVY_DAMAGE"
-		"		COND_ENEMY_OCCLUDED"
-		"		COND_HEAR_DANGER"
-		"		COND_GRUNT_NOFIRE"
-		"		COND_NO_PRIMARY_AMMO"
-	)
-	
-	//=========================================================
-	// > SCHED_GRUNT_RANGE_ATTACK1B
-	// primary range attack. Overriden because base class stops attacking when the enemy is occluded.
-	// grunt's grenade toss requires the enemy be occluded.
-	//=========================================================
-	DEFINE_SCHEDULE
-	(
-		SCHED_GRUNT_RANGE_ATTACK1B,
-	
-		"	Tasks"
-		"		TASK_STOP_MOVING					0"
-		"		TASK_PLAY_SEQUENCE_FACE_ENEMY		ACTIVITY:ACT_IDLE_ANGRY"
+		"		TASK_GRUNT_SELECT_IDEAL_ATTACK_SEQUENCE		0"
 		"		TASK_GRUNT_CHECK_FIRE				0"
 		"		TASK_RANGE_ATTACK1					0"
 		"		TASK_FACE_ENEMY						0"
@@ -2469,8 +2306,6 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 	
 	//=========================================================
 	// > SCHED_GRUNT_RANGE_ATTACK2
-	// secondary range attack. Overriden because base class stops attacking when the enemy is occluded.
-	// grunt's grenade toss requires the enemy be occluded.
 	//=========================================================
 	DEFINE_SCHEDULE
 	(
@@ -2480,15 +2315,13 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 		"		TASK_STOP_MOVING			0"
 		"		TASK_GRUNT_FACE_TOSS_DIR	0"
 		"		TASK_PLAY_SEQUENCE			ACTIVITY:ACT_RANGE_ATTACK2"
-		"		TASK_SET_SCHEDULE			SCHEDULE:SCHED_GRUNT_WAIT_IN_COVER" // don't run immediately after throwing grenade.
+		"		TASK_SET_SCHEDULE			SCHEDULE:SCHED_STANDOFF" // don't run immediately after throwing grenade.
 		"	"
 		"	Interrupts"
 	)
 	
 	//=========================================================
 	// > SCHED_GRUNT_REPEL
-	// secondary range attack. Overriden because base class stops attacking when the enemy is occluded.
-	// grunt's grenade toss requires the enemy be occluded.
 	//=========================================================
 	DEFINE_SCHEDULE
 	(
@@ -2551,26 +2384,11 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 	)
 	
 	//=========================================================
-	// > SCHED_GRUNT_RELOAD
+	// > SCHED_GRUNT_TAKECOVER
 	//=========================================================
 	DEFINE_SCHEDULE
 	(
-		SCHED_GRUNT_RELOAD,
-	
-		"	Tasks"
-		"		TASK_STOP_MOVING			0"
-		"		TASK_PLAY_SEQUENCE			ACTIVITY:ACT_RELOAD"
-		"	"
-		"	Interrupts"
-		"		COND_HEAVY_DAMAGE"
-	)
-	
-	//=========================================================
-	// > SCHED_GRUNT_TAKE_COVER_FROM_ENEMY
-	//=========================================================
-	DEFINE_SCHEDULE
-	(
-		SCHED_GRUNT_TAKE_COVER_FROM_ENEMY,
+		SCHED_GRUNT_TAKECOVER,
 	
 		"	Tasks"
 		"		TASK_STOP_MOVING				0"
@@ -2588,12 +2406,10 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 	
 	//=========================================================
 	// > SCHED_GRUNT_TAKE_COVER_FAILED
-	// special schedule type that forces analysis of conditions and picks
-	// the best possible schedule to recover from this type of failure.
 	//=========================================================
 	DEFINE_SCHEDULE
 	(
-		SCHED_GRUNT_TAKE_COVER_FAILED,
+		SCHED_GRUNT_TAKECOVER_FAILED,
 		"	Tasks"
 		"	Interrupts"
 	)
