@@ -16,6 +16,7 @@ static CFRDemoSupport g_DemoSupport;
 ConVar ds_enable( "ds_enable", "0", FCVAR_CLIENTDLL | FCVAR_DONTRECORD | FCVAR_ARCHIVE, "Demo support - enable automatic .dem file recording and features. 0 - Manual, 1 - Auto-record all matches", true, 0, true, 3 ); 
 ConVar ds_dir( "ds_dir", "demos", FCVAR_CLIENTDLL | FCVAR_DONTRECORD | FCVAR_ARCHIVE, "Demo support - will put all files into this folder under the gamedir. 24 characters max." );
 ConVar ds_prefix( "ds_prefix", "fr_", FCVAR_CLIENTDLL | FCVAR_DONTRECORD | FCVAR_ARCHIVE, "Demo support - will prefix files with this string. 24 characters max." );
+ConVar ds_sound("ds_sound", "1", FCVAR_CLIENTDLL | FCVAR_DONTRECORD | FCVAR_ARCHIVE, "Demo support - play start/stop sound for demo recording.", true, 0, true, 1);
 
 CON_COMMAND_F( ds_record, "Demo support - start recording a demo.", FCVAR_CLIENTDLL | FCVAR_DONTRECORD )
 {
@@ -243,6 +244,15 @@ bool CFRDemoSupport::StartRecording( void )
 	m_bRecording = true;
 	m_bAlreadyAutoRecordedOnce = true;
 
+	if (ds_sound.GetBool())
+	{
+		CBasePlayer* pLocalPlayer = CBasePlayer::GetLocalPlayer();
+		if (pLocalPlayer)
+		{
+			pLocalPlayer->EmitSound("DemoSupport.StartRecording");
+		}
+	}
+
 	char szMessage[MAX_PATH] = { 0 };
 	V_sprintf_safe( szMessage, "Started recording to %s\n", m_szFolderAndFilename );
 	DemoSupport_Log("%s\n", szMessage );
@@ -267,6 +277,15 @@ void CFRDemoSupport::StopRecording( bool bFromEngine /* = false */ )
 	if ( !bFromEngine )
 	{
 		StopDemoRecording();
+	}
+
+	if (ds_sound.GetBool())
+	{
+		CBasePlayer* pLocalPlayer = CBasePlayer::GetLocalPlayer();
+		if (pLocalPlayer)
+		{
+			pLocalPlayer->EmitSound("DemoSupport.EndRecording");
+		}
 	}
 
 	char szMessage[MAX_PATH] = { 0 };
