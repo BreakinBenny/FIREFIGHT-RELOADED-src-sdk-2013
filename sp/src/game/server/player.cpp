@@ -6237,6 +6237,10 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 		pNode = m_kvLoadout->GetFirstSubKey();
 	}
 
+	bool loadoutSetHealth = false;
+	bool loadoutSetArmor = false;
+	bool loadoutSetGameSettings = false;
+
 	while (pNode)
 	{
 		if (m_bHardcore == false)
@@ -6307,138 +6311,156 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 			}
 		}
 
-		int internalMaxHealth = pNode->GetInt("healthoverchargecap", 0);
-
-		if (internalMaxHealth > 0)
+		if (!loadoutSetHealth)
 		{
-			SetMaxHealth(internalMaxHealth);
-		}
-		else
-		{
-			SetMaxHealth(player_defaulthealthoverchargecap.GetInt());
-		}
+			int internalMaxHealth = pNode->GetInt("healthoverchargecap", 0);
+			bool setMax = false;
 
-		int healthNum = pNode->GetInt("health", 0);
-		int maxHealthNum = pNode->GetInt("maxhealth", 0);
-		bool setMaxHealth = pNode->GetBool("setmaxhealth", false);
-		bool incrementHealth = pNode->GetBool("incrementhealth", false);
-		bool resetUpgrades = pNode->GetBool("resetupgrades", false);
-
-		if (healthNum > 0)
-		{
-			bool maxHealthChanges = false;
-
-			if (setMaxHealth)
+			if (internalMaxHealth > 0)
 			{
-				SetMaxHealthValue(healthNum);
-				maxHealthChanges = true;
+				SetMaxHealth(internalMaxHealth);
+				setMax = true;
+			}
 
-				if (resetUpgrades)
+			if (!setMax)
+			{
+				SetMaxHealth(player_defaulthealthoverchargecap.GetInt());
+			}
+
+			int healthNum = pNode->GetInt("health", 0);
+			int maxHealthNum = pNode->GetInt("maxhealth", 0);
+			bool setMaxHealth = pNode->GetBool("setmaxhealth", false);
+			bool incrementHealth = pNode->GetBool("incrementhealth", false);
+			bool resetUpgrades = pNode->GetBool("resetupgrades", false);
+
+			if (healthNum > 0)
+			{
+				bool maxHealthChanges = false;
+
+				if (setMaxHealth)
 				{
-					m_rgMaxUpgrades[FR_UPGRADE_MAXHEALTH] = 0;
-					DevMsg("SET m_rgMaxUpgrades[FIREFIGHT_UPGRADE_MAXHEALTH] TO %i\n", m_rgMaxUpgrades[FR_UPGRADE_MAXHEALTH]);
+					SetMaxHealthValue(healthNum);
+					maxHealthChanges = true;
+
+					if (resetUpgrades)
+					{
+						m_rgMaxUpgrades[FR_UPGRADE_MAXHEALTH] = 0;
+						DevMsg("SET m_rgMaxUpgrades[FIREFIGHT_UPGRADE_MAXHEALTH] TO %i\n", m_rgMaxUpgrades[FR_UPGRADE_MAXHEALTH]);
+					}
+				}
+
+				if (maxHealthNum > 0)
+				{
+					SetMaxHealthValue(maxHealthNum);
+					maxHealthChanges = true;
+				}
+
+				if (!maxHealthChanges)
+				{
+					if (GetMaxHealthValue() > player_defaulthealth.GetInt())
+					{
+						SetMaxHealthValue(player_defaulthealth.GetInt());
+					}
+				}
+
+				if (incrementHealth)
+				{
+					IncrementHealthValue(healthNum);
+				}
+				else
+				{
+					SetHealth(healthNum);
 				}
 			}
 
-			if (maxHealthNum > 0)
+			/*if (GetHealth() > GetMaxHealthValue())
 			{
-				SetMaxHealthValue(maxHealthNum);
-				maxHealthChanges = true;
-			}
+				SetHealth(GetMaxHealthValue());
+			}*/
 
-			if (!maxHealthChanges)
+			loadoutSetHealth = true;
+		}
+
+		if (!loadoutSetArmor)
+		{
+			int armorNum = pNode->GetInt("armor", 0);
+			int maxArmorNum = pNode->GetInt("maxarmor", 0);
+			bool setMaxArmor = pNode->GetBool("setmaxarmor", false);
+			bool incrementArmor = pNode->GetBool("incrementarmor", false);
+
+			if (armorNum > 0)
 			{
-				if (GetMaxHealthValue() > player_defaulthealth.GetInt())
+				bool maxArmorChanges = false;
+
+				if (setMaxArmor)
 				{
-					SetMaxHealthValue(player_defaulthealth.GetInt());
+					SetMaxArmorValue(armorNum);
+					maxArmorChanges = true;
+				}
+
+				if (maxArmorNum > 0)
+				{
+					SetMaxArmorValue(maxArmorNum);
+					maxArmorChanges = true;
+				}
+
+				if (!maxArmorChanges)
+				{
+					if (GetMaxArmorValue() > player_maxarmor.GetInt())
+					{
+						SetMaxArmorValue(player_maxarmor.GetInt());
+					}
+				}
+
+				if (incrementArmor)
+				{
+					IncrementArmorValue(armorNum);
+				}
+				else
+				{
+					SetArmorValue(armorNum);
 				}
 			}
 
-			if (incrementHealth)
-			{
-				IncrementHealthValue(healthNum);
-			}
-			else
-			{
-				SetHealth(healthNum);
-			}
+			loadoutSetArmor = true;
 		}
 
-		/*if (GetHealth() > GetMaxHealthValue())
+		if (!loadoutSetGameSettings)
 		{
-			SetHealth(GetMaxHealthValue());
-		}*/
+			int level = pNode->GetInt("level", 0);
 
-		int armorNum = pNode->GetInt("armor", 0);
-		int maxArmorNum = pNode->GetInt("maxarmor", 0);
-		bool setMaxArmor = pNode->GetBool("setmaxarmor", false);
-		bool incrementArmor = pNode->GetBool("incrementarmor", false);
-
-		if (armorNum > 0)
-		{
-			bool maxArmorChanges = false;
-
-			if (setMaxArmor)
+			if (level > 0)
 			{
-				SetMaxArmorValue(armorNum);
-				maxArmorChanges = true;
+				SetLevel(level);
 			}
 
-			if (maxArmorNum > 0)
-			{
-				SetMaxArmorValue(maxArmorNum);
-				maxArmorChanges = true;
-			}
+			int money = pNode->GetInt("kash", 0);
 
-			if (!maxArmorChanges)
+			if (money > 0)
 			{
-				if (GetMaxArmorValue() > player_maxarmor.GetInt())
+				if (GetMoney() <= 0)
 				{
-					SetMaxArmorValue(player_maxarmor.GetInt());
+					SetMoney(money);
 				}
 			}
-
-			if (incrementArmor)
-			{
-				IncrementArmorValue(armorNum);
-			}
-			else
-			{
-				SetArmorValue(armorNum);
-			}
-		}
-
-		int level = pNode->GetInt("level", 0);
-
-		if (level > 0)
-		{
-			SetLevel(level);
-		}
-
-		int money = pNode->GetInt("kash", 0);
-
-		if (money > 0)
-		{
-			if (GetMoney() <= 0)
-			{
-				SetMoney(money);
-			}
-		}
-
-		if (m_bIronKick == false)
-		{
-			m_bIronKick = pNode->GetBool("ironkick", false);
 
 			if (m_bIronKick == false)
 			{
-				m_bIronKick = pNode->GetBool("preventweaponpickup", false);
+				m_bIronKick = pNode->GetBool("ironkick", false);
 
-				//if enabled here, only disable weapon pickups.
-				if (m_bIronKick)
+				if (m_bIronKick == false)
 				{
-					m_bIronKickNoWeaponPickupOnly = true;
+					m_bIronKick = pNode->GetBool("preventweaponpickup", false);
+
+					//if enabled here, only disable weapon pickups.
+					if (m_bIronKick)
+					{
+						m_bIronKickNoWeaponPickupOnly = true;
+					}
 				}
 			}
+
+			loadoutSetGameSettings = true;
 		}
 
 		pNode = pNode->GetNextKey();
