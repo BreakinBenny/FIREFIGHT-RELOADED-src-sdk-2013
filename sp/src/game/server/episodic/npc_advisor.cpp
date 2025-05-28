@@ -130,6 +130,7 @@ BEGIN_DATADESC( CNPC_Advisor )
 	DEFINE_FIELD(m_bStopMoving, FIELD_BOOLEAN),
 
 	DEFINE_FIELD(m_playerPinOutputCalled, FIELD_BOOLEAN),
+	DEFINE_FIELD(m_playerPinTimerSet, FIELD_BOOLEAN),
 
 	DEFINE_FIELD( m_flLastThrowTime, FIELD_TIME ),
 	DEFINE_FIELD( m_vSavedLeadVel, FIELD_VECTOR ),
@@ -943,10 +944,14 @@ void CNPC_Advisor::StartTask( const Task_t *pTask )
 		
 		case TASK_ADVISOR_PIN_PLAYER:
 		{
-			// should never be here
-			Assert( m_hPlayerPinPos.IsValid() );
-			m_playerPinFailsafeTime = gpGlobals->curtime + 3.5f;
-			m_playerPinDamage = 0;
+			if (!m_playerPinTimerSet)
+			{
+				// should never be here
+				Assert(m_hPlayerPinPos.IsValid());
+				m_playerPinFailsafeTime = gpGlobals->curtime + 3.5f;
+				m_playerPinDamage = 0;
+				m_playerPinTimerSet = true;
+			}
 
 			break;
 		}
@@ -1315,6 +1320,7 @@ void CNPC_Advisor::RunTask( const Task_t *pTask )
 					}
 					m_OnStopPlayerPin.FireOutput(this, this);
 					m_playerPinOutputCalled = false;
+					m_playerPinTimerSet = false;
 					TaskComplete();
 					break;
 				}
@@ -1334,6 +1340,7 @@ void CNPC_Advisor::RunTask( const Task_t *pTask )
 					}
 					m_OnStopPlayerPin.FireOutput(this, this);
 					m_playerPinOutputCalled = false;
+					m_playerPinTimerSet = false;
 					Warning("Advisor did not leave PIN PLAYER mode. Aborting due to failsafe!\n");
 					TaskFail("Advisor did not leave PIN PLAYER mode. Aborting due to failsafe!\n");
 					FlingEntity(pPinEnt, advisor_flingentity_force.GetFloat(), true);
@@ -1355,6 +1362,7 @@ void CNPC_Advisor::RunTask( const Task_t *pTask )
 					}
 					m_OnStopPlayerPin.FireOutput(this, this);
 					m_playerPinOutputCalled = false;
+					m_playerPinTimerSet = false;
 					TaskFail("Player is not the enemy?!");
 					break;
 				}
@@ -1471,7 +1479,8 @@ void CNPC_Advisor::RunTask( const Task_t *pTask )
 					StopSound("NPC_Advisor.Blast");
 					EmitSound("NPC_Advisor.Blast");
 					int nRandomIndex = random->RandomInt(0, m_droneObjects.Count() - 1);
-					Dronify(m_droneObjects[nRandomIndex]);
+					CBaseEntity* pChosen = m_droneObjects[nRandomIndex];
+					Dronify(pChosen);
 					m_fllastDronifiedTime = gpGlobals->curtime + advisor_droning_wait_time.GetFloat() * (m_bBulletResistanceBroken ? advisor_throw_rate.GetFloat() : 1);
 					TaskComplete();
 				}
@@ -2012,36 +2021,35 @@ int CNPC_Advisor::SelectSchedule()
 		{
 			if (GetEnemy() && GetEnemy()->IsAlive())
 			{
-				if (HasCondition(COND_HAVE_ENEMY_LOS) && HasCondition(COND_SEE_ENEMY))
+				//all of these are valid if the player ISN'T visible. These should be all passive abilities.
+				CBasePlayer* pPlayer = ToBasePlayer(GetEnemy());
+				if (m_hPlayerPinPos.IsValid())//false
 				{
-					CBasePlayer* pPlayer = ToBasePlayer(GetEnemy());
-					if (m_hPlayerPinPos.IsValid())//false
+					return SCHED_ADVISOR_TOSS_PLAYER;
+				}
+				else if (pPlayer && !IsEntMoving(pPlayer))
+				{
+					//If he's not moving, pin him down.
+					if (!m_hPlayerPinPos.IsValid())
 					{
-						return SCHED_ADVISOR_TOSS_PLAYER;
+						m_hPlayerPinPos.Set(pPlayer);
+						m_playerPinnedBecauseInCover = true;
 					}
-					else if (pPlayer && !IsEntMoving(pPlayer))
-					{
-						//If he's not moving, pin him down.
-						if (!m_hPlayerPinPos.IsValid())
-						{
-							m_hPlayerPinPos.Set(pPlayer);
-							m_playerPinnedBecauseInCover = true;
-						}
 
-						return SCHED_ADVISOR_TOSS_PLAYER;
-					}
-					else if (advisor_enable_droning.GetBool() &&
-						((m_fllastDronifiedTime < gpGlobals->curtime) &&
-							(advisor_enable_premature_droning.GetBool() || m_bBulletResistanceBroken)))
-					{
-						m_bStopMoving = false;
-						return SCHED_ADVISOR_DRONIFY;
-					}
-					else
-					{
-						m_bStopMoving = false;
-						return SCHED_ADVISOR_COMBAT;
-					}
+					return SCHED_ADVISOR_TOSS_PLAYER;
+				}
+				else if (advisor_enable_droning.GetBool() &&
+					((m_fllastDronifiedTime < gpGlobals->curtime) &&
+						(advisor_enable_premature_droning.GetBool() || m_bBulletResistanceBroken)))
+				{
+					m_bStopMoving = false;
+					return SCHED_ADVISOR_DRONIFY;
+				}
+				//if none of these are applicable, make sure we see the enemy and throw traffic cones at them.
+				else if (HasCondition(COND_HAVE_ENEMY_LOS) && HasCondition(COND_SEE_ENEMY))
+				{
+					m_bStopMoving = false;
+					return SCHED_ADVISOR_COMBAT;
 				}
 			}
 			
@@ -2078,14 +2086,22 @@ void CNPC_Advisor::Dronify(CBaseEntity* pOther)
 			pNPC->Classify() == CLASS_METROPOLICE) &&
 			pNPC->IRelationType(this) != D_HT)
 		{
-			Write_BeamOn(pOther);
-
 			//our beam will turn them into DRONES.
 			//we need the outline to determine who is a drone.
 #ifdef GLOWS_ENABLE
 			pNPC->m_denyOutlines = false;
 #endif
 			pNPC->GiveWildcardAttributes(1);
+
+			//give the drones a cosmetic shield
+			if (m_bBulletResistanceBroken)
+			{
+				DispatchParticleEffect("Advisor_Psychic_Shield_Angry_Idle_Center", PATTACH_ABSORIGIN_FOLLOW, pNPC, 0, false);
+			}
+			else
+			{
+				DispatchParticleEffect("Advisor_Psychic_Shield_Idle_Center", PATTACH_ABSORIGIN_FOLLOW, pNPC, 0, false);
+			}
 		}
 	}
 }
@@ -2192,6 +2208,8 @@ void CNPC_Advisor::Precache()
 	PrecacheParticleSystem( "Advisor_Psychic_Shield_Idle" );
 	PrecacheParticleSystem( "Advisor_Psychic_Shield_Angry_Idle" );
 	PrecacheParticleSystem( "advisor_object_charge" );
+	PrecacheParticleSystem("Advisor_Psychic_Shield_Idle_Center");
+	PrecacheParticleSystem("Advisor_Psychic_Shield_Angry_Idle_Center");
 	PrecacheModel("sprites/greenglow1.vmt");
 
 	PrecacheScriptSound("NPC_Stalker.Hit");

@@ -266,6 +266,7 @@ protected:
 	int  m_playerPinDamage;
 	bool  m_playerPinnedBecauseInCover;
 	bool  m_playerPinOutputCalled;
+	bool  m_playerPinTimerSet;
 
 	// keep track of up to four objects after we have thrown them, to prevent oscillation or levitation of recently thrown ammo.
 	EHANDLE m_haRecentlyThrownObjects[kMaxThrownObjectsTracked]; 

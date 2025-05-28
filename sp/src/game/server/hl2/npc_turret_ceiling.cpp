@@ -328,6 +328,8 @@ void CNPC_CeilingTurret::Spawn( void )
 
 	// Don't allow us to skip animation setup because our attachments are critical to us!
 	SetBoneCacheFlags( BCF_NO_ANIMATION_SKIP );
+
+	AssignKilllogTeams();
 }
 
 //-----------------------------------------------------------------------------
