@@ -27,6 +27,8 @@ ConVar fr_charge_allowjump("fr_charge_allowjump", "0", FCVAR_ARCHIVE);
 ConVar fr_charge_superspeed("fr_charge_superspeed", "0", FCVAR_ARCHIVE);
 ConVar fr_charge("fr_charge", "1", FCVAR_ARCHIVE);
 
+ConVar debug_playerspeed("debug_playerspeed", "0");
+
 #define USE_DISMOUNT_SPEED 100
 
 extern ConVar sv_maxspeed;
@@ -254,7 +256,12 @@ void CHL2GameMovement::ProcessMovement(CBasePlayer* pBasePlayer, CMoveData* pMov
 	mv = pMove;
 
 	// The max speed is currently set to the scout - if this changes we need to change this!
-	mv->m_flMaxSpeed = sv_maxspeed.GetFloat() * player->GetLaggedMovementValue();
+	mv->m_flMaxSpeed = player->MaxSpeed();
+
+	if (debug_playerspeed.GetBool())
+	{
+		DevMsg("GameMovement Speed set to %f\n", mv->m_flMaxSpeed);
+	}
 
 	// Handle charging demomens
 	ChargeMove();
@@ -308,7 +315,12 @@ bool CHL2GameMovement::ChargeMove()
 	if (!GetHL2Player()->IsCharging())
 		return false;
 
-	mv->m_flMaxSpeed = fr_max_charge_speed.GetFloat() * player->GetLaggedMovementValue();
+	mv->m_flMaxSpeed = player->MaxSpeed();
+
+	if (debug_playerspeed.GetBool())
+	{
+		DevMsg("Charge Speed set to %f\n", mv->m_flMaxSpeed);
+	}
 
 	int oldbuttons = mv->m_nButtons;
 

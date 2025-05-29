@@ -6318,9 +6318,11 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 			}
 		}
 
+		
+
 		if (!loadoutSetHealth)
 		{
-			int internalMaxHealth = pNode->GetInt("healthoverchargecap", 0);
+			int internalMaxHealth = pNode->GetInt("healthoverchargecap", player_defaulthealthoverchargecap.GetInt());
 			bool setMax = false;
 
 			if (internalMaxHealth > 0)
@@ -6334,50 +6336,37 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 				SetMaxHealth(player_defaulthealthoverchargecap.GetInt());
 			}
 
-			int healthNum = pNode->GetInt("health", 0);
-			int maxHealthNum = pNode->GetInt("maxhealth", 0);
+			int healthNum = pNode->GetInt("health", player_defaulthealth.GetInt());
+			int maxHealthNum = pNode->GetInt("maxhealth", player_defaulthealth.GetInt());
 			bool setMaxHealth = pNode->GetBool("setmaxhealth", false);
 			bool incrementHealth = pNode->GetBool("incrementhealth", false);
 			bool resetUpgrades = pNode->GetBool("resetupgrades", false);
 
-			if (healthNum > 0)
+			if (setMaxHealth)
 			{
-				bool maxHealthChanges = false;
+				SetMaxHealthValue(healthNum);
 
-				if (setMaxHealth)
+				if (resetUpgrades)
 				{
-					SetMaxHealthValue(healthNum);
-					maxHealthChanges = true;
-
-					if (resetUpgrades)
-					{
-						m_rgMaxUpgrades[FR_UPGRADE_MAXHEALTH] = 0;
-						DevMsg("SET m_rgMaxUpgrades[FIREFIGHT_UPGRADE_MAXHEALTH] TO %i\n", m_rgMaxUpgrades[FR_UPGRADE_MAXHEALTH]);
-					}
+					m_rgMaxUpgrades[FR_UPGRADE_MAXHEALTH] = 0;
+					DevMsg("SET m_rgMaxUpgrades[FIREFIGHT_UPGRADE_MAXHEALTH] TO %i\n", m_rgMaxUpgrades[FR_UPGRADE_MAXHEALTH]);
 				}
-
+			}
+			else
+			{
 				if (maxHealthNum > 0)
 				{
 					SetMaxHealthValue(maxHealthNum);
-					maxHealthChanges = true;
 				}
+			}
 
-				if (!maxHealthChanges)
-				{
-					if (GetMaxHealthValue() > player_defaulthealth.GetInt())
-					{
-						SetMaxHealthValue(player_defaulthealth.GetInt());
-					}
-				}
-
-				if (incrementHealth)
-				{
-					IncrementHealthValue(healthNum);
-				}
-				else
-				{
-					SetHealth(healthNum);
-				}
+			if (incrementHealth)
+			{
+				IncrementHealthValue(healthNum);
+			}
+			else
+			{
+				SetHealth(healthNum);
 			}
 
 			/*if (GetHealth() > GetMaxHealthValue())
@@ -6390,31 +6379,22 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 
 		if (!loadoutSetArmor)
 		{
-			int armorNum = pNode->GetInt("armor", 0);
-			int maxArmorNum = pNode->GetInt("maxarmor", 0);
+			int armorNum = pNode->GetInt("armor", player_defaultarmor.GetInt());
+			int maxArmorNum = pNode->GetInt("maxarmor", player_maxarmor.GetInt());
 			bool setMaxArmor = pNode->GetBool("setmaxarmor", false);
 			bool incrementArmor = pNode->GetBool("incrementarmor", false);
 
 			//allow loadout users to set armor to 0.
-			bool maxArmorChanges = false;
 
 			if (setMaxArmor)
 			{
 				SetMaxArmorValue(armorNum);
-				maxArmorChanges = true;
 			}
-
-			if (maxArmorNum > 0)
+			else
 			{
-				SetMaxArmorValue(maxArmorNum);
-				maxArmorChanges = true;
-			}
-
-			if (!maxArmorChanges)
-			{
-				if (GetMaxArmorValue() > player_maxarmor.GetInt())
+				if (maxArmorNum > 0)
 				{
-					SetMaxArmorValue(player_maxarmor.GetInt());
+					SetMaxArmorValue(maxArmorNum);
 				}
 			}
 
@@ -6432,7 +6412,7 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 
 		if (!loadoutSetGameSettings)
 		{
-			int level = pNode->GetInt("level", 0);
+			int level = pNode->GetInt("level", 1);
 
 			if (level > 0)
 			{

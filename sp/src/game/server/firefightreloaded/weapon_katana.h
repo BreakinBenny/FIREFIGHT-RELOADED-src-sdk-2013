@@ -56,6 +56,7 @@ public:
 
 	int			GetKillMultiplier(void) { return m_iKillMultiplierCount; }
 	bool		IsKillMultiplierEnabled(void) { return (g_pGameRules->isInBullettime && m_bKillMultiplier); }
+	bool		HasKillMultiplierOnceMaxedOut(void) { return m_bHitMaxKillMultiplier; }
 	virtual	float	GetDamageForActivity(Activity hitActivity);
 
 	void		ResetKillMultiplier(void);
@@ -70,6 +71,7 @@ private:
 	float		m_flLastKill;
 	bool		m_bKillMultiplier;
 	int			m_iLastSuitCharge;
+	bool		m_bHitMaxKillMultiplier;
 
 	FRKeyValuesLoader m_kvEnemyResist;
 };

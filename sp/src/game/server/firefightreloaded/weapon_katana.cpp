@@ -58,7 +58,8 @@ DEFINE_FIELD(m_iKillMultiplierCount, FIELD_INTEGER),
 DEFINE_FIELD(m_iKills, FIELD_INTEGER),
 DEFINE_FIELD(m_flLastKill, FIELD_TIME),
 DEFINE_FIELD(m_bKillMultiplier, FIELD_BOOLEAN),
-DEFINE_FIELD(m_iLastSuitCharge, FIELD_INTEGER)
+DEFINE_FIELD(m_iLastSuitCharge, FIELD_INTEGER),
+DEFINE_FIELD(m_bHitMaxKillMultiplier, FIELD_BOOLEAN)
 END_DATADESC()
 
 acttable_t CWeaponKatana::m_acttable[] = 
@@ -86,6 +87,7 @@ CWeaponKatana::CWeaponKatana( void )
 	m_flLastKill = 0;
 	ResetKillMultiplier();
 	m_bKillMultiplier = true;
+	m_bHitMaxKillMultiplier = false;
 	m_nSkin = 0;
 }
 
@@ -411,14 +413,8 @@ bool CWeaponKatana::Holster(CBaseCombatWeapon* pSwitchingTo)
 {
 	if (!g_pGameRules->isInBullettime)
 	{
-		if (m_flLastKill > gpGlobals->curtime && m_bKillMultiplier)
-		{
-			m_bKillMultiplier = false;
-		}
-	}
-
-	if (m_iKillMultiplierCount > 0)
-	{
+		m_bKillMultiplier = false;
+		m_bHitMaxKillMultiplier = false;
 		ResetKillMultiplier();
 	}
 
@@ -444,15 +440,9 @@ void CWeaponKatana::ItemPostFrame(void)
 {
 	if (!g_pGameRules->isInBullettime)
 	{
-		if (m_iKillMultiplierCount > 0)
-		{
-			ResetKillMultiplier();
-		}
-
-		if (m_flLastKill > gpGlobals->curtime && m_bKillMultiplier)
-		{
-			m_bKillMultiplier = false;
-		}
+		ResetKillMultiplier();
+		m_bKillMultiplier = false;
+		m_bHitMaxKillMultiplier = false;
 	}
 	else
 	{
@@ -531,6 +521,12 @@ void CWeaponKatana::ActivateKillMultiplier(CBaseEntity* pVictim, CHL2_Player* pA
 					m_iLastSuitCharge++;
 					pAttacker->SuitPower_Charge(sv_katana_killmultiplier_suitpower.GetFloat() * m_iKillMultiplierCount);
 				}
+			}
+
+			//if we capped the max ONCE, set m_bHitMaxKillMultiplier to true so the hl2_player can keep the speed boost for the duration of bullettime.
+			if (m_iKillMultiplierCount >= sv_katana_killmultiplier_maxmultiplier.GetInt())
+			{
+				m_bHitMaxKillMultiplier = true;
 			}
 		}
 	}

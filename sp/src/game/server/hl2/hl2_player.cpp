@@ -162,6 +162,7 @@ static ConVar sv_katana_charge_bashvelocitymultiplier("sv_katana_charge_bashvelo
 static ConVar sv_katana_charge_chargetime("sv_katana_charge_chargetime", "2", FCVAR_CHEAT);
 static ConVar sv_katana_charge_chargedelaytime("sv_katana_charge_chargedelaytime", "4", FCVAR_CHEAT);
 static ConVar sv_katana_charge_damageresistance("sv_katana_charge_damageresistance", "0.60", FCVAR_CHEAT);
+static ConVar sv_katana_killmultiplier_basespeedmultiplier("sv_katana_killmultiplier_basespeedmultiplier", "6", FCVAR_CHEAT);
 
 static ConVar sv_player_grapple_damageresistance("sv_player_grapple_damageresistance", "0.75", FCVAR_CHEAT);
 
@@ -171,6 +172,8 @@ static ConVar steaminput_autoaim("steaminput_autoaim", "1", FCVAR_ARCHIVE);
 
 extern ConVar sv_player_voice;
 ConVar sv_player_voice_charge("sv_player_voice_charge", "1", FCVAR_ARCHIVE);
+
+extern ConVar debug_playerspeed;
 
 #define	FLASH_DRAIN_TIME	 1.1111	// 100 units / 90 secs
 #define	FLASH_CHARGE_TIME	 50.0f	// 100 units / 2 secs
@@ -649,8 +652,6 @@ void CHL2_Player::RemoveSuit( void )
 
 void CHL2_Player::HandleSpeedChanges( void )
 {
-	DeriveMaxSpeed();
-
 	int buttonsChanged = m_afButtonPressed | m_afButtonReleased;
 	if (sv_leagcy_maxspeed.GetBool())
 	{
@@ -736,6 +737,8 @@ void CHL2_Player::HandleSpeedChanges( void )
 			}
 		}
 	}
+
+	DeriveMaxSpeed();
 }
 
 //-----------------------------------------------------------------------------
@@ -2168,10 +2171,22 @@ void CHL2_Player::DeriveMaxSpeed( void )
 			pKatana = dynamic_cast<CWeaponKatana*>(GetActiveWeapon());
 		}
 
-		if (pKatana && pKatana->GetKillMultiplier() > 0)
+		if (pKatana)
 		{
-			newMaxSpeed = newMaxSpeed * pKatana->GetKillMultiplier();
+			if (pKatana->HasKillMultiplierOnceMaxedOut())
+			{
+				newMaxSpeed = newMaxSpeed * (sv_katana_killmultiplier_basespeedmultiplier.GetFloat() * sv_katana_killmultiplier_maxmultiplier.GetFloat());
+			}
+			else if (pKatana->GetKillMultiplier() > 0)
+			{
+				newMaxSpeed = newMaxSpeed * (sv_katana_killmultiplier_basespeedmultiplier.GetFloat() * pKatana->GetKillMultiplier());
+			}
 		}
+	}
+
+	if (debug_playerspeed.GetBool())
+	{
+		DevMsg("Uncapped Speed set to %f\n", newMaxSpeed);
 	}
 
 	float fMaxSpeed = sv_maxspeed.GetFloat();
@@ -2185,6 +2200,11 @@ void CHL2_Player::DeriveMaxSpeed( void )
 	}
 
 	float speed = (newMaxSpeed * GetLaggedMovementValue());
+
+	if (debug_playerspeed.GetBool())
+	{
+		DevMsg("Final Capped Speed set to %f\n", speed);
+	}
 
 	SetMaxSpeed(speed);
 }
@@ -2242,7 +2262,6 @@ void CHL2_Player::StartSprinting( void )
 	CPASAttenuationFilter filter( this );
 	filter.UsePredictionRules();
 	EmitSound( filter, entindex(), "HL2Player.SprintStart" );
-	
 
 	m_fIsSprinting = true;
 }
