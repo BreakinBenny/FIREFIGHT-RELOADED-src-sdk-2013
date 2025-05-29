@@ -1064,6 +1064,7 @@ public:
 	bool m_bIronKickNoWeaponPickupOnly;
 	bool m_bHardcore;
 	bool m_bHardcoreNoDisconnect;
+	bool m_bInstagib;
 	bool m_bForcedLoadout;
 	const char* m_szForcedLoadoutName;
 

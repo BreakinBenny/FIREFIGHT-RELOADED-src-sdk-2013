@@ -560,6 +560,13 @@ void CWeaponRailgun::Fire( void )
 	// rgettman - https://stackoverflow.com/questions/18407634/rounding-up-to-the-nearest-hundred
 	int rounded = ((pOwner->GetAmmoCount(m_iPrimaryAmmoType) + 99) / 100 ) * 100;
 	int iDamage = (m_bOverchargeDamageBenefits ? (int)(definedDamage * (rounded / 100)) : definedDamage);
+
+	//in instagib, instantly kill whatever we hit.
+	if (pOwner->m_bInstagib)
+	{
+		iDamage = 999;
+	}
+
 	DevMsg("RAILGUN DAMAGE: %i\n", iDamage);
 
 	FireBulletsInfo_t info;
@@ -574,6 +581,8 @@ void CWeaponRailgun::Fire( void )
 	info.m_pAttacker = pOwner;
 	info.m_flDamageForceScale = 0.2f;
 	info.m_bAffectedByBullettime = false;
+
+	info.m_nDamageFlags = (pOwner->m_bInstagib ? (def->DamageType(info.m_iAmmoType) | DMG_ALWAYSGIB | DMG_BLAST) : def->DamageType(info.m_iAmmoType));
 
 	// Fire the bullets, and force the first shot to be perfectly accurate
 	pOwner->FireBullets(info);
@@ -785,8 +794,17 @@ void CWeaponRailgun::PrimaryAttack(void)
 	pOwner->DoMuzzleFlash();
 	pOwner->ViewPunch(QAngle(-4, random->RandomFloat(-2, 2), 0));
 
-	int iMinAmmoToUse = (m_bOverchargeDamageBenefits ? RAIL_AMMO_OVERCHARGE : RAIL_AMMO);
-	pOwner->RemoveAmmo(iMinAmmoToUse, m_iPrimaryAmmoType);
+	//instagib players have infinite ammo.
+	if (!pOwner->m_bInstagib)
+	{
+		int iMinAmmoToUse = (m_bOverchargeDamageBenefits ? RAIL_AMMO_OVERCHARGE : RAIL_AMMO);
+		pOwner->RemoveAmmo(iMinAmmoToUse, m_iPrimaryAmmoType);
+	}
+	else
+	{
+		//force overcharge on
+		m_bOverchargeDamageBenefits = true;
+	}
 
 	m_flNextPrimaryAttack = gpGlobals->curtime + GetFireRate();
 

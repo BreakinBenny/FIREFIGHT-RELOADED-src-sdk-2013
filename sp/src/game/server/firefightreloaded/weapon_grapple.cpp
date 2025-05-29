@@ -151,16 +151,23 @@ void CGrappleHook::Precache( void )
 
 void CGrappleHook::HandleBattery(void)
 {
-	if (sk_grapple_batterydrain.GetBool())
+	if (m_hPlayer)
 	{
-		if (m_flNextBatteryDrain < gpGlobals->curtime)
-		{
-			if (m_hPlayer->ArmorValue() > 0)
-			{
-				m_hPlayer->RemoveArmor(sk_grapple_batterydrain_amount.GetInt());
-			}
+		//instagib players have infinite ammo.
+		if (m_hPlayer->m_bInstagib)
+			return;
 
-			m_flNextBatteryDrain = gpGlobals->curtime + sk_grapple_batterydrain_time.GetFloat();
+		if (sk_grapple_batterydrain.GetBool())
+		{
+			if (m_flNextBatteryDrain < gpGlobals->curtime)
+			{
+				if (m_hPlayer->ArmorValue() > 0)
+				{
+					m_hPlayer->RemoveArmor(sk_grapple_batterydrain_amount.GetInt());
+				}
+
+				m_flNextBatteryDrain = gpGlobals->curtime + sk_grapple_batterydrain_time.GetFloat();
+			}
 		}
 	}
 }
@@ -478,10 +485,14 @@ void CWeaponGrapple::PrimaryAttack( void )
 
 	if (sk_grapple_batterydrain.GetBool())
 	{
-		if (pPlayer->ArmorValue() <= 0)
+		//instagib players have infinite ammo.
+		if (!pPlayer->m_bInstagib)
 		{
-			WeaponSound(EMPTY);
-			return;
+			if (pPlayer->ArmorValue() <= 0)
+			{
+				WeaponSound(EMPTY);
+				return;
+			}
 		}
 	}
 
@@ -601,9 +612,13 @@ void CWeaponGrapple::ItemPostFrame( void )
 
 		if (sk_grapple_batterydrain.GetBool())
 		{
-			if (pOwner->ArmorValue() <= 0)
+			//instagib players have infinite ammo.
+			if (!pOwner->m_bInstagib)
 			{
-				outOfBattery = true;
+				if (pOwner->ArmorValue() <= 0)
+				{
+					outOfBattery = true;
+				}
 			}
 		}
 

@@ -683,6 +683,7 @@ BEGIN_DATADESC( CBasePlayer )
 	DEFINE_FIELD(m_bIronKickNoWeaponPickupOnly, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_bHardcore, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_bHardcoreNoDisconnect, FIELD_BOOLEAN),
+	DEFINE_FIELD(m_bInstagib, FIELD_BOOLEAN),
 
 
 #if !defined( NO_ENTITY_PREDICTION )
@@ -6207,6 +6208,7 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 	m_bHardcore = false;
 	m_bHardcoreNoDisconnect = false;
 	m_bIronKick = false;
+	m_bInstagib = false;
 	m_bIronKickNoWeaponPickupOnly = false;
 
 	char szFullFileName[_MAX_PATH];
@@ -6243,7 +6245,7 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 
 	while (pNode)
 	{
-		if (m_bHardcore == false)
+		if (!m_bHardcore)
 		{
 			m_bHardcore = pNode->GetBool("hardcore", false);
 
@@ -6256,6 +6258,11 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 			{
 				m_bHardcoreNoDisconnect = pNode->GetBool("nodisconnect", false);
 			}
+		}
+
+		if (!m_bInstagib)
+		{
+			m_bInstagib = pNode->GetBool("instagib", false);
 		}
 
 		bool randomizer = pNode->GetBool("randomizermode", false);
@@ -6388,38 +6395,36 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 			bool setMaxArmor = pNode->GetBool("setmaxarmor", false);
 			bool incrementArmor = pNode->GetBool("incrementarmor", false);
 
-			if (armorNum > 0)
+			//allow loadout users to set armor to 0.
+			bool maxArmorChanges = false;
+
+			if (setMaxArmor)
 			{
-				bool maxArmorChanges = false;
+				SetMaxArmorValue(armorNum);
+				maxArmorChanges = true;
+			}
 
-				if (setMaxArmor)
-				{
-					SetMaxArmorValue(armorNum);
-					maxArmorChanges = true;
-				}
+			if (maxArmorNum > 0)
+			{
+				SetMaxArmorValue(maxArmorNum);
+				maxArmorChanges = true;
+			}
 
-				if (maxArmorNum > 0)
+			if (!maxArmorChanges)
+			{
+				if (GetMaxArmorValue() > player_maxarmor.GetInt())
 				{
-					SetMaxArmorValue(maxArmorNum);
-					maxArmorChanges = true;
+					SetMaxArmorValue(player_maxarmor.GetInt());
 				}
+			}
 
-				if (!maxArmorChanges)
-				{
-					if (GetMaxArmorValue() > player_maxarmor.GetInt())
-					{
-						SetMaxArmorValue(player_maxarmor.GetInt());
-					}
-				}
-
-				if (incrementArmor)
-				{
-					IncrementArmorValue(armorNum);
-				}
-				else
-				{
-					SetArmorValue(armorNum);
-				}
+			if (incrementArmor)
+			{
+				IncrementArmorValue(armorNum);
+			}
+			else
+			{
+				SetArmorValue(armorNum);
 			}
 
 			loadoutSetArmor = true;

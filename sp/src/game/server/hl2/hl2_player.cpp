@@ -822,10 +822,14 @@ void CHL2_Player::HandleGrapple(void)
 
 	if (sk_grapple_batterydrain.GetBool())
 	{
-		if (ArmorValue() <= 0)
+		//instagib players have infinite ammo.
+		if (!m_bInstagib)
 		{
-			KillGrapple();
-			return;
+			if (ArmorValue() <= 0)
+			{
+				KillGrapple();
+				return;
+			}
 		}
 	}
 
