@@ -47,6 +47,7 @@
                     "explosives"		        "#GameUI_LoadoutExplosives"
                     "snipers"		        "#GameUI_LoadoutSnipers"
                     "honorbound"            "#GameUI_LoadoutHonorbound"
+					"instagib"            	"#GameUI_LoadoutInstagib"
                     "randomizer"            "#GameUI_LoadoutRandomizer"
                     "randomizer_hardcore"   "#GameUI_LoadoutRandomizerPermadeath"
                     "mapadd"		        "#FIREFIGHTRELOADED_ModMapping_Mapadd"
@@ -723,6 +724,65 @@
 				{
 					"0"		"#Song_Album_HalfLife"
 					"1"		"#Song_Album_HalfLife2"
+				}
+			}
+			
+			"RailgunRed"
+			{
+				"text"			"#GameUI_RailgunRed"
+				"type"			"slideyslide"
+				"convar"		"sk_weapon_railgun_beam_red"
+
+				"min"			"0"
+				"max"			"255"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
+
+				"textprecision" "2"
+			}
+            
+            "RailgunGreen"
+			{
+				"text"			"#GameUI_RailgunGreen"
+				"type"			"slideyslide"
+				"convar"		"sk_weapon_railgun_beam_green"
+
+				"min"			"0"
+				"max"			"255"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
+
+				"textprecision" "2"
+			}
+            
+            "RailgunBlue"
+			{
+				"text"			"#GameUI_RailgunBlue"
+				"type"			"slideyslide"
+				"convar"		"sk_weapon_railgun_beam_blue"
+
+				"min"			"0"
+				"max"			"255"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
+
+				"textprecision" "2"
+			}
+			
+			"RailgunRGB"
+			{
+				"text"			"#GameUI_RailgunRGB"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"sk_weapon_railgun_beam_rainbow"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
 				}
 			}
             
@@ -2255,7 +2315,6 @@
 				"text"			"#GameUI_Difficulty_CustomWep"
 				"type"			"headeryheader"
 				"advanced"		"1"
-                
 			}
             
             "RailgunOverchargeLimit"
@@ -3861,9 +3920,11 @@
 
 				"options"
 				{
-					"2"	"#gameui_low"
-					"1"	"#gameui_medium"
-					"0"	"#gameui_high"
+					"7"		"#GameUI_Toaster"
+					"3"		"#GameUI_VeryLow"
+					"2"		"#gameui_low"
+					"1"		"#gameui_medium"
+					"0"		"#gameui_high"
 				}
 			}
 
@@ -3876,9 +3937,12 @@
 
 				"options"
 				{
+					"4"		"#GameUI_Toaster"
+					"3"		"#GameUI_VeryLow"
 					"2"		"#gameui_low"
 					"1"		"#gameui_medium"
 					"0"		"#gameui_high"
+					"-1"	"#GameUI_Ultra"
 				}
 			}
 

@@ -22,8 +22,4 @@
 		// to the gravity gun.
 		"weapon"	"weapon_grapple"
 	}
-	"5"
-	{
-		"weapon"	"weapon_knife"
-	}
 }

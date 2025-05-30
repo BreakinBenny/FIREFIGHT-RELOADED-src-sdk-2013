@@ -1,0 +1,27 @@
+//#Loadout
+//WARNING: DO NOT REMOVE THESE TOP COMMENTS.
+//FABRICATOR REQUIRES THE FIRST COMMENT TO LOAD THIS FILE.
+
+"instagib"
+{
+	"1"
+	{
+		"health"		"1"
+		"setmaxhealth"	"1"
+		"armor"		"0"
+		"setmaxarmor"	"1"
+		"healthoverchargecap" "1"
+		"preventweaponpickup" "1"
+		"instagib"	"1"
+		"permadeath" "1"
+		"nodisconnect" "1"
+	}
+	"2"
+	{
+		"weapon"	"weapon_railgun"
+	}
+	"3"
+	{
+		"weapon"	"weapon_grapple"
+	}
+}

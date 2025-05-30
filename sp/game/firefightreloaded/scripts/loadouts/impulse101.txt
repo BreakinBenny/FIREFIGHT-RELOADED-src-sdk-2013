@@ -7,7 +7,9 @@
 	"1"
 	{
 		"health"		"999"
+		"setmaxhealth"	"1"
 		"armor"		"999"
+		"setmaxarmor"	"1"
 		"incrementhealth"	"0"
 		"kash"		"9999"
 	}

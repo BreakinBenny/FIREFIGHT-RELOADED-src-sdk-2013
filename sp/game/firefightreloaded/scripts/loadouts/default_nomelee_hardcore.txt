@@ -24,9 +24,9 @@
 	}
 	"4"
 	{
-		"weapon"	"weapon_mp5"
-		"ammotype"	"MP5Ammo"
-		"ammonum"	"120"
+		"weapon"	"weapon_sniper_rifle"
+		"ammotype"	"Sniper"
+		"ammonum"	"50"
 	}
 	"5"
 	{ 
