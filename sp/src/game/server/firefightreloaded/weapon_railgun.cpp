@@ -21,6 +21,11 @@
 ConVar sk_weapon_railgun_overcharge_limit("sk_weapon_railgun_overcharge_limit", "500", FCVAR_ARCHIVE);
 ConVar sk_weapon_railgun_warning_beep_time("sk_weapon_railgun_warning_beep_time", "3.5", FCVAR_ARCHIVE);
 
+ConVar sk_weapon_railgun_beam_red("sk_weapon_railgun_beam_red", "196", FCVAR_ARCHIVE);
+ConVar sk_weapon_railgun_beam_green("sk_weapon_railgun_beam_green", "55", FCVAR_ARCHIVE);
+ConVar sk_weapon_railgun_beam_blue("sk_weapon_railgun_beam_blue", "250", FCVAR_ARCHIVE);
+ConVar sk_weapon_railgun_beam_rainbow("sk_weapon_railgun_beam_rainbow", "0", FCVAR_ARCHIVE);
+
 IMPLEMENT_SERVERCLASS_ST(CWeaponRailgun, DT_WeaponRailgun)
 END_SEND_TABLE()
 
@@ -619,7 +624,7 @@ void CWeaponRailgun::Fire( void )
 //-----------------------------------------------------------------------------
 void CWeaponRailgun::DrawBeam(const Vector& startPos, const Vector& endPos)
 {
-	float flWidth = (m_bOverchargeDamageBenefits ? 4.5f : 2.0f);
+	float flWidth = (m_bOverchargeDamageBenefits ? 4.5f : 2.5f);
 
 	//Draw the main beam shaft
 	m_pBeam = CBeam::BeamCreate(GAUSS_BEAM_SPRITE, flWidth);
@@ -628,7 +633,18 @@ void CWeaponRailgun::DrawBeam(const Vector& startPos, const Vector& endPos)
 	m_pBeam->PointEntInit(endPos, this);
 	m_pBeam->SetEndAttachment(LookupAttachment("muzzle"));
 
-	m_pBeam->SetColor(196, 47 + random->RandomInt(-16, 16), 250);
+	if (sk_weapon_railgun_beam_rainbow.GetBool())
+	{
+		m_pBeam->SetColor(random->RandomInt(64, 255),
+						  random->RandomInt(64, 255),
+						  random->RandomInt(64, 255));
+	}
+	else
+	{
+		m_pBeam->SetColor(sk_weapon_railgun_beam_red.GetInt(),
+						  sk_weapon_railgun_beam_green.GetInt(),
+						  sk_weapon_railgun_beam_blue.GetInt());
+	}
 	m_pBeam->SetScrollRate(25.6);
 	m_pBeam->SetBrightness(m_bIsLowBattery ? 128 : 255);
 	m_pBeam->RelinkBeam();
