@@ -68,6 +68,7 @@
 #include "hl2/grenade_ar2.h"
 #include "gameweaponmanager.h"
 #include "firefightreloaded/fr_shareddefs.h"
+#include "func_breakablesurf.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -6720,6 +6721,40 @@ void CNPC_Hunter::CreateRailgunProjectile(const Vector& vecSrc, Vector& vecShoot
 	trace_t	tr;
 	UTIL_TraceLine(VecShootOrigin, endPos, MASK_SHOT, this, COLLISION_GROUP_NONE, &tr);
 
+	//break any glass.
+	bool glass = false;
+	if (tr.m_pEnt)
+	{
+		if (FClassnameIs(tr.m_pEnt, "func_breakable"))
+		{
+			CBreakable* pOtherEntity = static_cast<CBreakable*>(tr.m_pEnt);
+			if (pOtherEntity && (pOtherEntity->GetMaterialType() == matGlass || pOtherEntity->GetMaterialType() == matWeb))
+			{
+				pOtherEntity->Break(this);
+				glass = true;
+			}
+		}
+
+		if (!glass && FClassnameIs(tr.m_pEnt, "func_breakable_surf"))
+		{
+			CBreakableSurface* pOtherEntity = static_cast<CBreakableSurface*>(tr.m_pEnt);
+			if (pOtherEntity && (pOtherEntity->GetMaterialType() == matGlass || pOtherEntity->GetMaterialType() == matWeb))
+			{
+				pOtherEntity->Break(this);
+				glass = true;
+			}
+		}
+
+		if (glass)
+		{
+			//trace the line AGAIN.
+			UTIL_TraceLine(VecShootOrigin, endPos, MASK_SHOT, this, COLLISION_GROUP_NONE, &tr);
+		}
+	}
+
+	//Draw beam to reflection point
+	RailgunDrawBeam(tr.startpos, tr.endpos, !bOvercharged);
+
 	CAmmoDef* def = GetAmmoDef();
 	int m_iPrimaryAmmoType = def->Index("Railgun");
 	int definedDamage = def->NPCDamage(m_iPrimaryAmmoType);
@@ -6765,9 +6800,6 @@ void CNPC_Hunter::CreateRailgunProjectile(const Vector& vecSrc, Vector& vecShoot
 		CPVSFilter filter(tr.endpos);
 		te->GaussExplosion(filter, 0.0f, tr.endpos, tr.plane.normal, 0);
 	}
-
-	//Draw beam to reflection point
-	RailgunDrawBeam(tr.startpos, tr.endpos, !bOvercharged);
 }
 
 void CNPC_Hunter::CreateFragGrenadeProjectile(const Vector& vecSrc, QAngle& angShoot)

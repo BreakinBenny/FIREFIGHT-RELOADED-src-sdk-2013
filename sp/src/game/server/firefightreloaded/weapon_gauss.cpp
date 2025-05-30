@@ -19,6 +19,8 @@
 #include "shake.h"
 #include "explode.h"
 #include "rumble_shared.h"
+#include "func_break.h"
+#include "func_breakablesurf.h"
 
 #include "weapon_gauss.h"
 
@@ -120,7 +122,45 @@ void CWeaponGaussGun::Fire( void )
 			m_hViewModel.Set( vm );
 		}
 	}
-	Vector	aimDir	= pOwner->GetAutoaimVector( AUTOAIM_5DEGREES );
+
+	//Shoot a shot straight out
+	Vector	startPos = pOwner->Weapon_ShootPosition();
+	Vector	aimDir = pOwner->GetAutoaimVector(AUTOAIM_5DEGREES);
+	Vector	endPos = startPos + (aimDir * MAX_TRACE_LENGTH);
+
+	trace_t	tr;
+	UTIL_TraceLine(startPos, endPos, MASK_SHOT, pOwner, COLLISION_GROUP_NONE, &tr);
+
+	//break any glass.
+	bool glass = false;
+	if (tr.m_pEnt)
+	{
+		if (FClassnameIs(tr.m_pEnt, "func_breakable"))
+		{
+			CBreakable* pOtherEntity = static_cast<CBreakable*>(tr.m_pEnt);
+			if (pOtherEntity && (pOtherEntity->GetMaterialType() == matGlass || pOtherEntity->GetMaterialType() == matWeb))
+			{
+				pOtherEntity->Break(pOwner);
+				glass = true;
+			}
+		}
+
+		if (!glass && FClassnameIs(tr.m_pEnt, "func_breakable_surf"))
+		{
+			CBreakableSurface* pOtherEntity = static_cast<CBreakableSurface*>(tr.m_pEnt);
+			if (pOtherEntity && (pOtherEntity->GetMaterialType() == matGlass || pOtherEntity->GetMaterialType() == matWeb))
+			{
+				pOtherEntity->Break(pOwner);
+				glass = true;
+			}
+		}
+
+		if (glass)
+		{
+			//trace the line AGAIN.
+			UTIL_TraceLine(startPos, endPos, MASK_SHOT, pOwner, COLLISION_GROUP_NONE, &tr);
+		}
+	}
 
 	Vector vecUp, vecRight;
 	VectorVectors( aimDir, vecRight, vecUp );
@@ -180,6 +220,37 @@ void CWeaponGaussGun::ChargedFire( void )
 	
 	trace_t	tr;
 	UTIL_TraceLine( startPos, endPos, MASK_SHOT, pOwner, COLLISION_GROUP_NONE, &tr );
+
+	//break any glass.
+	bool glass = false;
+	if (tr.m_pEnt)
+	{
+		if (FClassnameIs(tr.m_pEnt, "func_breakable"))
+		{
+			CBreakable* pOtherEntity = static_cast<CBreakable*>(tr.m_pEnt);
+			if (pOtherEntity && (pOtherEntity->GetMaterialType() == matGlass || pOtherEntity->GetMaterialType() == matWeb))
+			{
+				pOtherEntity->Break(pOwner);
+				glass = true;
+			}
+		}
+
+		if (!glass && FClassnameIs(tr.m_pEnt, "func_breakable_surf"))
+		{
+			CBreakableSurface* pOtherEntity = static_cast<CBreakableSurface*>(tr.m_pEnt);
+			if (pOtherEntity && (pOtherEntity->GetMaterialType() == matGlass || pOtherEntity->GetMaterialType() == matWeb))
+			{
+				pOtherEntity->Break(pOwner);
+				glass = true;
+			}
+		}
+
+		if (glass)
+		{
+			//trace the line AGAIN.
+			UTIL_TraceLine(startPos, endPos, MASK_SHOT, pOwner, COLLISION_GROUP_NONE, &tr);
+		}
+	}
 	
 	ClearMultiDamage();
 

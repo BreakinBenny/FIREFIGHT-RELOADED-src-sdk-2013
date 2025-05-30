@@ -17,6 +17,8 @@
 #include "explode.h"
 #include "globalstate.h"
 #include "rumble_shared.h"
+#include "func_break.h"
+#include "func_breakablesurf.h"
 
 ConVar sk_weapon_railgun_overcharge_limit("sk_weapon_railgun_overcharge_limit", "500", FCVAR_ARCHIVE);
 ConVar sk_weapon_railgun_warning_beep_time("sk_weapon_railgun_warning_beep_time", "3.5", FCVAR_ARCHIVE);
@@ -163,6 +165,40 @@ void CWeaponRailgun::FireNPCPrimaryAttack(CBaseCombatCharacter* pOperator, bool 
 	trace_t	tr;
 	UTIL_TraceLine(vecShootOrigin, endPos, MASK_SHOT, npc, COLLISION_GROUP_NONE, &tr);
 
+	//break any glass.
+	bool glass = false;
+	if (tr.m_pEnt)
+	{
+		if (FClassnameIs(tr.m_pEnt, "func_breakable"))
+		{
+			CBreakable* pOtherEntity = static_cast<CBreakable*>(tr.m_pEnt);
+			if (pOtherEntity && (pOtherEntity->GetMaterialType() == matGlass || pOtherEntity->GetMaterialType() == matWeb))
+			{
+				pOtherEntity->Break(npc);
+				glass = true;
+			}
+		}
+
+		if (!glass && FClassnameIs(tr.m_pEnt, "func_breakable_surf"))
+		{
+			CBreakableSurface* pOtherEntity = static_cast<CBreakableSurface*>(tr.m_pEnt);
+			if (pOtherEntity && (pOtherEntity->GetMaterialType() == matGlass || pOtherEntity->GetMaterialType() == matWeb))
+			{
+				pOtherEntity->Break(npc);
+				glass = true;
+			}
+		}
+
+		if (glass)
+		{
+			//trace the line AGAIN.
+			UTIL_TraceLine(vecShootOrigin, endPos, MASK_SHOT, npc, COLLISION_GROUP_NONE, &tr);
+		}
+	}
+
+	//Draw beam to reflection point
+	DrawBeam(tr.startpos, tr.endpos);
+
 	CAmmoDef* def = GetAmmoDef();
 	int definedDamage = def->NPCDamage(m_iPrimaryAmmoType);
 	bool bUsesOvercharge = (npc && npc->m_pAttributes != NULL && npc->m_pAttributes->GetBool("use_railgun_overcharge"));
@@ -214,9 +250,6 @@ void CWeaponRailgun::FireNPCPrimaryAttack(CBaseCombatCharacter* pOperator, bool 
 		CPVSFilter filter(tr.endpos);
 		te->GaussExplosion(filter, 0.0f, tr.endpos, tr.plane.normal, 0);
 	}
-
-	//Draw beam to reflection point
-	DrawBeam(tr.startpos, tr.endpos);
 }
 
 //-----------------------------------------------------------------------------
@@ -560,6 +593,41 @@ void CWeaponRailgun::Fire( void )
 	trace_t	tr;
 	UTIL_TraceLine( startPos, endPos, MASK_SHOT, pOwner, COLLISION_GROUP_NONE, &tr );
 
+	//break any glass.
+	bool glass = false;
+	if (tr.m_pEnt)
+	{
+		if (FClassnameIs(tr.m_pEnt, "func_breakable"))
+		{
+			CBreakable* pOtherEntity = static_cast<CBreakable*>(tr.m_pEnt);
+			if (pOtherEntity && (pOtherEntity->GetMaterialType() == matGlass || pOtherEntity->GetMaterialType() == matWeb))
+			{
+				pOtherEntity->Break(pOwner);
+				glass = true;
+			}
+		}
+
+		if (!glass && FClassnameIs(tr.m_pEnt, "func_breakable_surf"))
+		{
+			CBreakableSurface* pOtherEntity = static_cast<CBreakableSurface*>(tr.m_pEnt);
+			if (pOtherEntity && (pOtherEntity->GetMaterialType() == matGlass || pOtherEntity->GetMaterialType() == matWeb))
+			{
+				pOtherEntity->Break(pOwner);
+				glass = true;
+			}
+		}
+
+		if (glass)
+		{
+			//trace the line AGAIN.
+			UTIL_TraceLine(startPos, endPos, MASK_SHOT, pOwner, COLLISION_GROUP_NONE, &tr);
+		}
+	}
+
+	//render the beam now.
+	//Draw beam to reflection point
+	DrawBeam(tr.startpos, tr.endpos);
+
 	CAmmoDef *def = GetAmmoDef();
 	int definedDamage = def->PlrDamage(m_iPrimaryAmmoType);
 	// rgettman - https://stackoverflow.com/questions/18407634/rounding-up-to-the-nearest-hundred
@@ -587,7 +655,7 @@ void CWeaponRailgun::Fire( void )
 	info.m_flDamageForceScale = 0.2f;
 	info.m_bAffectedByBullettime = false;
 
-	info.m_nDamageFlags = (pOwner->m_bInstagib ? (def->DamageType(info.m_iAmmoType) | DMG_ALWAYSGIB | DMG_BLAST) : def->DamageType(info.m_iAmmoType));
+	info.m_nDamageFlags = (pOwner->m_bInstagib ? (def->DamageType(info.m_iAmmoType) | DMG_ALWAYSGIB) : def->DamageType(info.m_iAmmoType));
 
 	// Fire the bullets, and force the first shot to be perfectly accurate
 	pOwner->FireBullets(info);
@@ -604,16 +672,13 @@ void CWeaponRailgun::Fire( void )
 	//Kick up an effect
 	if (!(tr.surface.flags & SURF_SKY))
 	{
-		UTIL_ImpactTrace(&tr, m_iPrimaryAmmoType, "ImpactJeep");
+		//UTIL_ImpactTrace(&tr, m_iPrimaryAmmoType, "ImpactJeep");
 		UTIL_DecalTrace(&tr, "RedGlowFade");
 
 		//Do a gauss explosion
 		CPVSFilter filter(tr.endpos);
 		te->GaussExplosion(filter, 0.0f, tr.endpos, tr.plane.normal, 0);
 	}
-
-	//Draw beam to reflection point
-	DrawBeam(tr.startpos, tr.endpos);
 
 	// Register a muzzleflash for the AI
 	pOwner->SetMuzzleFlashTime( gpGlobals->curtime + 0.5 );
