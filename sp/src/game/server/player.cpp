@@ -6374,11 +6374,6 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 				SetHealth(healthNum);
 			}
 
-			/*if (GetHealth() > GetMaxHealthValue())
-			{
-				SetHealth(GetMaxHealthValue());
-			}*/
-
 			loadoutSetHealth = true;
 		}
 
