@@ -1951,6 +1951,14 @@ int CBasePlayer::TakeHealth( float flHealth, int bitsDamageType )
 
 	m_iHealth += flHealth;
 
+	if (m_MaxHealthVal > 0)
+	{
+		if (m_iHealth > m_MaxHealthVal)
+		{
+			m_iHealth = m_MaxHealthVal;
+		}
+	}
+
 	return m_iHealth - oldHealth;
 }
 
@@ -6318,22 +6326,13 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 			}
 		}
 
-		
-
 		if (!loadoutSetHealth)
 		{
 			int internalMaxHealth = pNode->GetInt("healthoverchargecap", player_defaulthealthoverchargecap.GetInt());
-			bool setMax = false;
 
 			if (internalMaxHealth > 0)
 			{
 				SetMaxHealth(internalMaxHealth);
-				setMax = true;
-			}
-
-			if (!setMax)
-			{
-				SetMaxHealth(player_defaulthealthoverchargecap.GetInt());
 			}
 
 			int healthNum = pNode->GetInt("health", player_defaulthealth.GetInt());
@@ -6358,6 +6357,12 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 				{
 					SetMaxHealthValue(maxHealthNum);
 				}
+			}
+
+			if (GetMaxHealthValue() > 0)
+			{
+				if (healthNum > GetMaxHealthValue())
+					healthNum = GetMaxHealthValue();
 			}
 
 			if (incrementHealth)
@@ -6396,6 +6401,12 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 				{
 					SetMaxArmorValue(maxArmorNum);
 				}
+			}
+
+			if (GetMaxArmorValue() > 0)
+			{
+				if (armorNum > GetMaxArmorValue())
+					armorNum = GetMaxArmorValue();
 			}
 
 			if (incrementArmor)

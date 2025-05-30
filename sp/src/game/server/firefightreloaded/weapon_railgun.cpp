@@ -648,7 +648,7 @@ void CWeaponRailgun::DrawBeam(const Vector& startPos, const Vector& endPos)
 	m_pBeam->SetScrollRate(25.6);
 	m_pBeam->SetBrightness(m_bIsLowBattery ? 128 : 255);
 	m_pBeam->RelinkBeam();
-	m_pBeam->LiveForTime(0.1f);
+	m_pBeam->LiveForTime(0.165f);
 }
 
 void CWeaponRailgun::RechargeAmmo(bool bIsHolstered)
