@@ -3636,6 +3636,9 @@ bool CNPC_Combine::CanAltFireEnemy( bool bUseFreeKnowledge )
 	//if (GetActiveWeapon() && !GetActiveWeapon()->HasSecondaryAmmo())
 		//return false;
 
+	if (GetActiveWeapon() && !GetActiveWeapon()->UsesSecondaryAmmo())
+		return false;
+
 	if (!IsAce() && IsCrouching())
 		return false;
 

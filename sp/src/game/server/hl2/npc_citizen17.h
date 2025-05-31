@@ -128,6 +128,8 @@ public:
 
 	int				SelectFailSchedule( int failedSchedule, int failedTask, AI_TaskFailureCode_t taskFailCode );
 	int				SelectSchedule();
+	bool			CanAltFireEnemy(bool bUseFreeKnowledge);
+	void			DelayAltFireAttack(float flDelay);
 
 	int 			SelectSchedulePriorityAction();
 	int 			SelectScheduleHeal();
@@ -289,6 +291,7 @@ private:
 #ifdef HL2_EPISODIC
 		SCHED_CITIZEN_HEAL_TOSS,
 #endif
+		SCHED_CITIZEN_AR2_ALTFIRE,
 		
 		TASK_CIT_HEAL = BaseClass::NEXT_TASK,
 		TASK_CIT_PLAY_INSPECT_SEQUENCE,
@@ -298,7 +301,7 @@ private:
 #ifdef HL2_EPISODIC
 		TASK_CIT_HEAL_TOSS,
 #endif
-
+		TASK_CIT_PLAY_SEQUENCE_FACE_ALTFIRE_TARGET,
 	};
 
 	//-----------------------------------------------------
@@ -320,6 +323,8 @@ private:
 	bool			m_bWasInPlayerSquad;
 	float			m_flTimeLastCloseToPlayer;
 	string_t		m_iszDenyCommandConcept;
+	Vector			m_vecAltFireTarget;
+	float			m_flNextAltFireTime;		// Elites only. Next time to begin considering alt-fire attack.
 
 	CSimpleSimTimer	m_AutoSummonTimer;
 	Vector			m_vAutoSummonAnchor;

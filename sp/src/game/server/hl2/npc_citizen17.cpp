@@ -55,6 +55,7 @@ const int MAX_PLAYER_SQUAD = 4;
 ConVar	sk_citizen_health				( "sk_citizen_health",					"0");
 ConVar	sk_citizen_enemy_health			("sk_citizen_enemy_health", "0");
 ConVar	sk_player_bot_health			("sk_player_bot_health", "0");
+ConVar	sk_player_bot_enemy_health			("sk_player_bot_enemy_health", "0");
 ConVar	sk_citizen_heal_player			( "sk_citizen_heal_player",				"25");
 ConVar	sk_citizen_heal_player_delay	( "sk_citizen_heal_player_delay",		"25");
 ConVar	sk_citizen_giveammo_player_delay( "sk_citizen_giveammo_player_delay",	"10");
@@ -116,6 +117,8 @@ const float HEAL_TARGET_RANGE_Z = 72; // a second check that Gordon isn't too fa
 // Animation events
 int AE_CITIZEN_GET_PACKAGE;
 int AE_CITIZEN_HEAL;
+static int COMBINE_AE_BEGIN_ALTFIRE;
+static int COMBINE_AE_ALTFIRE;
 
 //-------------------------------------
 //-------------------------------------
@@ -498,6 +501,8 @@ BEGIN_DATADESC( CNPC_Citizen )
 	DEFINE_KEYFIELD(	m_bNotifyNavFailBlocked,	FIELD_BOOLEAN, "notifynavfailblocked" ),
 	DEFINE_KEYFIELD(	m_bNeverLeavePlayerSquad,	FIELD_BOOLEAN, "neverleaveplayersquad" ),
 	DEFINE_KEYFIELD(	m_iszDenyCommandConcept,	FIELD_STRING, "denycommandconcept" ),
+	DEFINE_FIELD(		m_vecAltFireTarget, FIELD_VECTOR),
+	DEFINE_FIELD(		m_flNextAltFireTime, FIELD_TIME),
 
 	DEFINE_OUTPUT(		m_OnJoinedPlayerSquad,	"OnJoinedPlayerSquad" ),
 	DEFINE_OUTPUT(		m_OnLeftPlayerSquad,	"OnLeftPlayerSquad" ),
@@ -590,6 +595,7 @@ void CNPC_Citizen::Precache()
 	PrecacheScriptSound( "NPC_Citizen.FootstepLeft" );
 	PrecacheScriptSound( "NPC_Citizen.FootstepRight" );
 	PrecacheScriptSound( "NPC_Citizen.Die" );
+	PrecacheScriptSound("Weapon_CombineGuard.Special1");
 
 	PrecacheInstancedScene( "scenes/Expressions/CitizenIdle.vcd" );
 	PrecacheInstancedScene( "scenes/Expressions/CitizenAlert_loop.vcd" );
@@ -695,9 +701,16 @@ void CNPC_Citizen::Spawn()
 	else
 	{
 		m_kvBotNames.LoadEntries("scripts/bot_names.txt", "BotNames");
-		//replace with sk_player_bot_health
-		SetHealth(sk_player_bot_health.GetInt());
-		SetMaxHealth(sk_player_bot_health.GetInt());
+		if (HasSpawnFlags(SF_CITIZEN_ENEMY))
+		{
+			SetHealth(sk_player_bot_enemy_health.GetInt());
+			SetMaxHealth(sk_player_bot_enemy_health.GetInt());
+		}
+		else
+		{
+			SetHealth(sk_player_bot_health.GetInt());
+			SetMaxHealth(sk_player_bot_health.GetInt());
+		}
 	}
 
 	// Are we on a train? Used in trainstation to have NPCs on trains.
@@ -726,6 +739,12 @@ void CNPC_Citizen::Spawn()
 	m_iszOriginalSquad = m_SquadName;
 
 	m_flNextHealthSearchTime = gpGlobals->curtime;
+
+	if (HasSpawnFlags(SF_CITIZEN_ENEMY))
+	{
+		//this is so aces can actually be fair.
+		m_flNextAltFireTime = gpGlobals->curtime + 6;
+	}
 
 	m_bCanSendNPCvNPCDeathNotice = true;
 
@@ -1734,8 +1753,97 @@ int CNPC_Citizen::SelectSchedule()
 	{
 		return SCHED_PATROL_WALK_LOOP;
 	}
+
+	if (m_NPCState == NPC_STATE_COMBAT)
+	{
+		if (CanAltFireEnemy(true) && OccupyStrategySlot(SQUAD_SLOT_SPECIAL_ATTACK))
+		{
+			// If an elite in the squad could fire a combine ball at the player's last known position,
+			// do so!
+			return SCHED_CITIZEN_AR2_ALTFIRE;
+		}
+	}
 	
 	return BaseClass::SelectSchedule();
+}
+
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+void CNPC_Citizen::DelayAltFireAttack(float flDelay)
+{
+	float flNextAltFire = gpGlobals->curtime + flDelay;
+
+	if (flNextAltFire > m_flNextAltFireTime)
+	{
+		// Don't let this delay order preempt a previous request to wait longer.
+		m_flNextAltFireTime = flNextAltFire;
+	}
+}
+
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+bool CNPC_Citizen::CanAltFireEnemy(bool bUseFreeKnowledge)
+{
+	//if (!HasSpawnFlags(SF_CITIZEN_USE_PLAYERBOT_AI))
+		//return false;
+
+	if (GetActiveWeapon() && !GetActiveWeapon()->UsesSecondaryAmmo())
+		return false;
+
+	if (gpGlobals->curtime < m_flNextAltFireTime)
+		return false;
+
+	if (!GetEnemy())
+		return false;
+
+	CBaseEntity* pEnemy = GetEnemy();
+
+	if (!pEnemy->IsPlayer() && (!pEnemy->IsNPC() || !pEnemy->MyNPCPointer()->IsPlayerAlly()))
+		return false;
+
+	Vector vecTarget;
+
+	// Determine what point we're shooting at
+	if (bUseFreeKnowledge)
+	{
+		vecTarget = GetEnemies()->LastKnownPosition(pEnemy) + (pEnemy->GetViewOffset() * 0.75);// approximates the chest
+	}
+	else
+	{
+		vecTarget = GetEnemies()->LastSeenPosition(pEnemy) + (pEnemy->GetViewOffset() * 0.75);// approximates the chest
+	}
+
+	// Trace a hull about the size of the combine ball (don't shoot through grates!)
+	trace_t tr;
+
+	Vector mins(-12, -12, -12);
+	Vector maxs(12, 12, 12);
+
+	Vector vShootPosition = EyePosition();
+
+	if (GetActiveWeapon())
+	{
+		GetActiveWeapon()->GetAttachment("muzzle", vShootPosition);
+	}
+
+	// Trace a hull about the size of the combine ball.
+	UTIL_TraceHull(vShootPosition, vecTarget, mins, maxs, MASK_SHOT, this, COLLISION_GROUP_NONE, &tr);
+
+	float flLength = (vShootPosition - vecTarget).Length();
+
+	flLength *= tr.fraction;
+
+	//If the ball can travel at least 65% of the distance to the player then let the NPC shoot it.
+	if (tr.fraction >= 0.65 && flLength > 128.0f)
+	{
+		// Target is valid
+		m_vecAltFireTarget = vecTarget;
+		return true;
+	}
+
+	m_vecAltFireTarget = vec3_origin;
+
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -2161,6 +2269,11 @@ void CNPC_Citizen::StartTask( const Task_t *pTask )
 		TaskComplete();
 		break;
 
+	case TASK_CIT_PLAY_SEQUENCE_FACE_ALTFIRE_TARGET:
+		SetIdealActivity((Activity)(int)pTask->flTaskData);
+		GetMotor()->SetIdealYawToTargetAndUpdate(m_vecAltFireTarget, AI_KEEP_YAW_SPEED);
+		break;
+
 	default:
 		BaseClass::StartTask( pTask );
 		break;
@@ -2267,6 +2380,14 @@ void CNPC_Citizen::RunTask( const Task_t *pTask )
 			break;
 
 #endif
+		case TASK_CIT_PLAY_SEQUENCE_FACE_ALTFIRE_TARGET:
+			GetMotor()->SetIdealYawToTargetAndUpdate(m_vecAltFireTarget, AI_KEEP_YAW_SPEED);
+
+			if (IsActivityFinished())
+			{
+				TaskComplete();
+			}
+			break;
 
 		default:
 			BaseClass::RunTask( pTask );
@@ -2361,6 +2482,26 @@ void CNPC_Citizen::HandleAnimEvent( animevent_t *pEvent )
 #else
 		Heal();
 #endif
+		return;
+	}
+	else if (pEvent->event == COMBINE_AE_BEGIN_ALTFIRE)
+	{
+		EmitSound("Weapon_CombineGuard.Special1");
+		return;
+	}
+	else if (pEvent->event == COMBINE_AE_ALTFIRE)
+	{
+		animevent_t fakeEvent;
+
+		fakeEvent.pSource = this;
+		fakeEvent.event = EVENT_WEAPON_AR2_ALTFIRE;
+		GetActiveWeapon()->Operator_HandleAnimEvent(&fakeEvent, this);
+
+		// Stop balling for a while.
+		DelayAltFireAttack(10.0f);
+
+		//m_iNumGrenades--;
+
 		return;
 	}
 
@@ -4429,6 +4570,7 @@ AI_BEGIN_CUSTOM_NPC( npc_citizen, CNPC_Citizen )
 #if HL2_EPISODIC
 	DECLARE_TASK( TASK_CIT_HEAL_TOSS )
 #endif
+	DECLARE_TASK(TASK_CIT_PLAY_SEQUENCE_FACE_ALTFIRE_TARGET)
 
 	DECLARE_ACTIVITY( ACT_CIT_HANDSUP )
 	DECLARE_ACTIVITY( ACT_CIT_BLINDED )
@@ -4443,6 +4585,8 @@ AI_BEGIN_CUSTOM_NPC( npc_citizen, CNPC_Citizen )
 	//Events
 	DECLARE_ANIMEVENT( AE_CITIZEN_GET_PACKAGE )
 	DECLARE_ANIMEVENT( AE_CITIZEN_HEAL )
+	DECLARE_ANIMEVENT(COMBINE_AE_BEGIN_ALTFIRE)
+	DECLARE_ANIMEVENT(COMBINE_AE_ALTFIRE)
 
 	//=========================================================
 	// > SCHED_SCI_HEAL
@@ -4557,6 +4701,21 @@ AI_BEGIN_CUSTOM_NPC( npc_citizen, CNPC_Citizen )
 		""
 		"	Interrupts"
 	)
+
+	//=========================================================
+	 // AR2 Alt Fire Attack
+	 //=========================================================
+	 DEFINE_SCHEDULE
+	 (
+		 SCHED_CITIZEN_AR2_ALTFIRE,
+
+		 "	Tasks"
+		 "		TASK_STOP_MOVING				0"
+		 "		TASK_ANNOUNCE_ATTACK								1"
+		 "		TASK_CIT_PLAY_SEQUENCE_FACE_ALTFIRE_TARGET			ACTIVITY:ACT_COMBINE_AR2_ALTFIRE"
+		 ""
+		 "	Interrupts"
+	 )
 
 AI_END_CUSTOM_NPC()
 
