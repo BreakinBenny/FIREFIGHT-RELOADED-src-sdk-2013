@@ -3210,6 +3210,27 @@ Activity CNPC_MetroPolice::NPC_TranslateActivity( Activity newActivity )
 			return ACT_MELEE_ATTACK1;
 	}
 
+	// ugly hack for ar2 anims
+	switch (newActivity)
+	{
+	case ACT_RUN_AR2:
+		newActivity = ACT_RUN_RIFLE;
+		break;
+	case ACT_RUN_AIM_AR2:
+	case ACT_RUN_AIM_AR2_STIMULATED:
+		newActivity = ACT_RUN_AIM_RIFLE;
+		break;
+	case ACT_WALK_AR2:
+		newActivity = ACT_WALK_RIFLE;
+		break;
+	case ACT_WALK_AIM_AR2:
+		newActivity = ACT_WALK_AIM_RIFLE;
+		break;
+	case ACT_IDLE_ANGRY_AR2:
+		newActivity = ACT_IDLE_ANGRY;
+		break;
+	}
+
 	newActivity = BaseClass::NPC_TranslateActivity( newActivity );
 
 	// This will put him into an angry idle, which will then be translated

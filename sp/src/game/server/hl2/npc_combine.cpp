@@ -1789,6 +1789,8 @@ void CNPC_Combine::BuildScheduleTestBits( void )
 //-----------------------------------------------------------------------------
 Activity CNPC_Combine::NPC_TranslateActivity( Activity eNewActivity )
 {
+	//Msg("ACTVITY %i\n", eNewActivity);
+
 	//Slaming this back to ACT_COMBINE_BUGBAIT since we don't want ANYTHING to change our activity while we burn.
 	//Now when we burn, we either continue fighting or stand there like an idiot. Its random, so there's that. -Bitl
 	if ( HasCondition( COND_COMBINE_ON_FIRE ) && random->RandomInt(1,5) == 3 )
@@ -1831,6 +1833,27 @@ Activity CNPC_Combine::NPC_TranslateActivity( Activity eNewActivity )
 			eNewActivity = ACT_RUN_AIM;
 			break;
 		}
+	}
+
+	// ugly hack for ar2 anims
+	switch (eNewActivity)
+	{
+		case ACT_RUN_AR2:
+			eNewActivity = ACT_RUN_RIFLE;
+			break;
+		case ACT_RUN_AIM_AR2:
+		case ACT_RUN_AIM_AR2_STIMULATED:
+			eNewActivity = ACT_RUN_AIM_RIFLE;
+			break;
+		case ACT_WALK_AR2:
+			eNewActivity = ACT_WALK_RIFLE;
+			break;
+		case ACT_WALK_AIM_AR2:
+			eNewActivity = ACT_WALK_AIM_RIFLE;
+			break;
+		case ACT_IDLE_ANGRY_AR2:
+			eNewActivity = ACT_IDLE_ANGRY;
+			break;
 	}
 
 	return BaseClass::NPC_TranslateActivity( eNewActivity );
