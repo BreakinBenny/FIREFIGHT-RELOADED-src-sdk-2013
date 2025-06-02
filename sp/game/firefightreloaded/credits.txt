@@ -90,8 +90,25 @@ Tool Credits:
 James Holloway for making a patch that extended the VBSP brush limit.
 
 Translations:
- - FarSeer - Russian Translation
- - Insane Black Rock Shooter - Simplified Chinese Translation
+ - FarSeer - Russian
+ - Insane Black Rock Shooter - Simplified Chinese
+ - Gh0st - Spanish
+ - theFILipKOS - Polish
+ - Golden - Portuguese (Brazil)
+ - shrewmca - Finnish
+ - Blackwhite - Russian
+ - yu2056 (Juri S.) - Russian
+ - Quriosity - Russian
+ - Hoshungen (Hosh) - Turkish
+ - SuNightFox - Ukrainian
+ - schriftform (Max) - German
+ - CrabHead - Polish
+
+One or more parts of the following languages came up uncredited.
+Please contact me or post in the Steam Community if you did any of these:
+ - (N/A) - French
+ - (N/A) - Simplified Chinese
+ - (N/A) - Traditional Chinese
 
 Thank you to the following people who have playtested the mod to make sure it works properly:
  - Tyler 'BFBC2143' Schield
