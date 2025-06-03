@@ -22,10 +22,12 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-#define TURRET_MAX_PLACEMENT_RANGE 128.0f
+#define TURRET_MAX_PLACEMENT_RANGE 192.0f
 #define TURRET_MIN_PLACEMENT_RANGE 32.0f
 
 ConVar	sv_infinite_turrets("sv_infinite_turrets", "0", FCVAR_ARCHIVE);
+ConVar	sv_turret_hologram_opacity("sv_turret_hologram_opacity", "180", FCVAR_ARCHIVE);
+ConVar  sv_turret_hologram_rotation_speed("sv_turret_hologram_rotation_speed", "250", FCVAR_CHEAT, "Degrees per second to rotate building when player alt-fires during placement.");
 
 class CTurretHologram : public CAI_BaseNPC
 {
@@ -45,15 +47,19 @@ public:
 		Precache();
 		BaseClass::Spawn();
 
+		//using a wide human as our measurement hull to allow for a better spawing area
+		SetHullType(HULL_WIDE_HUMAN);
+		SetHullSizeNormal();
+
 		AddEFlags(EFL_DIRTY_ABSTRANSFORM);
 
 #ifdef GLOWS_ENABLE
 		m_bImportantOutline = true;
 #endif
-		SetModel(FLOOR_TURRET_WEAPON_MODEL);
+		SetModel(FLOOR_TURRET_WEAPON_HOLOGRAM_MODEL);
 
-		SetRenderMode(kRenderTransColor);
-		SetRenderColor(80, 80, 80, 180);
+		//use the colorable skin.
+		m_nSkin = 1;
 
 		SetThink(&CTurretHologram::OnThink);
 		SetNextThink(gpGlobals->curtime + 0.01f);
@@ -66,25 +72,30 @@ public:
 		switch (status)
 		{
 			case TURRET_JUSTRIGHT:
-				clrHighlightColor = Color(80, 255, 80);
+				clrHighlightColor = Color("#50ff50");
 				break;
 			case TURRET_TOOFAR:
+				clrHighlightColor = Color("#ff9350");
+				break;
 			case TURRET_INVALIDPLACEMENT:
-				clrHighlightColor = Color(255, 80, 80);
+				clrHighlightColor = Color("#fc3a3a");
 				break;
 		}
 
 		SetRenderMode(kRenderTransColor);
-		SetRenderColor(clrHighlightColor.r(), clrHighlightColor.g(), clrHighlightColor.b(), 150);
+		SetRenderColor(255, 255, 255, sv_turret_hologram_opacity.GetInt());
+		SetMaterialColorMode(COLORMODE_NORMAL);
+		Vector matColor = Vector(clrHighlightColor.r(), clrHighlightColor.g(), clrHighlightColor.b());
+
+		UpdateMaterialColor(matColor.x, matColor.y, matColor.z);
 		
 #ifdef GLOWS_ENABLE
-		Vector outlineColor = Vector(clrHighlightColor.r(), clrHighlightColor.g(), clrHighlightColor.b());
-		GiveOutline(outlineColor);
+		GiveOutline(matColor);
 #endif
 	}
 
 	void SetStatus(HologramStatus statusToReport) { status = statusToReport; }
-	void Precache(void) { PrecacheModel(FLOOR_TURRET_WEAPON_MODEL); }
+	void Precache(void) { PrecacheModel(FLOOR_TURRET_WEAPON_HOLOGRAM_MODEL); }
 	HologramStatus GetStatus(void) { return status; }
 
 private:
@@ -130,6 +141,7 @@ public:
 	}
     
 	void				PrimaryAttack( void );
+	void				SecondaryAttack(void);
 	bool				Reload( void );
 	bool				DecrementAmmo( CBaseCombatCharacter *pOwner );
 
@@ -137,6 +149,9 @@ private:
 	CHandle<CTurretHologram>	pHologram;
 	bool				m_bSetToRemoveAmmo;
 	bool				m_bStopMovingHologram;
+
+	float				m_flCurrentBuildRotation;
+	int					m_iDesiredBuildRotations;
 };
 
 IMPLEMENT_SERVERCLASS_ST(CWeaponTurret, DT_WeaponTurret)
@@ -149,6 +164,8 @@ BEGIN_DATADESC(CWeaponTurret)
 	DEFINE_FIELD(pHologram, FIELD_EHANDLE),
 	DEFINE_FIELD(m_bSetToRemoveAmmo, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_bStopMovingHologram, FIELD_BOOLEAN),
+	DEFINE_FIELD(m_flCurrentBuildRotation, FIELD_FLOAT),
+	DEFINE_FIELD(m_iDesiredBuildRotations, FIELD_INTEGER),
 END_DATADESC()
 
 acttable_t CWeaponTurret::m_acttable[] =
@@ -171,6 +188,8 @@ CWeaponTurret::CWeaponTurret()
 	m_fMaxRange1 = TURRET_MAX_PLACEMENT_RANGE;
 	m_bSetToRemoveAmmo = false;
 	m_bStopMovingHologram = false;
+	m_iDesiredBuildRotations = 0;
+	m_flCurrentBuildRotation = 0.0f;
 	pHologram = NULL;
 }
 
@@ -198,10 +217,7 @@ void CWeaponTurret::Precache( void )
 
 void CWeaponTurret::ItemPreFrame(void)
 {
-	if (!m_bStopMovingHologram)
-	{
-		MoveHologram();
-	}
+	MoveHologram();
 
 	BaseClass::ItemPreFrame();
 }
@@ -245,6 +261,9 @@ void CWeaponTurret::SpawnTurret(void)
 
 		WeaponSound(SPECIAL1);
 	}
+
+	m_bStopMovingHologram = false;
+	MoveHologram();
 
 	if (!DecrementAmmo(pOwner))
 	{
@@ -292,6 +311,18 @@ void CWeaponTurret::PrimaryAttack( void )
 	//sequence duration dictates turret spawn.
 }
 
+void CWeaponTurret::SecondaryAttack(void)
+{
+	if (pHologram)
+	{
+		// rotate the build angles by 90 degrees ( final angle calculated after we network this )
+		m_iDesiredBuildRotations++;
+		m_iDesiredBuildRotations = m_iDesiredBuildRotations % 4;
+	}
+
+	m_flNextSecondaryAttack = gpGlobals->curtime + 0.3f;
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 // Input  : NULL - 
@@ -314,6 +345,9 @@ bool CWeaponTurret::Holster(CBaseCombatWeapon* pSwitchingTo)
 	{
 		StopHologram();
 	}
+
+	m_iDesiredBuildRotations = 0;
+	m_flCurrentBuildRotation = 0.0f;
 
 	return BaseClass::Holster(pSwitchingTo);
 }
@@ -339,6 +373,9 @@ void CWeaponTurret::Drop(const Vector& velocity)
 	{
 		StopHologram();
 	}
+
+	m_iDesiredBuildRotations = 0;
+	m_flCurrentBuildRotation = 0.0f;
 
 	BaseClass::Drop(velocity);
 }
@@ -368,6 +405,9 @@ void CWeaponTurret::MoveHologram(void)
 		return;
 	}
 
+	if (m_bStopMovingHologram)
+		return;
+
 	CBasePlayer* pOwner = ToBasePlayer(GetOwner());
 	if (!pOwner)
 		return;
@@ -394,21 +434,29 @@ void CWeaponTurret::MoveHologram(void)
 		if (tr.fraction != 1.0)
 		{
 			pHologram->SetAbsOrigin(tr.endpos);
-			pHologram->SetAbsAngles(angles);
+			//pHologram->SetAbsAngles(angles);
+
+			// Calculate build angles
+			QAngle vecAngles = vec3_angle;
+			vecAngles.y = pOwner->EyeAngles().y;
+
+			QAngle objAngles = vecAngles;
+
+			SetAbsAngles(objAngles);
+
+			float flBuildRotation = 90.0f * m_iDesiredBuildRotations;
+
+			m_flCurrentBuildRotation = ApproachAngle(flBuildRotation, m_flCurrentBuildRotation, sv_turret_hologram_rotation_speed.GetFloat() * gpGlobals->frametime);
+
+			objAngles.y = objAngles.y + m_flCurrentBuildRotation;
+
+			pHologram->SetLocalAngles(objAngles);
+
 			//pHologram->Teleport(&tr.endpos, &angles, NULL);
 			UTIL_DropToFloor(pHologram, MASK_NPCSOLID);
 			// Now check that this is a valid location for the new npc to be
 			Vector	vUpBit = pHologram->GetAbsOrigin();
 			vUpBit.z += 1;
-
-			//mins and maxs for a human hull (turret's hull)
-			AI_TraceHull(pHologram->GetAbsOrigin(), vUpBit, Vector(-13, -13, 0), Vector(13, 13, 72),
-				MASK_NPCSOLID, pHologram, COLLISION_GROUP_NONE, &tr);
-			if (tr.startsolid || (tr.fraction < 1.0))
-			{
-				pHologram->SetStatus(CTurretHologram::TURRET_INVALIDPLACEMENT);
-				return;
-			}
 
 			float enemyDelta = (pHologram->WorldSpaceCenter() - pOwner->WorldSpaceCenter()).Length();
 
@@ -418,6 +466,15 @@ void CWeaponTurret::MoveHologram(void)
 				return;
 			}
 			else if (enemyDelta < TURRET_MIN_PLACEMENT_RANGE)
+			{
+				pHologram->SetStatus(CTurretHologram::TURRET_INVALIDPLACEMENT);
+				return;
+			}
+
+			//mins and maxs for the hologram's hull
+			AI_TraceHull(pHologram->GetAbsOrigin(), vUpBit, pHologram->GetHullMins(), pHologram->GetHullMaxs(),
+				MASK_NPCSOLID, pHologram, COLLISION_GROUP_NONE, &tr);
+			if (tr.fraction < 1.0)
 			{
 				pHologram->SetStatus(CTurretHologram::TURRET_INVALIDPLACEMENT);
 				return;

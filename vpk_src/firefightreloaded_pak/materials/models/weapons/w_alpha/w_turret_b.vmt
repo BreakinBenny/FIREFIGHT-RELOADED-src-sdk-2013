@@ -10,6 +10,7 @@
 	"$phongalbedotint" 1										
 	"$phongfresnelranges"	"[.1 .5  1]"
 	"$selfillum" 1
+}
 
 
 	

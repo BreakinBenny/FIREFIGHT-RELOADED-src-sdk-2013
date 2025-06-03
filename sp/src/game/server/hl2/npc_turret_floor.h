@@ -48,6 +48,7 @@ enum eyeState_t
 #define	FLOOR_TURRET_MODEL			"models/combine_turrets/floor_turret.mdl"
 #define	FLOOR_TURRET_MODEL_CITIZEN	"models/combine_turrets/citizen_turret.mdl"
 #define	FLOOR_TURRET_WEAPON_MODEL	"models/weapons/floor_turret_rb.mdl"
+#define	FLOOR_TURRET_WEAPON_HOLOGRAM_MODEL	"models/weapons/floor_turret_rb.mdl"
 
 class CTurretTipController;
 class CBeam;

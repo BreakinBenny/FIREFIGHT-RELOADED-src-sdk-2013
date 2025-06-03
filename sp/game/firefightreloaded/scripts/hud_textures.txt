@@ -137,18 +137,27 @@
 		}
         		"npc_turret_floor"
 		{
-				"font"		"WeaponIconsKillFeed"
-				"character"	"2"
+				"file"		"VGUI/basic2d_linear/ex_weaponicon_36_killicon"
+				"x"			"0"
+				"y"			"0"
+				"width"		"64"
+				"height"	"32"
 		}
         		"npc_turret_floor_weapon"
 		{
-				"font"		"WeaponIconsKillFeed"
-				"character"	"2"
+				"file"		"VGUI/basic2d_linear/ex_weaponicon_36_killicon"
+				"x"			"0"
+				"y"			"0"
+				"width"		"64"
+				"height"	"32"
 		}
 		"npc_turret_ceiling"
 		{
-				"font"		"WeaponIconsKillFeed"
-				"character"	"2"
+				"file"		"VGUI/basic2d_linear/ex_weaponicon_36_killicon_ceiling"
+				"x"			"0"
+				"y"			"0"
+				"width"		"64"
+				"height"	"32"
 		}		
 		"func_tank"
 		{
@@ -157,8 +166,11 @@
 		}
 		"crossbow_bolt"
 		{
-				"font"		"WeaponIconsKillFeed"
-				"character"	"1"
+				"font"		"AmmoIconsKillFeed"
+				"character"	"w"
+				"customxyoffset"	"1"
+				"y_offset"		"-14"
+				"x_offset"		"3"
 		}
 		"weapon_smg1"
 		{
@@ -176,6 +188,7 @@
 				"character"	"x"
 				"customxyoffset"	"1"
 				"y_offset"		"-14"
+				"x_offset"		"3"
 		}
 		"weapon_rpg"
 		{
@@ -183,6 +196,7 @@
 				"character"	"x"
 				"customxyoffset"	"1"
 				"y_offset"		"-14"
+				"x_offset"		"3"
 		}
 		"npc_killerscanner"
 		{
@@ -274,7 +288,7 @@
 				"file"		"VGUI/basic2d_linear/ex_weaponicon_52_killicon"
 				"x"			"0"
 				"y"			"0"
-				"width"		"32"
+				"width"		"64"
 				"height"	"32"
 		}
         		"npc_manhack_weapon"
@@ -282,7 +296,7 @@
 				"file"		"VGUI/basic2d_linear/ex_weaponicon_52_killicon"
 				"x"			"0"
 				"y"			"0"
-				"width"		"32"
+				"width"		"64"
 				"height"	"32"
 		}
        		"npc_manhack_friendly"
@@ -290,7 +304,7 @@
 				"file"		"VGUI/basic2d_linear/ex_weaponicon_52_killicon"
 				"x"			"0"
 				"y"			"0"
-				"width"		"32"
+				"width"		"64"
 				"height"	"32"
 		}
 		"weapon_manhackthrower"
@@ -298,7 +312,7 @@
 				"file"		"VGUI/basic2d_linear/ex_weaponicon_52_killicon"
 				"x"			"0"
 				"y"			"0"
-				"width"		"32"
+				"width"		"64"
 				"height"	"32"
 		}
 		"kick"
@@ -363,20 +377,23 @@
 		}
 		"weapon_gauss"
 		{
-				"font"		"WeaponIconsKillFeed2"
-				"character"	"h"
+				"file"		"sprites/weapons/hud_weapon_gauss_killicon"
+				"x"		"0"
+				"y"		"0"
+				"width"		"128"
+				"height"		"32"
 				"customxyoffset"	"1"
-				"y_offset"		"-18"
+				"y_offset"		"-2"
 		}
 		"weapon_sniper_rifle"
 		{
-				"file"		"sprites/weapons/hud_weapon_sniperrifle"
-				"x"			"0" //128
-				"y"			"198" //0
+				"file"		"sprites/weapons/hud_weapon_sniperrifle_killicon"
+				"x"		"0"
+				"y"		"0"
 				"width"		"128"
-				"height"	"32"
+				"height"		"32"
 				"customxyoffset"	"1"
-				"y_offset"		"4"
+				"y_offset"		"-4"
 		}
 		"weapon_m249para"
 		{
@@ -409,13 +426,11 @@
 		}
 		"weapon_railgun"
 		{
-				"file"		"sprites/weapons/icon_railgun"
-				"x"			"0"
-				"y"			"0"
-				"width"		"64"
-				"height"	"32"
-				"customxyoffset"	"1"
-				"y_offset"		"2"
+				"file"		"sprites/weapons/hud_weapons_railgun_killicon"
+				"x"		"0"
+				"y"		"0"
+				"width"		"128"
+				"height"		"32"
 		}
 		"weapon_mp5"
 		{
@@ -526,10 +541,13 @@
 		}
 		"weapon_oicw"
 		{
-				"font"		"WeaponIconsKillFeed2"
-				"character"	"f"
+				"file"		"sprites/weapons/hud_weapon_oicw_killicon"
+				"x"			"0"
+				"y"			"0"
+				"width"		"112"
+				"height"	"32"
 				"customxyoffset"	"1"
-				"y_offset"		"-14"
+				"x_offset"		"-5"
 		}
 		"weapon_alyxgun"
 		{
@@ -541,11 +559,11 @@
 		}
 		"weapon_gatling"
 		{
-				"file"		"VGUI/basic2d_linear/ex_weaponicon_26"
+				"file"		"VGUI/basic2d_linear/ex_weaponicon_26_killicon"
 				"x"			"0"
 				"y"			"0"
-				"width"		"64"
-				"height"	"32"
+				"width"			"128"
+				"height"			"32"
 		}
 		"weapon_physcannon"
 		{
@@ -602,11 +620,11 @@
 		}
 		"chargebow_bolt"
 		{
-				"file"		"VGUI/basic2d_linear/ex_weaponicon_54"
-				"x"			"0"
-				"y"			"0"
-				"width"		"64"
-				"height"	"32"
+				"font"		"AmmoIconsKillFeed"
+				"character"	"w"
+				"customxyoffset"	"1"
+				"y_offset"		"-14"
+				"x_offset"		"3"
 		}
 		"hunter_flechette"
 		{
