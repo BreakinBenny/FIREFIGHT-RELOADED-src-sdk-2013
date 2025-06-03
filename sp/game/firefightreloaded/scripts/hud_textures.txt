@@ -393,7 +393,7 @@
 				"width"		"128"
 				"height"		"32"
 				"customxyoffset"	"1"
-				"y_offset"		"-4"
+				"y_offset"		"4"
 		}
 		"weapon_m249para"
 		{

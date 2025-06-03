@@ -1006,6 +1006,22 @@
 					"1"		"#gameui_enabled"
 				}
 			}
+			
+			"TurretPlacementOpacity"
+			{
+				"text"			"#GameUI_TurretPlacementOpacity"
+				"type"			"slideyslide"
+				"advanced"		"1"
+				"convar"		"sv_turret_hologram_opacity"
+
+				"min"			"0"
+				"max"			"255"
+				"step"			"1"
+                "step_adjustment"   "5"
+                "step_adjustment_multiplier" "1"
+
+				"textprecision" "2"
+			}
             
             "HUDHeader_crosshair"
 			{
