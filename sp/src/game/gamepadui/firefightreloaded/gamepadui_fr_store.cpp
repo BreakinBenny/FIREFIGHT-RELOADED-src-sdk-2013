@@ -24,6 +24,7 @@
 
 extern ConVar gamepadui_background_music_duck;
 
+ConVar gamepadui_store_delayfix("gamepadui_store_delayfix", "1", FCVAR_ARCHIVE);
 ConVar gamepadui_store_music("gamepadui_store_music", "1", FCVAR_ARCHIVE);
 
 class GamepadUIStoreButton;
@@ -46,7 +47,7 @@ public:
     void LoadItemFile(const char* kvName, const char* scriptPath);
     void CreateItemList();
     void UpdateFrameTitle();
-    void OutOfBusiness();
+    void Close() OVERRIDE;
 
     MESSAGE_FUNC_HANDLE(OnGamepadUIButtonNavigatedTo, "OnGamepadUIButtonNavigatedTo", button);
 
@@ -122,8 +123,16 @@ public:
         m_bClicked = true;
         
         m_iValidPurchaseClicks++;
-        SetButtonDescription(GamepadUIString("#FR_Store_GamepadUI_Verify"));
-        m_flWaitTime = GamepadUI::GetInstance().GetTime() + 0.2f;
+
+        if (gamepadui_store_delayfix.GetBool())
+        {
+            SetButtonDescription(GamepadUIString("#FR_Store_GamepadUI_Verify"));
+            m_flWaitTime = GamepadUI::GetInstance().GetTime() + 0.2f;
+        }
+        else
+        {
+            m_flWaitTime = GamepadUI::GetInstance().GetTime() + 0.1f;
+        }
     }
 
     void VerifyPurchase()
@@ -315,9 +324,6 @@ void GamepadUIStore::ReleaseBackgroundMusic()
     if (!gamepadui_store_music.GetBool())
         return;
 
-    for (unsigned int i = 0; i < NUM_CHANNELGROUPS; i++)
-        GetFMODManager()->GetChannelGroup(i)->setMute(true);
-
     if (m_pChannel != nullptr)
     {
         m_pChannel->stop();
@@ -329,6 +335,9 @@ void GamepadUIStore::ReleaseBackgroundMusic()
         m_pSound->release();
         m_pSound = nullptr;
     }
+
+    for (unsigned int i = 0; i < NUM_CHANNELGROUPS; i++)
+        GetFMODManager()->GetChannelGroup(i)->setMute(true);
 }
 
 void GamepadUIStore::UpdateFrameTitle()
@@ -433,7 +442,7 @@ void GamepadUIStore::OnThink()
     if (!GamepadUI::GetInstance().IsInLevel() || 
         GamepadUI::GetInstance().GetEngineClient()->IsPlayingDemo())
     {
-        OutOfBusiness();
+        Close();
     }
     else
     {
@@ -479,9 +488,8 @@ void GamepadUIStore::OnKeyCodeTyped(vgui::KeyCode code)
     }
 }
 
-void GamepadUIStore::OutOfBusiness()
+void GamepadUIStore::Close()
 {
-    Close();
     if (GamepadUI::GetInstance().IsInLevel())
     {
         ReleaseBackgroundMusic();
@@ -490,6 +498,8 @@ void GamepadUIStore::OutOfBusiness()
         // Oh well.
         //vgui::surface()->PlaySound( "UI/buttonclickrelease.wav" );
     }
+
+    BaseClass::Close();
 }
 
 void GamepadUIStore::ApplySchemeSettings(vgui::IScheme* pScheme)
@@ -574,7 +584,7 @@ void GamepadUIStore::OnCommand( char const* pCommand )
 {
     if ( !V_strcmp( pCommand, "action_back" ) )
     {
-        OutOfBusiness();
+        Close();
     }
     else if (StringHasPrefixCaseSensitive(pCommand, "purchase_item "))
     {
