@@ -1418,6 +1418,7 @@
 			{
 				"text"			"#GameUI_DiscordRichPresence"
 				"type"			"wheelywheel"
+				"advanced"		"1"
 				"convar"		"cl_discord"
 
 				"options"
@@ -1431,6 +1432,7 @@
 			{
 				"text"			"#GameUI_SteamRichPresence"
 				"type"			"wheelywheel"
+				"advanced"		"1"
 				"convar"		"cl_steam_presence"
 
 				"options"
@@ -1444,7 +1446,22 @@
 			{
 				"text"			"#GameUI_DemoSupport"
 				"type"			"wheelywheel"
+				"advanced"		"1"
 				"convar"		"ds_enable"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+			
+			"StoreDelayFix"
+			{
+				"text"			"#GameUI_StoreDelayFix"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"gamepadui_store_delayfix"
 
 				"options"
 				{

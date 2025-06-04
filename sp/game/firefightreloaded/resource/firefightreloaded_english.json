@@ -647,6 +647,7 @@
             "FR_Store_GamepadUI_Denied": "INSUFFICENT FUNDS",
             "FR_Store_GamepadUI_AlreadyPurchased": "YOU CANNOT PURCHASE MORE OF THIS ITEM",
             "FR_Store_GamepadUI_Verify": "VERIFYING. PLEASE WAIT...",
+            "GameUI_StoreDelayFix": "Delay Store purchases (Used to fix Store inconsistencies on low FPS)",
             "FRMP_Min_Players": "Min. players",
             "GameUI_Rumble": "Rumble",
             "GameUI_RumbleStrength": "Rumble Strength",
