@@ -57,12 +57,22 @@ public:
 	void	DechargeAmmo();
 	void	ChargeAmmo();
 	void	DrawBeam(const Vector& startPos, const Vector& endPos);
+	float	GetMinRestTime() { return 1.5; }
+	float	GetMaxRestTime() { return 2.0; }
+	int		GetMinBurst() { return 1; }
+	int		GetMaxBurst() { return 1; }
 	virtual const Vector& GetBulletSpread(void)
 	{
 		return vec3_origin;
 	}
 	float GetFireRate(void)
 	{
+		if (GetOwner() && GetOwner()->IsNPC())
+		{
+			//increase fire rates on NPCs
+			return 1.35f;
+		}
+
 		return 1.0f;
 	}
 

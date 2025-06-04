@@ -1297,6 +1297,12 @@ const int 	MAX_MIN_PISTOL_BURST = 4;
 const int 	MIN_MAX_PISTOL_BURST = 5;
 const int 	MAX_MAX_PISTOL_BURST = 8;
 
+// ace pistol adjustment values
+const int 	MIN_PISTOL_BURST_ACE = 5;
+const int 	MAX_PISTOL_BURST_ACE = 15;
+const float MIN_PISTOL_REST_INTERVAL_ACE = 0;
+const float MAX_PISTOL_REST_INTERVAL_ACE = 0.2;
+
 void CNPC_MetroPolice::OnUpdateShotRegulator( )
 {
 	BaseClass::OnUpdateShotRegulator();
@@ -1322,8 +1328,8 @@ void CNPC_MetroPolice::OnUpdateShotRegulator( )
 				if (m_bIsAce)
 				{
 					//THERE'S NO REST FOR THE WICKED!
-					GetShotRegulator()->SetRestInterval(0, 0.2);
-					GetShotRegulator()->SetBurstShotCountRange(5, 15);
+					GetShotRegulator()->SetRestInterval(MIN_PISTOL_REST_INTERVAL_ACE, MAX_PISTOL_REST_INTERVAL_ACE);
+					GetShotRegulator()->SetBurstShotCountRange(MIN_PISTOL_BURST_ACE, MAX_PISTOL_BURST_ACE);
 				}
 				else
 				{
@@ -4875,7 +4881,7 @@ int CNPC_MetroPolice::TranslateSchedule( int scheduleType )
 			return SCHED_METROPOLICE_DRAW_PISTOL;
 		}
 
-		if( Weapon_OwnsThisType( "weapon_smg1" ) || Weapon_OwnsThisType("weapon_ar2"))
+		if( !Weapon_OwnsThisType( "weapon_pistol" ) || (GetActiveWeapon() && !GetActiveWeapon()->IsMeleeWeapon()))
 		{
 			if ( IsEnemyInAnAirboat() )
 			{

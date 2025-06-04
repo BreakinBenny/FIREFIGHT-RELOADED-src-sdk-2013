@@ -67,10 +67,6 @@ public:
 	{
 		static const Vector cone = VECTOR_CONE_3DEGREES;
 		static const Vector zoomcone = vec3_origin;
-		if (IsWeaponZoomed())
-		{
-			return zoomcone;
-		}
 
 		if (GetOwner() && GetOwner()->IsNPC())
 		{
@@ -78,10 +74,21 @@ public:
 			return zoomcone;
 		}
 
+		if (IsWeaponZoomed())
+		{
+			return zoomcone;
+		}
+
 		return cone;
 	}
 
 	float	WeaponAutoAimScale()	{ return 0.6f; }
+
+	float	GetMinRestTime() { return 1.0; }
+	float	GetMaxRestTime() { return 1.5; }
+	int		GetMinBurst() { return 1; }
+	int		GetMaxBurst() { return 1; }
+	float	GetFireRate(void) { return 1.0f; }
 
 	DECLARE_SERVERCLASS();
 	DECLARE_DATADESC();
