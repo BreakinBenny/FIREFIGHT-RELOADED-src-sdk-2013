@@ -46,11 +46,12 @@ class CRagdollBoltEnumerator : public IPartitionEnumerator
 {
 public:
 	//Forced constructor   
-	CRagdollBoltEnumerator( Ray_t& shot, Vector vOrigin)
+	CRagdollBoltEnumerator( Ray_t& shot, Vector vOrigin, bool bKnife)
 	{
 		m_ragdoll = nullptr;
 		m_rayShot = shot;
-		m_vWorld = vOrigin;;
+		m_vWorld = vOrigin;
+		m_bKnife = bKnife;
 	}
 
 	//Actual work code
@@ -115,7 +116,14 @@ public:
 
 			EmitSound_t ep;
 			ep.m_nChannel = CHAN_VOICE;
-			ep.m_pSoundName =  "Weapon_Crossbow.BoltSkewer";
+			if (m_bKnife)
+			{
+				ep.m_pSoundName = "Weapon_Knife.Skewer";
+			}
+			else
+			{
+				ep.m_pSoundName = "Weapon_Crossbow.BoltSkewer";
+			}
 			ep.m_flVolume = 1.0f;
 			ep.m_SoundLevel = SNDLVL_NORM;
 			ep.m_pOrigin = &pEnt->GetAbsOrigin();
@@ -145,6 +153,7 @@ private:
 	C_BaseEntity* m_ragdoll;
 	Ray_t	m_rayShot;
 	Vector  m_vWorld;
+	bool	m_bKnife;
 };
 
 void CreateCrossbowBolt( const Vector &vecOrigin, const Vector &vecDirection )
@@ -176,11 +185,15 @@ void StickRagdollNow(const Vector &vecOrigin, const Vector &vecDirection, const 
 
 		shotRay.Init( vecOrigin, vecEnd );
 
-		CRagdollBoltEnumerator	ragdollEnum( shotRay, vecOrigin);
+		auto knife = dynamic_cast<C_WeaponKnife*>(sticker);
+
+		bool isKnifeValid = (knife != nullptr);
+
+		CRagdollBoltEnumerator	ragdollEnum( shotRay, vecOrigin, isKnifeValid);
+
 		partition->EnumerateElementsAlongRay( PARTITION_CLIENT_RESPONSIVE_EDICTS | PARTITION_ENGINE_NON_STATIC_EDICTS, shotRay, false, &ragdollEnum );
 
-		auto knife = dynamic_cast<C_WeaponKnife*>(sticker);
-		if ( knife != nullptr )
+		if (isKnifeValid)
 			knife->m_hStuckRagdoll = ragdollEnum.GetRagdoll();
 	}
 }

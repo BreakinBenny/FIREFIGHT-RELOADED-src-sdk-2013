@@ -80,6 +80,17 @@ CWeaponKnife::CWeaponKnife( void )
 {
 }
 
+void CWeaponKnife::Precache(void)
+{
+	UTIL_PrecacheOther("knife_bolt");
+
+	PrecacheScriptSound("Weapon_Crossbow.BoltHitBody");
+	PrecacheScriptSound("Weapon_Crossbow.BoltHitWorld");
+	PrecacheScriptSound("Weapon_Knife.Skewer");
+
+	BaseClass::Precache();
+}
+
 bool CWeaponKnife::Deploy(void)
 {
 	bool deployVal = BaseClass::Deploy();

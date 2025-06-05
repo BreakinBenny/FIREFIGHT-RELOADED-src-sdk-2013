@@ -2127,3 +2127,14 @@
 		"wave"		"weapons/grenade_impact3.wav"
 	}
 }
+
+"Weapon_Knife.Skewer"
+{
+	"channel"		"CHAN_STATIC"
+	"volume"		"0.9"
+	"soundlevel"		"SNDLVL_90db"
+	"pitch"			"90,110"
+
+	"wave"		"weapons/knife/knife_skewer.wav"
+	
+}

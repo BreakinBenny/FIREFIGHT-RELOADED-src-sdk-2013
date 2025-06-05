@@ -1405,21 +1405,25 @@ void CCollisionProperty::UpdatePartition( )
 			return;
 #endif
 
-		// We don't need to bother if it's not a trigger or solid
-		if ( IsSolid() || IsSolidFlagSet( FSOLID_TRIGGER ) || m_pOuter->IsEFlagSet( EFL_USE_PARTITION_WHEN_NOT_SOLID ) )
+		//check the partition
+		if (GetPartitionHandle() != PARTITION_INVALID_HANDLE)
 		{
-			// Bloat a little bit...
-			if ( BoundingRadius() != 0.0f )
+			// We don't need to bother if it's not a trigger or solid
+			if (IsSolid() || IsSolidFlagSet(FSOLID_TRIGGER) || m_pOuter->IsEFlagSet(EFL_USE_PARTITION_WHEN_NOT_SOLID))
 			{
-				Vector vecSurroundMins, vecSurroundMaxs;
-				WorldSpaceSurroundingBounds( &vecSurroundMins, &vecSurroundMaxs );
-				vecSurroundMins -= Vector( 1, 1, 1 );
-				vecSurroundMaxs += Vector( 1, 1, 1 );
-				partition->ElementMoved( GetPartitionHandle(), vecSurroundMins,  vecSurroundMaxs );
-			}
-			else
-			{
-				partition->ElementMoved( GetPartitionHandle(), GetCollisionOrigin(),  GetCollisionOrigin() );
+				// Bloat a little bit...
+				if (BoundingRadius() != 0.0f)
+				{
+					Vector vecSurroundMins, vecSurroundMaxs;
+					WorldSpaceSurroundingBounds(&vecSurroundMins, &vecSurroundMaxs);
+					vecSurroundMins -= Vector(1, 1, 1);
+					vecSurroundMaxs += Vector(1, 1, 1);
+					partition->ElementMoved(GetPartitionHandle(), vecSurroundMins, vecSurroundMaxs);
+				}
+				else
+				{
+					partition->ElementMoved(GetPartitionHandle(), GetCollisionOrigin(), GetCollisionOrigin());
+				}
 			}
 		}
 	}

@@ -1777,13 +1777,14 @@ void CBaseEntity::PhysicsStep()
 
 	PhysicsCheckWaterTransition();
 
-	if ( VPhysicsGetObject() )
+	if (!VectorCompare(oldOrigin, GetAbsOrigin()))
 	{
-		if ( !VectorCompare( oldOrigin, GetAbsOrigin() ) )
+		if (VPhysicsGetObject())
 		{
-			VPhysicsGetObject()->UpdateShadow( GetAbsOrigin(), vec3_angle, (GetFlags() & FL_FLY) ? true : false, dt );
+			VPhysicsGetObject()->UpdateShadow(GetAbsOrigin(), vec3_angle, (GetFlags() & FL_FLY) ? true : false, dt);
 		}
 	}
+
 	PhysicsRelinkChildren(dt);
 }
 

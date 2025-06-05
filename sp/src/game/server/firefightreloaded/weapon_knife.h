@@ -49,6 +49,7 @@ public:
 	bool		Holster(CBaseCombatWeapon* pSwitchingTo = NULL);
 	void		Drop(const Vector& velocity);
 	void		ItemPostFrame(void);
+	void		Precache(void);
 
 	int			OnTakeDamage( const CTakeDamageInfo& info );
 
