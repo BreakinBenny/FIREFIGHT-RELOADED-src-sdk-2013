@@ -1160,6 +1160,18 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 							if (pNPC->m_bDecapitated)
 							{
 								// fake it
+								if (info.GetDamageType() & DMG_SLASH)
+								{
+									killer_weapon_name = "decapitation";
+								}
+								else
+								{
+									killer_weapon_name = "explosive_headshot";
+								}
+							}
+							else if (pNPC->LastHitGroup() == HITGROUP_HEAD)
+							{
+								// fake it
 								killer_weapon_name = "headshot";
 							}
 							else if (pScorer->GetActiveWeapon())

@@ -449,15 +449,31 @@
 		}
 		"headshot"
 		{
-				//"font"		"WeaponIconsKillFeed3"
-				//"character"	"D"
 				"file"	"HUD/d_images"
 				"x"		"120"
 				"y"		"352"
-				"width"		"42"
+				"width"		"64"
 				"height"		"32"
 				"customxyoffset"	"1"
-				"y_offset"		"-2"
+				"x_offset"		"5"
+		}
+		"explosive_headshot"
+		{
+				"file"	"HUD/d_images"
+				"x"		"281"
+				"y"		"322"
+				"width"		"64"
+				"height"		"32"
+				"customxyoffset"	"1"
+				"x_offset"		"5"
+		}
+		"decapitation"
+		{
+				"file"	"HUD/d_decap"
+				"x"		"0"
+				"y"		"0"
+				"width"		"64"
+				"height"		"32"
 		}
 		"npc_zombie"
 		{
