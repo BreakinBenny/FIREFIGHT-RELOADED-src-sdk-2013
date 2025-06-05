@@ -427,6 +427,7 @@
             "GameUI_Toaster": "Toaster",
             "GameUI_ShowNPCNames": "Show map-defined NPC names in the kill log",
             "GameUI_NPCvNPCKills": "Show kill logs of NPCs against other NPCs.",
+            "GameUI_HeadshotKillsWithNormalWeapons": "Show headshot kills performed by normal weapons as headshots in the kill log.",
             "GameUI_AdvancedOptions": "ADVANCED OPTIONS",
             "GameUI_ShowAdvancedOptions": "SHOW ADVANCED OPTIONS",
             "GameUI_Difficulty": "FIREFIGHT RELOADED",

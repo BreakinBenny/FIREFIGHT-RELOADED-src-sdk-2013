@@ -1574,6 +1574,21 @@
 					"1"		"#gameui_enabled"
 				}
 			}
+			
+			"HeadshotKillsWithNormalWeapons"
+			{
+				"text"			"#GameUI_HeadshotKillsWithNormalWeapons"
+				"type"			"wheelywheel"
+				"convar"		"sv_killog_report_normalheadshot_kills"
+                "advanced"		"1"
+                
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
             
             "PlayerDropWeaponsOnDeath"
 			{

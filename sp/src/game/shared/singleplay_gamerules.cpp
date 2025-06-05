@@ -59,6 +59,7 @@ ConVar sv_player_dropweaponsondeath("sv_player_dropweaponsondeath", "1", FCVAR_A
 ConVar sv_player_autoaimcrosshair("sv_player_autoaimcrosshair", "0", FCVAR_ARCHIVE);
 
 ConVar sv_killog_shownpcnames("sv_killog_shownpcnames", "0", FCVAR_ARCHIVE);
+ConVar sv_killog_report_normalheadshot_kills("sv_killog_report_normalheadshot_kills", "0", FCVAR_ARCHIVE);
 
 extern ConVar sv_player_voice;
 extern ConVar sv_player_voice_kill_freq;
@@ -1169,7 +1170,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 									killer_weapon_name = "explosive_headshot";
 								}
 							}
-							else if (pNPC->LastHitGroup() == HITGROUP_HEAD)
+							else if (sv_killog_report_normalheadshot_kills.GetBool() && pNPC->LastHitGroup() == HITGROUP_HEAD)
 							{
 								// fake it
 								killer_weapon_name = "headshot";
@@ -1272,7 +1273,25 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 			}
 			else
 			{
-				if (pNPCKiller->GetActiveWeapon())
+				// If the inflictor is the killer,  then it must be their current weapon doing the damage
+				if (pNPCVictim->m_bDecapitated)
+				{
+					// fake it
+					if (info.GetDamageType() & DMG_SLASH)
+					{
+						killer_weapon_name = "decapitation";
+					}
+					else
+					{
+						killer_weapon_name = "explosive_headshot";
+					}
+				}
+				else if (sv_killog_report_normalheadshot_kills.GetBool() && pNPCVictim->LastHitGroup() == HITGROUP_HEAD)
+				{
+					// fake it
+					killer_weapon_name = "headshot";
+				}
+				else if (pNPCKiller->GetActiveWeapon())
 				{
 					killer_weapon_name = pNPCKiller->GetActiveWeapon()->GetClassname();
 				}

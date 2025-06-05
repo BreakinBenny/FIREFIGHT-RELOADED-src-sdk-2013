@@ -15,6 +15,7 @@
 #include "ammodef.h"
 #include "weapon_katana.h"
 #include "ai_basenpc.h"
+#include "singleplay_gamerules.h"
 
 #ifndef MOD_VER
 CAchievementMgr AchievementMgr;
@@ -1049,6 +1050,8 @@ protected:
 };
 DECLARE_ACHIEVEMENT(CAchievementMultiKillstreak, ACHIEVEMENT_FIREFIGHTRELOADED_MULTIKILLSTREAK, "FIREFIGHTRELOADED_MULTIKILLSTREAK", 50);
 
+extern ConVar sv_killog_report_normalheadshot_kills;
+
 class CAchievementSkyborneDecap : public CFRBaseAchievement
 {
 protected:
@@ -1067,7 +1070,7 @@ protected:
 
 		bool isFallingWithStyle = ((pNPC->GetGroundEntity() == NULL && !(pNPC->GetMoveType() == MOVETYPE_FLY || pNPC->GetMoveType() == MOVETYPE_FLYGRAVITY || pNPC->GetMoveType() == MOVETYPE_VPHYSICS)));
 
-		if (pNPC->m_bDecapitated && isFallingWithStyle)
+		if ((pNPC->m_bDecapitated || (sv_killog_report_normalheadshot_kills.GetBool() && pNPC->LastHitGroup() == HITGROUP_HEAD)) && isFallingWithStyle)
 		{
 			IncrementCount();
 		}
