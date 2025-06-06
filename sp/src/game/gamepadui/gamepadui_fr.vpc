@@ -14,6 +14,7 @@ $Configuration
 {
 	$Compiler
 	{
+		$AdditionalIncludeDirectories		".\firefightreloaded;$SRCDIR\game\shared\firefightreloaded;$BASE"
 		$PreprocessorDefinitions			"$BASE;GAMEPADUI_GAME_HL2;GAMEPADUI_GAME_EPISODIC;GAMEPADUI_GAME_FR"
 	}
 }
@@ -30,6 +31,8 @@ $Project "GamepadUI (FR)"
     
 		$Folder "FIREFIGHT RELOADED DLL"
     	{
+			$File "$SRCDIR\game\shared\firefightreloaded\fr_mapinfo.cpp"
+			$File "$SRCDIR\game\shared\firefightreloaded\fr_mapinfo.h"
 			$File "firefightreloaded/gamepadui_fr_mapchooser.cpp"
             $File "firefightreloaded/gamepadui_fr_playermodelchooser.cpp"
             $File "firefightreloaded/gamepadui_fr_spawnlistchooser.cpp"

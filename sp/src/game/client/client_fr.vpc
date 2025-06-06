@@ -204,6 +204,17 @@ $Project "Client (FR)"
 			$File	"firefightreloaded\demo_support\fr_demo_support.h"
             $File	"$SRCDIR\game\shared\firefightreloaded\fr_shareddefs.cpp"
 			$File	"$SRCDIR\game\shared\firefightreloaded\fr_shareddefs.h"
+			$File 	"$SRCDIR\game\shared\firefightreloaded\fr_mapinfo.h"
+			$File 	"$SRCDIR\game\shared\firefightreloaded\fr_mapinfo.cpp"
+			{
+				$Configuration
+				{
+					$Compiler
+					{
+						$Create/UsePrecompiledHeader    "Not Using Precompiled Headers"
+					}
+				}
+			}
             
             $Folder	"HL2 Imported"
 			{

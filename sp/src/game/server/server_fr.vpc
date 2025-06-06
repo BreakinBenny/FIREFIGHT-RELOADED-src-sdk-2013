@@ -434,6 +434,17 @@ $Project "Server (FR)"
 			$File	"firefightreloaded\node_placement.cpp"
             $File	"$SRCDIR\game\shared\firefightreloaded\fr_shareddefs.cpp"
 			$File	"$SRCDIR\game\shared\firefightreloaded\fr_shareddefs.h"
+			$File 	"$SRCDIR\game\shared\firefightreloaded\fr_mapinfo.h"
+			$File 	"$SRCDIR\game\shared\firefightreloaded\fr_mapinfo.cpp"
+			{
+				$Configuration
+				{
+					$Compiler
+					{
+						$Create/UsePrecompiledHeader    "Not Using Precompiled Headers"
+					}
+				}
+			}
 
 			$Folder	"NPCs"
 			{

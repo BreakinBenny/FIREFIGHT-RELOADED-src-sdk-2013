@@ -18,6 +18,8 @@
 #include "filesystem.h"
 #include "materialsystem/imaterial.h"
 
+#include "fr_mapinfo.h"
+
 #include "tier0/memdbgon.h"
 
 class GamepadUIMapChooserButton;
@@ -203,20 +205,46 @@ void GamepadUIMapChooser::ScanMaps()
         char command[256];
         Q_snprintf(command, sizeof(command), "load_map %s", mapname);
 
-        char chapterName[256];
-        Q_snprintf(chapterName, sizeof(chapterName), "%s", mapname);
-
-        //uppercase all the map names.
-        for (int i = Q_strlen(chapterName); i >= 0; --i)
-        {
-            chapterName[i] = toupper(chapterName[i]);
-        }
-
         wchar_t text[32];
         wchar_t* chapter = g_pVGuiLocalize->Find("#GameUI_Map");
         _snwprintf(text, ARRAYSIZE(text), L"%ls", chapter ? chapter : L"Map");
 
-        GamepadUIString strChapterName(chapterName);
+        GamepadUIString strChapterName;
+
+        const char* metadataName = mapname;
+        const char* metadataOrigin = "N/A";
+
+        KeyValues* pInfo = CMapInfo::GetMapInfoData(mapname);
+
+        if (pInfo != NULL)
+        {
+            metadataName = pInfo->GetString("gamepadui_metadata_name", mapname);
+            metadataOrigin = pInfo->GetString("gamepadui_metadata_origin", "N/A");
+        }
+
+        strChapterName.SetText(metadataName);
+
+        if (!Q_strstr(metadataOrigin, "N/A"))
+        {
+            GamepadUIString strOrigin(metadataOrigin);
+            wchar_t wszNameBuf[2048];
+#ifdef WIN32
+            V_snwprintf(wszNameBuf, sizeof(wszNameBuf), L"%s (%s)", strChapterName.String(), strOrigin.String());
+#else
+            V_snwprintf(wszNameBuf, sizeof(wszNameBuf), L"%S (%S)", strChapterName.String(), strOrigin.String());
+#endif
+            strChapterName.SetText(wszNameBuf);
+        }
+
+        //uppercase all the map names.
+        wchar_t chapterName[2048];
+#ifdef WIN32
+        V_snwprintf(chapterName, sizeof(chapterName), L"%s", strChapterName.String());
+#else
+        V_snwprintf(chapterName, sizeof(chapterName), L"%S", strChapterName.String());
+#endif
+
+        V_wcsupr(chapterName);
 
         char chapterImage[64];
         Q_snprintf(chapterImage, sizeof(chapterImage), "gamepadui/maps/%s.vmt", mapname);
@@ -231,7 +259,7 @@ void GamepadUIMapChooser::ScanMaps()
         GamepadUIMapChooserButton* button = new GamepadUIMapChooserButton(
             this, this,
             GAMEPADUI_RESOURCE_FOLDER "schemesavebutton.res", command,
-            strChapterName.String(), text, chapterImage);
+            chapterName, text, chapterImage);
         button->SetEnabled(true);
         button->SetPriority(mapIndex);
         button->SetForwardToParent(true);
