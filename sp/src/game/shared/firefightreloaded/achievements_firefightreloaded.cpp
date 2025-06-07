@@ -898,36 +898,20 @@ protected:
 
 	virtual void Init()
 	{
-		SetFlags(ACH_SAVE_WITH_GAME);
+		SetFlags(ACH_LISTEN_KILL_EVENTS | ACH_SAVE_GLOBAL);
 		SetGameDirFilter("firefightreloaded");
 		SetGoal(1);
 	}
 
-	virtual void ListenForEvents()
+	virtual void Event_EntityKilled(CBaseEntity* pVictim, CBaseEntity* pAttacker, CBaseEntity* pInflictor, IGameEvent* event)
 	{
-		ListenForGameEvent("player_death");
-		ListenForGameEvent("player_death_npc");
-	}
-
-	void FireGameEvent_Internal(IGameEvent* event)
-	{
-		CBasePlayer* victim = UTIL_PlayerByUserId(event->GetInt("userid"));
-		if (victim)
+		CBasePlayer* pPlayer = ToBasePlayer(pVictim);
+		if (pPlayer)
 		{
 			int iFragGoal = 100;
-			if (Q_strcmp(event->GetName(), "player_death") == 0)
+			if (pPlayer->FragCount() >= iFragGoal)
 			{
-				if (victim->FragCount() >= iFragGoal)
-				{
-					IncrementCount();
-				}
-			}
-			else if (Q_strcmp(event->GetName(), "player_death_npc") == 0)
-			{
-				if (victim->FragCount() >= iFragGoal)
-				{
-					IncrementCount();
-				}
+				IncrementCount();
 			}
 		}
 	}
