@@ -65,7 +65,7 @@ public:
 	
 	virtual const Vector& GetBulletSpread( void )
 	{
-		static const Vector cone = VECTOR_CONE_3DEGREES;
+		static const Vector cone = VECTOR_CONE_1DEGREES;
 		static const Vector zoomcone = vec3_origin;
 
 		if (GetOwner() && GetOwner()->IsNPC())

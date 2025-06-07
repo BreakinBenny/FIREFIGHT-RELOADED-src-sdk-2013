@@ -29,6 +29,8 @@
 
 #endif
 
+#include "achievementmgr.h"
+
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
@@ -828,6 +830,20 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 						default:
 							showhint = false;
 							break;
+					}
+
+					//award the achievement now if we get 2 godlikes.
+					if (pEntity->m_iCompleteKillstreakCount > 1)
+					{
+						CAchievementMgr* pAchievementMgr = dynamic_cast<CAchievementMgr*>(engine->GetAchievementMgr());
+						if (pAchievementMgr)
+						{
+							int id = ACHIEVEMENT_FIREFIGHTRELOADED_MULTIKILLSTREAK;
+							if (pAchievementMgr->CanAchieve(id) && !pAchievementMgr->HasAchieved(id))
+							{
+								pAchievementMgr->AwardAchievement(id);
+							}
+						}
 					}
 
 					if (showhint)

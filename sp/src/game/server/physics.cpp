@@ -1676,6 +1676,10 @@ void PhysFrame( float deltaTime )
 	if ( !g_PhysicsHook.ShouldSimulate() )
 		return;
 
+	//game should create a physics environment.
+	if (physenv == NULL)
+		return;
+
 	// Trap interrupts and clock changes
 	if ( deltaTime > 1.0f || deltaTime < 0.0f )
 	{

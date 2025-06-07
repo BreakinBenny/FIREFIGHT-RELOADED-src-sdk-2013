@@ -1034,17 +1034,7 @@ protected:
 		SetGoal(1);
 	}
 
-	virtual void Event_EntityKilled(CBaseEntity* pVictim, CBaseEntity* pAttacker, CBaseEntity* pInflictor, IGameEvent* event)
-	{
-		CBasePlayer* pPlayer = ToBasePlayer(pAttacker);
-		if (!pPlayer)
-			return;
-
-		if (pPlayer->m_iCompleteKillstreakCount > 1)
-		{
-			IncrementCount();
-		}
-	}
+	//earned through entity/s itself
 
 	virtual bool ShouldShowProgressNotification() { return false; }
 };
