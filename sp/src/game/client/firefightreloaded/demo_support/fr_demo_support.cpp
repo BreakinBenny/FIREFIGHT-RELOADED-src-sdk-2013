@@ -180,14 +180,18 @@ bool CFRDemoSupport::IsValidPath( const char *pszFolder )
 
 void StartDemoRecording(const char* szFolderAndFilename)
 {
+	engine->ClientCmd_Unrestricted("exec demo_record.cfg");
+
 	char szCommand[2048];
 	V_sprintf_safe(szCommand, "record \"%s\"\n", szFolderAndFilename);
-	engine->ClientCmd(szCommand);
+	engine->ClientCmd_Unrestricted(szCommand);
 }
 
 void StopDemoRecording(void)
 {
-	engine->ClientCmd("stopdemo");
+	engine->ClientCmd_Unrestricted("exec demo_stop.cfg");
+
+	engine->ClientCmd_Unrestricted("stopdemo");
 }
 
 //-----------------------------------------------------------------------------
@@ -218,7 +222,33 @@ bool CFRDemoSupport::StartRecording( void )
 
 	char szPrefix[24] = {0};
 	V_sprintf_safe( szPrefix, "%s", ds_prefix.GetString() );
-	V_sprintf_safe( m_szFilename, "%s%s", szPrefix, szTime );
+
+	char mapname[64];
+	const char* levelname = engine->GetLevelName();
+
+	const char* str = Q_strstr(levelname, "maps");
+	if (str)
+	{
+		Q_strncpy(mapname, str + 5, sizeof(mapname) - 1);	// maps + \\ = 5
+	}
+	else
+	{
+		Q_strncpy(mapname, levelname, sizeof(mapname) - 1);
+	}
+
+	char* ext = Q_strstr(mapname, ".bsp");
+	if (ext)
+	{
+		*ext = 0;
+	}
+
+#ifdef DEBUG
+	const char* buildConfig = "debug";
+#else
+	const char* buildConfig = "release";
+#endif // DEBUG
+
+	V_sprintf_safe( m_szFilename, "%s%s-%s-%s", szPrefix, buildConfig, mapname, szTime );
 
 	if ( Q_strlen( ds_dir.GetString() ) > 0 )
 	{

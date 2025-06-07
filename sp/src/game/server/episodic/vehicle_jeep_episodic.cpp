@@ -26,6 +26,7 @@
 extern ConVar phys_upimpactforcescale;
 
 ConVar jalopy_blocked_exit_max_speed( "jalopy_blocked_exit_max_speed", "50" );
+ConVar jalopy_disable_enemy_tracking( "jalopy_disable_enemy_tracking", "0" );
 
 #define JEEP_AMMOCRATE_HITGROUP		5
 #define	JEEP_AMMO_CRATE_CLOSE_DELAY	2.0f
@@ -371,10 +372,12 @@ IMPLEMENT_SERVERCLASS_ST(CPropJeepEpisodic, DT_CPropJeepEpisodic)
 	SendPropInt( SENDINFO(m_iNumRadarContacts), 8 ),
 
 	//CNetworkArray( Vector, m_vecRadarContactPos, RADAR_MAX_CONTACTS );
-	SendPropArray( SendPropVector( SENDINFO_ARRAY(m_vecRadarContactPos), -1, SPROP_COORD), m_vecRadarContactPos ),
+	//SendPropArray( SendPropVector( SENDINFO_ARRAY(m_vecRadarContactPos), -1, SPROP_COORD), m_vecRadarContactPos ),
+	SendPropArray3(SENDINFO_ARRAY3(m_vecRadarContactPos), SendPropVector(SENDINFO_ARRAY(m_vecRadarContactPos), -1, SPROP_COORD)),
 
 	//CNetworkArray( int, m_iRadarContactType, RADAR_MAX_CONTACTS );
-	SendPropArray( SendPropInt(SENDINFO_ARRAY(m_iRadarContactType), RADAR_CONTACT_TYPE_BITS ), m_iRadarContactType ),
+	//SendPropArray( SendPropInt(SENDINFO_ARRAY(m_iRadarContactType), RADAR_CONTACT_TYPE_BITS ), m_iRadarContactType ),
+	SendPropArray3(SENDINFO_ARRAY3(m_iRadarContactType), SendPropInt(SENDINFO_ARRAY(m_iRadarContactType), RADAR_CONTACT_TYPE_BITS)),
 END_SEND_TABLE()
 
 
@@ -895,7 +898,13 @@ void CPropJeepEpisodic::UpdateRadar( bool forceUpdate )
 				}
 			}
 		}
-		else if (m_bRadarDetectsEnemies)
+
+		// jalopy_disable_enemy_tracking was added as demos for whatever reason don't show enemy icons properly.
+		// they show up as generic icons rather than the red icons I want.
+		// i have no time to fix this.
+		// TODO: fix this.
+		// -bitl
+		if (type == RADAR_CONTACT_NONE && m_bRadarDetectsEnemies && !jalopy_disable_enemy_tracking.GetBool())
 		{
 			if (pEnt->m_iClassname == iszStriderName)
 			{
@@ -911,12 +920,19 @@ void CPropJeepEpisodic::UpdateRadar( bool forceUpdate )
 			{
 				if (pPlayer)
 				{
-					if (pEnt->MyNPCPointer())
+					if (pEnt->IsNPC())
 					{
 						Disposition_t disp = pPlayer->IRelationType(pEnt);
 						if (disp == D_HT)
 						{
-							type = RADAR_CONTACT_ENEMY;
+							if (pEnt->m_isRareEntity)
+							{
+								type = RADAR_CONTACT_LARGE_ENEMY;
+							}
+							else
+							{
+								type = RADAR_CONTACT_ENEMY;
+							}
 						}
 					}
 				}

@@ -53,9 +53,10 @@ CON_COMMAND(showworkshop, "")
 #endif
 }
 
-CON_COMMAND(fr_version, "")
+const char* UTIL_FR_GetVersion(bool cmd)
 {
 	char verString[1024];
+	const char *result = "";
 	if (g_pFullFileSystem->FileExists("version.txt"))
 	{
 		FileHandle_t fh = filesystem->Open("version.txt", "r", "MOD");
@@ -67,12 +68,26 @@ CON_COMMAND(fr_version, "")
 
 		filesystem->Close(fh);
 
-		Q_snprintf(verString, sizeof(verString), "Game Version: v%s (%s)\n", GameInfo + 8, __DATE__);
+		if (cmd)
+		{
+			Q_snprintf(verString, sizeof(verString), "Game Version: v%s (%s, %s)\n", GameInfo + 8, __DATE__, __TIME__);
+		}
+		else
+		{
+			Q_snprintf(verString, sizeof(verString), "v%s\n", GameInfo + 8);
+		}
+
+		result = verString;
 
 		delete[] GameInfo;
 	}
 
-	Msg(verString);
+	return result;
+}
+
+CON_COMMAND(fr_version, "")
+{
+	Msg(UTIL_FR_GetVersion(true));
 }
 
 #ifdef _DEBUG

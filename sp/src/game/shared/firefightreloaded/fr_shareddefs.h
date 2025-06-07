@@ -218,4 +218,6 @@ public:
 	CUtlVector<string_t> m_storedVector;
 };
 
+extern const char* UTIL_FR_GetVersion(bool cmd = false);
+
 #endif // FR_SHAREDDEFS_H

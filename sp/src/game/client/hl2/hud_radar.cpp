@@ -29,6 +29,16 @@ DECLARE_VGUI_SCREEN_FACTORY( CHudRadar, "jalopy_radar_panel" );
 #define RADAR_CONTACT_DOG_MATERIAL		"vgui/icons/icon_dog"		// Dog
 #define RADAR_CONTACT_BASE_MATERIAL		"vgui/icons/icon_base"		// Ally base
 
+ConVar radar_icons("radar_icons", "1", FCVAR_ARCHIVE);
+
+ConVar radar_normal_icon_scale("radar_normal_icon_scale", "1", FCVAR_ARCHIVE);
+ConVar radar_normal_enemy_icon_scale("radar_normal_enemy_icon_scale", "0.5", FCVAR_ARCHIVE);
+ConVar radar_large_enemy_icon_scale("radar_large_enemy_icon_scale", "1.5", FCVAR_ARCHIVE);
+
+ConVar radar_normal_pos_scale("radar_normal_pos_scale", "2", FCVAR_ARCHIVE);
+ConVar radar_normal_enemy_pos_scale("radar_normal_enemy_pos_scale", "2", FCVAR_ARCHIVE);
+ConVar radar_large_enemy_pos_scale("radar_large_enemy_pos_scale", "3", FCVAR_ARCHIVE);
+
 static CHudRadar *s_Radar = NULL;
 
 CHudRadar *GetHudRadar()
@@ -202,7 +212,6 @@ void CHudRadar::SetVisible(bool state)
 }
 
 #define RADAR_BLIP_FADE_TIME 1.0f
-#define RADAR_USE_ICONS			1
 //---------------------------------------------------------
 // Purpose: Draw the radar panel.
 //			We're probably doing too much other work in here
@@ -286,7 +295,7 @@ void CHudRadar::Paint()
 				alpha = 10;
 		}
 
-		if( RADAR_USE_ICONS )
+		if(radar_icons.GetBool())
 		{
 			int flicker = RandomInt( 0, 30 );
 			DrawIconOnRadar( pContact->m_vecOrigin, pLocalPlayer, pContact->m_iType, RADAR_IGNORE_Z, 255, 255, 255, alpha + flicker );
@@ -411,19 +420,19 @@ void CHudRadar::DrawPositionOnRadar( Vector vecPos, C_BasePlayer *pLocalPlayer, 
 	{
 	case RADAR_CONTACT_GENERIC:
 		r =	255;	g = 170;	b = 0;
-		iBaseDotSize *= 2;
+		iBaseDotSize *= radar_normal_pos_scale.GetFloat();
 		break;
 	case RADAR_CONTACT_MAGNUSSEN_RDU:
 		r =	0;		g = 200;	b = 255;
-		iBaseDotSize *= 2;
+		iBaseDotSize *= radar_normal_pos_scale.GetFloat();
 		break;
 	case RADAR_CONTACT_ENEMY:
 		r = 255;	g = 0;	b = 0;
-		iBaseDotSize *= 2;
+		iBaseDotSize *= radar_normal_enemy_pos_scale.GetFloat();
 		break;
 	case RADAR_CONTACT_LARGE_ENEMY:
 		r = 255;	g = 0;	b = 0;
-		iBaseDotSize *= 3;
+		iBaseDotSize *= radar_large_enemy_pos_scale.GetFloat();
 		break;
 	}
 
@@ -502,8 +511,18 @@ void CHudRadar::DrawIconOnRadar( Vector vecPos, C_BasePlayer *pLocalPlayer, int 
 
 	if( type == RADAR_CONTACT_LARGE_ENEMY )
 	{
-		wide *= 2;
-		tall *= 2;
+		wide *= radar_large_enemy_icon_scale.GetFloat();
+		tall *= radar_large_enemy_icon_scale.GetFloat();
+	}
+	else if (type == RADAR_CONTACT_ENEMY)
+	{
+		wide *= radar_normal_enemy_icon_scale.GetFloat();
+		tall *= radar_normal_enemy_icon_scale.GetFloat();
+	}
+	else
+	{
+		wide *= radar_normal_icon_scale.GetFloat();
+		tall *= radar_normal_icon_scale.GetFloat();
 	}
 
 	// Center the icon around its position.

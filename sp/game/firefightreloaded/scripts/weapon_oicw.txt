@@ -65,7 +65,7 @@ WeaponData
 			"file"		"sprites/weapons/hud_weapon_oicw"
 			"x"			"0"
 			"y"			"0"
-			"width"		"128"
+			"width"		"256"
 			"height"	"64"
 		}
 		"weapon_s"
@@ -73,7 +73,7 @@ WeaponData
 			"file"		"sprites/weapons/hud_weapon_oicw"
 			"x"			"0"
 			"y"			"0"
-			"width"		"128"
+			"width"		"256"
 			"height"	"64"
 		}
 		"weapon_small"
@@ -81,7 +81,7 @@ WeaponData
 			"file"		"sprites/weapons/hud_weapon_oicw"
 			"x"			"0"
 			"y"			"0"
-			"width"		"128"
+			"width"		"256"
 			"height"	"64"
 		}
 		"ammo"

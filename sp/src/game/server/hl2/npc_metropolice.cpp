@@ -4138,15 +4138,7 @@ void CNPC_MetroPolice::CorpseDecapitateEffect(const CTakeDamageInfo& info)
 	SentenceStop();
 
 	//INSTAKILL US
-	CTakeDamageInfo info2;
-	info2.SetAttacker(info.GetAttacker());
-	info2.SetInflictor(info.GetInflictor());
-	info2.SetDamage(info.GetDamage() + GetHealth());
-	info2.SetDamageForce(info.GetDamageForce());
-	info2.SetDamagePosition(info.GetDamagePosition());
-	info2.SetDamageType(info.GetDamageType());
-
-	TakeDamage(info2);
+	m_iHealth = 0;
 }
 
 bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)

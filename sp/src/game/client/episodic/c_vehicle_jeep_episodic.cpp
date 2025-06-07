@@ -49,10 +49,12 @@ IMPLEMENT_CLIENTCLASS_DT( C_PropJeepEpisodic, DT_CPropJeepEpisodic, CPropJeepEpi
 	RecvPropInt( RECVINFO(m_iNumRadarContacts) ),
 
 	//CNetworkArray( Vector, m_vecRadarContactPos, RADAR_MAX_CONTACTS );
-	RecvPropArray( RecvPropVector(RECVINFO(m_vecRadarContactPos[0])), m_vecRadarContactPos ),
+	//RecvPropArray( RecvPropVector(RECVINFO(m_vecRadarContactPos[0])), m_vecRadarContactPos ),
+	RecvPropArray3(RECVINFO_ARRAY(m_vecRadarContactPos), RecvPropVector(RECVINFO(m_vecRadarContactPos[0]))),
 
 	//CNetworkArray( int, m_iRadarContactType, RADAR_MAX_CONTACTS );
-	RecvPropArray( RecvPropInt( RECVINFO(m_iRadarContactType[0] ) ), m_iRadarContactType ),
+	//RecvPropArray( RecvPropInt( RECVINFO(m_iRadarContactType[0] ) ), m_iRadarContactType ),
+	RecvPropArray3(RECVINFO_ARRAY(m_iRadarContactType), RecvPropInt(RECVINFO(m_iRadarContactType[0]))),
 
 END_RECV_TABLE()
 
