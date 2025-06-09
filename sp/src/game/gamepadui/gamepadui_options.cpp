@@ -2376,9 +2376,9 @@ void GamepadUIOptionsPanel::LoadOptionTabs( const char *pszOptionsFile )
                                     //now, merge them.
                                     wchar_t wszNameBuf[2048];
 #ifdef WIN32
-                                    V_snwprintf(wszNameBuf, sizeof(wszNameBuf), L"%s - %s", strOriginalString.String(), strDescString.String());
+                                    V_snwprintf(wszNameBuf, sizeof(wszNameBuf), L"%s (%s)", strOriginalString.String(), strDescString.String());
 #else
-                                    V_snwprintf(wszNameBuf, sizeof(wszNameBuf), L"%S - %S", strOriginalString.String(), strDescString.String());
+                                    V_snwprintf(wszNameBuf, sizeof(wszNameBuf), L"%S (%S)", strOriginalString.String(), strDescString.String());
 #endif
 
                                     option.strOptionText = wszNameBuf;

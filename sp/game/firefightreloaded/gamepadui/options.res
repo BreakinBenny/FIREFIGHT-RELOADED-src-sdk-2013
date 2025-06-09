@@ -17,6 +17,7 @@
 				"text"			"#GameUI_SelectDifficulty"
 				"type"			"wheelywheel"
 				"convar"		"_gamepadui_skill"
+				"difficulty"	"1"
 
 				"options"
 				{
@@ -1019,6 +1020,47 @@
 				"step"			"1"
                 "step_adjustment"   "5"
                 "step_adjustment_multiplier" "1"
+
+				"textprecision" "2"
+			}
+			
+			"SteamToastPosition"
+			{
+				"text"			"#GameUI_SteamToastPosition"
+				"type"			"wheelywheel"
+				"convar"		"cl_steam_overlay_toast_position"
+
+				"options"
+				{
+					"0"		"#GameUI_SteamToastPosition_PositionTopLeft"
+					"1"		"#GameUI_SteamToastPosition_PositionTopRight"
+					"2"		"#GameUI_SteamToastPosition_PositionBottomLeft"
+					"3"		"#GameUI_SteamToastPosition_PositionBottomRight"
+				}
+			}
+            
+            "SteamToastHorizInset"
+			{
+				"text"			"#GameUI_SteamToastHorizInset"
+				"type"			"slideyslide"
+				"convar"		"cl_steam_overlay_toast_inset_horizontal"
+
+				"min"			"0"
+				"max"			"1"
+				"step"			"0.01"
+
+				"textprecision" "2"
+			}
+			
+			"SteamToastVertInset"
+			{
+				"text"			"#GameUI_SteamToastVertInset"
+				"type"			"slideyslide"
+				"convar"		"cl_steam_overlay_toast_inset_vertical"
+
+				"min"			"0"
+				"max"			"1"
+				"step"			"0.01"
 
 				"textprecision" "2"
 			}

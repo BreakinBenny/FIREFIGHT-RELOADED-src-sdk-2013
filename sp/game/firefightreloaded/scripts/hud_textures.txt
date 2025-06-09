@@ -169,7 +169,31 @@
 				"font"		"AmmoIconsKillFeed"
 				"character"	"w"
 				"customxyoffset"	"1"
-				"y_offset"		"-14"
+				"y_offset"		"-15"
+				"x_offset"		"3"
+		}
+		"chargebow_bolt"
+		{
+				"font"		"AmmoIconsKillFeed"
+				"character"	"w"
+				"customxyoffset"	"1"
+				"y_offset"		"-15"
+				"x_offset"		"3"
+		}
+		"weapon_crossbow"
+		{
+				"font"		"AmmoIconsKillFeed"
+				"character"	"w"
+				"customxyoffset"	"1"
+				"y_offset"		"-15"
+				"x_offset"		"3"
+		}
+		"weapon_chargebow"
+		{
+				"font"		"AmmoIconsKillFeed"
+				"character"	"w"
+				"customxyoffset"	"1"
+				"y_offset"		"-15"
 				"x_offset"		"3"
 		}
 		"weapon_smg1"
@@ -633,14 +657,6 @@
 				"character"	"Q"
 				"customxyoffset"	"1"
 				"x_offset"		"205"
-		}
-		"chargebow_bolt"
-		{
-				"font"		"AmmoIconsKillFeed"
-				"character"	"w"
-				"customxyoffset"	"1"
-				"y_offset"		"-14"
-				"x_offset"		"3"
 		}
 		"hunter_flechette"
 		{
