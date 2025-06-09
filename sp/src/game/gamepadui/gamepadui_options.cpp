@@ -2323,6 +2323,7 @@ void GamepadUIOptionsPanel::LoadOptionTabs( const char *pszOptionsFile )
                         bool bInstantApply = pItemData->GetBool( "instantapply" );
                         bool bSignOnly = pItemData->GetBool( "signonly" );
                         bool bUsesString = pItemData->GetBool("usesstring");
+                        bool bDifficulty = pItemData->GetBool("difficulty");
                         auto button = new GamepadUIWheelyWheel(
                             pszCvar, pszCvarDepends, bInstantApply, bSignOnly, bUsesString,
                             this, this,
@@ -2348,7 +2349,45 @@ void GamepadUIOptionsPanel::LoadOptionTabs( const char *pszOptionsFile )
                                     option.nValue = V_atoi(pOptionData->GetName());
                                 }
 
-                                option.strOptionText = GamepadUIString( pOptionData->GetString() );
+                                //this option was added to make it easier on translators. Rather than add a whole ass string
+                                //to the language file, the game will automagically generate one by using the "description"
+                                //string already located in the file.
+                                if (bDifficulty)
+                                {
+                                    //get the original string text
+                                    GamepadUIString strOriginalString(pOptionData->GetString());
+
+                                    //then generate the translation string definition for the description.
+                                    //if we find the "medium" string, we look for #GameUI_NormalDescription since #GameUI_MediumDescription
+                                    //doesn't exist. Translators shouldn't need to translate another bit of text that's already translated!!
+                                    GamepadUIString strDescString;
+                                    const char* str = Q_strstr(pOptionData->GetString(), "Medium");
+                                    if (str)
+                                    {
+                                        strDescString.SetText("#GameUI_NormalDescription");
+                                    }
+                                    else
+                                    {
+                                        char descString[512];
+                                        Q_snprintf(descString, sizeof(descString), "%sDescription", pOptionData->GetString());
+                                        strDescString.SetText(descString);
+                                    }
+
+                                    //now, merge them.
+                                    wchar_t wszNameBuf[2048];
+#ifdef WIN32
+                                    V_snwprintf(wszNameBuf, sizeof(wszNameBuf), L"%s - %s", strOriginalString.String(), strDescString.String());
+#else
+                                    V_snwprintf(wszNameBuf, sizeof(wszNameBuf), L"%S - %S", strOriginalString.String(), strDescString.String());
+#endif
+
+                                    option.strOptionText = wszNameBuf;
+                                }
+                                else
+                                {
+                                    option.strOptionText = GamepadUIString(pOptionData->GetString());
+                                }
+
                                 button->AddOptionItem( option );
                                 ++i;
                             }
