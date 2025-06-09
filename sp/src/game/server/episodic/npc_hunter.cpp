@@ -1779,6 +1779,8 @@ void CNPC_Hunter::Precache()
 {
 	PrecacheModel( "models/hunter.mdl" );
 	PropBreakablePrecacheAll( MAKE_STRING("models/hunter.mdl") );
+	PrecacheModel("models/hunter_colorable.mdl");
+	PropBreakablePrecacheAll(MAKE_STRING("models/hunter_colorable.mdl"));
 	PrecacheModel(GAUSS_BEAM_SPRITE);
 
 	PrecacheScriptSound( "NPC_Hunter.Idle" );
@@ -2123,6 +2125,14 @@ void CNPC_Hunter::LoadInitAttributes()
 void CNPC_Hunter::PostNPCInit()
 {
 	BaseClass::PostNPCInit();
+
+	//extremely specialized hack for getting the color model to work on hunter drones.
+	if (m_IsAdvisorDrone)
+	{
+		//switch our model.
+		SetModelName(AllocPooledString("models/hunter_colorable.mdl"));
+		SetModel("models/hunter_colorable.mdl");
+	}
 
 	IPhysicsObject *pPhysObject = VPhysicsGetObject();
 	Assert( pPhysObject );

@@ -8,5 +8,6 @@
 	{
 		"hardcore" 	"1"
 		"nodisconnect"	"1"
+		"resetlevel"	"1"
 	}
 }

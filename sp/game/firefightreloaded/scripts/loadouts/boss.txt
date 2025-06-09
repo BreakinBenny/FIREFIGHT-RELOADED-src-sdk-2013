@@ -12,6 +12,7 @@
 		"setmaxarmor"	"1"
 		"level"		"20"
 		"kash"		"6500"
+		"resetlevel"	"1"
 	}
 	"2"
 	{

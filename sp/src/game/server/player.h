@@ -965,6 +965,7 @@ public:
 	int m_iKashBoostMult;
 	int m_iHealthRegenBoostMult;
 	int	m_rgMaxUpgrades[FR_UPGRADE_MAX];
+	bool m_bExpLevelDeathReset;
 
 	int	m_iKillstreak;
 	int	m_iKillstreakCount;

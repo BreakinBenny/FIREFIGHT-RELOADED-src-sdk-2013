@@ -741,6 +741,7 @@ BEGIN_DATADESC( CBasePlayer )
 	DEFINE_FIELD(m_bGotPerkHealthRegen, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_bGotInfiniteAmmoFromCheat, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_bGotInfiniteAmmoLegitimately, FIELD_BOOLEAN),
+	DEFINE_FIELD(m_bExpLevelDeathReset, FIELD_BOOLEAN),
 	DEFINE_FIELD(m_fRegenRate, FIELD_FLOAT),
 	DEFINE_FIELD(m_iMoney, FIELD_INTEGER),
 	DEFINE_FIELD( m_bIsPowerSliding, FIELD_BOOLEAN),
@@ -1183,6 +1184,8 @@ void CBasePlayer::DeathCheckLevel()
 	{
 		if (GetLevel() != GetMaxLevel())
 		{
+			//set this ONCE for the session. this will tell loadouts to stop resetting the level!!
+			m_bExpLevelDeathReset = true;
 			EXPLevelPenalty();
 		}
 	}
@@ -6419,8 +6422,11 @@ void CBasePlayer::LoadLoadoutFile(const char* kvName, bool savetoLoadout)
 		if (!loadoutSetGameSettings)
 		{
 			int level = pNode->GetInt("level", 1);
+			bool resetLevel = pNode->GetBool("resetlevel", false);
 
-			if (level > 0)
+			bool canResetLevel = (!m_bExpLevelDeathReset || resetLevel);
+
+			if (level > 0 && canResetLevel)
 			{
 				SetLevel(level);
 			}
