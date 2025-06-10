@@ -607,10 +607,8 @@
 		}
 		"weapon_physcannon"
 		{
-				"font"		"WeaponIconsKillFeed2"
-				"character"	"m"
-				"customxyoffset"	"1"
-				"y_offset"		"-8"
+				"font"		"WeaponIconsKillFeed"
+				"character"	"9"
 		}
 		"weapon_physgun"
 		{
