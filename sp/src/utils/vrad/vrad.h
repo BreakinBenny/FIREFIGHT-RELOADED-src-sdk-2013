@@ -291,6 +291,7 @@ extern bool g_bStaticPropPolys;
 extern bool g_bTextureShadows;
 extern bool g_bShowStaticPropNormals;
 extern bool g_bDisablePropSelfShadowing;
+extern int g_nIndirectPropLightingMode;
 
 #define SUPERSAMPLING 0
 extern bool g_bSuperSampling;
