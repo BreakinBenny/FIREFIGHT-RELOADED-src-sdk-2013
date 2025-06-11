@@ -1954,11 +1954,11 @@ int CBasePlayer::TakeHealth( float flHealth, int bitsDamageType )
 
 	m_iHealth += flHealth;
 
-	if (m_MaxHealthVal > 0)
+	if (m_iMaxHealth > 0)
 	{
-		if (m_iHealth > m_MaxHealthVal)
+		if (m_iHealth > m_iMaxHealth)
 		{
-			m_iHealth = m_MaxHealthVal;
+			m_iHealth = m_iMaxHealth;
 		}
 	}
 
