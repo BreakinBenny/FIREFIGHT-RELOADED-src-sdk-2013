@@ -5673,7 +5673,7 @@ void CNPC_Hunter::TraceAttack( const CTakeDamageInfo &inputInfo, const Vector &v
 		}
 	}
 
-	// HUnters have special resisitance to some types of damage.
+	// HUnters have special resistance to some types of damage.
 	if ( ( info.GetDamageType() & DMG_BULLET ) ||
 		 ( info.GetDamageType() & DMG_BUCKSHOT ) ||
 		 ( info.GetDamageType() & DMG_CLUB ) ||

@@ -339,6 +339,7 @@
             "GameUI_Item_Respawn": "Toggle Item Respawn",
             "GameUI_Weapon_Respawn": "Toggle Weapon Respawn",
             "GameUI_Headshots": "Toggle Headshot Gore Effects",
+            "GameUI_LowViolence": "Toggle Low Violence Mode",
             "GameUI_PlayerDropWeaponsOnDeath": "Toggle Player Dropping Weapons on Death",
             "GameUI_HealthChargerUsesMoney": "Toggle Health Charger using Kash to operate",
             "GameUI_SuitChargerUsesMoney": "Toggle HEV Suit Charger using Kash to operate",

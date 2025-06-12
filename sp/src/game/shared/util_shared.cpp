@@ -776,6 +776,7 @@ void UTIL_Tracer( const Vector &vecStart, const Vector &vecEnd, int iEntIndex,
 	}
 }
 
+#define MAX_BLOOD 255
 
 void UTIL_BloodDrips( const Vector &origin, const Vector &direction, int color, int amount )
 {
@@ -783,18 +784,14 @@ void UTIL_BloodDrips( const Vector &origin, const Vector &direction, int color, 
 	{
 		IPredictionSystem::SuppressHostEvents(NULL);
 	}
+
+	bool noblood = false;
+	bool showedLVBlood = false;
 	
-	if ( !UTIL_ShouldShowBlood( color ) )
-		return;
-
-	if ( color == DONT_BLEED || amount == 0 )
-		return;
-
-	if (UTIL_IsLowViolence() && color == BLOOD_COLOR_RED)
-		color = 0;
-
-	if ( amount > 255 )
-		amount = 255;
+	if (!UTIL_ShouldShowBlood(color) || color == DONT_BLEED || amount == 0)
+	{
+		noblood = true;
+	}
 
 	if (color == BLOOD_COLOR_MECH)
 	{
@@ -803,33 +800,35 @@ void UTIL_BloodDrips( const Vector &origin, const Vector &direction, int color, 
 		{
 			UTIL_Smoke(origin, random->RandomInt(10, 15), 10);
 		}
+
+		showedLVBlood = true;
 	}
-	else
+	else if (UTIL_IsLowViolence())
 	{
+		g_pEffects->Sparks(origin);
+
+		QAngle	vecAngles;
+		VectorAngles(-direction, vecAngles);
+		DispatchParticleEffect("blood_impact_lv", origin, vecAngles);
+
+		showedLVBlood = true;
+	}
+
+	if (!noblood && !showedLVBlood)
+	{
+		if (amount > MAX_BLOOD)
+			amount = MAX_BLOOD;
+
 		// Normal blood impact
-		UTIL_BloodImpact( origin, direction, color, amount );
+		UTIL_BloodImpact(origin, direction, color, amount);
 	}
 }	
 
 //-----------------------------------------------------------------------------
 // Purpose: Returns low violence settings
 //-----------------------------------------------------------------------------
-void ViolenceChangeCallback(IConVar* var, const char* pOldValue, float flOldValue)
-{
-	static ConVarRef violence_ablood("violence_ablood");
-	static ConVarRef violence_hblood("violence_hblood");
-	static ConVarRef violence_agibs("violence_agibs");
-	static ConVarRef violence_hgibs("violence_hgibs");
-
-	bool val = ((ConVar*)var)->GetBool();
-
-	violence_hblood.SetValue(!val);
-	violence_hgibs.SetValue(!val);
-	violence_ablood.SetValue(!val);
-	violence_agibs.SetValue(!val);
-}
-ConVar	violence_low("violence_low", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED, "Enable low violence mode for testing.", ViolenceChangeCallback);
-ConVar	violence_override("violence_override", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED, "Override violence detection and allow violence.");
+ConVar	violence_low("violence_low", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED, "Enable low violence mode for testing.");
+ConVar	violence_low_override("violence_low_override", "1", FCVAR_REPLICATED, "Override violence detection and allow violence.");
 
 bool UTIL_IsLowViolence( void )
 {
@@ -845,12 +844,12 @@ bool UTIL_IsLowViolence( void )
 	}
 #endif
 
-	if (g_Language.GetInt() == LANGUAGE_GERMAN || violence_low.GetBool() || engine->IsLowViolence())
+	if (engine->IsLowViolence())
 	{
-		return !violence_override.GetBool();
+		return !violence_low_override.GetBool();
 	}
 
-	return false;
+	return violence_low.GetBool();
 }
 
 bool UTIL_ShouldShowBlood( int color )

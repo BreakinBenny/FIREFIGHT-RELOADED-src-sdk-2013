@@ -90,6 +90,32 @@
 					"1"		"#gameui_enabled"
 				}
 			}
+			
+			"Headshots"
+			{
+				"text"			"#GameUI_Headshots"
+				"type"			"wheelywheel"
+				"convar"		"g_fr_headshotgore"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+			
+			"LowViolence"
+			{
+				"text"			"#GameUI_LowViolence"
+				"type"			"wheelywheel"
+				"convar"		"violence_low"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
             
             "SaveWeapons"
             {
@@ -331,19 +357,6 @@
 				"text"			"#GameUI_AutosaveLevelUp"
 				"type"			"wheelywheel"
 				"convar"		"sv_autosave_levelup"
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#gameui_enabled"
-				}
-			}
-            
-            "Headshots"
-			{
-				"text"			"#GameUI_Headshots"
-				"type"			"wheelywheel"
-				"convar"		"g_fr_headshotgore"
 
 				"options"
 				{

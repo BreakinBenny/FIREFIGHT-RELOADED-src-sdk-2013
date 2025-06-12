@@ -51,4 +51,5 @@ particles_manifest
 	"file"		"particles/weapon_smoke.pcf"
 	"file"		"particles/smod3_blood.pcf"
 	"file"		"particles/fr_bullets.pcf"
+	"file"		"particles/blood_impact_lv.pcf"
 }
