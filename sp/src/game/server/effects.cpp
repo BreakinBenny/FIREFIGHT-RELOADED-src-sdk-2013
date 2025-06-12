@@ -399,7 +399,7 @@ LINK_ENTITY_TO_CLASS( gibshooter, CGibShooter );
 
 void CGibShooter::Precache ( void )
 {
-	if ( g_Language.GetInt() == LANGUAGE_GERMAN )
+	if (UTIL_IsLowViolence())
 	{
 		m_iGibModelIndex = PrecacheModel ("models/germanygibs.mdl");
 	}

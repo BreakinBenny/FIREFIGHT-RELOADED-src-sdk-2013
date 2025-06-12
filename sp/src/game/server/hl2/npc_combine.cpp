@@ -485,11 +485,20 @@ const char* CNPC_Combine::GetGibModel(appendage_t appendage)
 
 void CNPC_Combine::CorpseDecapitateEffect(const CTakeDamageInfo& info)
 {
-	EmitSound("Gore.Headshot");
-	EmitSound("Gore.Decap");
+	if (!g_fr_headshotgore.GetBool())
+		return;
+
+	if (!UTIL_IsLowViolence())
+	{
+		EmitSound("Gore.Headshot");
+		EmitSound("Gore.Decap");
+	}
 	m_bDecapitated = true;
-	m_bNoDeathSound = true;
-	SentenceStop();
+	if (!UTIL_IsLowViolence())
+	{
+		m_bNoDeathSound = true;
+		SentenceStop();
+	}
 
 	//INSTAKILL US
 	m_iHealth = 0;
@@ -517,7 +526,7 @@ bool CNPC_Combine::CorpseDecapitate(const CTakeDamageInfo& info)
 		return false;
 
 	static ConVarRef violence_hgibs( "violence_hgibs" );
-	bool shouldAnimateDecap = !m_bDecapitated && !(g_Language.GetInt() == LANGUAGE_GERMAN || UTIL_IsLowViolence())
+	bool shouldAnimateDecap = !m_bDecapitated && !UTIL_IsLowViolence()
 		&& (violence_hgibs.IsValid() && violence_hgibs.GetBool())
 		&& g_fr_headshotgore.GetBool() && gibs;
 
@@ -537,8 +546,9 @@ bool CNPC_Combine::CorpseDecapitate(const CTakeDamageInfo& info)
 			SpawnBlood( GetAbsOrigin(), g_vecAttackDir, BloodColor(), newinfo.GetDamage() );
 			CGib::SpawnSpecificStickyGibs( this, 6, 150, 450, "models/gibs/pgib_p3.mdl", 6 );
 			CGib::SpawnSpecificStickyGibs( this, 6, 150, 450, "models/gibs/pgib_p4.mdl", 6 );
-			CorpseDecapitateEffect(newinfo);
 		}
+
+		CorpseDecapitateEffect(newinfo);
 
 		return true;
 	}
@@ -567,8 +577,9 @@ bool CNPC_Combine::CorpseDecapitate(const CTakeDamageInfo& info)
 			}
 
 			CGib::SpawnSpecificStickyGibs( this, 3, 150, 450, "models/gibs/pgib_p4.mdl", 6 );
-			CorpseDecapitateEffect(newinfo);
 		}
+
+		CorpseDecapitateEffect(newinfo);
 
 		return true;
 	}
@@ -578,7 +589,7 @@ bool CNPC_Combine::CorpseDecapitate(const CTakeDamageInfo& info)
 
 bool CNPC_Combine::BecomeRagdoll(const CTakeDamageInfo& info, const Vector& forceVector)
 {
-	if (m_bDecapitated)
+	if (m_bDecapitated && !UTIL_IsLowViolence())
 	{
 		CTakeDamageInfo newinfo = info;
 		newinfo.SetDamageForce(forceVector);
@@ -629,7 +640,7 @@ CTakeDamageInfo CNPC_Combine::CorpseGibExt(const CTakeDamageInfo& info)
 		return info;
 
 	static ConVarRef violence_hgibs( "violence_hgibs" );
-	if (!(g_Language.GetInt() == LANGUAGE_GERMAN || UTIL_IsLowViolence())
+	if (!UTIL_IsLowViolence()
 		&& (violence_hgibs.IsValid() && violence_hgibs.GetBool())
 		&& (info.GetDamageType() & (DMG_BLAST)) && gibs)
 	{

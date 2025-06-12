@@ -36,13 +36,13 @@
 #define GAMEMOVEMENT_WALLRUN_MIN_Z -0.15f
 
 // Don't wallrun or climb on props with a bounding sphere smaller than this
-static ConVar sv_climb_props_size( "sv_climb_props_size", "50.0" );
+static ConVar sv_climb_props_size( "sv_climb_props_size", "50.0", FCVAR_REPLICATED);
 
 // By default disable climbing/wallrunning on npcs.
-static ConVar sv_climb_npcs( "sv_climb_npcs", "0" );
+static ConVar sv_climb_npcs( "sv_climb_npcs", "0", FCVAR_REPLICATED);
 
 // By default disable climbing/wallrunning on props.
-static ConVar sv_climb_props("sv_climb_props", "0");
+static ConVar sv_climb_props("sv_climb_props", "0", FCVAR_REPLICATED);
 
 float VectorYaw( Vector& v )
 {

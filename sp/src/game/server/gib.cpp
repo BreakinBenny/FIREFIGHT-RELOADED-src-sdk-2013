@@ -74,7 +74,7 @@ void CGib::SpawnStickyGibs(CBaseEntity *pVictim, Vector vecOrigin, int cGibs)
 	
 	int i;
 
-	if (g_Language.GetInt() == LANGUAGE_GERMAN)
+	if (UTIL_IsLowViolence())
 	{
 		// no sticky gibs in germany right now!
 		return;
@@ -132,7 +132,7 @@ void CGib::SpawnHeadGib(CBaseEntity *pVictim)
 	
 	CGib *pGib = CREATE_ENTITY(CGib, "gib");
 
-	if (g_Language.GetInt() == LANGUAGE_GERMAN)
+	if (UTIL_IsLowViolence())
 	{
 		pGib->Spawn("models/germangibs.mdl");// throw one head
 		pGib->m_nBody = 0;
@@ -416,7 +416,7 @@ void CGib::SpawnRandomGibs(CBaseEntity *pVictim, int cGibs, GibType_e eGibType)
 	{
 		CGib *pGib = CREATE_ENTITY(CGib, "gib");
 
-		if (g_Language.GetInt() == LANGUAGE_GERMAN)
+		if (UTIL_IsLowViolence())
 		{
 			pGib->Spawn("models/germangibs.mdl");
 			pGib->m_nBody = random->RandomInt(0, GERMAN_GIB_COUNT - 1);
@@ -645,7 +645,7 @@ void CGib::BounceGibTouch(CBaseEntity *pOther)
 	}
 	else
 	{
-		if (g_Language.GetInt() != LANGUAGE_GERMAN && m_bloodColor != DONT_BLEED)
+		if (!UTIL_IsLowViolence() && m_bloodColor != DONT_BLEED)
 		{
 			vecSpot = GetAbsOrigin() + Vector(0, 0, 8);//move up a bit, and trace down.
 			UTIL_TraceLine(vecSpot, vecSpot + Vector(0, 0, -24), MASK_SOLID_BRUSHONLY, this, COLLISION_GROUP_NONE, &tr);
@@ -875,7 +875,7 @@ void CRagGib::RagGibTouch(CBaseEntity *pOther)
 	}
 	else
 	{
-		if (g_Language.GetInt() != LANGUAGE_GERMAN && m_bloodColor != DONT_BLEED)
+		if (!UTIL_IsLowViolence() && m_bloodColor != DONT_BLEED)
 		{
 			vecSpot = GetAbsOrigin() + Vector(0, 0, 8);//move up a bit, and trace down.
 			UTIL_TraceLine(vecSpot, vecSpot + Vector(0, 0, -24), MASK_SOLID_BRUSHONLY, this, COLLISION_GROUP_NONE, &tr);

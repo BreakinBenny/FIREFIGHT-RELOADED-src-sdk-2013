@@ -20,14 +20,14 @@ static ConVar sv_ladder_useonly("sv_ladder_useonly", "0", FCVAR_REPLICATED, "If 
 
 ConVar	fr_max_charge_speed("fr_max_charge_speed", "750", FCVAR_NOTIFY | FCVAR_REPLICATED | FCVAR_CHEAT);
 
-ConVar  fr_aircap_multiplier("fr_aircap_multiplier", "4.2", FCVAR_ARCHIVE);
+ConVar  fr_aircap_multiplier("fr_aircap_multiplier", "4.2", FCVAR_ARCHIVE | FCVAR_REPLICATED);
 
-ConVar fr_charge_allowairmove("fr_charge_allowairmove", "1", FCVAR_ARCHIVE);
-ConVar fr_charge_allowjump("fr_charge_allowjump", "0", FCVAR_ARCHIVE);
-ConVar fr_charge_superspeed("fr_charge_superspeed", "0", FCVAR_ARCHIVE);
-ConVar fr_charge("fr_charge", "1", FCVAR_ARCHIVE);
+ConVar fr_charge_allowairmove("fr_charge_allowairmove", "1", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar fr_charge_allowjump("fr_charge_allowjump", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar fr_charge_superspeed("fr_charge_superspeed", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar fr_charge("fr_charge", "1", FCVAR_ARCHIVE | FCVAR_REPLICATED);
 
-ConVar debug_playerspeed("debug_playerspeed", "0");
+ConVar debug_playerspeed("debug_playerspeed", "0", FCVAR_REPLICATED);
 
 #define USE_DISMOUNT_SPEED 100
 

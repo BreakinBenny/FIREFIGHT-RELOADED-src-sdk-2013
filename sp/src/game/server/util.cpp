@@ -1465,7 +1465,7 @@ void UTIL_BloodStream( const Vector &origin, const Vector &direction, int color,
 	if ( !UTIL_ShouldShowBlood( color ) )
 		return;
 
-	if ( g_Language.GetInt() == LANGUAGE_GERMAN && color == BLOOD_COLOR_RED )
+	if ( UTIL_IsLowViolence() && color == BLOOD_COLOR_RED)
 		color = 0;
 
 	CPVSFilter filter( origin );

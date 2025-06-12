@@ -93,10 +93,10 @@
 ConVar mp_usehwmmodels( "mp_usehwmmodels", "0", NULL, "Enable the use of the hw morph models. (-1 = never, 1 = always, 0 = based upon GPU)" ); // -1 = never, 0 = if hasfastvertextextures, 1 = always
 #endif
 
-ConVar player_basexp("player_basexp", "1500", FCVAR_ARCHIVE, "");
+ConVar player_basexp("player_basexp", "1500", FCVAR_ARCHIVE | FCVAR_REPLICATED, "");
 
 //extremely hacky solution for an extremely hacky problem
-ConVar player_cur_money("player_cur_money", "0", FCVAR_DEVELOPMENTONLY, "");
+ConVar player_cur_money("player_cur_money", "0", FCVAR_DEVELOPMENTONLY | FCVAR_REPLICATED, "");
 
 bool UseHWMorphModels()
 {

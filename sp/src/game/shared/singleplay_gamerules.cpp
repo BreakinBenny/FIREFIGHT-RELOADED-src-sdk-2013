@@ -34,34 +34,34 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-ConVar sk_killrewardinitial_multiplier1("sk_killrewardinitial_multiplier1", "1.5");
-ConVar sk_killrewardinitial_multiplier2("sk_killrewardinitial_multiplier2", "2.5");
-ConVar sk_killrewardinitial_multiplier3("sk_killrewardinitial_multiplier3", "3.5");
-ConVar sk_killrewardinitial_multiplier4("sk_killrewardinitial_multiplier4", "4.5");
-ConVar sk_killrewardinitial_multiplier5("sk_killrewardinitial_multiplier5", "5.5");
+ConVar sk_killrewardinitial_multiplier1("sk_killrewardinitial_multiplier1", "1.5", FCVAR_REPLICATED);
+ConVar sk_killrewardinitial_multiplier2("sk_killrewardinitial_multiplier2", "2.5", FCVAR_REPLICATED);
+ConVar sk_killrewardinitial_multiplier3("sk_killrewardinitial_multiplier3", "3.5", FCVAR_REPLICATED);
+ConVar sk_killrewardinitial_multiplier4("sk_killrewardinitial_multiplier4", "4.5", FCVAR_REPLICATED);
+ConVar sk_killrewardinitial_multiplier5("sk_killrewardinitial_multiplier5", "5.5", FCVAR_REPLICATED);
 
-ConVar sk_killrewardbonus_multiplier1("sk_killrewardbonus_multiplier1", "1.5");
-ConVar sk_killrewardbonus_multiplier2("sk_killrewardbonus_multiplier2", "2");
-ConVar sk_killrewardbonus_multiplier3("sk_killrewardbonus_multiplier3", "3.5");
-ConVar sk_killrewardbonus_multiplier4("sk_killrewardbonus_multiplier4", "4");
-ConVar sk_killrewardbonus_multiplier5("sk_killrewardbonus_multiplier5", "5.5");
+ConVar sk_killrewardbonus_multiplier1("sk_killrewardbonus_multiplier1", "1.5", FCVAR_REPLICATED);
+ConVar sk_killrewardbonus_multiplier2("sk_killrewardbonus_multiplier2", "2", FCVAR_REPLICATED);
+ConVar sk_killrewardbonus_multiplier3("sk_killrewardbonus_multiplier3", "3.5", FCVAR_REPLICATED);
+ConVar sk_killrewardbonus_multiplier4("sk_killrewardbonus_multiplier4", "4", FCVAR_REPLICATED);
+ConVar sk_killrewardbonus_multiplier5("sk_killrewardbonus_multiplier5", "5.5", FCVAR_REPLICATED);
 
-ConVar sv_killingspree("sv_killingspree", "1", FCVAR_ARCHIVE);
+ConVar sv_killingspree("sv_killingspree", "1", FCVAR_ARCHIVE | FCVAR_REPLICATED);
 
-ConVar sv_healthcharger_recharge("sv_healthcharger_recharge", "1", FCVAR_ARCHIVE);
-ConVar sv_healthcharger_recharge_time("sv_healthcharger_recharge_time", "180", FCVAR_ARCHIVE);
-ConVar sv_suitcharger_recharge("sv_suitcharger_recharge", "1", FCVAR_ARCHIVE);
-ConVar sv_suitcharger_recharge_time("sv_suitcharger_recharge_time", "180", FCVAR_ARCHIVE);
-ConVar sv_item_respawn("sv_item_respawn", "1", FCVAR_ARCHIVE);
-ConVar sv_item_respawn_time("sv_item_respawn_time", "180", FCVAR_ARCHIVE);
-ConVar sv_weapon_respawn("sv_weapon_respawn", "1", FCVAR_ARCHIVE);
-ConVar sv_weapon_respawn_time("sv_weapon_respawn_time", "180", FCVAR_ARCHIVE);
+ConVar sv_healthcharger_recharge("sv_healthcharger_recharge", "1", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar sv_healthcharger_recharge_time("sv_healthcharger_recharge_time", "180", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar sv_suitcharger_recharge("sv_suitcharger_recharge", "1", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar sv_suitcharger_recharge_time("sv_suitcharger_recharge_time", "180", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar sv_item_respawn("sv_item_respawn", "1", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar sv_item_respawn_time("sv_item_respawn_time", "180", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar sv_weapon_respawn("sv_weapon_respawn", "1", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar sv_weapon_respawn_time("sv_weapon_respawn_time", "180", FCVAR_ARCHIVE | FCVAR_REPLICATED);
 
-ConVar sv_player_dropweaponsondeath("sv_player_dropweaponsondeath", "1", FCVAR_ARCHIVE);
-ConVar sv_player_autoaimcrosshair("sv_player_autoaimcrosshair", "0", FCVAR_ARCHIVE);
+ConVar sv_player_dropweaponsondeath("sv_player_dropweaponsondeath", "1", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar sv_player_autoaimcrosshair("sv_player_autoaimcrosshair", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED);
 
-ConVar sv_killog_shownpcnames("sv_killog_shownpcnames", "0", FCVAR_ARCHIVE);
-ConVar sv_killog_report_normalheadshot_kills("sv_killog_report_normalheadshot_kills", "0", FCVAR_ARCHIVE);
+ConVar sv_killog_shownpcnames("sv_killog_shownpcnames", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar sv_killog_report_normalheadshot_kills("sv_killog_report_normalheadshot_kills", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED);
 
 extern ConVar sv_player_voice;
 extern ConVar sv_player_voice_kill_freq;
@@ -1177,13 +1177,27 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 							if (pNPC->m_bDecapitated)
 							{
 								// fake it
-								if (info.GetDamageType() & DMG_SLASH)
+								if (UTIL_IsLowViolence())
 								{
-									killer_weapon_name = "decapitation";
+									if (info.GetDamageType() & DMG_SLASH)
+									{
+										killer_weapon_name = pScorer->GetActiveWeapon()->GetClassname();
+									}
+									else
+									{
+										killer_weapon_name = "headshot";
+									}
 								}
 								else
 								{
-									killer_weapon_name = "explosive_headshot";
+									if (info.GetDamageType() & DMG_SLASH)
+									{
+										killer_weapon_name = "decapitation";
+									}
+									else
+									{
+										killer_weapon_name = "explosive_headshot";
+									}
 								}
 							}
 							else if (sv_killog_report_normalheadshot_kills.GetBool() && pNPC->LastHitGroup() == HITGROUP_HEAD)

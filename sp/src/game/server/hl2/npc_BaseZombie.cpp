@@ -660,7 +660,18 @@ float CNPC_BaseZombie::GetHitgroupDamageMultiplier( int iHitGroup, const CTakeDa
 	{
 	case HITGROUP_HEAD:
 		{
-			if (!(g_Language.GetInt() == LANGUAGE_GERMAN || UTIL_IsLowViolence()) && g_fr_headshotgore.GetBool() && !m_bNoHeadshotGore)
+			bool gibs = true;
+			if (m_pAttributes != NULL)
+			{
+				gibs = m_pAttributes->GetBool("decap", true);
+			}
+
+			static ConVarRef violence_hgibs("violence_hgibs");
+			bool shouldAnimateDecap = !m_bDecapitated && !UTIL_IsLowViolence()
+				&& (violence_hgibs.IsValid() && violence_hgibs.GetBool())
+				&& g_fr_headshotgore.GetBool() && gibs;
+
+			if (shouldAnimateDecap)
 			{
 				if (!IsHeadless() && (info.GetDamageType() & (DMG_SNIPER)) && !(info.GetDamageType() & DMG_NEVERGIB) && !FClassnameIs(this, "npc_poisonzombie"))
 				{
@@ -939,7 +950,7 @@ int CNPC_BaseZombie::OnTakeDamage_Alive( const CTakeDamageInfo &inputInfo )
 					if (!(info.GetDamageType() & (DMG_CLUB | DMG_DISSOLVE)))
 					{
 						BecomeTorso(vec3_origin, inputInfo.GetDamageForce() * 0.50);
-						if (!(g_Language.GetInt() == LANGUAGE_GERMAN || UTIL_IsLowViolence()))
+						if (!UTIL_IsLowViolence())
 						{
 							UTIL_BloodSpray(WorldSpaceCenter(), vec3_origin, BLOOD_COLOR_YELLOW, 13, FX_BLOODSPRAY_ALL);
 							DispatchParticleEffect("blood_zombie_split", GetAbsOrigin(), GetAbsAngles(), this);
@@ -2401,7 +2412,7 @@ void CNPC_BaseZombie::Event_Killed( const CTakeDamageInfo &info )
 
 	//this crashes the game for some reason.
 	//i don't know where past bitl got this from but this doesn't crash the game anymore......
-	if (!(g_Language.GetInt() == LANGUAGE_GERMAN || UTIL_IsLowViolence()) && 
+	if (!UTIL_IsLowViolence() &&
 		info.GetDamageType() & (DMG_ALWAYSGIB | DMG_BLAST) && 
 		(info.GetDamageType() & (DMG_SLASH)) && 
 		!(info.GetDamageType() & (DMG_NEVERGIB | DMG_DISSOLVE)) 

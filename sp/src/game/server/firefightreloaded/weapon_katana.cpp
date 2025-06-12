@@ -266,7 +266,7 @@ void CWeaponKatana::PrimaryAttack(void)
 							}
 						}
 
-						if (!usesShield)
+						if (!usesShield && !UTIL_IsLowViolence())
 						{
 							if (ent->BloodColor() == BLOOD_COLOR_RED)
 							{

@@ -790,7 +790,7 @@ void UTIL_BloodDrips( const Vector &origin, const Vector &direction, int color, 
 	if ( color == DONT_BLEED || amount == 0 )
 		return;
 
-	if (g_Language.GetInt() == LANGUAGE_GERMAN && color == BLOOD_COLOR_RED)
+	if (UTIL_IsLowViolence() && color == BLOOD_COLOR_RED)
 		color = 0;
 
 	if ( amount > 255 )
@@ -814,11 +814,25 @@ void UTIL_BloodDrips( const Vector &origin, const Vector &direction, int color, 
 //-----------------------------------------------------------------------------
 // Purpose: Returns low violence settings
 //-----------------------------------------------------------------------------
-ConVar	violence_override("violence_override", "0", FCVAR_ARCHIVE, "Override violence detection and allow violence.");
+void ViolenceChangeCallback(IConVar* var, const char* pOldValue, float flOldValue)
+{
+	static ConVarRef violence_ablood("violence_ablood");
+	static ConVarRef violence_hblood("violence_hblood");
+	static ConVarRef violence_agibs("violence_agibs");
+	static ConVarRef violence_hgibs("violence_hgibs");
+
+	bool val = ((ConVar*)var)->GetBool();
+
+	violence_hblood.SetValue(!val);
+	violence_hgibs.SetValue(!val);
+	violence_ablood.SetValue(!val);
+	violence_agibs.SetValue(!val);
+}
+ConVar	violence_low("violence_low", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED, "Enable low violence mode for testing.", ViolenceChangeCallback);
+ConVar	violence_override("violence_override", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED, "Override violence detection and allow violence.");
 
 bool UTIL_IsLowViolence( void )
 {
-
 	// These convars are no longer necessary -- the engine is the final arbiter of
 	// violence settings -- but they're here for legacy support and for testing low
 	// violence when the engine is in normal violence mode.
@@ -831,7 +845,12 @@ bool UTIL_IsLowViolence( void )
 	}
 #endif
 
-	return !violence_override.GetBool() && engine->IsLowViolence();
+	if (g_Language.GetInt() == LANGUAGE_GERMAN || violence_low.GetBool() || engine->IsLowViolence())
+	{
+		return !violence_override.GetBool();
+	}
+
+	return false;
 }
 
 bool UTIL_ShouldShowBlood( int color )

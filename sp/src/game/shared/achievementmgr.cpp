@@ -50,9 +50,9 @@
 ConVar	cc_achievement_debug( "achievement_debug", "0", FCVAR_CHEAT | FCVAR_REPLICATED, "Turn on achievement debug msgs." );
 
 #if MOD_VER
-ConVar	achievement_showlegacymsgs("achievement_showlegacymsgs", "1", FCVAR_ARCHIVE);
+ConVar	achievement_showlegacymsgs("achievement_showlegacymsgs", "1", FCVAR_ARCHIVE | FCVAR_REPLICATED);
 #else
-ConVar	achievement_showlegacymsgs("achievement_showlegacymsgs", "0", FCVAR_ARCHIVE);
+ConVar	achievement_showlegacymsgs("achievement_showlegacymsgs", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED);
 #endif
 
 #ifdef CSTRIKE_DLL

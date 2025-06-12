@@ -4131,11 +4131,20 @@ const char* CNPC_MetroPolice::GetGibModel(appendage_t appendage)
 
 void CNPC_MetroPolice::CorpseDecapitateEffect(const CTakeDamageInfo& info)
 {
-	EmitSound("Gore.Headshot");
-	EmitSound("Gore.Decap");
+	if (!g_fr_headshotgore.GetBool())
+		return;
+
+	if (!UTIL_IsLowViolence())
+	{
+		EmitSound("Gore.Headshot");
+		EmitSound("Gore.Decap");
+	}
 	m_bDecapitated = true;
-	m_bNoDeathSound = true;
-	SentenceStop();
+	if (!UTIL_IsLowViolence())
+	{
+		m_bNoDeathSound = true;
+		SentenceStop();
+	}
 
 	//INSTAKILL US
 	m_iHealth = 0;
@@ -4163,7 +4172,7 @@ bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 		return false;
 
 	static ConVarRef violence_hgibs( "violence_hgibs" );
-	bool shouldAnimateDecap = !m_bDecapitated && !(g_Language.GetInt() == LANGUAGE_GERMAN || UTIL_IsLowViolence())
+	bool shouldAnimateDecap = !m_bDecapitated && !UTIL_IsLowViolence()
 		&& (violence_hgibs.IsValid() && violence_hgibs.GetBool())
 		&& g_fr_headshotgore.GetBool() && gibs;
 
@@ -4183,8 +4192,9 @@ bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 			SpawnBlood( GetAbsOrigin(), g_vecAttackDir, BloodColor(), newinfo.GetDamage() );
 			CGib::SpawnSpecificStickyGibs( this, 6, 150, 450, "models/gibs/pgib_p3.mdl", 6 );
 			CGib::SpawnSpecificStickyGibs( this, 6, 150, 450, "models/gibs/pgib_p4.mdl", 6 );
-			CorpseDecapitateEffect(newinfo);
 		}
+
+		CorpseDecapitateEffect(newinfo);
 
 		return true;
 	}
@@ -4213,8 +4223,9 @@ bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 			}
 
 			CGib::SpawnSpecificStickyGibs( this, 3, 150, 450, "models/gibs/pgib_p4.mdl", 6 );
-			CorpseDecapitateEffect(newinfo);
 		}
+
+		CorpseDecapitateEffect(newinfo);
 
 		return true;
 	}
@@ -4270,7 +4281,7 @@ CTakeDamageInfo CNPC_MetroPolice::CorpseGibExt(const CTakeDamageInfo& info)
 		return info;
 
 	static ConVarRef violence_hgibs( "violence_hgibs" );
-	if (!(g_Language.GetInt() == LANGUAGE_GERMAN || UTIL_IsLowViolence())
+	if (!UTIL_IsLowViolence()
 		&& (violence_hgibs.IsValid() && violence_hgibs.GetBool())
 		&& (info.GetDamageType() & (DMG_BLAST)) && gibs)
 	{

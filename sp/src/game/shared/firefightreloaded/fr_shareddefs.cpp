@@ -10,7 +10,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-static ConVar fr_kvloader_debug("fr_kvloader_debug", "0");
+static ConVar fr_kvloader_debug("fr_kvloader_debug", "0", FCVAR_REPLICATED);
 
 #if CLIENT_DLL
 CON_COMMAND(list_centities, "List all client entities.")

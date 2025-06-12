@@ -7637,7 +7637,7 @@ void CBloodSplat::Think( void )
 {
 	trace_t	tr;	
 	
-	if ( g_Language.GetInt() != LANGUAGE_GERMAN )
+	if (!UTIL_IsLowViolence())
 	{
 		CBasePlayer *pPlayer;
 		pPlayer = ToBasePlayer( GetOwnerEntity() );

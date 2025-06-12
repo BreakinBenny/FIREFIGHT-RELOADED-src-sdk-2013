@@ -57,7 +57,7 @@ extern IFileSystem *filesystem;
 #define tickcount USE_PLAYER_CURRENT_COMMAND_NUMBER__INSTEAD_OF_TICKCOUNT
 
 #if defined( HL2_DLL )
-ConVar xc_uncrouch_on_jump( "xc_uncrouch_on_jump", "1", FCVAR_ARCHIVE, "Uncrouch when jump occurs" );
+ConVar xc_uncrouch_on_jump( "xc_uncrouch_on_jump", "1", FCVAR_ARCHIVE | FCVAR_REPLICATED, "Uncrouch when jump occurs" );
 #endif
 
 #if defined( HL2_DLL ) || defined( HL2_CLIENT_DLL )
@@ -65,11 +65,11 @@ ConVar player_limit_jump_speed( "player_limit_jump_speed", "1", FCVAR_REPLICATED
 #endif
 
 //Used for bunnyhopping
-ConVar fr_enable_bunnyhop("fr_enable_bunnyhop", "1", FCVAR_ARCHIVE);
-ConVar fr_enable_bunnyhop_legacybehavior("fr_enable_bunnyhop_legacybehavior", "0", FCVAR_ARCHIVE);
-ConVar fr_bunnyhop_speedboost("fr_bunnyhop_speedboost", "0.07", FCVAR_ARCHIVE);
+ConVar fr_enable_bunnyhop("fr_enable_bunnyhop", "1", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar fr_enable_bunnyhop_legacybehavior("fr_enable_bunnyhop_legacybehavior", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar fr_bunnyhop_speedboost("fr_bunnyhop_speedboost", "0.07", FCVAR_ARCHIVE | FCVAR_REPLICATED);
 
-ConVar fr_floatymove("fr_floatymove", "0", FCVAR_ARCHIVE);
+ConVar fr_floatymove("fr_floatymove", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED);
 
 // option_duck_method is a carrier convar. Its sole purpose is to serve an easy-to-flip
 // convar which is ONLY set by the X360 controller menu to tell us which way to bind the
@@ -83,8 +83,8 @@ ConVar debug_latch_reset_onduck( "debug_latch_reset_onduck", "1", FCVAR_CHEAT );
 #endif
 
 #ifdef STEAM_INPUT
-ConVar player_x360_crouch_friction("player_x360_crouch_friction", "0");
-ConVar player_x360_crouch_hints("player_x360_crouch_hints", "0");
+ConVar player_x360_crouch_friction("player_x360_crouch_friction", "0", FCVAR_REPLICATED);
+ConVar player_x360_crouch_hints("player_x360_crouch_hints", "0", FCVAR_REPLICATED);
 #endif
 
 // [MD] I'll remove this eventually. For now, I want the ability to A/B the optimizations.
