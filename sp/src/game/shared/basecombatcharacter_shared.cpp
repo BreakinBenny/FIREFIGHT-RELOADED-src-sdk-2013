@@ -224,14 +224,7 @@ int CBaseCombatCharacter::BloodColor()
 //-----------------------------------------------------------------------------
 void CBaseCombatCharacter::SetBloodColor( int nBloodColor )
 {
-	int color = nBloodColor;
-
-	if (UTIL_IsLowViolence() && color == BLOOD_COLOR_RED)
-	{
-		color = BLOOD_COLOR_MECH;
-	}
-
-	m_bloodColor = color;
+	m_bloodColor = nBloodColor;
 }
 
 //-----------------------------------------------------------------------------
