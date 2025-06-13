@@ -1,6 +1,6 @@
 "VertexLitGeneric"
 {
-	"$baseTexture" 		"Models/Combine_soldier/combinesoldier_prisonguard_dead_noalpha"
+	"$baseTexture" 		"Models/Combine_soldier/combinesoldier_prisonguard_dead"
 	"$bumpmap" "models/combine_soldier/combinesoldiersheet_prisonguard_normal"
 	"$surfaceprop" "flesh"
 	"$selfillum" 1
