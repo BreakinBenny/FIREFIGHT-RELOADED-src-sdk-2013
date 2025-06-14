@@ -1,9 +1,11 @@
 "VertexLitGeneric"
 {
 	"$baseTexture" 		"Models/Combine_soldier/Combine_elite_dead"
+	"$selfillummask" 	"Models/Combine_soldier/combine_elite_selfillummask_dead"
 	"$bumpmap" "models/combine_soldier/combine_elite_normal"
-	"$surfaceprop" "flesh"
 	"$model" "1"
+	"$selfillum" "1"
+	"$selfillumtint" "[2 1 1]"
 	"$phong" "1"
 	"$phongboost" "5"
 	"$halflambert" "1"
