@@ -65,6 +65,8 @@ public:
 
 	virtual void UpdateOnRemove();
 
+	virtual void VPhysicsCollision(int index, gamevcollisionevent_t* pEvent);
+
 	void SetSprite(CBaseEntity *pSprite)
 	{
 		m_hSprite = pSprite;
