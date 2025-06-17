@@ -1625,6 +1625,29 @@ void CHL2_Player::KickAttack(void)
 				{
 					RumbleEffect(RUMBLE_357, 0, RUMBLE_FLAG_RESTART);
 
+					//don't kick striders, only deliver damage.
+					if (FClassnameIs(Victim, "npc_strider"))
+					{
+						CAmmoDef* ammodef = GetAmmoDef();
+						Vector vecAiming = BaseClass::GetAutoaimVector(AUTOAIM_SCALE_DEFAULT);
+
+						FireBulletsInfo_t info;
+						info.m_iShots = 3;
+						info.m_vecSrc = Weapon_ShootPosition();
+						info.m_vecDirShooting = vecAiming;
+						info.m_vecSpread = VECTOR_CONE_2DEGREES;
+						info.m_flDistance = kick_range;
+						info.m_iAmmoType = ammodef->Index("RPG_Round");
+						info.m_iTracerFreq = 0;
+						info.m_flDamage = KickDamageFlightBoost;
+						info.m_pAttacker = this;
+						info.m_nFlags = 0;
+						info.m_bPrimaryAttack = true;
+						info.m_nDamageFlags = (DMG_CLUB | DMG_BLAST);
+
+						FireBullets(info);
+					}
+
 					EmitSound("HL2Player.kick_body");
 					return;
 				}

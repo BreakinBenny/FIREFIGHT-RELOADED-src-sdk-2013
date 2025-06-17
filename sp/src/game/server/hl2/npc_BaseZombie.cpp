@@ -958,7 +958,9 @@ int CNPC_BaseZombie::OnTakeDamage_Alive( const CTakeDamageInfo &inputInfo )
 					}
 
 					//why not uncomment this code!
-					if ((info.GetDamageType() & DMG_BLAST) && random->RandomInt(0, 1) == 0)
+					if ((info.GetDamageType() & DMG_BLAST) 
+						&& !((info.GetDamageType() & DMG_CLUB) && (info.GetDamageType() & DMG_BUCKSHOT)) 
+						&& random->RandomInt(0, 1) == 0)
 					{
 						Ignite(5.0 + random->RandomFloat(0.0, 5.0));
 					}

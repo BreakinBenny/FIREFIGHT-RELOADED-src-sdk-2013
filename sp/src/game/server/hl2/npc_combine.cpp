@@ -519,6 +519,9 @@ bool CNPC_Combine::CorpseDecapitate(const CTakeDamageInfo& info)
 		}
 	}
 
+	if (!gibs)
+		return false;
+
 	if (newinfo.GetDamageType() & DMG_DISSOLVE)
 		return false;
 
@@ -528,7 +531,7 @@ bool CNPC_Combine::CorpseDecapitate(const CTakeDamageInfo& info)
 	static ConVarRef violence_hgibs( "violence_hgibs" );
 	bool shouldAnimateDecap = !m_bDecapitated && !UTIL_IsLowViolence()
 		&& (violence_hgibs.IsValid() && violence_hgibs.GetBool())
-		&& g_fr_headshotgore.GetBool() && gibs;
+		&& g_fr_headshotgore.GetBool();
 
 	if (newinfo.GetDamageType() & (DMG_SNIPER))
 	{
@@ -628,6 +631,9 @@ CTakeDamageInfo CNPC_Combine::CorpseGibExt(const CTakeDamageInfo& info)
 		gibs = m_pAttributes->GetBool("gibs", true);
 	}
 
+	if (!gibs)
+		return info;
+
 	if (info.GetDamageType() & DMG_DISSOLVE)
 		return info;
 
@@ -642,7 +648,7 @@ CTakeDamageInfo CNPC_Combine::CorpseGibExt(const CTakeDamageInfo& info)
 	static ConVarRef violence_hgibs( "violence_hgibs" );
 	if (!UTIL_IsLowViolence()
 		&& (violence_hgibs.IsValid() && violence_hgibs.GetBool())
-		&& (info.GetDamageType() & (DMG_BLAST)) && gibs)
+		&& (info.GetDamageType() & (DMG_BLAST)))
 	{
 		Vector vecDamageDir = info.GetDamageForce();
 
