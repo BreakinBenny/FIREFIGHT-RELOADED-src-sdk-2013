@@ -27,6 +27,7 @@ struct Language_t
 // es_ES - use new world spanish country code instead?
 // zh_CN - validate that SC date formats come through
 // bt_BR - assume we should use Brazilian rather than Iberian portguese
+// es_419 - latam does not have a specific LCID; the Mexican Spanish LCID will be used instead
 
 static const Language_t s_LanguageNames[] = 
 {
@@ -58,6 +59,7 @@ static const Language_t s_LanguageNames[] =
 	{	"Greek",				"greek",		"#GameUI_Language_Greek",				"el_GR",	k_Lang_Greek,		1032 },
 	{	"Ukrainian",			"ukrainian",	"#GameUI_Language_Ukrainian",			"uk_UA",	k_Lang_Ukrainian,	1058 },
 	{	"Vietnamese",			"vietnamese",	"#GameUI_Language_Vietnamese",			"vi_VN",	k_Lang_Vietnamese,	1066 },
+	{	"Latam_Spanish",		"latam",		"#GameUI_Language_Latam_Spanish",		"es_419",	k_Lang_Latam_Spanish, 2058 },
 };	
 
 //-----------------------------------------------------------------------------
