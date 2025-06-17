@@ -593,8 +593,15 @@ template< typename Type, bool IS_ARRAY >
 inline CInterpolatedVarArrayBase<Type, IS_ARRAY>::~CInterpolatedVarArrayBase()
 {
 	ClearHistory();
-	delete [] m_bLooping;
-	delete [] m_LastNetworkedValue;
+	if (m_bLooping != NULL)
+	{
+		delete[] m_bLooping;
+	}
+
+	if (m_LastNetworkedValue != NULL)
+	{
+		delete[] m_LastNetworkedValue;
+	}
 }
 
 template< typename Type, bool IS_ARRAY >

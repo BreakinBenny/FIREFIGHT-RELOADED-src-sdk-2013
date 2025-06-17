@@ -1,6 +1,5 @@
 "npc_killerscanner_preset2"
 {
-	"additional_health"	"30"
 	"new_color"	"199 94 12 255"
 	"has_outlines"	"1"
 	"outline_color"	"156 80 20"

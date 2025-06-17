@@ -142,6 +142,8 @@ ConVar sv_player_damageflash_time("sv_player_damageflash_time", "1.0", FCVAR_ARC
 
 ConVar	sv_player_extinguish_on_death("sv_player_extinguish_on_death", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED, "");
 
+ConVar	sk_bigitem_multiplier("sk_bigitem_multiplier", "3", FCVAR_CHEAT);
+
 extern ConVar sv_maxunlag;
 extern ConVar sv_turbophysics;
 extern ConVar *sv_maxreplay;
@@ -1334,7 +1336,7 @@ void GiveHealthkit(CBasePlayer* pPlayer, bool big = false)
 
 	if (big)
 	{
-		pPlayer->TakeHealth(50, DMG_GENERIC);
+		pPlayer->TakeHealth((sk_healthkit.GetInt() * sk_bigitem_multiplier.GetInt()), DMG_GENERIC);
 	}
 	else
 	{
@@ -1355,7 +1357,7 @@ void GiveBattery(CBasePlayer* pPlayer, bool big = false)
 
 	if (big)
 	{
-		pPlayer->IncrementArmorValue(50, pPlayer->GetMaxArmorValue());
+		pPlayer->IncrementArmorValue((sk_battery.GetInt() * sk_bigitem_multiplier.GetInt()), pPlayer->GetMaxArmorValue());
 	}
 	else
 	{
@@ -1830,8 +1832,8 @@ void CBasePlayer::Market_SetUpgrade(int upgradeID, int limit)
 		{
 			case FR_UPGRADE_MAXHEALTH:
 			{
-				IncrementMaxHealthValue(sv_health_boost_val.GetInt(), player_defaulthealth.GetInt() + (sv_health_boost_val.GetInt() * limit));
-				IncrementHealthValue(sv_health_boost_val.GetInt(), player_defaulthealth.GetInt() + (sv_health_boost_val.GetInt() * limit));
+				IncrementMaxHealthValue(sv_health_boost_val.GetInt());
+				IncrementHealthValue(sv_health_boost_val.GetInt());
 				DevMsg("SET MAX HEALTH TO %i\n", GetMaxHealthValue());
 				break;
 			}

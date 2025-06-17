@@ -790,8 +790,6 @@
             "Tutorial_Explosives": "USING ANY EXPLOSIVE WEAPON WILL MAKE YOU AIRBORNE\nCERTAIN WEAPONS WILL HEADSHOT SOME ENEMIES\nCERTAIN WEAPONS MAY ALLOW YOU TO GAIN EXTRA KASH AND XP",
             "Tutorial_Railgun": "%+attack3%OVERCHARGE THE RAILGUN'S BATTERY WITH YOUR SUIT BATTERY\nYOU CAN ALSO WAIT FOR IT TO CHARGE IF IT IS UNDER 100\nIT WILL CHARGE FASTER IF HOLSTERED.",
             "Tutorial_Grapple_Boss": "%+grapple% TO GRAPPLE TO THE WALL %+duck% TO GRAPPLE FASTER %+kick% KICK WHILE GRAPPLING TO DO EXTRA KICK DAMAGE %+moveleft% WALL RUN LEFT %+moveright% WALL RUN RIGHT",
-            "GameUI_Language_Vietnamese": "Vietnamese",
-            "GameUI_Language_Ukrainian": "Ukrainian",
             "GameUI_Bullettime_Bullet_Speed": "Bullettime Bullet Tracer Speed",
             "GameUI_Bullettime_Bullet_Speed_Offset": "Bullettime Bullet Tracer Speed Offset (NPCs)",
             "GameUI_Bullettime_Bullet_Speed_Offset_Player": "Bullettime Bullet Tracer Speed Offset (Player)",
