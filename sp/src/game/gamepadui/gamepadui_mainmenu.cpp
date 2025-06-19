@@ -8,6 +8,7 @@
 
 #include "KeyValues.h"
 #include "filesystem.h"
+#include "icommandline.h"
 
 #include "tier0/memdbgon.h"
 
@@ -39,6 +40,28 @@ void GamepadUIMainMenu::UpdateGradients()
     GamepadUI::GetInstance().GetGradientHelper()->SetTargetGradient( GradientSide::Left, { 1.0f, 0.666f }, flTime );
 }
 
+bool CanUseAltMenuOptions()
+{
+    return CommandLine()->FindParm("-altmenuoptions");
+}
+
+const char* GetButtonCommand(KeyValues* pData)
+{
+    const char* cmd = pData->GetString("command");
+
+    if (CanUseAltMenuOptions())
+    {
+        const char* altCMDStr = pData->GetString("command_alt");
+
+        if (V_strcmp(altCMDStr, "") > 0)
+        {
+            cmd = altCMDStr;
+        }
+    }
+
+    return cmd;
+}
+
 void GamepadUIMainMenu::LoadMenuButtons()
 {
     KeyValues* pDataFile = new KeyValues( "MainMenuScript" );
@@ -51,7 +74,7 @@ void GamepadUIMainMenu::LoadMenuButtons()
                 GamepadUIButton* pButton = new GamepadUIButton(
                     this, this,
                     GAMEPADUI_MAINMENU_SCHEME,
-                    pData->GetString( "command" ),
+                    GetButtonCommand(pData),
                     pData->GetString( "text", "Sample Text" ),
                     pData->GetString( "description", "" ) );
                 pButton->SetPriority( V_atoi( pData->GetString( "priority", "0" ) ) );

@@ -235,6 +235,8 @@ $Project "Client (FR)"
 				$File	"gameui\PlayerModelDialog.h"
 				$File	"gameui\SpawnlistDialog.cpp"
 				$File	"gameui\SpawnlistDialog.h"
+				$File	"gameui\PlaylistDialog.cpp"
+				$File	"gameui\PlaylistDialog.h"
 			}
             
             $Folder	"Weapons"
