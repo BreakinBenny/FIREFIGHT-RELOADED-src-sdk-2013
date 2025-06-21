@@ -139,7 +139,7 @@ ConVar player_defaulthealthoverchargecap("player_defaulthealthoverchargecap", "9
 ConVar sv_autosave_levelup("sv_autosave_levelup", "1", FCVAR_ARCHIVE);
 
 ConVar sv_player_damageflash("sv_player_damageflash", "1", FCVAR_ARCHIVE);
-ConVar sv_player_damageflash_time("sv_player_damageflash_time", "1.0", FCVAR_ARCHIVE);
+ConVar sv_player_damageflash_waittime("sv_player_damageflash_waittime", "1.5", FCVAR_ARCHIVE);
 
 ConVar	sv_player_extinguish_on_death("sv_player_extinguish_on_death", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED, "");
 
@@ -2125,7 +2125,7 @@ void CBasePlayer::DamageEffect(float flDamage, int fDamageType)
 		}
 	}
 
-	m_dEffPrev = gpGlobals->curtime + sv_player_damageflash_time.GetFloat();
+	m_dEffPrev = gpGlobals->curtime + sv_player_damageflash_waittime.GetFloat();
 }
 
 /*

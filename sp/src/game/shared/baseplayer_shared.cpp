@@ -1570,7 +1570,7 @@ void CBasePlayer::PlayerUse ( void )
 }
 
 ConVar	sv_suppress_viewpunch( "sv_suppress_viewpunch", "0", FCVAR_REPLICATED | FCVAR_ARCHIVE);
-ConVar	sv_viewpunch_intensity("sv_viewpunch_intensity", "20", FCVAR_REPLICATED | FCVAR_ARCHIVE);
+ConVar	sv_viewpunch_intensity("sv_viewpunch_intensity", "3", FCVAR_REPLICATED | FCVAR_ARCHIVE);
 
 //-----------------------------------------------------------------------------
 // Purpose: 
