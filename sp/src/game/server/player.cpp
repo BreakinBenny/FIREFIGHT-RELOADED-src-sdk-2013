@@ -138,6 +138,7 @@ ConVar player_defaulthealthoverchargecap("player_defaulthealthoverchargecap", "9
 
 ConVar sv_autosave_levelup("sv_autosave_levelup", "1", FCVAR_ARCHIVE);
 
+ConVar sv_player_damageflash("sv_player_damageflash", "1", FCVAR_ARCHIVE);
 ConVar sv_player_damageflash_time("sv_player_damageflash_time", "1.0", FCVAR_ARCHIVE);
 
 ConVar	sv_player_extinguish_on_death("sv_player_extinguish_on_death", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED, "");
@@ -2066,6 +2067,9 @@ void CBasePlayer::TraceAttack( const CTakeDamageInfo &inputInfo, const Vector &v
 //------------------------------------------------------------------------------
 void CBasePlayer::DamageEffect(float flDamage, int fDamageType)
 {
+	if (!sv_player_damageflash.GetBool())
+		return;
+
 	if (m_dEffPrev > gpGlobals->curtime)
 		return;
 

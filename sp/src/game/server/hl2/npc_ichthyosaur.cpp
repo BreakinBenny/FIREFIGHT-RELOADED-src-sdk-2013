@@ -1024,6 +1024,8 @@ void CNPC_Ichthyosaur::HandleAnimEvent( animevent_t *pEvent )
 	}
 }
 
+extern ConVar sv_player_damageflash;
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -1067,8 +1069,11 @@ void CNPC_Ichthyosaur::Bite( void )
 				CalculateMeleeDamageForce( &info, GetAbsVelocity(), pHurt->GetAbsOrigin() );
 				pHurt->TakeDamage( info );
 
-				color32 red = {64, 0, 0, 255};
-				UTIL_ScreenFade( pPlayer, red, 0.5, 0, FFADE_IN  );
+				if (sv_player_damageflash.GetBool())
+				{
+					color32 red = { 64, 0, 0, 255 };
+					UTIL_ScreenFade(pPlayer, red, 0.5, 0, FFADE_IN);
+				}
 
 				//Disorient the player
 				QAngle angles = pPlayer->GetLocalAngles();

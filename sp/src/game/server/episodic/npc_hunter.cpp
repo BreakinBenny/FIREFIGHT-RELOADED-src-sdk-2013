@@ -4298,6 +4298,7 @@ float CNPC_Hunter::ChargeSteer()
 	return UTIL_AngleDiff( UTIL_VecToYaw( steer ), faceYaw );
 }
 
+extern ConVar sv_player_damageflash;
 
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
@@ -4321,8 +4322,11 @@ void CNPC_Hunter::ChargeDamage( CBaseEntity *pTarget )
 		vecNewVelocity[2] += 128.0f;
 		pPlayer->SetAbsVelocity( vecNewVelocity );
 
-		color32 red = {128,0,0,128};
-		UTIL_ScreenFade( pPlayer, red, 1.0f, 0.1f, FFADE_IN );
+		if (sv_player_damageflash.GetBool())
+		{
+			color32 red = { 128,0,0,128 };
+			UTIL_ScreenFade(pPlayer, red, 1.0f, 0.1f, FFADE_IN);
+		}
 	}
 	
 	// Player takes less damage
@@ -5402,9 +5406,12 @@ CBaseEntity *CNPC_Hunter::MeleeAttack( float flDist, int iDamage, QAngle &qaView
 			// Shake the screen
 			UTIL_ScreenShake( pPlayer->GetAbsOrigin(), 100.0, 1.5, 1.0, 2, SHAKE_START );
 
-			// Red damage indicator
-			color32 red = { 128, 0, 0, 128 };
-			UTIL_ScreenFade( pPlayer, red, 1.0f, 0.1f, FFADE_IN );
+			if (sv_player_damageflash.GetBool())
+			{
+				// Red damage indicator
+				color32 red = { 128, 0, 0, 128 };
+				UTIL_ScreenFade(pPlayer, red, 1.0f, 0.1f, FFADE_IN);
+			}
 
 			/*if ( UTIL_ShouldShowBlood( pPlayer->BloodColor() ) )
 			{
