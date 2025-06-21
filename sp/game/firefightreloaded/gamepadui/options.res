@@ -429,6 +429,103 @@
 					"1"		"#GameUI_HL2Flashlight"
 				}
 			}
+			
+			"AccessibilityHeader"
+			{
+				"text"			"#GameUI_AccessibilityHeader"
+				"type"			"headeryheader"
+			}
+			
+			"PlayerDamageFlash"
+			{
+				"text"			"#GameUI_PlayerDamageFlash"
+				"type"			"slideyslide"
+				"convar"		"sv_player_damageflash_time"
+
+				"min"			"0"
+				"max"			"3"
+				"step"			"0.1"
+
+				"textprecision" "2"
+			}
+			
+			"SuppressViewpunch"
+			{
+				"text"			"#GameUI_SuppressViewpunch"
+				"type"			"wheelywheel"
+				"convar"		"sv_suppress_viewpunch"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
+            "SayCheese"
+			{
+				"text"			"#GameUI_ScannersBlindPlayer"
+				"type"			"wheelywheel"
+				"convar"		"sv_cscanner_blindplayer"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+            
+            "SayCheeseOnTheXbox360"
+			{
+				"text"			"#GameUI_ScannerBlindMode"
+				"type"			"wheelywheel"
+				"convar"		"sv_cscanner_blindtime"
+
+				"options"
+				{
+					"1"		"#GameUI_ScannerBlindMode_HL2"
+					"2"		"#GameUI_ScannerBlindMode_OB360"
+				}
+			}
+            
+            "SayCheeseWithBackjackAndHookers"
+			{
+				"text"			"#GameUI_ScannerBlindOverride"
+				"type"			"slideyslide"
+				"convar"		"sv_cscanner_blindtime_custom"
+
+				"min"			"0"
+				"max"			"15"
+				"step"			"5"
+
+				"textprecision" "2"
+			}
+            
+            "SayCheeseHoldOnTheXbox360"
+			{
+				"text"			"#GameUI_ScannerHoldBlindMode"
+				"type"			"wheelywheel"
+				"convar"		"sv_cscanner_blindholdtime"
+
+				"options"
+				{
+					"1"		"#GameUI_ScannerHoldBlindMode_HL2"
+					"2"		"#GameUI_ScannerHoldBlindMode_FR"
+				}
+			}
+            
+            "SayCheeseHoldWithBackjackAndHookers"
+			{
+				"text"			"#GameUI_ScannerHoldBlindOverride"
+				"type"			"slideyslide"
+				"convar"		"sv_cscanner_blindholdtime_custom"
+
+				"min"			"0"
+				"max"			"15"
+				"step"			"5"
+
+				"textprecision" "2"
+			}
             
             "VMHeader"
 			{
@@ -977,20 +1074,6 @@
 					"0"		"#gameui_disabled"
 					"1"		"#gameui_enabled"
 				}
-			}
-            
-            "PlayerDamageFlash"
-			{
-				"text"			"#GameUI_PlayerDamageFlash"
-				"type"			"slideyslide"
-				"advanced"		"1"
-				"convar"		"sv_player_damageflash_time"
-
-				"min"			"0"
-				"max"			"3"
-				"step"			"0.1"
-
-				"textprecision" "2"
 			}
             
             "NPCGlow"
@@ -2937,81 +3020,6 @@
 				"min"			"0"
 				"max"			"20"
 				"step"			"1"
-
-				"textprecision" "2"
-			}
-            
-            "SayCheese"
-			{
-				"text"			"#GameUI_ScannersBlindPlayer"
-				"type"			"wheelywheel"
-				"convar"		"sv_cscanner_blindplayer"
-				"advanced"		"1"
-                
-
-				"options"
-				{
-					"0"		"#gameui_disabled"
-					"1"		"#gameui_enabled"
-				}
-			}
-            
-            "SayCheeseOnTheXbox360"
-			{
-				"text"			"#GameUI_ScannerBlindMode"
-				"type"			"wheelywheel"
-				"convar"		"sv_cscanner_blindtime"
-				"advanced"		"1"
-                
-
-				"options"
-				{
-					"1"		"#GameUI_ScannerBlindMode_HL2"
-					"2"		"#GameUI_ScannerBlindMode_OB360"
-				}
-			}
-            
-            "SayCheeseWithBackjackAndHookers"
-			{
-				"text"			"#GameUI_ScannerBlindOverride"
-				"type"			"slideyslide"
-				"convar"		"sv_cscanner_blindtime_custom"
-				"advanced"		"1"
-                
-
-				"min"			"0"
-				"max"			"15"
-				"step"			"5"
-
-				"textprecision" "2"
-			}
-            
-            "SayCheeseHoldOnTheXbox360"
-			{
-				"text"			"#GameUI_ScannerHoldBlindMode"
-				"type"			"wheelywheel"
-				"convar"		"sv_cscanner_blindholdtime"
-				"advanced"		"1"
-                
-
-				"options"
-				{
-					"1"		"#GameUI_ScannerHoldBlindMode_HL2"
-					"2"		"#GameUI_ScannerHoldBlindMode_FR"
-				}
-			}
-            
-            "SayCheeseHoldWithBackjackAndHookers"
-			{
-				"text"			"#GameUI_ScannerHoldBlindOverride"
-				"type"			"slideyslide"
-				"convar"		"sv_cscanner_blindholdtime_custom"
-				"advanced"		"1"
-                
-
-				"min"			"0"
-				"max"			"15"
-				"step"			"5"
 
 				"textprecision" "2"
 			}
