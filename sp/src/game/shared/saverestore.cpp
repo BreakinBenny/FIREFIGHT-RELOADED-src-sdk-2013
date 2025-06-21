@@ -508,6 +508,9 @@ void CSave::WriteString( const char *pname, const char *pdata )
 
 void CSave::WriteString( const char *pname, const string_t *stringId, int count )
 {
+	if (stringId == nullptr)
+		return;
+
 	int i, size;
 
 	size = 0;
@@ -529,6 +532,9 @@ void CSave::WriteVector( const char *pname, const Vector &value )
 
 void CSave::WriteVector( const char *pname, const Vector *value, int count )
 {
+	if (value == nullptr)
+		return;
+
 	WriteHeader( pname, sizeof(Vector) * count );
 	BufferData( (const char *)value, sizeof(Vector) * count );
 }
@@ -542,6 +548,9 @@ void CSave::WriteQuaternion( const char *pname, const Quaternion &value )
 
 void CSave::WriteQuaternion( const char *pname, const Quaternion *value, int count )
 {
+	if (value == nullptr)
+		return;
+
 	WriteHeader( pname, sizeof(Quaternion) * count );
 	BufferData( (const char *)value, sizeof(Quaternion) * count );
 }
@@ -922,6 +931,9 @@ void CSave::BufferString( char *pdata, int len )
 
 void CSave::BufferField( const char *pname, int size, const char *pdata )
 {
+	if (pdata == nullptr)
+		return;
+
 	WriteHeader( pname, size );
 	BufferData( pdata, size );
 }
