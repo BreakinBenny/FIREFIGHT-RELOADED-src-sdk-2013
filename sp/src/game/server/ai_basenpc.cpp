@@ -625,6 +625,36 @@ void CAI_BaseNPC::Event_Killed( const CTakeDamageInfo &info )
 		SetTouch( NULL );
 	}
 
+	//if we're knockbacked, add a force that will influence our ragdoll.
+	bool isKnockback = (info.GetDamageCustom() == FR_DMG_CUSTOM_KICK ||
+		info.GetDamageCustom() == FR_DMG_CUSTOM_CHARGE ||
+		info.GetDamageCustom() == FR_DMG_CUSTOM_CHARGE_GRAPPLE ||
+		info.GetDamageCustom() == FR_DMG_CUSTOM_NONUNIQUE_FORCEKNOCKBACK);
+
+	if (info.GetDamageType() & DMG_BLAST || (isKnockback))
+	{
+		//striders use MOVETYPE_FLY
+		if (GetMoveType() != MOVETYPE_FLY)
+		{
+			Vector hitDirection, up;
+
+			CBasePlayer* pPlayer = ToBasePlayer(info.GetAttacker());
+			if (pPlayer)
+			{
+				pPlayer->EyeVectors(&hitDirection, NULL, &up);
+			}
+			else
+			{
+				hitDirection = GetAbsOrigin();
+				up = GetAbsVelocity();
+			}
+
+			VectorNormalize(hitDirection);
+
+			ApplyAbsVelocityImpulse(hitDirection * 800 + up * 300);
+		}
+	}
+
 	BaseClass::Event_Killed( info );
 
 	/*if (m_pAttributes != NULL)
@@ -951,7 +981,8 @@ int CAI_BaseNPC::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 
 	bool isKnockback = (info.GetDamageCustom() == FR_DMG_CUSTOM_KICK || 
 						info.GetDamageCustom() == FR_DMG_CUSTOM_CHARGE || 
-						info.GetDamageCustom() == FR_DMG_CUSTOM_CHARGE_GRAPPLE);
+						info.GetDamageCustom() == FR_DMG_CUSTOM_CHARGE_GRAPPLE ||
+						info.GetDamageCustom() == FR_DMG_CUSTOM_NONUNIQUE_FORCEKNOCKBACK);
 
 	if (info.GetDamageType() & DMG_BLAST || (isKnockback))
 	{

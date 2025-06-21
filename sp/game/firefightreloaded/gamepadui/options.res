@@ -436,11 +436,24 @@
 				"type"			"headeryheader"
 			}
 			
+			"PlayerDamageFlashToggle"
+			{
+				"text"			"#GameUI_PlayerDamageFlashToggle"
+				"type"			"wheelywheel"
+				"convar"		"sv_player_damageflash"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+			
 			"PlayerDamageFlash"
 			{
 				"text"			"#GameUI_PlayerDamageFlash"
 				"type"			"slideyslide"
-				"convar"		"sv_player_damageflash_time"
+				"convar"		"sv_player_damageflash_waittime"
 
 				"min"			"0"
 				"max"			"3"
@@ -460,6 +473,20 @@
 					"0"		"#gameui_disabled"
 					"1"		"#gameui_enabled"
 				}
+			}
+			
+			"ViewpunchIntensity"
+			{
+				"text"			"#GameUI_ViewpunchIntensity"
+				"type"			"slideyslide"
+				"convar"		"sv_viewpunch_intensity"
+
+				"min"			"1"
+				"max"			"100"
+				"step"			"1"
+				"step_adjustment"   "5"
+
+				"textprecision" "2"
 			}
             
             "SayCheese"

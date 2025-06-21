@@ -1130,6 +1130,11 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 		return (areAllied || areNeutral);
 	}
 
+	bool IsCustomDamageUnique(int custom)
+	{
+		return ((custom != FR_DMG_CUSTOM_NONUNIQUE_FORCEKNOCKBACK));
+	}
+
 	void CSingleplayRules::DeathNoticeNPC(CBaseEntity* pVictim, const CTakeDamageInfo& info, int xpReward, int moneyReward)
 	{
 		// Work out what killed the player, and send a message to all clients about it
@@ -1152,7 +1157,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 			CBasePlayer* pScorer = GetDeathScorer(pKiller, pInflictor, pVictim);
 
 			// Custom damage type?
-			if (info.GetDamageCustom())
+			if (info.GetDamageCustom() && IsCustomDamageUnique(info.GetDamageCustom()))
 			{
 				killer_weapon_name = GetDamageCustomString(info);
 				if (pScorer)

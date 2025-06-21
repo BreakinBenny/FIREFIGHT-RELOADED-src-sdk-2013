@@ -1566,7 +1566,7 @@ void CHL2_Player::KickAttack(void)
 			m_bIsKicking = true;
 
 			QAngle	recoil = QAngle(random->RandomFloat(2.0f, 4.0f), random->RandomFloat(-4.0f, 4.0f), 0);
-			this->ViewPunch(recoil);
+			ViewPunch(recoil);
 
 			// Trace up or down based on where the enemy is...
 			// But only if we're basically facing that direction

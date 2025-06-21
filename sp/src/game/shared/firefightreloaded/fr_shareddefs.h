@@ -103,12 +103,16 @@ enum EFRUpgradeIDs
 
 enum EFRDmgCustom
 {
+	//UNIQUE
 	FR_DMG_CUSTOM_NONE = 0,
 	FR_DMG_CUSTOM_KICK,	// Marks this as KICK damage
 	FR_DMG_CUSTOM_CHARGE, // Marks this as CHARGE damage
 	FR_DMG_CUSTOM_CHARGE_GRAPPLE, // Marks this as CHARGE damage from the Grapple
 	FR_DMG_CUSTOM_HUNTER_AR2, // Damaged by a Ministrider
 	FR_DMG_CUSTOM_HUNTER_RAILGUN, // Damaged by a Rail Hunter
+
+	//NONUNIQUE
+	FR_DMG_CUSTOM_NONUNIQUE_FORCEKNOCKBACK, // Damage forces NPC knockback
 
 	FR_DMG_CUSTOM_END // END
 };
