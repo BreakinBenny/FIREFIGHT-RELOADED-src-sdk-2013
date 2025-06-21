@@ -1569,7 +1569,7 @@ void CBasePlayer::PlayerUse ( void )
 #endif
 }
 
-ConVar	sv_suppress_viewpunch( "sv_suppress_viewpunch", "0", FCVAR_REPLICATED | FCVAR_CHEAT | FCVAR_DEVELOPMENTONLY );
+ConVar	sv_suppress_viewpunch( "sv_suppress_viewpunch", "0", FCVAR_REPLICATED | FCVAR_ARCHIVE);
 
 //-----------------------------------------------------------------------------
 // Purpose: 
