@@ -55,14 +55,14 @@ const CEnginePatch g_EnginePatches[] =
         1
     },
     // Example patch: Trigger "Map has too many brushes" error at 16384 brushes instead of 8192
-    //{
-    //    "BrushLimit",
-    //    "\xC1\xEF\x03\x81\xFF\x00\x00\x00\x00",
-    //    "xxxxx????",
-    //    5,
-    //    PATCH_IMMEDIATE,
-    //    16384
-    //},
+    {
+        "BrushLimit",
+        "\xC1\xEF\x03\x81\xFF\x00\x00\x00\x00",
+        "xxxxx????",
+        5,
+        PATCH_IMMEDIATE,
+        16384
+    },
     // The same patch as above but using a pure hex value
     //{
     //    "BrushLimitHex",
@@ -96,14 +96,14 @@ const CEnginePatch g_EnginePatches[] =
         2
     },
     // Example patch: Trigger "Map has too many brushes" error at 16384 brushes instead of 8192
-    //{
-    //    "BrushLimit",
-    //    "\xBE\x00\x00\x00\x00\xF7\xE6\x89\xD6\xC1\xEE\x03\x81\xFE",
-    //    "x????xxxxxxxxx",
-    //    14,
-    //    PATCH_IMMEDIATE,
-    //    16384
-    //},
+    {
+        "BrushLimit",
+        "\xBE\x00\x00\x00\x00\xF7\xE6\x89\xD6\xC1\xEE\x03\x81\xFE",
+        "x????xxxxxxxxx",
+        14,
+        PATCH_IMMEDIATE,
+        16384
+    },
     // The same patch as above but using a pure hex value
     //{
     //    "BrushLimitHex",
