@@ -86,4 +86,6 @@
 	"resis_sniper_male"		"male"
 	"resis_soldier_female"		"female"
 	"resis_soldier_male"		"male"
+	"combine_engineer_male"		"male"
+	"combine_medic_female"		"female"
 }
