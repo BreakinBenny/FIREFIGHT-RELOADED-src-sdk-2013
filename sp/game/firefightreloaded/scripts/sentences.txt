@@ -132,12 +132,11 @@ V_NUMBERSS30 threehundred {Len 0.4}
 
 // rnd global, used to designate target
 
-V_G0_PLAYERS0 freeman3 {len 0.5}
-V_G0_PLAYERS1 anticitizenone {len 0.5}
-V_G0_PLAYERS2 targetone {len 0.5}
-V_G0_PLAYERS3 priority1objective {len 0.5}
-V_G0_PLAYERS4 phantom {len 0.5}
-V_G0_PLAYERS5 ghost2 {len 0.5}
+V_G0_PLAYERS0 anticitizenone {len 0.5}
+V_G0_PLAYERS1 targetone {len 0.5}
+V_G0_PLAYERS2 priority1objective {len 0.5}
+V_G0_PLAYERS3 phantom {len 0.5}
+V_G0_PLAYERS4 ghost2 {len 0.5}
 
 // sequential gobal numbers, used for counting enemies down
 
@@ -728,19 +727,16 @@ V_G2_SUSPECT_MAP02P3 anticitizen
 V_G2_SUSPECT_MAP03P0 anticitizen
 V_G2_SUSPECT_MAP03P1 subject
 
-V_G2_SUSPECT_MAP04P0 freeman
-V_G2_SUSPECT_MAP04P1 subject
-V_G2_SUSPECT_MAP04P2 anticitizen
+V_G2_SUSPECT_MAP04P0 subject
+V_G2_SUSPECT_MAP04P1 anticitizen
 
-V_G2_SUSPECT_MAP05P0 freeman
-V_G2_SUSPECT_MAP05P1 sociocide
+V_G2_SUSPECT_MAP05P0 sociocide
 
-V_G2_SUSPECT_MAP06P0 freeman
-V_G2_SUSPECT_MAP06P1 infection
+V_G2_SUSPECT_MAP06P0 infection
 
-V_G2_SUSPECT_MAP07P0 freeman
+V_G2_SUSPECT_MAP07P0 subject
 
-V_G2_SUSPECT_MAP08P0 freeman
+V_G2_SUSPECT_MAP08P0 subject
 
 // rnd address suffix (remembered) (duplicated for metropolice and overwatch)
 
@@ -1512,12 +1508,12 @@ HG_GREN5 npc/hgrunt/clik no! clik {Len 0.91}
 HG_GREN6 npc/hgrunt/clik move! clik(p120) {Len 1.04}
 
 // Player Alert
-HG_ALERT0 npc/hgrunt/(t30) squad!, we!(e80) got!(e80) freeman!(t20 p105), clik(p110) {Len 2.14}
+HG_ALERT0 npc/hgrunt/(t30) squad!, we!(e80) got!(e80) movement!(t20 p105), clik(p110) {Len 2.14}
 HG_ALERT1 npc/hgrunt/clik(p110) target! clik {Len 1.13}
 HG_ALERT2 npc/hgrunt/clik movement! clik {Len 1.18}
 HG_ALERT3 npc/hgrunt/(t40) shit!(t20), (t50) we! got! hostiles!(p120 t0) clik {Len 2.07}
-HG_ALERT4 npc/hgrunt/(t20) clik(p110) squad!, get!(e80) freeman!, clik(p110) clik {Len 2.37}
-HG_ALERT5 npc/hgrunt/(t20) clik squad!, neutralize!(e90) freeman! clik {Len 2.67}
+HG_ALERT4 npc/hgrunt/(t20) clik(p110) squad!, get!(e80) that! target!, clik(p110) clik {Len 2.37}
+HG_ALERT5 npc/hgrunt/(t20) clik squad!, neutralize!(e90) that! target! clik {Len 2.67}
 HG_ALERT6 npc/hgrunt/(t30) clik clik move!(e75) in! clik(p120) {Len 1.06}
 
 // Monster Alert
@@ -1550,9 +1546,18 @@ HG_TAUNT3 npc/hgrunt/clik (t40) mister, you(e75) are going down clik {Len 2.28}
 HG_TAUNT4 npc/hgrunt/clik(p120) (t40) you got nothing clik {Len 1.45}
 HG_TAUNT5 npc/hgrunt/clik(p110) (t40) request! backup! clik(p120) clik {Len 1.32}
 
+// player hurt taunts
+HG_TAUNT_PLAYERHURT0 npc/hgrunt/clik (t30 e75) uhh, we got heavy fire here clik {Len 2.05}
+HG_TAUNT_PLAYERHURT1 npc/hgrunt/clik (t40) we!(e80) will!(e75) kick!(e80) your!(e75) ass! clik {Len 1.55}
+HG_TAUNT_PLAYERHURT2 npc/hgrunt/clik (t40) mister, you(e75) are going down clik {Len 2.28}
+HG_TAUNT_PLAYERHURT3 npc/hgrunt/clik(p120) (t40) you got nothing clik {Len 1.45}
+HG_TAUNT_PLAYERHURT4 npc/hgrunt/clik (t40) you! are! shit! at! suppressing!, ass! hole! clik {Len 3.53}
+HG_TAUNT_PLAYERHURT5 npc/hgrunt/clik (t40) damn, you are! shit! clik(p120) {Len 2.28}
+HG_TAUNT_PLAYERHURT6 npc/hgrunt/clik(p110) (t40) ass hole clik {Len 0.84}
+
 // Easter Egg Taunts
-HG_TAUNT_EASTEREGG1 npc/hgrunt/clik (t30) my ass is(e90 p110) heavy clik(p120) clik {Len 2.28}
-HG_TAUNT_EASTEREGG2 npc/hgrunt/clik my!(e95) ass!(e95) is!(p90) heavy! clik(p120) clik {Len 2.28}
+HG_TAUNT_EASTEREGG0 npc/hgrunt/clik (t30) my ass is(e90 p110) heavy clik(p120) clik {Len 3.53}
+HG_TAUNT_EASTEREGG1 npc/hgrunt/clik my!(e95) ass!(e95) is!(p90) heavy! clik(p120) clik {Len 3.53}
 
 // Charge
 HG_CHARGE0 npc/hgrunt/clik (t40) go! recon! clik(p120) {Len 1.21}
@@ -1576,7 +1581,7 @@ HG_QUEST7 npc/hgrunt/clik(p120) (t30) echo(e75) mission is go clik(p120) clik(p1
 HG_QUEST8 npc/hgrunt/clik(p110) (t30) fire(e75) team, weapons(e75) check ok clik(p120) clik {Len 2.72}
 HG_QUEST9 npc/hgrunt/clik(p110) (t30) fire(e75) team, objective foxtrot niner clik(p120) {Len 3.20}
 HG_QUEST10 npc/hgrunt/clik (t30) ok(e75) mission, zero(e75) niner clik {Len 2.33}
-HG_QUEST11 npc/hgrunt/clik (t30) squad, stay(e80) alert(e80) four freeman, over clik {Len 3.53}
+HG_QUEST11 npc/hgrunt/clik (t30) squad, stay(e80) alert(e80), over clik {Len 3.53}
 
 HG_ANSWER0 npc/hgrunt/clik(p110) (t20) uhh roger(e75) that, clik(p120) clik {Len 1.87}
 HG_ANSWER1 npc/hgrunt/clik(p120) (t10) yessir clik {Len 1.06}
@@ -1638,11 +1643,11 @@ RG_GREN2 npc/hgrunt_robot/(p110 t40) clik(p120) get!(e78) down!(t30) clik {Len 0
 RG_GREN3 npc/hgrunt_robot/clik move! clik(p120) {Len 1.04}
 
 // Player Alert
-RG_ALERT0 npc/hgrunt_robot/(t30) squad!, we!(e80) got!(e80) freeman!(t20 p105), clik(p110) {Len 2.14}
+RG_ALERT0 npc/hgrunt_robot/(t30) squad!, we!(e80) got!(e80) movement!(t20 p105), clik(p110) {Len 2.14}
 RG_ALERT1 npc/hgrunt_robot/clik(p110) target! clik {Len 1.13}
 RG_ALERT2 npc/hgrunt_robot/clik movement! clik {Len 1.18}
 RG_ALERT3 npc/hgrunt_robot/(t40) we! got! hostiles!(p120 t0) clik {Len 2.07}
-RG_ALERT4 npc/hgrunt_robot/(t20) clik squad!, neutralize!(e90) freeman! clik {Len 2.67}
+RG_ALERT4 npc/hgrunt_robot/(t20) clik squad!, neutralize!(e90) that! target! clik {Len 2.67}
 RG_ALERT5 npc/hgrunt_robot/(t30) clik clik move!(e75) in! clik(p120) {Len 1.06}
 
 // Monster Alert
@@ -1669,9 +1674,14 @@ RG_TAUNT0 npc/hgrunt_robot/clik (t30 e75) heavy! fire! {Len 1.17}
 RG_TAUNT1 npc/hgrunt_robot/clik(p120) (t40) roger, hold position clik {Len 1.82}
 RG_TAUNT3 npc/hgrunt_robot/clik(p110) (t40) request! backup! clik(p120) clik {Len 1.32}
 
+// player hurt taunts
+RG_TAUNT_PLAYERHURT0 npc/hgrunt_robot/clik (t30 e75) we got heavy fire here clik {Len 2.05}
+RG_TAUNT_PLAYERHURT1 npc/hgrunt_robot/clik (t40) you(e75) are going down clik {Len 2.28}
+RG_TAUNT_PLAYERHURT2 npc/hgrunt_robot/clik(p120) (t40) you got nothing clik {Len 1.45}
+
 // Easter Egg Taunts
-RG_TAUNT_EASTEREGG1 npc/hgrunt_robot/clik (t30) my ass is(e90 p110) heavy clik(p120) clik {Len 2.28}
-RG_TAUNT_EASTEREGG2 npc/hgrunt_robot/clik my!(e95) ass!(e95) is!(p90) heavy! clik(p120) clik {Len 2.28}
+RG_TAUNT_EASTEREGG0 npc/hgrunt_robot/clik (t30) my ass is(e90 p110) heavy clik(p120) clik {Len 2.28}
+RG_TAUNT_EASTEREGG1 npc/hgrunt_robot/clik my!(e95) ass!(e95) is!(p90) heavy! clik(p120) clik {Len 2.28}
 
 // Charge
 RG_CHARGE0 npc/hgrunt_robot/clik (t40) go! recon! clik(p120) {Len 1.21}

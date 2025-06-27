@@ -311,6 +311,7 @@
             "GameUI_MuzzleDefault": "Default HL2 Light (Off)",
             "GameUI_MagazineStyledReloads": "Toggle magazine-styled reloads",
             "GameUI_HuntersLaugh": "Hunters laugh at the player if the player reaches low health",
+            "GameUI_HECUTaunt": "HECU Grunts taunt the player if the player reaches low health",
             "GameUI_UseLeagcyFlashlight": "Flashlight settings",
             "GameUI_HL2Flashlight": "Uses the HEV suit's auxiliary battery",
             "GameUI_EP2Flashlight": "Uses its own battery",

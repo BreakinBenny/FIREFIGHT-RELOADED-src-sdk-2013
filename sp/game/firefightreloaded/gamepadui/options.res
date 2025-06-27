@@ -3927,6 +3927,19 @@
 					"1"		"#gameui_enabled"
 				}
 			}
+			
+			"MyAssIsHeavy"
+			{
+				"text"			"#GameUI_HECUTaunt"
+				"type"			"wheelywheel"
+				"convar"		"hgrunt_hurttaunt"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
             
             "PlayerDamageSounds"
 			{

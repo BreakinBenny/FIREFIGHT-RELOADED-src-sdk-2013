@@ -32,8 +32,6 @@
 #define SF_GRUNT_FRIENDLY ( 1 << 6  )
 #define SF_GRUNT_ROBOT ( 1 << 15  )
 
-#define HGRUNT_GUN_SPREAD 0.08716f
-
 //=========================================================
 // monster-specific DEFINE's
 //=========================================================
@@ -85,8 +83,7 @@ enum
 	SCHED_GRUNT_RANGE_ATTACK1,
 	SCHED_GRUNT_RANGE_ATTACK2,
 
-	SCHED_GRUNT_TAKE_COVER,
-	SCHED_GRUNT_GRENADE_COVER,
+	SCHED_GRUNT_DROP_GRENADE_COVER,
 	SCHED_GRUNT_TOSS_GRENADE_COVER,
 
 	SCHED_GRUNT_ELOF_FAIL,
@@ -98,8 +95,6 @@ enum
 enum 
 {
 	TASK_GRUNT_FACE_TOSS_DIR = LAST_SHARED_TASK + 1,
-	TASK_GRUNT_SPEAK_SENTENCE,
-	TASK_GRUNT_CHECK_FIRE,
 	TASK_GRUNT_SELECT_IDEAL_ATTACK_SEQUENCE,
 	TASK_GRUNT_SUPPRESS_HANDSIGNAL,
 };
@@ -135,6 +130,38 @@ enum eHGruntWeapons
 	WEAPON_HGRUNT_SHOTGUN_GL = (HGRUNT_SHOTGUN | HGRUNT_GRENADELAUNCHER),
 };
 
+typedef struct
+{
+	int id;
+	const char* name;
+} GruntSentences_t;
+
+enum eGruntSentenceTypes
+{
+	SENT_GREN,
+	SENT_ALERT,
+	SENT_MONST,
+	SENT_COVER,
+	SENT_THROW,
+	SENT_CHARGE,
+	SENT_TAUNT,
+	SENT_TAUNT_EASTEREGG,
+	SENT_CHECK,
+	SENT_QUEST,
+	SENT_IDLE,
+	SENT_CLEAR,
+	SENT_ANSWER,
+	SENT_TAUNT_PLAYERHURT,
+};
+
+class CHGruntSentenceLoader
+{
+public:
+
+	static GruntSentences_t HGruntSentenceMap[];
+	static const char* GetNameForSentence(int iTeamNumber);
+};
+
 class CHGrunt : public CAI_BaseActor
 {
 	DECLARE_CLASS( CHGrunt, CAI_BaseActor);
@@ -148,19 +175,20 @@ public:
     void	Precache( void );
     float	MaxYawSpeed( void );
 	Class_T	Classify(void);
-    int     GetSoundInterests ( void ) { return (SOUND_WORLD | SOUND_COMBAT | SOUND_PLAYER | SOUND_BULLET_IMPACT | SOUND_DANGER); }
+    int     GetSoundInterests( void ) { return (SOUND_WORLD | SOUND_COMBAT | SOUND_PLAYER | SOUND_BULLET_IMPACT | SOUND_DANGER); }
     void	HandleAnimEvent( animevent_t *pEvent );
     bool	FCanCheckAttacks( void );
-   	int     RangeAttack1Conditions ( float flDot, float flDist );
-	int		MeleeAttack1Conditions ( float flDot, float flDist );
-	int     RangeAttack2Conditions ( float flDot, float flDist );
+   	int     RangeAttack1Conditions( float flDot, float flDist );
+	int		MeleeAttack1Conditions( float flDot, float flDist );
+	int     RangeAttack2Conditions( float flDot, float flDist );
     void	ClearAttackConditions( void );
 	int     GetGrenadeConditions ( float flDot, float flDist );
-    void	CheckAmmo ( void );
+    void	CheckAmmo( void );
     Activity NPC_TranslateActivity( Activity NewActivity );
-    void	StartTask ( const Task_t *pTask );
-	void	RunTask ( const Task_t *pTask );
-    void	StartNPC ( void );
+    void	StartTask( const Task_t *pTask );
+	void	RunTask( const Task_t *pTask );
+    void	StartNPC( void );
+	void	NPCThink();
     void	PainSound( const CTakeDamageInfo &info );
 	void	DeathSound( const CTakeDamageInfo &info );
     void    IdleSound( void );
@@ -169,7 +197,9 @@ public:
     void	Shoot (int bulletnum, Vector cone);
     void	PrescheduleThink ( void );
     void	Event_Killed( const CTakeDamageInfo &info );
+	void	SetAndSpeakSentence(int sentenceGroup);
     void	SpeakSentence( void );
+	void	TauntEnemy( bool bHurtTaunt = false );
     
     CBaseEntity *Kick( void );
 	int		SelectSchedule( void );
@@ -210,10 +240,10 @@ public:
 	
 	int		m_iWeapons;
 
+	int		m_fGruntQuestion;				// true if an idle grunt asked a question. Cleared when someone answers.
+	int		m_iSquadIndex;
+
 	CAI_FollowBehavior			m_FollowBehavior;
-    
-    static const char *pGruntSentences[];
-	static const char* pRobotGruntSentences[];
 };
 
 #endif // MONSTERMAKER_H

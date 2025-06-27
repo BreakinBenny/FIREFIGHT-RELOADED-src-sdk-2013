@@ -55,6 +55,52 @@
 #include	"hl2_gamerules.h"
 #include	"te_effect_dispatch.h"
 
+GruntSentences_t CHGruntSentenceLoader::HGruntSentenceMap[] =
+{
+	{ SENT_GREN, "GREN" }, // grenade scared grunt
+	{ SENT_ALERT, "ALERT" }, // sees player
+	{ SENT_MONST, "MONST" }, // sees monster
+	{ SENT_COVER, "COVER" }, // running to cover
+	{ SENT_THROW, "THROW"}, // about to throw grenade
+	{ SENT_CHARGE, "CHARGE" }, // running out to get the enemy
+	{ SENT_TAUNT, "TAUNT" }, // say rude things
+	{ SENT_TAUNT_EASTEREGG, "TAUNT_EASTEREGG"}, // MY ASS IS HEAVY
+	{ SENT_CHECK, "CHECK"}, // SQUAD. CHECK. IN.
+	{ SENT_QUEST, "QUEST"}, // Who is this guy, "Freeman"?
+	{ SENT_IDLE, "IDLE"}, // standing doing nothin'
+	{ SENT_CLEAR, "CLEAR"}, // all clear
+	{ SENT_ANSWER, "ANSWER"}, // I just know he's been killing my buddies.
+	{ SENT_TAUNT_PLAYERHURT, "TAUNT_PLAYERHURT" } // YOU GOT NOTHIN'
+};
+
+const char* CHGruntSentenceLoader::GetNameForSentence(int iTeamNumber)
+{
+	const char* name = "NONE";
+
+	for (int i = 0; i < ARRAYSIZE(HGruntSentenceMap); i++)
+	{
+		if (HGruntSentenceMap[i].id == iTeamNumber)
+		{
+			name = HGruntSentenceMap[i].name;
+			break;
+		}
+	}
+
+	return name;
+}
+
+enum eGruntPrefixes
+{
+	PREFIX_HUMAN,
+	PREFIX_ROBOT
+};
+
+const char* pGruntPrefixes[] =
+{
+	"HG", // normal ass joe
+	"RG" // crazy fuckin' robot body
+};
+
 ConVar	sk_hgrunt_health( "sk_hgrunt_health","0");
 ConVar	sk_hgrunt_robot_health("sk_hgrunt_robot_health", "0");
 ConVar	sk_hgrunt_limp_health("sk_hgrunt_limp_health", "20");
@@ -65,10 +111,11 @@ ConVar  sk_hgrunt_eastereggtaunt_prob ( "sk_hgrunt_eastereggtaunt_prob", "30" );
 ConVar  sk_hgrunt_smg_magsize("sk_hgrunt_smg_magsize", "36");
 ConVar  sk_hgrunt_shotgun_magsize("sk_hgrunt_shotgun_magsize", "8");
 
-extern ConVar    sk_npc_dmg_smg1_grenade;
+ConVar hgrunt_hurttaunt("hgrunt_hurttaunt", "1", FCVAR_ARCHIVE, "If true, the hgrunt will taunt at the player if the player's health is under the value of hgrunt_hurttaunt_healthvalue.");
+ConVar hgrunt_hurttaunt_frequency("hgrunt_hurttaunt_frequency", "30", FCVAR_NONE, "Changes the frequency of the hgrunt's taunt. Lower values = higher frequency. Higher values = lower frequency.");
+ConVar hgrunt_hurttaunt_healthvalue("hgrunt_hurttaunt_healthvalue", "20", FCVAR_NONE, "Sets the minimal amount of health the player needs in order for the hgrunt to taunt at it.");
 
-int g_fGruntQuestion;				// true if an idle grunt asked a question. Cleared when someone answers.
-int g_iSquadIndex = 0;
+extern ConVar    sk_npc_dmg_smg1_grenade;
 
 int ACT_GRUNT_LAUNCH_GRENADE;
 int ACT_GRUNT_TOSS_GRENADE;
@@ -76,43 +123,6 @@ int ACT_GRUNT_MP5_STANDING;
 int ACT_GRUNT_MP5_CROUCHING;
 int ACT_GRUNT_SHOTGUN_STANDING;
 int ACT_GRUNT_SHOTGUN_CROUCHING;
-
-const char* CHGrunt::pGruntSentences[] =
-{
-	"HG_GREN", // grenade scared grunt
-	"HG_ALERT", // sees player
-	"HG_MONSTER", // sees monster
-	"HG_COVER", // running to cover
-	"HG_THROW", // about to throw grenade
-	"HG_CHARGE",  // running out to get the enemy
-	"HG_TAUNT", // say rude things
-	"HG_TAUNT_EASTEREGG", //MY ASS IS HEAVY
-};
-
-const char* CHGrunt::pRobotGruntSentences[] =
-{
-	"RG_GREN", // grenade scared grunt
-	"RG_ALERT", // sees player
-	"RG_MONSTER", // sees monster
-	"RG_COVER", // running to cover
-	"RG_THROW", // about to throw grenade
-	"RG_CHARGE",  // running out to get the enemy
-	"RG_TAUNT", // say rude things
-	"RG_TAUNT_EASTEREGG", //MY ASS IS HEAVY
-};
-
-enum
-{
-	HGRUNT_SENT_NONE = -1,
-	HGRUNT_SENT_GREN = 0,
-	HGRUNT_SENT_ALERT,
-	HGRUNT_SENT_MONSTER,
-	HGRUNT_SENT_COVER,
-	HGRUNT_SENT_THROW,
-	HGRUNT_SENT_CHARGE,
-	HGRUNT_SENT_TAUNT,
-	HGRUNT_SENT_TAUNT_EASTEREGG,
-} HGRUNT_SENTENCE_TYPES;
 
 LINK_ENTITY_TO_CLASS( npc_hgrunt, CHGrunt );
 LINK_ENTITY_TO_CLASS(npc_hgrunt_friendly, CHGrunt);
@@ -139,6 +149,9 @@ BEGIN_DATADESC( CHGrunt )
     
 	DEFINE_FIELD( m_flLastEnemySightTime, FIELD_TIME ),
 	DEFINE_FIELD( m_flTalkWaitTime, FIELD_TIME ),
+
+	DEFINE_FIELD(m_fGruntQuestion, FIELD_INTEGER),
+	DEFINE_FIELD(m_iSquadIndex, FIELD_INTEGER),
 END_DATADESC()
 
 //=========================================================
@@ -155,24 +168,40 @@ END_DATADESC()
 //=========================================================
 void CHGrunt::SpeakSentence( void )
 {
-	if ( m_iSentence == HGRUNT_SENT_NONE )
+	if (!FOkToSpeak())
+		return;
+
+	int prefixType = PREFIX_HUMAN;
+	float volume = 0.75f;
+
+	if (HasSpawnFlags(SF_GRUNT_ROBOT))
 	{
-		// no sentence cued up.
-		return; 
+		prefixType = PREFIX_ROBOT;
+		volume = 1.0f;
 	}
 
-	if ( FOkToSpeak() )
+	const char* szPrefix = pGruntPrefixes[prefixType];
+
+	const char* szSentType = CHGruntSentenceLoader::GetNameForSentence(m_iSentence);
+
+	char sentence[128];
+	Q_snprintf(sentence, sizeof(sentence), "%s_%s", szPrefix, szSentType);
+
+	DevMsg("Saying %s\n", sentence);
+	if (SENTENCEG_PlayRndSz(edict(), sentence, volume, SNDLVL_TALKING, 0, m_voicePitch) != -1)
 	{
-		if (HasSpawnFlags(SF_GRUNT_ROBOT))
-		{
-			SENTENCEG_PlayRndSz(edict(), pRobotGruntSentences[m_iSentence], 1.0f, SNDLVL_TALKING, 0, m_voicePitch);
-		}
-		else
-		{
-			SENTENCEG_PlayRndSz(edict(), pGruntSentences[m_iSentence], 0.75f, SNDLVL_TALKING, 0, m_voicePitch);
-		}
 		JustSpoke();
 	}
+	else
+	{
+		DevWarning("Sentence %s not found\n", sentence);
+	}
+}
+
+void CHGrunt::SetAndSpeakSentence(int sentenceGroup)
+{
+	m_iSentence = sentenceGroup;
+	SpeakSentence();
 }
 
 //=========================================================
@@ -254,9 +283,9 @@ void CHGrunt::Event_Killed( const CTakeDamageInfo &info )
 //=========================================================
 bool CHGrunt::FOkToSpeak( void )
 {
-// if someone else is talking, don't speak
+	// if someone else is talking, don't speak
 	if ( gpGlobals->curtime <= m_flTalkWaitTime )
-		 return false;
+		return false;
 
 	if ( m_spawnflags & SF_NPC_GAG )
 	{
@@ -266,10 +295,6 @@ bool CHGrunt::FOkToSpeak( void )
 			return true;
 		}
 	}
-    
-    // if player is not in pvs, don't speak
-//	if (FNullEnt(FIND_CLIENT_IN_PVS(edict())))
-//		return FALSE;
 
 	return true;
 }
@@ -278,8 +303,8 @@ bool CHGrunt::FOkToSpeak( void )
 //=========================================================
 void CHGrunt::JustSpoke( void )
 {
-	m_flTalkWaitTime = gpGlobals->curtime + random->RandomFloat( 1.5f, 2.0f );
-	m_iSentence = HGRUNT_SENT_NONE;
+	// most sentences have a time of 3.5 or below.
+	m_flTalkWaitTime = gpGlobals->curtime + 3.5f;
 }
 
 //=========================================================
@@ -570,7 +595,6 @@ int CHGrunt::OnTakeDamage_Alive( const CTakeDamageInfo &inputInfo )
 	return BaseClass::OnTakeDamage_Alive ( inputInfo );
 }
 
-
 //=========================================================
 // SetYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
@@ -582,26 +606,16 @@ float CHGrunt::MaxYawSpeed( void )
 	switch ( GetActivity() )
 	{
 	case ACT_IDLE:	
-		flYS = 75;		
-		break;
 	case ACT_RUN:	
 		flYS = 75;	
 		break;
-	case ACT_WALK:	
-		flYS = 90;		
-		break;
 	case ACT_RANGE_ATTACK1:	
-		flYS = 60;	
-		break;
 	case ACT_RANGE_ATTACK2:	
-		flYS = 60;	
-		break;
 	case ACT_MELEE_ATTACK1:	
-		flYS = 60;	
-		break;
 	case ACT_MELEE_ATTACK2:	
 		flYS = 60;	
 		break;
+	case ACT_WALK:
 	case ACT_TURN_LEFT:
 	case ACT_TURN_RIGHT:	
 		flYS = 90;
@@ -620,75 +634,40 @@ float CHGrunt::MaxYawSpeed( void )
 
 void CHGrunt::IdleSound( void )
 {
-	if (FOkToSpeak() && ( g_fGruntQuestion || random->RandomInt( 0,1 ) ) )
+	if ( m_fGruntQuestion || random->RandomInt( 0,1 ) )
 	{
-		if (!g_fGruntQuestion)
+		if (!m_fGruntQuestion)
 		{
 			// ask question or make statement
 			switch ( random->RandomInt( 0,2 ) )
 			{
-			case 0: // check in
-				if (HasSpawnFlags(SF_GRUNT_ROBOT))
-				{
-					SENTENCEG_PlayRndSz(edict(), "RG_CHECK", 1.0f, SNDLVL_TALKING, 0, m_voicePitch);
-				}
-				else
-				{
-					SENTENCEG_PlayRndSz(edict(), "HG_CHECK", 0.75f, SNDLVL_TALKING, 0, m_voicePitch);
-				}
-				g_fGruntQuestion = 1;
-				break;
-			case 1: // question
-				if (HasSpawnFlags(SF_GRUNT_ROBOT))
-				{
-					SENTENCEG_PlayRndSz(edict(), "RG_QUEST", 1.0f, SNDLVL_TALKING, 0, m_voicePitch);
-				}
-				else
-				{
-					SENTENCEG_PlayRndSz(edict(), "HG_QUEST", 0.75f, SNDLVL_TALKING, 0, m_voicePitch);
-				}
-				g_fGruntQuestion = 2;
-				break;
-			case 2: // statement
-				if (HasSpawnFlags(SF_GRUNT_ROBOT))
-				{
-					SENTENCEG_PlayRndSz(edict(), "RG_IDLE", 1.0f, SNDLVL_TALKING, 0, m_voicePitch);
-				}
-				else
-				{
-					SENTENCEG_PlayRndSz(edict(), "HG_IDLE", 0.75f, SNDLVL_TALKING, 0, m_voicePitch);
-				}
-				break;
+				case 0: // check in
+					m_fGruntQuestion = 1;
+					SetAndSpeakSentence(SENT_CHECK);
+					break;
+				case 1: // question
+					m_fGruntQuestion = 2;
+					SetAndSpeakSentence(SENT_QUEST);
+					break;
+				case 2: // statement
+					SetAndSpeakSentence(SENT_IDLE);
+					break;
 			}
 		}
 		else
 		{
-			switch (g_fGruntQuestion)
+			switch (m_fGruntQuestion)
 			{
-			case 1: // check in
-				if (HasSpawnFlags(SF_GRUNT_ROBOT))
-				{
-					SENTENCEG_PlayRndSz(edict(), "RG_CLEAR", 1.0f, SNDLVL_TALKING, 0, m_voicePitch);
-				}
-				else
-				{
-					SENTENCEG_PlayRndSz(edict(), "HG_CLEAR", 0.75f, SNDLVL_TALKING, 0, m_voicePitch);
-				}
-				break;
-			case 2: // question 
-				if (HasSpawnFlags(SF_GRUNT_ROBOT))
-				{
-					SENTENCEG_PlayRndSz(edict(), "RG_ANSWER", 1.0f, SNDLVL_TALKING, 0, m_voicePitch);
-				}
-				else
-				{
-					SENTENCEG_PlayRndSz(edict(), "HG_ANSWER", 0.75f, SNDLVL_TALKING, 0, m_voicePitch);
-				}
-				break;
+				case 1: // check in
+					SetAndSpeakSentence(SENT_CLEAR);
+					break;
+				case 2: // question 
+					SetAndSpeakSentence(SENT_ANSWER);
+					break;
 			}
-			g_fGruntQuestion = 0;
+
+			m_fGruntQuestion = 0;
 		}
-		JustSpoke();
 	}
 }
 
@@ -948,19 +927,7 @@ void CHGrunt::HandleAnimEvent( animevent_t *pEvent )
 
 		case HGRUNT_AE_CAUGHT_ENEMY:
 		{
-			if ( FOkToSpeak() )
-			{
-				if (HasSpawnFlags(SF_GRUNT_ROBOT))
-				{
-					SENTENCEG_PlayRndSz(edict(), "RG_ALERT", 1.0f, SNDLVL_NORM, 0, m_voicePitch);
-				}
-				else
-				{
-					SENTENCEG_PlayRndSz(edict(), "HG_ALERT", 0.75f, SNDLVL_NORM, 0, m_voicePitch);
-				}
-				JustSpoke();
-			}
-
+			SetAndSpeakSentence(SENT_ALERT);
 		}
 
 		default:
@@ -1036,7 +1003,7 @@ void CHGrunt::Spawn()
 	m_NPCState			= NPC_STATE_NONE;
 	m_flNextGrenadeCheck = gpGlobals->curtime + 1;
 	m_flNextPainTime	= gpGlobals->curtime;
-	m_iSentence			= HGRUNT_SENT_NONE;
+	m_iSentence			= -1;
 
 	CapabilitiesClear();
 	CapabilitiesAdd ( bits_CAP_SQUAD | bits_CAP_TURN_HEAD | bits_CAP_DOORS_GROUP | bits_CAP_MOVE_GROUND );
@@ -1096,7 +1063,34 @@ void CHGrunt::Spawn()
 	m_flTalkWaitTime = 0;
 
 	//HACK
-	g_iSquadIndex = 0;
+	m_iSquadIndex = 0;
+}
+
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+void CHGrunt::NPCThink()
+{
+	BaseClass::NPCThink();
+
+	for (int i = 1; i <= gpGlobals->maxClients; i++)
+	{
+		CBasePlayer* pPlayer = UTIL_PlayerByIndex(i);
+
+		if (pPlayer != NULL)
+		{
+			if (hgrunt_hurttaunt.GetBool() && !pPlayer->IsDead())
+			{
+				//wait before we pick a taunt.
+				if (FOkToSpeak())
+				{
+					if (random->RandomInt(0, hgrunt_hurttaunt_frequency.GetInt()) == 0 && pPlayer->GetHealth() < hgrunt_hurttaunt_healthvalue.GetInt())
+					{
+						TauntEnemy(true);
+					}
+				}
+			}
+		}
+	}
 }
 
 void CHGrunt::BecomeFriendly()
@@ -1212,15 +1206,6 @@ void CHGrunt::StartTask ( const Task_t *pTask )
 {
 	switch ( pTask->iTask )
 	{
-	case TASK_GRUNT_CHECK_FIRE:
-		TaskComplete();
-		break;
-
-	case TASK_GRUNT_SPEAK_SENTENCE:
-		SpeakSentence();
-		TaskComplete();
-		break;
-
 	case TASK_GRUNT_SELECT_IDEAL_ATTACK_SEQUENCE:
 		if (m_fStanding)
 		{
@@ -1434,10 +1419,41 @@ Activity CHGrunt::NPC_TranslateActivity( Activity NewActivity )
 	return BaseClass::NPC_TranslateActivity( NewActivity );
 }
 
+void CHGrunt::TauntEnemy(bool bHurtTaunt)
+{
+	if (bHurtTaunt)
+	{
+		if (random->RandomInt(1, sk_hgrunt_eastereggtaunt_prob.GetInt()) == sk_hgrunt_eastereggtaunt_prob.GetInt())
+		{
+			SetAndSpeakSentence(SENT_TAUNT_EASTEREGG);
+		}
+		else
+		{
+			SetAndSpeakSentence(SENT_TAUNT_PLAYERHURT);
+		}
+	}
+	else
+	{
+		if (random->RandomInt(0, 1))
+		{
+			if (random->RandomInt(1, sk_hgrunt_eastereggtaunt_prob.GetInt()) == sk_hgrunt_eastereggtaunt_prob.GetInt())
+			{
+				SetAndSpeakSentence(SENT_TAUNT_EASTEREGG);
+			}
+			else
+			{
+				SetAndSpeakSentence(SENT_TAUNT);
+			}
+		}
+	}
+}
+
 int CHGrunt::SelectSchedule( void )
 {
-	// clear old sentence
-	m_iSentence = HGRUNT_SENT_NONE;
+	if (FOkToSpeak())
+	{
+		m_iSentence = -1;
+	}
 
 	// flying? If PRONE, barnacle has me. IF not, it's assumed I am rapelling. 
 	if ( GetMoveType() == MOVETYPE_FLYGRAVITY && m_NPCState != NPC_STATE_PRONE )
@@ -1479,26 +1495,9 @@ int CHGrunt::SelectSchedule( void )
 		// It's not safe to play a verbal order here "Scatter", etc cause 
 		// this may only affect a single individual in a squad. 
 				
-		if (FOkToSpeak())
-		{
-			if (HasSpawnFlags(SF_GRUNT_ROBOT))
-			{
-				SENTENCEG_PlayRndSz(edict(), "RG_GREN", 1.0f, SNDLVL_TALKING, 0, m_voicePitch);
-			}
-			else
-			{
-				SENTENCEG_PlayRndSz(edict(), "HG_GREN", 0.75f, SNDLVL_TALKING, 0, m_voicePitch);
-			}
-			JustSpoke();
-		}
+		SetAndSpeakSentence(SENT_GREN);
+
 		return SCHED_TAKE_COVER_FROM_BEST_SOUND;
-    
-        /*
-        if (!HasConditions( bits_COND_SEE_ENEMY ) && ( pSound->m_iType & (bits_SOUND_PLAYER | bits_SOUND_COMBAT) ))
-        {
-            MakeIdealYaw( pSound->m_vecOrigin );
-        }
-        */
 	}
 
 	switch	( m_NPCState )
@@ -1508,23 +1507,6 @@ int CHGrunt::SelectSchedule( void )
 // dead enemy
 			if ( HasCondition( COND_ENEMY_DEAD ) )
 			{
-				//taunt the enemy upon death
-				if (FOkToSpeak() && random->RandomInt(0, 1))
-				{
-					if (random->RandomInt(1, sk_hgrunt_eastereggtaunt_prob.GetInt()) == sk_hgrunt_eastereggtaunt_prob.GetInt())
-					{
-						if (HasSpawnFlags(SF_GRUNT_ROBOT))
-						{
-							SENTENCEG_PlayRndSz(edict(), "RG_TAUNT_EASTEREGG", 1.0f, SNDLVL_TALKING, 0, m_voicePitch);
-						}
-						else
-						{
-							SENTENCEG_PlayRndSz(edict(), "HG_TAUNT_EASTEREGG", 0.75f, SNDLVL_TALKING, 0, m_voicePitch);
-						}
-						JustSpoke();
-					}
-				}
-
 				// call base class, all code to handle dead enemies is centralized there.
 				return BaseClass::SelectSchedule();
 			}
@@ -1557,30 +1539,13 @@ int CHGrunt::SelectSchedule( void )
 						// schedule where the leader plays a handsign anim
 						// that gives us enough time to hear a short sentence or spoken command
 						// before he starts pluggin away.
-						if (FOkToSpeak())// && RANDOM_LONG(0,1))
+						if ((GetEnemy() != NULL) && (GetEnemy()->IsPlayer()) || (GetEnemy()->Classify() == CLASS_PLAYER_NPC))
 						{
-							if ((GetEnemy() != NULL) && (GetEnemy()->IsPlayer()) || (GetEnemy()->Classify() == CLASS_PLAYER_NPC))
-								// player
-								if (HasSpawnFlags(SF_GRUNT_ROBOT))
-								{
-									SENTENCEG_PlayRndSz(edict(), "RG_ALERT", 1.0f, SNDLVL_TALKING, 0, m_voicePitch);
-								}
-								else
-								{
-									SENTENCEG_PlayRndSz(edict(), "HG_ALERT", 0.75f, SNDLVL_TALKING, 0, m_voicePitch);
-								}
-							else if ((GetEnemy() != NULL) && (IsEntityAlien(GetEnemy())))
-								// monster
-								if (HasSpawnFlags(SF_GRUNT_ROBOT))
-								{
-									SENTENCEG_PlayRndSz(edict(), "RG_MONST", 1.0f, SNDLVL_TALKING, 0, m_voicePitch);
-								}
-								else
-								{
-									SENTENCEG_PlayRndSz(edict(), "HG_MONST", 0.75f, SNDLVL_TALKING, 0, m_voicePitch);
-								}
-
-							JustSpoke();
+							SetAndSpeakSentence(SENT_ALERT);
+						}
+						else if ((GetEnemy() != NULL) && (IsEntityAlien(GetEnemy())))
+						{
+							SetAndSpeakSentence(SENT_MONST);
 						}
 						
 						if ( HasCondition ( COND_CAN_RANGE_ATTACK1 ) )
@@ -1618,18 +1583,9 @@ int CHGrunt::SelectSchedule( void )
 					// only try to take cover if we actually have an enemy!
 
 					//!!!KELLY - this grunt was hit and is going to run to cover.
-					if (FOkToSpeak() && random->RandomInt(0, 1))
+					if (random->RandomInt(0, 1))
 					{
-						if (HasSpawnFlags(SF_GRUNT_ROBOT))
-						{
-							SENTENCEG_PlayRndSz(edict(), "RG_COVER", 1.0f, SNDLVL_TALKING, 0, m_voicePitch);
-						}
-						else
-						{
-							SENTENCEG_PlayRndSz(edict(), "HG_COVER", 0.75f, SNDLVL_TALKING, 0, m_voicePitch);
-						}
-						m_iSentence = HGRUNT_SENT_COVER;
-						JustSpoke();
+						SetAndSpeakSentence(SENT_COVER);
 					}
 					return SCHED_TAKE_COVER_FROM_ENEMY;
 				}
@@ -1692,36 +1648,16 @@ int CHGrunt::SelectSchedule( void )
 				if ( HasCondition( COND_CAN_RANGE_ATTACK2 ) && OccupyStrategySlotRange( SQUAD_SLOT_GRENADE1, SQUAD_SLOT_GRENADE2 ) )
 				{
 					//!!!KELLY - this grunt is about to throw or fire a grenade at the player. Great place for "fire in the hole"  "frag out" etc
-					if (FOkToSpeak())
-					{
-						if (HasSpawnFlags(SF_GRUNT_ROBOT))
-						{
-							SENTENCEG_PlayRndSz(edict(), "RG_THROW", 1.0f, SNDLVL_TALKING, 0, m_voicePitch);
-						}
-						else
-						{
-							SENTENCEG_PlayRndSz(edict(), "HG_THROW", 0.75f, SNDLVL_TALKING, 0, m_voicePitch);
-						}
-						JustSpoke();
-					}
+					SetAndSpeakSentence(SENT_THROW);
 					return SCHED_RANGE_ATTACK2;
 				}
 				else if ( OccupyStrategySlotRange ( SQUAD_SLOT_CHARGE1, SQUAD_SLOT_CHARGE2 ) )
 				{
 					//!!!KELLY - grunt cannot see the enemy and has just decided to 
 					// charge the enemy's position. 
-					if (FOkToSpeak() && random->RandomInt(0, 1))
+					if (random->RandomInt(0, 1))
 					{
-						if (HasSpawnFlags(SF_GRUNT_ROBOT))
-						{
-							SENTENCEG_PlayRndSz(edict(), "RG_CHARGE", 1.0f, SNDLVL_TALKING, 0, m_voicePitch);
-						}
-						else
-						{
-							SENTENCEG_PlayRndSz(edict(), "HG_CHARGE", 0.75f, SNDLVL_TALKING, 0, m_voicePitch);
-						}
-						m_iSentence = HGRUNT_SENT_CHARGE;
-						JustSpoke();
+						SetAndSpeakSentence(SENT_CHARGE);
 					}
 
 					return SCHED_GRUNT_ESTABLISH_LINE_OF_FIRE;
@@ -1731,33 +1667,7 @@ int CHGrunt::SelectSchedule( void )
 					//!!!KELLY - grunt is going to stay put for a couple seconds to see if
 					// the enemy wanders back out into the open, or approaches the
 					// grunt's covered position. Good place for a taunt, I guess?
-					if (FOkToSpeak() && random->RandomInt(0,1))
-					{
-						if (HasSpawnFlags(SF_GRUNT_ROBOT))
-						{
-							if (random->RandomInt(1, sk_hgrunt_eastereggtaunt_prob.GetInt()) == sk_hgrunt_eastereggtaunt_prob.GetInt())
-							{
-								SENTENCEG_PlayRndSz(edict(), "RG_TAUNT_EASTEREGG", 1.0f, SNDLVL_TALKING, 0, m_voicePitch);
-							}
-							else
-							{
-								SENTENCEG_PlayRndSz(edict(), "RG_TAUNT", 1.0f, SNDLVL_TALKING, 0, m_voicePitch);
-							}
-						}
-						else
-						{
-							if (random->RandomInt(1, sk_hgrunt_eastereggtaunt_prob.GetInt()) == sk_hgrunt_eastereggtaunt_prob.GetInt())
-							{
-								SENTENCEG_PlayRndSz(edict(), "HG_TAUNT_EASTEREGG", 0.75f, SNDLVL_TALKING, 0, m_voicePitch);
-							}
-							else
-							{
-								SENTENCEG_PlayRndSz(edict(), "HG_TAUNT", 0.75f, SNDLVL_TALKING, 0, m_voicePitch);
-							}
-						}
-                        
-						JustSpoke();
-					}
+					TauntEnemy();
 					return SCHED_STANDOFF;
 				}
 			}
@@ -1784,127 +1694,135 @@ int CHGrunt::SelectSchedule( void )
 
 int CHGrunt::TranslateSchedule( int scheduleType )
 {
-
 	if ( scheduleType == SCHED_CHASE_ENEMY_FAILED )
 	{
 		 return SCHED_ESTABLISH_LINE_OF_FIRE;
 	}
+
 	switch	( scheduleType )
 	{
-	case SCHED_TAKE_COVER_FROM_ENEMY:
-		{
-			if ( m_pSquad )
+		case SCHED_TAKE_COVER_FROM_ENEMY:
 			{
-				if ( g_iSkillLevel == SKILL_HARD && HasCondition( COND_CAN_RANGE_ATTACK2 ) && OccupyStrategySlotRange( SQUAD_SLOT_GRENADE1, SQUAD_SLOT_GRENADE2 ) )
+				if ( m_pSquad )
 				{
-					if (FOkToSpeak())
+					if ( g_pGameRules->GetSkillLevel() >= SKILL_HARD && HasCondition( COND_CAN_RANGE_ATTACK2 ) && OccupyStrategySlotRange( SQUAD_SLOT_GRENADE1, SQUAD_SLOT_GRENADE2 ) )
 					{
-						if (HasSpawnFlags(SF_GRUNT_ROBOT))
-						{
-							SENTENCEG_PlayRndSz(edict(), "RG_THROW", 1.0f, SNDLVL_TALKING, 0, m_voicePitch);
-						}
-						else
-						{
-							SENTENCEG_PlayRndSz(edict(), "HG_THROW", 0.75f, SNDLVL_TALKING, 0, m_voicePitch);
-						}
-						JustSpoke();
+						SetAndSpeakSentence(SENT_THROW);
+						return SCHED_GRUNT_TOSS_GRENADE_COVER;
 					}
-					return SCHED_GRUNT_TOSS_GRENADE_COVER;
+					else
+					{
+						SetAndSpeakSentence(SENT_COVER);
+			  			return SCHED_GRUNT_TAKECOVER;
+					}
 				}
 				else
 				{
-			  	    return SCHED_GRUNT_TAKE_COVER;
-				}
-			}
-			else
-			{
-				if ( random->RandomInt(0,1) )
-				{
-					return SCHED_GRUNT_TAKE_COVER;
-				}
-				else
-				{
-					return SCHED_GRUNT_GRENADE_COVER;
-				}
-			}
-		}
-	case SCHED_GRUNT_TAKECOVER_FAILED:
-		{
-			if ( HasCondition( COND_CAN_RANGE_ATTACK1 ) && OccupyStrategySlotRange( SQUAD_SLOT_ATTACK1, SQUAD_SLOT_ATTACK2 ) )
-			{
-				return SCHED_RANGE_ATTACK1;
-			}
+					if (m_fFirstEncounter)
+					{
+						SetAndSpeakSentence(SENT_ALERT);
+					}
+					else
+					{
+						SetAndSpeakSentence(SENT_COVER);
+					}
 
-			return SCHED_FAIL;
-		}
-		break;
+					if ( random->RandomInt(0,1) )
+					{
+						return SCHED_GRUNT_TAKECOVER;
+					}
+					else
+					{
+						return SCHED_GRUNT_DROP_GRENADE_COVER;
+					}
+				}
+			}
+		case SCHED_GRUNT_TAKECOVER_FAILED:
+			{
+				if ( HasCondition( COND_CAN_RANGE_ATTACK1 ) && OccupyStrategySlotRange( SQUAD_SLOT_ATTACK1, SQUAD_SLOT_ATTACK2 ) )
+				{
+					return SCHED_RANGE_ATTACK1;
+				}
+
+				return SCHED_FAIL;
+			}
+			break;
 	
-	case SCHED_RANGE_ATTACK1:
-		{
-			// randomly stand or crouch
-			if ( random->RandomInt( 0,9 ) == 0)
+		case SCHED_RANGE_ATTACK1:
 			{
-				m_fStanding = random->RandomInt( 0, 1 ) != 0;
-			}
-
-			return SCHED_GRUNT_RANGE_ATTACK1;
-		}
-
-	case SCHED_RANGE_ATTACK2:
-		{
-			return SCHED_GRUNT_RANGE_ATTACK2;
-		}
-	case SCHED_VICTORY_DANCE:
-		{
-			if ( m_pSquad )
-			{
-				if ( !m_pSquad->IsLeader( this ) )
+				// randomly stand or crouch
+				if ( random->RandomInt( 0,9 ) == 0)
 				{
-					return SCHED_GRUNT_ELOF_FAIL;
+					m_fStanding = random->RandomInt( 0, 1 ) != 0;
 				}
+
+				if (m_pSquad)
+				{
+					if (m_pSquad->IsLeader(this))
+					{
+						//taunt if we're the leader.
+						TauntEnemy();
+					}
+				}
+
+				return SCHED_GRUNT_RANGE_ATTACK1;
 			}
 
-			return SCHED_VICTORY_DANCE;
-		}
-	case SCHED_GRUNT_SUPPRESS:
-		{
-			if ( GetEnemy()->IsPlayer() && m_fFirstEncounter )
+		case SCHED_RANGE_ATTACK2:
 			{
-				m_fFirstEncounter = FALSE;// after first encounter, leader won't issue handsigns anymore when he has a new enemy
+				return SCHED_GRUNT_RANGE_ATTACK2;
 			}
-
-			return SCHED_GRUNT_SUPPRESS;
-		}
-	case SCHED_FAIL:
-		{
-			return SCHED_GRUNT_ELOF_FAIL;
-		}
-	case SCHED_GRUNT_REPEL:
-		{
-			Vector vecVel = GetAbsVelocity();
-			if ( vecVel.z > -128 )
+		case SCHED_VICTORY_DANCE:
 			{
-				vecVel.z -= 32;
-				SetAbsVelocity( vecVel );
-			}
+				if ( m_pSquad )
+				{
+					if ( !m_pSquad->IsLeader( this ) )
+					{
+						return SCHED_GRUNT_ELOF_FAIL;
+					}
+				}
 
-			return SCHED_GRUNT_REPEL;
-		}
-	case SCHED_GRUNT_REPEL_ATTACK:
-		{
-			Vector vecVel = GetAbsVelocity();
-			if ( vecVel.z > -128 )
+				return SCHED_VICTORY_DANCE;
+			}
+		case SCHED_GRUNT_SUPPRESS:
 			{
-				vecVel.z -= 32;
-				SetAbsVelocity( vecVel );
-			}
+				if ( GetEnemy()->IsPlayer() && m_fFirstEncounter )
+				{
+					m_fFirstEncounter = false; // after first encounter, leader won't issue handsigns anymore when he has a new enemy
+				}
 
-			return SCHED_GRUNT_REPEL_ATTACK;
-		}
-	default:
-		{
-			return BaseClass::TranslateSchedule( scheduleType );
-		}
+				return SCHED_GRUNT_SUPPRESS;
+			}
+		case SCHED_FAIL:
+			{
+				return SCHED_GRUNT_ELOF_FAIL;
+			}
+		case SCHED_GRUNT_REPEL:
+			{
+				Vector vecVel = GetAbsVelocity();
+				if ( vecVel.z > -128 )
+				{
+					vecVel.z -= 32;
+					SetAbsVelocity( vecVel );
+				}
+
+				return SCHED_GRUNT_REPEL;
+			}
+		case SCHED_GRUNT_REPEL_ATTACK:
+			{
+				Vector vecVel = GetAbsVelocity();
+				if ( vecVel.z > -128 )
+				{
+					vecVel.z -= 32;
+					SetAbsVelocity( vecVel );
+				}
+
+				return SCHED_GRUNT_REPEL_ATTACK;
+			}
+		default:
+			{
+				return BaseClass::TranslateSchedule( scheduleType );
+			}
 	}
 }
 
@@ -1960,7 +1878,7 @@ int CHGrunt::SquadRecruit( int searchRadius, int maxMembers )
 	else
 	{
 		char szSquadName[64];
-		Q_snprintf( szSquadName, sizeof( szSquadName ), "squad%d\n", g_iSquadIndex );
+		Q_snprintf( szSquadName, sizeof( szSquadName ), "squad%d\n", m_iSquadIndex );
 
 		m_SquadName = MAKE_STRING( szSquadName );
 
@@ -2000,7 +1918,7 @@ int CHGrunt::SquadRecruit( int searchRadius, int maxMembers )
 
 		if ( squadCount > 1 )
 		{
-			 g_iSquadIndex++;
+			 m_iSquadIndex++;
 		}
 	}
 
@@ -2055,8 +1973,6 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 	DECLARE_CONDITION( COND_GRUNT_NOFIRE )
 	
 	DECLARE_TASK( TASK_GRUNT_FACE_TOSS_DIR )
-	DECLARE_TASK( TASK_GRUNT_SPEAK_SENTENCE )
-	DECLARE_TASK( TASK_GRUNT_CHECK_FIRE )
 	DECLARE_TASK(TASK_GRUNT_SELECT_IDEAL_ATTACK_SEQUENCE)
 	DECLARE_TASK(TASK_GRUNT_SUPPRESS_HANDSIGNAL)
 		
@@ -2095,7 +2011,6 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 		"	Tasks"
 		"		TASK_SET_FAIL_SCHEDULE		SCHEDULE:SCHED_GRUNT_ELOF_FAIL"
 		"		TASK_GET_PATH_TO_ENEMY		0"
-		"		TASK_GRUNT_SPEAK_SENTENCE	0"
 		"		TASK_RUN_PATH				0"
 		"		TASK_WAIT_FOR_MOVEMENT		0"
 		"	"
@@ -2140,21 +2055,7 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 		"		TASK_STOP_MOVING			0"
 		"		TASK_FACE_IDEAL				0"
 		"		TASK_GRUNT_SUPPRESS_HANDSIGNAL	0"
-		"		TASK_FACE_ENEMY				0"
-		"		TASK_GRUNT_CHECK_FIRE		0"
-		"		TASK_RANGE_ATTACK1			0"
-		"		TASK_FACE_ENEMY				0"
-		"		TASK_GRUNT_CHECK_FIRE		0"
-		"		TASK_RANGE_ATTACK1			0"
-		"		TASK_FACE_ENEMY				0"
-		"		TASK_GRUNT_CHECK_FIRE		0"
-		"		TASK_RANGE_ATTACK1			0"
-		"		TASK_FACE_ENEMY				0"
-		"		TASK_GRUNT_CHECK_FIRE		0"
-		"		TASK_RANGE_ATTACK1			0"
-		"		TASK_FACE_ENEMY				0"
-		"		TASK_GRUNT_CHECK_FIRE		0"
-		"		TASK_RANGE_ATTACK1			0"
+		"		TASK_SET_SCHEDULE			SCHEDULE:SCHED_GRUNT_RANGE_ATTACK1"
 		"	"
 		"	Interrupts"
 		"		COND_ENEMY_DEAD"
@@ -2166,19 +2067,17 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 	)
 	
 	//=========================================================
-	// > SCHED_GRUNT_TAKE_COVER
-	// !!!BUGBUG - set a decent fail schedule here.
+	// > SCHED_GRUNT_TAKECOVER
 	//=========================================================
 	DEFINE_SCHEDULE
 	(
-		SCHED_GRUNT_TAKE_COVER,
+		SCHED_GRUNT_TAKECOVER,
 	
 		"	Tasks"
 		"		TASK_STOP_MOVING			0"
 		"		TASK_SET_FAIL_SCHEDULE		SCHEDULE:SCHED_GRUNT_TAKECOVER_FAILED"
 		"		TASK_WAIT					0.2"
 		"		TASK_FIND_COVER_FROM_ENEMY	0"
-		"		TASK_GRUNT_SPEAK_SENTENCE	0"
 		"		TASK_RUN_PATH				0"
 		"		TASK_WAIT_FOR_MOVEMENT		0"
 		"		TASK_REMEMBER				MEMORY:INCOVER"
@@ -2189,12 +2088,12 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 	
 	
 	//=========================================================
-	// > SCHED_GRUNT_GRENADE_COVER
+	// > SCHED_GRUNT_DROP_GRENADE_COVER
 	// drop grenade then run to cover.
 	//=========================================================
 	DEFINE_SCHEDULE
 	(
-		SCHED_GRUNT_GRENADE_COVER,
+		SCHED_GRUNT_DROP_GRENADE_COVER,
 	
 		"	Tasks"
 		"		TASK_STOP_MOVING						0"
@@ -2282,16 +2181,12 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 		"	Tasks"
 		"		TASK_STOP_MOVING					0"
 		"		TASK_GRUNT_SELECT_IDEAL_ATTACK_SEQUENCE		0"
-		"		TASK_GRUNT_CHECK_FIRE				0"
 		"		TASK_RANGE_ATTACK1					0"
 		"		TASK_FACE_ENEMY						0"
-		"		TASK_GRUNT_CHECK_FIRE				0"
 		"		TASK_RANGE_ATTACK1					0"
 		"		TASK_FACE_ENEMY						0"
-		"		TASK_GRUNT_CHECK_FIRE				0"
 		"		TASK_RANGE_ATTACK1					0"
 		"		TASK_FACE_ENEMY						0"
-		"		TASK_GRUNT_CHECK_FIRE				0"
 		"		TASK_RANGE_ATTACK1					0"
 		"	"
 		"	Interrupts"
@@ -2384,27 +2279,6 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 	)
 	
 	//=========================================================
-	// > SCHED_GRUNT_TAKECOVER
-	//=========================================================
-	DEFINE_SCHEDULE
-	(
-		SCHED_GRUNT_TAKECOVER,
-	
-		"	Tasks"
-		"		TASK_STOP_MOVING				0"
-		"		TASK_WAIT						0.2"
-		"		TASK_FIND_COVER_FROM_ENEMY		0"
-		"		TASK_RUN_PATH					0"
-		"		TASK_WAIT_FOR_MOVEMENT			0"
-		"		TASK_REMEMBER					MEMORY:INCOVER"
-		"		TASK_FACE_ENEMY					0"
-		"		TASK_WAIT						1"
-		"	"
-		"	Interrupts"
-		"		COND_NEW_ENEMY"
-	)
-	
-	//=========================================================
 	// > SCHED_GRUNT_TAKE_COVER_FAILED
 	//=========================================================
 	DEFINE_SCHEDULE
@@ -2415,68 +2289,3 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 	)
 
 AI_END_CUSTOM_NPC()
-
-//=========================================================
-// CHGruntRepel - when triggered, spawns a monster_human_grunt
-// repelling down a line.
-//=========================================================
-
-class CHGruntRepel:public CAI_BaseNPC
-{
-	DECLARE_CLASS( CHGruntRepel, CAI_BaseNPC );
-public:
-	void Spawn( void );
-	void Precache( void );
-	void RepelUse ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	int m_iSpriteTexture;	// Don't save, precache
-
-	DECLARE_DATADESC();
-};
-
-LINK_ENTITY_TO_CLASS( npc_hgrunt_repel, CHGruntRepel );
-
-//---------------------------------------------------------
-// Save/Restore
-//---------------------------------------------------------
-BEGIN_DATADESC( CHGruntRepel )
-	DEFINE_USEFUNC( RepelUse ),
-	//DEFINE_FIELD( m_iSpriteTexture, FIELD_INTEGER ),
-END_DATADESC()
-
-void CHGruntRepel::Spawn( void )
-{
-	Precache( );
-	SetSolid( SOLID_NONE );
-
-	SetUse( &CHGruntRepel::RepelUse );
-}
-
-void CHGruntRepel::Precache( void )
-{
-	UTIL_PrecacheOther( "npc_hgrunt" );
-	m_iSpriteTexture = PrecacheModel( "sprites/rope.vmt" );
-}
-
-void CHGruntRepel::RepelUse ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
-{
-	trace_t tr;
-	UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + Vector( 0, 0, -4096.0), MASK_NPCSOLID, this,COLLISION_GROUP_NONE, &tr);
-	
-	CBaseEntity *pEntity = Create( "npc_hgrunt", GetAbsOrigin(), GetAbsAngles() );
-	CAI_BaseNPC *pGrunt = pEntity->MyNPCPointer( );
-	pGrunt->SetMoveType( MOVETYPE_FLYGRAVITY );
-	pGrunt->SetGravity( 0.001 );
-	pGrunt->SetAbsVelocity( Vector( 0, 0, random->RandomFloat( -196, -128 ) ) );
-	pGrunt->SetActivity( ACT_GLIDE );
-	// UNDONE: position?
-	pGrunt->m_vecLastPosition = tr.endpos;
-
-	CBeam *pBeam = CBeam::BeamCreate( "sprites/rope.vmt", 10 );
-	pBeam->PointEntInit( GetAbsOrigin() + Vector(0,0,112), pGrunt );
-	pBeam->SetBeamFlags( FBEAM_SOLID );
-	pBeam->SetColor( 255, 255, 255 );
-	pBeam->SetThink( &CBaseEntity::SUB_Remove );
-	SetNextThink( gpGlobals->curtime + -4096.0 * tr.fraction / pGrunt->GetAbsVelocity().z + 0.5 );
-
-	UTIL_Remove( this );
-}
