@@ -33,7 +33,7 @@ protected:
 
 private:
 	//CPanelAnimationVar( Color, m_AuxPowerColor, "AuxPowerColor", "255 0 0 255" );
-	CPanelAnimationVar(Color, m_AuxPowerColor, "AuxPowerColor", "84 84 255 255");
+	CPanelAnimationVar(Color, m_AuxPowerColor, "AuxPowerColor", "FgColor");
 	CPanelAnimationVar( int, m_iAuxPowerDisabledAlpha, "AuxPowerDisabledAlpha", "70" );
 
 	CPanelAnimationVarAliasType( float, m_flBarInsetX, "BarInsetX", "8", "proportional_float" );

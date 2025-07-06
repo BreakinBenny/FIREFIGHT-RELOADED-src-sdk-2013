@@ -117,6 +117,12 @@ enum EFRDmgCustom
 	FR_DMG_CUSTOM_END // END
 };
 
+enum EFRBossState
+{
+	FR_BOSS_SHIELDED,
+	FR_BOSS_NOSHIELD
+};
+
 #define MAX_LEVEL 20
 
 //FR COLORS

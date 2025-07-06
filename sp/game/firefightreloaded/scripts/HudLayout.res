@@ -683,4 +683,16 @@
 		"wide"	"128"
 		"tall"  "20"
 	}
+	
+	HudBossHealth
+	{
+		"fieldName"		"HudBossHealth"
+		"visible"		"1"
+		"enabled"		"1"
+		"xpos"			"c-240"
+		"ypos"			"367"
+		"wide"			"480"
+		"tall"			"43"
+		"health_bar_wide"	"468"
+	}
 }

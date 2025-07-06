@@ -148,6 +148,12 @@ $Project "Server (FR)"
 		{
             //tbd
         }
+		
+		$Folder	"TF DLL"
+		{
+			$File	"tf\player_vs_environment\monster_resource.cpp"
+			$File	"tf\player_vs_environment\monster_resource.h"
+		}
         
         $Folder	"MOBILITY MOD DLL"
 		{

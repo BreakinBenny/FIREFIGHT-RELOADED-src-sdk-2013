@@ -133,6 +133,7 @@ public:
 	void RelaxAim(float flInterval);
 	void UpdateAim();
 	void NPCThink();
+	void HealthBarUpdate();
 	
 	virtual Class_T Classify();
 

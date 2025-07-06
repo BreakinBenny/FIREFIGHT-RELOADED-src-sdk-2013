@@ -67,6 +67,14 @@ $Project "Client (FR)"
 		{
         //tbd
         }
+		
+		$Folder	"TF DLL"
+		{
+			$File	"tf\c_monster_resource.cpp"
+			$File	"tf\c_monster_resource.h"
+			$File	"tf\tf_hud_boss_health.cpp"
+			$File	"tf\tf_hud_boss_health.h"
+		}
         
         $Folder	"MOBILITY MOD DLL"
 		{

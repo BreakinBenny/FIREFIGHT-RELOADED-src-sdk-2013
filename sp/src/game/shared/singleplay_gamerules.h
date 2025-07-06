@@ -20,6 +20,7 @@
 
 #endif
 
+typedef char NpcName[256];
 
 //=========================================================
 // CSingleplayRules - rules for the single player Half-Life 

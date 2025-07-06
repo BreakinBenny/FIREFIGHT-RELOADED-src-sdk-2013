@@ -996,7 +996,6 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 	//=========================================================
 	// Deathnotice. 
 	//=========================================================
-	typedef char NpcName[256];
 	void CSingleplayRules::DeathNotice(CBasePlayer* pVictim, const CTakeDamageInfo& info)
 	{
 		// Work out what killed the player, and send a message to all clients about it

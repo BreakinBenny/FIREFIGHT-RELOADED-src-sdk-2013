@@ -23,6 +23,7 @@
 #include "hl2/prop_combine_ball.h"
 #include "weapon_flaregun.h"
 #include "hl2_player.h"
+#include "tf/player_vs_environment/monster_resource.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -173,6 +174,9 @@ int CNPC_Advisor::gm_nAimPitchPoseParam = -1;
 //-----------------------------------------------------------------------------
 void CNPC_Advisor::Spawn()
 {
+	// Create the monster resource for PvE battles
+	g_pMonsterResource = (CMonsterResource*)CBaseEntity::Create("monster_resource", vec3_origin, vec3_angle);
+
 	BaseClass::Spawn();
 
 #ifdef _XBOX
@@ -319,6 +323,22 @@ void CNPC_Advisor::NPCThink()
 {
 	BaseClass::NPCThink();
 	UpdateAim();
+
+	//keep our health at max when acting.
+	if (IsInAScript())
+	{
+		SetHealth(GetMaxHealth());
+	}
+
+	if (g_pMonsterResource)
+	{
+		g_pMonsterResource->SetBossName(this);
+
+		if (IsInAScript())
+		{
+			g_pMonsterResource->HideBossHealthMeter();
+		}
+	}
 }
 
 #ifdef GLOWS_ENABLE
@@ -335,6 +355,15 @@ void CNPC_Advisor::EnableBulletResistanceOutline()
 			m_bImportantOutline = true;
 			GiveOutline(outline);
 			m_bBulletResistanceOutlineDisabled = false;
+
+			//this is a hack that enables our health bar alongside the outline. we'll need to add an output later that does this seperately.
+			if (g_pMonsterResource)
+			{
+				if (IsInAScript())
+				{
+					g_pMonsterResource->SetBossHealthPercentage(1.0f);
+				}
+			}
 		}
 	}
 }
@@ -405,7 +434,8 @@ CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info,
 	
 	CTakeDamageInfo outputInfo = info;
 
-	int shieldmaxhealth = GetMaxHealth() * 0.5;
+	float shielddiv = 0.5f;
+	int shieldmaxhealth = GetMaxHealth() * shielddiv;
 
 	//always take a reduced amount of damage from Combine balls. 
 	if (!(IRelationType(outputInfo.GetAttacker()) == D_LI))
@@ -466,6 +496,15 @@ CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info,
 		CBroadcastRecipientFilter filter2;
 		te->BeamRingPoint(filter2, 0.0, GetAbsOrigin() + Vector(0, 0, 16), 16, 500, m_iSpriteTexture, 0, 0, 0, 0.2, 24, 16, 0, 254, 189, 255, 50, 0);
 		//i'm going to regret this
+
+		CBaseEntity* pTrail;
+		for (int i = 0; i < 3; i++)
+		{
+			pTrail = CreateEntityByName("sparktrail");
+			pTrail->SetOwnerEntity(this);
+			DispatchSpawn(pTrail);
+		}
+
 		EmitSound("Weapon_StriderBuster.Detonate");
 		EmitSound("NPC_Advisor.Scream");
 		SetBloodColor(BLOOD_COLOR_GREEN);
@@ -496,6 +535,29 @@ CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info,
 	return outputInfo;
 }
 
+void CNPC_Advisor::HealthBarUpdate()
+{
+	if (IsInAScript())
+		return;
+
+	if (g_pMonsterResource)
+	{
+		float shielddiv = 0.5f;
+		int shieldmaxhealth = GetMaxHealth() * shielddiv;
+		int shieldhealth = GetHealth() - shieldmaxhealth;
+
+		float healthPercentage = (float)GetHealth() / (float)GetMaxHealth();
+
+		if (!m_bBulletResistanceBroken)
+		{
+			healthPercentage = ((float)shieldhealth) / ((float)shieldmaxhealth);
+		}
+
+		g_pMonsterResource->SetBossHealthPercentage(healthPercentage);
+		g_pMonsterResource->SetBossState(m_bBulletResistanceBroken ? FR_BOSS_NOSHIELD : FR_BOSS_SHIELDED);
+	}
+}
+
 //---------------------------------------------------------
 //---------------------------------------------------------
 void CNPC_Advisor::TraceAttack(const CTakeDamageInfo& inputInfo, const Vector& vecDir, trace_t* ptr, CDmgAccumulator* pAccumulator)
@@ -512,16 +574,15 @@ void CNPC_Advisor::TraceAttack(const CTakeDamageInfo& inputInfo, const Vector& v
 		}
 	}
 
-	// special interaction with combine balls
+	CTakeDamageInfo bulletResistanceInfo = outputInfo;
+
 	if (!m_bBulletResistanceBroken)
 	{
-		CTakeDamageInfo bulletResistanceInfo = BulletResistanceLogic(outputInfo, ptr);
-		BaseClass::TraceAttack(bulletResistanceInfo, vecDir, ptr, pAccumulator);
+		bulletResistanceInfo = BulletResistanceLogic(outputInfo, ptr);
 	}
-	else
-	{
-		BaseClass::TraceAttack(outputInfo, vecDir, ptr, pAccumulator);
-	}
+
+	HealthBarUpdate();
+	BaseClass::TraceAttack(bulletResistanceInfo, vecDir, ptr, pAccumulator);
 }
 
 int CNPC_Advisor::OnTakeDamage_Alive(const CTakeDamageInfo& info)
@@ -538,16 +599,15 @@ int CNPC_Advisor::OnTakeDamage_Alive(const CTakeDamageInfo& info)
 		}
 	}
 
-	// special interaction with combine balls
+	CTakeDamageInfo bulletResistanceInfo = outputInfo;
+
 	if (!m_bBulletResistanceBroken)
 	{
-		CTakeDamageInfo bulletResistanceInfo = BulletResistanceLogic(outputInfo, NULL);
-		return BaseClass::OnTakeDamage_Alive(bulletResistanceInfo);
+		bulletResistanceInfo = BulletResistanceLogic(outputInfo, NULL);
 	}
-	else
-	{
-		return BaseClass::OnTakeDamage_Alive(outputInfo);
-	}
+
+	HealthBarUpdate();
+	return BaseClass::OnTakeDamage_Alive(bulletResistanceInfo);
 }
 
 //-----------------------------------------------------------------------------
@@ -1514,12 +1574,13 @@ void CNPC_Advisor::Event_Killed(const CTakeDamageInfo &info)
 		beamonce = 1;
 	}
 
-	CBasePlayer* pPlayer = UTIL_GetNearestPlayer(GetAbsOrigin());
+	CHL2_Player* pPlayer = (CHL2_Player*)UTIL_GetNearestPlayer(GetAbsOrigin());
 	
 	if (pPlayer)
 	{
 		//HACK to give the player god mode for the credit sequence..
 		pPlayer->AddFlag(FL_GODMODE);
+		pPlayer->StopBullettime();
 	}
 
 	CAI_BaseNPC** ppAIs = g_AI_Manager.AccessAIs();
@@ -2195,6 +2256,8 @@ void CNPC_Advisor::Precache()
 	PrecacheModel( STRING( GetModelName() ) );
 
 	PrecacheModel( "sprites/lgtning.vmt" );
+
+	UTIL_PrecacheOther("sparktrail");
 
 	PrecacheScriptSound( "NPC_Advisor.Blast" );
 	PrecacheScriptSound( "BaseCombatCharacter.CorpseGib" );	//NPC_Advisor.Gib
