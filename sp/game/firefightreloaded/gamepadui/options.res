@@ -266,6 +266,32 @@
 					"1"		"#gameui_enabled"
 				}
 			}
+			
+			"respawntime"
+			{
+				"text"			"#GameUI_RespawnTime"
+				"type"			"slideyslide"
+				"convar"		"sv_player_respawntime"
+
+				"min"			"1"
+				"max"			"15"
+				"step"			"0.5"
+
+				"textprecision" "2"
+			}
+			
+			"instantrespawn"
+			{
+				"text"			"#GameUI_InstantRespawn"
+				"type"			"wheelywheel"
+				"convar"		"sv_player_instantrespawn"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
             
             "GeneralHeader"
 			{

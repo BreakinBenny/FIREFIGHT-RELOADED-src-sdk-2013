@@ -427,6 +427,8 @@
             "GameUI_Perks_InfiniteAuxPower": "Toggle the INFINITE AUX POWER Perk",
             "GameUI_Perks_InfiniteAmmo": "Toggle the INFINITE AMMO Perk",
             "GameUI_Perks_HelthRegenRate": "Toggle the HEALTH REGENERATION RATE Perk",
+            "GameUI_RespawnTime": "Player Respawn Time",
+            "GameUI_InstantRespawn": "Instant Respawn",
             "GameUI_WorldLightShadows": "Toggle Entity-Based Shadows",
             "GameUI_VeryLow": "Very Low",
             "GameUI_Toaster": "Toaster",

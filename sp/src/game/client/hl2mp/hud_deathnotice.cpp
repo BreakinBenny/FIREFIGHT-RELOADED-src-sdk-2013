@@ -336,6 +336,8 @@ void CHudDeathNotice::RetireExpiredDeathNotices(void)
 	}
 }
 
+#define SKIP_SUICIDE_TEXT 1
+
 //-----------------------------------------------------------------------------
 // Purpose: Server's told us that someone's died
 //-----------------------------------------------------------------------------
@@ -381,18 +383,6 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		deathMsg.flDisplayTime = gpGlobals->curtime + hud_deathnotice_time.GetFloat();
 		deathMsg.iSuicide = (!killer || killer == victim);
 
-		// Try and find the death identifier in the icon list
-		deathMsg.iconDeath = gHUD.GetIcon(killedwith);
-
-		if (!deathMsg.iconDeath || deathMsg.iSuicide)
-		{
-			// Can't find it, so use the default skull & crossbones icon
-			deathMsg.iconDeath = m_icon;
-		}
-
-		// Add it to our list of death notices
-		m_DeathNotices.AddToTail(deathMsg);
-
 		const char* prunedVictName = deathMsg.Victim.szName;
 		if (strncmp(prunedVictName, "#fr_npc_", 8) == 0)
 		{
@@ -418,6 +408,26 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		}
 
 		Msg("%s\n", sDeathMsg);
+
+#ifdef SKIP_SUICIDE_TEXT
+		//hack!!
+		//there's a glitch where sometimes the player's name doesn't show up on the kill log.
+		//for now, skip the item if it's a suicide until i can fix it.
+		if (deathMsg.iSuicide)
+			return;
+#endif
+
+		// Try and find the death identifier in the icon list
+		deathMsg.iconDeath = gHUD.GetIcon(killedwith);
+
+		if (!deathMsg.iconDeath || deathMsg.iSuicide)
+		{
+			// Can't find it, so use the default skull & crossbones icon
+			deathMsg.iconDeath = m_icon;
+		}
+
+		// Add it to our list of death notices
+		m_DeathNotices.AddToTail(deathMsg);
 	}
 	else if (Q_strcmp(type, "npc_death") == 0)
 	{
@@ -453,20 +463,6 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		Q_strncpy(deathMsg.Victim.szName, victim_name, MAX_PLAYER_NAME_LENGTH);
 		deathMsg.flDisplayTime = gpGlobals->curtime + hud_deathnotice_time.GetFloat();
 		deathMsg.iSuicide = (!killer);
-
-		// Try and find the death identifier in the icon list
-		// Can't find it, so use the default skull & crossbones icon
-
-		deathMsg.iconDeath = gHUD.GetIcon(killedwith);
-
-		if (!deathMsg.iconDeath || deathMsg.iSuicide)
-		{
-			// Can't find it, so use the default skull & crossbones icon
-			deathMsg.iconDeath = m_icon;
-		}
-
-		// Add it to our list of death notices
-		m_DeathNotices.AddToTail(deathMsg);
 
 		const char* prunedVictName = deathMsg.Victim.szName;
 		if (strncmp(prunedVictName, "#fr_npc_", 8) == 0)
@@ -511,6 +507,28 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		}
 
 		Msg("%s\n", sDeathMsg);
+
+#ifdef SKIP_SUICIDE_TEXT
+		//hack!!
+		//there's a glitch where sometimes the player's name doesn't show up on the kill log.
+		//for now, skip the item if it's a suicide until i can fix it.
+		if (deathMsg.iSuicide)
+			return;
+#endif
+
+		// Try and find the death identifier in the icon list
+		// Can't find it, so use the default skull & crossbones icon
+
+		deathMsg.iconDeath = gHUD.GetIcon(killedwith);
+
+		if (!deathMsg.iconDeath || deathMsg.iSuicide)
+		{
+			// Can't find it, so use the default skull & crossbones icon
+			deathMsg.iconDeath = m_icon;
+		}
+
+		// Add it to our list of death notices
+		m_DeathNotices.AddToTail(deathMsg);
 	}
 	else if (Q_strcmp(type, "player_death_npc") == 0)
 	{
@@ -547,19 +565,6 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		deathMsg.flDisplayTime = gpGlobals->curtime + hud_deathnotice_time.GetFloat();
 		deathMsg.iSuicide = (FStrEq(killer_name, victim_name));
 
-		// Try and find the death identifier in the icon list
-		// Can't find it, so use the default skull & crossbones icon
-		deathMsg.iconDeath = gHUD.GetIcon(killedwith);
-
-		if (!deathMsg.iconDeath || deathMsg.iSuicide)
-		{
-			// Can't find it, so use the default skull & crossbones icon
-			deathMsg.iconDeath = m_icon;
-		}
-
-		// Add it to our list of death notices
-		m_DeathNotices.AddToTail(deathMsg);
-
 		const char* prunedVictName = deathMsg.Victim.szName;
 		if (strncmp(prunedVictName, "#fr_npc_", 8) == 0)
 		{
@@ -585,6 +590,27 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		}
 
 		Msg("%s\n", sDeathMsg);
+
+#ifdef SKIP_SUICIDE_TEXT
+		//hack!!
+		//there's a glitch where sometimes the player's name doesn't show up on the kill log.
+		//for now, skip the item if it's a suicide until i can fix it.
+		if (deathMsg.iSuicide)
+			return;
+#endif
+
+		// Try and find the death identifier in the icon list
+		// Can't find it, so use the default skull & crossbones icon
+		deathMsg.iconDeath = gHUD.GetIcon(killedwith);
+
+		if (!deathMsg.iconDeath || deathMsg.iSuicide)
+		{
+			// Can't find it, so use the default skull & crossbones icon
+			deathMsg.iconDeath = m_icon;
+		}
+
+		// Add it to our list of death notices
+		m_DeathNotices.AddToTail(deathMsg);
 	}
 	else if (Q_strcmp(type, "npc_death_npc") == 0)
 	{
@@ -620,19 +646,6 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		deathMsg.flDisplayTime = gpGlobals->curtime + hud_deathnotice_time.GetFloat();
 		deathMsg.iSuicide = (FStrEq(killer_name, victim_name));
 
-		// Try and find the death identifier in the icon list
-		// Can't find it, so use the default skull & crossbones icon
-		deathMsg.iconDeath = gHUD.GetIcon(killedwith);
-
-		if (!deathMsg.iconDeath || deathMsg.iSuicide)
-		{
-			// Can't find it, so use the default skull & crossbones icon
-			deathMsg.iconDeath = m_icon;
-		}
-
-		// Add it to our list of death notices
-		m_DeathNotices.AddToTail(deathMsg);
-
 		const char* prunedVictName = deathMsg.Victim.szName;
 		if (strncmp(prunedVictName, "#fr_npc_", 8) == 0)
 		{
@@ -658,6 +671,29 @@ void CHudDeathNotice::FireGameEvent(IGameEvent* event)
 		}
 
 		Msg("%s\n", sDeathMsg);
+
+#ifdef SKIP_SUICIDE_TEXT
+		//hack!!
+		//there's a glitch where sometimes the player's name doesn't show up on the kill log.
+		//for now, skip the item if it's a suicide until i can fix it.
+		if (deathMsg.iSuicide)
+		{
+			return;
+		}
+#endif
+
+		// Try and find the death identifier in the icon list
+		// Can't find it, so use the default skull & crossbones icon
+		deathMsg.iconDeath = gHUD.GetIcon(killedwith);
+
+		if (!deathMsg.iconDeath || deathMsg.iSuicide)
+		{
+			// Can't find it, so use the default skull & crossbones icon
+			deathMsg.iconDeath = m_icon;
+		}
+
+		// Add it to our list of death notices
+		m_DeathNotices.AddToTail(deathMsg);
 	}
 }
 

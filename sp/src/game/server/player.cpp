@@ -145,6 +145,9 @@ ConVar	sv_player_extinguish_on_death("sv_player_extinguish_on_death", "0", FCVAR
 
 ConVar	sk_bigitem_multiplier("sk_bigitem_multiplier", "3", FCVAR_CHEAT);
 
+ConVar sv_player_respawntime("sv_player_respawntime", "1", FCVAR_ARCHIVE);
+ConVar sv_player_instantrespawn("sv_player_instantrespawn", "0", FCVAR_ARCHIVE);
+
 extern ConVar sv_maxunlag;
 extern ConVar sv_turbophysics;
 extern ConVar *sv_maxreplay;
@@ -3365,23 +3368,6 @@ void CBasePlayer::PlayerDeathThink(void)
 		fAnyButtonDown &= ~IN_DUCK;
 	}
 
-	// wait for all buttons released
-	if (m_lifeState == LIFE_DEAD)
-	{
-		if (fAnyButtonDown && (gpGlobals->curtime > (m_flDeathTime + 5)))
-		{
-			respawn(this, !IsObserver());// don't copy a corpse if we're in deathcam.
-			return;
-		}
-
-		if ( g_pGameRules->FPlayerCanRespawn( this ) )
-		{
-			m_lifeState = LIFE_RESPAWNABLE;
-		}
-		
-		return;
-	}
-
 // if the player has been dead for one second longer than allowed by forcerespawn, 
 // forcerespawn isn't on. Send the player off to an intermission camera until they 
 // choose to respawn.
@@ -3411,7 +3397,7 @@ void CBasePlayer::PlayerDeathThink(void)
 	}
 	else
 	{
-		if (!fAnyButtonDown && !(g_pGameRules->IsMultiplayer() && forcerespawn.GetInt() > 0 && (gpGlobals->curtime > (m_flDeathTime + 5))))
+		if (!fAnyButtonDown && !(g_pGameRules->IsMultiplayer() && forcerespawn.GetInt() > 0 && (gpGlobals->curtime > (m_flDeathTime + sv_player_respawntime.GetFloat()))))
 			return;
 	}
 
@@ -3420,8 +3406,18 @@ void CBasePlayer::PlayerDeathThink(void)
 
 	//Msg( "Respawn\n");
 
-	respawn( this, !IsObserver() );// don't copy a corpse if we're in deathcam.
-	SetNextThink( TICK_NEVER_THINK );
+	// no instant respawn lol
+	if (sv_player_instantrespawn.GetBool() || (m_bHardcore && !g_pGameRules->IsMultiplayer()))
+	{
+		respawn(this, !IsObserver());// don't copy a corpse if we're in deathcam.
+		SetNextThink(TICK_NEVER_THINK);
+		return;
+	}
+
+	if (fAnyButtonDown && (gpGlobals->curtime > (m_flDeathTime + sv_player_respawntime.GetFloat())))
+	{
+		respawn(this, !IsObserver()); // don't copy a corpse if we're in deathcam.
+	}
 }
 
 /*
