@@ -70,9 +70,19 @@ void CBaseClientRenderTargets::InitClientRenderTargets( IMaterialSystem* pMateri
 void CBaseClientRenderTargets::ShutdownClientRenderTargets()
 {
 	// Water effects
-	m_WaterReflectionTexture.Shutdown();
-	m_WaterRefractionTexture.Shutdown();
+	if (m_WaterReflectionTexture.IsValid())
+	{
+		m_WaterReflectionTexture.Shutdown();
+	}
+
+	if (m_WaterRefractionTexture.IsValid())
+	{
+		m_WaterRefractionTexture.Shutdown();
+	}
 
 	// Monitors
-	m_CameraTexture.Shutdown();
+	if (m_CameraTexture.IsValid())
+	{
+		m_CameraTexture.Shutdown();
+	}
 }

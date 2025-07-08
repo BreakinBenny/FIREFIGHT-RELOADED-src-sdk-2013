@@ -88,7 +88,7 @@ void CHudBossHealthMeter::Update( void )
 		{
 			Color barColor = ( iState == FR_BOSS_SHIELDED ) ? m_shieldedColor : m_unshieldedColor;
 
-			if (g_pMonsterResource->GetBossHealthPercentage() <= 0.25f)
+			if (g_pMonsterResource->GetBossHealthPercentage() <= 0.25f && iState != FR_BOSS_SHIELDED)
 			{
 				barColor = m_dangerColor;
 			}
