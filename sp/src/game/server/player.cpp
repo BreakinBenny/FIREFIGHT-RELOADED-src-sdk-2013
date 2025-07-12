@@ -6655,6 +6655,9 @@ void CBasePlayer::InitialSpawn( void )
 		m_MaxHealthVal = player_defaulthealth.GetInt();
 	}
 
+	m_iCompleteKillstreakCount = 0;
+	m_iKillstreakCount = 0;
+
 	m_bFirstSpawn = true;
 }
 

@@ -787,11 +787,11 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 				//make it so the katana hit multiplier shows up.
 				if (sv_killingspree.GetBool() && !isInBullettime)
 				{
-					++pEntity->m_iKillstreak;
+					pEntity->m_iKillstreak++;
 
 					if (!pEntity->m_bKillstreakAddedForThisLife)
 					{
-						++pEntity->m_iKillstreakCount;
+						pEntity->m_iKillstreakCount++;
 						pEntity->m_bKillstreakAddedForThisLife = true;
 					}
 
@@ -824,7 +824,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 						case GODLIKE_AMOUNT:
 						{
 							hint.sprintf("#Valve_Hud_GODLIKE");
-							++pEntity->m_iCompleteKillstreakCount;
+							pEntity->m_iCompleteKillstreakCount++;
 							break;
 						}
 						default:
@@ -833,7 +833,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 					}
 
 					//award the achievement now if we get 2 godlikes.
-					if (pEntity->m_iCompleteKillstreakCount > 1)
+					if (pEntity->m_iKillstreak >= GODLIKE_AMOUNT && pEntity->m_iCompleteKillstreakCount > 1)
 					{
 						CAchievementMgr* pAchievementMgr = dynamic_cast<CAchievementMgr*>(engine->GetAchievementMgr());
 						if (pAchievementMgr)
