@@ -18,6 +18,7 @@
 #include "tier0/memdbgon.h"
 
 ConVar gamepadui_background_music_duck( "gamepadui_background_music_duck", "0.65", FCVAR_ARCHIVE );
+ConVar gamepadui_background_music_volume("gamepadui_background_music_volume", "1.0", FCVAR_ARCHIVE);
 
 GamepadUIBasePanel::GamepadUIBasePanel( vgui::VPANEL parent ) : BaseClass( NULL, "GamepadUIBasePanel" )
 {
@@ -59,7 +60,7 @@ void GamepadUIBasePanel::OnMenuStateChanged()
     {
         if (m_bBackgroundMusicEnabled)
         {
-           StartBackgroundMusic(1.0f);
+           StartBackgroundMusic(gamepadui_background_music_volume.GetFloat());
         }
     }
     else if (GamepadUI::GetInstance().IsInLevel())
