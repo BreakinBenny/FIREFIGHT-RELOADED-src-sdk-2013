@@ -389,4 +389,5 @@
 	"name" "300 kromer"
 	"name" "BIG SHOT"
 	"name" "100,000 kromer"
+	"name" "SupaMasterOfKungFu"
 }
