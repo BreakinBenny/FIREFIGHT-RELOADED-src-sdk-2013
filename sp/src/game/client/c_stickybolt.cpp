@@ -156,6 +156,32 @@ private:
 	bool	m_bKnife;
 };
 
+void StickRagdollNow(const Vector& vecOrigin, const Vector& vecDirection, const int flags, C_BaseEntity* const sticker)
+{
+	Ray_t	shotRay;
+	trace_t tr;
+
+	UTIL_TraceLine(vecOrigin, vecOrigin + vecDirection * 16, MASK_SOLID_BRUSHONLY, NULL, COLLISION_GROUP_NONE, &tr);
+
+	if (tr.surface.flags & SURF_SKY)
+		return;
+
+	Vector vecEnd = vecOrigin - vecDirection * 256;
+
+	shotRay.Init(vecOrigin, vecEnd);
+
+	C_WeaponKnife* knife = dynamic_cast<C_WeaponKnife*>(sticker);
+	bool isKnifeValid = (knife != nullptr);
+
+	CRagdollBoltEnumerator	ragdollEnum(shotRay, vecOrigin, isKnifeValid);
+	::partition->EnumerateElementsAlongRay(PARTITION_CLIENT_RESPONSIVE_EDICTS, shotRay, false, &ragdollEnum);
+
+	if (isKnifeValid)
+	{
+		knife->m_hStuckRagdoll = ragdollEnum.GetRagdoll();
+	}
+}
+
 void CreateCrossbowBolt( const Vector &vecOrigin, const Vector &vecDirection )
 {
 	model_t* pModel = NULL;
@@ -167,35 +193,6 @@ void CreateCrossbowBolt( const Vector &vecOrigin, const Vector &vecDirection )
 	VectorAngles( vecDirection, vAngles );
 
 	tempents->SpawnTempModel(pModel, vecOrigin - vecDirection * 8, vAngles, Vector(0, 0, 0), 30.0f, FTENT_NONE);
-}
-
-void StickRagdollNow(const Vector &vecOrigin, const Vector &vecDirection, const int flags, C_BaseEntity* const sticker)
-{
-	if ( flags & SBFL_STICKRAGDOLL )
-	{
-		Ray_t	shotRay;
-		trace_t tr;
-
-		UTIL_TraceLine( vecOrigin, vecOrigin + vecDirection * 16, MASK_SOLID_BRUSHONLY, NULL, COLLISION_GROUP_NONE, &tr );
-
-		if ( tr.surface.flags & SURF_SKY )
-			return;
-
-		Vector vecEnd = vecOrigin - vecDirection * 128;
-
-		shotRay.Init( vecOrigin, vecEnd );
-
-		auto knife = dynamic_cast<C_WeaponKnife*>(sticker);
-
-		bool isKnifeValid = (knife != nullptr);
-
-		CRagdollBoltEnumerator	ragdollEnum( shotRay, vecOrigin, isKnifeValid);
-
-		partition->EnumerateElementsAlongRay( PARTITION_CLIENT_RESPONSIVE_EDICTS | PARTITION_ENGINE_NON_STATIC_EDICTS, shotRay, false, &ragdollEnum );
-
-		if (isKnifeValid)
-			knife->m_hStuckRagdoll = ragdollEnum.GetRagdoll();
-	}
 }
 
 //-----------------------------------------------------------------------------

@@ -66,8 +66,7 @@ public:
 	bool CreateVPhysics( void );
 	unsigned int PhysicsSolidMaskForEntity() const;
 	static CCrossbowBolt *BoltCreate(const Vector& vecOrigin, const QAngle& angAngles, CBasePlayer* pentOwner, int iBoltType = BOLT_CROSSBOW, bool bCharged = false);
-	bool IsCharged() { return (m_iBoltType == BOLT_CHARGEBOW && m_bCharged); }
-	bool IsUncharged() { return (m_iBoltType == BOLT_CHARGEBOW && !m_bCharged); }
+	bool IsCharged() { return m_bCharged; }
 	void GlassCollide(CBaseEntity* pOther);
 
 public:
