@@ -166,7 +166,7 @@ void StickRagdollNow(const Vector& vecOrigin, const Vector& vecDirection, const 
 	if (tr.surface.flags & SURF_SKY)
 		return;
 
-	Vector vecEnd = vecOrigin - vecDirection * 256;
+	Vector vecEnd = vecOrigin - vecDirection * 192;
 
 	shotRay.Init(vecOrigin, vecEnd);
 
