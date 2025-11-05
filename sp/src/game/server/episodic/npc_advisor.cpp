@@ -1594,6 +1594,8 @@ void CNPC_Advisor::Event_Killed(const CTakeDamageInfo &info)
 		UTIL_Remove(ppAIs[i]);
 	}
 
+	g_pMonsterResource->HideBossHealthMeter();
+
 	BaseClass::Event_Killed(info);
 }
 
