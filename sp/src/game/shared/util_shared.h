@@ -610,4 +610,6 @@ const bool			UTIL_SteamInput_AreControllersConnected();
 
 const bool			UTIL_UsingSteamInput();
 
+int					UTIL_RegisterDynamicModel(const char* pszModelName);
+
 #endif // UTIL_SHARED_H

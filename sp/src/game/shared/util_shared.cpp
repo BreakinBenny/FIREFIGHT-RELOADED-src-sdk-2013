@@ -1259,3 +1259,24 @@ const bool UTIL_UsingSteamInput()
 { 
 	return (UTIL_IsSteamDeck() || UTIL_SteamInput_AreControllersConnected()); 
 }
+
+int UTIL_RegisterDynamicModel(const char* pszModelName)
+{
+#ifdef CLIENT_DLL
+	bool bIsClient = true;
+	const char* pszDevPrefix = "[CLIENT UTIL_FR_RegisterDynamicModel]";
+#else
+	bool bIsClient = false;
+	const char* pszDevPrefix = "[SERVER UTIL_FR_RegisterDynamicModel]";
+#endif
+
+	int index = modelinfo->RegisterDynamicModel(pszModelName, bIsClient);
+
+	// Dynamic models never fail to register in this engine.
+	if (index != -1)
+	{
+		DevMsg("%s - '%s' registered as a dynamic model or loaded valid dynamic model from list!\n", pszDevPrefix, pszModelName);
+	}
+
+	return index;
+}
