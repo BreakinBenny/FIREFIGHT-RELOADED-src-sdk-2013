@@ -858,6 +858,8 @@ void ProcessModels (void)
 		}
 	}
 
+	EndTjuncs();
+
 	KeyValues* GameInfoKVCubemap = ReadKeyValuesFile(GameInfoPath);
 	if (!GameInfoKVCubemap)
 	{
