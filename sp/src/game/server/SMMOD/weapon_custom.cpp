@@ -2645,7 +2645,11 @@ void CWeaponCustom::Swing(int bIsSecondary)
 		Vector testEnd = swingStart + forward * this->GetWpnData().m_sMeleeRange;
 
 		// See if we happened to hit water
-		ImpactWater(swingStart, testEnd);
+		if (!ImpactWater(swingStart, testEnd))
+		{
+			// Play swing sound only if nothing impacted.
+			WeaponSound(SINGLE);
+		}
 	}
 	else
 	{
@@ -2659,9 +2663,6 @@ void CWeaponCustom::Swing(int bIsSecondary)
 	float fireRate = (bIsSecondary) ? GetSecondaryFireRate() : GetPrimaryFireRate();
 	m_flNextPrimaryAttack = gpGlobals->curtime + fireRate;
 	m_flNextSecondaryAttack = gpGlobals->curtime + SequenceDuration();
-
-	//Play swing sound
-	WeaponSound(SINGLE);
 
 	// Send the player 'attack' animation.
 	pOwner->SetAnimation(PLAYER_ATTACK1);

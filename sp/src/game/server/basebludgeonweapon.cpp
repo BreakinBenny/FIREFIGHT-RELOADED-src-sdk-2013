@@ -363,9 +363,13 @@ void CBaseHLBludgeonWeapon::Swing( int bIsSecondary )
 
 		// We want to test the first swing again
 		Vector testEnd = swingStart + forward * GetRange();
-		
+
 		// See if we happened to hit water
-		ImpactWater( swingStart, testEnd );
+		if (!ImpactWater(swingStart, testEnd))
+		{
+			// Play swing sound only if nothing impacted.
+			WeaponSound(SINGLE);
+		}
 	}
 	else
 	{
@@ -378,9 +382,6 @@ void CBaseHLBludgeonWeapon::Swing( int bIsSecondary )
 	//Setup our next attack times
 	m_flNextPrimaryAttack = gpGlobals->curtime + GetFireRate();
 	m_flNextSecondaryAttack = gpGlobals->curtime + SequenceDuration();
-
-	//Play swing sound
-	WeaponSound( SINGLE );
 
 	// Send the player 'attack' animation.
 	pOwner->SetAnimation(PLAYER_ATTACK1);
