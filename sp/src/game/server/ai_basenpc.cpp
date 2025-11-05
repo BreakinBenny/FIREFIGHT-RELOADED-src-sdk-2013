@@ -6666,6 +6666,9 @@ void CAI_BaseNPC::SetIdealActivity( Activity NewActivity )
 
 void CAI_BaseNPC::SetModel(const char* szModelName)
 {
+	//since we can, register our model as a dynamic model 
+	modelinfo->RegisterDynamicModel(STRING(GetModelName()), IsClient());
+
 	BaseClass::SetModel(szModelName);
 
 	//Msg("Anim currently %s\n", GetSequenceName(GetSequence()));
