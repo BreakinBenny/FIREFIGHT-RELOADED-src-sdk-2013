@@ -90,7 +90,10 @@ void CHudBossHealthMeter::Update( void )
 
 			if (g_pMonsterResource->GetBossHealthPercentage() <= 0.25f)
 			{
-				barColor = m_dangerColor;
+				if (iState != FR_BOSS_SHIELDED)
+				{
+					barColor = m_dangerColor;
+				}
 			}
 
 			m_pBarImagePanel->SetDrawColor( barColor );
