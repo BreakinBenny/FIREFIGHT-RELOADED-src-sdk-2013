@@ -1431,6 +1431,10 @@ public:
 	// a render handle, and is put into the spatial partition.
 	bool InitializeAsClientEntityByIndex( int iIndex, RenderGroup_t renderGroup );
 
+#ifdef GLOWS_ENABLE
+	virtual bool CanGlow() const { return true; }
+#endif // GLOWS_ENABLE
+
 private:
 	friend void OnRenderStart();
 
