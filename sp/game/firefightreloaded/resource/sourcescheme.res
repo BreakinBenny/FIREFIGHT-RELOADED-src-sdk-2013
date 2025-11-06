@@ -41,6 +41,10 @@ Scheme
 		"SMODGrayTrans"			"82 82 82 128"
 		"SMODGrayDark"			"62 62 62 255"
 		"SMODGrayDarkTrans"			"62 62 62 128"
+		
+		"FRLoading"		"20 20 20 128"
+		"FRLoadingDark"	"15 15 15 64"
+		"FRLoadingWhite" "227 224 224 255"
 	}
 
 	///////////////////// BASE SETTINGS ////////////////////////
@@ -360,6 +364,18 @@ Scheme
 				"weight"	"0"
 			}
 		}
+		
+		"LoadingPanel"
+		{
+			"1"
+			{
+				"name"		"Alte DIN 1451 Mittelschrift"
+				"tall"		"20"
+				"weight"	"600"
+				"antialias"		"1"
+			}
+		}
+		
 		"UiBold"
 		{
 			"1"	[$WIN32]
@@ -1279,6 +1295,7 @@ Scheme
 		"2"		"resource/HL2EP2.ttf"	
 		"3"		"resource/marlett.ttf"
 		"4"		"resource/smodgui.ttf"
+		"5"		"gamepadui/fonts/din1451alt.ttf"
 	}
 }
 
