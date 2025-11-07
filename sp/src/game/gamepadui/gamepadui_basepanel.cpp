@@ -58,7 +58,7 @@ void GamepadUIBasePanel::OnMenuStateChanged()
 {
     if (GamepadUI::GetInstance().IsGamepadUIVisible())
     {
-        if (m_bBackgroundMusicEnabled)
+        if (m_bBackgroundMusicEnabled && m_pChannel == nullptr && m_pSound == nullptr)
         {
            StartBackgroundMusic(gamepadui_background_music_volume.GetFloat());
         }
