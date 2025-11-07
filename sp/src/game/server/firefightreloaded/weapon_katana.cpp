@@ -179,7 +179,6 @@ void CWeaponKatana::PrimaryAttack(void)
 
 	m_iPrimaryAttacks++;
 
-	WeaponSound(SINGLE);
 	SendWeaponAnim(ACT_VM_HITCENTER);
 
 	pPlayer->SetAnimation(PLAYER_ATTACK1);
@@ -195,122 +194,117 @@ void CWeaponKatana::PrimaryAttack(void)
 		Vector testEnd = swingStart + forward * GetRange();
 
 		// See if we happened to hit water
-		ImpactWater(swingStart, testEnd);
+		if (!ImpactWater(swingStart, testEnd))
+		{
+			// Play swing sound only if nothing impacted.
+			WeaponSound(SINGLE);
+		}
 	}
 	else
 	{
-		if (traceHit.DidHitWorld())
+		if (traceHit.m_pEnt && (traceHit.m_pEnt->IsNPC() || traceHit.m_pEnt->IsPlayer() || traceHit.m_pEnt->IsBaseCombatWeapon()))
 		{
-			Hit(traceHit, GetActivity(), false);
-			WeaponSound(MELEE_HIT_WORLD);
-		}
-		else
-		{
-			if (traceHit.m_pEnt)
+			CBaseEntity* ent = (traceHit.m_pEnt->IsBaseCombatWeapon() &&
+				traceHit.m_pEnt->GetOwnerEntity() &&
+				(traceHit.m_pEnt->GetOwnerEntity()->IsNPC() || traceHit.m_pEnt->GetOwnerEntity()->IsPlayer()))
+				? traceHit.m_pEnt->GetOwnerEntity()
+				: traceHit.m_pEnt;
+			Vector vecSrc = pPlayer->Weapon_ShootPosition();
+			Vector vecAiming = pPlayer->GetAutoaimVector(AUTOAIM_SCALE_DEFAULT);
+
+			CHL2_Player* pHL2Player = ToHL2Player(GetOwner());
+
+			//CAmmoDef* def = GetAmmoDef();
+
+			FireBulletsInfo_t info;
+			info.m_iShots = 3;
+			info.m_vecSrc = vecSrc;
+			info.m_vecDirShooting = vecAiming;
+			info.m_vecSpread = VECTOR_CONE_4DEGREES;
+			info.m_flDistance = GetRange();
+			info.m_iAmmoType = m_iPrimaryAmmoType;
+			info.m_iTracerFreq = 0;
+			info.m_flDamage = info.m_iPlayerDamage = CalculateDamage(ent, pHL2Player);
+
+			//int dmgType = def->DamageType(info.m_iAmmoType);
+			//info.m_nDamageFlags = g_pGameRules->isInBullettime ? (dmgType &= ~DMG_NEVERGIB) : dmgType;
+
+			info.m_pAttacker = pPlayer;
+			info.m_nFlags = FIRE_BULLETS_FIRST_SHOT_ACCURATE;
+			info.m_bPrimaryAttack = true;
+			info.m_bAffectedByBullettime = false;
+
+			pPlayer->FireBullets(info);
+
+			if (ent)
 			{
-				if (traceHit.m_pEnt->IsNPC() || traceHit.m_pEnt->IsPlayer() || traceHit.m_pEnt->IsBaseCombatWeapon())
+				bool usesShield = false;
+
+				CNPC_CombineAce* pAce = dynamic_cast<CNPC_CombineAce*>(ent);
+				if (pAce)
 				{
-					CBaseEntity* ent = (traceHit.m_pEnt->IsBaseCombatWeapon() && 
-						traceHit.m_pEnt->GetOwnerEntity() && 
-						(traceHit.m_pEnt->GetOwnerEntity()->IsNPC() || traceHit.m_pEnt->GetOwnerEntity()->IsPlayer()))
-						? traceHit.m_pEnt->GetOwnerEntity() 
-						: traceHit.m_pEnt;
-					Vector vecSrc = pPlayer->Weapon_ShootPosition();
-					Vector vecAiming = pPlayer->GetAutoaimVector(AUTOAIM_SCALE_DEFAULT);
-
-					CHL2_Player* pHL2Player = ToHL2Player(GetOwner());
-
-					//CAmmoDef* def = GetAmmoDef();
-
-					FireBulletsInfo_t info;
-					info.m_iShots = 3;
-					info.m_vecSrc = vecSrc;
-					info.m_vecDirShooting = vecAiming;
-					info.m_vecSpread = VECTOR_CONE_4DEGREES;
-					info.m_flDistance = GetRange();
-					info.m_iAmmoType = m_iPrimaryAmmoType;
-					info.m_iTracerFreq = 0;
-					info.m_flDamage = info.m_iPlayerDamage = CalculateDamage(ent, pHL2Player);
-
-					//int dmgType = def->DamageType(info.m_iAmmoType);
-					//info.m_nDamageFlags = g_pGameRules->isInBullettime ? (dmgType &= ~DMG_NEVERGIB) : dmgType;
-
-					info.m_pAttacker = pPlayer;
-					info.m_nFlags = FIRE_BULLETS_FIRST_SHOT_ACCURATE;
-					info.m_bPrimaryAttack = true;
-					info.m_bAffectedByBullettime = false;
-
-					pPlayer->FireBullets(info);
-
-					if (ent)
+					if (!pAce->m_bBulletResistanceBroken)
 					{
-						bool usesShield = false;
-
-						CNPC_CombineAce* pAce = dynamic_cast<CNPC_CombineAce*>(ent);
-						if (pAce)
-						{
-							if (!pAce->m_bBulletResistanceBroken)
-							{
-								usesShield = true;
-							}
-						}
-						else
-						{
-							CNPC_Advisor* pAdvisor = dynamic_cast<CNPC_Advisor*>(ent);
-							if (pAdvisor)
-							{
-								if (!pAdvisor->m_bBulletResistanceBroken)
-								{
-									usesShield = true;
-								}
-							}
-						}
-
-						if (!usesShield && !UTIL_IsLowViolence())
-						{
-							if (ent->BloodColor() == BLOOD_COLOR_RED)
-							{
-								m_nSkin = 1;
-
-								CBaseViewModel* pVM = pPlayer->GetViewModel();
-
-								if (pVM)
-								{
-									pVM->m_nSkin = 1;
-								}
-							}
-							else if (ent->BloodColor() == BLOOD_COLOR_YELLOW ||
-								ent->BloodColor() == BLOOD_COLOR_ZOMBIE ||
-								ent->BloodColor() == BLOOD_COLOR_GREEN ||
-								ent->BloodColor() == BLOOD_COLOR_ANTLION_WORKER ||
-								ent->BloodColor() == BLOOD_COLOR_ANTLION)
-							{
-								m_nSkin = 2;
-
-								CBaseViewModel* pVM = pPlayer->GetViewModel();
-
-								if (pVM)
-								{
-									pVM->m_nSkin = 2;
-								}
-							}
-						}
+						usesShield = true;
 					}
-
-					ActivateKillMultiplier(ent, pHL2Player);
-
-					WeaponSound(MELEE_HIT);
 				}
 				else
 				{
-					Hit(traceHit, GetActivity(), false);
-					WeaponSound(MELEE_HIT_WORLD);
+					CNPC_Advisor* pAdvisor = dynamic_cast<CNPC_Advisor*>(ent);
+					if (pAdvisor)
+					{
+						if (!pAdvisor->m_bBulletResistanceBroken)
+						{
+							usesShield = true;
+						}
+					}
 				}
+
+				if (!usesShield && !UTIL_IsLowViolence())
+				{
+					if (ent->BloodColor() == BLOOD_COLOR_RED)
+					{
+						m_nSkin = 1;
+
+						CBaseViewModel* pVM = pPlayer->GetViewModel();
+
+						if (pVM)
+						{
+							pVM->m_nSkin = 1;
+						}
+					}
+					else if (ent->BloodColor() == BLOOD_COLOR_YELLOW ||
+						ent->BloodColor() == BLOOD_COLOR_ZOMBIE ||
+						ent->BloodColor() == BLOOD_COLOR_GREEN ||
+						ent->BloodColor() == BLOOD_COLOR_ANTLION_WORKER ||
+						ent->BloodColor() == BLOOD_COLOR_ANTLION)
+					{
+						m_nSkin = 2;
+
+						CBaseViewModel* pVM = pPlayer->GetViewModel();
+
+						if (pVM)
+						{
+							pVM->m_nSkin = 2;
+						}
+					}
+				}
+			}
+
+			ActivateKillMultiplier(ent, pHL2Player);
+
+			if (traceHit.DidHitWorld())
+			{
+				WeaponSound(MELEE_HIT_WORLD);
 			}
 			else
 			{
-				WeaponSound(SINGLE);
+				WeaponSound(MELEE_HIT);
 			}
+		}
+		else
+		{
+			Hit(traceHit, GetActivity(), false);
 		}
 
 		AddViewKick();
