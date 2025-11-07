@@ -174,6 +174,9 @@ void CBaseHLBludgeonWeapon::Hit( trace_t &traceHit, Activity nHitActivity, bool 
 		{
 			gamestats->Event_WeaponHit( pPlayer, !bIsSecondary, GetClassname(), info );
 		}
+
+		// Play hit sound
+		WeaponSound(MELEE_HIT);
 	}
 
 	// Apply an impact effect
@@ -265,7 +268,10 @@ bool CBaseHLBludgeonWeapon::ImpactWater( const Vector &start, const Vector &end 
 			data.m_fFlags |= FX_WATER_IN_SLIME;
 		}
 
-		DispatchEffect( "watersplash", data );			
+		DispatchEffect( "watersplash", data );	
+
+		// Play hit sound
+		WeaponSound(MELEE_HIT);
 	}
 
 	return true;
