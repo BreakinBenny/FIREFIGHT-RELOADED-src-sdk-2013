@@ -2384,14 +2384,14 @@ void CMapFile::MergeEntities( entity_t *pInstanceEntity, CMapFile *Instance, Vec
 					if ( GD.RemapKeyValue( EntVar->GetName(), pValue, temp, FixupStyle ) )
 					{
 #ifdef MERGE_INSTANCE_DEBUG_INFO
-						Msg( "   %d. Remapped %s: from %s to %s\n", i, EntVar->GetName(), pValue, temp );
+						Msg( "   %d. Remapped %s: from %s to %s\n", j, EntVar->GetName(), pValue, temp );
 #endif // #ifdef MERGE_INSTANCE_DEBUG_INFO
 						SetKeyValue( entity, EntVar->GetName(), temp );
 					}
 					else
 					{
 #ifdef MERGE_INSTANCE_DEBUG_INFO
-						Msg( "   %d. Ignored %s: %s\n", i, EntVar->GetName(), pValue );
+						Msg( "   %d. Ignored %s: %s\n", j, EntVar->GetName(), pValue );
 #endif // #ifdef MERGE_INSTANCE_DEBUG_INFO
 					}
 				}

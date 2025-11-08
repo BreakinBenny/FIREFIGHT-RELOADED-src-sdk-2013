@@ -392,7 +392,8 @@ void ProcessSubModel( )
 
 	mins[0] = mins[1] = mins[2] = MIN_COORD_INTEGER;
 	maxs[0] = maxs[1] = maxs[2] = MAX_COORD_INTEGER;
-	list = MakeBspBrushList (start, end, mins, maxs, FULL_DETAIL);
+	int nDetailScreen = FULL_DETAIL;
+	list = MakeBspBrushList (start, end, mins, maxs, nDetailScreen);
 
 	if (!nocsg)
 		list = ChopBrushes (list);
@@ -413,11 +414,24 @@ void ProcessSubModel( )
 		WriteGLView( tree, "tree_all" );
 #endif
 
-	MarkVisibleSides (tree, start, end, FULL_DETAIL);
+	MarkVisibleSides (tree, start, end, nDetailScreen);
 	MakeFaces (tree->headnode);
 
-	FixTjuncs( tree->headnode, NULL );
-	WriteBSP( tree->headnode, NULL );
+	if (nDetailScreen == NO_DETAIL)
+	{
+		face_t* pLeafFaceList = NULL;
+		if (!nodetail)
+		{
+			pLeafFaceList = MergeDetailTree(tree, start, end);
+		}
+		pLeafFaceList = FixTjuncs(tree->headnode, pLeafFaceList);
+		WriteBSP(tree->headnode, pLeafFaceList);
+	}
+	else
+	{
+		FixTjuncs(tree->headnode, NULL);
+		WriteBSP(tree->headnode, NULL);
+	}
 	
 #if DEBUG_BRUSHMODEL
 	if ( entity_num == DEBUG_BRUSHMODEL )
