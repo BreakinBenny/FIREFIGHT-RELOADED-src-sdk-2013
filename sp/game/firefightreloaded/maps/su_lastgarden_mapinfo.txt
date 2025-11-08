@@ -1,0 +1,4 @@
+"su_lastgarden"
+{
+	"HideFromPlayerOverride"	"0"
+}

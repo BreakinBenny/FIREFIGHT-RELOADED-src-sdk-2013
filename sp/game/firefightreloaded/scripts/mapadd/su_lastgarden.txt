@@ -1,0 +1,153 @@
+//#MapAdd
+//WARNING: DO NOT REMOVE THESE TOP COMMENTS.
+//FABRICATOR REQUIRES THE FIRST COMMENT TO LOAD THIS FILE.
+
+"MapAdd"
+{
+	"1"
+	{
+		"entity"	"npc_maker_firefight"
+		"x"	"-5.727256"
+		"y"	"6910.774"
+		"z"	"138.03125"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"StartDisabled"	"0"
+			"targetname"	"Spawner"
+			"NPCSquadName"	"Squad"
+			"RareNPCRarity"	"5"
+			"SpawnFrequency"	"5"
+			"MaxLiveChildren"	"7"
+			"MaxLiveRareNPCs"	"3"
+		}
+	}
+	"2"
+	{
+		"entity"	"npc_maker_firefight"
+		"x"	"-2104.229"
+		"y"	"4492.1934"
+		"z"	"134.03125"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"StartDisabled"	"0"
+			"targetname"	"Spawner"
+			"NPCSquadName"	"Squad"
+			"RareNPCRarity"	"5"
+			"SpawnFrequency"	"5"
+			"MaxLiveChildren"	"7"
+			"MaxLiveRareNPCs"	"3"
+		}
+	}
+	"3"
+	{
+		"entity"	"npc_maker_firefight"
+		"x"	"42.304504"
+		"y"	"5481.47"
+		"z"	"138.03125"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"StartDisabled"	"0"
+			"targetname"	"Spawner"
+			"NPCSquadName"	"Squad"
+			"RareNPCRarity"	"5"
+			"SpawnFrequency"	"5"
+			"MaxLiveChildren"	"7"
+			"MaxLiveRareNPCs"	"3"
+		}
+	}
+	"4"
+	{
+		"entity"	"item_lightarmor"
+		"x"	"-1471.9688"
+		"y"	"6276.9097"
+		"z"	"75.40973"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+		}
+	}
+	"5"
+	{
+		"entity"	"item_heavyarmor"
+		"x"	"-1823.8909"
+		"y"	"4698.148"
+		"z"	"138.03125"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+		}
+	}
+	"6"
+	{
+		"entity"	"npc_maker_firefight"
+		"x"	"-1261.7335"
+		"y"	"7797.005"
+		"z"	"138.03125"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"StartDisabled"	"0"
+			"targetname"	"Spawner"
+			"NPCSquadName"	"Squad"
+			"RareNPCRarity"	"5"
+			"SpawnFrequency"	"5"
+			"MaxLiveChildren"	"7"
+			"MaxLiveRareNPCs"	"3"
+		}
+	}
+	"7"
+	{
+		"entity"	"npc_maker_firefight"
+		"x"	"-547.88635"
+		"y"	"7761.6255"
+		"z"	"43.38904"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"StartDisabled"	"0"
+			"targetname"	"Spawner"
+			"NPCSquadName"	"Squad"
+			"RareNPCRarity"	"5"
+			"SpawnFrequency"	"5"
+			"MaxLiveChildren"	"7"
+			"MaxLiveRareNPCs"	"3"
+		}
+	}
+	"8"
+	{
+		"entity"	"npc_maker_firefight"
+		"x"	"-1203.1566"
+		"y"	"5243.6245"
+		"z"	"138.03125"
+		"roll"	"0"
+		"yaw"	"0"
+		"pitch"	"0"
+		"KeyValues"
+		{
+			"StartDisabled"	"0"
+			"targetname"	"Spawner"
+			"NPCSquadName"	"Squad"
+			"RareNPCRarity"	"5"
+			"SpawnFrequency"	"5"
+			"MaxLiveChildren"	"7"
+			"MaxLiveRareNPCs"	"3"
+		}
+	}
+}
