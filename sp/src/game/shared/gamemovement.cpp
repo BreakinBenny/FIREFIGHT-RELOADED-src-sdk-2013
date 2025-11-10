@@ -2420,7 +2420,7 @@ void CGameMovement::FullNoClipMove( float factor, float maxacceleration )
 		basespeed = maxspeed;
 	}
 
-	// then clamp the wishspeed to the base speed
+	// clamp the wishspeed to the base speed
 	if (wishspeed > basespeed)
 	{
 		VectorScale(wishvel, basespeed / wishspeed, wishvel);
@@ -2441,7 +2441,7 @@ void CGameMovement::FullNoClipMove( float factor, float maxacceleration )
 		
 		// Bleed off some speed, but if we have less than the bleed
 		//  threshhold, bleed the theshold amount.
-		float control = (spd < maxspeed/4.0) ? maxspeed/4.0 : spd;
+		float control = (spd < basespeed / 4.0) ? basespeed / 4.0 : spd;
 		
 		float friction = sv_friction.GetFloat() * player->m_surfaceFriction;
 				
