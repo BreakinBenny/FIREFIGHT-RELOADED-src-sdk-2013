@@ -253,7 +253,7 @@ ConVar	sv_specspeed	( "sv_specspeed", "3", FCVAR_ARCHIVE | FCVAR_NOTIFY | FCVAR_
 ConVar	sv_specnoclip	( "sv_specnoclip", "1", FCVAR_ARCHIVE | FCVAR_NOTIFY | FCVAR_REPLICATED);
 
 ConVar	sv_maxspeed		( "sv_maxspeed", "999999", FCVAR_NOTIFY | FCVAR_REPLICATED);
-ConVar	sv_basenoclipspeed ("sv_basenoclipspeed", "100", FCVAR_NOTIFY | FCVAR_REPLICATED);
+ConVar	sv_basenoclipspeed ("sv_basenoclipspeed", "190", FCVAR_NOTIFY | FCVAR_REPLICATED);
 ConVar	sv_accelerate	( "sv_accelerate", "30", FCVAR_NOTIFY | FCVAR_REPLICATED);
 
 ConVar	sv_airaccelerate("sv_airaccelerate", "10", FCVAR_NOTIFY | FCVAR_REPLICATED);
