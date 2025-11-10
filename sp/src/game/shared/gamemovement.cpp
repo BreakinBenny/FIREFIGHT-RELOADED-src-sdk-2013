@@ -2385,18 +2385,19 @@ void CGameMovement::FullObserverMove( void )
 //-----------------------------------------------------------------------------
 void CGameMovement::FullNoClipMove( float factor, float maxacceleration )
 {
+	if (mv->m_nButtons & IN_SPEED)
+	{
+		factor /= 2.0f;
+	}
+
 	Vector wishvel;
 	Vector forward, right, up;
 	Vector wishdir;
 	float wishspeed;
-	float maxspeed = sv_maxspeed.GetFloat() * factor;
+	float basespeed = sv_basenoclipspeed.GetFloat() * factor;
+	float maxspeed = sv_maxspeed.GetFloat();
 
 	AngleVectors (mv->m_vecViewAngles, &forward, &right, &up);  // Determine movement angles
-
-	if ( mv->m_nButtons & IN_SPEED )
-	{
-		factor /= 2.0f;
-	}
 	
 	// Copy movement amounts
 	float fmove = mv->m_flForwardMove * factor;
@@ -2412,13 +2413,18 @@ void CGameMovement::FullNoClipMove( float factor, float maxacceleration )
 	VectorCopy (wishvel, wishdir);   // Determine maginitude of speed of move
 	wishspeed = VectorNormalize(wishdir);
 
-	//
-	// Clamp to server defined max speed
-	//
-	if (wishspeed > maxspeed)
+	// Clamp basespeed to server defined max speed
+	if (basespeed > maxspeed)
 	{
-		VectorScale(wishvel, maxspeed / wishspeed, wishvel);
-		wishspeed = maxspeed;
+		VectorScale(wishvel, maxspeed / basespeed, wishvel);
+		basespeed = maxspeed;
+	}
+
+	// then clamp the wishspeed to the base speed
+	if (wishspeed > basespeed)
+	{
+		VectorScale(wishvel, basespeed / wishspeed, wishvel);
+		wishspeed = basespeed;
 	}
 
 	if ( maxacceleration > 0.0 )
