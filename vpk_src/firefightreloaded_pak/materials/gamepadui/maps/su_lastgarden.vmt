@@ -1,0 +1,6 @@
+//"LightmappedGeneric"
+"UnlitGeneric"
+{
+	"$baseTexture" "gamepadui\maps\su_lastgarden"
+	"$vertexalpha" 1
+}

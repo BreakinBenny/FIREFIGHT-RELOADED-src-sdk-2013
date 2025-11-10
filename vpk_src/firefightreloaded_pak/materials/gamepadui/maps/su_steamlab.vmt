@@ -1,0 +1,6 @@
+//"LightmappedGeneric"
+"UnlitGeneric"
+{
+	"$baseTexture" "gamepadui\maps\su_steamlab"
+	"$vertexalpha" 1
+}
