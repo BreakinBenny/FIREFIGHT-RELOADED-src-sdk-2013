@@ -110,6 +110,16 @@ Please contact me or post in the Steam Community if you did any of these:
  - (N/A) - Simplified Chinese
  - (N/A) - Traditional Chinese
 
+Thank you to the following people who have playtested the mod to make sure it works properly:
+ - Tyler (friend from high school)
+ - Pierce (friend from high school)
+ - Greenie
+ - Kasey
+ - DeviantXS
+ - PepperAlien
+ - Aaron Dee
+ - speedydavedxm
+
 Special thanks to:
  - The SMOD Author for making SMOD
  - Valve Developer Wiki for its knowledge and info used in the creation of this mod.
