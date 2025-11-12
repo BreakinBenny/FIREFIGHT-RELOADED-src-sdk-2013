@@ -78,8 +78,6 @@ void CTaskManager::SendTaskData(int index, int urgency, int count, const char* t
         WRITE_STRING(message);
         MessageEnd();
 
-        DevMsg("Sent msg index: %d, urgency: %d, count: %d, message: %s\n", index, iUrgency, count, message);
-
         bool updatePriority = false;
 
         if (iUrgency > TASK_COMPLETE)
