@@ -73,13 +73,13 @@
  	wchar_t unicode[256]; // scratch space for text to print
  
  	// --- Set up default font and get character height for line spacing
- 	vgui::surface()->DrawSetTextFont(m_hTaskFont);
- 	int fontTall = vgui::surface()->GetFontTall(m_hTaskFont);
+ 	vgui::surface()->DrawSetTextFont(m_hLargeFont);
+ 	int fontTall = vgui::surface()->GetFontTall(m_hLargeFont);
  
  	// --- Don't actually draw the task list at first, but instead 
  	// --- calculate the total width & height of the text.
  	swprintf(unicode, L"OBJECTIVES");
- 	vgui::surface()->GetTextSize (m_hTaskFont, unicode, textSizeWide, textSizeTall);
+ 	vgui::surface()->GetTextSize (m_hLargeFont, unicode, textSizeWide, textSizeTall);
  	iShown++;
  
  	int border = text_xpos * 2;
@@ -91,7 +91,7 @@
  		{
  			// --- Calculate coordinates of text (right justify)
  			swprintf(unicode, L"%s", m_pText[i]);
- 			vgui::surface()->GetTextSize (m_hTaskFont, unicode, textSizeWide, textSizeTall);
+ 			vgui::surface()->GetTextSize (m_hSmallFont, unicode, textSizeWide, textSizeTall);
  			maxWidth = (textSizeWide > maxWidth) ? textSizeWide : maxWidth;
  			iShown++;
  		}
@@ -125,7 +125,7 @@
  	// ----------------------------------------------------------
  	// --- Get text width and right justify
  	// ----------------------------------------------------------
- 	vgui::surface()->GetTextSize(m_hTaskFont, unicode, textSizeWide, textSizeTall);
+ 	vgui::surface()->GetTextSize(m_hLargeFont, unicode, textSizeWide, textSizeTall);
  	
  	// ----------------------------------------------------------
  	// --- Calculate coordinates of title text
@@ -150,13 +150,13 @@
  				vgui::surface()->DrawPrintText( unicode, wcslen(unicode) );
  			}
 
-            vgui::surface()->DrawSetTextFont(m_hTaskFont);
+            vgui::surface()->DrawSetTextFont(m_hSmallFont);
  
  			// ----------------------------------------------------------
  			// --- Calculate coordinates of text (right justify)
  			// ----------------------------------------------------------
  			swprintf(unicode, L"%s", m_pText[i]);
- 			vgui::surface()->GetTextSize(m_hTaskFont, unicode, textSizeWide, textSizeTall);
+ 			vgui::surface()->GetTextSize(m_hSmallFont, unicode, textSizeWide, textSizeTall);
  			x = border / 2; // ScreenWidth() - border - textSizeWide;
  			y = iShown * fontTall; // border + iShown * fontTall;
  

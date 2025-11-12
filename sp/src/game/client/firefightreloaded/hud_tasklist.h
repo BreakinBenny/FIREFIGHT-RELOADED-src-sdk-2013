@@ -50,7 +50,8 @@ protected:
 
 private:
 
-	CPanelAnimationVar(vgui::HFont, m_hTaskFont, "TaskFont", "Default");
+	CPanelAnimationVar(vgui::HFont, m_hSmallFont, "TaskFont", "Default");
+	CPanelAnimationVar(vgui::HFont, m_hLargeFont, "TitleFont", "Default");
 	CPanelAnimationVarAliasType(float, text_xpos, "text_xpos", "8", "proportional_float");
 };
 #endif
