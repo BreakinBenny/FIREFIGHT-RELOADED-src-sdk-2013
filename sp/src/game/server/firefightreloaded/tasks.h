@@ -34,6 +34,8 @@ public:
 
 	static void SendTaskData(int index, int urgency, int count, const char *target, const char* message, bool complete = false);
 
+    static bool DoesTaskExistAtIndex(int index);
+
 	static void Shutdown();
 
     CUtlVector<Task *> m_Tasks;

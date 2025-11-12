@@ -45,6 +45,19 @@ CTaskManager* CTaskManager::GetTaskManager()
     return pTaskManager;
 }
 
+bool CTaskManager::DoesTaskExistAtIndex(int index)
+{
+    FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
+    {
+        Task* t = GetTaskManager()->m_Tasks[i];
+
+        if (t && t->index == index)
+        {
+            return true;
+        }
+    }
+}
+
 void CTaskManager::SendTaskData(int index, int urgency, int count, const char* target, const char* message, bool complete)
 {
     // this hack is so stupid. i should never touch a keyboard again
@@ -82,15 +95,10 @@ void CTaskManager::SendTaskData(int index, int urgency, int count, const char* t
 
         if (iUrgency > TASK_COMPLETE)
         {
-            FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
+            if (DoesTaskExistAtIndex(index))
             {
-                Task* t = GetTaskManager()->m_Tasks[i];
-
-                if (t && t->index == index)
-                {
-                    //this task exists! don't do anything!
-                    updatePriority = true;
-                }
+                //this task exists! don't do anything!
+                updatePriority = true;
             }
         }
 

@@ -71,6 +71,8 @@
 #include "ai_speech.h"
 #include "viewport_panel_names.h"
 #include "GameEventListener.h"
+#include "tasks.h"
+#include "randnpcloader.h"
 
 #if defined USES_ECON_ITEMS
 #include "econ_wearable.h"
@@ -1245,6 +1247,41 @@ void CBasePlayer::LevelUp()
 			gameeventmanager->FireEvent(event);
 		}
 	}
+}
+
+int RandIndex()
+{
+	RandomSeed(gpGlobals->frametime);
+	return RandomInt(0, TASKLIST_MAX_TASKS - 1);
+}
+
+int CBasePlayer::AssignTaskIndex()
+{
+	int index = RandIndex();
+	bool exists = false;
+
+	if (CTaskManager::GetTaskManager()->DoesTaskExistAtIndex(index))
+	{
+		exists = true;
+		while (exists)
+		{
+			index = RandIndex();
+			if (!CTaskManager::GetTaskManager()->DoesTaskExistAtIndex(index))
+			{
+				exists = false;
+				break;
+			}
+		}
+	}
+
+	return index;
+}
+
+void CBasePlayer::AssignTask()
+{
+	int index = AssignTaskIndex();
+
+	//todo: how are we going to do criteria? do it through task manager or save it with a multi diamention array
 }
 
 void CBasePlayer::TaskCompleted()
