@@ -311,10 +311,19 @@
         wchar_t wzTaskCount[256];
         g_pVGuiLocalize->ConvertANSIToUnicode(szTaskCount, wzTaskCount, sizeof(wzTaskCount));
 
-        wchar_t wzTarget[256];
-        g_pVGuiLocalize->ConvertANSIToUnicode(szTarget, wzTarget, sizeof(wzTarget));
+        wchar_t* targetString = g_pVGuiLocalize->Find(szTarget);
 
-        g_pVGuiLocalize->ConstructString(m_pText[task_index], sizeof(m_pText[task_index]), taskString, 2, wzTaskCount, wzTarget);
+        if (targetString)
+        {
+            g_pVGuiLocalize->ConstructString(m_pText[task_index], sizeof(m_pText[task_index]), taskString, 2, wzTaskCount, targetString);
+        }
+        else
+        {
+            wchar_t wzTarget[256];
+            g_pVGuiLocalize->ConvertANSIToUnicode(szTarget, wzTarget, sizeof(wzTarget));
+
+            g_pVGuiLocalize->ConstructString(m_pText[task_index], sizeof(m_pText[task_index]), taskString, 2, wzTaskCount, wzTarget);
+        }
     }
     else
     {

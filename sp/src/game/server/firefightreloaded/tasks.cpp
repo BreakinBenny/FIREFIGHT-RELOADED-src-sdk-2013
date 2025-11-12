@@ -18,10 +18,11 @@ void CC_AddTask(const CCommand& args)
     int index = atoi(args[1]);
     int priority = atoi(args[2]);
     int count = atoi(args[3]);
+    const char *target = args[4];
 
     if (pPlayer)
     {
-        CTaskManager::GetTaskManager()->SendTaskData(index, priority, count, "Lamarr", "#Task_Test");
+        CTaskManager::GetTaskManager()->SendTaskData(index, priority, count, target, "#Task_Test");
     }
 }
 static ConCommand addtask("addtask", CC_AddTask, "Adds a test task\n", FCVAR_CHEAT);
