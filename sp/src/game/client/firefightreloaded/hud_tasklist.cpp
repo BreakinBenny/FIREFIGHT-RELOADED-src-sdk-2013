@@ -285,6 +285,7 @@
  void CHudTaskList::MsgFunc_TaskList( bf_read &msg )
  {
  	char szString[256];
+    char szTarget[256];
  	int task_index;
  	int task_priority;
     int task_count;
@@ -292,6 +293,7 @@
  	task_index = msg.ReadByte();
  	task_priority = msg.ReadByte();
     task_count = msg.ReadByte();
+    msg.ReadString(szTarget, sizeof(szTarget) );
  	msg.ReadString( szString, sizeof(szString) );
  
  	DevMsg (2, "CHudTaskList::MsgFunc_TaskList - got message for task %d, priority %d, string %s\n", task_index, task_priority, szString );
@@ -303,7 +305,16 @@
 
     if (taskString)
     {
-        g_pVGuiLocalize->ConstructString(m_pText[task_index], sizeof(m_pText[task_index]), taskString, 1, task_count);
+        char szTaskCount[256];
+        Q_snprintf(szTaskCount, sizeof(szTaskCount), "%d", task_count);
+
+        wchar_t wzTaskCount[256];
+        g_pVGuiLocalize->ConvertANSIToUnicode(szTaskCount, wzTaskCount, sizeof(wzTaskCount));
+
+        wchar_t wzTarget[256];
+        g_pVGuiLocalize->ConvertANSIToUnicode(szTarget, wzTarget, sizeof(wzTarget));
+
+        g_pVGuiLocalize->ConstructString(m_pText[task_index], sizeof(m_pText[task_index]), taskString, 2, wzTaskCount, wzTarget);
     }
     else
     {
