@@ -92,7 +92,7 @@
 #include "SMMOD/mapadd.h"
 #include "firefightreloaded/randnpcloader.h"
 #include "firefightreloaded/cleanup_manager.h"
-
+#include "firefightreloaded/tasks.h"
 
 #ifdef TF_DLL
 #include "gc_clientsystem.h"
@@ -1400,6 +1400,7 @@ void CServerGameDLL::LevelShutdown( void )
 	}
 
 	CCleanupManager::Shutdown();
+	CTaskManager::Shutdown();
 
 	InvalidateQueryCache();
 

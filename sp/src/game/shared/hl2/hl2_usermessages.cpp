@@ -47,6 +47,7 @@ void RegisterUserMessages( void )
 	usermessages->Register( "UpdateJalopyRadar", -1 );
 	usermessages->Register( "LevelHintText", -1 );
 	usermessages->Register( "PerkHintText", -1 );
+	usermessages->Register( "TaskList", -1 );
 
 #ifndef _X360
 	// NVNT register haptic user messages

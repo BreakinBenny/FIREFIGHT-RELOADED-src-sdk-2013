@@ -16,20 +16,18 @@ class CCleanupManager : public CBaseEntity
 	DECLARE_CLASS(CCleanupManager, CBaseEntity)
 	DECLARE_DATADESC()
 
-
-	typedef CUtlVector<EHANDLE> Handles;
-	Handles m_CombineMines;
-	Handles m_Gibs;
-	Handles m_Ragdolls;
-	Handles m_ThrownKnives;
-	Handles m_Weapons;
+	CUtlVector<EHANDLE> m_CombineMines;
+	CUtlVector<EHANDLE> m_Gibs;
+	CUtlVector<EHANDLE> m_Ragdolls;
+	CUtlVector<EHANDLE> m_ThrownKnives;
+	CUtlVector<EHANDLE> m_Weapons;
 
 	static CCleanupManager* pManager;
 	static CCleanupManager* GetManager();
 
 	typedef void cleanupFunc( EHANDLE );
-	static void Add( Handles& handles, EHANDLE handle, const ConVar& var, cleanupFunc& func );
-	static bool Remove( Handles& handles, EHANDLE handle );
+	static void Add(CUtlVector<EHANDLE>& handles, EHANDLE handle, const ConVar& var, cleanupFunc& func );
+	static bool Remove(CUtlVector<EHANDLE>& handles, EHANDLE handle );
 
 public:
 	static void AddCombineMine( EHANDLE mine );

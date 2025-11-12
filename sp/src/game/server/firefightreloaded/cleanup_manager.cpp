@@ -51,7 +51,7 @@ CCleanupManager* CCleanupManager::GetManager()
 	return pManager;
 }
 
-void CCleanupManager::Add( Handles& handles, EHANDLE handle, const ConVar& var, cleanupFunc& func )
+void CCleanupManager::Add( CUtlVector<EHANDLE>& handles, EHANDLE handle, const ConVar& var, cleanupFunc& func )
 {
 	if ( var.GetInt() < 0 || handle == NULL )
 		return;
@@ -68,7 +68,7 @@ void CCleanupManager::Add( Handles& handles, EHANDLE handle, const ConVar& var, 
 	}
 }
 
-bool CCleanupManager::Remove( Handles& handles, EHANDLE handle )
+bool CCleanupManager::Remove( CUtlVector<EHANDLE>& handles, EHANDLE handle )
 {
 	return handles.FindAndRemove( handle );
 }
