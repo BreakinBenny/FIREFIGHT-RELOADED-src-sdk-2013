@@ -32,7 +32,7 @@ public:
 	static CTaskManager* pTaskManager;
 	static CTaskManager* GetTaskManager();
 
-	static void SendTaskData(int index, int urgency, const char *message, bool dismiss = false);
+	static void SendTaskData(int index, int urgency, int count, const char *message, bool dismiss = false);
 
 	static void Shutdown();
 

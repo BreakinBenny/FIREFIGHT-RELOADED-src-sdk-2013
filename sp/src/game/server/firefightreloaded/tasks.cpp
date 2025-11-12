@@ -17,10 +17,11 @@ void CC_AddTask(const CCommand& args)
 
     int index = atoi(args[1]);
     int priority = atoi(args[2]);
+    int count = atoi(args[3]);
 
     if (pPlayer)
     {
-        CTaskManager::GetTaskManager()->SendTaskData(index, priority, "TEST. Hello World. 123456789. MISSINGNO.");
+        CTaskManager::GetTaskManager()->SendTaskData(index, priority, count, "#Valve_Hud_MONEY");
     }
 }
 static ConCommand addtask("addtask", CC_AddTask, "Adds a test task\n", FCVAR_CHEAT);
@@ -43,7 +44,7 @@ CTaskManager* CTaskManager::GetTaskManager()
     return pTaskManager;
 }
 
-void CTaskManager::SendTaskData(int index, int urgency, const char* message, bool dismiss)
+void CTaskManager::SendTaskData(int index, int urgency, int count, const char* message, bool dismiss)
 {
     // this hack is so stupid. i should never touch a keyboard again
     int iUrgency = urgency;
@@ -71,6 +72,7 @@ void CTaskManager::SendTaskData(int index, int urgency, const char* message, boo
         UserMessageBegin(user, "TaskList");
         WRITE_BYTE(index);
         WRITE_BYTE(iUrgency);
+        WRITE_BYTE(count);
         WRITE_STRING(message);
         MessageEnd();
 
@@ -178,7 +180,7 @@ void CEnvHudTasklist::Precache( void )
 //-----------------------------------------------------------------------------
 void CEnvHudTasklist::SendTaskData(int index, bool dismiss)
 {
-    CTaskManager::GetTaskManager()->SendTaskData(index, m_iUrgency[index], STRING(m_iszTaskmsg[index]), dismiss);
+    CTaskManager::GetTaskManager()->SendTaskData(index, m_iUrgency[index], 0, STRING(m_iszTaskmsg[index]), dismiss);
 }
 
 void CEnvHudTasklist::TaskMessage(int index, const char* message)

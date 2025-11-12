@@ -75,10 +75,17 @@
  	// --- Set up default font and get character height for line spacing
  	vgui::surface()->DrawSetTextFont(m_hLargeFont);
  	int fontTall = vgui::surface()->GetFontTall(m_hLargeFont);
+
+    wchar_t* titleString = g_pVGuiLocalize->Find("#Valve_Hud_TASK");
+
+    if (!titleString)
+    {
+        titleString = L"OBJECTIVES";
+    }
  
  	// --- Don't actually draw the task list at first, but instead 
  	// --- calculate the total width & height of the text.
- 	swprintf(unicode, L"OBJECTIVES");
+ 	swprintf(unicode, titleString);
  	vgui::surface()->GetTextSize (m_hLargeFont, unicode, textSizeWide, textSizeTall);
  	iShown++;
  
@@ -120,7 +127,7 @@
     Color clr = gHUD.m_clrNormal;
     clr[3] = 255;
    	vgui::surface()->DrawSetTextColor(clr);
- 	swprintf(unicode, L"OBJECTIVES");
+ 	swprintf(unicode, titleString);
  
  	// ----------------------------------------------------------
  	// --- Get text width and right justify
@@ -280,9 +287,11 @@
  	char szString[256];
  	int task_index;
  	int task_priority;
+    int task_count;
  
  	task_index = msg.ReadByte();
  	task_priority = msg.ReadByte();
+    task_count = msg.ReadByte();
  	msg.ReadString( szString, sizeof(szString) );
  
  	DevMsg (2, "CHudTaskList::MsgFunc_TaskList - got message for task %d, priority %d, string %s\n", task_index, task_priority, szString );
@@ -290,7 +299,16 @@
  	// ----------------------------------------------------------
  	// --- Convert it to localize friendly unicode
  	// ----------------------------------------------------------
- 	g_pVGuiLocalize->ConvertANSIToUnicode( szString, m_pText[task_index], sizeof(m_pText[task_index]) );
+    wchar_t* taskString = g_pVGuiLocalize->Find(szString);
+
+    if (taskString)
+    {
+        g_pVGuiLocalize->ConstructString(m_pText[task_index], sizeof(m_pText[task_index]), taskString, 1, task_count);
+    }
+    else
+    {
+        g_pVGuiLocalize->ConvertANSIToUnicode(szString, m_pText[task_index], sizeof(m_pText[task_index]));
+    }
  
  	// ----------------------------------------------------------
  	// --- Setup a time tracker for tasks just added or updated
