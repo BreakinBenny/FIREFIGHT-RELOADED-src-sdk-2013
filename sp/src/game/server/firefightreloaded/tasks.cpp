@@ -45,17 +45,17 @@ CTaskManager* CTaskManager::GetTaskManager()
     return pTaskManager;
 }
 
-void CTaskManager::SendTaskData(int index, int urgency, int count, const char* target, const char* message, bool dismiss)
+void CTaskManager::SendTaskData(int index, int urgency, int count, const char* target, const char* message, bool complete)
 {
     // this hack is so stupid. i should never touch a keyboard again
     int iUrgency = urgency;
 
-    if (dismiss)
+    if (complete)
     {
         iUrgency = TASK_COMPLETE;
     }
 
-    CBaseEntity* pPlayer = NULL;
+    CBasePlayer* pPlayer = NULL;
 
     // this will be fucking stupid for MP players.
     pPlayer = UTIL_GetLocalPlayer();
@@ -67,7 +67,7 @@ void CTaskManager::SendTaskData(int index, int urgency, int count, const char* t
             return;
         }
 
-        CSingleUserRecipientFilter user((CBasePlayer*)pPlayer);
+        CSingleUserRecipientFilter user(pPlayer);
         user.MakeReliable();
 
         UserMessageBegin(user, "TaskList");
@@ -115,6 +115,12 @@ void CTaskManager::SendTaskData(int index, int urgency, int count, const char* t
                         GetTaskManager()->m_Tasks.FindAndRemove(t);
                         DevMsg("Removed task %d from manager.\n", index);
                     }
+                }
+
+                if (iUrgency == TASK_COMPLETE)
+                {
+                    // reward us for completing the task
+                    pPlayer->TaskCompleted();
                 }
             }
         }

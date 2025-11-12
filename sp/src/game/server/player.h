@@ -927,7 +927,6 @@ public:
 		m_iMoney = 0; 
 	}
 
-	void DetermineReward(void);
 	KeyValues *LoadItemData(KeyValues* pData, int count, int itemID = -1);
 	bool ProcessItemData(KeyValues* pData, int count, int itemID = -1);
 	bool GiveRewardItem(KeyValues *pData);
@@ -936,6 +935,8 @@ public:
 	void Reward_GiveItem();
 
 	void LevelUpClassic( void);
+
+	void TaskCompleted();
 
 private:
 	// How much of a movement time buffer can we process from this user?

@@ -1229,7 +1229,7 @@ void CBasePlayer::LevelUp()
 			AddMoney(GetLevel());
 		}
 
-		DetermineReward();
+		Reward_GiveItem();
 
 		if (sv_autosave_levelup.GetBool() && !m_bHardcore)
 		{
@@ -1247,7 +1247,7 @@ void CBasePlayer::LevelUp()
 	}
 }
 
-void CBasePlayer::DetermineReward(void)
+void CBasePlayer::TaskCompleted()
 {
 	Reward_GiveItem();
 }
