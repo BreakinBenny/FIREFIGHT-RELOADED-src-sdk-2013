@@ -22,7 +22,7 @@ void CC_AddTask(const CCommand& args)
 
     if (pPlayer)
     {
-        CTaskManager::GetTaskManager()->SendTaskData(index, priority, count, target, "#Task_Test");
+        CTaskManager::GetTaskManager()->SendTaskData(index, priority, count, target, "#Task_Test", false, true);
     }
 }
 static ConCommand addtask("addtask", CC_AddTask, "Adds a test task\n", FCVAR_CHEAT);
@@ -95,16 +95,18 @@ void CTaskManager::Wipe()
 {
     FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
     {
-        SendTaskData(i, TASK_INACTIVE, 0, "", "");
+        DevMsg("Requested to remove task %d from UI.\n", i);
+        SendTaskData(i, TASK_INACTIVE, 0, "", "", false, true);
     }
 
     if (GetTaskManager()->m_Tasks.Size() > 0)
     {
+        DevMsg("Purging tasks from manager.\n");
         GetTaskManager()->m_Tasks.PurgeAndDeleteElements();
     }
 }
 
-void CTaskManager::SendTaskData(int index, int urgency, int count, const char* target, const char* message, bool complete)
+void CTaskManager::SendTaskData(int index, int urgency, int count, const char* target, const char* message, bool complete, bool displaytask)
 {
     // this hack is so stupid. i should never touch a keyboard again
     int iUrgency = urgency;
@@ -117,6 +119,12 @@ void CTaskManager::SendTaskData(int index, int urgency, int count, const char* t
     // bleh.
 
     int iCount = clamp(count, 0, TASKLIST_MAX_COUNT);
+
+    // auto-complete.
+    if (iCount == 0 && !displaytask)
+    {
+        iUrgency = TASK_COMPLETE;
+    }
 
     CBasePlayer* pPlayer = NULL;
 
@@ -258,7 +266,7 @@ void CEnvHudTasklist::Precache( void )
 //-----------------------------------------------------------------------------
 void CEnvHudTasklist::SendTaskData(int index, bool dismiss)
 {
-    CTaskManager::GetTaskManager()->SendTaskData(index, m_iUrgency[index], 0, "", STRING(m_iszTaskmsg[index]), dismiss);
+    CTaskManager::GetTaskManager()->SendTaskData(index, m_iUrgency[index], 0, "", STRING(m_iszTaskmsg[index]), dismiss, true);
 }
 
 void CEnvHudTasklist::TaskMessage(int index, const char* message)

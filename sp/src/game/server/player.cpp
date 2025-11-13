@@ -3086,6 +3086,7 @@ void CBasePlayer::Event_Dying( const CTakeDamageInfo& info )
 	SetLocalAngles( angles );
 
 	DeathCheckLevel();
+	CTaskManager::Wipe();
 
 	SetThink(&CBasePlayer::PlayerDeathThink);
 	SetNextThink( gpGlobals->curtime + 0.1f );
@@ -7224,6 +7225,7 @@ void CBasePlayer::OnRestore( void )
 
 	m_nBodyPitchPoseParam = LookupPoseParameter( "body_pitch" );
 
+	CTaskManager::Wipe();
 	CheckLevel(true);
 }
 

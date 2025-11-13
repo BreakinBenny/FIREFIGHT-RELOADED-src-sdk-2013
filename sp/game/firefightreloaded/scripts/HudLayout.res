@@ -695,4 +695,19 @@
 		"tall"			"43"
 		"health_bar_wide"	"468"
 	}
+	
+	HudTaskList
+	{
+		"fieldName"		"HudTaskList"
+        "xpos"	 "16"
+		"ypos"	 "55"
+		"visible" "1"
+		"enabled" "1"
+
+		"PaintBackgroundType"	"2"
+		
+		"TaskFont" "HudSelectionText"
+		
+		"text_xpos" "4"
+	}
 }

@@ -46,7 +46,7 @@ public:
     static void Wipe();
     static void RefreshTasks();
 
-	static void SendTaskData(int index, int urgency, int count, const char *target, const char* message, bool complete = false);
+	static void SendTaskData(int index, int urgency, int count, const char *target, const char* message, bool complete = false, bool displaytask = false);
 	static void Shutdown();
 
     CUtlVector<Task *> m_Tasks;

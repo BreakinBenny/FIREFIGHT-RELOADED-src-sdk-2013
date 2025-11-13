@@ -448,3 +448,70 @@
 	input SetSpawnFrequency(float) : "Sets how often (in seconds) a new NPC will be spawned."
 	input SetRareNPCRarity(integer) : "Sets how often a rare NPC should spawn."
 ]
+
+@PointClass base(Targetname) size(-8 -8 -8, 8 8 8) = env_hudtasklist: 
+	"An entity to display a set of tasks/contracts for the player on the screen."
+[
+	task1message(string) : "Task 1 Text " : "" : "This is the text of the first task."
+	task1urgency(choices) : "Task 1 Urgency" : 0 : "Urgency of this task" =
+	[
+			0 : "INACTIVE"
+			1 : "COMPLETE"
+			2 : "LOW PRIORITY"
+			3 : "MEDIUM PRIORITY"
+			4 : "HIGH PRIORITY"
+	]
+
+	task2message(string) : "Task 2 Text " : "" : "This is the text of the second task."
+	task2urgency(choices) : "Task 2 Urgency" : 0 : "Urgency of this task" =
+	[
+			0 : "INACTIVE"
+			1 : "COMPLETE"
+			2 : "LOW PRIORITY"
+			3 : "MEDIUM PRIORITY"
+			4 : "HIGH PRIORITY"
+	]
+
+	task3message(string) : "Task 3 Text " : "" : "This is the text of the third task."
+	task3urgency(choices) : "Task 3 Urgency" : 0 : "Urgency of this task" =
+	[
+			0 : "INACTIVE"
+			1 : "COMPLETE"
+			2 : "LOW PRIORITY"
+			3 : "MEDIUM PRIORITY"
+			4 : "HIGH PRIORITY"
+	]
+
+	task4message(string) : "Task 4 Text " : "" : "This is the text of the fourth task."
+	task4urgency(choices) : "Task 4 Urgency" : 0 : "Urgency of this task" =
+	[
+			0 : "INACTIVE"
+			1 : "COMPLETE"
+			2 : "LOW PRIORITY"
+			3 : "MEDIUM PRIORITY"
+			4 : "HIGH PRIORITY"
+ 	]
+	
+	task5message(string) : "Task 5 Text " : "" : "This is the text of the fifth task."
+	task5urgency(choices) : "Task 5 Urgency" : 0 : "Urgency of this task" =
+	[
+			0 : "INACTIVE"
+			1 : "COMPLETE"
+			2 : "LOW PRIORITY"
+			3 : "MEDIUM PRIORITY"
+			4 : "HIGH PRIORITY"
+ 	]
+ 
+ 	// Inputs
+	input Task1Message(string) : "Set task 1 message"
+	input Task2Message(string) : "Set task 2 message"
+	input Task3Message(string) : "Set task 3 message"
+	input Task4Message(string) : "Set task 4 message"
+	input Task5Message(string) : "Set task 5 message"
+
+	input Task1Urgency(integer) : "Set task 1 urgency (0-4)"
+	input Task2Urgency(integer) : "Set task 2 urgency (0-4)"
+	input Task3Urgency(integer) : "Set task 3 urgency (0-4)"
+	input Task4Urgency(integer) : "Set task 4 urgency (0-4)"
+	input Task5Urgency(integer) : "Set task 5 urgency (0-4)"
+]

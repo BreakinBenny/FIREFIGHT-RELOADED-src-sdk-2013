@@ -36,6 +36,7 @@
  	{
  		m_pText[i][0] = '\0';
  		m_iPriority[i] = TASK_INACTIVE;
+        DevMsg("Removed task %d from UI.\n", i);
  	}
  }
  
@@ -66,6 +67,9 @@
  	C_BasePlayer *pPlayer = C_BasePlayer::GetLocalPlayer();
  	if ( !pPlayer )
  		return;
+
+    if (!pPlayer->IsAlive())
+        return;
  
  	int x, y;
  	int textSizeWide, textSizeTall;
