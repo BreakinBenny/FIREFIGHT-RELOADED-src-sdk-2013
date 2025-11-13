@@ -225,8 +225,8 @@ BEGIN_DATADESC( CEnvHudTasklist )
     DEFINE_KEYFIELD( m_iszTaskmsg[3], FIELD_STRING, "task4message" ),
     DEFINE_KEYFIELD( m_iUrgency[3], FIELD_INTEGER,  "task4urgency" ),
 
-    DEFINE_KEYFIELD(m_iszTaskmsg[3], FIELD_STRING, "task5message"),
-    DEFINE_KEYFIELD(m_iUrgency[3], FIELD_INTEGER, "task5urgency"),
+    DEFINE_KEYFIELD( m_iszTaskmsg[4], FIELD_STRING, "task5message"),
+    DEFINE_KEYFIELD( m_iUrgency[4], FIELD_INTEGER, "task5urgency"),
  
     // Set individual task list strings
     DEFINE_INPUTFUNC( FIELD_STRING, "Task1Message", InputTask1Message ),
