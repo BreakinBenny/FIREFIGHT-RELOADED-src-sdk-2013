@@ -1245,6 +1245,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 				gameeventmanager->FireEvent(event);
 			}
 
+			// update the kill tasks with this kill.
 			FOR_EACH_VEC(CTaskManager::GetTaskManager()->m_Tasks, i)
 			{
 				Task* t = CTaskManager::GetTaskManager()->m_Tasks[i];

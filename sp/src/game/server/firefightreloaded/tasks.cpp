@@ -188,20 +188,6 @@ void CTaskManager::SendTaskData(int index, int urgency, int count, const char* t
                 }
             }
         }
-        else
-        {
-            FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
-            {
-                Task *t = GetTaskManager()->m_Tasks[i];
-
-                if (t->index == index)
-                {
-                    t->urgency = urgency;
-                    t->count = count;
-                    t->message = AllocPooledString(message);
-                }
-            }
-        }
     }
 }
 
