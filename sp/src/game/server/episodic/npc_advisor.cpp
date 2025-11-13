@@ -722,6 +722,13 @@ void CNPC_Advisor::UpdateOnRemove()
 void CNPC_Advisor::OnRestore()
 {
 	BaseClass::OnRestore();
+
+	if (!g_pMonsterResource)// Create the monster resource for PvE battles
+	{
+		g_pMonsterResource = (CMonsterResource*)CBaseEntity::Create("monster_resource", vec3_origin, vec3_angle);
+	}
+
+	HealthBarUpdate();
 	SetupGlobalModelData();
 	StartLevitatingObjects();
 }

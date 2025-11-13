@@ -1924,7 +1924,10 @@ void CNPC_Manhack::MoveExecute_Alive(float flInterval)
 	Vector	vCurrentVelocity = GetCurrentVelocity();
 
 	// FIXME: move this
-	VPhysicsGetObject()->Wake();
+	if (VPhysicsGetObject())
+	{
+		VPhysicsGetObject()->Wake();
+	}
 
 	if( m_fEnginePowerScale < GetMaxEnginePower() && gpGlobals->curtime > m_flWaterSuspendTime )
 	{

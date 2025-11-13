@@ -71,7 +71,6 @@
 #include "ai_speech.h"
 #include "viewport_panel_names.h"
 #include "GameEventListener.h"
-#include "tasks.h"
 #include "randnpcloader.h"
 
 #if defined USES_ECON_ITEMS
@@ -193,6 +192,9 @@ extern bool		g_fDrawLines;
 int				gEvilImpulse101;
 float			m_fRegenRemander;
 float			m_fDecayRemander;
+
+// our connection to the spawnlist. used for tasks.
+CRandNPCLoader* g_ref_npcLoader;
 
 bool gInitHUD = true;
 
@@ -975,6 +977,16 @@ CBasePlayer::CBasePlayer( )
 		DevMsg("SET m_rgMaxUpgrades[%i] TO %i\n", i, m_rgMaxUpgrades[i]);
 	}
 
+	g_ref_npcLoader = new CRandNPCLoader;
+
+	if (g_ref_npcLoader)
+	{
+		if (!g_ref_npcLoader->Load())
+		{
+			Warning("g_ref_npcLoader failed to load due to missing spawnlist. Tasks won't function.\n");
+		}
+	}
+
 	SetTimeBase(gpGlobals->curtime);
 }
 
@@ -1159,17 +1171,20 @@ void CBasePlayer::CheckLevel(bool restored)
 
 			if (!m_bIronKick)
 			{
-				/*if (!GlobalEntity_IsInTable("super_phys_gun"))
+				if (GlobalEntity_GetState("player_inbossbattle") == GLOBAL_OFF)
 				{
-					GlobalEntity_Add(MAKE_STRING("super_phys_gun"), gpGlobals->mapname, GLOBAL_ON);
-				}
-				else
-				{
-					GlobalEntity_SetState(MAKE_STRING("super_phys_gun"), GLOBAL_ON);
-				}*/
+					/*if (!GlobalEntity_IsInTable("super_phys_gun"))
+					{
+						GlobalEntity_Add(MAKE_STRING("super_phys_gun"), gpGlobals->mapname, GLOBAL_ON);
+					}
+					else
+					{
+						GlobalEntity_SetState(MAKE_STRING("super_phys_gun"), GLOBAL_ON);
+					}*/
 
-				HL2GameRules()->SetMegaPhyscannonActive();
-				Weapon_Switch(Weapon_OwnsThisType("weapon_physcannon"));
+					HL2GameRules()->SetMegaPhyscannonActive();
+					Weapon_Switch(Weapon_OwnsThisType("weapon_physcannon"));
+				}
 			}
 
 			CFmtStr hint;
@@ -1232,6 +1247,7 @@ void CBasePlayer::LevelUp()
 		}
 
 		Reward_GiveItem();
+		AssignTask();
 
 		if (sv_autosave_levelup.GetBool() && !m_bHardcore)
 		{
@@ -1249,15 +1265,14 @@ void CBasePlayer::LevelUp()
 	}
 }
 
-int RandIndex()
-{
-	RandomSeed(gpGlobals->frametime);
-	return RandomInt(0, TASKLIST_MAX_TASKS - 1);
-}
-
 int CBasePlayer::AssignTaskIndex()
 {
-	int index = RandIndex();
+	if (CTaskManager::GetTaskManager()->m_Tasks.Size() == TASKLIST_MAX_TASKS)
+	{
+		return -1;
+	}
+
+	int index = 0;
 	bool exists = false;
 
 	if (CTaskManager::GetTaskManager()->DoesTaskExistAtIndex(index))
@@ -1265,7 +1280,7 @@ int CBasePlayer::AssignTaskIndex()
 		exists = true;
 		while (exists)
 		{
-			index = RandIndex();
+			index++;
 			if (!CTaskManager::GetTaskManager()->DoesTaskExistAtIndex(index))
 			{
 				exists = false;
@@ -1279,14 +1294,65 @@ int CBasePlayer::AssignTaskIndex()
 
 void CBasePlayer::AssignTask()
 {
+	AssignKillTask();
+}
+
+void CBasePlayer::AssignKillTask()
+{
+	if (!g_ref_npcLoader)
+		return;
+
 	int index = AssignTaskIndex();
 
-	//todo: how are we going to do criteria? do it through task manager or save it with a multi diamention array
+	if (index == -1)
+		return;
+
+	int count = RandomInt(TASKLIST_KILLTASK_MIN, TASKLIST_KILLTASK_MAX);
+
+	const CRandNPCLoader::SpawnEntry_t* pEntry = g_ref_npcLoader->GetRandomEntry();
+
+	// allies don't count.
+	if (pEntry->extraExp == 0 && pEntry->extraMoney == 0)
+	{
+		return;
+	}
+
+	NpcName target_name;
+	((CSingleplayRules*)GameRules())->GetNPCName(target_name, pEntry->classname);
+
+	CTaskManager::GetTaskManager()->SendTaskData(index, (pEntry->isRare ? TASK_HIGH : TASK_MEDIUM), count, target_name, (count == 1 ? "#Task_KillEnemy" : "#Task_KillEnemies"));
+}
+
+void CBasePlayer::UpdateKillTask(int index, const char* target)
+{
+	if (CTaskManager::GetTaskManager()->DoesTaskExistAtIndex(index))
+	{
+		Task* t = CTaskManager::GetTaskManager()->GetTaskInfo(index);
+
+		if (t)
+		{
+			if (Q_strcmp(STRING(t->target), target) == 0)
+			{
+				m_iTaskCount[index]++;
+
+				if (m_iTaskCount[index] == t->count)
+				{
+					CTaskManager::GetTaskManager()->SendTaskData(t->index, t->urgency, t->count, STRING(t->target), "#Task_Completed", true);
+				}
+				else
+				{
+					// update the visual count
+					int count = (t->count - m_iTaskCount[index]);
+					CTaskManager::GetTaskManager()->SendTaskData(t->index, t->urgency, count, STRING(t->target), (count == 1 ? "#Task_KillEnemy" : "#Task_KillEnemies"));
+				}
+			}
+		}
+	}
 }
 
 void CBasePlayer::TaskCompleted()
 {
-	Reward_GiveItem();
+	Reward_GiveItem(true);
 }
 
 extern ConVar sk_healthkit;
@@ -1628,7 +1694,7 @@ bool CBasePlayer::GiveItemOfType(int itemType,
 	return unlocked;
 }
 
-bool CBasePlayer::GiveRewardItem(KeyValues* pData)
+bool CBasePlayer::GiveRewardItem(KeyValues* pData, bool task)
 {
 	bool rewarded = true;
 	int pItemType = pData->GetInt("item_type", FR_HEALTHKIT);
@@ -1642,7 +1708,7 @@ bool CBasePlayer::GiveRewardItem(KeyValues* pData)
 	rewarded = GiveItemOfType(pItemType, pWeaponClassName, pIsAmmoPrimary, pAmmoNum, pPerkID, pCMD);
 	if (rewarded)
 	{
-		ShowPerkMessage(rewardName);
+		ShowPerkMessage(rewardName, task);
 
 		if (sv_player_voice.GetBool() && sv_player_voice_perk.GetBool())
 		{
@@ -1680,7 +1746,7 @@ KeyValues* CBasePlayer::LoadItemData(KeyValues* pData, int count, int itemID)
 	return NULL;
 }
 
-bool CBasePlayer::ProcessItemData(KeyValues* pData, int count, int itemID)
+bool CBasePlayer::ProcessItemData(KeyValues* pData, int count, int itemID, bool task)
 {
 	KeyValues* pNode = LoadItemData(pData, count, itemID);
 
@@ -1725,7 +1791,7 @@ bool CBasePlayer::ProcessItemData(KeyValues* pData, int count, int itemID)
 		//check to see if we're at the min level.
 		if (GetLevel() >= minLevel && unlocksInAnyMutator)
 		{
-			if (GiveRewardItem(pNode))
+			if (GiveRewardItem(pNode, task))
 			{
 				return true;
 			}
@@ -1746,7 +1812,7 @@ bool CBasePlayer::ProcessItemData(KeyValues* pData, int count, int itemID)
 	return false;
 }
 
-void CBasePlayer::Reward_GiveItem()
+void CBasePlayer::Reward_GiveItem(bool task)
 {
 	//first, we get a list of files and load a random one into a KeyValues object.
 	int randomfile = 0;
@@ -1773,7 +1839,7 @@ void CBasePlayer::Reward_GiveItem()
 	// if we have more than 0, begin randomizing.
 	if (count > 0)
 	{
-		bool unlocked = ProcessItemData(m_pPerkData, count);
+		bool unlocked = ProcessItemData(m_pPerkData, count, -1, task);
 
 		if (!unlocked)
 		{
@@ -1783,7 +1849,7 @@ void CBasePlayer::Reward_GiveItem()
 			{
 				DevWarning("Attempt #%i...\n", attempts + 1);
 				bool nextChecks = true;
-				nextChecks = ProcessItemData(m_pPerkData, count);
+				nextChecks = ProcessItemData(m_pPerkData, count, -1, task);
 				if (!nextChecks)
 				{
 					attempts++;
@@ -1804,11 +1870,11 @@ void CBasePlayer::Reward_GiveItem()
 				if (count >= 2)
 				{
 					int randomID = randomfile = random->RandomInt(1, 2);
-					supplyCheck = ProcessItemData(m_pPerkData, count, randomID);
+					supplyCheck = ProcessItemData(m_pPerkData, count, randomID, task);
 				}
 				else if (count == 1)
 				{
-					supplyCheck = ProcessItemData(m_pPerkData, count, 1);
+					supplyCheck = ProcessItemData(m_pPerkData, count, 1, task);
 				}
 
 				if (!supplyCheck)
@@ -1824,7 +1890,7 @@ void CBasePlayer::Reward_GiveItem()
 							"#GameUI_Store_Buy_HealthKit");
 
 						CFmtStr hint;
-						ShowPerkMessage(pBackupRewardName);
+						ShowPerkMessage(pBackupRewardName, task);
 
 						if (sv_player_voice.GetBool() && sv_player_voice_perk.GetBool())
 						{
@@ -1855,12 +1921,13 @@ void CBasePlayer::ShowLevelMessage(const char *pMessage)
 	MessageEnd();
 }
 
-void CBasePlayer::ShowPerkMessage(const char *pMessage)
+void CBasePlayer::ShowPerkMessage(const char *pMessage, bool bIsFromTask)
 {
 	CSingleUserRecipientFilter user(this);
 	user.MakeReliable();
 	UserMessageBegin(user, "PerkHintText");
 	WRITE_BYTE(1);	// two string
+	WRITE_BYTE(bIsFromTask ? 1 : 0); // are we from the task?
 	WRITE_STRING(pMessage);
 	MessageEnd();
 }
@@ -2975,6 +3042,7 @@ void CBasePlayer::Event_Killed( const CTakeDamageInfo &info )
 	SetFOV( this, 0 );
 
 	DeathCheckLevel();
+	CTaskManager::Wipe();
 	
 	if ( FlashlightIsOn() )
 	{
@@ -7157,6 +7225,7 @@ void CBasePlayer::OnRestore( void )
 
 	m_nBodyPitchPoseParam = LookupPoseParameter( "body_pitch" );
 
+	CTaskManager::Wipe();
 	CheckLevel(true);
 }
 

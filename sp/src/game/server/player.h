@@ -21,6 +21,7 @@
 #include "player_mobility_defs.h"
 
 #include "firefightreloaded/fr_shareddefs.h"
+#include "tasks.h"
 
 #if defined USES_ECON_ITEMS
 #include "game_item_schema.h"
@@ -689,7 +690,7 @@ public:
 	void					StopHintTimer( int iHintID ) { if (Hints()) Hints()->StopHintTimer( iHintID ); }
 	void					RemoveHintTimer( int iHintID ) { if (Hints()) Hints()->RemoveHintTimer( iHintID ); }
 	void					ShowLevelMessage(const char *pMessage);
-	void					ShowPerkMessage(const char *pMessage);
+	void					ShowPerkMessage(const char *pMessage, bool bIsFromTask = false);
 
 	void					Market_SetUpgrade(int upgradeID, int limit);
 
@@ -928,17 +929,21 @@ public:
 	}
 
 	KeyValues *LoadItemData(KeyValues* pData, int count, int itemID = -1);
-	bool ProcessItemData(KeyValues* pData, int count, int itemID = -1);
-	bool GiveRewardItem(KeyValues *pData);
+	bool ProcessItemData(KeyValues* pData, int count, int itemID = -1, bool task = false);
+	bool GiveRewardItem(KeyValues *pData, bool task = false);
 	bool GiveItemOfType(int itemType, const char *pWeaponClassname = "", bool isAmmoPrimary = true, int ammoCount = 999, int perkID = -1, const char* pCMD = "");
 
-	void Reward_GiveItem();
+	void Reward_GiveItem(bool task = false);
 
 	void LevelUpClassic( void);
 
 	int AssignTaskIndex();
 	void AssignTask();
 	void TaskCompleted();
+
+	//KILL tasks
+	void AssignKillTask();
+	void UpdateKillTask(int index, const char* target);
 
 private:
 	// How much of a movement time buffer can we process from this user?
@@ -985,6 +990,7 @@ public:
 	CUtlVector<string_t> m_awardedWeapons;
 	CUtlVector<string_t> m_boughtWeapons;
 	CUtlVector<string_t> m_droppedWeapons;
+	int m_iTaskCount[TASKLIST_MAX_TASKS];
 	
 	// FIXME: Make these protected or private!
 

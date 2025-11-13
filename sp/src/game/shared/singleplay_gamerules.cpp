@@ -1244,6 +1244,16 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 				event->SetString("weapon", killer_weapon_name);
 				gameeventmanager->FireEvent(event);
 			}
+
+			FOR_EACH_VEC(CTaskManager::GetTaskManager()->m_Tasks, i)
+			{
+				Task* t = CTaskManager::GetTaskManager()->m_Tasks[i];
+
+				if (t && Q_strcmp(STRING(t->target), vic_name) == 0)
+				{
+					pScorer->UpdateKillTask(t->index, vic_name);
+				}
+			}
 		}
 		else
 		{
@@ -1367,9 +1377,18 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 		}
 	}
 
+	void CSingleplayRules::GetNPCName(char* npcName, const char* classname)
+	{
+		const char* entityClassname = classname;
+
+		CFmtStr localizedName;
+		localizedName.sprintf("#fr_%s", entityClassname);
+
+		Q_strncpy(npcName, localizedName.Access(), sizeof(NpcName));
+	}
+
 	void CSingleplayRules::GetNPCName(NpcName npcName, CBaseEntity* pVictim)
 	{
-		//todo: use properly localized names.
 		const char* entityClassname = pVictim->GetClassname();
 		const char* fullEntityClassname = entityClassname;
 		bool useLocalization = true;

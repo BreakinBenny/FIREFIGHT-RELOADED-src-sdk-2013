@@ -51,6 +51,7 @@ private:
 	int		m_iBaseY;
 	float m_flHudHintMinDisplayTime;
 	bool  m_bHintDisplayed;
+	int  m_bRewardObtainedByTask;
 
 	CPanelAnimationVarAliasType( float, m_iTextX, "text_xpos", "8", "proportional_float" );
 	CPanelAnimationVarAliasType( float, m_iTextY, "text_ypos", "8", "proportional_float" );
@@ -164,7 +165,14 @@ bool CHudPerkHintDisplay::SetHintText(const char *text)
 
 	if (convertedText)
 	{
-		g_pVGuiLocalize->ConstructString(wszLocalized, sizeof(wszLocalized), g_pVGuiLocalize->Find("#Valve_Hud_Reward"), 1, convertedText);
+		if (m_bRewardObtainedByTask == 1)
+		{
+			g_pVGuiLocalize->ConstructString(wszLocalized, sizeof(wszLocalized), g_pVGuiLocalize->Find("#Valve_Hud_Reward_Task"), 1, convertedText);
+		}
+		else
+		{
+			g_pVGuiLocalize->ConstructString(wszLocalized, sizeof(wszLocalized), g_pVGuiLocalize->Find("#Valve_Hud_Reward"), 1, convertedText);
+		}
 	}
 	else
 	{
@@ -176,7 +184,14 @@ bool CHudPerkHintDisplay::SetHintText(const char *text)
 
 		wchar_t unicode[256];
 		g_pVGuiLocalize->ConvertANSIToUnicode(prunedName, unicode, sizeof(unicode));
-		g_pVGuiLocalize->ConstructString(wszLocalized, sizeof(wszLocalized), g_pVGuiLocalize->Find("#Valve_Hud_Reward"), 1, unicode);
+		if (m_bRewardObtainedByTask == 1)
+		{
+			g_pVGuiLocalize->ConstructString(wszLocalized, sizeof(wszLocalized), g_pVGuiLocalize->Find("#Valve_Hud_Reward_Task"), 1, unicode);
+		}
+		else
+		{
+			g_pVGuiLocalize->ConstructString(wszLocalized, sizeof(wszLocalized), g_pVGuiLocalize->Find("#Valve_Hud_Reward"), 1, unicode);
+		}
 	}
 	ws = wszLocalized;
 
@@ -298,6 +313,8 @@ void CHudPerkHintDisplay::MsgFunc_PerkHintText(bf_read &msg)
 		DevMsg("CHudPerkHintDisplay::MsgFunc_levelHintText: string count != 1.\n");
 		return;
 	}
+
+	m_bRewardObtainedByTask = msg.ReadByte();
 
 	// read the string
 	char szString[2048];

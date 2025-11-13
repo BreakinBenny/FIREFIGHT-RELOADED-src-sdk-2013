@@ -14,13 +14,21 @@
 
 class Task
 {
-
 public:
-    Task(int iIndex)
+    Task(int iIndex, int iUrgency, int iCount, string_t szTarget, string_t szMessage)
     {
         index = iIndex;
+        urgency = iUrgency;
+        count = iCount;
+        target = szTarget;
+        message = szMessage;
     }
+
     int index;
+    int urgency;
+    int count;
+    string_t target;
+    string_t message;
 };
 
 class CTaskManager : public CBaseEntity
@@ -32,10 +40,12 @@ public:
 	static CTaskManager* pTaskManager;
 	static CTaskManager* GetTaskManager();
 
-	static void SendTaskData(int index, int urgency, int count, const char *target, const char* message, bool complete = false);
-
     static bool DoesTaskExistAtIndex(int index);
+    static Task *GetTaskInfo(int index);
 
+    static void Wipe();
+
+	static void SendTaskData(int index, int urgency, int count, const char *target, const char* message, bool complete = false);
 	static void Shutdown();
 
     CUtlVector<Task *> m_Tasks;

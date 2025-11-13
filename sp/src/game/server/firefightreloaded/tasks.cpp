@@ -56,6 +56,36 @@ bool CTaskManager::DoesTaskExistAtIndex(int index)
             return true;
         }
     }
+
+    return false;
+}
+
+Task *CTaskManager::GetTaskInfo(int index)
+{
+    FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
+    {
+        Task* t = GetTaskManager()->m_Tasks[i];
+
+        if (t && t->index == index)
+        {
+            return t;
+        }
+    }
+
+    return NULL;
+}
+
+void CTaskManager::Wipe()
+{
+    FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
+    {
+        SendTaskData(i, TASK_INACTIVE, 0, "", "");
+    }
+
+    if (GetTaskManager()->m_Tasks.Size() > 0)
+    {
+        GetTaskManager()->m_Tasks.PurgeAndDeleteElements();
+    }
 }
 
 void CTaskManager::SendTaskData(int index, int urgency, int count, const char* target, const char* message, bool complete)
@@ -106,7 +136,7 @@ void CTaskManager::SendTaskData(int index, int urgency, int count, const char* t
         {
             if (iUrgency > TASK_COMPLETE)
             {
-                Task* newTask = new Task(index);
+                Task* newTask = new Task(index, iUrgency, count, AllocPooledString(target), AllocPooledString(message));
                 GetTaskManager()->m_Tasks.AddToHead(newTask);
                 DevMsg("Added task %d to manager.\n", index);
             }
