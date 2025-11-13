@@ -44,6 +44,7 @@ public:
     static Task *GetTaskInfo(int index);
 
     static void Wipe();
+    static void RefreshTasks();
 
 	static void SendTaskData(int index, int urgency, int count, const char *target, const char* message, bool complete = false);
 	static void Shutdown();

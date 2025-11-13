@@ -1307,12 +1307,12 @@ void CBasePlayer::AssignKillTask()
 	if (index == -1)
 		return;
 
-	int count = RandomInt(TASKLIST_KILLTASK_MIN, TASKLIST_KILLTASK_MAX);
+	int count = RandomInt(TASKLIST_MIN_COUNT, TASKLIST_MAX_COUNT);
 
 	const CRandNPCLoader::SpawnEntry_t* pEntry = g_ref_npcLoader->GetRandomEntry();
 
 	// allies don't count.
-	if (pEntry->extraExp == 0 && pEntry->extraMoney == 0)
+	if (pEntry->extraExp <= 0 && pEntry->extraMoney <= 0)
 	{
 		return;
 	}
@@ -3040,9 +3040,6 @@ void CBasePlayer::Event_Killed( const CTakeDamageInfo &info )
 
 	// reset FOV
 	SetFOV( this, 0 );
-
-	DeathCheckLevel();
-	CTaskManager::Wipe();
 	
 	if ( FlashlightIsOn() )
 	{
@@ -3087,6 +3084,8 @@ void CBasePlayer::Event_Dying( const CTakeDamageInfo& info )
 	angles.z = 0;
 	
 	SetLocalAngles( angles );
+
+	DeathCheckLevel();
 
 	SetThink(&CBasePlayer::PlayerDeathThink);
 	SetNextThink( gpGlobals->curtime + 0.1f );
@@ -7225,7 +7224,6 @@ void CBasePlayer::OnRestore( void )
 
 	m_nBodyPitchPoseParam = LookupPoseParameter( "body_pitch" );
 
-	CTaskManager::Wipe();
 	CheckLevel(true);
 }
 

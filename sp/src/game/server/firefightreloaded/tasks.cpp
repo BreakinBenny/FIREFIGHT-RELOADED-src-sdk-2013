@@ -75,6 +75,22 @@ Task *CTaskManager::GetTaskInfo(int index)
     return NULL;
 }
 
+void CTaskManager::RefreshTasks()
+{
+    if (GetTaskManager()->m_Tasks.Size() > 0)
+    {
+        FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
+        {
+            Task* t = GetTaskManager()->m_Tasks[i];
+
+            if (t)
+            {
+                SendTaskData(t->index, t->urgency, t->count, STRING(t->target), STRING(t->message));
+            }
+        }
+    }
+}
+
 void CTaskManager::Wipe()
 {
     FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
@@ -98,6 +114,10 @@ void CTaskManager::SendTaskData(int index, int urgency, int count, const char* t
         iUrgency = TASK_COMPLETE;
     }
 
+    // bleh.
+
+    int iCount = clamp(count, 0, TASKLIST_MAX_COUNT);
+
     CBasePlayer* pPlayer = NULL;
 
     // this will be fucking stupid for MP players.
@@ -116,7 +136,7 @@ void CTaskManager::SendTaskData(int index, int urgency, int count, const char* t
         UserMessageBegin(user, "TaskList");
         WRITE_BYTE(index);
         WRITE_BYTE(iUrgency);
-        WRITE_BYTE(count);
+        WRITE_BYTE(iCount);
         WRITE_STRING(target);
         WRITE_STRING(message);
         MessageEnd();
@@ -136,7 +156,7 @@ void CTaskManager::SendTaskData(int index, int urgency, int count, const char* t
         {
             if (iUrgency > TASK_COMPLETE)
             {
-                Task* newTask = new Task(index, iUrgency, count, AllocPooledString(target), AllocPooledString(message));
+                Task* newTask = new Task(index, iUrgency, iCount, AllocPooledString(target), AllocPooledString(message));
                 GetTaskManager()->m_Tasks.AddToHead(newTask);
                 DevMsg("Added task %d to manager.\n", index);
             }
@@ -157,6 +177,20 @@ void CTaskManager::SendTaskData(int index, int urgency, int count, const char* t
                 {
                     // reward us for completing the task
                     pPlayer->TaskCompleted();
+                }
+            }
+        }
+        else
+        {
+            FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
+            {
+                Task *t = GetTaskManager()->m_Tasks[i];
+
+                if (t->index == index)
+                {
+                    t->urgency = urgency;
+                    t->count = count;
+                    t->message = AllocPooledString(message);
                 }
             }
         }
