@@ -69,7 +69,10 @@
  		return;
 
     if (!pPlayer->IsAlive())
+    {
+        Reset();
         return;
+    }
  
  	int x, y;
  	int textSizeWide, textSizeTall;
