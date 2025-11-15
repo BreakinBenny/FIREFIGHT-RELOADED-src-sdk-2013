@@ -15,20 +15,20 @@
 class Task
 {
 public:
-    Task(int iIndex, int iUrgency, int iCount, string_t szTarget, string_t szMessage)
-    {
-        index = iIndex;
-        urgency = iUrgency;
-        count = iCount;
-        target = szTarget;
-        message = szMessage;
-    }
+	Task(int iIndex, int iUrgency, int iCount, string_t szTarget, string_t szMessage)
+	{
+		index = iIndex;
+		urgency = iUrgency;
+		count = iCount;
+		target = szTarget;
+		message = szMessage;
+	}
 
-    int index;
-    int urgency;
-    int count;
-    string_t target;
-    string_t message;
+	int index;
+	int urgency;
+	int count;
+	string_t target;
+	string_t message;
 };
 
 class CTaskManager : public CBaseEntity
@@ -40,16 +40,16 @@ public:
 	static CTaskManager* pTaskManager;
 	static CTaskManager* GetTaskManager();
 
-    static bool DoesTaskExistAtIndex(int index);
-    static Task *GetTaskInfo(int index);
+	static bool DoesTaskExistAtIndex(int index);
+	static Task* GetTaskInfo(int index);
 
-    static void Wipe();
-    static void RefreshTasks();
+	static void Wipe();
+	static void RefreshTasks();
 
-	static void SendTaskData(int index, int urgency, int count, const char *target, const char* message, bool complete = false, bool displaytask = false);
+	static void SendTaskData(int index, int urgency, int count, const char* target, const char* message, bool complete = false, bool displaytask = false);
 	static void Shutdown();
 
-    CUtlVector<Task *> m_Tasks;
+	CUtlVector<Task*> m_Tasks;
 };
 
 //-----------------------------------------------------------------------------
@@ -58,34 +58,34 @@ public:
 class CEnvHudTasklist : public CPointEntity
 {
 public:
-    DECLARE_CLASS(CEnvHudTasklist, CPointEntity);
+	DECLARE_CLASS(CEnvHudTasklist, CPointEntity);
 
-    void Spawn(void);
-    void Precache(void);
+	void Spawn(void);
+	void Precache(void);
 
 private:
 
-    void InputTask1Message(inputdata_t& inputdata);
-    void InputTask2Message(inputdata_t& inputdata);
-    void InputTask3Message(inputdata_t& inputdata);
-    void InputTask4Message(inputdata_t& inputdata);
-    void InputTask5Message(inputdata_t& inputdata);
+	void InputTask1Message(inputdata_t& inputdata);
+	void InputTask2Message(inputdata_t& inputdata);
+	void InputTask3Message(inputdata_t& inputdata);
+	void InputTask4Message(inputdata_t& inputdata);
+	void InputTask5Message(inputdata_t& inputdata);
 
-    void InputTask1Urgency(inputdata_t& inputdata);
-    void InputTask2Urgency(inputdata_t& inputdata);
-    void InputTask3Urgency(inputdata_t& inputdata);
-    void InputTask4Urgency(inputdata_t& inputdata);
-    void InputTask5Urgency(inputdata_t& inputdata);
+	void InputTask1Urgency(inputdata_t& inputdata);
+	void InputTask2Urgency(inputdata_t& inputdata);
+	void InputTask3Urgency(inputdata_t& inputdata);
+	void InputTask4Urgency(inputdata_t& inputdata);
+	void InputTask5Urgency(inputdata_t& inputdata);
 
-    void TaskMessage(int index, const char* message);
-    void TaskUrgency(int index, int urgency);
+	void TaskMessage(int index, const char* message);
+	void TaskUrgency(int index, int urgency);
 
-    void SendTaskData(int index, bool dismiss = false);
+	void SendTaskData(int index, bool dismiss = false);
 
-    string_t m_iszTaskmsg[TASKLIST_MAX_TASKS];
-    int m_iUrgency[TASKLIST_MAX_TASKS]; // 0=complete, 1=low, 2=medium, 3=high
+	string_t m_iszTaskmsg[TASKLIST_MAX_TASKS];
+	int m_iUrgency[TASKLIST_MAX_TASKS]; // 0=complete, 1=low, 2=medium, 3=high
 
-    DECLARE_DATADESC();
+	DECLARE_DATADESC();
 };
 
 #endif

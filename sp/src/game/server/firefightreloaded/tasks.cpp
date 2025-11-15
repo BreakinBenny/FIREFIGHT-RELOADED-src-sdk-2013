@@ -4,26 +4,26 @@
 //
 // $NoKeywords: $
 //=============================================================================//
- 
+
 #include "cbase.h"
 #include "tasks.h"
- 
+
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
 void CC_AddTask(const CCommand& args)
 {
-    CBasePlayer* pPlayer = UTIL_GetCommandClient();
+	CBasePlayer* pPlayer = UTIL_GetCommandClient();
 
-    int index = atoi(args[1]);
-    int priority = atoi(args[2]);
-    int count = atoi(args[3]);
-    const char *target = args[4];
+	int index = atoi(args[1]);
+	int priority = atoi(args[2]);
+	int count = atoi(args[3]);
+	const char* target = args[4];
 
-    if (pPlayer)
-    {
-        CTaskManager::GetTaskManager()->SendTaskData(index, priority, count, target, "#Task_Test", false, true);
-    }
+	if (pPlayer)
+	{
+		CTaskManager::GetTaskManager()->SendTaskData(index, priority, count, target, "#Task_Test", false, true);
+	}
 }
 static ConCommand addtask("addtask", CC_AddTask, "Adds a test task\n", FCVAR_CHEAT);
 
@@ -36,271 +36,271 @@ CTaskManager* CTaskManager::pTaskManager;
 
 CTaskManager* CTaskManager::GetTaskManager()
 {
-    if (pTaskManager == NULL)
-    {
-        pTaskManager = (CTaskManager*)gEntList.FindEntityByClassname(NULL, "task_manager");
-        if (pTaskManager == NULL)
-            pTaskManager = (CTaskManager*)CBaseEntity::Create("task_manager", vec3_origin, vec3_angle);
-    }
-    return pTaskManager;
+	if (pTaskManager == NULL)
+	{
+		pTaskManager = (CTaskManager*)gEntList.FindEntityByClassname(NULL, "task_manager");
+		if (pTaskManager == NULL)
+			pTaskManager = (CTaskManager*)CBaseEntity::Create("task_manager", vec3_origin, vec3_angle);
+	}
+	return pTaskManager;
 }
 
 bool CTaskManager::DoesTaskExistAtIndex(int index)
 {
-    FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
-    {
-        Task* t = GetTaskManager()->m_Tasks[i];
+	FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
+	{
+		Task* t = GetTaskManager()->m_Tasks[i];
 
-        if (t && t->index == index)
-        {
-            return true;
-        }
-    }
+		if (t && t->index == index)
+		{
+			return true;
+		}
+	}
 
-    return false;
+	return false;
 }
 
-Task *CTaskManager::GetTaskInfo(int index)
+Task* CTaskManager::GetTaskInfo(int index)
 {
-    FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
-    {
-        Task* t = GetTaskManager()->m_Tasks[i];
+	FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
+	{
+		Task* t = GetTaskManager()->m_Tasks[i];
 
-        if (t && t->index == index)
-        {
-            return t;
-        }
-    }
+		if (t && t->index == index)
+		{
+			return t;
+		}
+	}
 
-    return NULL;
+	return NULL;
 }
 
 void CTaskManager::RefreshTasks()
 {
-    if (GetTaskManager()->m_Tasks.Size() > 0)
-    {
-        FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
-        {
-            Task* t = GetTaskManager()->m_Tasks[i];
+	if (GetTaskManager()->m_Tasks.Size() > 0)
+	{
+		FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
+		{
+			Task* t = GetTaskManager()->m_Tasks[i];
 
-            if (t)
-            {
-                SendTaskData(t->index, t->urgency, t->count, STRING(t->target), STRING(t->message));
-            }
-        }
-    }
+			if (t)
+			{
+				SendTaskData(t->index, t->urgency, t->count, STRING(t->target), STRING(t->message));
+			}
+		}
+	}
 }
 
 void CTaskManager::Wipe()
 {
-    FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
-    {
-        DevMsg("Requested to remove task %d from UI.\n", i);
-        SendTaskData(i, TASK_INACTIVE, 0, "", "", false, true);
-    }
+	FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
+	{
+		DevMsg("Requested to remove task %d from UI.\n", i);
+		SendTaskData(i, TASK_INACTIVE, 0, "", "", false, true);
+	}
 
-    if (GetTaskManager()->m_Tasks.Size() > 0)
-    {
-        DevMsg("Purging tasks from manager.\n");
-        GetTaskManager()->m_Tasks.PurgeAndDeleteElements();
-    }
+	if (GetTaskManager()->m_Tasks.Size() > 0)
+	{
+		DevMsg("Purging tasks from manager.\n");
+		GetTaskManager()->m_Tasks.PurgeAndDeleteElements();
+	}
 }
 
 void CTaskManager::SendTaskData(int index, int urgency, int count, const char* target, const char* message, bool complete, bool displaytask)
 {
-    // this hack is so stupid. i should never touch a keyboard again
-    int iUrgency = urgency;
+	// this hack is so stupid. i should never touch a keyboard again
+	int iUrgency = urgency;
 
-    if (complete)
-    {
-        iUrgency = TASK_COMPLETE;
-    }
+	if (complete)
+	{
+		iUrgency = TASK_COMPLETE;
+	}
 
-    // bleh.
+	// bleh.
 
-    int iCount = clamp(count, 0, TASKLIST_MAX_COUNT);
+	int iCount = clamp(count, 0, TASKLIST_MAX_COUNT);
 
-    // auto-complete.
-    if (iCount == 0 && !displaytask)
-    {
-        iUrgency = TASK_COMPLETE;
-    }
+	// auto-complete.
+	if (iCount == 0 && !displaytask)
+	{
+		iUrgency = TASK_COMPLETE;
+	}
 
-    CBasePlayer* pPlayer = NULL;
+	CBasePlayer* pPlayer = NULL;
 
-    // this will be fucking stupid for MP players.
-    pPlayer = UTIL_GetLocalPlayer();
+	// this will be fucking stupid for MP players.
+	pPlayer = UTIL_GetLocalPlayer();
 
-    if (pPlayer)
-    {
-        if (!pPlayer->IsNetClient())
-        {
-            return;
-        }
+	if (pPlayer)
+	{
+		if (!pPlayer->IsNetClient())
+		{
+			return;
+		}
 
-        CSingleUserRecipientFilter user(pPlayer);
-        user.MakeReliable();
+		CSingleUserRecipientFilter user(pPlayer);
+		user.MakeReliable();
 
-        UserMessageBegin(user, "TaskList");
-        WRITE_BYTE(index);
-        WRITE_BYTE(iUrgency);
-        WRITE_BYTE(iCount);
-        WRITE_STRING(target);
-        WRITE_STRING(message);
-        MessageEnd();
+		UserMessageBegin(user, "TaskList");
+		WRITE_BYTE(index);
+		WRITE_BYTE(iUrgency);
+		WRITE_BYTE(iCount);
+		WRITE_STRING(target);
+		WRITE_STRING(message);
+		MessageEnd();
 
-        bool updatePriority = false;
+		bool updatePriority = false;
 
-        if (iUrgency > TASK_COMPLETE)
-        {
-            if (DoesTaskExistAtIndex(index))
-            {
-                //this task exists! don't do anything!
-                updatePriority = true;
-            }
-        }
+		if (iUrgency > TASK_COMPLETE)
+		{
+			if (DoesTaskExistAtIndex(index))
+			{
+				//this task exists! don't do anything!
+				updatePriority = true;
+			}
+		}
 
-        if (!updatePriority)
-        {
-            if (iUrgency > TASK_COMPLETE)
-            {
-                Task* newTask = new Task(index, iUrgency, iCount, AllocPooledString(target), AllocPooledString(message));
-                GetTaskManager()->m_Tasks.AddToHead(newTask);
-                DevMsg("Added task %d to manager.\n", index);
-            }
-            else
-            {
-                FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
-                {
-                    Task* t = GetTaskManager()->m_Tasks[i];
+		if (!updatePriority)
+		{
+			if (iUrgency > TASK_COMPLETE)
+			{
+				Task* newTask = new Task(index, iUrgency, iCount, AllocPooledString(target), AllocPooledString(message));
+				GetTaskManager()->m_Tasks.AddToHead(newTask);
+				DevMsg("Added task %d to manager.\n", index);
+			}
+			else
+			{
+				FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
+				{
+					Task* t = GetTaskManager()->m_Tasks[i];
 
-                    if (t && t->index == index)
-                    {
-                        GetTaskManager()->m_Tasks.FindAndRemove(t);
-                        DevMsg("Removed task %d from manager.\n", index);
-                    }
-                }
+					if (t && t->index == index)
+					{
+						GetTaskManager()->m_Tasks.FindAndRemove(t);
+						DevMsg("Removed task %d from manager.\n", index);
+					}
+				}
 
-                if (iUrgency == TASK_COMPLETE)
-                {
-                    // reward us for completing the task
-                    pPlayer->TaskCompleted();
-                }
-            }
-        }
-    }
+				if (iUrgency == TASK_COMPLETE)
+				{
+					// reward us for completing the task
+					pPlayer->TaskCompleted();
+				}
+			}
+		}
+	}
 }
 
 void CTaskManager::Shutdown()
 {
-    pTaskManager = NULL;
+	pTaskManager = NULL;
 }
- 
-LINK_ENTITY_TO_CLASS( env_hudtasklist, CEnvHudTasklist );
- 
-BEGIN_DATADESC( CEnvHudTasklist )
-    DEFINE_KEYFIELD( m_iszTaskmsg[0], FIELD_STRING, "task1message" ),
-    DEFINE_KEYFIELD( m_iUrgency[0], FIELD_INTEGER,  "task1urgency" ),
- 
-    DEFINE_KEYFIELD( m_iszTaskmsg[1], FIELD_STRING, "task2message" ),
-    DEFINE_KEYFIELD( m_iUrgency[1], FIELD_INTEGER,  "task2urgency" ),
- 
-    DEFINE_KEYFIELD( m_iszTaskmsg[2], FIELD_STRING, "task3message" ),
-    DEFINE_KEYFIELD( m_iUrgency[2], FIELD_INTEGER,  "task3urgency"),
- 
-    DEFINE_KEYFIELD( m_iszTaskmsg[3], FIELD_STRING, "task4message" ),
-    DEFINE_KEYFIELD( m_iUrgency[3], FIELD_INTEGER,  "task4urgency" ),
 
-    DEFINE_KEYFIELD( m_iszTaskmsg[4], FIELD_STRING, "task5message"),
-    DEFINE_KEYFIELD( m_iUrgency[4], FIELD_INTEGER, "task5urgency"),
- 
-    // Set individual task list strings
-    DEFINE_INPUTFUNC( FIELD_STRING, "Task1Message", InputTask1Message ),
-    DEFINE_INPUTFUNC( FIELD_STRING, "Task2Message", InputTask2Message ),
-    DEFINE_INPUTFUNC( FIELD_STRING, "Task3Message", InputTask3Message ),
-    DEFINE_INPUTFUNC( FIELD_STRING, "Task4Message", InputTask4Message ),
-    DEFINE_INPUTFUNC( FIELD_STRING, "Task5Message", InputTask5Message ),
- 
-    // Set individual task urgency values 
-    DEFINE_INPUTFUNC( FIELD_INTEGER, "Task1Urgency", InputTask1Urgency ),
-    DEFINE_INPUTFUNC( FIELD_INTEGER, "Task2Urgency", InputTask2Urgency ),
-    DEFINE_INPUTFUNC( FIELD_INTEGER, "Task3Urgency", InputTask3Urgency ),
-    DEFINE_INPUTFUNC( FIELD_INTEGER, "Task4Urgency", InputTask4Urgency ),
-    DEFINE_INPUTFUNC( FIELD_INTEGER, "Task5Urgency", InputTask5Urgency ),
+LINK_ENTITY_TO_CLASS(env_hudtasklist, CEnvHudTasklist);
+
+BEGIN_DATADESC(CEnvHudTasklist)
+DEFINE_KEYFIELD(m_iszTaskmsg[0], FIELD_STRING, "task1message"),
+DEFINE_KEYFIELD(m_iUrgency[0], FIELD_INTEGER, "task1urgency"),
+
+DEFINE_KEYFIELD(m_iszTaskmsg[1], FIELD_STRING, "task2message"),
+DEFINE_KEYFIELD(m_iUrgency[1], FIELD_INTEGER, "task2urgency"),
+
+DEFINE_KEYFIELD(m_iszTaskmsg[2], FIELD_STRING, "task3message"),
+DEFINE_KEYFIELD(m_iUrgency[2], FIELD_INTEGER, "task3urgency"),
+
+DEFINE_KEYFIELD(m_iszTaskmsg[3], FIELD_STRING, "task4message"),
+DEFINE_KEYFIELD(m_iUrgency[3], FIELD_INTEGER, "task4urgency"),
+
+DEFINE_KEYFIELD(m_iszTaskmsg[4], FIELD_STRING, "task5message"),
+DEFINE_KEYFIELD(m_iUrgency[4], FIELD_INTEGER, "task5urgency"),
+
+// Set individual task list strings
+DEFINE_INPUTFUNC(FIELD_STRING, "Task1Message", InputTask1Message),
+DEFINE_INPUTFUNC(FIELD_STRING, "Task2Message", InputTask2Message),
+DEFINE_INPUTFUNC(FIELD_STRING, "Task3Message", InputTask3Message),
+DEFINE_INPUTFUNC(FIELD_STRING, "Task4Message", InputTask4Message),
+DEFINE_INPUTFUNC(FIELD_STRING, "Task5Message", InputTask5Message),
+
+// Set individual task urgency values 
+DEFINE_INPUTFUNC(FIELD_INTEGER, "Task1Urgency", InputTask1Urgency),
+DEFINE_INPUTFUNC(FIELD_INTEGER, "Task2Urgency", InputTask2Urgency),
+DEFINE_INPUTFUNC(FIELD_INTEGER, "Task3Urgency", InputTask3Urgency),
+DEFINE_INPUTFUNC(FIELD_INTEGER, "Task4Urgency", InputTask4Urgency),
+DEFINE_INPUTFUNC(FIELD_INTEGER, "Task5Urgency", InputTask5Urgency),
 END_DATADESC()
- 
+
 //-----------------------------------------------------------------------------
 // Purpose: Spawn the new ent
 //-----------------------------------------------------------------------------
-void CEnvHudTasklist::Spawn( void )
+void CEnvHudTasklist::Spawn(void)
 {
-    Precache();
-    SetSolid( SOLID_NONE );
-    SetMoveType( MOVETYPE_NONE );
+	Precache();
+	SetSolid(SOLID_NONE);
+	SetMoveType(MOVETYPE_NONE);
 }
- 
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void CEnvHudTasklist::Precache( void )
+void CEnvHudTasklist::Precache(void)
 {
 }
- 
+
 //-----------------------------------------------------------------------------
 // Send a task data message to the client.  This gets caught by the task HUD
 // display element and shown.
 //-----------------------------------------------------------------------------
 void CEnvHudTasklist::SendTaskData(int index, bool dismiss)
 {
-    CTaskManager::GetTaskManager()->SendTaskData(index, m_iUrgency[index], 0, "", STRING(m_iszTaskmsg[index]), dismiss, true);
+	CTaskManager::GetTaskManager()->SendTaskData(index, m_iUrgency[index], 0, "", STRING(m_iszTaskmsg[index]), dismiss, true);
 }
 
 void CEnvHudTasklist::TaskMessage(int index, const char* message)
 {
-    m_iszTaskmsg[index] = MAKE_STRING(message);
-    SendTaskData(index);
+	m_iszTaskmsg[index] = MAKE_STRING(message);
+	SendTaskData(index);
 }
 
 void CEnvHudTasklist::TaskUrgency(int index, int urgency)
 {
-    m_iUrgency[index] = urgency;
-    SendTaskData(index);
+	m_iUrgency[index] = urgency;
+	SendTaskData(index);
 }
- 
+
 //-----------------------------------------------------------------------------
 // Purpose: Input handler for setting task 1 urgency
 // DEFINE_INPUTFUNC( FIELD_STRING, "Task1Urgency", InputTask1Urgency ),
 //-----------------------------------------------------------------------------
-void CEnvHudTasklist::InputTask1Urgency ( inputdata_t &inputdata )
+void CEnvHudTasklist::InputTask1Urgency(inputdata_t& inputdata)
 {
-    TaskUrgency(0, inputdata.value.Int());
+	TaskUrgency(0, inputdata.value.Int());
 }
- 
+
 //-----------------------------------------------------------------------------
 // Purpose: Input handler for setting task 2 urgency
 // DEFINE_INPUTFUNC( FIELD_STRING, "Task2Urgency", InputTask2Urgency ),
 //-----------------------------------------------------------------------------
-void CEnvHudTasklist::InputTask2Urgency ( inputdata_t &inputdata )
+void CEnvHudTasklist::InputTask2Urgency(inputdata_t& inputdata)
 {
-    TaskUrgency(1, inputdata.value.Int());
+	TaskUrgency(1, inputdata.value.Int());
 }
- 
+
 //-----------------------------------------------------------------------------
 // Purpose: Input handler for setting task 3 urgency
 // DEFINE_INPUTFUNC( FIELD_STRING, "Task3Urgency", InputTask3Urgency ),
 //-----------------------------------------------------------------------------
-void CEnvHudTasklist::InputTask3Urgency ( inputdata_t &inputdata )
+void CEnvHudTasklist::InputTask3Urgency(inputdata_t& inputdata)
 {
-    TaskUrgency(2, inputdata.value.Int());
+	TaskUrgency(2, inputdata.value.Int());
 }
- 
+
 //-----------------------------------------------------------------------------
 // Purpose: Input handler for setting task 4 urgency
 // DEFINE_INPUTFUNC( FIELD_STRING, "Task4Urgency", InputTask4Urgency ),
 //-----------------------------------------------------------------------------
-void CEnvHudTasklist::InputTask4Urgency ( inputdata_t &inputdata )
+void CEnvHudTasklist::InputTask4Urgency(inputdata_t& inputdata)
 {
-    TaskUrgency(3, inputdata.value.Int());
+	TaskUrgency(3, inputdata.value.Int());
 }
 
 //-----------------------------------------------------------------------------
@@ -309,45 +309,45 @@ void CEnvHudTasklist::InputTask4Urgency ( inputdata_t &inputdata )
 //-----------------------------------------------------------------------------
 void CEnvHudTasklist::InputTask5Urgency(inputdata_t& inputdata)
 {
-    TaskUrgency(4, inputdata.value.Int());
+	TaskUrgency(4, inputdata.value.Int());
 }
 
 //-----------------------------------------------------------------------------
- 
+
 //-----------------------------------------------------------------------------
 // Purpose: Input handler for setting task 1 text
 // DEFINE_INPUTFUNC( FIELD_STRING, "TaskMessage1", InputTaskMessage1 ),
 //-----------------------------------------------------------------------------
-void CEnvHudTasklist::InputTask1Message( inputdata_t &inputdata )
+void CEnvHudTasklist::InputTask1Message(inputdata_t& inputdata)
 {
-    TaskMessage(1, inputdata.value.String());
+	TaskMessage(1, inputdata.value.String());
 }
 
 //-----------------------------------------------------------------------------
 // Purpose: Input handler for setting task 2 text
 // DEFINE_INPUTFUNC( FIELD_STRING, "TaskMessage2", InputTaskMessage2 ),
 //-----------------------------------------------------------------------------
-void CEnvHudTasklist::InputTask2Message( inputdata_t &inputdata )
+void CEnvHudTasklist::InputTask2Message(inputdata_t& inputdata)
 {
-    TaskMessage(2, inputdata.value.String());
+	TaskMessage(2, inputdata.value.String());
 }
 
 //-----------------------------------------------------------------------------
 // Purpose: Input handler for setting task 3 text
 // DEFINE_INPUTFUNC( FIELD_STRING, "TaskMessage3", InputTaskMessage3 ),
 //-----------------------------------------------------------------------------
-void CEnvHudTasklist::InputTask3Message( inputdata_t &inputdata )
+void CEnvHudTasklist::InputTask3Message(inputdata_t& inputdata)
 {
-    TaskMessage(3, inputdata.value.String());
+	TaskMessage(3, inputdata.value.String());
 }
 
 //-----------------------------------------------------------------------------
 // Purpose: Input handler for setting task 4 text
 // DEFINE_INPUTFUNC( FIELD_STRING, "TaskMessage4", InputTaskMessage4 ),
 //-----------------------------------------------------------------------------
-void CEnvHudTasklist::InputTask4Message( inputdata_t &inputdata )
+void CEnvHudTasklist::InputTask4Message(inputdata_t& inputdata)
 {
-    TaskMessage(3, inputdata.value.String());
+	TaskMessage(3, inputdata.value.String());
 }
 
 //-----------------------------------------------------------------------------
@@ -356,5 +356,5 @@ void CEnvHudTasklist::InputTask4Message( inputdata_t &inputdata )
 //-----------------------------------------------------------------------------
 void CEnvHudTasklist::InputTask5Message(inputdata_t& inputdata)
 {
-    TaskMessage(4, inputdata.value.String());
+	TaskMessage(4, inputdata.value.String());
 }
