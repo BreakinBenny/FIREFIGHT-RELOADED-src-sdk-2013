@@ -16,7 +16,7 @@ CHudTaskList::CHudTaskList(const char* pElementName) : CHudElement(pElementName)
 	SetScheme(vgui::scheme()->LoadSchemeFromFile("resource/ClientScheme.res", "ClientScheme"));	// Here we load up our scheme and set this element to use it. Using a different scheme than ClientScheme doesn't work right off the bat anyways, so... :)
 	vgui::Panel* pParent = g_pClientMode->GetViewport();
 	SetParent(pParent);	// Our parent is the screen itself.
-	SetHiddenBits(0);	// Never Hidden. You could make it so that it gets hidden when health is, with HIDEHUD_HEALTH, or any other combination of HIDEHUD flags.
+	SetHiddenBits(HIDEHUD_HEALTH);	// Never Hidden. You could make it so that it gets hidden when health is, with HIDEHUD_HEALTH, or any other combination of HIDEHUD flags.
 	SetBgColor(Color(0, 0, 0, 100));
 	SetPaintBackgroundEnabled(true);
 	SetPaintBackgroundType(2); // Rounded corner box

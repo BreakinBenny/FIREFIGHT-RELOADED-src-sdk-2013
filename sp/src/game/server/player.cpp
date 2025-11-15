@@ -3086,6 +3086,10 @@ void CBasePlayer::Event_Dying( const CTakeDamageInfo& info )
 
 	DeathCheckLevel();
 	CTaskManager::Wipe();
+	for (int i = 0; i < TASKLIST_MAX_TASKS; i++)
+	{
+		m_iTaskCount[i] = 0;
+	}
 
 	SetThink(&CBasePlayer::PlayerDeathThink);
 	SetNextThink( gpGlobals->curtime + 0.1f );
@@ -7225,6 +7229,10 @@ void CBasePlayer::OnRestore( void )
 	m_nBodyPitchPoseParam = LookupPoseParameter( "body_pitch" );
 
 	CTaskManager::Wipe();
+	for (int i = 0; i < TASKLIST_MAX_TASKS; i++)
+	{
+		m_iTaskCount[i] = 0;
+	}
 	CheckLevel(true);
 }
 
