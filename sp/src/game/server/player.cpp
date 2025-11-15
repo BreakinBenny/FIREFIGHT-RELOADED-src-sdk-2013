@@ -1319,6 +1319,7 @@ void CBasePlayer::AssignKillTask()
 
 	NpcName target_name;
 	((CSingleplayRules*)GameRules())->GetNPCName(target_name, pEntry->classname);
+	m_iTaskCount[index] = 0;
 
 	CTaskManager::GetTaskManager()->SendTaskData(index, (pEntry->isRare ? TASK_HIGH : TASK_MEDIUM), count, target_name, (count == 1 ? "#Task_KillEnemy" : "#Task_KillEnemies"));
 }
@@ -1334,16 +1335,14 @@ void CBasePlayer::UpdateKillTask(int index, const char* target)
 			if (Q_strcmp(STRING(t->target), target) == 0)
 			{
 				m_iTaskCount[index]++;
+				// update the visual count
+				int count = (t->count - m_iTaskCount[index]);
+				CTaskManager::GetTaskManager()->SendTaskData(t->index, t->urgency, count, STRING(t->target), (count == 1 ? "#Task_KillEnemy" : "#Task_KillEnemies"));
 
-				if (m_iTaskCount[index] == t->count)
+				// reset the count for this index.
+				if (count <= 0)
 				{
-					CTaskManager::GetTaskManager()->SendTaskData(t->index, t->urgency, t->count, STRING(t->target), "#Task_Completed", true);
-				}
-				else
-				{
-					// update the visual count
-					int count = (t->count - m_iTaskCount[index]);
-					CTaskManager::GetTaskManager()->SendTaskData(t->index, t->urgency, count, STRING(t->target), (count == 1 ? "#Task_KillEnemy" : "#Task_KillEnemies"));
+					m_iTaskCount[index] = 0;
 				}
 			}
 		}

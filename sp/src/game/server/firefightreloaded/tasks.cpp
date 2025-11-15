@@ -22,7 +22,7 @@ void CC_AddTask(const CCommand& args)
 
 	if (pPlayer)
 	{
-		CTaskManager::GetTaskManager()->SendTaskData(index, priority, count, target, "#Task_Test", false, true);
+		CTaskManager::GetTaskManager()->SendTaskData(index, priority, count, target, "#Task_Test", true);
 	}
 }
 static ConCommand addtask("addtask", CC_AddTask, "Adds a test task\n", FCVAR_CHEAT);
@@ -75,28 +75,12 @@ Task* CTaskManager::GetTaskInfo(int index)
 	return NULL;
 }
 
-void CTaskManager::RefreshTasks()
-{
-	if (GetTaskManager()->m_Tasks.Size() > 0)
-	{
-		FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
-		{
-			Task* t = GetTaskManager()->m_Tasks[i];
-
-			if (t)
-			{
-				SendTaskData(t->index, t->urgency, t->count, STRING(t->target), STRING(t->message));
-			}
-		}
-	}
-}
-
 void CTaskManager::Wipe()
 {
 	FOR_EACH_VEC(GetTaskManager()->m_Tasks, i)
 	{
 		DevMsg("Requested to remove task %d from UI.\n", i);
-		SendTaskData(i, TASK_INACTIVE, 0, "", "", false, true);
+		SendTaskData(i, TASK_INACTIVE, 0, "", "", true);
 	}
 
 	if (GetTaskManager()->m_Tasks.Size() > 0)
@@ -106,24 +90,18 @@ void CTaskManager::Wipe()
 	}
 }
 
-void CTaskManager::SendTaskData(int index, int urgency, int count, const char* target, const char* message, bool complete, bool displaytask)
+void CTaskManager::SendTaskData(int index, int urgency, int count, const char* target, const char* message, bool displaytask)
 {
 	// this hack is so stupid. i should never touch a keyboard again
 	int iUrgency = urgency;
-
-	if (complete)
-	{
-		iUrgency = TASK_COMPLETE;
-	}
-
-	// bleh.
-
+	const char* szMessage = message;
 	int iCount = clamp(count, 0, TASKLIST_MAX_COUNT);
 
 	// auto-complete.
-	if (iCount == 0 && !displaytask)
+	if (iCount <= 0 && !displaytask)
 	{
 		iUrgency = TASK_COMPLETE;
+		szMessage = "#Task_Completed";
 	}
 
 	CBasePlayer* pPlayer = NULL;
@@ -146,7 +124,7 @@ void CTaskManager::SendTaskData(int index, int urgency, int count, const char* t
 		WRITE_BYTE(iUrgency);
 		WRITE_BYTE(iCount);
 		WRITE_STRING(target);
-		WRITE_STRING(message);
+		WRITE_STRING(szMessage);
 		MessageEnd();
 
 		bool updatePriority = false;
@@ -164,7 +142,7 @@ void CTaskManager::SendTaskData(int index, int urgency, int count, const char* t
 		{
 			if (iUrgency > TASK_COMPLETE)
 			{
-				Task* newTask = new Task(index, iUrgency, iCount, AllocPooledString(target), AllocPooledString(message));
+				Task* newTask = new Task(index, iUrgency, iCount, AllocPooledString(target), AllocPooledString(szMessage));
 				GetTaskManager()->m_Tasks.AddToHead(newTask);
 				DevMsg("Added task %d to manager.\n", index);
 			}
@@ -250,9 +228,9 @@ void CEnvHudTasklist::Precache(void)
 // Send a task data message to the client.  This gets caught by the task HUD
 // display element and shown.
 //-----------------------------------------------------------------------------
-void CEnvHudTasklist::SendTaskData(int index, bool dismiss)
+void CEnvHudTasklist::SendTaskData(int index)
 {
-	CTaskManager::GetTaskManager()->SendTaskData(index, m_iUrgency[index], 0, "", STRING(m_iszTaskmsg[index]), dismiss, true);
+	CTaskManager::GetTaskManager()->SendTaskData(index, m_iUrgency[index], 0, "", STRING(m_iszTaskmsg[index]), true);
 }
 
 void CEnvHudTasklist::TaskMessage(int index, const char* message)

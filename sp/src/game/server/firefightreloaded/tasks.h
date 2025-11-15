@@ -44,9 +44,8 @@ public:
 	static Task* GetTaskInfo(int index);
 
 	static void Wipe();
-	static void RefreshTasks();
 
-	static void SendTaskData(int index, int urgency, int count, const char* target, const char* message, bool complete = false, bool displaytask = false);
+	static void SendTaskData(int index, int urgency, int count, const char* target, const char* message, bool displaytask = false);
 	static void Shutdown();
 
 	CUtlVector<Task*> m_Tasks;
@@ -80,7 +79,7 @@ private:
 	void TaskMessage(int index, const char* message);
 	void TaskUrgency(int index, int urgency);
 
-	void SendTaskData(int index, bool dismiss = false);
+	void SendTaskData(int index);
 
 	string_t m_iszTaskmsg[TASKLIST_MAX_TASKS];
 	int m_iUrgency[TASKLIST_MAX_TASKS]; // 0=complete, 1=low, 2=medium, 3=high
