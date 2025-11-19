@@ -1378,12 +1378,27 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 		}
 	}
 
-	void CSingleplayRules::GetNPCName(char* npcName, const char* classname)
+	void CSingleplayRules::GetNPCName(char* npcName, const char* classname, int preset, int wildcard)
 	{
 		const char* entityClassname = classname;
 
 		CFmtStr localizedName;
-		localizedName.sprintf("#fr_%s", entityClassname);
+
+		if (preset > 0)
+		{
+			if (wildcard > 0)
+			{
+				localizedName.sprintf("#fr_any_%i", preset);
+			}
+			else
+			{
+				localizedName.sprintf("#fr_%s_%i", entityClassname, preset);
+			}
+		}
+		else
+		{
+			localizedName.sprintf("#fr_%s", entityClassname);
+		}
 
 		Q_strncpy(npcName, localizedName.Access(), sizeof(NpcName));
 	}
