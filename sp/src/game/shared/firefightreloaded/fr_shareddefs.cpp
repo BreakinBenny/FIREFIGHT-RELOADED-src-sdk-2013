@@ -6,11 +6,68 @@
 #include "steam/steam_api.h"
 #endif
 #include "vgui_controls/MessageBox.h"
+#if GAME_DLL
+#include "globalstate.h"
+#endif
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
 static ConVar fr_kvloader_debug("fr_kvloader_debug", "0", FCVAR_REPLICATED);
+
+const char* UTIL_FR_GetVersion(bool cmd)
+{
+	char verString[1024];
+	const char* result = "";
+	if (g_pFullFileSystem->FileExists("version.txt"))
+	{
+		FileHandle_t fh = filesystem->Open("version.txt", "r", "MOD");
+		int file_len = filesystem->Size(fh);
+		char* GameInfo = new char[file_len + 1];
+
+		filesystem->Read((void*)GameInfo, file_len, fh);
+		GameInfo[file_len] = 0; // null terminator
+
+		filesystem->Close(fh);
+
+		if (cmd)
+		{
+			Q_snprintf(verString, sizeof(verString), "Game Version: v%s (%s, %s)\n", GameInfo + 8, __DATE__, __TIME__);
+		}
+		else
+		{
+			Q_snprintf(verString, sizeof(verString), "v%s\n", GameInfo + 8);
+		}
+
+		result = verString;
+
+		delete[] GameInfo;
+	}
+
+	return result;
+}
+
+// checks to seeb if the antlion bypass is available for this gamemode.
+#if GAME_DLL
+bool UTIL_FR_CanForceAntlionsAllied()
+{
+	if (g_pGameRules->GetGamemode() == FR_GAMEMODE_CAMPAIGN)
+	{
+		// campaign uses its own logic
+		return false;
+	}
+
+	return g_pGameRules->GetGamemode() != FR_GAMEMODE_ANTLIONASSAULT && !g_fr_lonewolf.GetBool();
+}
+
+bool UTIL_FR_AreAntlionsAllied()
+{
+	if (!UTIL_FR_CanForceAntlionsAllied())
+		return false;
+
+	return GlobalEntity_GetState("antlion_allied") == GLOBAL_ON;
+}
+#endif
 
 #if CLIENT_DLL
 CON_COMMAND(list_centities, "List all client entities.")
@@ -51,38 +108,6 @@ CON_COMMAND(showworkshop, "")
 		steamapicontext->SteamFriends()->ActivateGameOverlayToWebPage(szWorkshopURL);
 	}
 #endif
-}
-
-const char* UTIL_FR_GetVersion(bool cmd)
-{
-	char verString[1024];
-	const char *result = "";
-	if (g_pFullFileSystem->FileExists("version.txt"))
-	{
-		FileHandle_t fh = filesystem->Open("version.txt", "r", "MOD");
-		int file_len = filesystem->Size(fh);
-		char* GameInfo = new char[file_len + 1];
-
-		filesystem->Read((void*)GameInfo, file_len, fh);
-		GameInfo[file_len] = 0; // null terminator
-
-		filesystem->Close(fh);
-
-		if (cmd)
-		{
-			Q_snprintf(verString, sizeof(verString), "Game Version: v%s (%s, %s)\n", GameInfo + 8, __DATE__, __TIME__);
-		}
-		else
-		{
-			Q_snprintf(verString, sizeof(verString), "v%s\n", GameInfo + 8);
-		}
-
-		result = verString;
-
-		delete[] GameInfo;
-	}
-
-	return result;
 }
 
 CON_COMMAND(fr_version, "")

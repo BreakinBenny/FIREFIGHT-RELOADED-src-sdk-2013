@@ -84,6 +84,14 @@ void CServerGameDLL::LevelInit_ParseAllEntities( const char *pMapEntities )
 			}
 			break;
 		}
+		case FR_GAMEMODE_CAMPAIGN:
+		{
+			if (pMapadd)
+			{
+				pMapadd->RunLabel("Campaign");
+			}
+			break;
+		}
 		default:
 		case FR_GAMEMODE_DEFAULT:
 		{

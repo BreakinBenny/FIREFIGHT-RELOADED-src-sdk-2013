@@ -293,6 +293,20 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 			SetGamemode(FR_GAMEMODE_FIREFIGHTRUMBLE);
 			DevMsg("Automatically setting the gamemode to FIREFIGHT RUMBLE due to mapname.\n");
 		}
+		else if (V_stristr(mapname, "d1_") ||
+			V_stristr(mapname, "d2_") || 
+			V_stristr(mapname, "d3_") || 
+			V_stristr(mapname, "ep1_") || 
+			V_stristr(mapname, "ep2_") || 
+			V_stristr(mapname, "campaign_"))
+		{
+			if (!g_fr_spawneroldfunctionality.GetBool())
+			{
+				bSkipFuncCheck = true;
+			}
+			SetGamemode(FR_GAMEMODE_CAMPAIGN);
+			DevMsg("Automatically setting the gamemode to Campaign due to mapname.\n");
+		}
 		else
 		{
 			bSkipFuncCheck = false;
@@ -316,6 +330,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 			const char* cfgfileaa = antlionassaultcfgfile.GetString();
 			const char* cfgfilezs = zombiesurvivalcfgfile.GetString();
 			const char* cfgfilefr = firefightrumblecfgfile.GetString();
+			const char* cfgfilecamp = firefightrumblecfgfile.GetString();
 
 			switch (g_pGameRules->GetGamemode())
 			{
@@ -375,6 +390,18 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 
 					DevMsg("Executing FIREFIGHT RUMBLE gamemode config file %s\n", cfgfilefr);
 					Q_snprintf(szCommand, sizeof(szCommand), "exec %s\n", cfgfilefr);
+					engine->ServerCommand(szCommand);
+				}
+				break;
+			}
+			case FR_GAMEMODE_CAMPAIGN:
+			{
+				if (cfgfilecamp && cfgfilecamp[0])
+				{
+					char szCommand[256];
+
+					DevMsg("Executing Campaign gamemode config file %s\n", cfgfilecamp);
+					Q_snprintf(szCommand, sizeof(szCommand), "exec %s\n", cfgfilecamp);
 					engine->ServerCommand(szCommand);
 				}
 				break;

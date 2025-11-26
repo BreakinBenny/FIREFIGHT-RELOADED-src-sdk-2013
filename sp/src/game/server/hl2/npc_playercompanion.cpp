@@ -1278,7 +1278,7 @@ void CNPC_PlayerCompanion::PrepareReadinessRemap( void )
 void CNPC_PlayerCompanion::Activate( void )
 {
 	// If we're friendly to the player, setup a relationship to reflect it
-	if (GlobalEntity_GetState("antlion_allied") == GLOBAL_ON && g_pGameRules->GetGamemode() != FR_GAMEMODE_ANTLIONASSAULT && !g_fr_lonewolf.GetBool())
+	if (UTIL_FR_AreAntlionsAllied())
 	{
 		for (int i = 0; i < g_AI_Manager.NumAIs(); i++)
 		{

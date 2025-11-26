@@ -264,9 +264,8 @@ void CWeaponBugBait::SecondaryAttack( void )
 
 	EmitSound( filter, entindex(), "Weapon_Bugbait.Splat" );
 
-#if defined(FR_DLL)
 	//in FR, allow us to use bugbait to get antlions over to our side.
-	if (GlobalEntity_GetState("antlion_allied") == GLOBAL_ON && g_pGameRules->GetGamemode() != FR_GAMEMODE_ANTLIONASSAULT && !g_fr_lonewolf.GetBool())
+	if (UTIL_FR_AreAntlionsAllied())
 	{
 		for (int i = 0; i < g_AI_Manager.NumAIs(); i++)
 		{
@@ -285,12 +284,11 @@ void CWeaponBugBait::SecondaryAttack( void )
 			}
 		}
 	}
-#else
+
 	if (CGrenadeBugBait::ActivateBugbaitTargets(pOwner, GetAbsOrigin(), true) == false)
 	{
 		g_AntlionMakerManager.BroadcastFollowGoal(pOwner);
 	}
-#endif
 
 	SendWeaponAnim( ACT_VM_SECONDARYATTACK );
 	m_flNextSecondaryAttack = gpGlobals->curtime + SequenceDuration();

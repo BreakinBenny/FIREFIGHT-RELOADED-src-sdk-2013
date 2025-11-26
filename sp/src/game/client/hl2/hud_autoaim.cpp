@@ -467,15 +467,9 @@ void CHUDAutoAim::Paint()
 		C_BaseHLPlayer *pLocalPlayer = (C_BaseHLPlayer *)C_BasePlayer::GetLocalPlayer();
 		if( pLocalPlayer && pLocalPlayer->m_HL2Local.m_hAutoAimTarget.Get() )
 		{
-#ifdef FR_DLL
 			r = m_colorFixedAimed.r();
 			g = m_colorFixedAimed.g();
 			b = m_colorFixedAimed.b();
-#else
-			r = 250; 
-			g = 138;
-			b = 4;
-#endif
 		}
 
 		clr.SetColor( r,g,b,m_alphaFixed);

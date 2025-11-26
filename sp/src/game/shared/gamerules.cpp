@@ -369,6 +369,10 @@ const char* CGameRules::GetGamemodeName()
 	{
 		gamemodeName = "firefight_rumble";
 	}
+	else if (GetGamemode() == FR_GAMEMODE_CAMPAIGN)
+	{
+		gamemodeName = "campaign";
+	}
 
 	return gamemodeName;
 }
@@ -396,6 +400,10 @@ const char* CGameRules::GetGamemodeName_ServerBrowser()
 	else if (GetGamemode() == FR_GAMEMODE_FIREFIGHTRUMBLE)
 	{
 		gamemodeName = "FIREFIGHT RUMBLE";
+	}
+	else if (GetGamemode() == FR_GAMEMODE_CAMPAIGN)
+	{
+		gamemodeName = "Campaign";
 	}
 	else
 	{

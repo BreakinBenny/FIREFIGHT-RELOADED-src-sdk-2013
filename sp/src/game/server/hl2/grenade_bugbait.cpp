@@ -198,9 +198,8 @@ void CGrenadeBugBait::BugBaitTouch( CBaseEntity *pOther )
 		CSoundEnt::InsertSound(SOUND_BUGBAIT, GetAbsOrigin(), bugbait_hear_radius.GetInt(), bugbait_distract_time.GetFloat(), GetThrower());
 	}
 
-#if defined(FR_DLL)
 	//in FR, allow us to use bugbait to get antlions over to our side.
-	if (g_pGameRules->GetGamemode() != FR_GAMEMODE_ANTLIONASSAULT && !g_fr_lonewolf.GetBool())
+	if (UTIL_FR_CanForceAntlionsAllied())
 	{
 		if (GlobalEntity_GetState("antlion_allied") != GLOBAL_ON)
 		{
@@ -303,10 +302,9 @@ void CGrenadeBugBait::BugBaitTouch( CBaseEntity *pOther )
 			}
 		}
 	}
-#else
+
 	// Tell all spawners to now fight to this position
 	g_AntlionMakerManager.BroadcastFightGoal(GetAbsOrigin());
-#endif
 
 	//Go away
 	UTIL_Remove( this );

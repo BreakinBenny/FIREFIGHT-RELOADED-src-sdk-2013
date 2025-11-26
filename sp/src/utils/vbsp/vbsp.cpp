@@ -201,6 +201,7 @@ ProcessWorldModel
 ============
 */
 void SplitSubdividedFaces( node_t *headnode ); // garymcthack
+void ProcessSubModel(); // fwd decl
 void ProcessWorldModel (void)
 {
 	entity_t	*e;

@@ -64,7 +64,8 @@ enum EFRLegacyGamemodes
 	FR_GAMEMODE_XENINVASION,
 	FR_GAMEMODE_ANTLIONASSAULT,
 	FR_GAMEMODE_ZOMBIESURVIVAL,
-	FR_GAMEMODE_FIREFIGHTRUMBLE
+	FR_GAMEMODE_FIREFIGHTRUMBLE,
+	FR_GAMEMODE_CAMPAIGN
 };
 
 enum EFRItemTypes
@@ -229,5 +230,9 @@ public:
 };
 
 extern const char* UTIL_FR_GetVersion(bool cmd = false);
+#if GAME_DLL
+extern bool UTIL_FR_AreAntlionsAllied();
+extern bool UTIL_FR_CanForceAntlionsAllied();
+#endif
 
 #endif // FR_SHAREDDEFS_H

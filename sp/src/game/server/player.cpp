@@ -1316,6 +1316,15 @@ void CBasePlayer::AssignKillTask()
 	{
 		return;
 	}
+	else
+	{
+		// counting antlions
+		if (UTIL_FR_AreAntlionsAllied() &&
+			(Q_strcmp(pEntry->classname, "npc_antlion") || Q_strcmp(pEntry->classname, "npc_antlionworker")))
+		{
+			return;
+		}
+	}
 
 	NpcName target_name;
 	((CSingleplayRules*)GameRules())->GetNPCName(target_name, pEntry->classname, pEntry->npcAttributePreset, pEntry->npcAttributeWildcard);
