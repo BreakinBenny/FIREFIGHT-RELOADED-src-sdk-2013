@@ -11,12 +11,25 @@
 	developer_url	"https://home.bitl.dev"
 	manual		""
 	GameData	"firefightreloaded.fgd"
+	InstancePath	"maps/instances/"
 	icon		"resource/game"
 	hidden_maps
 	{
-		"credits"		1
-		"firefight_advisor"		1
-		"firefight_tutorial"		1
+		"intro"			"1"
+		"credits"			"1"
+		"firefight_advisor"		"1"
+		"firefight_tutorial"		"1"
+		"test_speakers"		"1"
+		"test_hardware"		"1"
+	}
+	hidden_map_prefixes
+	{
+		"d1_"			"1"
+		"d2_"			"1"
+		"d3_"			"1"
+		"ep1_"			"1"
+		"ep2_"			"1"
+		"background"			"1"
 	}
 
 	FileSystem
@@ -88,6 +101,16 @@
 			game				|all_source_engine_paths|sourcebase/main/hl2_sound_misc.vpk
 			game				|all_source_engine_paths|sourcebase/main/hl2_misc.vpk
 			platform				|all_source_engine_paths|platform/platform_misc.vpk
+
+			//mount half-life 2 and episodes.
+			//game+mod			"|gameinfo_path|..\..\Half-Life 2\hl2\hl2_pak.vpk"
+			//game+mod			"|gameinfo_path|..\..\Half-Life 2\episodic\ep1_pak.vpk"
+			//game+mod			"|gameinfo_path|..\..\Half-Life 2\ep2\ep2_pak.vpk"
+
+			//mount maps.
+			//game+mod			"|gameinfo_path|..\..\Half-Life 2\hl2"
+			//game+mod			"|gameinfo_path|..\..\Half-Life 2\episodic"
+			//game+mod			"|gameinfo_path|..\..\Half-Life 2\ep2"
 
 			// Where the game's binaries are
 			gamebin				firefightreloaded/bin
