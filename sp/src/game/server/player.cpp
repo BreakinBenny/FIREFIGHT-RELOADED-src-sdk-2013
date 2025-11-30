@@ -139,6 +139,8 @@ ConVar player_defaulthealthoverchargecap("player_defaulthealthoverchargecap", "9
 
 ConVar sv_autosave_levelup("sv_autosave_levelup", "1", FCVAR_ARCHIVE);
 
+ConVar sv_tasks("sv_tasks", "1", FCVAR_ARCHIVE);
+
 ConVar sv_player_damageflash("sv_player_damageflash", "1", FCVAR_ARCHIVE);
 ConVar sv_player_damageflash_waittime("sv_player_damageflash_waittime", "1.5", FCVAR_ARCHIVE);
 
@@ -1247,7 +1249,10 @@ void CBasePlayer::LevelUp()
 		}
 
 		Reward_GiveItem();
-		AssignTask();
+		if (sv_tasks.GetBool())
+		{
+			AssignTask();
+		}
 
 		if (sv_autosave_levelup.GetBool() && !m_bHardcore)
 		{
@@ -1267,6 +1272,11 @@ void CBasePlayer::LevelUp()
 
 int CBasePlayer::AssignTaskIndex()
 {
+	if (!sv_tasks.GetBool())
+	{
+		return -1;
+	}
+
 	if (CTaskManager::GetTaskManager()->m_Tasks.Size() == TASKLIST_MAX_TASKS)
 	{
 		return -1;
@@ -1294,6 +1304,11 @@ int CBasePlayer::AssignTaskIndex()
 
 void CBasePlayer::AssignTask()
 {
+	if (!sv_tasks.GetBool())
+	{
+		return;
+	}
+
 	AssignKillTask();
 }
 
