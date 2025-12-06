@@ -616,6 +616,7 @@
             "Valve_Hud_TASK": "CONTRACTS",
             "Task_Test": "Count: %s1 | Target: %s2",
             "Task_KillBoss": "Kill the Advisor",
+            "Task_GoToBoss": "Kill an Advisor Drone",
             "Task_Completed": "COMPLETED",
             "Task_Failed": "FAILED",
             "Task_KillEnemies": "Kill %s1 %s2s",

@@ -80,6 +80,13 @@ Scheme
 		"Yellowish"			"FRBlueish"
 		"Normal"			"FRNormal"
 		"Caution"			"HL2Caution"
+		
+		//FR task colors
+		//note that alpha is ignored due to how the task animations work
+		"TaskComplete"    "0 255 0 255"
+		"TaskLow"    	  "0 255 0 255"
+		"TaskMedium"      "255 255 0 255"
+		"TaskHigh"    	  "255 0 0 255"
 
 		// Top-left corner of the "Half-Life 2" on the main screen
 		"Main.Title1.X"				"76"
