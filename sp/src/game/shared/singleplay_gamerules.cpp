@@ -1415,7 +1415,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 		{
 			if (wildcard > 0)
 			{
-				localizedName.sprintf("#fr_any_%i", preset);
+				localizedName.sprintf("#fr_npc_any_%i", preset);
 			}
 			else
 			{
