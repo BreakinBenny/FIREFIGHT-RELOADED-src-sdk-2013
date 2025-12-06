@@ -210,8 +210,11 @@ const CRandNPCLoader::SpawnEntry_t* CRandNPCLoader::GetRandomEntry() const
 	// Create list of candidates by checking all the keys to generate a level based spawnlist.
 	CUtlVector<const SpawnEntry_t*> candidates;
 	float totalWeight = 0;
-	for (auto& iter : m_Entries)
+
+	FOR_EACH_VEC(m_Entries, i)
 	{
+		const SpawnEntry_t iter = m_Entries[i];
+
 		if (largestPlayerLevel >= iter.minPlayerLevel)
 		{
 			//prioritize commons over rares.
@@ -233,8 +236,10 @@ const CRandNPCLoader::SpawnEntry_t* CRandNPCLoader::GetRandomEntry() const
 	// This naive algorithm (implemented elsewhere too) could ignore very small weights.
 	// If this comes up, then we'll look into this.
 	float choice = random->RandomFloat(0, totalWeight);
-	for (auto iter : candidates)
+	FOR_EACH_VEC(candidates, i)
 	{
+		const SpawnEntry_t* iter = candidates[i];
+
 		choice -= iter->weight;
 		if (choice <= 0)
 			return iter;
@@ -252,8 +257,10 @@ const CRandNPCLoader::SpawnEntry_t* CRandNPCLoader::GetRandomEntry(bool isRare) 
 	// Create list of candidates by checking all the keys to generate a level based spawnlist.
 	CUtlVector<const SpawnEntry_t*> candidates;
 	float totalWeight = 0;
-	for ( auto& iter : m_Entries )
+	FOR_EACH_VEC(m_Entries, i)
 	{
+		const SpawnEntry_t iter = m_Entries[i];
+
 		if ( largestPlayerLevel >= iter.minPlayerLevel && iter.isRare == isRare )
 		{
 			candidates.AddToTail( &iter );
@@ -264,8 +271,10 @@ const CRandNPCLoader::SpawnEntry_t* CRandNPCLoader::GetRandomEntry(bool isRare) 
 	// This naive algorithm (implemented elsewhere too) could ignore very small weights.
 	// If this comes up, then we'll look into this.
 	float choice = random->RandomFloat( 0, totalWeight );
-	for ( auto iter : candidates )
+	FOR_EACH_VEC(candidates, i)
 	{
+		const SpawnEntry_t *iter = candidates[i];
+
 		choice -= iter->weight;
 		if ( choice <= 0 )
 			return iter;
