@@ -1388,15 +1388,15 @@ void CBasePlayer::AssignKillTask()
 
 	random->SetSeed((int)gpGlobals->curtime);
 
-	int count = TASKLIST_MIN_KILL_COUNT;
+	int count = TASKLIST_KILL_TASK_MIN_KILL_COUNT;
 
 	if (pEntry->isRare)
 	{
-		count = random->RandomInt(TASKLIST_MIN_KILL_RARE_COUNT, TASKLIST_MAX_KILL_COUNT);
+		count = random->RandomInt(TASKLIST_KILL_TASK_MIN_KILL_RARE_COUNT, TASKLIST_KILL_TASK_MAX_KILL_COUNT);
 	}
 	else
 	{
-		count = random->RandomInt(TASKLIST_MIN_KILL_COUNT, TASKLIST_MAX_KILL_COUNT);
+		count = random->RandomInt(TASKLIST_KILL_TASK_MIN_KILL_COUNT, TASKLIST_KILL_TASK_MAX_KILL_COUNT);
 	}
 
 	bool reroll = false;
@@ -1426,7 +1426,7 @@ void CBasePlayer::AssignKillTask()
 	NpcName target_name;
 	((CSingleplayRules*)GameRules())->GetNPCName(target_name, pEntry->classname, pEntry->npcAttributePreset, pEntry->npcAttributeWildcard);
 
-	SendTask((pEntry->isRare ? TASK_HIGH : TASK_MEDIUM), count, target_name, "#Task_KillEnemy", "#Task_KillEnemies");
+	SendTask((pEntry->isRare ? (count > TASKLIST_KILL_TASK_COUNTTOCHANGECOLOR ? TASK_HIGH : TASK_MEDIUM) : (count > TASKLIST_KILL_TASK_COUNTTOCHANGECOLOR ? TASK_MEDIUM : TASK_LOW)), count, target_name, "#Task_KillEnemy", "#Task_KillEnemies");
 }
 
 void CBasePlayer::UpdateKillTask(int index, const char* target)
