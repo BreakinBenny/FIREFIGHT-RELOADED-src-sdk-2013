@@ -162,6 +162,7 @@ void CTaskManager::SendTaskData(int index, int urgency, int count, const char* t
 				if (iUrgency == TASK_COMPLETE)
 				{
 					// reward us for completing the task
+					pPlayer->m_iTaskCount[index] = 0;
 					pPlayer->TaskCompleted();
 				}
 			}

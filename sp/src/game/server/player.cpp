@@ -1309,8 +1309,6 @@ void CBasePlayer::SendTask(int urgency, int count, const char* target, const cha
 	if (index == -1)
 		return;
 
-	m_iTaskCount[index] = 0;
-
 	CTaskManager::GetTaskManager()->SendTaskData(index, urgency, count, target, message, displaytask);
 }
 
@@ -1355,12 +1353,6 @@ void CBasePlayer::UpdateTask(Task* task, int index, const char* msgSingle, const
 		// update the visual count
 		int count = (task->count - m_iTaskCount[index]);
 		CTaskManager::GetTaskManager()->SendTaskData(task->index, task->urgency, count, STRING(task->target), (count == 1 ? msgSingle : msgMultiple));
-
-		// reset the count for this index.
-		if (count <= 0)
-		{
-			m_iTaskCount[index] = 0;
-		}
 	}
 }
 
@@ -1396,10 +1388,12 @@ void CBasePlayer::AssignKillTask()
 
 	const CRandNPCLoader::SpawnEntry_t* pEntry = g_ref_npcLoader->GetRandomEntry();
 
+	bool reroll = false;
+
 	// allies don't count.
 	if (pEntry->extraExp <= 0 && pEntry->extraMoney <= 0)
 	{
-		return;
+		reroll = true;
 	}
 	else
 	{
@@ -1407,8 +1401,15 @@ void CBasePlayer::AssignKillTask()
 		if (UTIL_FR_AreAntlionsAllied() &&
 			(Q_strcmp(pEntry->classname, "npc_antlion") || Q_strcmp(pEntry->classname, "npc_antlionworker")))
 		{
-			return;
+			reroll = true;
 		}
+	}
+
+	if (reroll)
+	{
+		//try to assign a different task. this MAY cause problems.
+		AssignKillTask();
+		return;
 	}
 
 	NpcName target_name;
