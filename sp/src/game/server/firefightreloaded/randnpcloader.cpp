@@ -205,6 +205,8 @@ const CRandNPCLoader::SpawnEntry_t* CRandNPCLoader::GetRandomEntry() const
 {
 	int largestPlayerLevel = GetLargestLevel();
 
+	random->SetSeed((int)gpGlobals->curtime);
+
 	// Create list of candidates by checking all the keys to generate a level based spawnlist.
 	CUtlBlockLinkedList<const SpawnEntry_t*> candidates;
 	float totalWeight = 0;
@@ -212,6 +214,17 @@ const CRandNPCLoader::SpawnEntry_t* CRandNPCLoader::GetRandomEntry() const
 	{
 		if (largestPlayerLevel >= iter.minPlayerLevel)
 		{
+			//prioritize commons over rares.
+			if (iter.isRare)
+			{
+				int coinFlip = random->RandomInt(0, 1);
+				// tails.
+				if (coinFlip)
+				{
+					continue;
+				}
+			}
+
 			candidates.AddToTail(&iter);
 			totalWeight += iter.weight;
 		}
@@ -233,6 +246,8 @@ const CRandNPCLoader::SpawnEntry_t* CRandNPCLoader::GetRandomEntry() const
 const CRandNPCLoader::SpawnEntry_t* CRandNPCLoader::GetRandomEntry(bool isRare) const
 {
 	int largestPlayerLevel = GetLargestLevel();
+
+	random->SetSeed((int)gpGlobals->curtime);
 
 	// Create list of candidates by checking all the keys to generate a level based spawnlist.
 	CUtlBlockLinkedList<const SpawnEntry_t*> candidates;

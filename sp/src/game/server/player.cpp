@@ -1384,9 +1384,20 @@ void CBasePlayer::AssignKillTask()
 	if (!g_ref_npcLoader)
 		return;
 
-	int count = RandomInt(TASKLIST_MIN_COUNT, TASKLIST_MAX_COUNT);
-
 	const CRandNPCLoader::SpawnEntry_t* pEntry = g_ref_npcLoader->GetRandomEntry();
+
+	random->SetSeed((int)gpGlobals->curtime);
+
+	int count = TASKLIST_MIN_KILL_COUNT;
+
+	if (pEntry->isRare)
+	{
+		count = random->RandomInt(TASKLIST_MIN_KILL_RARE_COUNT, TASKLIST_MAX_KILL_COUNT);
+	}
+	else
+	{
+		count = random->RandomInt(TASKLIST_MIN_KILL_COUNT, TASKLIST_MAX_KILL_COUNT);
+	}
 
 	bool reroll = false;
 

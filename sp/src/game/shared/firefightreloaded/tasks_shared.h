@@ -6,8 +6,11 @@
 
 #define TASKLIST_MAX_TASKS 5
 
-#define TASKLIST_MIN_COUNT 2
-#define TASKLIST_MAX_COUNT 15
+#define TASKLIST_MIN_KILL_RARE_COUNT 1
+#define TASKLIST_MIN_KILL_COUNT 2
+#define TASKLIST_MAX_KILL_COUNT 5
+
+#define TASKLIST_MAX_COUNT 255
 
 enum eTaskPriority
 {
@@ -21,7 +24,6 @@ enum eTaskPriority
 enum eTaskType
 {
 	TASK_KILL = 0,
-
 	TASK_TYPE_LAST
 };
 
