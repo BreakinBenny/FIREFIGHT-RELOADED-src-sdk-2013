@@ -1413,13 +1413,33 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 
 		if (preset > 0)
 		{
+			bool useLocalization = true;
+
 			if (wildcard > 0)
 			{
-				localizedName.sprintf("#fr_npc_any_%i", preset);
+				entityClassname = "npc_any";
+			}
+
+			CAttributesLoader* pAttributes = new CAttributesLoader(entityClassname, preset);
+
+			if (pAttributes != NULL)
+			{
+				const char* presetName = pAttributes->GetString("name", "NULL");
+
+				if (Q_strnicmp(presetName, "NULL", 11) != 0)
+				{
+					useLocalization = false;
+					entityClassname = presetName;
+				}
+			}
+
+			if (useLocalization)
+			{
+				localizedName.sprintf("#fr_%s_%i", entityClassname, preset);
 			}
 			else
 			{
-				localizedName.sprintf("#fr_%s_%i", entityClassname, preset);
+				localizedName.sprintf("%s", entityClassname);
 			}
 		}
 		else
