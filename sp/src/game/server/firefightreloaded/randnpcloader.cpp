@@ -208,7 +208,7 @@ const CRandNPCLoader::SpawnEntry_t* CRandNPCLoader::GetRandomEntry() const
 	random->SetSeed((int)gpGlobals->curtime);
 
 	// Create list of candidates by checking all the keys to generate a level based spawnlist.
-	CUtlBlockLinkedList<const SpawnEntry_t*> candidates;
+	CUtlVector<const SpawnEntry_t*> candidates;
 	float totalWeight = 0;
 	for (auto& iter : m_Entries)
 	{
@@ -250,7 +250,7 @@ const CRandNPCLoader::SpawnEntry_t* CRandNPCLoader::GetRandomEntry(bool isRare) 
 	random->SetSeed((int)gpGlobals->curtime);
 
 	// Create list of candidates by checking all the keys to generate a level based spawnlist.
-	CUtlBlockLinkedList<const SpawnEntry_t*> candidates;
+	CUtlVector<const SpawnEntry_t*> candidates;
 	float totalWeight = 0;
 	for ( auto& iter : m_Entries )
 	{
