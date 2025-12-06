@@ -53,5 +53,10 @@ private:
 	CPanelAnimationVar(vgui::HFont, m_hSmallFont, "TaskFont", "Default");
 	CPanelAnimationVar(vgui::HFont, m_hLargeFont, "TitleFont", "Default");
 	CPanelAnimationVarAliasType(float, text_xpos, "text_xpos", "8", "proportional_float");
+
+	Color					 m_completedColor;
+	Color					 m_lowColor;
+	Color					 m_mediumColor;
+	Color					 m_highColor;
 };
 #endif

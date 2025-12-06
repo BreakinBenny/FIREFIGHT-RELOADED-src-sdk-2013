@@ -1302,6 +1302,23 @@ int CBasePlayer::AssignTaskIndex()
 	return index;
 }
 
+void CBasePlayer::SendTask(int urgency, int count, const char* target, const char* message, bool displaytask)
+{
+	int index = AssignTaskIndex();
+
+	if (index == -1)
+		return;
+
+	m_iTaskCount[index] = 0;
+
+	CTaskManager::GetTaskManager()->SendTaskData(index, urgency, count, target, message, displaytask);
+}
+
+void CBasePlayer::SendTask(int urgency, int count, const char* target, const char* msgSingle, const char* msgMultiple, bool displaytask)
+{
+	SendTask(urgency, count, target, (count == 1 ? msgSingle : msgMultiple), displaytask);
+}
+
 void CBasePlayer::AssignTask()
 {
 	if (!sv_tasks.GetBool())
@@ -1309,17 +1326,70 @@ void CBasePlayer::AssignTask()
 		return;
 	}
 
-	AssignKillTask();
+	random->SetSeed((int)gpGlobals->curtime);
+	int iTaskType = random->RandomInt(TASK_KILL, TASK_TYPE_LAST - 1);
+
+	switch (iTaskType)
+	{
+		case TASK_KILL:
+		{
+			AssignKillTask();
+			break;
+		}
+		default:
+			break;
+	}
+}
+
+void CBasePlayer::UpdateTask(Task* task, int index, const char* msgSingle, const char* msgMultiple)
+{
+	if (!CTaskManager::GetTaskManager()->DoesTaskExistAtIndex(index))
+	{
+		DevWarning("The task on %i does not exist?? DoesTaskExistAtIndex should be checked before calling the main UpdateTask!!!!\n", index);
+		return;
+	}
+
+	if (task)
+	{
+		m_iTaskCount[index]++;
+		// update the visual count
+		int count = (task->count - m_iTaskCount[index]);
+		CTaskManager::GetTaskManager()->SendTaskData(task->index, task->urgency, count, STRING(task->target), (count == 1 ? msgSingle : msgMultiple));
+
+		// reset the count for this index.
+		if (count <= 0)
+		{
+			m_iTaskCount[index] = 0;
+		}
+	}
+}
+
+void CBasePlayer::UpdateTask(int index, const char* msgSingle, const char* msgMultiple)
+{
+	if (CTaskManager::GetTaskManager()->DoesTaskExistAtIndex(index))
+	{
+		Task* t = CTaskManager::GetTaskManager()->GetTaskInfo(index);
+
+		if (t)
+		{
+			UpdateTask(t, index, msgSingle, msgMultiple);
+		}
+	}
+}
+
+void CBasePlayer::UpdateTask(Task* task, int index, const char* message)
+{
+	UpdateTask(task, index, message, message);
+}
+
+void CBasePlayer::UpdateTask(int index, const char* message)
+{
+	UpdateTask(index, message, message);
 }
 
 void CBasePlayer::AssignKillTask()
 {
 	if (!g_ref_npcLoader)
-		return;
-
-	int index = AssignTaskIndex();
-
-	if (index == -1)
 		return;
 
 	int count = RandomInt(TASKLIST_MIN_COUNT, TASKLIST_MAX_COUNT);
@@ -1343,9 +1413,8 @@ void CBasePlayer::AssignKillTask()
 
 	NpcName target_name;
 	((CSingleplayRules*)GameRules())->GetNPCName(target_name, pEntry->classname, pEntry->npcAttributePreset, pEntry->npcAttributeWildcard);
-	m_iTaskCount[index] = 0;
 
-	CTaskManager::GetTaskManager()->SendTaskData(index, (pEntry->isRare ? TASK_HIGH : TASK_MEDIUM), count, target_name, (count == 1 ? "#Task_KillEnemy" : "#Task_KillEnemies"));
+	SendTask((pEntry->isRare ? TASK_HIGH : TASK_MEDIUM), count, target_name, "#Task_KillEnemy", "#Task_KillEnemies");
 }
 
 void CBasePlayer::UpdateKillTask(int index, const char* target)
@@ -1358,16 +1427,7 @@ void CBasePlayer::UpdateKillTask(int index, const char* target)
 		{
 			if (Q_strcmp(STRING(t->target), target) == 0)
 			{
-				m_iTaskCount[index]++;
-				// update the visual count
-				int count = (t->count - m_iTaskCount[index]);
-				CTaskManager::GetTaskManager()->SendTaskData(t->index, t->urgency, count, STRING(t->target), (count == 1 ? "#Task_KillEnemy" : "#Task_KillEnemies"));
-
-				// reset the count for this index.
-				if (count <= 0)
-				{
-					m_iTaskCount[index] = 0;
-				}
+				UpdateTask(t, index, "#Task_KillEnemy", "#Task_KillEnemies");
 			}
 		}
 	}

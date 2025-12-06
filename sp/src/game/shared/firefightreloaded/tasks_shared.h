@@ -18,4 +18,11 @@ enum eTaskPriority
 	TASK_HIGH
 };
 
+enum eTaskType
+{
+	TASK_KILL = 0,
+
+	TASK_TYPE_LAST
+};
+
 #endif

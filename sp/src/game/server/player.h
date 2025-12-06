@@ -940,6 +940,12 @@ public:
 	int AssignTaskIndex();
 	void AssignTask();
 	void TaskCompleted();
+	void SendTask(int urgency, int count, const char* target, const char* message, bool displaytask = false);
+	void SendTask(int urgency, int count, const char* target, const char* msgSingle, const char* msgMultiple, bool displaytask = false);
+	void UpdateTask(Task* task, int index, const char* msgSingle, const char* msgMultiple);
+	void UpdateTask(int index, const char* msgSingle, const char* msgMultiple);
+	void UpdateTask(Task* task, int index, const char* message);
+	void UpdateTask(int index, const char* message);
 
 	//KILL tasks
 	void AssignKillTask();

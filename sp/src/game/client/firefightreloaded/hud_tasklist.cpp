@@ -52,6 +52,10 @@ void CHudTaskList::VidInit(void)
 void CHudTaskList::ApplySchemeSettings(vgui::IScheme* pScheme)
 {
 	DevMsg(2, "CHudTaskList::ApplySchemeSettings\n");
+	m_completedColor = pScheme->GetColor("TaskComplete", Color(0, 255, 0, 255));
+	m_lowColor = pScheme->GetColor("TaskLow", Color(255, 255, 0, 255));
+	m_mediumColor = pScheme->GetColor("TaskMedium", Color(255, 255, 0, 255));
+	m_highColor = pScheme->GetColor("TaskHigh", Color(255, 0, 0, 255));
 
 	BaseClass::ApplySchemeSettings(pScheme);
 }
@@ -177,7 +181,7 @@ void CHudTaskList::Paint(void)
 			iShown++;
 			vgui::surface()->DrawSetTextPos(x, y);
 
-			int lr = 255, lg = 255, lb = 255;
+			Color txtClr = Color(255, 255, 255, 255);
 			// DevMsg (2, "CHudTaskList::Paint task %d, priority %d:  %s\n", i, m_iPriority[i], m_pText[i][0] );
 
 			// ----------------------------------------------------------
@@ -186,25 +190,19 @@ void CHudTaskList::Paint(void)
 			switch (m_iPriority[i])
 			{
 			case TASK_COMPLETE:
-				// vgui::surface()->DrawSetTextColor( 100, 255, 0, brightness ); 
-				lr = 0;
-				lg = 255;
-				lb = 0;
+				txtClr = m_completedColor;
 				break;
 
 			case TASK_LOW:
+				txtClr = m_lowColor;
+				break;
+
 			case TASK_MEDIUM:
-				// vgui::surface()->DrawSetTextColor( 255, 220, 0, 255 ); 
-				lr = 255;
-				lg = 255; // 220;
-				lb = 0;
+				txtClr = m_mediumColor;
 				break;
 
 			case TASK_HIGH:
-				// vgui::surface()->DrawSetTextColor( 255, 0, 0, 255 ); 
-				lr = 255;
-				lg = 0;
-				lb = 0;
+				txtClr = m_highColor;
 				break;
 
 			default:
@@ -214,6 +212,8 @@ void CHudTaskList::Paint(void)
 				DevMsg("hud_tasklistdisplay:  Task List item %d (%s) with unknown priority %d!\n", i, m_pText[i], m_iPriority[i]);
 				break;
 			}
+
+			int lr = txtClr.r(), lg = txtClr.g(), lb = txtClr.b();
 
 			// ----------------------------------------------------------
 			// --- Calculate text flash color and fade for completed tasks
