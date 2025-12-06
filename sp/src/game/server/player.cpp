@@ -1376,6 +1376,16 @@ void CBasePlayer::UpdateKillTask(int index, const char* target)
 void CBasePlayer::TaskCompleted()
 {
 	Reward_GiveItem(true);
+
+	if (g_fr_economy.GetBool())
+	{
+		AddMoney(100);
+	}
+
+	if (!g_fr_classic.GetBool())
+	{
+		AddXP(50);
+	}
 }
 
 extern ConVar sk_healthkit;
