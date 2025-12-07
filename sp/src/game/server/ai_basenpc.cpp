@@ -160,7 +160,7 @@ ConVar	ai_disappear_fps_control_target("ai_disappear_fps_control_target", "40", 
 ConVar	ai_disappear_fps_control_mode("ai_disappear_fps_control_mode", "1", FCVAR_ARCHIVE, "0: remove npcs that are far away and are non visible. 1: remove npcs that are non visible. 2: no checks are used when deleting NPCs.");
 
 ConVar	ai_disappear_spawner_control("ai_disappear_spawner_control", "1", FCVAR_ARCHIVE, "Allow NPCs to remove themselves if new NPCs are also spawning.");
-ConVar	ai_disappear_spawner_control_max_distance("ai_disappear_spawner_control_max_distance", "1536", FCVAR_ARCHIVE, "If the NPC is this far away from the enemy, it might be considered for deletion. Override for events.");
+ConVar	ai_disappear_spawner_control_max_distance("ai_disappear_spawner_control_max_distance", "1536", FCVAR_ARCHIVE, "If the NPC is this far away from the enemy, it might be considered for deletion. Override for NPS spawning event.");
 
 ConVar	ai_disappear_debugmsg_overload("ai_disappear_debugmsg_overload", "0", FCVAR_NONE, "");
 
