@@ -161,15 +161,13 @@ void StickRagdollNow(const Vector& vecOrigin, const Vector& vecDirection, const 
 	Ray_t	shotRay;
 	trace_t tr;
 
-	UTIL_TraceLine(vecOrigin, vecOrigin + vecDirection * 16, MASK_SOLID_BRUSHONLY, NULL, COLLISION_GROUP_NONE, &tr);
+	// TF uses 64. let's use that.
+	UTIL_TraceLine(vecOrigin + vecDirection * 16, vecOrigin - vecDirection * 64, MASK_SOLID_BRUSHONLY, NULL, COLLISION_GROUP_NONE, &tr);
 
 	if (tr.surface.flags & SURF_SKY)
 		return;
 
-	// TF uses 64. let's use that.
-	Vector vecEnd = vecOrigin - vecDirection * 64;
-
-	shotRay.Init(vecOrigin, vecEnd);
+	shotRay.Init(vecOrigin, tr.endpos);
 
 	C_WeaponKnife* knife = dynamic_cast<C_WeaponKnife*>(sticker);
 	bool isKnifeValid = (knife != nullptr);
