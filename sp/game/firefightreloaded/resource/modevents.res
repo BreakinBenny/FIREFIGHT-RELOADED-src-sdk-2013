@@ -99,6 +99,18 @@
         "beta"	        "bool"
 	}
 	
+	"npc_spawner_created"
+	{
+		"classname"	"string"
+		"entindex"	"short"
+	}
+	
+	"npc_spawner_killed"
+	{
+		"classname"	"string"
+		"entindex"	"short"
+	}
+	
 	"ds_stop"
 	{}
 }

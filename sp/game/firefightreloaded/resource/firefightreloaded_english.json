@@ -573,6 +573,8 @@
             "GameUI_NPCFPSControl": "NPC removal is controlled by FPS",
             "GameUI_NPCFPSTarget": "NPC FPS Target",
             "GameUI_NPCFPSMode": "NPC FPS Removal Level",
+            "GameUI_NPCRemoveMaxDistance_OnSpawn": "Distance to remove NPCs at if another spawns",
+            "GameUI_NPCOnSpawn": "NPC removal is triggered when other NPCs spawn",
             "GameUI_SpawnerFPSControl": "NPC spawners are controlled by FPS",
             "GameUI_SpawnerFPS": "Minimum framerate to temporarily disable spawners",
             "GameUI_ToggleHUD": "Toggle the HEV HUD",

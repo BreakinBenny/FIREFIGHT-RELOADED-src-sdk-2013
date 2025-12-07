@@ -4563,6 +4563,34 @@
 					"2"		"#gameui_high"
 				}
 			}
+			
+			"AIGoByeByeOnSpawn"
+			{
+				"text"			"#GameUI_NPCOnSpawn"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"ai_disappear_spawner_control"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+			
+			"AIGoByeByeMaxDistance"
+			{
+				"text"			"#GameUI_NPCRemoveMaxDistance_OnSpawn"
+				"type"			"slideyslide"
+				"advanced"		"1"
+				"convar"		"ai_disappear_spawner_control_max_distance"
+
+				"min"			"128"
+				"max"			"8192"
+				"step"			"128"
+
+				"textprecision" "2"
+			}
             
             "SpawnerFPSControl"
 			{
