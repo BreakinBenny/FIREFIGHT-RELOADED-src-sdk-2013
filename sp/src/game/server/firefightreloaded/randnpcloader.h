@@ -76,6 +76,7 @@ public:
 		int extraExp;
 		int extraMoney;
 		bool subsituteValues;
+		bool taskIgnore;
 		CCopyableUtlVector<EquipEntry_t> spawnEquipment;
 		float totalEquipWeight;
 	};

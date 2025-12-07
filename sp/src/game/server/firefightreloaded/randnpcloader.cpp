@@ -43,7 +43,7 @@ void dumpspawnlist_cb()
 
 	for ( auto& iter : g_npcLoader->m_Entries )
 	{
-		ConColorMsg(spawnEntries, "[%s (%p)] name=\"%s\", %s minPlayerLevel=%d npcAttributePreset=%d npcAttributeWildcard=%d grenades=[%d, %d] weight=%f, totalEquipWeight=%f, extraExp=%d, extraMoney=%d, subsituteValues=%s\n",
+		ConColorMsg(spawnEntries, "[%s (%p)] name=\"%s\", %s minPlayerLevel=%d npcAttributePreset=%d npcAttributeWildcard=%d grenades=[%d, %d] weight=%f, totalEquipWeight=%f, extraExp=%d, extraMoney=%d, subsituteValues=%s taskIgnore=%s\n",
 			iter.classname,
 			&iter,
 			iter.classname,
@@ -57,7 +57,8 @@ void dumpspawnlist_cb()
 			iter.totalEquipWeight,
 			iter.extraExp,
 			iter.extraMoney,
-			iter.subsituteValues ? "true" : "false"
+			iter.subsituteValues ? "true" : "false",
+			iter.taskIgnore ? "true" : "false"
 		);
 		for ( auto& iter2 : iter.spawnEquipment )
 		{
@@ -344,6 +345,7 @@ bool CRandNPCLoader::ParseEntry( SpawnEntry_t& entry, KeyValues *kv)
 		}
 	}
 
+	entry.taskIgnore = kv->GetBool("task_selection_ignore", false);
 	entry.spawnEquipment.RemoveAll();
 	entry.totalEquipWeight = 0;
 	entry.grenadesMin = entry.grenadesMax = -1;
@@ -437,6 +439,7 @@ CRandNPCLoader::SpawnEntry_t::SpawnEntry_t()
 	extraExp = -1;
 	extraMoney = -1;
 	subsituteValues = true;
+	taskIgnore = false;
 	isRare = false;
 	weight = 1;
 	grenadesMin = grenadesMax = -1;

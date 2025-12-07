@@ -1416,6 +1416,11 @@ void CBasePlayer::AssignKillTask()
 		}
 	}
 
+	if (pEntry->taskIgnore)
+	{
+		reroll = true;
+	}
+
 	if (reroll)
 	{
 		//try to assign a different task. this MAY cause problems.
