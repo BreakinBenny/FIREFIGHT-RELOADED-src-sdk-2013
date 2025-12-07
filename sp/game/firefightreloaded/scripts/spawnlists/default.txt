@@ -172,6 +172,7 @@
 		"min_level"	"7"
 		"rare"	"1"
 		"exp"	"250"
+		"task_selection_ignore" "1"
 	}
 	"22"
 	{
