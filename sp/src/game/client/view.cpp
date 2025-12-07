@@ -673,7 +673,7 @@ void CViewRender::SetUpViews()
 	view.m_eStereoEye		= STEREO_EYE_MONO;
 
 	// Enable spatial partition access to edicts
-	partition->SuppressLists( PARTITION_ALL_CLIENT_EDICTS, false );
+	::partition->SuppressLists( PARTITION_ALL_CLIENT_EDICTS, false );
 
 	C_BasePlayer *pPlayer = C_BasePlayer::GetLocalPlayer();
 
@@ -793,7 +793,7 @@ void CViewRender::SetUpViews()
 	}
 
 	// Disable spatial partition access
-	partition->SuppressLists( PARTITION_ALL_CLIENT_EDICTS, true );
+	::partition->SuppressLists( PARTITION_ALL_CLIENT_EDICTS, true );
 
 	// Enable access to all model bones
 	C_BaseAnimating::PopBoneAccess( "OnRenderStart->CViewRender::SetUpView" ); // pops the (true, false) bone access set in OnRenderStart

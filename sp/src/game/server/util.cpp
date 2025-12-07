@@ -279,19 +279,19 @@ float UTIL_GetSimulationInterval()
 //-----------------------------------------------------------------------------
 int UTIL_EntitiesInBox( const Vector &mins, const Vector &maxs, CFlaggedEntitiesEnum *pEnum )
 {
-	partition->EnumerateElementsInBox( PARTITION_ENGINE_NON_STATIC_EDICTS, mins, maxs, false, pEnum );
+	::partition->EnumerateElementsInBox( PARTITION_ENGINE_NON_STATIC_EDICTS, mins, maxs, false, pEnum );
 	return pEnum->GetCount();
 }
 
 int UTIL_EntitiesAlongRay( const Ray_t &ray, CFlaggedEntitiesEnum *pEnum )
 {
-	partition->EnumerateElementsAlongRay( PARTITION_ENGINE_NON_STATIC_EDICTS, ray, false, pEnum );
+	::partition->EnumerateElementsAlongRay( PARTITION_ENGINE_NON_STATIC_EDICTS, ray, false, pEnum );
 	return pEnum->GetCount();
 }
 
 int UTIL_EntitiesInSphere( const Vector &center, float radius, CFlaggedEntitiesEnum *pEnum )
 {
-	partition->EnumerateElementsInSphere( PARTITION_ENGINE_NON_STATIC_EDICTS, center, radius, false, pEnum );
+	::partition->EnumerateElementsInSphere( PARTITION_ENGINE_NON_STATIC_EDICTS, center, radius, false, pEnum );
 	return pEnum->GetCount();
 }
 
@@ -3169,7 +3169,7 @@ static ConCommand kdtree_test( "kdtree_test", CC_KDTreeTest, "Tests spatial part
 void CC_VoxelTreeView( void )
 {
 	Msg( "VoxelTreeView\n" );
-	partition->RenderAllObjectsInTree( 10.0f );
+	::partition->RenderAllObjectsInTree( 10.0f );
 }
 
 static ConCommand voxeltree_view( "voxeltree_view", CC_VoxelTreeView, "View entities in the voxel-tree.", FCVAR_CHEAT );
@@ -3180,7 +3180,7 @@ void CC_VoxelTreePlayerView( void )
 
 	CBasePlayer *pPlayer = static_cast<CBasePlayer*>( UTIL_GetLocalPlayer() );
 	Vector vecStart = pPlayer->GetAbsOrigin();
-	partition->RenderObjectsInPlayerLeafs( vecStart - VEC_HULL_MIN_SCALED( pPlayer ), vecStart + VEC_HULL_MAX_SCALED( pPlayer ), 3.0f  );
+	::partition->RenderObjectsInPlayerLeafs( vecStart - VEC_HULL_MIN_SCALED( pPlayer ), vecStart + VEC_HULL_MAX_SCALED( pPlayer ), 3.0f  );
 }
 
 static ConCommand voxeltree_playerview( "voxeltree_playerview", CC_VoxelTreePlayerView, "View entities in the voxel-tree at the player position.", FCVAR_CHEAT );
@@ -3231,7 +3231,7 @@ void CC_VoxelTreeBox( const CCommand &args )
 	debugoverlay->AddLineOverlay( vecPoints[2], vecPoints[6], 255, 0, 0, true, flTime );
 
 	Msg( "VoxelTreeBox - (%f %f %f) to (%f %f %f)\n", vecMin.x, vecMin.y, vecMin.z, vecMax.x, vecMax.y, vecMax.z );
-	partition->RenderObjectsInBox( vecMin, vecMax, flTime );
+	::partition->RenderObjectsInBox( vecMin, vecMax, flTime );
 }
 
 static ConCommand voxeltree_box( "voxeltree_box", CC_VoxelTreeBox, "View entities in the voxel-tree inside box <Vector(min), Vector(max)>.", FCVAR_CHEAT );
@@ -3285,7 +3285,7 @@ void CC_VoxelTreeSphere( const CCommand &args )
 	debugoverlay->AddLineOverlay( vecPoints[2], vecPoints[6], 255, 0, 0, true, flTime );
 
 	Msg( "VoxelTreeSphere - (%f %f %f), %f\n", vecCenter.x, vecCenter.y, vecCenter.z, flRadius );
-	partition->RenderObjectsInSphere( vecCenter, flRadius, flTime );
+	::partition->RenderObjectsInSphere( vecCenter, flRadius, flTime );
 }
 
 static ConCommand voxeltree_sphere( "voxeltree_sphere", CC_VoxelTreeSphere, "View entities in the voxel-tree inside sphere <Vector(center), float(radius)>.", FCVAR_CHEAT );
@@ -3299,7 +3299,7 @@ void CC_CollisionTest( const CCommand &args )
 		return;
 
 	Msg( "Testing collision system\n" );
-	partition->ReportStats( "" );
+	::partition->ReportStats( "" );
 	int i;
 	CBaseEntity *pSpot = gEntList.FindEntityByClassname( NULL, "info_player_start");
 	Vector start = pSpot->GetAbsOrigin();
@@ -3370,14 +3370,14 @@ void CC_CollisionTest( const CCommand &args )
 			{
 				if ( i == 0 )
 				{
-					partition->RenderLeafsForRayTraceStart( 10.0f );
+					::partition->RenderLeafsForRayTraceStart( 10.0f );
 				}
 
 				UTIL_TraceLine( start, targets[i], nMask, NULL, COLLISION_GROUP_NONE, &tr );
 
 				if ( i == 0 )
 				{
-					partition->RenderLeafsForRayTraceEnd( );
+					::partition->RenderLeafsForRayTraceEnd( );
 				}
 			}
 		}
@@ -3386,7 +3386,7 @@ void CC_CollisionTest( const CCommand &args )
 	}
 	test[testType] = duration;
 	Msg("%d collisions in %.2f ms (%u dots)\n", NUM_COLLISION_TESTS, duration*1000, dots );
-	partition->ReportStats( "" );
+	::partition->ReportStats( "" );
 #if 1
 	int red = 255, green = 0, blue = 0;
 	for ( i = 0; i < 1 /*NUM_COLLISION_TESTS*/; i++ )

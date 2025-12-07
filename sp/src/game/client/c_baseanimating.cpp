@@ -664,7 +664,7 @@ void C_ClientRagdoll::Release( void )
 	}
 	ClientEntityList().RemoveEntity( GetClientHandle() );
 
-	partition->Remove( PARTITION_CLIENT_SOLID_EDICTS | PARTITION_CLIENT_RESPONSIVE_EDICTS | PARTITION_CLIENT_NON_STATIC_EDICTS, CollisionProp()->GetPartitionHandle() );
+	::partition->Remove( PARTITION_CLIENT_SOLID_EDICTS | PARTITION_CLIENT_RESPONSIVE_EDICTS | PARTITION_CLIENT_NON_STATIC_EDICTS, CollisionProp()->GetPartitionHandle() );
 	RemoveFromLeafSystem();
 
 	BaseClass::Release();
@@ -2407,8 +2407,8 @@ void C_BaseAnimating::CalculateIKLocks( float currentTime )
 	// In TF, we might be attaching a player's view to a walking model that's using IK. If we are, it can
 	// get in here during the view setup code, and it's not normally supposed to be able to access the spatial
 	// partition that early in the rendering loop. So we allow access right here for that special case.
-	SpatialPartitionListMask_t curSuppressed = partition->GetSuppressedLists();
-	partition->SuppressLists( PARTITION_ALL_CLIENT_EDICTS, false );
+	SpatialPartitionListMask_t curSuppressed = ::partition->GetSuppressedLists();
+	::partition->SuppressLists( PARTITION_ALL_CLIENT_EDICTS, false );
 	CBaseEntity::PushEnableAbsRecomputations( false );
 
 	Ray_t ray;
@@ -2628,7 +2628,7 @@ void C_BaseAnimating::CalculateIKLocks( float currentTime )
 #endif
 
 	CBaseEntity::PopEnableAbsRecomputations();
-	partition->SuppressLists( curSuppressed, true );
+	::partition->SuppressLists( curSuppressed, true );
 }
 
 bool C_BaseAnimating::GetPoseParameterRange( int index, float &minValue, float &maxValue )

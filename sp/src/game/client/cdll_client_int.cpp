@@ -2584,7 +2584,7 @@ void OnRenderStart()
 	g_pPortalRender->UpdatePortalPixelVisibility(); //updating this one or two lines before querying again just isn't cutting it. Update as soon as it's cheap to do so.
 #endif
 
-	partition->SuppressLists( PARTITION_ALL_CLIENT_EDICTS, true );
+	::partition->SuppressLists( PARTITION_ALL_CLIENT_EDICTS, true );
 	C_BaseEntity::SetAbsQueriesValid( false );
 
 	Rope_ResetCounters();
@@ -2627,7 +2627,7 @@ void OnRenderStart()
 	// This will place all entities in the correct position in world space and in the KD-tree
 	C_BaseAnimating::UpdateClientSideAnimations();
 
-	partition->SuppressLists( PARTITION_ALL_CLIENT_EDICTS, false );
+	::partition->SuppressLists( PARTITION_ALL_CLIENT_EDICTS, false );
 
 	// Process OnDataChanged events.
 	ProcessOnDataChangedEvents();
@@ -2740,7 +2740,7 @@ void CHLClient::FrameStageNotify( ClientFrameStage_t curStage )
 			C_BaseEntity::EnableAbsRecomputations( false );
 			C_BaseEntity::SetAbsQueriesValid( false );
 			Interpolation_SetLastPacketTimeStamp( engine->GetLastTimeStamp() );
-			partition->SuppressLists( PARTITION_ALL_CLIENT_EDICTS, true );
+			::partition->SuppressLists( PARTITION_ALL_CLIENT_EDICTS, true );
 
 			PREDICTION_STARTTRACKVALUE( "netupdate" );
 		}
@@ -2752,7 +2752,7 @@ void CHLClient::FrameStageNotify( ClientFrameStage_t curStage )
 			// reenable abs recomputation since now all entities have been updated
 			C_BaseEntity::EnableAbsRecomputations( true );
 			C_BaseEntity::SetAbsQueriesValid( true );
-			partition->SuppressLists( PARTITION_ALL_CLIENT_EDICTS, false );
+			::partition->SuppressLists( PARTITION_ALL_CLIENT_EDICTS, false );
 
 			PREDICTION_ENDTRACKVALUE();
 		}
