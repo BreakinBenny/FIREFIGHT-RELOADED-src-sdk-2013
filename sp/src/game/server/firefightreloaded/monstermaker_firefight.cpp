@@ -615,6 +615,15 @@ bool CNPCMakerFirefight::KilledNotice(CBaseEntity *pVictim)
 		AssertMsg(m_nLiveRareNPCs >= 0, "npc_maker_firefight receiving child death notice but thinks has no children (RARE)\n");
 	}
 
+	IGameEvent* event = gameeventmanager->CreateEvent("npc_spawner_killed");
+
+	if (event)
+	{
+		event->SetString("classname", pVictim->GetClassname());
+		event->SetInt("entindex", pVictim->entindex());
+		gameeventmanager->FireEvent(event);
+	}
+
 	if (m_nLiveChildren <= 0)
 	{
 		m_OnAllLiveChildrenDead.FireOutput(this, this);
@@ -970,6 +979,15 @@ void CNPCMakerFirefight::MakeNPC()
 	}
 
 	ChildPostSpawn(pent);
+
+	IGameEvent* event = gameeventmanager->CreateEvent("npc_spawner_created");
+
+	if (event)
+	{
+		event->SetString("classname", pent->GetClassname());
+		event->SetInt("entindex", pent->entindex());
+		gameeventmanager->FireEvent(event);
+	}
 
 	if (entry->isRare)
 	{

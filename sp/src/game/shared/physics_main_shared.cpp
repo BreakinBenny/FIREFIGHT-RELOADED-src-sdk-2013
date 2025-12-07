@@ -1926,6 +1926,9 @@ bool CBaseEntity::PhysicsRunThink( thinkmethods_t thinkMethod )
 		// Set the context
 		m_iCurrentThinkContext = i;
 
+		if (m_aThinkFunctions[i].m_pfnThink == nullptr)
+			continue;
+
 		bAlive = PhysicsRunSpecificThink( i, m_aThinkFunctions[i].m_pfnThink );
 
 		// Clear our context

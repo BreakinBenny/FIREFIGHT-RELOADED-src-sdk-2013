@@ -159,6 +159,9 @@ ConVar	ai_disappear_fps_control("ai_disappear_fps_control", "1", FCVAR_ARCHIVE, 
 ConVar	ai_disappear_fps_control_target("ai_disappear_fps_control_target", "40", FCVAR_ARCHIVE, "The framerate target we should be reaching.");
 ConVar	ai_disappear_fps_control_mode("ai_disappear_fps_control_mode", "1", FCVAR_ARCHIVE, "0: remove npcs that are far away and are non visible. 1: remove npcs that are non visible. 2: no checks are used when deleting NPCs.");
 
+ConVar	ai_disappear_spawner_control("ai_disappear_spawner_control", "1", FCVAR_ARCHIVE, "Allow NPCs to remove themselves if new NPCs are also spawning.");
+ConVar	ai_disappear_spawner_control_max_distance("ai_disappear_spawner_control_max_distance", "1536", FCVAR_ARCHIVE, "If the NPC is this far away from the enemy, it might be considered for deletion. Override for events.");
+
 ConVar	ai_disappear_debugmsg_overload("ai_disappear_debugmsg_overload", "0", FCVAR_NONE, "");
 
 ConVar	ai_use_think_optimizations( "ai_use_think_optimizations", "1" );
@@ -4308,7 +4311,7 @@ void CAI_BaseNPC::NPCThink( void )
 	NPCOptimization();
 }
 
-void CAI_BaseNPC::NPCOptimization()
+void CAI_BaseNPC::NPCOptimization(bool eventTriggered)
 {
 	if (ai_disappear.GetBool() && !m_bBoss && !m_bNoRemove && (Classify() != CLASS_PLAYER_ALLY_VITAL))
 	{
@@ -4335,6 +4338,11 @@ void CAI_BaseNPC::NPCOptimization()
 
 		float dist = ai_disappear_max_distance.GetFloat();
 
+		if (eventTriggered)
+		{
+			dist = ai_disappear_spawner_control_max_distance.GetFloat();
+		}
+
 		if (dist <= 0.0f)
 		{
 			dist = 4096.0f;
@@ -4343,20 +4351,30 @@ void CAI_BaseNPC::NPCOptimization()
 		bool isNotClose = (EnemyDistance(pEnemy) > dist);
 		bool isDeleteable = (isNotVisible && isNotClose);
 
-		if (ai_disappear_fps_control_mode.GetInt() == 1)
+		if (!eventTriggered)
 		{
-			isDeleteable = isNotVisible;
+			if (ai_disappear_fps_control_mode.GetInt() == 1)
+			{
+				isDeleteable = isNotVisible;
+			}
+			else if (ai_disappear_fps_control_mode.GetInt() >= 2)
+			{
+				isDeleteable = true;
+			}
 		}
-		else if (ai_disappear_fps_control_mode.GetInt() >= 2)
+		else
 		{
-			isDeleteable = true;
+			fpsRemoval = false;
 		}
 
 		bool enableVisualCheck = false;
 
-		if (ai_disappear_fps_control_mode.GetInt() < 2)
+		if (!eventTriggered)
 		{
-			enableVisualCheck = true;
+			if (ai_disappear_fps_control_mode.GetInt() < 2)
+			{
+				enableVisualCheck = true;
+			}
 		}
 
 		if (isDeleteable && ai_disappear_debugmsg_overload.GetBool())
@@ -4397,19 +4415,57 @@ void CAI_BaseNPC::NPCOptimization()
 				SUB_Remove();
 			}
 		}
+		else if (eventTriggered && isDeleteable)
+		{
+			if (gpGlobals->curtime >= m_fVisualCheckTime)
+			{
+				if (ai_disappear_fps_control_mode.GetInt() == 0)
+				{
+					DevWarning("Deleted NPC %s (%s). Reason: Idle (New NPC spawned), Not Visible, Too Far\n", GetEntityName(), GetClassname());
+				}
+				else if (ai_disappear_fps_control_mode.GetInt() == 1)
+				{
+					DevWarning("Deleted NPC %s (%s). Reason: Idle (New NPC spawned), Not Visible\n", GetEntityName(), GetClassname());
+				}
+
+				SUB_Remove();
+				return;
+			}
+			else
+			{
+				if (ai_disappear_debugmsg_overload.GetBool())
+				{
+					DevWarning("Delaying deletion of NPC %s (%s)...\n", GetEntityName(), GetClassname());
+				}
+				m_fVisualCheckTime = gpGlobals->curtime + 1.0;
+			}
+		}
 		else if (gpGlobals->curtime >= m_fIdleTime)
 		{
 			if ((m_NPCState != NPC_STATE_COMBAT) && isDeleteable)
 			{
 				// If I don't have an enemy, or if I do and they should be visible and I can't see them,
 				// then I've idled long enough. Get rid of me.
-				DevWarning("Deleted NPC %s (%s). Reason: Idle\n", GetEntityName(), GetClassname());
+				DevWarning("Deleted NPC %s (%s). Reason: Idle (Stuck around for too long)\n", GetEntityName(), GetClassname());
 				SUB_Remove();
 			}
 			else
 			{
 				m_fIdleTime = gpGlobals->curtime + ai_disappear_idle_time.GetFloat() + (m_isRareEntity ? ai_disappear_idle_time_rare.GetFloat() : 0);
 			}
+		}
+	}
+}
+
+void CAI_BaseNPC::FireGameEvent(IGameEvent* gameEvent)
+{
+	VPROF_BUDGET("CAI_BaseNPC::FireGameEvent", VPROF_BUDGETGROUP_NPCS);
+
+	if (FStrEq(gameEvent->GetName(), "npc_spawner_created"))
+	{
+		if (ai_disappear.GetBool() && ai_disappear_spawner_control.GetBool())
+		{
+			NPCOptimization(true);
 		}
 	}
 }
@@ -12198,6 +12254,8 @@ CAI_BaseNPC::CAI_BaseNPC(void)
 	m_bInChoreo = true; // assume so until call to UpdateEfficiency()
 	
 	SetCollisionGroup( COLLISION_GROUP_NPC );
+
+	ListenForGameEvent("npc_spawner_created");
 
 	if (ai_disappear.GetBool())
 	{

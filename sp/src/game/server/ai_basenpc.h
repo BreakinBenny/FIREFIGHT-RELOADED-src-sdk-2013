@@ -36,6 +36,7 @@
 #include "soundent.h"
 #include "ai_navigator.h"
 #include "tier1/functors.h"
+#include "GameEventListener.h"
 
 #include "firefightreloaded/ai_attributes_loader.h"
 #include "firefightreloaded/fr_shareddefs.h"
@@ -497,7 +498,8 @@ extern CAI_Manager g_AI_Manager;
 //=============================================================================
 
 class CAI_BaseNPC : public CBaseCombatCharacter, 
-					public CAI_DefMovementSink
+					public CAI_DefMovementSink,
+					public CGameEventListener
 {
 	DECLARE_CLASS( CAI_BaseNPC, CBaseCombatCharacter );
 
@@ -590,7 +592,9 @@ public:
 	// Thinking, including core thinking, movement, animation
 	virtual void		NPCThink( void );
 
-	virtual void		NPCOptimization(void);
+	virtual void		NPCOptimization(bool eventTriggered = false);
+
+	virtual void		FireGameEvent(IGameEvent* event);					// incoming event processing
 
 	// Core thinking (schedules & tasks)
 	virtual void		RunAI( void );// core ai function!	
