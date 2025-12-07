@@ -420,7 +420,7 @@ void CSave::WriteData( const char *pdata , int size )
 
 void CSave::WriteString( const char *pstring )
 {
-	BufferData( pstring, Q_strlen(pstring) + 1 );
+	BufferData( pstring, strlen(pstring) + 1 );
 }
 
 //-------------------------------------
@@ -430,7 +430,7 @@ void CSave::WriteString( const string_t *stringId, int count )
 	for ( int i = 0; i < count; i++ )
 	{
 		const char *pString = STRING(stringId[i]);
-		BufferData( pString, Q_strlen(pString)+1 );
+		BufferData( pString, strlen(pString)+1 );
 	}
 }
 
@@ -501,7 +501,7 @@ void CSave::WriteFloat( const char *pname, const float *data, int count )
 
 void CSave::WriteString( const char *pname, const char *pdata )
 {
-	BufferField( pname, Q_strlen(pdata) + 1, pdata );
+	BufferField( pname, strlen(pdata) + 1, pdata );
 }
 
 //-------------------------------------
@@ -515,7 +515,7 @@ void CSave::WriteString( const char *pname, const string_t *stringId, int count 
 
 	size = 0;
 	for ( i = 0; i < count; i++ )
-		size += Q_strlen( STRING( stringId[i] ) ) + 1;
+		size += strlen( STRING( stringId[i] ) ) + 1;
 
 	WriteHeader( pname, size );
 	WriteString( stringId, count );
@@ -1162,7 +1162,7 @@ void CSave::WriteFunction( datamap_t *pRootMap, const char *pname, inputfunc_t *
 		functionName = "BADFUNCTIONPOINTER";
 	}
 
-	BufferField( pname, Q_strlen(functionName) + 1, functionName );
+	BufferField( pname, strlen(functionName) + 1, functionName );
 }
 
 //-------------------------------------
@@ -1816,7 +1816,7 @@ void CRestore::ReadString( char *pDest, int nSizeDest, int nBytesAvailable )
 {
 	const char *pString = BufferPointer();
 	if ( !nBytesAvailable )
-		nBytesAvailable = Q_strlen( pString ) + 1;
+		nBytesAvailable = strlen( pString ) + 1;
 	BufferSkipBytes( nBytesAvailable );
 
 	Q_strncpy(pDest, pString, nSizeDest );
