@@ -429,7 +429,7 @@ void CSource2013SteamInput::InitSteamInput()
 #define ACTION_MANIFEST_MOD					"steam_input/action_manifest_mod.vdf"
 #define ACTION_MANIFEST_RELATIVE_HL2		"%s/../Half-Life 2/steam_input/action_manifest_hl2.vdf"
 #define ACTION_MANIFEST_RELATIVE_PORTAL		"%s/../Portal/steam_input/action_manifest_hl2.vdf"
-#define ACTION_MANIFEST_RELATIVE_FR			"%s/../FIREFIGHT RELOADED/controller_config/action_manifest_firefightreloaded.vdf"
+#define ACTION_MANIFEST_RELATIVE_FR			"%s/controller_config/action_manifest_firefightreloaded.vdf"
 
 void CSource2013SteamInput::InitActionManifest()
 {
