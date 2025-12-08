@@ -158,6 +158,13 @@ void CNewSingleplayerGameDialog::LoadMaps(const char *pszPathID)
 		//}
 
 		// remove the text 'maps/' and '.bsp' from the file name to get the map name
+
+		//skip credits.bsp
+		const char *creditsstr = Q_strstr(pszFilename, "credits");
+		if (creditsstr)
+		{
+			pszFilename = g_pFullFileSystem->FindNext(findHandle);
+		}
 		
 		const char *str = Q_strstr( pszFilename, "maps" );
 		if ( str )
@@ -172,51 +179,6 @@ void CNewSingleplayerGameDialog::LoadMaps(const char *pszPathID)
 		if ( ext )
 		{
 			*ext = 0;
-		}
-
-		KeyValues* kvHidden = NULL;
-		KeyValues* kvHiddenPrefix = NULL;
-
-		KeyValuesAD pModData("GameInfo");
-		if (pModData->LoadFromFile(g_pFullFileSystem, "gameinfo.txt"))
-		{
-			kvHidden = pModData->FindKey("hidden_maps");
-			kvHiddenPrefix = pModData->FindKey("hidden_map_prefixes");
-		}
-
-		if (kvHidden)
-		{
-			if (kvHidden->GetInt(mapname, 0))
-			{
-				pszFilename = g_pFullFileSystem->FindNext(findHandle);
-				continue;
-			}
-		}
-
-		if (kvHiddenPrefix)
-		{
-			bool cancel = false;
-
-			for (KeyValues* pPrefix = kvHiddenPrefix->GetFirstSubKey(); pPrefix; pPrefix = pPrefix->GetNextKey())
-			{
-				const char* szPrefix = pPrefix->GetName();
-
-				if (kvHiddenPrefix->GetInt(szPrefix, 0))
-				{
-					const char* pre = V_stristr(mapname, szPrefix);
-					if (pre)
-					{
-						cancel = true;
-						break;
-					}
-				}
-			}
-
-			if (cancel)
-			{
-				pszFilename = g_pFullFileSystem->FindNext(findHandle);
-				continue;
-			}
 		}
 
 		// add to the map list
