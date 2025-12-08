@@ -1142,6 +1142,12 @@ void CSource2013SteamInput::TransitionActionSet( int iNewActionSet, int iOldActi
 
 void CSource2013SteamInput::TestDigitalActionBind( InputHandle_t nController, InputDigitalActionBind_t &DigitalAction, bool &bActiveInput )
 {
+	if (DigitalAction.handle == NULL)
+	{
+		bActiveInput = false;
+		return;
+	}
+
 	InputDigitalActionData_t data = SteamInput()->GetDigitalActionData( nController, DigitalAction.handle );
 
 	if (data.bState)
