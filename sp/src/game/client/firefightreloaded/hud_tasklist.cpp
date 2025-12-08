@@ -7,6 +7,9 @@
 #include "cbase.h"
 #include "hud_tasklist.h"
 
+// memdbgon must be the last include file in a .cpp file!!!
+#include "tier0/memdbgon.h"
+
 DECLARE_HUDELEMENT(CHudTaskList);
 DECLARE_HUD_MESSAGE(CHudTaskList, TaskList);
 
