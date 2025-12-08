@@ -346,7 +346,7 @@ void CSource2013SteamInput::InitSteamInput()
 {
 	bool bInit = false;
 
-	if (CommandLine()->CheckParm( "-nosteamcontroller" ) == 0 && SteamUtils() != nullptr /*&& SteamUtils()->IsOverlayEnabled()*/)
+	if (CommandLine()->CheckParm( "-nosteamcontroller" ) == 0 && SteamUtils() != nullptr && SteamUtils()->IsOverlayEnabled())
 	{
 		// Do this before initializing SteamInput()
 		InitActionManifest();
