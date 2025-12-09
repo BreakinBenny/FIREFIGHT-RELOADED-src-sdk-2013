@@ -517,7 +517,7 @@ bool CSource2013SteamInput::LoadActionBinds( const char *pszFileName )
 			}
 			else
 			{
-				DevMsg("Binding action \"%s\" to command \"%s\" (handle %i)\n", pKVAction->GetName(), pKVAction->GetString(), action);
+				DevMsg("Binding action \"%s\" to command \"%s\" (handle %lln)\n", pKVAction->GetName(), pKVAction->GetString(), action);
 			}
 
 			if ( action != 0 )

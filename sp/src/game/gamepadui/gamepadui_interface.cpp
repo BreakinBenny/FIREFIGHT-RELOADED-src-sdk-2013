@@ -121,17 +121,6 @@ void GamepadUI::OnUpdate( float flFrametime )
         GetFMODManager()->OnThink();
     }
 
-#ifdef STEAM_INPUT
-    if (m_pSteamInput)
-    {
-        if (!GetEngineClient()->IsConnected() || GetEngineClient()->IsPaused() || GetEngineClient()->IsLevelMainMenuBackground())
-        {
-            ActionSet_t iActionSet = AS_MenuControls;
-            m_pSteamInput->RunFrame(iActionSet);
-        }
-    }
-#endif
-
     if ( m_pAnimationController )
         m_pAnimationController->UpdateAnimations( GetTime() );
 }
