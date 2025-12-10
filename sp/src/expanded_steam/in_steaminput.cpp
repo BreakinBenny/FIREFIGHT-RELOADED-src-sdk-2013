@@ -429,11 +429,7 @@ void CSource2013SteamInput::InitSteamInput()
 #define ACTION_MANIFEST_MOD					"steam_input/action_manifest_mod.vdf"
 #define ACTION_MANIFEST_RELATIVE_HL2		"%s/../Half-Life 2/steam_input/action_manifest_hl2.vdf"
 #define ACTION_MANIFEST_RELATIVE_PORTAL		"%s/../Portal/steam_input/action_manifest_hl2.vdf"
-#if defined( LINUX )
-#define ACTION_MANIFEST_RELATIVE_FR			"%s/../FIREFIGHT RELOADED/controller_config/action_manifest_firefightreloaded.vdf"
-#else
 #define ACTION_MANIFEST_RELATIVE_FR			"%s/controller_config/action_manifest_firefightreloaded.vdf"
-#endif
 
 void CSource2013SteamInput::InitActionManifest()
 {
@@ -462,8 +458,8 @@ void CSource2013SteamInput::InitActionManifest()
 			Msg("Loading FIREFIGHT RELOADED action manifest file at \"%s\"\n", szTargetApp);
 			SteamInput()->SetInputActionManifestFilePath(szTargetApp);
 		}
-	}
-#endif
+}
+#else
 #if USE_HL2_INSTALLATION
 	else if (SteamUtils()->GetAppID() == 243730 || SteamUtils()->GetAppID() == 243750)
 	{
@@ -492,6 +488,7 @@ void CSource2013SteamInput::InitActionManifest()
 			}
 		}
 	}
+#endif
 #endif
 }
 
