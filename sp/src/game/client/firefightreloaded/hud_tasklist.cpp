@@ -99,7 +99,7 @@ void CHudTaskList::Paint(void)
 
 	// --- Don't actually draw the task list at first, but instead 
 	// --- calculate the total width & height of the text.
-	V_swprintf_safe(unicode, titleString);
+	swprintf(unicode, titleString);
 	vgui::surface()->GetTextSize(m_hLargeFont, unicode, textSizeWide, textSizeTall);
 	iShown++;
 
@@ -111,7 +111,7 @@ void CHudTaskList::Paint(void)
 		if (m_iPriority[i] != TASK_INACTIVE)
 		{
 			// --- Calculate coordinates of text (right justify)
-			V_swprintf_safe(unicode, L"%s", m_pText[i]);
+			swprintf(unicode, L"%s", m_pText[i]);
 			vgui::surface()->GetTextSize(m_hSmallFont, unicode, textSizeWide, textSizeTall);
 			maxWidth = (textSizeWide > maxWidth) ? textSizeWide : maxWidth;
 			iShown++;
@@ -141,7 +141,7 @@ void CHudTaskList::Paint(void)
 	Color clr = gHUD.m_clrNormal;
 	clr[3] = 255;
 	vgui::surface()->DrawSetTextColor(clr);
-	V_swprintf_safe(unicode, titleString);
+	swprintf(unicode, titleString);
 
 	// ----------------------------------------------------------
 	// --- Get text width and right justify
@@ -176,7 +176,7 @@ void CHudTaskList::Paint(void)
 			// ----------------------------------------------------------
 			// --- Calculate coordinates of text (right justify)
 			// ----------------------------------------------------------
-			V_swprintf_safe(unicode, L"%s", m_pText[i]);
+			swprintf(unicode, L"%s", m_pText[i]);
 			vgui::surface()->GetTextSize(m_hSmallFont, unicode, textSizeWide, textSizeTall);
 			x = border / 2; // ScreenWidth() - border - textSizeWide;
 			y = iShown * fontTall; // border + iShown * fontTall;
