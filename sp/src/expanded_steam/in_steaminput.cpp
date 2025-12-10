@@ -511,15 +511,6 @@ bool CSource2013SteamInput::LoadActionBinds( const char *pszFileName )
 		while ( pKVAction )
 		{
 			InputDigitalActionHandle_t action = SteamInput()->GetDigitalActionHandle( pKVAction->GetName() );
-			if (action == 0)
-			{
-				DevWarning("Action \"%s\" has an invalid handle!\n", pKVAction->GetName());
-			}
-			else
-			{
-				DevMsg("Binding action \"%s\" to command \"%s\" (handle %i)\n", pKVAction->GetName(), pKVAction->GetString(), action);
-			}
-
 			if ( action != 0 )
 			{
 				int i = g_DigitalActionBinds.AddToTail();
