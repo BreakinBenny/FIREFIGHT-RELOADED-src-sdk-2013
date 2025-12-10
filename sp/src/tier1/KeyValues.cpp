@@ -2697,7 +2697,6 @@ void *KeyValues::operator new( size_t iAllocSize )
 void *KeyValues::operator new( size_t iAllocSize, int nBlockUse, const char *pFileName, int nLine )
 {
 	MemAlloc_PushAllocDbgInfo( pFileName, nLine );
-	MEM_ALLOC_CREDIT();
 	void *p = KeyValuesSystem()->AllocKeyValuesMemory(iAllocSize);
 	MemAlloc_PopAllocDbgInfo();
 	return p;

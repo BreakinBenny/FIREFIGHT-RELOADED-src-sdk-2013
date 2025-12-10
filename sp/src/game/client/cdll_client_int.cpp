@@ -1587,16 +1587,18 @@ void CHLClient::HudUpdate( bool bActive )
 #endif
 
 #ifdef STEAM_INPUT
-#if !defined(GAMEPADUI)
 	if (g_pSteamInput)
 	{
+#if defined(GAMEPADUI)
+		if (!engine->IsConnected() || engine->IsPaused())
+#else
 		if (!engine->IsConnected() || engine->IsPaused() || engine->IsLevelMainMenuBackground())
+#endif
 		{
 			ActionSet_t iActionSet = AS_MenuControls;
 			g_pSteamInput->RunFrame(iActionSet);
 		}
 	}
-#endif
 #endif
 
 #if defined(GAMEPADUI)
