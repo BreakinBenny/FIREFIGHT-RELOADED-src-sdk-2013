@@ -954,26 +954,6 @@ int CHLClient::Init( CreateInterfaceFn appSystemFactory, CreateInterfaceFn physi
 
 #ifndef NO_STEAM
 	ClientSteamContext().Activate();
-
-#ifdef STEAM_INPUT
-	//g_pSteamInput = (ISource2013SteamInput*)appSystemFactory( SOURCE2013STEAMINPUT_INTERFACE_VERSION, NULL );
-	//if (g_pSteamInput == NULL)
-	//{
-	//	g_pSteamInput = (ISource2013SteamInput*)Sys_GetFactoryThis()(SOURCE2013STEAMINPUT_INTERFACE_VERSION, NULL);
-	//}
-
-	if (SteamUtils())
-	{
-		g_pSteamInput = CreateSource2013SteamInput();
-
-		if (g_pSteamInput->IsSteamRunningOnSteamDeck())
-		{
-			CommandLine()->AppendParm("-deck", NULL);
-			CommandLine()->AppendParm("-w", "1280");
-			CommandLine()->AppendParm("-h", "800");
-		}
-	}
-#endif
 #endif
 
 	// We aren't happy unless we get all of our interfaces.
@@ -1151,11 +1131,31 @@ int CHLClient::Init( CreateInterfaceFn appSystemFactory, CreateInterfaceFn physi
 
 	C_BaseTempEntity::PrecacheTempEnts();
 
+#ifndef NO_STEAM
 #ifdef STEAM_INPUT
+	//g_pSteamInput = (ISource2013SteamInput*)appSystemFactory( SOURCE2013STEAMINPUT_INTERFACE_VERSION, NULL );
+	//if (g_pSteamInput == NULL)
+	//{
+	//	g_pSteamInput = (ISource2013SteamInput*)Sys_GetFactoryThis()(SOURCE2013STEAMINPUT_INTERFACE_VERSION, NULL);
+	//}
+
+	if (SteamUtils())
+	{
+		g_pSteamInput = CreateSource2013SteamInput();
+
+		if (g_pSteamInput->IsSteamRunningOnSteamDeck())
+		{
+			CommandLine()->AppendParm("-deck", NULL);
+			CommandLine()->AppendParm("-w", "1280");
+			CommandLine()->AppendParm("-h", "800");
+		}
+	}
+
 	if (g_pSteamInput)
 	{
 		g_pSteamInput->Initialize(appSystemFactory);
 	}
+#endif
 #endif
 
 	input->Init_All();
@@ -1589,11 +1589,7 @@ void CHLClient::HudUpdate( bool bActive )
 #ifdef STEAM_INPUT
 	if (g_pSteamInput)
 	{
-#if defined(GAMEPADUI)
-		if (!engine->IsConnected() || engine->IsPaused())
-#else
 		if (!engine->IsConnected() || engine->IsPaused() || engine->IsLevelMainMenuBackground())
-#endif
 		{
 			ActionSet_t iActionSet = AS_MenuControls;
 			g_pSteamInput->RunFrame(iActionSet);

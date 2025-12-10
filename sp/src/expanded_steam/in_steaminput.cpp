@@ -51,9 +51,6 @@ char *SteamInput_VarArgs( const char *format, ... )
 }
 
 //-------------------------------------------
-
-#define USE_HL2_INSTALLATION 0 // This attempts to obtain HL2's action manifest from the user's own HL2 or Portal installations
-//HACK!
 #define USE_FR_INSTALLATION 1
 
 InputActionSetHandle_t g_AS_GameControls;
@@ -429,7 +426,7 @@ void CSource2013SteamInput::InitSteamInput()
 #define ACTION_MANIFEST_MOD					"steam_input/action_manifest_mod.vdf"
 #define ACTION_MANIFEST_RELATIVE_HL2		"%s/../Half-Life 2/steam_input/action_manifest_hl2.vdf"
 #define ACTION_MANIFEST_RELATIVE_PORTAL		"%s/../Portal/steam_input/action_manifest_hl2.vdf"
-#define ACTION_MANIFEST_RELATIVE_FR			"%s/../FIREFIGHT RELOADED/controller_config/action_manifest_firefightreloaded.vdf"
+#define ACTION_MANIFEST_RELATIVE_FR			"%s/controller_config/action_manifest_firefightreloaded.vdf"
 
 void CSource2013SteamInput::InitActionManifest()
 {
@@ -441,7 +438,15 @@ void CSource2013SteamInput::InitActionManifest()
 		V_FixSlashes( szFullPath );
 
 		Msg( "Loading mod action manifest file at \"%s\"\n", szFullPath );
-		SteamInput()->SetInputActionManifestFilePath( szFullPath );
+		bool loaded = SteamInput()->SetInputActionManifestFilePath( szFullPath );
+		if (loaded)
+		{
+			Warning("Failed to load mod action manifest file at \"%s\"\n", szFullPath);
+		}
+		else
+		{
+			Msg("Loaded mod action manifest file\n");
+		}
 	}
 #if USE_FR_INSTALLATION
 	else if (SteamUtils()->GetAppID() == 397680)
@@ -456,58 +461,38 @@ void CSource2013SteamInput::InitActionManifest()
 		if (g_pFullFileSystem->FileExists(szTargetApp))
 		{
 			Msg("Loading FIREFIGHT RELOADED action manifest file at \"%s\"\n", szTargetApp);
-			SteamInput()->SetInputActionManifestFilePath(szTargetApp);
-		}
-}
-#else
-#if USE_HL2_INSTALLATION
-	else if (SteamUtils()->GetAppID() == 243730 || SteamUtils()->GetAppID() == 243750)
-	{
-		char szCurDir[MAX_PATH];
-		g_pFullFileSystem->GetCurrentDirectory( szCurDir, sizeof( szCurDir ) );
+			bool loaded = SteamInput()->SetInputActionManifestFilePath(szTargetApp);
 
-		char szTargetApp[MAX_PATH];
-		Q_snprintf( szTargetApp, sizeof( szTargetApp ), ACTION_MANIFEST_RELATIVE_HL2, szCurDir );
-		V_FixSlashes( szTargetApp );
-
-		if (g_pFullFileSystem->FileExists( szTargetApp ))
-		{
-			Msg( "Loading Half-Life 2 action manifest file at \"%s\"\n", szTargetApp );
-			SteamInput()->SetInputActionManifestFilePath( szTargetApp );
-		}
-		else
-		{
-			// If Half-Life 2 is not installed, check if Portal has it
-			Q_snprintf( szTargetApp, sizeof( szTargetApp ), ACTION_MANIFEST_RELATIVE_PORTAL, szCurDir );
-			V_FixSlashes( szTargetApp );
-
-			if (g_pFullFileSystem->FileExists( szTargetApp ))
+			if (loaded)
 			{
-				Msg( "Loading Portal's copy of HL2 action manifest file at \"%s\"\n", szTargetApp );
-				SteamInput()->SetInputActionManifestFilePath( szTargetApp );
+				Warning("Failed to load FIREFIGHT RELOADED action manifest file at \"%s\"\n", szTargetApp);
+			}
+			else
+			{
+				Msg("Loaded FIREFIGHT RELOADED action manifest file\n");
 			}
 		}
 	}
-#endif
 #endif
 }
 
 bool CSource2013SteamInput::LoadActionBinds( const char *pszFileName )
 {
-	{
-		static InputHandle_t inputHandles[STEAM_INPUT_MAX_COUNT];
-		if (SteamInput()->GetConnectedControllers( inputHandles ) <= 0)
-			return false;
-	}
+	static InputHandle_t inputHandles[STEAM_INPUT_MAX_COUNT];
+	if (SteamInput()->GetConnectedControllers( inputHandles ) <= 0)
+		return false;
 
 	KeyValues *pKV = new KeyValues("ActionBinds");
 	if ( pKV->LoadFromFile( g_pFullFileSystem, pszFileName ) )
 	{
 		// Parse each action bind
 		KeyValues *pKVAction = pKV->GetFirstSubKey();
+
 		while ( pKVAction )
 		{
-			InputDigitalActionHandle_t action = SteamInput()->GetDigitalActionHandle( pKVAction->GetName() );
+			const char *name = pKVAction->GetName();
+			InputDigitalActionHandle_t action = SteamInput()->GetDigitalActionHandle(name);
+			DevMsg("\"%s\" = %i\n", name, action);
 			if ( action != 0 )
 			{
 				int i = g_DigitalActionBinds.AddToTail();
