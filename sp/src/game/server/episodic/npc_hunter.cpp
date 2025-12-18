@@ -4243,7 +4243,7 @@ float CNPC_Hunter::ChargeSteer()
 	testHullMins.z += (StepHeight() * 2);
 
 	// Probe
-	HunterTraceHull_SkipPhysics( GetAbsOrigin(), testPos, testHullMins, GetHullMaxs(), MASK_NPCSOLID, this, COLLISION_GROUP_NONE, &tr, VPhysicsGetObject()->GetMass() * 0.5f );
+	HunterTraceHull_SkipPhysics( GetAbsOrigin(), testPos, testHullMins, GetHullMaxs(), MASK_NPCSOLID, this, COLLISION_GROUP_NONE, &tr, ( VPhysicsGetObject() ? ( VPhysicsGetObject()->GetMass() * 0.5f ) : 500 ) ); //our physics mass is 1000, use 500 if we can't grab this value the normal way.
 
 	// Debug info
 	if ( g_debug_hunter_charge.GetInt() == 1 )
