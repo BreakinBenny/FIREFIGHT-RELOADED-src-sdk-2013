@@ -465,7 +465,7 @@ public:
 	void PainSound (const CTakeDamageInfo &info);
 	void AttackSound ( void );
 	void PrescheduleThink ( void );
-	void TraceAttack(const CTakeDamageInfo &info, const Vector &vecDir, trace_t *ptr);
+	void TraceAttack(const CTakeDamageInfo &info, const Vector &vecDir, trace_t *ptr, CDmgAccumulator* pAccumulator);
 	int	 IRelationPriority( CBaseEntity *pTarget );
 	void StopTalking ( void );
 	void PunchEnemy(bool right);
@@ -485,7 +485,6 @@ public:
 	// three hacky fields for speech stuff. These don't really need to be saved.
 	float	m_flNextSpeakTime;
 	float	m_flNextWordTime;
-	float	m_flLastDamaged;
 };
 LINK_ENTITY_TO_CLASS( npc_agrunt, CNPC_AGrunt );
 
@@ -495,7 +494,6 @@ BEGIN_DATADESC(CNPC_AGrunt)
 	DEFINE_FIELD( m_flNextPainTime, FIELD_TIME ),
 	DEFINE_FIELD( m_flNextSpeakTime, FIELD_TIME ),
 	DEFINE_FIELD( m_flNextWordTime, FIELD_TIME ),
-	DEFINE_FIELD( m_flLastDamaged, FIELD_TIME ),
 END_DATADESC()
 
 //=========================================================
@@ -515,7 +513,7 @@ int	 CNPC_AGrunt::IRelationPriority(CBaseEntity* pTarget)
 //=========================================================
 // TraceAttack
 //=========================================================
-void CNPC_AGrunt::TraceAttack(const CTakeDamageInfo &info, const Vector &vecDir, trace_t *ptr)
+void CNPC_AGrunt::TraceAttack(const CTakeDamageInfo &info, const Vector &vecDir, trace_t *ptr, CDmgAccumulator* pAccumulator)
 {
 	CTakeDamageInfo newinfo = info;
 	
@@ -524,42 +522,17 @@ void CNPC_AGrunt::TraceAttack(const CTakeDamageInfo &info, const Vector &vecDir,
 	//hitgroup gear is 10. - Bitl
 	if ( ptr->hitgroup == HITGROUP_GEAR && (newinfo.GetDamageType() & (DMG_BULLET | DMG_SLASH | DMG_CLUB)))
 	{
-		// hit armor
-		if ( m_flLastDamaged != gpGlobals->curtime || (random->RandomInt(0,10) < 1) )
-		{
-			CPVSFilter filter( ptr->endpos );
-			te->ArmorRicochet( filter, 0.0, &ptr->endpos, &ptr->plane.normal );
-			m_flLastDamaged = gpGlobals->curtime;
-		}
-
-		if ( random->RandomInt( 0, 1 ) == 0 )
-		{
-			Vector vecTracerDir = vecDir;
-
-			vecTracerDir.x += random->RandomFloat( -0.3, 0.3 );
-			vecTracerDir.y += random->RandomFloat( -0.3, 0.3 );
-			vecTracerDir.z += random->RandomFloat( -0.3, 0.3 );
-
-			vecTracerDir = vecTracerDir * -512;
-
-			Vector vEndPos = ptr->endpos + vecTracerDir;
-
-			UTIL_Tracer( ptr->endpos, vEndPos, ENTINDEX( edict() ) );
-		}
+		CPVSFilter filter(ptr->endpos);
+		te->ArmorRicochet( filter, 0.0, &ptr->endpos, &ptr->plane.normal );
 
 		flDamage -= 20;
 		if (flDamage <= 0)
-			flDamage = 0.1;// don't hurt the monster much, but allow bits_COND_LIGHT_DAMAGE to be generated
+			flDamage = 0.1; // don't hurt the monster much, but allow bits_COND_LIGHT_DAMAGE to be generated
 		
 		newinfo.SetDamage(flDamage);
 	}
-	else
-	{
-		SpawnBlood(ptr->endpos, vecDir, BloodColor(), flDamage);// a little surface blood.
-		TraceBleed( flDamage, vecDir, ptr, newinfo.GetDamageType() );
-	}
 
-	AddMultiDamage( newinfo, this );
+	BaseClass::TraceAttack(newinfo, vecDir, ptr, pAccumulator);
 }
 
 //=========================================================
