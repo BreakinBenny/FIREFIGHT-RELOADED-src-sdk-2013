@@ -28,6 +28,8 @@ ConVar sk_weapon_railgun_beam_green("sk_weapon_railgun_beam_green", "55", FCVAR_
 ConVar sk_weapon_railgun_beam_blue("sk_weapon_railgun_beam_blue", "250", FCVAR_ARCHIVE);
 ConVar sk_weapon_railgun_beam_rainbow("sk_weapon_railgun_beam_rainbow", "0", FCVAR_ARCHIVE);
 
+ConVar sk_weapon_railgun_penetratelimit("sk_weapon_railgun_penetratelimit", "5", FCVAR_ARCHIVE);
+
 IMPLEMENT_SERVERCLASS_ST(CWeaponRailgun, DT_WeaponRailgun)
 END_SEND_TABLE()
 
@@ -654,6 +656,8 @@ void CWeaponRailgun::Fire( void )
 	info.m_pAttacker = pOwner;
 	info.m_flDamageForceScale = 0.2f;
 	info.m_bAffectedByBullettime = false;
+	info.m_bPenetrate = true;
+	info.m_iPenetrateLimit = sk_weapon_railgun_penetratelimit.GetInt();
 
 	info.m_nDamageFlags = (pOwner->m_bInstagib ? (def->DamageType(info.m_iAmmoType) | DMG_ALWAYSGIB) : def->DamageType(info.m_iAmmoType));
 

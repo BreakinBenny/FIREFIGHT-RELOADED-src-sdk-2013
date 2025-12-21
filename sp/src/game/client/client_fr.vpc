@@ -30,6 +30,7 @@ $Project "Client (FR)"
 		$File	"$SRCDIR\game\shared\predicted_viewmodel.h"
 		$File	"worldlight.cpp"
 		$File	"worldlight.h"
+		$File	"$SRCDIR\game\shared\bulletpenetrateenum.h"
         
         $Folder	"NextBot"
 		{

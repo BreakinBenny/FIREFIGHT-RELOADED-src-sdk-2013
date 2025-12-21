@@ -25,6 +25,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+ConVar sv_sniperrifle_penetratelimit("sv_sniperrifle_penetratelimit", "3", FCVAR_ARCHIVE);
 
 enum ZoomType
 {
@@ -315,6 +316,8 @@ void CWeaponSniperRifle::PrimaryAttack( void )
 	info.m_flDistance = MAX_TRACE_LENGTH;
 	info.m_iAmmoType = m_iPrimaryAmmoType;
 	info.m_nDamageFlags = (IsWeaponZoomed() ? (def->DamageType(info.m_iAmmoType) | DMG_SNIPER) : def->DamageType(info.m_iAmmoType));
+	info.m_bPenetrate = IsWeaponZoomed();
+	info.m_iPenetrateLimit = sv_sniperrifle_penetratelimit.GetInt();
 	info.m_iTracerFreq = 2;
 	pPlayer->FireBullets(info);
 

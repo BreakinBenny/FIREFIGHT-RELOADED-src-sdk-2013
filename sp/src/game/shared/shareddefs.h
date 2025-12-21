@@ -695,9 +695,11 @@ struct FireBulletsInfo_t
 #endif
 		m_bPrimaryAttack = true;
 		m_bAffectedByBullettime = true;
+		m_bPenetrate = false;
+		m_iPenetrateLimit = -1;
 	}
 
-	FireBulletsInfo_t( int nShots, const Vector &vecSrc, const Vector &vecDir, const Vector &vecSpread, float flDistance, int nAmmoType, bool bPrimaryAttack = true )
+	FireBulletsInfo_t( int nShots, const Vector &vecSrc, const Vector &vecDir, const Vector &vecSpread, float flDistance, int nAmmoType, bool bPrimaryAttack = true, bool bPenetrate = false, int iPenetrateLimit = -1 )
 	{
 		m_iShots = nShots;
 		m_vecSrc = vecSrc;
@@ -716,6 +718,8 @@ struct FireBulletsInfo_t
 		m_flDamageForceScale = 1.0f;
 		m_bPrimaryAttack = bPrimaryAttack;
 		m_bAffectedByBullettime = true;
+		m_bPenetrate = bPenetrate;
+		m_iPenetrateLimit = iPenetrateLimit;
 	}
 
 	int m_iShots;
@@ -736,6 +740,8 @@ struct FireBulletsInfo_t
 	bool m_bPrimaryAttack;
 	//this will not be changed by bullettypes except for projectiles, the game will automate this process.
 	bool m_bAffectedByBullettime;
+	bool m_bPenetrate;
+	int m_iPenetrateLimit;
 };
 
 //-----------------------------------------------------------------------------

@@ -19,6 +19,7 @@
 #include "debugoverlay_shared.h"
 #include "coordsize.h"
 #include "vphysics/performance.h"
+#include "bulletpenetrateenum.h"
 
 #ifdef CLIENT_DLL
 	#include "c_te_effect_dispatch.h"
@@ -1861,6 +1862,49 @@ void CBaseEntity::FireBullets(const FireBulletsInfo_t& info)
 			return;
 		}
 
+		// before calculating damage, how many entities have we gone though?
+		CUtlVector<CBaseEntity*> vecTracedEntities;
+		int penetrations = 0;
+		if (info.m_bPenetrate && tr.m_pEnt)
+		{
+			if (ToBaseCombatCharacter(tr.m_pEnt))
+			{
+				const float penetrationHullExtension = 40.0f;
+				// Josh: EnumerateEntities only collides with bboxes, extend the ray to a larger hull, then we clip to it.
+				Ray_t ray;
+				ray.Init(info.m_vecSrc, vecEnd,
+					Vector(-penetrationHullExtension, -penetrationHullExtension, -penetrationHullExtension),
+					Vector(penetrationHullExtension, penetrationHullExtension, penetrationHullExtension));
+
+				// Penetrating shot: Strikes everything along the bullet's path.
+				CBulletPenetrateEnum bulletpenetrate(info.m_vecSrc, vecEnd, this);
+				enginetrace->EnumerateEntities(ray, false, &bulletpenetrate);
+
+				FOR_EACH_VEC(bulletpenetrate.m_Targets, i)
+				{
+					vecTracedEntities.AddToTail(bulletpenetrate.m_Targets[i].pTarget);
+
+					if (info.m_iPenetrateLimit > 0)
+					{
+						if (penetrations < (info.m_iPenetrateLimit - 1))
+						{
+							penetrations++;
+						}
+						else
+						{
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				// We traced into something we don't understand (sticky bomb? pumpkin bomb?) -- just apply our
+				// hit logic to whatever we traced first.
+				vecTracedEntities.AddToTail(tr.m_pEnt);
+			}
+		}
+
 		Vector vecTracerDest = tr.endpos;
 
 		// do damage, paint decals
@@ -1921,42 +1965,92 @@ void CBaseEntity::FireBullets(const FireBulletsInfo_t& info)
 				dmgInfo.SetDamageCustom(nCustomDamage);
 				dmgInfo.ScaleDamageForce(info.m_flDamageForceScale);
 				dmgInfo.SetAmmoType(info.m_iAmmoType);
-				tr.m_pEnt->DispatchTraceAttack(dmgInfo, vecDir, &tr);
 
-				if (ToBaseCombatCharacter(tr.m_pEnt))
+				if (info.m_bPenetrate)
 				{
-					flCumulativeDamage += dmgInfo.GetDamage();
-				}
+					// Damage every enemy player struck by the bullet along its path.
+					FOR_EACH_VEC(vecTracedEntities, i)
+					{
+						if (!vecTracedEntities[i])
+							continue;
 
-				if (bStartedInWater || !bHitWater || (info.m_nFlags & FIRE_BULLETS_ALLOW_WATER_SURFACE_IMPACTS))
-				{
-					if (bDoServerEffects == true)
-					{
-						DoImpactEffect(tr, nDamageType);
-					}
-					else
-					{
-						bDoImpacts = true;
+						vecTracedEntities[i]->DispatchTraceAttack(dmgInfo, vecDir, &tr);
+
+						if (ToBaseCombatCharacter(vecTracedEntities[i]))
+						{
+							flCumulativeDamage += dmgInfo.GetDamage();
+						}
+
+						if (bStartedInWater || !bHitWater || (info.m_nFlags & FIRE_BULLETS_ALLOW_WATER_SURFACE_IMPACTS))
+						{
+							if (bDoServerEffects == true)
+							{
+								DoImpactEffect(tr, nDamageType);
+							}
+							else
+							{
+								bDoImpacts = true;
+							}
+						}
+						else
+						{
+							// We may not impact, but we DO need to affect ragdolls on the client
+							CEffectData data;
+							data.m_vStart = tr.startpos;
+							data.m_vOrigin = tr.endpos;
+							data.m_nDamageType = nDamageType;
+
+							DispatchEffect("RagdollImpact", data);
+						}
+
+#ifdef GAME_DLL
+						if (nAmmoFlags & AMMO_FORCE_DROP_IF_CARRIED)
+						{
+							// Make sure if the player is holding this, he drops it
+							Pickup_ForcePlayerToDropThisObject(vecTracedEntities[i]);
+						}
+#endif
 					}
 				}
 				else
 				{
-					// We may not impact, but we DO need to affect ragdolls on the client
-					CEffectData data;
-					data.m_vStart = tr.startpos;
-					data.m_vOrigin = tr.endpos;
-					data.m_nDamageType = nDamageType;
+					tr.m_pEnt->DispatchTraceAttack(dmgInfo, vecDir, &tr);
 
-					DispatchEffect("RagdollImpact", data);
-				}
+					if (ToBaseCombatCharacter(tr.m_pEnt))
+					{
+						flCumulativeDamage += dmgInfo.GetDamage();
+					}
+
+					if (bStartedInWater || !bHitWater || (info.m_nFlags & FIRE_BULLETS_ALLOW_WATER_SURFACE_IMPACTS))
+					{
+						if (bDoServerEffects == true)
+						{
+							DoImpactEffect(tr, nDamageType);
+						}
+						else
+						{
+							bDoImpacts = true;
+						}
+					}
+					else
+					{
+						// We may not impact, but we DO need to affect ragdolls on the client
+						CEffectData data;
+						data.m_vStart = tr.startpos;
+						data.m_vOrigin = tr.endpos;
+						data.m_nDamageType = nDamageType;
+
+						DispatchEffect("RagdollImpact", data);
+					}
 
 #ifdef GAME_DLL
-				if (nAmmoFlags & AMMO_FORCE_DROP_IF_CARRIED)
-				{
-					// Make sure if the player is holding this, he drops it
-					Pickup_ForcePlayerToDropThisObject(tr.m_pEnt);
-				}
+					if (nAmmoFlags & AMMO_FORCE_DROP_IF_CARRIED)
+					{
+						// Make sure if the player is holding this, he drops it
+						Pickup_ForcePlayerToDropThisObject(tr.m_pEnt);
+					}
 #endif
+				}
 			}
 		}
 

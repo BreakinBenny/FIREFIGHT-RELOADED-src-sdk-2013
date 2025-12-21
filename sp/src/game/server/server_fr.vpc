@@ -50,6 +50,7 @@ $Project "Server (FR)"
 		$File	"$SRCDIR\game\shared\weapon_parse_default.cpp"
 		$File	"$SRCDIR\game\shared\predicted_viewmodel.cpp"
 		$File	"$SRCDIR\game\shared\predicted_viewmodel.h"
+		$File	"$SRCDIR\game\shared\bulletpenetrateenum.h"
         
         $Folder "NextBot"
 		{

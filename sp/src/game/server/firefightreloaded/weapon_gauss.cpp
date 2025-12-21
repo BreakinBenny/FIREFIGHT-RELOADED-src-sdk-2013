@@ -21,10 +21,12 @@
 #include "rumble_shared.h"
 #include "func_break.h"
 #include "func_breakablesurf.h"
+#include "bulletpenetrateenum.h"
 
 #include "weapon_gauss.h"
 
 ConVar sv_gauss_jeep_beam("sv_gauss_jeep_beam", "0", FCVAR_ARCHIVE);
+ConVar sv_gauss_penetratelimit("sv_gauss_penetratelimit", "4", FCVAR_ARCHIVE);
 ConVar sk_plr_dmg_gauss("sk_plr_dmg_gauss", "0");
 ConVar sk_plr_max_dmg_gauss("sk_plr_max_dmg_gauss", "0");
 
@@ -266,7 +268,8 @@ void CWeaponGaussGun::ChargedFire( void )
 	//Determine the damage amount
 	float flDamage = sk_plr_dmg_gauss.GetFloat() + ( ( sk_plr_max_dmg_gauss.GetFloat() - sk_plr_dmg_gauss.GetFloat() ) * flChargeAmount );
 
-	CBaseEntity *pHit = tr.m_pEnt;
+	CBaseEntity* pHit = tr.m_pEnt;
+	
 	if ( tr.DidHitWorld() )
 	{
 		//Try wall penetration
@@ -289,17 +292,69 @@ void CWeaponGaussGun::ChargedFire( void )
 	}
 	else if ( pHit != NULL )
 	{
-		CTakeDamageInfo dmgInfo(this, pOwner, flDamage, DMG_SHOCK | DMG_ALWAYSGIB | DMG_CRUSH);
+		CTakeDamageInfo dmgInfo(this, pOwner, flDamage, DMG_SHOCK);
 
-		Vector vecFacing = pOwner->BodyDirection3D();
-		Vector vecThrow;
-		GetOwner()->GetVelocity(&vecThrow, NULL);
-		vecThrow += vecFacing * 1500;
+		// before calculating damage, how many entities have we gone though?
+		CUtlVector<CBaseEntity*> vecTracedEntities;
+		int penetrations = 0;
+		if (ToBaseCombatCharacter(pHit))
+		{
+			const float penetrationHullExtension = 40.0f;
+			// Josh: EnumerateEntities only collides with bboxes, extend the ray to a larger hull, then we clip to it.
+			Ray_t ray;
+			ray.Init(startPos, endPos,
+				Vector(-penetrationHullExtension, -penetrationHullExtension, -penetrationHullExtension),
+				Vector(penetrationHullExtension, penetrationHullExtension, penetrationHullExtension));
 
-		pHit->ApplyAbsVelocityImpulse(vecThrow);
+			// Penetrating shot: Strikes everything along the bullet's path.
+			CBulletPenetrateEnum bulletpenetrate(startPos, endPos, this);
+			enginetrace->EnumerateEntities(ray, false, &bulletpenetrate);
 
-		//Do direct damage to anything in our path
-		pHit->DispatchTraceAttack( dmgInfo, aimDir, &tr );
+			FOR_EACH_VEC(bulletpenetrate.m_Targets, i)
+			{
+				vecTracedEntities.AddToTail(bulletpenetrate.m_Targets[i].pTarget);
+
+				int limit = sv_gauss_penetratelimit.GetInt();
+
+				if (limit > 0)
+				{
+					if (penetrations < (limit - 1))
+					{
+						penetrations++;
+					}
+					else
+					{
+						break;
+					}
+				}
+			}
+		}
+		else
+		{
+			// We traced into something we don't understand (sticky bomb? pumpkin bomb?) -- just apply our
+			// hit logic to whatever we traced first.
+			vecTracedEntities.AddToTail(pHit);
+		}
+
+		// Damage every enemy player struck by the bullet along its path.
+		FOR_EACH_VEC(vecTracedEntities, i)
+		{
+			if (!vecTracedEntities[i])
+				continue;
+
+			if (vecTracedEntities[i] == GetOwner())
+				continue;
+
+			Vector vecFacing = pOwner->BodyDirection3D();
+			Vector vecThrow;
+			GetOwner()->GetVelocity(&vecThrow, NULL);
+			vecThrow += vecFacing * 1500;
+
+			vecTracedEntities[i]->ApplyAbsVelocityImpulse(vecThrow);
+
+			//Do direct damage to anything in our path
+			vecTracedEntities[i]->DispatchTraceAttack(dmgInfo, aimDir, &tr);
+		}
 	}
 
 	ApplyMultiDamage();
@@ -326,13 +381,14 @@ void CWeaponGaussGun::ChargedFire( void )
 		pOwner->EyeVectors(&hitDirection, NULL, &up);
 
 		VectorNormalize(hitDirection);
+
 		pOwner->ApplyAbsVelocityImpulse(-(hitDirection * 400 + up * 150));
 	}
 
 	CPVSFilter filter( tr.endpos );
 	te->GaussExplosion( filter, 0.0f, tr.endpos, tr.plane.normal, 0 );
 
-	if ( penetrated == true )
+	if (penetrated == true)
 	{
 		RadiusDamage( CTakeDamageInfo( this, pOwner, flDamage, DMG_SHOCK ), tr.endpos, 200.0f, CLASS_NONE, NULL );
 	}

@@ -10,6 +10,7 @@
 #include "Color.h"
 #include "shareddefs.h"
 #include "fr_mapinfo.h"
+#include "UtlSortVector.h"
 
 //START FR ACHIVEMENTS
 #define ACHIEVEMENT_FIREFIGHTRELOADED_KILL20COMBINE					151
