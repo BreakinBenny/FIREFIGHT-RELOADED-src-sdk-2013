@@ -706,7 +706,7 @@ void CAI_BaseNPC::Event_Killed( const CTakeDamageInfo &info )
 
 	if (m_bCanSendNPCvNPCDeathNotice)
 	{
-		((CSingleplayRules*)GameRules())->NPCKilled(this, new_info);
+		SPGameRules()->NPCKilled(this, new_info);
 	}
 
 	CNPC_Citizen* pCitizen = dynamic_cast<CNPC_Citizen*>(pAttacker);
@@ -770,7 +770,7 @@ void CAI_BaseNPC::Event_Killed( const CTakeDamageInfo &info )
 		if (!m_bCanSendNPCvNPCDeathNotice)
 		{
 			new_info.SetAttacker(pAttacker);
-			((CSingleplayRules*)GameRules())->NPCKilled(this, new_info);
+			SPGameRules()->NPCKilled(this, new_info);
 		}
 
 		if (GlobalEntity_GetState("player_inbossbattle") == GLOBAL_OFF && sk_gotoboss_ondronekill.GetBool())

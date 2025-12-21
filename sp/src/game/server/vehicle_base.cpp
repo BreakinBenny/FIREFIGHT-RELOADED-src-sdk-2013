@@ -1091,7 +1091,7 @@ void CPropVehicleDriveable::Event_KilledOther( CBaseEntity *pVictim, const CTake
 		{
 			CTakeDamageInfo new_info(info);
 			new_info.SetAttacker(pDriver);
-			((CSingleplayRules*)GameRules())->NPCKilled(pVictim, new_info);
+			SPGameRules()->NPCKilled(pVictim, new_info);
 		}
 
 		pDriver->Event_KilledOther( pVictim, info );

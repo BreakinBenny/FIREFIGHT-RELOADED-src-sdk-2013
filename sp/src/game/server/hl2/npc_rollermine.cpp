@@ -2515,13 +2515,13 @@ int CNPC_RollerMine::OnTakeDamage( const CTakeDamageInfo &info )
 
 		if (m_bCanSendNPCvNPCDeathNotice)
 		{
-			((CSingleplayRules*)GameRules())->NPCKilled(this, info);
+			SPGameRules()->NPCKilled(this, info);
 		}
 		else
 		{
 			if (info.GetAttacker()->IsPlayer())
 			{
-				((CSingleplayRules*)GameRules())->NPCKilled(this, info);
+				SPGameRules()->NPCKilled(this, info);
 			}
 		}
 

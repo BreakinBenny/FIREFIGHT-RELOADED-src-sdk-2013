@@ -1437,7 +1437,7 @@ void CBasePlayer::AssignKillTask()
 	}
 
 	NpcName target_name;
-	((CSingleplayRules*)GameRules())->GetNPCName(target_name, pEntry->classname, pEntry->npcAttributePreset, pEntry->npcAttributeWildcard);
+	SPGameRules()->GetNPCName(target_name, pEntry->classname, pEntry->npcAttributePreset, pEntry->npcAttributeWildcard);
 
 	SendTask((pEntry->isRare ? (count > TASKLIST_KILL_TASK_COUNTTOCHANGECOLOR ? TASK_HIGH : TASK_MEDIUM) : (count > TASKLIST_KILL_TASK_COUNTTOCHANGECOLOR ? TASK_MEDIUM : TASK_LOW)), count, target_name, "#Task_KillEnemy", "#Task_KillEnemies");
 }

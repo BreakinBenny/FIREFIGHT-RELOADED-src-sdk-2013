@@ -138,5 +138,12 @@ public:
 #endif
 };
 
+//-----------------------------------------------------------------------------
+// Gets us at the singleplayer game rules
+//-----------------------------------------------------------------------------
+inline CSingleplayRules* SPGameRules()
+{
+	return static_cast<CSingleplayRules*>(g_pGameRules);
+}
 
 #endif // SINGLEPLAY_GAMERULES_H

@@ -8,7 +8,7 @@
 #include "cbase.h"
 #include "player.h"
 #include "monster_resource.h"
-#include <coordsize.h>
+#include "coordsize.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -72,6 +72,6 @@ void CMonsterResource::HideBossHealthMeter( void )
 void CMonsterResource::SetBossName(CBaseEntity* pBoss)
 {
 	NpcName name;
-	((CSingleplayRules*)GameRules())->GetNPCName(name, pBoss);
+	SPGameRules()->GetNPCName(name, pBoss);
 	Q_strncpy(m_szBossName.GetForModify(), name, MAX_PATH);
 }
