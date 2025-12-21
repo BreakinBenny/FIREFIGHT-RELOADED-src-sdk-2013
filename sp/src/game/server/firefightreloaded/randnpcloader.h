@@ -86,7 +86,6 @@ public:
 
 	bool Load();
 	bool AddEntries( KeyValues *kv );
-	const SpawnEntry_t* GetRandomEntry() const;
 	const SpawnEntry_t* GetRandomEntry(bool isRare) const;
 
 public:

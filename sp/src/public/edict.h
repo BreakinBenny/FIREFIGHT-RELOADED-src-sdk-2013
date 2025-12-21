@@ -283,6 +283,9 @@ inline void	CBaseEdict::StateChanged()
 	SetChangeInfoSerialNumber( 0 );
 }
 
+// this may break things, so i'm giving it a define just in case...
+#define ACCESSOR_CRASH_FIX 1
+
 inline void	CBaseEdict::StateChanged( unsigned short offset )
 {
 	if ( m_fStateFlags & FL_FULL_EDICT_CHANGED )
@@ -292,6 +295,53 @@ inline void	CBaseEdict::StateChanged( unsigned short offset )
 
 	IChangeInfoAccessor *accessor = GetChangeAccessor();
 	
+#ifdef ACCESSOR_CRASH_FIX
+	if (accessor)
+	{
+		if (accessor->GetChangeInfoSerialNumber() == g_pSharedChangeInfo->m_iSerialNumber)
+		{
+			// Ok, I still own this one.
+			CEdictChangeInfo* p = &g_pSharedChangeInfo->m_ChangeInfos[accessor->GetChangeInfo()];
+
+			// Now add this offset to our list of changed variables.		
+			for (unsigned short i = 0; i < p->m_nChangeOffsets; i++)
+				if (p->m_ChangeOffsets[i] == offset)
+					return;
+
+			if (p->m_nChangeOffsets == MAX_CHANGE_OFFSETS)
+			{
+				// Invalidate our change info.
+				accessor->SetChangeInfoSerialNumber(0);
+				m_fStateFlags |= FL_FULL_EDICT_CHANGED; // So we don't get in here again.
+			}
+			else
+			{
+				p->m_ChangeOffsets[p->m_nChangeOffsets++] = offset;
+			}
+		}
+		else
+		{
+			if (g_pSharedChangeInfo->m_nChangeInfos == MAX_EDICT_CHANGE_INFOS)
+			{
+				// Shucks.. have to mark the edict as fully changed because we don't have room to remember this change.
+				accessor->SetChangeInfoSerialNumber(0);
+				m_fStateFlags |= FL_FULL_EDICT_CHANGED;
+			}
+			else
+			{
+				// Get a new CEdictChangeInfo and fill it out.
+				accessor->SetChangeInfo(g_pSharedChangeInfo->m_nChangeInfos);
+				g_pSharedChangeInfo->m_nChangeInfos++;
+
+				accessor->SetChangeInfoSerialNumber(g_pSharedChangeInfo->m_iSerialNumber);
+
+				CEdictChangeInfo* p = &g_pSharedChangeInfo->m_ChangeInfos[accessor->GetChangeInfo()];
+				p->m_ChangeOffsets[0] = offset;
+				p->m_nChangeOffsets = 1;
+			}
+		}
+	}
+#else
 	if ( accessor->GetChangeInfoSerialNumber() == g_pSharedChangeInfo->m_iSerialNumber )
 	{
 		// Ok, I still own this one.
@@ -334,6 +384,7 @@ inline void	CBaseEdict::StateChanged( unsigned short offset )
 			p->m_nChangeOffsets = 1;
 		}
 	}
+#endif
 }
 
 
@@ -401,22 +452,58 @@ inline const char *	CBaseEdict::GetClassName() const
 
 inline void CBaseEdict::SetChangeInfo( unsigned short info )
 {
+#ifdef ACCESSOR_CRASH_FIX
+	if (GetChangeAccessor())
+	{
+		GetChangeAccessor()->SetChangeInfo( info );
+	}
+#else
 	GetChangeAccessor()->SetChangeInfo( info );
+#endif
 }
 
 inline void CBaseEdict::SetChangeInfoSerialNumber( unsigned short sn )
 {
+#ifdef ACCESSOR_CRASH_FIX
+	if (GetChangeAccessor())
+	{
+		GetChangeAccessor()->SetChangeInfoSerialNumber( sn );
+	}
+#else
 	GetChangeAccessor()->SetChangeInfoSerialNumber( sn );
+#endif
 }
 
 inline unsigned short CBaseEdict::GetChangeInfo() const
 {
+#ifdef ACCESSOR_CRASH_FIX
+	if (GetChangeAccessor())
+	{
+		return GetChangeAccessor()->GetChangeInfo();
+	}
+	else
+	{
+		return 0;
+	}
+#else
 	return GetChangeAccessor()->GetChangeInfo();
+#endif
 }
 
 inline unsigned short CBaseEdict::GetChangeInfoSerialNumber() const
 {
+#ifdef ACCESSOR_CRASH_FIX
+	if (GetChangeAccessor())
+	{
+		return GetChangeAccessor()->GetChangeInfoSerialNumber();
+	}
+	else
+	{
+		return 0;
+	}
+#else
 	return GetChangeAccessor()->GetChangeInfoSerialNumber();
+#endif
 }
 
 //-----------------------------------------------------------------------------

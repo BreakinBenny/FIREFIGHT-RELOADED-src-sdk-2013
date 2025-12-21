@@ -979,16 +979,6 @@ CBasePlayer::CBasePlayer( )
 		DevMsg("SET m_rgMaxUpgrades[%i] TO %i\n", i, m_rgMaxUpgrades[i]);
 	}
 
-	g_ref_npcLoader = new CRandNPCLoader;
-
-	if (g_ref_npcLoader)
-	{
-		if (!g_ref_npcLoader->Load())
-		{
-			Warning("g_ref_npcLoader failed to load due to missing spawnlist. Tasks won't function.\n");
-		}
-	}
-
 	SetTimeBase(gpGlobals->curtime);
 }
 
@@ -1270,14 +1260,29 @@ void CBasePlayer::LevelUp()
 	}
 }
 
-int CBasePlayer::AssignTaskIndex()
+bool CBasePlayer::CanAssignTasks()
 {
 	if (!sv_tasks.GetBool())
 	{
-		return -1;
+		return false;
 	}
 
 	if (CTaskManager::GetTaskManager()->m_Tasks.Size() == TASKLIST_MAX_TASKS)
+	{
+		return false;
+	}
+
+	if (!IsAlive())
+	{
+		return false;
+	}
+
+	return true;
+}
+
+int CBasePlayer::AssignTaskIndex()
+{
+	if (!CanAssignTasks())
 	{
 		return -1;
 	}
@@ -1319,7 +1324,7 @@ void CBasePlayer::SendTask(int urgency, int count, const char* target, const cha
 
 void CBasePlayer::AssignTask()
 {
-	if (!sv_tasks.GetBool())
+	if (!CanAssignTasks())
 	{
 		return;
 	}
@@ -1384,7 +1389,10 @@ void CBasePlayer::AssignKillTask()
 	if (!g_ref_npcLoader)
 		return;
 
-	const CRandNPCLoader::SpawnEntry_t* pEntry = g_ref_npcLoader->GetRandomEntry();
+	//prioritize commons over rares.
+	bool coinFlip = ( ( random->RandomInt( 0, 1 ) == 1 ) ? true : false );
+
+	const CRandNPCLoader::SpawnEntry_t* pEntry = g_ref_npcLoader->GetRandomEntry(coinFlip);
 
 	random->SetSeed((int)gpGlobals->curtime);
 
@@ -7228,6 +7236,20 @@ void CBasePlayer::Precache( void )
 	if ( gInitHUD )
 		m_fInitHUD = true;
 
+
+	// load the spawnlist here.
+	if (g_ref_npcLoader == nullptr)
+	{
+		g_ref_npcLoader = new CRandNPCLoader;
+
+		if (g_ref_npcLoader)
+		{
+			if (!g_ref_npcLoader->Load())
+			{
+				Warning("g_ref_npcLoader failed to load due to missing spawnlist. Kill tasks won't function.\n");
+			}
+		}
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -7340,10 +7362,12 @@ void CBasePlayer::OnRestore( void )
 	m_nBodyPitchPoseParam = LookupPoseParameter( "body_pitch" );
 
 	CTaskManager::Wipe();
+
 	for (int i = 0; i < TASKLIST_MAX_TASKS; i++)
 	{
 		m_iTaskCount[i] = 0;
 	}
+
 	CheckLevel(true);
 }
 

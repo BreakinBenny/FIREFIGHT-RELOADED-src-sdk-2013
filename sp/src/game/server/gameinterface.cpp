@@ -261,11 +261,25 @@ CSharedEdictChangeInfo *g_pSharedChangeInfo = NULL;
 
 IChangeInfoAccessor *CBaseEdict::GetChangeAccessor()
 {
+#ifdef ACCESSOR_CRASH_FIX
+	if (m_pNetworkable == nullptr || ((void**)m_pNetworkable)[0] == nullptr)
+	{
+		return nullptr;
+	}
+#endif
+
 	return engine->GetChangeAccessor( (const edict_t *)this );
 }
 
 const IChangeInfoAccessor *CBaseEdict::GetChangeAccessor() const
 {
+#ifdef ACCESSOR_CRASH_FIX
+	if (m_pNetworkable == nullptr || ((void**)m_pNetworkable)[0] == nullptr)
+	{
+		return nullptr;
+	}
+#endif
+
 	return engine->GetChangeAccessor( (const edict_t *)this );
 }
 

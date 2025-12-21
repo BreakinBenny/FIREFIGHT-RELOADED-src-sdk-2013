@@ -202,48 +202,6 @@ bool CRandNPCLoader::Load()
 	return true;
 }
 
-const CRandNPCLoader::SpawnEntry_t* CRandNPCLoader::GetRandomEntry() const
-{
-	int largestPlayerLevel = GetLargestLevel();
-
-	random->SetSeed((int)gpGlobals->curtime);
-
-	// Create list of candidates by checking all the keys to generate a level based spawnlist.
-	CUtlVector<const SpawnEntry_t*> candidates;
-	float totalWeight = 0;
-	for (auto& iter : m_Entries)
-	{
-		if (largestPlayerLevel >= iter.minPlayerLevel)
-		{
-			//prioritize commons over rares.
-			if (iter.isRare)
-			{
-				int coinFlip = random->RandomInt(0, 1);
-				// tails.
-				if (coinFlip)
-				{
-					continue;
-				}
-			}
-
-			candidates.AddToTail(&iter);
-			totalWeight += iter.weight;
-		}
-	}
-
-	// This naive algorithm (implemented elsewhere too) could ignore very small weights.
-	// If this comes up, then we'll look into this.
-	float choice = random->RandomFloat(0, totalWeight);
-	for (auto iter : candidates)
-	{
-		choice -= iter->weight;
-		if (choice <= 0)
-			return iter;
-	}
-
-	return NULL;
-}
-
 const CRandNPCLoader::SpawnEntry_t* CRandNPCLoader::GetRandomEntry(bool isRare) const
 {
 	int largestPlayerLevel = GetLargestLevel();

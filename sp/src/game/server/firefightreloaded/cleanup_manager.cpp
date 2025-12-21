@@ -32,12 +32,12 @@ static void cleanupMine( EHANDLE handle )
 
 static void cleanupNotSolid( EHANDLE handle )
 {
-	handle->SUB_StartFadeOut( 0, true, "cleanup" );
+	handle->SUB_StartFadeOut( 0, true, "CleanUp" );
 }
 
 static void cleanupSolid( EHANDLE handle )
 {
-	handle->SUB_StartFadeOut( 0, false, "cleanup" );
+	handle->SUB_StartFadeOut( 0, false, "CleanUp" );
 }
 
 CCleanupManager* CCleanupManager::GetManager()

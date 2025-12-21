@@ -937,6 +937,7 @@ public:
 
 	void LevelUpClassic( void);
 
+	bool CanAssignTasks();
 	int AssignTaskIndex();
 	void AssignTask();
 	void TaskCompleted();

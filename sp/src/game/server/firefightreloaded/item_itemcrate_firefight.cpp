@@ -372,7 +372,9 @@ void CItem_ItemCrateFirefight::OnBreak( const Vector &vecVelocity, const Angular
 			pSpawn->SetNextThink( gpGlobals->curtime );
 		}
 		else if ( shouldRespawn && sv_drops_cleanup_time.GetFloat() >= 0 )
+		{
 			pSpawn->SUB_StartFadeOut( sv_drops_cleanup_time.GetFloat(), false, "CleanUp" );
+		}
 	}
 
 	if (shouldRespawn)

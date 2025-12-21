@@ -11227,8 +11227,10 @@ CBaseEntity *CAI_BaseNPC::DropItem ( const char *pszItemName, Vector vecPos, QAn
 		}
 
 		static ConVarRef sv_drops_cleanup_time( "sv_drops_cleanup_time" );
-		if ( sv_drops_cleanup_time.GetFloat() >= 0 )
-			pItem->SUB_StartFadeOut( sv_drops_cleanup_time.GetFloat(), false, "CleanUp" );
+		if (sv_drops_cleanup_time.GetFloat() >= 0)
+		{
+			pItem->SUB_StartFadeOut(sv_drops_cleanup_time.GetFloat(), false, "CleanUp");
+		}
 
 		return pItem;
 	}
