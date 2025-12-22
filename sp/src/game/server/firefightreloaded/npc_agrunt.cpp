@@ -525,6 +525,21 @@ void CNPC_AGrunt::TraceAttack(const CTakeDamageInfo &info, const Vector &vecDir,
 		CPVSFilter filter(ptr->endpos);
 		te->ArmorRicochet( filter, 0.0, &ptr->endpos, &ptr->plane.normal );
 
+		if (random->RandomInt(0, 1) == 0)
+		{
+			Vector vecTracerDir = vecDir;
+
+			vecTracerDir.x += random->RandomFloat(-0.3, 0.3);
+			vecTracerDir.y += random->RandomFloat(-0.3, 0.3);
+			vecTracerDir.z += random->RandomFloat(-0.3, 0.3);
+
+			vecTracerDir = vecTracerDir * -512;
+
+			Vector vEndPos = ptr->endpos + vecTracerDir;
+
+			UTIL_Tracer(ptr->endpos, vEndPos);
+		}
+
 		flDamage -= 20;
 		if (flDamage <= 0)
 			flDamage = 0.1; // don't hurt the monster much, but allow bits_COND_LIGHT_DAMAGE to be generated

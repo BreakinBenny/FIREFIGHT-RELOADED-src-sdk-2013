@@ -427,7 +427,7 @@ void CNPC_Advisor::LoadInitAttributes()
 	BaseClass::LoadInitAttributes();
 }
 
-CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info, trace_t* ptr)
+CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info, trace_t* ptr, const Vector& vecDir)
 {
 	if (m_bBulletResistanceBroken)
 		return info;
@@ -445,10 +445,25 @@ CTakeDamageInfo CNPC_Advisor::BulletResistanceLogic(const CTakeDamageInfo& info,
 			if (!(outputInfo.GetDamageType() & (DMG_GENERIC)))
 			{
 				SetBloodColor(BLOOD_COLOR_MECH);
-				if (ptr != NULL)
+				if (ptr != NULL && vecDir != Vector(0,0,0))
 				{
 					CPVSFilter filter(ptr->endpos);
 					te->ArmorRicochet(filter, 0.0, &ptr->endpos, &ptr->plane.normal);
+
+					if (random->RandomInt(0, 1) == 0)
+					{
+						Vector vecTracerDir = vecDir;
+
+						vecTracerDir.x += random->RandomFloat(-0.3, 0.3);
+						vecTracerDir.y += random->RandomFloat(-0.3, 0.3);
+						vecTracerDir.z += random->RandomFloat(-0.3, 0.3);
+
+						vecTracerDir = vecTracerDir * -512;
+
+						Vector vEndPos = ptr->endpos + vecTracerDir;
+
+						UTIL_Tracer(ptr->endpos, vEndPos);
+					}
 				}
 
 				if (outputInfo.GetDamageType() & DMG_BLAST)
@@ -578,7 +593,7 @@ void CNPC_Advisor::TraceAttack(const CTakeDamageInfo& inputInfo, const Vector& v
 
 	if (!m_bBulletResistanceBroken)
 	{
-		bulletResistanceInfo = BulletResistanceLogic(outputInfo, ptr);
+		bulletResistanceInfo = BulletResistanceLogic(outputInfo, ptr, vecDir);
 	}
 
 	HealthBarUpdate();
@@ -603,7 +618,7 @@ int CNPC_Advisor::OnTakeDamage_Alive(const CTakeDamageInfo& info)
 
 	if (!m_bBulletResistanceBroken)
 	{
-		bulletResistanceInfo = BulletResistanceLogic(outputInfo, NULL);
+		bulletResistanceInfo = BulletResistanceLogic(outputInfo, NULL, Vector(0, 0, 0));
 	}
 
 	HealthBarUpdate();

@@ -52,7 +52,7 @@ public:
 	void		PainSound(const CTakeDamageInfo& info);
 	int			OnTakeDamage_Alive(const CTakeDamageInfo& info);
 	virtual bool		PassesDamageFilter(const CTakeDamageInfo& info);
-	CTakeDamageInfo		BulletResistanceLogic(const CTakeDamageInfo& info, trace_t* ptr);
+	CTakeDamageInfo		BulletResistanceLogic(const CTakeDamageInfo& info, trace_t* ptr, const Vector& vecDir);
 	void		DeathSound( const CTakeDamageInfo &info );
 	void		PrescheduleThink( void );
 	void		BuildScheduleTestBits( void );

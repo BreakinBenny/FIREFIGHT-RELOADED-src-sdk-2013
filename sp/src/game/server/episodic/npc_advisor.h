@@ -155,7 +155,7 @@ public:
 #ifdef GLOWS_ENABLE
 	void				EnableBulletResistanceOutline(void);
 #endif
-	CTakeDamageInfo		BulletResistanceLogic(const CTakeDamageInfo& info, trace_t* ptr);
+	CTakeDamageInfo		BulletResistanceLogic(const CTakeDamageInfo& info, trace_t* ptr, const Vector& vecDir);
 	virtual bool		PassesDamageFilter(const CTakeDamageInfo& info);
 	bool				m_bBulletResistanceBroken;
 	bool				m_bBulletResistanceOutlineDisabled;

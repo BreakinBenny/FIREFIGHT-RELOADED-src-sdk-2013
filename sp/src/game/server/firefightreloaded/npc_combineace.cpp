@@ -627,7 +627,7 @@ Vector CNPC_CombineAce::CalcThrowVelocity(const Vector& startPos, const Vector& 
 	return BaseClass::CalcThrowVelocity(startPos, endPos, fGravity, fArcSize) * 2.0f;
 }
 
-CTakeDamageInfo CNPC_CombineAce::BulletResistanceLogic(const CTakeDamageInfo& info, trace_t* ptr)
+CTakeDamageInfo CNPC_CombineAce::BulletResistanceLogic(const CTakeDamageInfo& info, trace_t* ptr, const Vector& vecDir)
 {
 	if (m_bBulletResistanceBroken)
 		return info;
@@ -643,10 +643,25 @@ CTakeDamageInfo CNPC_CombineAce::BulletResistanceLogic(const CTakeDamageInfo& in
 		if (!(outputInfo.GetDamageType() & (DMG_GENERIC)))
 		{
 			SetBloodColor(BLOOD_COLOR_MECH);
-			if (ptr != NULL)
+			if (ptr != NULL && vecDir != Vector(0, 0, 0))
 			{
 				CPVSFilter filter(ptr->endpos);
 				te->ArmorRicochet(filter, 0.0, &ptr->endpos, &ptr->plane.normal);
+
+				if (random->RandomInt(0, 1) == 0)
+				{
+					Vector vecTracerDir = vecDir;
+
+					vecTracerDir.x += random->RandomFloat(-0.3, 0.3);
+					vecTracerDir.y += random->RandomFloat(-0.3, 0.3);
+					vecTracerDir.z += random->RandomFloat(-0.3, 0.3);
+
+					vecTracerDir = vecTracerDir * -512;
+
+					Vector vEndPos = ptr->endpos + vecTracerDir;
+
+					UTIL_Tracer(ptr->endpos, vEndPos);
+				}
 			}
 
 			//squad doesn't cause any damage unless our shield is down.
@@ -743,7 +758,7 @@ void CNPC_CombineAce::TraceAttack(const CTakeDamageInfo& inputInfo, const Vector
 	// special interaction with combine balls
 	if (!m_bBulletResistanceBroken)
 	{
-		CTakeDamageInfo bulletResistanceInfo = BulletResistanceLogic(inputInfo, ptr);
+		CTakeDamageInfo bulletResistanceInfo = BulletResistanceLogic(inputInfo, ptr, vecDir);
 		BaseClass::TraceAttack(bulletResistanceInfo, vecDir, ptr, pAccumulator);
 	}
 	else
@@ -757,7 +772,7 @@ int CNPC_CombineAce::OnTakeDamage_Alive(const CTakeDamageInfo& info)
 	// special interaction with combine balls
 	if (!m_bBulletResistanceBroken)
 	{
-		CTakeDamageInfo bulletResistanceInfo = BulletResistanceLogic(info, NULL);
+		CTakeDamageInfo bulletResistanceInfo = BulletResistanceLogic(info, NULL, Vector(0, 0, 0));
 		return BaseClass::OnTakeDamage_Alive(bulletResistanceInfo);
 	}
 	else
