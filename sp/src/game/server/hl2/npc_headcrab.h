@@ -304,6 +304,7 @@ public:
 	float	MaxYawSpeed(void);
 	Activity NPC_TranslateActivity(Activity eNewActivity);
 	float	GetHitgroupDamageMultiplier(int iHitGroup, const CTakeDamageInfo& info);
+	void	TraceAttack(const CTakeDamageInfo& info, const Vector& vecDir, trace_t* ptr, CDmgAccumulator* pAccumulator);
 
 	void	BiteSound(void);
 	void	PainSound(const CTakeDamageInfo& info);

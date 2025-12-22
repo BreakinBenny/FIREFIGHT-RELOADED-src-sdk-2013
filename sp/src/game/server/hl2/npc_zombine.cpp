@@ -593,19 +593,42 @@ bool CNPC_Zombine::HandleInteraction( int interactionType, void *data, CBaseComb
 
 void CNPC_Zombine::TraceAttack( const CTakeDamageInfo &info, const Vector &vecDir, trace_t *ptr, CDmgAccumulator *pAccumulator )
 {
-	BaseClass::TraceAttack( info, vecDir, ptr, pAccumulator );
+	CTakeDamageInfo newinfo = info;
+
+	if (ptr->hitgroup == HITGROUP_HEAD && (newinfo.GetDamageType() & (DMG_BULLET | DMG_SLASH | DMG_CLUB)))
+	{
+		CPVSFilter filter(ptr->endpos);
+		te->ArmorRicochet(filter, 0.0, &ptr->endpos, &ptr->plane.normal);
+
+		if (random->RandomInt(0, 1) == 0)
+		{
+			Vector vecTracerDir = vecDir;
+
+			vecTracerDir.x += random->RandomFloat(-0.3, 0.3);
+			vecTracerDir.y += random->RandomFloat(-0.3, 0.3);
+			vecTracerDir.z += random->RandomFloat(-0.3, 0.3);
+
+			vecTracerDir = vecTracerDir * -512;
+
+			Vector vEndPos = ptr->endpos + vecTracerDir;
+
+			UTIL_Tracer(ptr->endpos, vEndPos);
+		}
+	}
+
+	BaseClass::TraceAttack( newinfo, vecDir, ptr, pAccumulator );
 
 	//Only knock grenades off their hands if it's a player doing the damage.
-	if ( info.GetAttacker() && info.GetAttacker()->IsNPC() )
+	if (newinfo.GetAttacker() && newinfo.GetAttacker()->IsNPC() )
 		return;
 
-	if ( info.GetDamageType() & ( DMG_BULLET | DMG_CLUB ) )
+	if (newinfo.GetDamageType() & ( DMG_BULLET | DMG_CLUB ) )
 	{
 		if ( ptr->hitgroup == HITGROUP_LEFTARM )
 		{
 			if ( HasGrenade() )
 			{
-				DropGrenade( info.GetDamageForce() );
+				DropGrenade(newinfo.GetDamageForce() );
 				StopSprint();
 			}
 		}

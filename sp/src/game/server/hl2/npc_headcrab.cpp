@@ -3679,6 +3679,38 @@ float CArmoredHeadcrab::GetHitgroupDamageMultiplier(int iHitGroup, const CTakeDa
 	}
 }
 
+//=========================================================
+// TraceAttack
+//=========================================================
+void CArmoredHeadcrab::TraceAttack(const CTakeDamageInfo& info, const Vector& vecDir, trace_t* ptr, CDmgAccumulator* pAccumulator)
+{
+	CTakeDamageInfo newinfo = info;
+
+	//hitgroup gear is 10. - Bitl
+	if (ptr->hitgroup == HITGROUP_HEAD && (newinfo.GetDamageType() & (DMG_BULLET | DMG_SLASH | DMG_CLUB)))
+	{
+		CPVSFilter filter(ptr->endpos);
+		te->ArmorRicochet(filter, 0.0, &ptr->endpos, &ptr->plane.normal);
+
+		if (random->RandomInt(0, 1) == 0)
+		{
+			Vector vecTracerDir = vecDir;
+
+			vecTracerDir.x += random->RandomFloat(-0.3, 0.3);
+			vecTracerDir.y += random->RandomFloat(-0.3, 0.3);
+			vecTracerDir.z += random->RandomFloat(-0.3, 0.3);
+
+			vecTracerDir = vecTracerDir * -512;
+
+			Vector vEndPos = ptr->endpos + vecTracerDir;
+
+			UTIL_Tracer(ptr->endpos, vEndPos);
+		}
+	}
+
+	BaseClass::TraceAttack(newinfo, vecDir, ptr, pAccumulator);
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------

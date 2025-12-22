@@ -114,6 +114,7 @@ public:
 	Activity NPC_TranslateActivity( Activity newActivity );
 
 	virtual float GetHitgroupDamageMultiplier(int iHitGroup, const CTakeDamageInfo& info);
+	void TraceAttack(const CTakeDamageInfo& info, const Vector& vecDir, trace_t* ptr, CDmgAccumulator* pAccumulator);
 
 	void OnStateChange( NPC_STATE OldState, NPC_STATE NewState );
 
@@ -387,6 +388,37 @@ float CZombie::GetHitgroupDamageMultiplier(int iHitGroup, const CTakeDamageInfo&
 	SetBloodColor(BLOOD_COLOR_GREEN);
 #endif // HL2_EPISODIC
 	return BaseClass::GetHitgroupDamageMultiplier(iHitGroup, info);
+}
+
+//=========================================================
+// TraceAttack
+//=========================================================
+void CZombie::TraceAttack(const CTakeDamageInfo& info, const Vector& vecDir, trace_t* ptr, CDmgAccumulator* pAccumulator)
+{
+	CTakeDamageInfo newinfo = info;
+
+	if (ptr->hitgroup == HITGROUP_HEAD && (newinfo.GetDamageType() & (DMG_BULLET | DMG_SLASH | DMG_CLUB)))
+	{
+		CPVSFilter filter(ptr->endpos);
+		te->ArmorRicochet(filter, 0.0, &ptr->endpos, &ptr->plane.normal);
+
+		if (random->RandomInt(0, 1) == 0)
+		{
+			Vector vecTracerDir = vecDir;
+
+			vecTracerDir.x += random->RandomFloat(-0.3, 0.3);
+			vecTracerDir.y += random->RandomFloat(-0.3, 0.3);
+			vecTracerDir.z += random->RandomFloat(-0.3, 0.3);
+
+			vecTracerDir = vecTracerDir * -512;
+
+			Vector vEndPos = ptr->endpos + vecTracerDir;
+
+			UTIL_Tracer(ptr->endpos, vEndPos);
+		}
+	}
+
+	BaseClass::TraceAttack(newinfo, vecDir, ptr, pAccumulator);
 }
 
 //-----------------------------------------------------------------------------
