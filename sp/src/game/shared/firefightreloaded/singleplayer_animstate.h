@@ -47,6 +47,7 @@ public:
     CBasePlayer        *GetBasePlayer();
  
     void Release();
+    void OnNewModel();
  
 private:
     void                GetOuterAbsVelocity( Vector& vel );

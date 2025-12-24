@@ -72,6 +72,8 @@
 #include "npc_BaseZombie.h"
 #include "npc_agrunt.h"
 
+#include "grenade_satchel.h"
+
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
@@ -977,6 +979,18 @@ void CHL2_Player::HandleGrapple(void)
 //-----------------------------------------------------------------------------
 void CHL2_Player::PreThink(void)
 {
+	QAngle vOldAngles = GetLocalAngles();
+	QAngle vTempAngles = GetLocalAngles();
+
+	vTempAngles = EyeAngles();
+
+	if (vTempAngles[PITCH] > 180.0f)
+	{
+		vTempAngles[PITCH] -= 360.0f;
+	}
+
+	SetLocalAngles(vTempAngles);
+
 	if ( player_showpredictedposition.GetBool() )
 	{
 		Vector	predPos;
@@ -1360,6 +1374,10 @@ void CHL2_Player::PreThink(void)
 			}
 		}
 	}
+
+	//Reset bullet force accumulator, only lasts one frame
+	m_vecForce = vec3_origin;
+	SetLocalAngles(vOldAngles);
 }
 
 //-----------------------------------------------------------------------------
@@ -1775,7 +1793,8 @@ void CHL2_Player::SetPlayerModel(void)
 {
 	const char *szModelName = NULL;
 	const char *szPlayerModelVal = engine->GetClientConVarValue(engine->IndexOfEdict(edict()), "cl_playermodel");
-	if (Q_strcmp(szPlayerModelVal, "none") == 0)
+	int modelIndex = modelinfo->GetModelIndex(szPlayerModelVal);
+	if (modelIndex == -1 || Q_strcmp(szPlayerModelVal, "none") == 0)
 	{
 		szModelName = "models/player/playermodels/gordon.mdl";
 	}
@@ -1784,12 +1803,20 @@ void CHL2_Player::SetPlayerModel(void)
 		szModelName = szPlayerModelVal;
 	}
 	SetModel(szModelName);
+
+	// Immediately reset our collision bounds - our collision bounds will be set to the model's bounds.
+	SetCollisionBounds(GetPlayerMins(), GetPlayerMaxs());
+
+	SetHitboxSet(0);
+
+	m_pPlayerAnimState->OnNewModel();
 }
 
 void CHL2_Player::SetPlayerModelCustom(const char* szModel)
 {
 	const char *szModelName = NULL;
-	if (Q_strcmp(szModel, "none") == 0)
+	int modelIndex = modelinfo->GetModelIndex(szModel);
+	if (modelIndex == -1 || Q_strcmp(szModel, "none") == 0)
 	{
 		szModelName = "models/player/playermodels/gordon.mdl";
 	}
@@ -1798,7 +1825,17 @@ void CHL2_Player::SetPlayerModelCustom(const char* szModel)
 		szModelName = szModel;
 	}
 	SetModel(szModelName);
+
+	// Immediately reset our collision bounds - our collision bounds will be set to the model's bounds.
+	SetCollisionBounds(GetPlayerMins(), GetPlayerMaxs());
+
+	SetHitboxSet(0);
+
+	m_pPlayerAnimState->OnNewModel();
 }
+
+#define VEC_CROUCH_TRACE_MIN	Vector(-16, -16, 0 )
+#define VEC_CROUCH_TRACE_MAX	Vector( 16,  16,  60 )
 
 void CHL2_Player::PostThink( void )
 {
@@ -1809,13 +1846,18 @@ void CHL2_Player::PostThink( void )
 		 HandleAdmireGlovesAnimation();
 	}
 
+	if (GetFlags() & FL_DUCKING)
+	{
+		SetCollisionBounds(VEC_CROUCH_TRACE_MIN, VEC_CROUCH_TRACE_MAX);
+	}
+
+	m_pPlayerAnimState->Update();
+
 	m_angEyeAngles = EyeAngles();
 
 	QAngle angles = GetLocalAngles();
 	angles[PITCH] = 0;
 	SetLocalAngles(angles);
-
-	m_pPlayerAnimState->Update();
 
 	if (!IsDead() && !IsInAVehicle())
 	{
@@ -2063,14 +2105,7 @@ void CHL2_Player::PlayerRunCommand(CUserCmd *ucmd, IMoveHelper *moveHelper)
 //-----------------------------------------------------------------------------
 void CHL2_Player::Spawn(void)
 {
-
-#ifndef HL2MP
-#ifndef PORTAL
-#ifndef FR_DLL
-	SetPlayerModel();
-#endif
-#endif
-#endif
+	DeterminePlayerModel();
 
 	BaseClass::Spawn();
 	m_bJustSpawned = true;
@@ -2128,6 +2163,7 @@ void CHL2_Player::Spawn(void)
 	}
 
 	SetNumAnimOverlays(3);
+	ResetAnimation();
 
 	m_nRenderFX = kRenderNormal;
 
@@ -2175,7 +2211,11 @@ void CHL2_Player::Spawn(void)
 		SetSuitUpdate("HEV_FR_BOOTUP_SHORT", false, SUIT_NEXT_IN_10MIN);
 	}
 
-	DeterminePlayerModel();
+	m_iGoreHead = 0;
+	m_iGoreLeftArm = 0;
+	m_iGoreRightArm = 0;
+	m_iGoreLeftLeg = 0;
+	m_iGoreRightLeg = 0;
 
 	WeaponSpawnLogic();
 
@@ -4148,6 +4188,8 @@ int	CHL2_Player::OnTakeDamage( const CTakeDamageInfo &info )
 		DeliverDamageForce(this, sv_player_damageforce_self.GetFloat());
 	}
 
+	m_vecForce += playerDamage.GetDamageForce();
+
 	gamestats->Event_PlayerDamage( this, info );
 
 	return BaseClass::OnTakeDamage( playerDamage );
@@ -4268,14 +4310,45 @@ void CHL2_Player::Event_KilledOther( CBaseEntity *pVictim, const CTakeDamageInfo
 }
 
 extern ConVar sv_player_extinguish_on_death;
+extern ConVar weapon_slam_thrown_activationdelay;
+
+void CHL2_Player::DetonateTripmines(void)
+{
+	CBaseEntity* pEntity = NULL;
+
+	while ((pEntity = gEntList.FindEntityByClassname(pEntity, "npc_satchel")) != NULL)
+	{
+		CSatchelCharge* pSatchel = dynamic_cast<CSatchelCharge*>(pEntity);
+		if (pSatchel->m_bIsLive && pSatchel->GetThrower() == this)
+		{
+			g_EventQueue.AddEvent(pSatchel, "Explode", weapon_slam_thrown_activationdelay.GetFloat(), this, this);
+			// Play sound for pressing the detonator
+			EmitSound("Weapon_SLAM.SatchelDetonate");
+		}
+	}
+}
 
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 void CHL2_Player::Event_Killed( const CTakeDamageInfo &info )
 {
-	BaseClass::Event_Killed( info );
+	//update damage info with our accumulated physics force
+	CTakeDamageInfo subinfo = info;
+	subinfo.SetDamageForce(m_vecForce);
+
+	SetNumAnimOverlays(0);
+
+	if (info.GetDamageType() & DMG_BLAST ||
+		info.GetDamageType() & DMG_CRUSH ||
+		info.GetDamageType() & DMG_FALL ||
+		info.GetDamageType() & DMG_SLASH) // explosives or sawblade
+		DismemberRandomLimbs();
 
 	CreateRagdollEntity();
+
+	DetonateTripmines();
+
+	BaseClass::Event_Killed( info );
 
 	if (info.GetDamageType() & DMG_DISSOLVE)
 	{
@@ -4641,20 +4714,135 @@ bool CHL2_Player::ClientCommand( const CCommand &args )
 	return BaseClass::ClientCommand( args );
 }
 
+extern ConVar showhitlocation;
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
 void CHL2_Player::TraceAttack(const CTakeDamageInfo& info, const Vector& vecDir, trace_t* ptr, CDmgAccumulator* pAccumulator)
 {
-	if (m_takedamage != DAMAGE_YES)
+	if (m_takedamage == DAMAGE_NO)
 		return;
 
 	// Save this bone for the ragdoll.
 	m_nForceBone = ptr->physicsbone;
 	SetLastHitGroup(ptr->hitgroup);
 
+	m_iGoreHead = 0;
+	m_iGoreLeftArm = 0;
+	m_iGoreRightArm = 0;
+	m_iGoreLeftLeg = 0;
+	m_iGoreRightLeg = 0;
+
+	bool bDebug = showhitlocation.GetBool();
+
+	switch (ptr->hitgroup)
+	{
+	case HITGROUP_GENERIC:
+		if (bDebug) DevMsg("[PLAYER] Hit Location: Generic\n");
+		break;
+
+		// hit gear, react but don't bleed
+	case HITGROUP_GEAR:
+		ptr->hitgroup = HITGROUP_GENERIC;
+		if (bDebug) DevMsg("[PLAYER] Hit Location: Gear\n");
+		break;
+
+	case HITGROUP_HEAD:
+		m_iGoreHead = 2;
+		if (bDebug) DevMsg("[PLAYER] Hit Location: Head\n");
+		break;
+
+	case HITGROUP_CHEST:
+		if (bDebug) DevMsg("[PLAYER] Hit Location: Chest\n");
+		break;
+
+	case HITGROUP_STOMACH:
+		if (bDebug) DevMsg("[PLAYER] Hit Location: Stomach\n");
+		break;
+
+	case HITGROUP_LEFTARM:
+		m_iGoreLeftArm = 2;
+		if (bDebug) DevMsg("[PLAYER] Hit Location: Left Arm\n");
+		break;
+
+	case HITGROUP_RIGHTARM:
+		m_iGoreRightArm = 2;
+		if (bDebug) DevMsg("[PLAYER] Hit Location: Right Arm\n");
+		break;
+
+	case HITGROUP_LEFTLEG:
+		m_iGoreLeftLeg = 2;
+		if (bDebug) DevMsg("[PLAYER] Hit Location: Left Leg\n");
+		break;
+
+	case HITGROUP_RIGHTLEG:
+		m_iGoreRightLeg = 2;
+		if (bDebug) DevMsg("[PLAYER] Hit Location: Right Leg\n");
+		break;
+
+	default:
+		if (bDebug) DevMsg("[PLAYER] Hit Location: UNKNOWN (%i)\n", ptr->hitgroup);
+		break;
+	}
+
 	BaseClass::TraceAttack(info, vecDir, ptr, pAccumulator);
 }
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CHL2_Player::DismemberRandomLimbs(void)
+{
+	int iGore = 0;
+
+	// NOTE: head is not dismembered here intentionally
+
+	if (m_iGoreLeftArm < 3)
+	{
+		iGore = random->RandomInt(0, 3);
+
+		if (iGore == 1)
+			iGore = 2;
+
+		if (m_iGoreLeftArm < iGore)
+			m_iGoreLeftArm = iGore;
+	}
+
+	if (m_iGoreRightArm < 3)
+	{
+		iGore = random->RandomInt(0, 3);
+
+		if (iGore == 1)
+			iGore = 2;
+
+		if (m_iGoreRightArm < iGore)
+			m_iGoreRightArm = iGore;
+	}
+
+	if (m_iGoreLeftLeg < 3)
+	{
+		iGore = random->RandomInt(0, 3);
+
+		if (iGore == 1)
+			iGore = 2;
+
+		if (m_iGoreLeftLeg < iGore)
+			m_iGoreLeftLeg = iGore;
+	}
+
+	if (m_iGoreRightLeg < 3)
+	{
+		iGore = random->RandomInt(0, 3);
+
+		if (iGore == 1)
+			iGore = 2;
+
+		if (m_iGoreRightLeg < iGore)
+			m_iGoreRightLeg = iGore;
+	}
+}
+
 
 //-----------------------------------------------------------------------------
 // Purpose: 
@@ -4785,6 +4973,26 @@ void CHL2_Player::PlayerUse ( void )
 	{
 		m_Local.m_nOldButtons |= IN_USE;
 		m_afButtonPressed &= ~IN_USE;
+	}
+}
+
+void CHL2_Player::ResetAnimation(void)
+{
+	if (IsAlive())
+	{
+		SetSequence(-1);
+		SetActivity(ACT_INVALID);
+
+		if (!GetAbsVelocity().x && !GetAbsVelocity().y)
+			SetAnimation(PLAYER_IDLE);
+		else if ((GetAbsVelocity().x || GetAbsVelocity().y) && (GetFlags() & FL_ONGROUND))
+			SetAnimation(PLAYER_WALK);
+		else if (GetWaterLevel() > 1)
+			SetAnimation(PLAYER_WALK);
+		else if ((GetFlags() & FL_ONGROUND) != FL_ONGROUND)
+			SetAnimation(PLAYER_JUMP);
+		else
+			SetAnimation(PLAYER_IDLE);
 	}
 }
 
@@ -5513,6 +5721,11 @@ void CHL2_Player::CreateRagdollEntity(void)
 		pRagdoll->m_nModelIndex = m_nModelIndex;
 		pRagdoll->m_nForceBone = m_nForceBone;
 		pRagdoll->m_vecForce = m_vecForce;
+		pRagdoll->m_iGoreHead = m_iGoreHead;
+		pRagdoll->m_iGoreLeftArm = m_iGoreLeftArm;
+		pRagdoll->m_iGoreRightArm = m_iGoreRightArm;
+		pRagdoll->m_iGoreLeftLeg = m_iGoreLeftLeg;
+		pRagdoll->m_iGoreRightLeg = m_iGoreRightLeg;
 		pRagdoll->SetAbsOrigin(GetAbsOrigin());
 	}
 
@@ -5695,7 +5908,8 @@ bool IntersectRayWithAACylinder( const Ray_t &ray,
 
 bool CHL2_Player::TestHitboxes( const Ray_t &ray, unsigned int fContentsMask, trace_t& tr )
 {
-	if( g_pGameRules->IsMultiplayer() )
+	return BaseClass::TestHitboxes(ray, fContentsMask, tr);
+	/*if (g_pGameRules->IsMultiplayer())
 	{
 		return BaseClass::TestHitboxes( ray, fContentsMask, tr );
 	}
@@ -5727,7 +5941,7 @@ bool CHL2_Player::TestHitboxes( const Ray_t &ray, unsigned int fContentsMask, tr
 		}
 		
 		return true;
-	}
+	}*/
 }
 
 //---------------------------------------------------------

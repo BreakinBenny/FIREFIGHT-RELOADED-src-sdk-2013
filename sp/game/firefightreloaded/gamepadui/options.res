@@ -104,6 +104,32 @@
 				}
 			}
 			
+			"RagdollGore"
+			{
+				"text"			"#GameUI_RagdollGore"
+				"type"			"wheelywheel"
+				"convar"		"fr_ragdoll_gore"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+			
+			"NPCGibs"
+			{
+				"text"			"#GameUI_NPCGibs"
+				"type"			"wheelywheel"
+				"convar"		"g_fr_gibgore"
+
+				"options"
+				{
+					"0"		"#gameui_disabled"
+					"1"		"#gameui_enabled"
+				}
+			}
+			
 			"LowViolence"
 			{
 				"text"			"#GameUI_LowViolence"

@@ -1402,45 +1402,45 @@ void CAI_BaseNPC::TraceAttack( const CTakeDamageInfo &info, const Vector &vecDir
 	switch ( ptr->hitgroup )
 	{
 	case HITGROUP_GENERIC:
-		if( bDebug ) DevMsg("Hit Location: Generic\n");
+		if( bDebug ) DevMsg("[NPC] Hit Location: Generic\n");
 		break;
 
 	// hit gear, react but don't bleed
 	case HITGROUP_GEAR:
 		subInfo.SetDamage( 0.01 );
 		ptr->hitgroup = HITGROUP_GENERIC;
-		if( bDebug ) DevMsg("Hit Location: Gear\n");
+		if( bDebug ) DevMsg("[NPC] Hit Location: Gear\n");
 		break;
 
 	case HITGROUP_HEAD:
 		subInfo.ScaleDamage( GetHitgroupDamageMultiplier(ptr->hitgroup, info) );
-		if( bDebug ) DevMsg("Hit Location: Head\n");
+		if( bDebug ) DevMsg("[NPC] Hit Location: Head\n");
 		break;
 
 	case HITGROUP_CHEST:
 		subInfo.ScaleDamage( GetHitgroupDamageMultiplier(ptr->hitgroup, info) );
-		if( bDebug ) DevMsg("Hit Location: Chest\n");
+		if( bDebug ) DevMsg("[NPC] Hit Location: Chest\n");
 		break;
 
 	case HITGROUP_STOMACH:
 		subInfo.ScaleDamage( GetHitgroupDamageMultiplier(ptr->hitgroup, info) );
-		if( bDebug ) DevMsg("Hit Location: Stomach\n");
+		if( bDebug ) DevMsg("[NPC] Hit Location: Stomach\n");
 		break;
 
 	case HITGROUP_LEFTARM:
 	case HITGROUP_RIGHTARM:
 		subInfo.ScaleDamage( GetHitgroupDamageMultiplier(ptr->hitgroup, info) );
-		if( bDebug ) DevMsg("Hit Location: Left/Right Arm\n");
-		break
-			;
+		if( bDebug ) DevMsg("[NPC] Hit Location: Left/Right Arm\n");
+		break;
+
 	case HITGROUP_LEFTLEG:
 	case HITGROUP_RIGHTLEG:
 		subInfo.ScaleDamage( GetHitgroupDamageMultiplier(ptr->hitgroup, info) );
-		if( bDebug ) DevMsg("Hit Location: Left/Right Leg\n");
+		if( bDebug ) DevMsg("[NPC] Hit Location: Left/Right Leg\n");
 		break;
 
 	default:
-		if( bDebug ) DevMsg("Hit Location: UNKNOWN\n");
+		if( bDebug ) DevMsg("[NPC] Hit Location: UNKNOWN (%i)\n", ptr->hitgroup);
 		break;
 	}
 

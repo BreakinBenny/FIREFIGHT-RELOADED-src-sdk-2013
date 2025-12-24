@@ -137,7 +137,7 @@
 	"Improved Combine Assassin model and code." "CreditsOutroText"
 	"Improved Advisor model and code." "CreditsOutroText"
     	" "	"CreditsOutroText"
-	"The Open Fortress Team for the color proxy code."	"CreditsOutroText"
+	"The Open Fortress Team for the color proxy code and player ragdoll gore." "CreditsOutroText"
 	" "	"CreditsOutroText"
 	"Iván Bravo Bravo for the node generation code." 	"CreditsOutroText"
 	" "	"CreditsOutroText"

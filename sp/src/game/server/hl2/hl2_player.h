@@ -228,6 +228,7 @@ public:
 
 	const impactdamagetable_t &GetPhysicsImpactDamageTable();
 	virtual void		TraceAttack(const CTakeDamageInfo& info, const Vector& vecDir, trace_t* ptr, CDmgAccumulator* pAccumulator);
+	void				DismemberRandomLimbs(void);
 	virtual int			OnTakeDamage( const CTakeDamageInfo &info );
 	virtual int			OnTakeDamage_Alive( const CTakeDamageInfo &info );
 	virtual void		OnDamagedByExplosion( const CTakeDamageInfo &info );
@@ -290,6 +291,7 @@ public:
 	void				InputForceDropPhysObjects( inputdata_t &data );
 
 	virtual void		Event_Killed( const CTakeDamageInfo &info );
+	void				DetonateTripmines(void);
 	void				NotifyScriptsOfDeath( void );
 	virtual void		UpdateOnRemove(void);
 	virtual bool		BecomeRagdollOnClient(const Vector &force);
@@ -332,7 +334,15 @@ public:
 	CSoundPatch *m_sndLeeches;
 	CSoundPatch *m_sndWaterSplashes;
 
+	// Gore
+	unsigned short m_iGoreHead;
+	unsigned short m_iGoreLeftArm;
+	unsigned short m_iGoreRightArm;
+	unsigned short m_iGoreLeftLeg;
+	unsigned short m_iGoreRightLeg;
+
 	void SetAnimation(PLAYER_ANIM playerAnim);
+	void ResetAnimation();
 
 	// Tracks our ragdoll entity.
 	CNetworkHandle(CBaseEntity, m_hRagdoll);	// networked entity handle 

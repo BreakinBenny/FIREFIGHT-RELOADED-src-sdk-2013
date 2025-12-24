@@ -957,13 +957,12 @@ int CNPC_BaseZombie::OnTakeDamage_Alive( const CTakeDamageInfo &inputInfo )
 						}
 					}
 
-					//why not uncomment this code!
-					if ((info.GetDamageType() & DMG_BLAST) 
+					/*if ((info.GetDamageType() & DMG_BLAST)
 						&& !((info.GetDamageType() & DMG_CLUB) && (info.GetDamageType() & DMG_BUCKSHOT)) 
 						&& random->RandomInt(0, 1) == 0)
 					{
 						Ignite(5.0 + random->RandomFloat(0.0, 5.0));
-					}
+					}*/
 
 					// For Combine cannon impacts
 					if (hl2_episodic.GetBool())
@@ -1103,7 +1102,7 @@ bool CNPC_BaseZombie::IsChopped( const CTakeDamageInfo &info )
 		FClassnameIs(info.GetInflictor(), "npc_manhack_friendly") ||
 		FClassnameIs(info.GetInflictor(), "npc_manhack_weapon"));
 
-	if (isManhack)
+	if (isManhack && g_fr_gibgore.GetBool())
 	{
 		float flFactor = 0.0f;
 
@@ -1125,7 +1124,7 @@ bool CNPC_BaseZombie::IsChopped( const CTakeDamageInfo &info )
 	if (info.GetDamageType() & DMG_SLASH)
 		return true;
 
-	if (info.GetDamageType() & DMG_BLAST)
+	if (info.GetDamageType() & DMG_BLAST && g_fr_gibgore.GetBool())
 		return true;
 
 	if (info.GetDamageType() & DMG_CRUSH)

@@ -444,7 +444,7 @@ int CNPC_Combine::OnTakeDamage_Alive(const CTakeDamageInfo& inputInfo)
 {
 	CTakeDamageInfo info = inputInfo;
 
-	if (info.GetInflictor())
+	if (info.GetInflictor() && g_fr_headshotgore.GetBool())
 	{
 		bool isManhack = (FClassnameIs(info.GetInflictor(), "npc_manhack") ||
 			FClassnameIs(info.GetInflictor(), "npc_manhack_friendly") ||
@@ -647,7 +647,7 @@ CTakeDamageInfo CNPC_Combine::CorpseGibExt(const CTakeDamageInfo& info)
 
 	static ConVarRef violence_hgibs( "violence_hgibs" );
 	if (!UTIL_IsLowViolence()
-		&& (violence_hgibs.IsValid() && violence_hgibs.GetBool())
+		&& (violence_hgibs.IsValid() && violence_hgibs.GetBool() && g_fr_gibgore.GetBool())
 		&& (info.GetDamageType() & (DMG_BLAST)))
 	{
 		Vector vecDamageDir = info.GetDamageForce();

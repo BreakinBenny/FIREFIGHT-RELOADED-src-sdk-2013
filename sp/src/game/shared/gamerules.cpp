@@ -55,6 +55,8 @@ ConVar g_fr_npc_muzzlesmoke("g_fr_npc_muzzlesmoke", "1", FCVAR_ARCHIVE | FCVAR_R
 
 ConVar g_fr_headshotgore_allowchestshot("g_fr_headshotgore_allowchestshot", "0", FCVAR_ARCHIVE | FCVAR_REPLICATED);
 
+ConVar g_fr_gibgore("g_fr_gibgore", "1", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+
 static CViewVectors g_DefaultViewVectors(
 	Vector( 0, 0, 64 ),			//VEC_VIEW (m_vView)
 								

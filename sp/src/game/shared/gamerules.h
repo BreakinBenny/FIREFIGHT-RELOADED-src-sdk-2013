@@ -447,6 +447,7 @@ extern ConVar g_fr_classic;
 extern ConVar g_fr_lonewolf;
 extern ConVar g_fr_headshotgore;
 extern ConVar g_fr_headshotgore_allowchestshot;
+extern ConVar g_fr_gibgore;
 extern ConVar g_fr_economy;
 extern ConVar g_fr_entitytolerance;
 extern ConVar g_fr_spawneroldfunctionality;

@@ -81,6 +81,13 @@ void CSinglePlayerAnimState::Release()
 {
     delete this;
 }
+
+//-----------------------------------------------------------------------------
+// Purpose: New Model, init the pose parameters
+//-----------------------------------------------------------------------------
+void CSinglePlayerAnimState::OnNewModel(void)
+{
+}
  
 //-----------------------------------------------------------------------------
 // Purpose:
