@@ -201,6 +201,17 @@ void CGrenadeBugBait::BugBaitTouch( CBaseEntity *pOther )
 	//in FR, allow us to use bugbait to get antlions over to our side.
 	if (UTIL_FR_CanForceAntlionsAllied())
 	{
+		// clear all antlion related kill tasks.
+		FOR_EACH_VEC(CTaskManager::GetTaskManager()->m_Tasks, i)
+		{
+			Task* t = CTaskManager::GetTaskManager()->m_Tasks[i];
+
+			if (t && (Q_strcmp(STRING(t->target), "#fr_npc_antlion") == 0 || Q_strcmp(STRING(t->target), "#fr_npc_antlionworker") == 0))
+			{
+				CTaskManager::GetTaskManager()->SendTaskData(t->index, t->urgency, 0, STRING(t->target), "");
+			}
+		}
+
 		if (GlobalEntity_GetState("antlion_allied") != GLOBAL_ON)
 		{
 			if (!GlobalEntity_IsInTable("antlion_allied"))

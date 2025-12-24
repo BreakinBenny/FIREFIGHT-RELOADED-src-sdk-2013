@@ -1260,6 +1260,35 @@ void CBasePlayer::LevelUp()
 	}
 }
 
+void CC_AssignTask(void)
+{
+	CBasePlayer* player = UTIL_GetCommandClient();
+	if (player)
+	{
+		player->AssignTask();
+	}
+}
+static ConCommand assigntask("assigntask", CC_AssignTask, "Gives the player a task.\n", FCVAR_CHEAT);
+
+void CC_AssignKillTask(const CCommand& args)
+{
+	CBasePlayer* player = UTIL_GetCommandClient();
+	if (player)
+	{
+		const char* classname = args[1];
+
+		if (classname[0])
+		{
+			player->AssignKillTask(true, classname);
+		}
+		else
+		{
+			Warning("Please enter a NPC classname\n");
+		}
+	}
+}
+static ConCommand assignkilltask("assignkilltask", CC_AssignKillTask, "Gives the player a kill task.\n", FCVAR_CHEAT);
+
 bool CBasePlayer::CanAssignTasks()
 {
 	if (!sv_tasks.GetBool())
@@ -1384,15 +1413,23 @@ void CBasePlayer::UpdateTask(int index, const char* message)
 	UpdateTask(index, message, message);
 }
 
-void CBasePlayer::AssignKillTask()
+void CBasePlayer::AssignKillTask(bool cmd, const char* target)
 {
 	if (!g_ref_npcLoader)
 		return;
 
-	//prioritize commons over rares.
-	bool coinFlip = ( ( random->RandomInt( 0, 1 ) == 1 ) ? true : false );
+	const CRandNPCLoader::SpawnEntry_t* pEntry = NULL;
 
-	const CRandNPCLoader::SpawnEntry_t* pEntry = g_ref_npcLoader->GetRandomEntry(coinFlip);
+	if (cmd && target[0])
+	{
+		pEntry = g_ref_npcLoader->GetEntry(target);
+	}
+	else
+	{
+		//prioritize commons over rares.
+		bool coinFlip = ((random->RandomInt(0, 1) == 1) ? true : false);
+		pEntry = g_ref_npcLoader->GetRandomEntry(coinFlip);
+	}
 
 	random->SetSeed((int)gpGlobals->curtime);
 
@@ -1429,7 +1466,7 @@ void CBasePlayer::AssignKillTask()
 		reroll = true;
 	}
 
-	if (reroll)
+	if (reroll && !cmd)
 	{
 		//try to assign a different task. this MAY cause problems.
 		AssignKillTask();

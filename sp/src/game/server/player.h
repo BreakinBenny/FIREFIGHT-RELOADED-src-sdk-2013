@@ -949,7 +949,7 @@ public:
 	void UpdateTask(int index, const char* message);
 
 	//KILL tasks
-	void AssignKillTask();
+	void AssignKillTask(bool cmd = false, const char* target = "");
 	void UpdateKillTask(int index, const char* target);
 
 private:

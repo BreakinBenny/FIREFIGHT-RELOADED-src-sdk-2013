@@ -233,6 +233,37 @@ const CRandNPCLoader::SpawnEntry_t* CRandNPCLoader::GetRandomEntry(bool isRare) 
 	return NULL;
 }
 
+const CRandNPCLoader::SpawnEntry_t* CRandNPCLoader::GetEntry(const char* query, int preset, bool wildcard) const
+{
+	for (auto &iter : m_Entries)
+	{
+		if (FStrEq(iter.classname, query))
+		{
+			bool cont = true;
+
+			// HACK.
+			int iWildcard = (wildcard ? 1 : 0);
+
+			if (wildcard && (iWildcard != iter.npcAttributeWildcard))
+			{
+				cont = false;
+			}
+
+			if ((preset > -1) && (preset != iter.npcAttributePreset))
+			{
+				cont = false;
+			}
+
+			if (cont)
+			{
+				return &iter;
+			}
+		}
+	}
+
+	return NULL;
+}
+
 bool CRandNPCLoader::AddEntries( KeyValues* pKV )
 {
 	bool ret = true;
