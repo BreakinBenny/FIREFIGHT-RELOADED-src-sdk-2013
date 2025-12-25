@@ -124,7 +124,7 @@ void CHudNumericDisplay::SetIsTime(bool state)
 void CHudNumericDisplay::PaintNumbers(HFont font, int xpos, int ypos, int value)
 {
 	surface()->DrawSetTextFont(font);
-	wchar_t unicode[6];
+	wchar_t unicode[32];
 	if ( !m_bIsTime )
 	{
 		V_snwprintf(unicode, ARRAYSIZE(unicode), L"%d", value);

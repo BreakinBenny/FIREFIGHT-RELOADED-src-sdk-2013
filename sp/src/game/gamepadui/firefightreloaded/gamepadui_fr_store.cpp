@@ -390,7 +390,7 @@ void GamepadUIStore::CreateItemList()
         wchar_t text[32];
         wchar_t num[32];
         wchar_t* chapter = g_pVGuiLocalize->Find("#Valve_Hud_MONEY");
-        char szPrice[1024];
+        char szPrice[32];
         Q_snprintf(szPrice, sizeof(szPrice), "%d", itemPrice);
 
         g_pVGuiLocalize->ConvertANSIToUnicode(szPrice, num, sizeof(num));
