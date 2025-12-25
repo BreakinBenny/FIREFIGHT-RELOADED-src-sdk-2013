@@ -25,7 +25,14 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+enum eBloodType
+{
+	eParticle_SMOD,
+	eParticle_HL2
+};
+
 ConVar r_classic_blood("r_classic_blood", "0", FCVAR_ARCHIVE);
+ConVar r_blood_particle_type("r_blood_particle_type", "0", FCVAR_ARCHIVE);
 
 CLIENTEFFECT_REGISTER_BEGIN( PrecacheEffectBloodSpray )
 CLIENTEFFECT_MATERIAL( "effects/blood_core" )
@@ -472,17 +479,29 @@ struct ParticleForBlood_t
 {
 	int nColor;
 	const char *lpszParticleSystemName;
+	int iBloodType;
 };
 
 ParticleForBlood_t	bloodCallbacks[] =
 {
-	{ BLOOD_COLOR_RED, "smod_drip_r" },
-	{ BLOOD_COLOR_GREEN, "smod_drip_g" },
-	{ BLOOD_COLOR_YELLOW, "smod_drip_y" },
+	// SMOD blood
+	{ BLOOD_COLOR_RED, "smod_drip_r", eParticle_SMOD },
+	{ BLOOD_COLOR_GREEN, "smod_drip_g", eParticle_SMOD },
+	{ BLOOD_COLOR_YELLOW, "smod_drip_y", eParticle_SMOD },
 #if defined( HL2_EPISODIC )
-	{ BLOOD_COLOR_ANTLION, "smod_drip_y" },		// FIXME: Move to Base HL2
-	{ BLOOD_COLOR_ZOMBIE, "smod_drip_y" },			// FIXME: Move to Base HL2
-	{ BLOOD_COLOR_ANTLION_WORKER, "smod_drip_g" },
+	{ BLOOD_COLOR_ANTLION, "smod_drip_y", eParticle_SMOD },		// FIXME: Move to Base HL2
+	{ BLOOD_COLOR_ZOMBIE, "smod_drip_y", eParticle_SMOD },			// FIXME: Move to Base HL2
+	{ BLOOD_COLOR_ANTLION_WORKER, "smod_drip_g", eParticle_SMOD },
+#endif // HL2_EPISODIC
+
+	// HL2 blood
+	{ BLOOD_COLOR_RED,		"blood_impact_red_01", eParticle_HL2 },
+	{ BLOOD_COLOR_GREEN,	"blood_impact_green_01", eParticle_HL2 },
+	{ BLOOD_COLOR_YELLOW,	"blood_impact_yellow_01", eParticle_HL2 },
+#if defined( HL2_EPISODIC )
+	{ BLOOD_COLOR_ANTLION,			"blood_impact_antlion_01", eParticle_HL2 },		// FIXME: Move to Base HL2
+	{ BLOOD_COLOR_ZOMBIE,			"blood_impact_zombie_01", eParticle_HL2 },			// FIXME: Move to Base HL2
+	{ BLOOD_COLOR_ANTLION_WORKER,	"blood_impact_antlion_worker_01", eParticle_HL2 },
 #endif // HL2_EPISODIC
 };
 
@@ -510,7 +529,7 @@ void BloodImpactCallback( const CEffectData & data )
 		// Find which sort of blood we are
 		for (int i = 0; i < ARRAYSIZE(bloodCallbacks); i++)
 		{
-			if (bloodCallbacks[i].nColor == data.m_nColor)
+			if (bloodCallbacks[i].nColor == data.m_nColor && bloodCallbacks[i].iBloodType == r_blood_particle_type.GetInt())
 			{
 				QAngle	vecAngles;
 				VectorAngles(-data.m_vNormal, vecAngles);
