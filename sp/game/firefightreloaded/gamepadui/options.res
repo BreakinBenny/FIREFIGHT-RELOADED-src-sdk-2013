@@ -4306,6 +4306,20 @@
 					"16"	"#GameUI_Anisotropic16X"
 				}
 			}
+			
+			"BloodParticleType"
+			{
+				"text"			"#GameUI_BloodParticleType"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"r_blood_particle_type"
+
+				"options"
+				{
+					"0"		"#GameUI_BloodParticleType_SMOD"
+					"1"		"#GameUI_BloodParticleType_HL2"
+				}
+			}
             
             "ClassicBlood"
 			{
