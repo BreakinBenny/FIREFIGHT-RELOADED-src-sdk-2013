@@ -159,6 +159,8 @@ ConVar sv_suitintro("sv_suitintro", "3", FCVAR_ARCHIVE);
 
 ConVar sv_ironsightvignette("sv_ironsightvignette", "1", FCVAR_ARCHIVE);
 
+ConVar sv_gib_damage_threshold("sv_gib_damage_threshold", "3", FCVAR_ARCHIVE);
+
 static ConVar sk_katana_charge_bashdamage("sk_katana_charge_bashdamage", "0");
 static ConVar sv_katana_charge_bashvelocitymultiplier("sv_katana_charge_bashvelocitymultiplier", "5", FCVAR_CHEAT);
 static ConVar sv_katana_charge_chargetime("sv_katana_charge_chargetime", "2", FCVAR_CHEAT);
@@ -498,6 +500,18 @@ BEGIN_DATADESC( CHL2_Player )
 
 	DEFINE_FIELD(m_bJustSpawned, FIELD_BOOLEAN),
 	//DEFINE_FIELD( m_hPlayerProxy, FIELD_EHANDLE ), //Shut up class check!
+
+	DEFINE_FIELD(m_iGoreHead, FIELD_INTEGER),
+	DEFINE_FIELD(m_iGoreLeftArm, FIELD_INTEGER),
+	DEFINE_FIELD(m_iGoreRightArm, FIELD_INTEGER),
+	DEFINE_FIELD(m_iGoreLeftLeg, FIELD_INTEGER),
+	DEFINE_FIELD(m_iGoreRightLeg, FIELD_INTEGER),
+
+	DEFINE_FIELD(m_iHeadDamageCount, FIELD_INTEGER),
+	DEFINE_FIELD(m_iLeftArmDamageCount, FIELD_INTEGER),
+	DEFINE_FIELD(m_iRightArmDamageCount, FIELD_INTEGER),
+	DEFINE_FIELD(m_iLeftLegDamageCount, FIELD_INTEGER),
+	DEFINE_FIELD(m_iRightLegDamageCount, FIELD_INTEGER),
 
 END_DATADESC()
 
@@ -2216,6 +2230,18 @@ void CHL2_Player::Spawn(void)
 	m_iGoreRightArm = 0;
 	m_iGoreLeftLeg = 0;
 	m_iGoreRightLeg = 0;
+
+	m_iHeadDamageLevel = 0;
+	m_iLeftArmDamageLevel = 0;
+	m_iRightArmDamageLevel = 0;
+	m_iLeftLegDamageLevel = 0;
+	m_iRightLegDamageLevel = 0;
+
+	m_iHeadDamageCount = 0;
+	m_iLeftArmDamageCount = 0;
+	m_iRightArmDamageCount = 0;
+	m_iLeftLegDamageCount = 0;
+	m_iRightLegDamageCount = 0;
 
 	WeaponSpawnLogic();
 
@@ -4340,8 +4366,7 @@ void CHL2_Player::Event_Killed( const CTakeDamageInfo &info )
 
 	if (info.GetDamageType() & DMG_BLAST ||
 		info.GetDamageType() & DMG_CRUSH ||
-		info.GetDamageType() & DMG_FALL ||
-		info.GetDamageType() & DMG_SLASH) // explosives or sawblade
+		info.GetDamageType() & DMG_FALL) // explosives or sawblade
 		DismemberRandomLimbs();
 
 	CreateRagdollEntity();
@@ -4734,6 +4759,13 @@ void CHL2_Player::TraceAttack(const CTakeDamageInfo& info, const Vector& vecDir,
 	m_iGoreLeftLeg = 0;
 	m_iGoreRightLeg = 0;
 
+	int dmgAmount = 2;
+
+	if (info.GetDamageType() & (DMG_BUCKSHOT | DMG_SNIPER | DMG_ALWAYSGIB))
+	{
+		dmgAmount = 3;
+	}
+
 	bool bDebug = showhitlocation.GetBool();
 
 	switch (ptr->hitgroup)
@@ -4749,7 +4781,20 @@ void CHL2_Player::TraceAttack(const CTakeDamageInfo& info, const Vector& vecDir,
 		break;
 
 	case HITGROUP_HEAD:
-		m_iGoreHead = 2;
+		if (!(info.GetDamageType() & (DMG_NEVERGIB | DMG_DISSOLVE)))
+		{
+			m_iHeadDamageCount++;
+
+			if (m_iHeadDamageCount > sv_gib_damage_threshold.GetInt())
+			{
+				dmgAmount = 3;
+			}
+
+			if (m_iHeadDamageLevel < dmgAmount)
+				m_iHeadDamageLevel = dmgAmount;
+
+			m_iGoreHead = m_iHeadDamageLevel;
+		}
 		if (bDebug) DevMsg("[PLAYER] Hit Location: Head\n");
 		break;
 
@@ -4762,22 +4807,82 @@ void CHL2_Player::TraceAttack(const CTakeDamageInfo& info, const Vector& vecDir,
 		break;
 
 	case HITGROUP_LEFTARM:
-		m_iGoreLeftArm = 2;
+		if (!(info.GetDamageType() & (DMG_NEVERGIB | DMG_DISSOLVE)))
+		{
+			m_iLeftArmDamageCount++;
+
+			if (m_iLeftArmDamageCount > sv_gib_damage_threshold.GetInt())
+			{
+				dmgAmount = 3;
+			}
+
+			if (m_iLeftArmDamageLevel < dmgAmount)
+			{
+				m_iLeftArmDamageLevel = dmgAmount;
+			}
+
+			m_iGoreLeftArm = m_iLeftArmDamageLevel;
+		}
 		if (bDebug) DevMsg("[PLAYER] Hit Location: Left Arm\n");
 		break;
 
 	case HITGROUP_RIGHTARM:
-		m_iGoreRightArm = 2;
+		if (!(info.GetDamageType() & (DMG_NEVERGIB | DMG_DISSOLVE)))
+		{
+			m_iRightArmDamageCount++;
+
+			if (m_iRightArmDamageCount > sv_gib_damage_threshold.GetInt())
+			{
+				dmgAmount = 3;
+			}
+
+			if (m_iRightArmDamageLevel < dmgAmount)
+			{
+				m_iRightArmDamageLevel = dmgAmount;
+			}
+
+			m_iGoreRightArm = m_iRightArmDamageLevel;
+		}
 		if (bDebug) DevMsg("[PLAYER] Hit Location: Right Arm\n");
 		break;
 
 	case HITGROUP_LEFTLEG:
-		m_iGoreLeftLeg = 2;
+		if (!(info.GetDamageType() & (DMG_NEVERGIB | DMG_DISSOLVE)))
+		{
+			m_iLeftLegDamageCount++;
+
+			if (m_iLeftLegDamageCount > sv_gib_damage_threshold.GetInt())
+			{
+				dmgAmount = 3;
+			}
+
+			if (m_iLeftLegDamageLevel < dmgAmount)
+			{
+				m_iLeftLegDamageLevel = dmgAmount;
+			}
+
+			m_iGoreLeftLeg = m_iLeftLegDamageLevel;
+		}
 		if (bDebug) DevMsg("[PLAYER] Hit Location: Left Leg\n");
 		break;
 
 	case HITGROUP_RIGHTLEG:
-		m_iGoreRightLeg = 2;
+		if (!(info.GetDamageType() & (DMG_NEVERGIB | DMG_DISSOLVE)))
+		{
+			m_iRightLegDamageCount++;
+
+			if (m_iRightLegDamageCount > sv_gib_damage_threshold.GetInt())
+			{
+				dmgAmount = 3;
+			}
+
+			if (m_iRightLegDamageLevel < dmgAmount)
+			{
+				m_iRightLegDamageLevel = dmgAmount;
+			}
+
+			m_iGoreRightLeg = m_iRightLegDamageLevel;
+		}
 		if (bDebug) DevMsg("[PLAYER] Hit Location: Right Leg\n");
 		break;
 

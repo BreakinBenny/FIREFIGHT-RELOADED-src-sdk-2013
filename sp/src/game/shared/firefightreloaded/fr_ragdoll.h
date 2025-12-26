@@ -93,10 +93,10 @@ public:
 	CNetworkVector(m_vecRagdollOrigin);
 	
 	// Gore
-	CNetworkVar(unsigned short, m_iGoreHead);
-	CNetworkVar(unsigned short, m_iGoreLeftArm);
-	CNetworkVar(unsigned short, m_iGoreRightArm);
-	CNetworkVar(unsigned short, m_iGoreLeftLeg);
-	CNetworkVar(unsigned short, m_iGoreRightLeg);
+	CNetworkVar(int, m_iGoreHead);
+	CNetworkVar(int, m_iGoreLeftArm);
+	CNetworkVar(int, m_iGoreRightArm);
+	CNetworkVar(int, m_iGoreLeftLeg);
+	CNetworkVar(int, m_iGoreRightLeg);
 };
 #endif // FR_CLIENT

@@ -4307,6 +4307,22 @@
 				}
 			}
 			
+			"PlayerGibAmount"
+			{
+				"text"			"#GameUI_PlayerGibAmount"
+				"type"			"wheelywheel"
+				"advanced"		"1"
+				"convar"		"fr_ragdoll_gore_gib_amount_mult"
+
+				"options"
+				{
+					"1"		"#gameui_low"
+					"2"		"#gameui_medium"
+					"4"		"#gameui_high"
+					"6"		"#GameUI_Ultra"
+				}
+			}
+			
 			"BloodParticleType"
 			{
 				"text"			"#GameUI_BloodParticleType"

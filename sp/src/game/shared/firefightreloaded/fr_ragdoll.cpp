@@ -13,6 +13,9 @@
 #include "tier0/memdbgon.h"
 
 ConVar fr_ragdoll_gore("fr_ragdoll_gore", "1", FCVAR_ARCHIVE | FCVAR_REPLICATED);
+ConVar fr_ragdoll_gore_gib_amount("fr_ragdoll_gore_gib_amount", "4", FCVAR_ARCHIVE | FCVAR_REPLICATED, "This value sets the minimum amount of gibs created when a player gets gibbed. This value is multiplied by fr_ragdoll_gore_gib_amount_mult when calculating maximum gibs.", true, 1.0, false, 0.0);
+ConVar fr_ragdoll_gore_gib_amount_head("fr_ragdoll_gore_gib_amount_head", "8", FCVAR_ARCHIVE | FCVAR_REPLICATED, "This value sets the minimum amount of gibs created when a player's head gets gibbed. This value is multiplied by fr_ragdoll_gore_gib_amount_mult when calculating maximum gibs.", true, 1.0, false, 0.0);
+ConVar fr_ragdoll_gore_gib_amount_mult("fr_ragdoll_gore_gib_amount_mult", "2", FCVAR_ARCHIVE | FCVAR_REPLICATED, "The multiplier used for calculating how many gibs can be spawned at once.");
 
 #ifdef CLIENT_DLL
 //-----------------------------------------------------------------------------
@@ -33,7 +36,7 @@ static void ScaleGoreHead(C_BaseAnimating* pAnimating)
 		{
 			iBone = pAnimating->LookupBone(boneNames[i]);
 			if (iBone != -1)
-				MatrixScaleBy(0.001f, pAnimating->GetBoneForWrite(iBone));
+				MatrixScaleByZero(pAnimating->GetBoneForWrite(iBone));
 		}
 	}
 
@@ -58,7 +61,7 @@ static void ScaleGoreLeftArm(C_BaseAnimating* pAnimating)
 		{
 			iBone = pAnimating->LookupBone(boneNames[i]);
 			if (iBone != -1)
-				MatrixScaleBy(0.001f, pAnimating->GetBoneForWrite(iBone));
+				MatrixScaleByZero(pAnimating->GetBoneForWrite(iBone));
 		}
 	}
 }
@@ -82,7 +85,7 @@ static void ScaleGoreLeftHand(C_BaseAnimating* pAnimating)
 		{
 			iBone = pAnimating->LookupBone(boneNames[i]);
 			if (iBone != -1)
-				MatrixScaleBy(0.001f, pAnimating->GetBoneForWrite(iBone));
+				MatrixScaleByZero(pAnimating->GetBoneForWrite(iBone));
 		}
 	}
 }
@@ -106,7 +109,7 @@ static void ScaleGoreRightArm(C_BaseAnimating* pAnimating)
 		{
 			iBone = pAnimating->LookupBone(boneNames[i]);
 			if (iBone != -1)
-				MatrixScaleBy(0.001f, pAnimating->GetBoneForWrite(iBone));
+				MatrixScaleByZero(pAnimating->GetBoneForWrite(iBone));
 		}
 	}
 }
@@ -130,7 +133,7 @@ static void ScaleGoreRightHand(C_BaseAnimating* pAnimating)
 		{
 			iBone = pAnimating->LookupBone(boneNames[i]);
 			if (iBone != -1)
-				MatrixScaleBy(0.001f, pAnimating->GetBoneForWrite(iBone));
+				MatrixScaleByZero(pAnimating->GetBoneForWrite(iBone));
 		}
 	}
 }
@@ -150,7 +153,7 @@ static void ScaleGoreLeftKnee(C_BaseAnimating* pAnimating)
 		{
 			iBone = pAnimating->LookupBone(boneNames[i]);
 			if (iBone != -1)
-				MatrixScaleBy(0.001f, pAnimating->GetBoneForWrite(iBone));
+				MatrixScaleByZero(pAnimating->GetBoneForWrite(iBone));
 		}
 	}
 }
@@ -168,7 +171,7 @@ static void ScaleGoreLeftFoot(C_BaseAnimating* pAnimating)
 		{
 			iBone = pAnimating->LookupBone(boneNames[i]);
 			if (iBone != -1)
-				MatrixScaleBy(0.001f, pAnimating->GetBoneForWrite(iBone));
+				MatrixScaleByZero(pAnimating->GetBoneForWrite(iBone));
 		}
 	}
 }
@@ -188,7 +191,7 @@ static void ScaleGoreRightKnee(C_BaseAnimating* pAnimating)
 		{
 			iBone = pAnimating->LookupBone(boneNames[i]);
 			if (iBone != -1)
-				MatrixScaleBy(0.001f, pAnimating->GetBoneForWrite(iBone));
+				MatrixScaleByZero(pAnimating->GetBoneForWrite(iBone));
 		}
 	}
 }
@@ -206,7 +209,7 @@ static void ScaleGoreRightFoot(C_BaseAnimating* pAnimating)
 		{
 			iBone = pAnimating->LookupBone(boneNames[i]);
 			if (iBone != -1)
-				MatrixScaleBy(0.001f, pAnimating->GetBoneForWrite(iBone));
+				MatrixScaleByZero(pAnimating->GetBoneForWrite(iBone));
 		}
 	}
 }
@@ -647,7 +650,7 @@ void C_FRRagdoll::DismemberBase(char const* szBodyPart, bool bLevel, bool bBlood
 {
 	int iAttach = LookupBone(szParticleBone);
 
-	int iDefaultMax = RandomInt(4, 6);
+	int iDefaultMax = RandomInt(fr_ragdoll_gore_gib_amount.GetInt(), (fr_ragdoll_gore_gib_amount.GetInt() * fr_ragdoll_gore_gib_amount_mult.GetFloat()));
 	int iBloodAmount = iDefaultMax;
 	int iGibAmount = iDefaultMax;
 
@@ -659,7 +662,7 @@ void C_FRRagdoll::DismemberBase(char const* szBodyPart, bool bLevel, bool bBlood
 		{
 			ParticleProp()->Create("smod_headshot_r", PATTACH_BONE_FOLLOW, szParticleBone);
 			ParticleProp()->Create("smod_blood_decap_r", PATTACH_BONE_FOLLOW, szParticleBone);
-			int iDefaultHeadshotMax = RandomInt(8, 12);
+			int iDefaultHeadshotMax = RandomInt(fr_ragdoll_gore_gib_amount_head.GetInt(), (fr_ragdoll_gore_gib_amount_head.GetInt() * fr_ragdoll_gore_gib_amount_mult.GetFloat()));
 			iBloodAmount += iDefaultHeadshotMax;
 			iGibAmount += iDefaultHeadshotMax;
 		}
@@ -771,6 +774,9 @@ void C_FRRagdoll::DismemberRandomLimbs(void)
 	{
 		iGore = random->RandomInt(0, 3);
 
+		if (iGore == 1)
+			iGore = 2;
+
 		if (iGore == 2)
 			DismemberLeftArm(false);
 		else if (iGore == 3)
@@ -780,6 +786,9 @@ void C_FRRagdoll::DismemberRandomLimbs(void)
 	if (m_iGoreRightArm < 3)
 	{
 		iGore = random->RandomInt(0, 3);
+
+		if (iGore == 1)
+			iGore = 2;
 
 		if (iGore == 2)
 			DismemberRightArm(false);
@@ -791,6 +800,9 @@ void C_FRRagdoll::DismemberRandomLimbs(void)
 	{
 		iGore = random->RandomInt(0, 3);
 
+		if (iGore == 1)
+			iGore = 2;
+
 		if (iGore == 2)
 			DismemberLeftLeg(false);
 		else if (iGore == 3)
@@ -800,6 +812,9 @@ void C_FRRagdoll::DismemberRandomLimbs(void)
 	if (m_iGoreRightLeg < 3)
 	{
 		iGore = random->RandomInt(0, 3);
+
+		if (iGore == 1)
+			iGore = 2;
 
 		if (iGore == 2)
 			DismemberRightLeg(false);
@@ -823,11 +838,11 @@ SendPropModelIndex(SENDINFO(m_nModelIndex)),
 SendPropInt(SENDINFO(m_nForceBone), 8, 0),
 SendPropVector(SENDINFO(m_vecForce), -1, SPROP_NOSCALE),
 SendPropVector(SENDINFO(m_vecRagdollVelocity)),
-SendPropInt(SENDINFO(m_iGoreHead), 2, SPROP_UNSIGNED),
-SendPropInt(SENDINFO(m_iGoreLeftArm), 2, SPROP_UNSIGNED),
-SendPropInt(SENDINFO(m_iGoreRightArm), 2, SPROP_UNSIGNED),
-SendPropInt(SENDINFO(m_iGoreLeftLeg), 2, SPROP_UNSIGNED),
-SendPropInt(SENDINFO(m_iGoreRightLeg), 2, SPROP_UNSIGNED),
+SendPropInt(SENDINFO(m_iGoreHead), 2),
+SendPropInt(SENDINFO(m_iGoreLeftArm), 2),
+SendPropInt(SENDINFO(m_iGoreRightArm), 2),
+SendPropInt(SENDINFO(m_iGoreLeftLeg), 2),
+SendPropInt(SENDINFO(m_iGoreRightLeg), 2),
 END_SEND_TABLE()
 
 #endif // FR_CLIENT

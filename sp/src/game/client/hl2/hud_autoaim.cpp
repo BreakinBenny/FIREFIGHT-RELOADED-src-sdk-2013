@@ -30,7 +30,7 @@ ConVar hud_reticle_scale("hud_reticle_scale", "1.0" );
 ConVar hud_reticle_minalpha( "hud_reticle_minalpha", "125" );
 ConVar hud_reticle_maxalpha( "hud_reticle_maxalpha", "255" );
 ConVar hud_alpha_speed("hud_reticle_alpha_speed", "700" );
-ConVar hud_magnetism("hud_magnetism", "0.15", FCVAR_ARCHIVE );
+ConVar hud_magnetism("hud_magnetism", "0.35", FCVAR_ARCHIVE );
 
 enum 
 {

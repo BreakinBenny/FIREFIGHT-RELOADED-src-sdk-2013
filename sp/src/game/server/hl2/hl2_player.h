@@ -335,11 +335,23 @@ public:
 	CSoundPatch *m_sndWaterSplashes;
 
 	// Gore
-	unsigned short m_iGoreHead;
-	unsigned short m_iGoreLeftArm;
-	unsigned short m_iGoreRightArm;
-	unsigned short m_iGoreLeftLeg;
-	unsigned short m_iGoreRightLeg;
+	int m_iGoreHead;
+	int m_iGoreLeftArm;
+	int m_iGoreRightArm;
+	int m_iGoreLeftLeg;
+	int m_iGoreRightLeg;
+
+	int m_iHeadDamageLevel;
+	int m_iLeftArmDamageLevel;
+	int m_iRightArmDamageLevel;
+	int m_iLeftLegDamageLevel;
+	int m_iRightLegDamageLevel;
+
+	int m_iHeadDamageCount;
+	int m_iLeftArmDamageCount;
+	int m_iRightArmDamageCount;
+	int m_iLeftLegDamageCount;
+	int m_iRightLegDamageCount;
 
 	void SetAnimation(PLAYER_ANIM playerAnim);
 	void ResetAnimation();

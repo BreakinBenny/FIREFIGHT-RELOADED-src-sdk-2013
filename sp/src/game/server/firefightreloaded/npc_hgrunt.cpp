@@ -317,31 +317,26 @@ void CHGrunt::PrescheduleThink ( void )
 	
 	if ( m_pSquad && GetEnemy() != NULL )
 	{
-		CHGrunt* pSquadLeader = NULL;
-
-		if (m_pSquad->GetLeader())
+		CAI_BaseNPC* pLeaderBase = m_pSquad->GetLeader() ? m_pSquad->GetLeader()->MyNPCPointer() : nullptr;
+		CHGrunt* pGruntLeader = pLeaderBase ? dynamic_cast<CHGrunt*>(pLeaderBase) : nullptr;
+		if (!pGruntLeader)
 		{
-			pSquadLeader = (CHGrunt*)m_pSquad->GetLeader()->MyNPCPointer();
-		}
-		else
-		{
-			//No leader? we're the leader.
-			pSquadLeader = this;
+			pGruntLeader = this; // fallback
 		}
 
-		if (pSquadLeader)
+		if (pGruntLeader)
 		{
 			if (HasCondition(COND_SEE_ENEMY))
 			{
 				// update the squad's last enemy sighting time.
-				pSquadLeader->m_flLastEnemySightTime = gpGlobals->curtime;
+				pGruntLeader->m_flLastEnemySightTime = gpGlobals->curtime;
 			}
 			else
 			{
-				if (gpGlobals->curtime - pSquadLeader->m_flLastEnemySightTime > 5)
+				if (gpGlobals->curtime - pGruntLeader->m_flLastEnemySightTime > 5)
 				{
 					// been a while since we've seen the enemy
-					pSquadLeader->GetEnemies()->MarkAsEluded(GetEnemy());
+					pGruntLeader->GetEnemies()->MarkAsEluded(GetEnemy());
 				}
 			}
 		}

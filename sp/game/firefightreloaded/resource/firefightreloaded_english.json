@@ -593,6 +593,7 @@
             "GameUI_BloodParticleType": "Blood Particle Type (Doesn't work with Classic 2004 Blood enabled)",
             "GameUI_BloodParticleType_SMOD": "SMOD-Styled",
             "GameUI_BloodParticleType_HL2": "Half-Life 2",
+            "GameUI_PlayerGibAmount": "Player Ragdoll Gib Amount",
             "GameUI_BullettimePitchControl": "Bullettime changes sound pitch",
             "GameUI_BullettimePitchControlOverride": "Bullettime pitch override",
             "GameUI_PumpSecondaryFire": "Force Shotgun pump on double shot",

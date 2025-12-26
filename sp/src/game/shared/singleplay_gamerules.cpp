@@ -1158,7 +1158,7 @@ bool CSingleplayRules::Damage_ShouldNotBleed( int iDmgType )
 
 	bool IsCustomDamageUnique(int custom)
 	{
-		return ((custom != FR_DMG_CUSTOM_NONUNIQUE_FORCEKNOCKBACK));
+		return (custom != FR_DMG_CUSTOM_NONUNIQUE_FORCEKNOCKBACK);
 	}
 
 	void CSingleplayRules::DeathNoticeNPC(CBaseEntity* pVictim, const CTakeDamageInfo& info, int xpReward, int moneyReward)

@@ -90,10 +90,10 @@ CHudPosture::CHudPosture( const char *pElementName ) : CHudElement( pElementName
 
 	SetHiddenBits( HIDEHUD_HEALTH | HIDEHUD_PLAYERDEAD | HIDEHUD_NEEDSUIT );
 
-	if( IsX360() )
-	{
-		vgui::ivgui()->AddTickSignal( GetVPanel(), (1000/HUD_POSTURE_UPDATES_PER_SECOND) );
-	}
+#if defined(_X360) || defined(STEAM_INPUT)
+	// the hud element drawing is triggered by ShouldDraw().
+	vgui::ivgui()->AddTickSignal( GetVPanel(), (1000/HUD_POSTURE_UPDATES_PER_SECOND) );
+#endif
 
 #ifdef STEAM_INPUT
 	g_pPostureHUD = this;
@@ -109,6 +109,12 @@ CHudPosture::CHudPosture( const char *pElementName ) : CHudElement( pElementName
 bool CHudPosture::ShouldDraw()
 {
 #if defined(_X360) || defined(STEAM_INPUT)
+
+	bool isController = (IsX360() || UTIL_UsingSteamInput());
+
+	if (!isController)
+		return false;
+
 	return ( m_duckTimeout >= gpGlobals->curtime &&
 		CHudElement::ShouldDraw() );
 #else
@@ -201,23 +207,4 @@ void CHudPosture::Paint()
 	surface()->DrawUnicodeChar( duck_char );
 }
 
-#endif
-
-#ifdef STEAM_INPUT
-CON_COMMAND(hud_posture_enable, "Enables the posture HUD element")
-{
-	if (g_pPostureHUD)
-	{
-		vgui::ivgui()->AddTickSignal(g_pPostureHUD->GetVPanel(), (1000 / HUD_POSTURE_UPDATES_PER_SECOND));
-	}
-}
-
-CON_COMMAND(hud_posture_disable, "Disables the posture HUD element")
-{
-	if (g_pPostureHUD)
-	{
-		vgui::ivgui()->RemoveTickSignal(g_pPostureHUD->GetVPanel());
-		g_pPostureHUD->SetAlpha(0);
-	}
-}
 #endif

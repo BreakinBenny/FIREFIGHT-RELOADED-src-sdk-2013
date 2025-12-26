@@ -987,6 +987,9 @@ public:
 	int	m_iCompleteKillstreakCount;
 	bool m_bKillstreakAddedForThisLife;
 
+	float m_fRegenRemander;
+	float m_fDecayRemander;
+
 	// Used by gamemovement to check if the entity is stuck.
 	int m_StuckLast;
 

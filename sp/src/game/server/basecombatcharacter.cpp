@@ -2412,6 +2412,12 @@ int CBaseCombatCharacter::TakeHealth (float flHealth, int bitsDamageType)
 {
 	if (!m_takedamage)
 		return 0;
+
+	// negative health means we're removing health.
+	if (flHealth > 0 && bitsDamageType & (DMG_GENERIC))
+	{
+		m_iDamageCountBeforeHeal = 0;
+	}
 	
 	return BaseClass::TakeHealth(flHealth, bitsDamageType);
 }
@@ -2441,6 +2447,7 @@ int CBaseCombatCharacter::OnTakeDamage( const CTakeDamageInfo &info )
 		return 0;
 
 	m_iDamageCount++;
+	m_iDamageCountBeforeHeal++;
 
 	if ( info.GetDamageType() & DMG_SHOCK )
 	{

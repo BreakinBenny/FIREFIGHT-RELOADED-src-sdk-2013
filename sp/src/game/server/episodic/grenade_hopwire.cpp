@@ -26,7 +26,7 @@ ConVar hopwire_strider_kill_dist_v( "hopwire_strider_kill_dist_v", "256" );
 ConVar hopwire_strider_hits( "hopwire_strider_hits", "1" );
 ConVar hopwire_hopheight( "hopwire_hopheight", "400" );
 
-ConVar hopwire_teleport_mapcommand("hopwire_teleport_mapcommand", "map firefight_advisor\nprogress_enable\n", FCVAR_HIDDEN);
+ConVar hopwire_teleport_mapcommand("hopwire_teleport_mapcommand", "disconnect\nmap firefight_advisor\nprogress_enable\n", FCVAR_HIDDEN);
 
 ConVar g_debug_hopwire( "g_debug_hopwire", "0" );
 

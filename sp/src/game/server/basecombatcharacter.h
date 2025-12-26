@@ -285,6 +285,7 @@ public:
 
 	float GetDamageAccumulator() { return m_flDamageAccumulator; }
 	int	  GetDamageCount( void ) { return m_iDamageCount; }	// # of times NPC has been damaged.  used for tracking 1-shot kills.
+	int	  GetDamageCountBeforeHeal(void) { return m_iDamageCountBeforeHeal; }
 
 	// Character killed (only fired once)
 	virtual void			Event_Killed( const CTakeDamageInfo &info );
@@ -506,7 +507,11 @@ private:
 	int					m_LastHitGroup;			// the last body region that took damage
 	float				m_flDamageAccumulator;	// so very small amounts of damage do not get lost.
 	int					m_iDamageCount;			// # of times NPC has been damaged.  used for tracking 1-shot kills.
+
+public:
+	int					m_iDamageCountBeforeHeal;
 	
+private:
 	// Weapon proficiency gets calculated each time an NPC changes his weapon, and then
 	// cached off as the CurrentWeaponProficiency.
 	WeaponProficiency_t m_CurrentWeaponProficiency;

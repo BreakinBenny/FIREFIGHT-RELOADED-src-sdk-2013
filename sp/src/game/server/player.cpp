@@ -192,8 +192,6 @@ extern CServerGameDLL g_ServerGameDLL;
 
 extern bool		g_fDrawLines;
 int				gEvilImpulse101;
-float			m_fRegenRemander;
-float			m_fDecayRemander;
 
 // our connection to the spawnlist. used for tasks.
 CRandNPCLoader* g_ref_npcLoader;
@@ -2215,6 +2213,12 @@ int CBasePlayer::TakeHealth( float flHealth, int bitsDamageType )
 	if (!edict() || m_takedamage < DAMAGE_YES)
 		return 0;
 
+	// negative health means we're removing health.
+	if (flHealth > 0 && bitsDamageType & (DMG_GENERIC))
+	{
+		m_iDamageCountBeforeHeal = 0;
+	}
+
 	const int oldHealth = m_iHealth;
 
 	m_iHealth += flHealth;
@@ -2526,6 +2530,9 @@ int CBasePlayer::OnTakeDamage( const CTakeDamageInfo &inputInfo )
 		// Refuse the damage
 		return 0;
 	}
+
+	// add m_iDamageCount to track number of times the player got damaged.
+	m_iDamageCountBeforeHeal++;
 
 	// print to console if the appropriate cvar is set
 #ifdef DISABLE_DEBUG_HISTORY
@@ -6176,6 +6183,7 @@ void CBasePlayer::PostThink()
 				else 
 				{
 					SetSuitUpdate("!HEV_HEAL6", false, SUIT_NEXT_IN_30SEC);
+					//NOTE: this is so the gore system can ignore healing from this source. DMG_DIRECT isn't checked in the function itself.
 					TakeHealth(m_fRegenRemander, DMG_GENERIC);
 					m_fRegenRemander = 0;
 				}
@@ -6191,6 +6199,7 @@ void CBasePlayer::PostThink()
 
 		if (m_fDecayRemander >= 1 && GetHealth() != m_MaxHealthVal)
 		{
+			//NOTE: this is so the gore system can ignore healing from this source. DMG_DIRECT isn't checked in the function itself.
 			TakeHealth(-m_fDecayRemander, DMG_GENERIC);
 			m_fDecayRemander = 0;
 		}
