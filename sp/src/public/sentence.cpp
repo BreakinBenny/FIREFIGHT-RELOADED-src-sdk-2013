@@ -1501,6 +1501,9 @@ float CSentence::GetIntensity( float time, float endtime )
 	CEmphasisSample *esEnd = GetBoundedSample( end, endtime );
 	CEmphasisSample *esNext = GetBoundedSample( next, endtime );
 
+	if (!esPre || !esStart || !esEnd || !esNext)
+		return 0.0f;
+
 	float dt = esEnd->time - esStart->time;
 	dt = clamp( dt, 0.01f, 1.0f );
 
