@@ -1741,6 +1741,9 @@ void CNPC_Manhack::Bump( CBaseEntity *pHitEntity, float flInterval, trace_t &tr 
 //-----------------------------------------------------------------------------
 void CNPC_Manhack::CheckCollisions(float flInterval)
 {
+	if (!VPhysicsGetObject())
+		return;
+
 	// Trace forward to see if I hit anything. But trace forward along the
 	// owner's view direction if you're being carried.
 	Vector vecTraceDir, vecCheckPos;
@@ -2017,7 +2020,10 @@ void CNPC_Manhack::MoveExecute_Alive(float flInterval)
 		m_vCurrentVelocity.z = MAX( m_vCurrentVelocity.z, 0 );
 	}
 
-	CheckCollisions(flInterval);
+	if (VPhysicsGetObject())
+	{
+		CheckCollisions(flInterval);
+	}
 
 	// Blend out desired velocity when launched by the physcannon
 	if ( HasPhysicsAttacker( MANHACK_SMASH_TIME ) && (!IsHeldByPhyscannon()) && VPhysicsGetObject() )
@@ -2217,7 +2223,10 @@ void CNPC_Manhack::MoveExecute_Dead(float flInterval)
 	angles.x += -20+(random->RandomInt(0,40));
 	angles.z += -20+(random->RandomInt(0,40));
 
-	CheckCollisions(flInterval);
+	if (VPhysicsGetObject())
+	{
+		CheckCollisions(flInterval);
+	}
 	PlayFlySound();
 
 	// SetLocalAngles( angles );
