@@ -228,7 +228,7 @@ public:
 
 	const impactdamagetable_t &GetPhysicsImpactDamageTable();
 	virtual void		TraceAttack(const CTakeDamageInfo& info, const Vector& vecDir, trace_t* ptr, CDmgAccumulator* pAccumulator);
-	void				DismemberRandomLimbs(void);
+	void				DismemberRandomLimbs(bool bOneLimb = false);
 	virtual int			OnTakeDamage( const CTakeDamageInfo &info );
 	virtual int			OnTakeDamage_Alive( const CTakeDamageInfo &info );
 	virtual void		OnDamagedByExplosion( const CTakeDamageInfo &info );

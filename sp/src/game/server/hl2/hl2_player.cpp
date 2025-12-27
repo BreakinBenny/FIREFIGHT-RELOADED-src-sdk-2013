@@ -4753,11 +4753,30 @@ void CHL2_Player::TraceAttack(const CTakeDamageInfo& info, const Vector& vecDir,
 	m_nForceBone = ptr->physicsbone;
 	SetLastHitGroup(ptr->hitgroup);
 
-	m_iGoreHead = 0;
-	m_iGoreLeftArm = 0;
-	m_iGoreRightArm = 0;
-	m_iGoreLeftLeg = 0;
-	m_iGoreRightLeg = 0;
+	if (m_iHeadDamageCount <= sv_gib_damage_threshold.GetInt())
+	{
+		m_iGoreHead = 0;
+	}
+
+	if (m_iLeftArmDamageCount <= sv_gib_damage_threshold.GetInt())
+	{
+		m_iGoreLeftArm = 0;
+	}
+
+	if (m_iRightArmDamageCount <= sv_gib_damage_threshold.GetInt())
+	{
+		m_iGoreRightArm = 0;
+	}
+
+	if (m_iLeftLegDamageCount <= sv_gib_damage_threshold.GetInt())
+	{
+		m_iGoreLeftLeg = 0;
+	}
+
+	if (m_iRightLegDamageCount <= sv_gib_damage_threshold.GetInt())
+	{
+		m_iGoreRightLeg = 0;
+	}
 
 	int dmgAmount = 2;
 
@@ -4771,6 +4790,7 @@ void CHL2_Player::TraceAttack(const CTakeDamageInfo& info, const Vector& vecDir,
 	switch (ptr->hitgroup)
 	{
 	case HITGROUP_GENERIC:
+		DismemberRandomLimbs(true);
 		if (bDebug) DevMsg("[PLAYER] Hit Location: Generic\n");
 		break;
 
@@ -4897,13 +4917,57 @@ void CHL2_Player::TraceAttack(const CTakeDamageInfo& info, const Vector& vecDir,
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void CHL2_Player::DismemberRandomLimbs(void)
+void CHL2_Player::DismemberRandomLimbs(bool bOneLimb)
 {
 	int iGore = 0;
 
-	// NOTE: head is not dismembered here intentionally
+	bool bHeadSelected = false;
+	bool bLArmSelected = true;
+	bool bRArmSelected = true;
+	bool bLLegSelected = true;
+	bool bRLegSelected = true;
 
-	if (m_iGoreLeftArm < 3)
+	if (bOneLimb)
+	{
+		bLArmSelected = false;
+		bRArmSelected = false;
+		bLLegSelected = false;
+		bRLegSelected = false;
+
+		random->SetSeed((int)gpGlobals->curtime);
+		int limbToSelect = random->RandomInt(0, 5);
+
+		switch (limbToSelect)
+		{
+		case 0:
+			return;
+		case 1:
+			bLArmSelected = true;
+			break;
+		case 2:
+			bRArmSelected = true;
+			break;
+		case 3:
+			bLLegSelected = true;
+			break;
+		case 4:
+			bRLegSelected = true;
+			break;
+		case 5:
+			bHeadSelected = true;
+			break;
+		}
+	}
+
+
+	// NOTE: head is not dismembered here intentionally, but is considered in the statement above for generic hitboxes
+
+	if (bHeadSelected && m_iGoreHead < 3)
+	{
+		m_iGoreHead = 3;
+	}
+
+	if (bLArmSelected && m_iGoreLeftArm < 3)
 	{
 		iGore = random->RandomInt(0, 3);
 
@@ -4914,7 +4978,7 @@ void CHL2_Player::DismemberRandomLimbs(void)
 			m_iGoreLeftArm = iGore;
 	}
 
-	if (m_iGoreRightArm < 3)
+	if (bRArmSelected && m_iGoreRightArm < 3)
 	{
 		iGore = random->RandomInt(0, 3);
 
@@ -4925,7 +4989,7 @@ void CHL2_Player::DismemberRandomLimbs(void)
 			m_iGoreRightArm = iGore;
 	}
 
-	if (m_iGoreLeftLeg < 3)
+	if (bLLegSelected && m_iGoreLeftLeg < 3)
 	{
 		iGore = random->RandomInt(0, 3);
 
@@ -4936,7 +5000,7 @@ void CHL2_Player::DismemberRandomLimbs(void)
 			m_iGoreLeftLeg = iGore;
 	}
 
-	if (m_iGoreRightLeg < 3)
+	if (bRLegSelected && m_iGoreRightLeg < 3)
 	{
 		iGore = random->RandomInt(0, 3);
 

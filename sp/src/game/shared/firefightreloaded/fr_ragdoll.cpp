@@ -295,11 +295,7 @@ void C_FRRagdoll::ImpactTrace(trace_t* pTrace, int iDamageType, const char* pCus
 		switch (pTrace->hitgroup)
 		{
 		case HITGROUP_HEAD:
-			if (m_iGoreHead == 3)
-			{
-				break;
-			}
-			else if (m_iGoreHead == 2)
+			if (m_iGoreHead > 1)
 			{
 				break;
 			}
