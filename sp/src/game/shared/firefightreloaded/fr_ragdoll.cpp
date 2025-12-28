@@ -662,10 +662,8 @@ void C_FRRagdoll::DismemberBase(char const* szBodyPart, bool bLevel, bool bBlood
 			iBloodAmount += iDefaultHeadshotMax;
 			iGibAmount += iDefaultHeadshotMax;
 		}
-		else
-		{
-			ParticleProp()->Create("smod_blood_gib_r", PATTACH_BONE_FOLLOW, szParticleBone);
-		}
+
+		ParticleProp()->Create("smod_blood_gib_r", PATTACH_BONE_FOLLOW, szParticleBone);
 
 		for (int i = 0; i <= iGibAmount; i++)
 		{

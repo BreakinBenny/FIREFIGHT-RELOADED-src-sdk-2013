@@ -4192,6 +4192,7 @@ bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 			}
 
 			DispatchParticleEffect("smod_headshot_r", PATTACH_POINT_FOLLOW, this, "bloodspurt", true);
+			DispatchParticleEffect("smod_blood_gib_r", PATTACH_POINT_FOLLOW, this, "bloodspurt", true);
 			SpawnBlood( GetAbsOrigin(), g_vecAttackDir, BloodColor(), newinfo.GetDamage() );
 			CGib::SpawnSpecificStickyGibs( this, 6, 150, 450, "models/gibs/pgib_p3.mdl", 6 );
 			CGib::SpawnSpecificStickyGibs( this, 6, 150, 450, "models/gibs/pgib_p4.mdl", 6 );
@@ -4213,6 +4214,7 @@ bool CNPC_MetroPolice::CorpseDecapitate(const CTakeDamageInfo& info)
 				m_pAttributes->SwitchEntityColor( this, "new_color" );
 			}
 
+			DispatchParticleEffect("smod_blood_gib_r", PATTACH_POINT_FOLLOW, this, "bloodspurt", true);
 			SpawnBlood( GetAbsOrigin(), g_vecAttackDir, BloodColor(), newinfo.GetDamage() );
 			CBaseEntity* pHeadGib = CGib::SpawnSpecificSingleGib( this, 150, 450, GetGibModel( APPENDAGE_HEAD ), 6 );
 
