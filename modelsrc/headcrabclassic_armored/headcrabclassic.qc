@@ -1,16 +1,8 @@
 // Created by Crowbar 0.72
 
 $modelname "headcrabclassic_armored.mdl"
-
-$bodygroup "studio"
-{
-	studio "headcrabclassic_reference.smd"
-}
-
-$bodygroup "armor"
-{
-	studio "armored_headcrab_shell_prop.smd"
-}
+$body studio "headcrabclassic_reference.smd"
+$body armor "armored_headcrab_shell_prop.smd"
 
 $lod 12
 {
@@ -52,7 +44,6 @@ $shadowlod
 }
 
 $surfaceprop "alienflesh"
-
 $contents "solid"
 
 $illumposition -0.126 0.163 7.813
@@ -94,23 +85,10 @@ $definebone "HeadcrabClassic.CalfR_Bone" "HeadcrabClassic.ThighR_Bone" 6.098812 
 $definebone "HeadcrabClassic.ThighL_Bone" "HeadcrabClassic.HipControl" -0.000009 0 -6.164912 17.983584 -103.758053 173.796704 0 0 0 0 0 0
 $definebone "HeadcrabClassic.CalfL_Bone" "HeadcrabClassic.ThighL_Bone" 6.098812 0 0 0.000001 -0.040853 0.000001 0 0 0 0 0 0
 
-$sequence "Idle01" {
-	"headcrabclassic_anims\Idle01.smd"
-	activity "ACT_IDLE" 2
-	fps 30
-	loop
-}
+$sequence Idle01 "headcrabclassic_anims\Idle01.smd" ACT_IDLE 2 loop
+$sequence IdleB "headcrabclassic_anims\IdleB.smd" ACT_IDLE 1 loop
 
-$sequence "IdleB" {
-	"headcrabclassic_anims\IdleB.smd"
-	activity "ACT_IDLE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-	loop
-}
-
-$sequence "Run1" {
+$sequence Run1 {
 	"headcrabclassic_anims\Run1.smd"
 	activity "ACT_RUN" 1
 	{ event AE_CL_PLAYSOUND 5 "NPC_Headcrab.Footstep" }
@@ -119,9 +97,6 @@ $sequence "Run1" {
 	{ event AE_CL_PLAYSOUND 22 "NPC_Headcrab.Footstep" }
 	{ event AE_CL_PLAYSOUND 28 "NPC_Headcrab.Footstep" }
 	{ event AE_CL_PLAYSOUND 33 "NPC_Headcrab.Footstep" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	walkframe 33 LX LY
 }
@@ -136,9 +111,6 @@ $sequence "TurnLeft" {
 	{ event AE_CL_PLAYSOUND 23 "NPC_Headcrab.Footstep" }
 	{ event AE_CL_PLAYSOUND 25 "NPC_Headcrab.Footstep" }
 	{ event AE_CL_PLAYSOUND 30 "NPC_Headcrab.Footstep" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	walkframe 30
 }
@@ -154,9 +126,6 @@ $sequence "TurnRight" {
 	{ event AE_CL_PLAYSOUND 24 "NPC_Headcrab.Footstep" }
 	{ event AE_CL_PLAYSOUND 28 "NPC_Headcrab.Footstep" }
 	{ event AE_CL_PLAYSOUND 30 "NPC_Headcrab.Footstep" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 }
 
@@ -165,40 +134,25 @@ $sequence "jumpattack_broadcast" {
 	activity "ACT_RANGE_ATTACK1" 1
 	{ event AE_HEADCRAB_JUMP_TELEGRAPH 0 "" }
 	{ event AE_HEADCRAB_JUMPATTACK 5 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 }
 
 $sequence "Drown" {
 	"headcrabclassic_anims\Drown.smd"
 	activity "ACT_HEADCRAB_DROWN" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 }
 
 $sequence "canal5b_sewer_jump" {
 	"headcrabclassic_anims\canal5b_sewer_jump.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	walkframe 51 LX LY LZ
 }
 
 $sequence "headcrabbed" {
 	"headcrabclassic_anims\headcrabbed.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 }
 
 $sequence "headcrabbedpost" {
 	"headcrabclassic_anims\headcrabbedpost.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 }
 
@@ -207,35 +161,23 @@ $sequence "BurrowIn" {
 	activity "ACT_HEADCRAB_BURROW_IN" 1
 	{ event AE_HEADCRAB_BURROW_IN 25 "" }
 	{ event AE_HEADCRAB_BURROW_IN_FINISH 42 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 }
 
 $sequence "BurrowOut" {
 	"headcrabclassic_anims\BurrowOut.smd"
 	activity "ACT_HEADCRAB_BURROW_OUT" 1
 	{ event AE_HEADCRAB_BURROW_OUT 0 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 }
 
 $sequence "BurrowIdle" {
 	"headcrabclassic_anims\BurrowIdle.smd"
 	activity "ACT_HEADCRAB_BURROW_IDLE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 }
 
 $sequence "cannisterDeploy_A" {
 	"headcrabclassic_anims\cannisterDeploy_A.smd"
 	activity "ACT_HEADCRAB_CRAWL_FROM_CANISTER_LEFT" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	walkframe 15 LX LY LZ LZR
 	walkframe 20 LX LY LZ LZR
 	walkframe 25 LX LY LZ LZR
@@ -247,9 +189,6 @@ $sequence "cannisterDeploy_A" {
 $sequence "cannisterDeploy_B" {
 	"headcrabclassic_anims\cannisterDeploy_B.smd"
 	activity "ACT_HEADCRAB_CRAWL_FROM_CANISTER_CENTER" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	walkframe 15 LX LY LZ LZR
 	walkframe 20 LX LY LZ LZR
 	walkframe 25 LX LY LZ LZR
@@ -261,9 +200,6 @@ $sequence "cannisterDeploy_B" {
 $sequence "cannisterDeploy_C" {
 	"headcrabclassic_anims\cannisterDeploy_C.smd"
 	activity "ACT_HEADCRAB_CRAWL_FROM_CANISTER_RIGHT" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	walkframe 20 LX LY LZ LZR
 	walkframe 25 LX LY LZ LZR
 	walkframe 30 LX LY LZ LZR
@@ -273,32 +209,17 @@ $sequence "cannisterDeploy_C" {
 
 $sequence "testDeploy_A" {
 	"headcrabclassic_anims\testDeploy_A.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 }
 
 $sequence "testDeploy_b" {
 	"headcrabclassic_anims\testDeploy_b.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 }
 
 $sequence "testDeploy_C" {
 	"headcrabclassic_anims\testDeploy_C.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 }
 
-$sequence "ragdoll" {
-	"headcrabclassic_anims\ragdoll.smd"
-	activity "ACT_DIERAGDOLL" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
+$sequence ragdoll "headcrabclassic_anims\ragdoll.smd" ACT_DIERAGDOLL 1
 
 $collisionjoints "headcrab_phys.smd"
 {

@@ -1,11 +1,7 @@
 // Created by Crowbar 0.72
 
 $modelname "combine_assassin.mdl"
-
-$bodygroup "sniper_f"
-{
-	studio "sniper_f.smd"
-}
+$body sniper_f "sniper_f.smd"
 $bodygroup "guns"
 {
 	blank
@@ -237,11 +233,11 @@ $cdmaterials "models\weapons\w_smg1\"
 
 $texturegroup "skinfamilies"
 {
-	{ "sniper_f_sheet"   }
-    { "sniper_f_sheet_alt" }
+	{ "sniper_f_sheet" }
+	{ "sniper_f_sheet_alt" }
 	{ "sniper_f_sheet_r" }
 	{ "sniper_f_sheet_b" }
-    { "sniper_f_sheet_ace" }
+	{ "sniper_f_sheet_ace" }
 }
 
 $attachment "lefthand" "ValveBiped.Bip01_L_Hand" 3.5 0 0 rotate 0 0 0
@@ -378,32 +374,23 @@ $ikchain "lfoot" "ValveBiped.Bip01_L_Foot" knee 0.707 -0.707 0
 $ikautoplaylock "rfoot" 1 0.1
 $ikautoplaylock "lfoot" 1 0.1
 
-$animation "a_aim_crouch_Up_Right_corrective_animation" "combine_assassin_anims\a_aim_crouch_Up_Right_corrective_animation.smd" {
-}
+$animation "a_aim_crouch_Up_Right_corrective_animation" "combine_assassin_anims\a_aim_crouch_Up_Right_corrective_animation.smd"
 
-$animation "a_aim_crouch_Up_Center_corrective_animation" "combine_assassin_anims\a_aim_crouch_Up_Center_corrective_animation.smd" {
-}
+$animation "a_aim_crouch_Up_Center_corrective_animation" "combine_assassin_anims\a_aim_crouch_Up_Center_corrective_animation.smd"
 
-$animation "a_aim_crouch_Up_Left_corrective_animation" "combine_assassin_anims\a_aim_crouch_Up_Left_corrective_animation.smd" {
-}
+$animation "a_aim_crouch_Up_Left_corrective_animation" "combine_assassin_anims\a_aim_crouch_Up_Left_corrective_animation.smd"
 
-$animation "a_aim_crouch_Mid_Right_corrective_animation" "combine_assassin_anims\a_aim_crouch_Mid_Right_corrective_animation.smd" {
-}
+$animation "a_aim_crouch_Mid_Right_corrective_animation" "combine_assassin_anims\a_aim_crouch_Mid_Right_corrective_animation.smd"
 
-$animation "a_aim_crouch_Mid_Center_corrective_animation" "combine_assassin_anims\a_aim_crouch_Mid_Center_corrective_animation.smd" {
-}
+$animation "a_aim_crouch_Mid_Center_corrective_animation" "combine_assassin_anims\a_aim_crouch_Mid_Center_corrective_animation.smd"
 
-$animation "a_aim_crouch_Mid_Left_corrective_animation" "combine_assassin_anims\a_aim_crouch_Mid_Left_corrective_animation.smd" {
-}
+$animation "a_aim_crouch_Mid_Left_corrective_animation" "combine_assassin_anims\a_aim_crouch_Mid_Left_corrective_animation.smd"
 
-$animation "a_aim_crouch_Down_Right_corrective_animation" "combine_assassin_anims\a_aim_crouch_Down_Right_corrective_animation.smd" {
-}
+$animation "a_aim_crouch_Down_Right_corrective_animation" "combine_assassin_anims\a_aim_crouch_Down_Right_corrective_animation.smd"
 
-$animation "a_aim_crouch_Down_Center_corrective_animation" "combine_assassin_anims\a_aim_crouch_Down_Center_corrective_animation.smd" {
-}
+$animation "a_aim_crouch_Down_Center_corrective_animation" "combine_assassin_anims\a_aim_crouch_Down_Center_corrective_animation.smd"
 
-$animation "a_aim_crouch_Down_Left_corrective_animation" "combine_assassin_anims\a_aim_crouch_Down_Left_corrective_animation.smd" {
-}
+$animation "a_aim_crouch_Down_Left_corrective_animation" "combine_assassin_anims\a_aim_crouch_Down_Left_corrective_animation.smd"
 
 $animation "a_aim_crouch_neutral" "combine_assassin_anims\a_aim_crouch_neutral.smd" {
 	fps 30
@@ -506,12 +493,9 @@ $sequence "ragdoll" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 3
 }
 
-$sequence "idle" {
+$sequence idle {
 	"combine_assassin_anims\idle.smd"
 	activity "ACT_IDLE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 60 60 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 60 60 target 1
@@ -519,11 +503,9 @@ $sequence "idle" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 60 60 target 3
 }
 
-$sequence "run" {
+$sequence run {
 	"combine_assassin_anims\run.smd"
 	activity "ACT_RUN" 1
-	fadein 0.2
-	fadeout 0.2
 	fps 40
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 20 20 target 0 usesequence 
@@ -533,13 +515,10 @@ $sequence "run" {
 	walkframe 20 LX
 }
 
-$sequence "grenadethrow" {
+$sequence grenadethrow {
 	"combine_assassin_anims\grenadethrow.smd"
 	activity "ACT_RANGE_ATTACK2" 1
 	{ event 4 7 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 15 15 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 15 15 target 1
@@ -547,11 +526,9 @@ $sequence "grenadethrow" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 15 15 target 3
 }
 
-$sequence "perch" {
+$sequence perch {
 	"combine_assassin_anims\perch.smd"
 	activity "ACT_ASSASSIN_PERCH" 1
-	fadein 0.2
-	fadeout 0.2
 	fps 35
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1
@@ -559,11 +536,9 @@ $sequence "perch" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 3
 }
 
-$sequence "cover" {
+$sequence cover {
 	"combine_assassin_anims\cover.smd"
 	activity "ACT_COVER" 1
-	fadein 0.2
-	fadeout 0.2
 	fps 35
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1
@@ -571,51 +546,40 @@ $sequence "cover" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 3
 }
 
-$sequence "kick" {
+$sequence kick {
 	"combine_assassin_anims\kick.smd"
 	activity "ACT_MELEE_ATTACK1" 1
 	{ event 3 10 "" }
-	fadein 0.2
-	fadeout 0.2
 	fps 35
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 32 32 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 32 32 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 32 32 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 32 32 target 3
 }
-
-$sequence "kickshort" {
+$sequence kickshort {
 	"combine_assassin_anims\kickshort.smd"
 	activity "ACT_MELEE_ATTACK1" 2
 	{ event 3 10 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 21 21 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 21 21 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 21 21 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 21 21 target 3
 }
 
-$sequence "lunge" {
+$sequence lunge {
 	"combine_assassin_anims\lunge.smd"
 	activity "ACT_ASSASSIN_LUNGE" 1
 	{ event 3 10 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 21 21 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 21 21 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 21 21 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 21 21 target 3
 }
 
-$sequence "jump" {
+$sequence jump {
 	"combine_assassin_anims\jump.smd"
 	activity "ACT_JUMP" 1
 	{ event 3 6 "" }
-	fadein 0.2
-	fadeout 0.2
 	fps 25
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1
@@ -623,11 +587,9 @@ $sequence "jump" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 3
 }
 
-$sequence "fly_up" {
+$sequence fly_up {
 	"combine_assassin_anims\fly_up.smd"
 	activity "ACT_GLIDE" 1
-	fadein 0.2
-	fadeout 0.2
 	fps 25
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 11 11 target 0
@@ -636,24 +598,18 @@ $sequence "fly_up" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 11 11 target 3
 }
 
-$sequence "landfromjump" {
+$sequence landfromjump {
 	"combine_assassin_anims\landfromjump.smd"
 	activity "ACT_LAND" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 25 25 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 25 25 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 25 25 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 25 25 target 3
 }
 
-$sequence "FlipLeft" {
+$sequence FlipLeft {
 	"combine_assassin_anims\FlipLeft.smd"
 	activity "ACT_ASSASSIN_FLIP_LEFT" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 27 27 target 3 usesequence 
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 27 27 target 2 usesequence 
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 27 27 target 0 usesequence 
@@ -662,12 +618,9 @@ $sequence "FlipLeft" {
 	walkframe 27 LY
 }
 
-$sequence "FlipRight" {
+$sequence FlipRight {
 	"combine_assassin_anims\FlipRight.smd"
 	activity "ACT_ASSASSIN_FLIP_RIGHT" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 28 28 target 3 usesequence 
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 28 28 target 2 usesequence 
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 28 28 target 0 usesequence 
@@ -676,12 +629,9 @@ $sequence "FlipRight" {
 	walkframe 24 LY
 }
 
-$sequence "FlipBack" {
+$sequence FlipBack {
 	"combine_assassin_anims\FlipBack.smd"
 	activity "ACT_ASSASSIN_FLIP_BACK" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 27 27 target 3 usesequence 
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 27 27 target 2 usesequence 
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 27 27 target 0 usesequence 
@@ -690,12 +640,9 @@ $sequence "FlipBack" {
 	walkframe 27 LX
 }
 
-$sequence "FlipForward" {
+$sequence FlipForward {
 	"combine_assassin_anims\FlipForward.smd"
 	activity "ACT_ASSASSIN_FLIP_FORWARD" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 28 28 target 3 usesequence 
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 28 28 target 2 usesequence 
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 28 28 target 0 usesequence 

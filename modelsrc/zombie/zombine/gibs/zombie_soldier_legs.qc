@@ -1,15 +1,9 @@
 // Created by Crowbar 0.72
 
 $modelname "Zombie/zombie_soldier_legs.mdl"
-
-$bodygroup "studio"
-{
-	studio "Zombie_soldier_legs_reference.smd"
-}
-
+$body studio "Zombie_soldier_legs_reference.smd"
 
 $surfaceprop "zombieflesh"
-
 $contents "solid"
 
 $illumposition 0.63 2.653 19.042
@@ -52,14 +46,7 @@ $definebone "ValveBiped.Bip01_R_Toe0" "ValveBiped.Bip01_R_Foot" 6.879456 0 0 -3.
 $definebone "ValveBiped.Cod_Bone" "ValveBiped.Bip01_Pelvis" 0.003197 1.916844 7.635197 0 0 0 0 0 0 0 0 0
 $definebone "ValveBiped.Bip01_Spine" "ValveBiped.Bip01" 0.000005 3.345117 -2.981992 4.944339 89.999982 89.999927 0 0 0 0 0 0
 
-
-$sequence "ragdoll" {
-	"zombie_soldier_legs_anims\ragdoll.smd"
-	activity "ACT_DIERAGDOLL" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
+$sequence ragdoll "zombie_soldier_legs_anims\ragdoll.smd" ACT_DIERAGDOLL 1
 
 $collisionjoints "zombie_soldier_legs_physics.smd"
 {

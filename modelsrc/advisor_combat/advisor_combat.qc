@@ -1,20 +1,14 @@
 // Created by Crowbar 0.72
 
 $modelname "Advisor_combat.mdl"
-
-$bodygroup "studio"
-{
-	studio "advisor_combat_advisor_referenceN.smd"
-}
+$body studio "advisor_combat_advisor_referenceN.smd"
 $bodygroup "arms"
 {
 	studio "advisor_combat_advisor_arms_reference.smd"
 	blank
 }
 
-
 $surfaceprop "alienflesh"
-
 $contents "solid"
 
 $illumposition 0.04 -0.33 1.077
