@@ -733,9 +733,9 @@ void CFuncTank::Spawn( void )
 	Precache();
 
 	m_iAmmoType = GetAmmoDef()->Index(STRING(m_iszAmmoType));
-	m_iSmallAmmoType = GetAmmoDef()->Index("Pistol");
-	m_iMediumAmmoType = GetAmmoDef()->Index("SMG1");
-	m_iLargeAmmoType = GetAmmoDef()->Index("AR2");
+	m_iSmallAmmoType	= GetAmmoDef()->Index("Pistol");
+	m_iMediumAmmoType	= GetAmmoDef()->Index("SMG1");
+	m_iLargeAmmoType	= GetAmmoDef()->Index("AR2");
 
 	SetMoveType( MOVETYPE_PUSH );  // so it doesn't get pushed by anything
 	SetSolid( SOLID_VPHYSICS );
