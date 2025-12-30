@@ -1,15 +1,9 @@
 // Created by Crowbar 0.72
 
 $modelname "gibs/police_left_leg.mdl"
-
-$bodygroup "studio"
-{
-	studio "police_left_leg_reference.smd"
-}
-
+$body studio "police_left_leg_reference.smd"
 
 $surfaceprop "flesh"
-
 $contents "solid"
 
 $illumposition 4.062 -0.654 17.6
@@ -26,21 +20,7 @@ $definebone "ValveBiped.Bip01_L_Calf" "ValveBiped.Bip01_L_Thigh" 17.848166 0 0 0
 $definebone "ValveBiped.Bip01_L_Foot" "ValveBiped.Bip01_L_Calf" 16.525244 0 0.000001 -2.336637 -61.400334 -1.599412 0 0 0 0 0 0
 $definebone "ValveBiped.Bip01_L_Toe0" "ValveBiped.Bip01_L_Foot" 6.879447 -0.000001 0.000001 -0.16908 -33.48211 -0.418202 0 0 0 0 0 0
 
-
-$sequence "idle" {
-	"police_left_leg_anims\idle.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
-
-$sequence "ragdoll" {
-	"police_left_leg_anims\ragdoll.smd"
-	activity "ACT_DIERAGDOLL" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
+$sequence ragdoll "police_left_leg_anims\ragdoll.smd" ACT_DIERAGDOLL 1
 
 $collisionjoints "police_left_leg_physics.smd"
 {

@@ -1,15 +1,9 @@
 // Created by Crowbar 0.72
 
 $modelname "gibs/soldier_prisonguard_torso.mdl"
-
-$bodygroup "studio"
-{
-	studio "soldier_prisonguard_torso_soldier_torso_reference.smd"
-}
-
+$body studio "soldier_prisonguard_torso_soldier_torso_reference.smd"
 
 $surfaceprop "flesh"
-
 $contents "solid"
 
 $illumposition -0.015 0.274 10.124
@@ -27,21 +21,7 @@ $definebone "ValveBiped.Bip01_Spine1" "ValveBiped.Bip01_Spine" 4.01833 0 0 0 -1.
 $definebone "ValveBiped.Bip01_Spine2" "ValveBiped.Bip01_Spine1" 3.518559 0 0 0 5.74883 0 0 0 0 0 0 0
 $definebone "ValveBiped.Bip01_Spine4" "ValveBiped.Bip01_Spine2" 8.942638 0 0 0 11.120882 0 0 0 0 0 0 0
 
-
-$sequence "idle" {
-	"soldier_prisonguard_torso_anims\idle.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
-
-$sequence "ragdoll" {
-	"soldier_prisonguard_torso_anims\ragdoll.smd"
-	activity "ACT_DIERAGDOLL" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
+$sequence ragdoll "soldier_prisonguard_torso_anims\ragdoll.smd" ACT_DIERAGDOLL 1
 
 $collisionjoints "soldier_prisonguard_torso_physics.smd"
 {

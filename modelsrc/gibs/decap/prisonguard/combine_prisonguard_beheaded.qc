@@ -1,15 +1,9 @@
 // Created by Crowbar 0.72
 
 $modelname "gibs\Combine_PrisonGuard_Beheaded.mdl"
-
-$bodygroup "Soldier"
-{
-	studio "cs_pris_ref.smd"
-}
-
+$body Soldier "cs_pris_ref.smd"
 
 $surfaceprop "flesh"
-
 $contents "solid"
 
 $illumposition -0.007 2.204 31.022
@@ -71,12 +65,7 @@ $ikchain "lhand" "ValveBiped.Bip01_L_Hand" knee 0.707 0.707 0
 $ikchain "rfoot" "ValveBiped.Bip01_R_Foot" knee 0.707 -0.707 0
 $ikchain "lfoot" "ValveBiped.Bip01_L_Foot" knee 0.707 -0.707 0
 
-$sequence "ragdoll" {
-	"combine_prisonguard_beheaded_anims\ragdoll.smd"
-	activity "ACT_DIERAGDOLL" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
+$sequence ragdoll "combine_prisonguard_beheaded_anims\ragdoll.smd" ACT_DIERAGDOLL 1 {
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 2

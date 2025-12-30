@@ -1,15 +1,9 @@
 // Created by Crowbar 0.72
 
 $modelname "gibs/police_torso.mdl"
-
-$bodygroup "studio"
-{
-	studio "police_torso_reference.smd"
-}
-
+$body studio "police_torso_reference.smd"
 
 $surfaceprop "flesh"
-
 $contents "solid"
 
 $illumposition -0.013 0.23 10.034
@@ -33,21 +27,7 @@ $definebone "ValveBiped.Bip01_R_UpperArm" "ValveBiped.Bip01_R_Clavicle" 6.028141
 $definebone "ValveBiped.Bip01_L_Clavicle" "ValveBiped.Bip01_Spine4" 2.033348 1.000767 1.93766 -73.711873 168.619243 91.480562 0 0 0 0 0 0
 $definebone "ValveBiped.Bip01_L_UpperArm" "ValveBiped.Bip01_L_Clavicle" 6.028142 0 0 2.738852 -33.527947 -90.505156 0 0 0 0 0 0
 
-
-$sequence "idle" {
-	"police_torso_anims\idle.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
-
-$sequence "ragdoll" {
-	"police_torso_anims\ragdoll.smd"
-	activity "ACT_DIERAGDOLL" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
+$sequence ragdoll "police_torso_anims\ragdoll.smd" ACT_DIERAGDOLL 1
 
 $collisionjoints "police_torso_physics.smd"
 {
