@@ -1,15 +1,9 @@
 // Created by Crowbar 0.72
 
 $modelname "gibs/soldier_shotgunner_left_arm.mdl"
-
-$bodygroup "studio"
-{
-	studio "soldier_shotgunner_left_arm_soldier_left_arm_reference.smd"
-}
-
+$body studio "soldier_shotgunner_left_arm_soldier_left_arm_reference.smd"
 
 $surfaceprop "flesh"
-
 $contents "solid"
 
 $illumposition 15.903 1.522 5.364
@@ -34,21 +28,7 @@ $definebone "ValveBiped.Bip01_L_Finger0" "ValveBiped.Bip01_L_Hand" 0.806046 -0.3
 $definebone "ValveBiped.Bip01_L_Finger01" "ValveBiped.Bip01_L_Finger0" 1.789782 0.000002 0.000004 0.423181 13.093407 0.000005 0 0 0 0 0 0
 $definebone "ValveBiped.Bip01_L_Finger02" "ValveBiped.Bip01_L_Finger01" 1.206993 0 0.000004 0.645485 20.79035 0.000003 0 0 0 0 0 0
 
-
-$sequence "idle" {
-	"soldier_shotgunner_left_arm_anims\idle.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
-
-$sequence "ragdoll" {
-	"soldier_shotgunner_left_arm_anims\ragdoll.smd"
-	activity "ACT_DIERAGDOLL" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
+$sequence ragdoll "soldier_shotgunner_left_arm_anims\ragdoll.smd" ACT_DIERAGDOLL 1
 
 $collisionjoints "soldier_shotgunner_left_arm_physics.smd"
 {

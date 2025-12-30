@@ -1,15 +1,9 @@
 // Created by Crowbar 0.72
 
 $modelname "gibs/soldier_elite_torso.mdl"
-
-$bodygroup "studio"
-{
-	studio "soldier_elite_torso_reference.smd"
-}
-
+$body studio "soldier_elite_torso_reference.smd"
 
 $surfaceprop "flesh"
-
 $contents "solid"
 
 $illumposition -7.093 -1.964 7.809
@@ -34,21 +28,7 @@ $definebone "ValveBiped.Bip01_R_Finger0" "ValveBiped.Bip01_R_Hand" 0.806017 -0.3
 $definebone "ValveBiped.Bip01_R_Finger01" "ValveBiped.Bip01_R_Finger0" 1.789782 -0.000002 0.000004 -0.361025 13.095237 0.000007 0 0 0 0 0 0
 $definebone "ValveBiped.Bip01_R_Finger02" "ValveBiped.Bip01_R_Finger01" 1.207001 0 0.000002 -0.551078 20.792928 0.000005 0 0 0 0 0 0
 
-
-$sequence "idle" {
-	"soldier_elite_torso_anims\idle.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
-
-$sequence "ragdoll" {
-	"soldier_elite_torso_anims\ragdoll.smd"
-	activity "ACT_DIERAGDOLL" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
+$sequence ragdoll "soldier_elite_torso_anims\ragdoll.smd" ACT_DIERAGDOLL 1
 
 $collisionjoints "soldier_elite_torso_physics.smd"
 {

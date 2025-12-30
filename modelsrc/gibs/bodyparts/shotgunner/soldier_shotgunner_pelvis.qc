@@ -1,15 +1,9 @@
 // Created by Crowbar 0.72
 
 $modelname "gibs/soldier_shotgunner_pelvis.mdl"
-
-$bodygroup "studio"
-{
-	studio "soldier_shotgunner_pelvis_soldier_pelvis_reference.smd"
-}
-
+$body studio "soldier_shotgunner_pelvis_soldier_pelvis_reference.smd"
 
 $surfaceprop "flesh"
-
 $contents "solid"
 
 $illumposition 0.046 0.927 9.454
@@ -25,21 +19,7 @@ $definebone "ValveBiped.Bip01_Pelvis" "" -0.000005 -0.533615 38.566917 0 0 89.99
 $definebone "ValveBiped.Bip01_L_Thigh" "ValveBiped.Bip01_Pelvis" 3.890452 -0.000004 -0.000003 2.970156 -89.700792 -89.999982 0 0 0 0 0 0
 $definebone "ValveBiped.Bip01_R_Thigh" "ValveBiped.Bip01_Pelvis" -3.890452 0.000004 0.000007 2.9705 -90.299349 -89.999982 0 0 0 0 0 0
 
-
-$sequence "idle" {
-	"soldier_shotgunner_pelvis_anims\idle.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
-
-$sequence "ragdoll" {
-	"soldier_shotgunner_pelvis_anims\ragdoll.smd"
-	activity "ACT_DIERAGDOLL" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
+$sequence ragdoll "soldier_shotgunner_pelvis_anims\ragdoll.smd" ACT_DIERAGDOLL 1
 
 $collisionjoints "soldier_shotgunner_pelvis_physics.smd"
 {

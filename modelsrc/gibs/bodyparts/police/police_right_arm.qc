@@ -1,15 +1,9 @@
 // Created by Crowbar 0.72
 
 $modelname "gibs/police_right_arm.mdl"
-
-$bodygroup "studio"
-{
-	studio "police_right_arm_reference.smd"
-}
-
+$body studio "police_right_arm_reference.smd"
 
 $surfaceprop "flesh"
-
 $contents "solid"
 
 $illumposition -16.479 1.854 13.838
@@ -41,21 +35,7 @@ $definebone "ValveBiped.Bip01_R_Finger0" "ValveBiped.Bip01_R_Hand" 0.806017 -0.3
 $definebone "ValveBiped.Bip01_R_Finger01" "ValveBiped.Bip01_R_Finger0" 1.789785 -0.000003 0 -0.361017 13.095236 0 0 0 0 0 0 0
 $definebone "ValveBiped.Bip01_R_Finger02" "ValveBiped.Bip01_R_Finger01" 1.207001 0 0 -0.551068 20.792925 0.000002 0 0 0 0 0 0
 
-
-$sequence "idle" {
-	"police_right_arm_anims\idle.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
-
-$sequence "ragdoll" {
-	"police_right_arm_anims\ragdoll.smd"
-	activity "ACT_DIERAGDOLL" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
+$sequence ragdoll "police_right_arm_anims\ragdoll.smd" ACT_DIERAGDOLL 1
 
 $collisionjoints "police_right_arm_physics.smd"
 {

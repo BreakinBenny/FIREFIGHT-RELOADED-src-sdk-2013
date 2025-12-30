@@ -1,15 +1,9 @@
 // Created by Crowbar 0.72
 
 $modelname "gibs/soldier_ace_left_arm.mdl"
-
-$bodygroup "studio"
-{
-	studio "soldier_ace_left_arm_reference.smd"
-}
-
+$body studio "soldier_ace_left_arm_reference.smd"
 
 $surfaceprop "flesh"
-
 $contents "solid"
 
 $illumposition 15.9 1.521 5.362
@@ -34,21 +28,7 @@ $definebone "ValveBiped.Bip01_L_Finger0" "ValveBiped.Bip01_L_Hand" 0.806047 -0.3
 $definebone "ValveBiped.Bip01_L_Finger01" "ValveBiped.Bip01_L_Finger0" 1.78978 0.000001 0.000004 0.423181 13.093407 0.000005 0 0 0 0 0 0
 $definebone "ValveBiped.Bip01_L_Finger02" "ValveBiped.Bip01_L_Finger01" 1.206991 0 0.000008 0.645485 20.79035 0.000003 0 0 0 0 0 0
 
-
-$sequence "idle" {
-	"soldier_ace_left_arm_anims\idle.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
-
-$sequence "ragdoll" {
-	"soldier_ace_left_arm_anims\ragdoll.smd"
-	activity "ACT_DIERAGDOLL" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
+$sequence ragdoll "soldier_ace_left_arm_anims\ragdoll.smd" ACT_DIERAGDOLL 1
 
 $collisionjoints "soldier_ace_left_arm_physics.smd"
 {
@@ -57,7 +37,6 @@ $collisionjoints "soldier_ace_left_arm_physics.smd"
 	$damping 0.2
 	$rotdamping 0.2
 	$rootbone "ValveBiped.Bip01_L_UpperArm"
-
 
 	$jointmassbias "ValveBiped.Bip01_L_Forearm" 2
 	$jointconstrain "ValveBiped.Bip01_L_Forearm" x limit 0 0 0
