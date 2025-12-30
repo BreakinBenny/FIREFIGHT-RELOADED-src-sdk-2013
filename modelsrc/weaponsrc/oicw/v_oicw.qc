@@ -1,18 +1,13 @@
 // Created by Crowbar 0.72
 
 $modelname "weapons/v_oicw_remake.mdl"
-
-$bodygroup "studio"
-{
-	studio "v_ociw_remake_ref.smd"
-}
+$body studio "v_ociw_remake_ref.smd"
 $bodygroup "Hands"
 {
 	studio "c_arms_hev.smd"
 }
 
 $surfaceprop "default"
-
 $contents "solid"
 
 $illumposition -3.153 -21.059 -7.793
@@ -67,69 +62,33 @@ $bonemerge "ValveBiped.Bip01_R_Finger0"
 $bonemerge "ValveBiped.Bip01_R_Finger01"
 $bonemerge "ValveBiped.Bip01_R_Finger02"
 
-$sequence "idle" {
-	"v_anims\idle.smd"
-	activity "ACT_VM_IDLE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-	loop
-}
+$sequence idle "v_anims\idle.smd" ACT_VM_IDLE 1 loop
 
-$sequence "reload" {
-	"v_anims\reload.smd"
-	activity "ACT_VM_RELOAD" 1
+$sequence reload "v_anims\reload.smd" ACT_VM_RELOAD 1 fps 37 {
 	{ event 5004 10 "Weapon_MP5.Clipout" }
 	{ event 5004 40 "Weapon_MP5.Clipin" }
 	{ event 5004 76 "Weapon_MP5.Slideback" }
-	fadein 0.2
-	fadeout 0.2
-	fps 37
 }
 
-$sequence "draw" {
-	"v_anims\draw.smd"
-	activity "ACT_VM_DRAW" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 37
-}
+$sequence draw "v_anims\draw.smd" ACT_VM_DRAW 1 fps 37
 
-$sequence "shoot1" {
-	"v_anims\shoot1.smd"
-	activity "ACT_VM_PRIMARYATTACK" 1
+$sequence shoot1 "v_anims\shoot1.smd" ACT_VM_PRIMARYATTACK 1 snap fps 35 {
 	{ event 6001 0 "0" }
 	{ event AE_MUZZLEFLASH 0 "SMG1 MUZZLE" }
-    { event AE_MUZZLEFLASH 0 "357 MUZZLE" }
-    { event AE_MUZZLEFLASH 0 "SHOTGUN MUZZLE" }
-	fadein 0.2
-	fadeout 0.2
-	snap
-	fps 35
+	{ event AE_MUZZLEFLASH 0 "357 MUZZLE" }
+	{ event AE_MUZZLEFLASH 0 "SHOTGUN MUZZLE" }
 }
 
-$sequence "shoot2" {
-	"v_anims\shoot2.smd"
-	activity "ACT_VM_RECOIL1" 1
+$sequence shoot2 "v_anims\shoot2.smd" ACT_VM_RECOIL1 1 snap fps 35 {
 	{ event 6001 0 "0" }
 	{ event AE_MUZZLEFLASH 0 "SMG1 MUZZLE" }
-    { event AE_MUZZLEFLASH 0 "357 MUZZLE" }
-    { event AE_MUZZLEFLASH 0 "SHOTGUN MUZZLE" }
-	fadein 0.2
-	fadeout 0.2
-	snap
-	fps 35
+	{ event AE_MUZZLEFLASH 0 "357 MUZZLE" }
+	{ event AE_MUZZLEFLASH 0 "SHOTGUN MUZZLE" }
 }
 
-$sequence "shoot3" {
-	"v_anims\shoot3.smd"
-	activity "ACT_VM_RECOIL2" 1
+$sequence shoot3 "v_anims\shoot3.smd" ACT_VM_RECOIL2 1 snap fps 35 {
 	{ event 6001 0 "0" }
 	{ event AE_MUZZLEFLASH 0 "SMG1 MUZZLE" }
-    { event AE_MUZZLEFLASH 0 "357 MUZZLE" }
-    { event AE_MUZZLEFLASH 0 "SHOTGUN MUZZLE" }
-	fadein 0.2
-	fadeout 0.2
-	snap
-	fps 35
+	{ event AE_MUZZLEFLASH 0 "357 MUZZLE" }
+	{ event AE_MUZZLEFLASH 0 "SHOTGUN MUZZLE" }
 }

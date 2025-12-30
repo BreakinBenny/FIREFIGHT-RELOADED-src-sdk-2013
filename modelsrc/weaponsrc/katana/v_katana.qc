@@ -1,19 +1,10 @@
 // Created by Crowbar 0.72
 
 $modelname "Weapons/v_katana.mdl"
-
-$bodygroup "studio"
-{
-	studio "v_katana_v_fblade_v_f_blade_hand.smd"
-}
-$bodygroup "katana"
-{
-	studio "v_katana_v_fblade_v_f_blade_katana.smd"
-}
-
+$body studio "v_katana_v_fblade_v_f_blade_hand.smd"
+$body studio "v_katana_v_fblade_v_f_blade_katana.smd"
 
 $surfaceprop "default"
-
 $contents "solid"
 
 $illumposition -17.883 33.268 -17.386
@@ -25,7 +16,7 @@ $cdmaterials "models\Weapons\F_BLADE\"
 
 $texturegroup "skinfamilies"
 {
-	{ "fire_blade_1024_256"          }
+	{ "fire_blade_1024_256"           }
 	{ "fire_blade_1024_256_bloodied" }
 	{ "fire_blade_1024_256_bloodied_alien" }
 }
@@ -107,79 +98,15 @@ $bonemerge "ValveBiped.SparkL_1"
 $bonemerge "ValveBiped.SparkR_1"
 
 
-$sequence "idle01" {
-	"v_katana_anims\idle01.smd"
-	activity "ACT_VM_IDLE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-	loop
-}
+$sequence idle01 "v_katana_anims\idle01.smd" ACT_VM_IDLE 1 loop
+$sequence draw "v_katana_anims\draw.smd" ACT_VM_DRAW 1 snap fps 45 {{ event 5004 1 "Katana.Equip" }}
 
-$sequence "draw" {
-	"v_katana_anims\draw.smd"
-	activity "ACT_VM_DRAW" 1
-	{ event 5004 1 "Katana.Equip" }
-	fadein 0.2
-	fadeout 0.2
-	snap
-	fps 45
-}
+$sequence misscenter1 "v_katana_anims\misscenter1.smd" ACT_VM_MISSCENTER 1 snap fps 60 loop
+$sequence misscenter2 "v_katana_anims\misscenter2.smd" ACT_VM_MISSCENTER2 1 snap fps 60 loop
 
-$sequence "misscenter1" {
-	"v_katana_anims\misscenter1.smd"
-	activity "ACT_VM_MISSCENTER" 1
-	fadein 0.2
-	fadeout 0.2
-	snap
-	fps 60
-	loop
-}
+$sequence hitcenter1 "v_katana_anims\hitcenter1.smd" ACT_VM_HITCENTER 1 snap fps 60 loop
+$sequence hitcenter2 "v_katana_anims\hitcenter2.smd" ACT_VM_HITCENTER2 1 snap fps 60 loop
 
-$sequence "misscenter2" {
-	"v_katana_anims\misscenter2.smd"
-	activity "ACT_VM_MISSCENTER2" 1
-	fadein 0.2
-	fadeout 0.2
-	snap
-	fps 60
-	loop
-}
+$sequence hitkill1 "v_katana_anims\hitkill1.smd" ACT_VM_HITKILL 1 snap fps 60 loop
 
-$sequence "hitcenter1" {
-	"v_katana_anims\hitcenter1.smd"
-	activity "ACT_VM_HITCENTER" 1
-	fadein 0.2
-	fadeout 0.2
-	snap
-	fps 60
-	loop
-}
-
-$sequence "hitcenter2" {
-	"v_katana_anims\hitcenter2.smd"
-	activity "ACT_VM_HITCENTER2" 1
-	fadein 0.2
-	fadeout 0.2
-	snap
-	fps 60
-	loop
-}
-
-$sequence "hitkill1" {
-	"v_katana_anims\hitkill1.smd"
-	activity "ACT_VM_HITKILL" 1
-	fadein 0.2
-	fadeout 0.2
-	snap
-	fps 60
-	loop
-}
-
-$sequence "holster" {
-	"v_katana_anims\holster.smd"
-	activity "ACT_VM_HOLSTER" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
+$sequence holster "v_katana_anims\holster.smd" ACT_VM_HOLSTER 1

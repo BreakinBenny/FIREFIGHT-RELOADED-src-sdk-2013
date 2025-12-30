@@ -1,14 +1,9 @@
 // Created by Crowbar 0.72
 
 $modelname "weapons/w_oicw_remake.mdl"
-
-$bodygroup "studio"
-{
-	studio "w_ociw_remake_ref.smd"
-}
+$body studio "w_ociw_remake_ref.smd"
 
 $surfaceprop "weapon"
-
 $contents "solid"
 
 $illumposition 3.659 0.207 0.766
@@ -31,25 +26,12 @@ $definebone "ValveBiped.Weapon_bone" "ValveBiped.Bip01_R_Hand" 5 -1.5 -5.000001 
 $definebone "ValveBiped.w_shotgun" "ValveBiped.Weapon_bone" 4.107145 1.396073 -0.366386 2.167786 88.95456 -77.075714 0 0 0 0 0 0
 $definebone "ValveBiped.muzzle" "ValveBiped.Weapon_bone" 28.579779 0.623145 -5.976273 12.956009 -0.38921 -91.965868 0 0 0 0 0 0
 
+$sequence idle1 "w_anims\idle1.smd" ACT_VM_IDLE 1 loop
 
-$sequence "idle1" {
-	"w_anims\idle1.smd"
-	activity "ACT_VM_IDLE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-	loop
-}
-
-$sequence "fire" {
-	"w_anims\fire.smd"
-	activity "ACT_RANGE_ATTACK_AR2" 1
+$sequence fire "w_anims\fire.smd" ACT_RANGE_ATTACK_AR2 1 {
 	{ event AE_NPC_MUZZLEFLASH 0 "SMG1 MUZZLE" }
 	{ event 3007 0 "1" }
 	{ event 6001 0 "1" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 }
 
 $collisionmodel "w_ociw_remake_ref.smd"

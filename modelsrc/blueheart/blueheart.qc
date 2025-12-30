@@ -1,11 +1,7 @@
 // Created by Crowbar 0.57
 
 $modelname "blueheart.mdl"
-
-$bodygroup "axebane"
-{
-	studio "heart.smd"
-}
+$body axebane "heart.smd"
 
 $texturegroup "astro"
 {
@@ -14,20 +10,11 @@ $texturegroup "astro"
 }
 
 $surfaceprop "plastic"
-
 $contents "solid"
-
 $mostlyopaque
-
 $cdmaterials "models\blueheart\"
 
-$sequence "idle" {
-	"heart.smd"
-	activity "ACT_IDLE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
+$sequence idle "heart.smd" ACT_IDLE 1
 
 $collisionmodel "heart.smd"
 {
