@@ -1,15 +1,9 @@
 // Created by Crowbar 0.72
 
 $modelname "gibs/police_pelvis.mdl"
-
-$bodygroup "studio"
-{
-	studio "police_pelvis_reference.smd"
-}
-
+$body studio "police_pelvis_reference.smd"
 
 $surfaceprop "flesh"
-
 $contents "solid"
 
 $illumposition -0.002 0.635 11.473
@@ -28,21 +22,7 @@ $definebone "ValveBiped.Bip01_R_Calf" "ValveBiped.Bip01_R_Thigh" 17.848166 0 0 0
 $definebone "ValveBiped.Bip01_L_Thigh" "ValveBiped.Bip01_Pelvis" 3.890452 -0.000004 -0.000003 2.970156 -89.700792 -89.999982 0 0 0 0 0 0
 $definebone "ValveBiped.Bip01_L_Calf" "ValveBiped.Bip01_L_Thigh" 17.848167 0 0 0 1.959516 0 0 0 0 0 0 0
 
-
-$sequence "idle" {
-	"police_pelvis_anims\idle.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
-
-$sequence "ragdoll" {
-	"police_pelvis_anims\ragdoll.smd"
-	activity "ACT_DIERAGDOLL" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
+$sequence ragdoll "police_pelvis_anims\ragdoll.smd" ACT_DIERAGDOLL 1
 
 $collisionjoints "police_pelvis_physics.smd"
 {

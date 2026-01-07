@@ -1,31 +1,13 @@
 // Created by Crowbar 0.72
 
 $modelname "weapons/v_gauss.mdl"
-
-$bodygroup "gun"
-{
-	studio "tau_reference.smd"
-}
-
-
-$surfaceprop "default"
-
-$contents "solid"
+$body gun "tau_reference.smd"
 
 $illumposition 11.584 -6.561 -11.853
 
 $cdmaterials "models\buggy\"
 
-$attachment "muzzle" "GaussMesh" -1.5 -17 0 rotate 0 0 0
-
-$cbox 0 0 0 0 0 0
-
-$bbox -3.727 -13.124 -23.602 26.898 0.001 -0.103
-
-$hboxset "default"
-$hbox 0 "Bip01 R Hand" 0 0 0 1.135289 1.147308 4.113231
-$hbox 0 "GaussMesh" -4.08 -15.46 -3.8 4.08 4.09 6.18
-$hbox 0 "Object02" -2.48 -1.13 -1.71 2.48 1.14 2.6
+$attachment muzzle "GaussMesh" -1.5 -17 0 rotate 0 0 0
 
 $definebone "Bip01" "" 0 3.72426 39.395706 0 -89.999927 0 0 0 0 0 0 0
 $definebone "Bip01 Pelvis" "Bip01" 0 0 0 -89.999982 -89.998206 0 0 0 0 0 0 0
@@ -44,69 +26,17 @@ $definebone "Bone02" "Spinner" -5 -0.000003 0.000002 0.000001 -0.000001 -0.00000
 $definebone "Object02" "Bone02" 3.113566 0 0.001083 89.999982 89.999982 0 0 0 0 0 0 0
 
 
-$sequence "idle" {
-	"v_gauss_anims\idle.smd"
-	activity "ACT_VM_IDLE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 15
-	loop
-}
+$sequence idle "v_gauss_anims\idle.smd" ACT_VM_IDLE 1 fps 15 loop
 
-$sequence "idle2" {
-	"v_gauss_anims\idle2.smd"
-	activity "ACT_VM_IDLE" 2
-	fadein 0.2
-	fadeout 0.2
-	fps 15
-	loop
-}
+$sequence idle2 "v_gauss_anims\idle2.smd" ACT_VM_IDLE 2 fps 15 loop
 
-$sequence "fidget" {
-	"v_gauss_anims\fidget.smd"
-	activity "ACT_VM_IDLE" 3
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
+$sequence fidget "v_gauss_anims\fidget.smd" ACT_VM_IDLE 3
 
-$sequence "spin" {
-	"v_gauss_anims\spin.smd"
-	activity ACT_VM_PULLBACK 1
-	fadein 0.2
-	fadeout 0.2
-	fps 60
-	loop
-}
+$sequence spin "v_gauss_anims\spin.smd" ACT_VM_PULLBACK 1 fps 60 loop
 
-$sequence "fire" {
-	"v_gauss_anims\fire.smd"
-	activity "ACT_VM_PRIMARYATTACK" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
+$sequence fire "v_gauss_anims\fire.smd" ACT_VM_PRIMARYATTACK 1
+$sequence fire2 "v_gauss_anims\fire2.smd" ACT_VM_SECONDARYATTACK 1
 
-$sequence "fire2" {
-	"v_gauss_anims\fire2.smd"
-	activity "ACT_VM_SECONDARYATTACK" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
-}
+$sequence holster "v_gauss_anims\holster.smd" ACT_VM_HOLSTER 1 fps 45
 
-$sequence "holster" {
-	"v_gauss_anims\holster.smd"
-	activity "ACT_VM_HOLSTER" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 45
-}
-
-$sequence "draw" {
-	"v_gauss_anims\draw.smd"
-	activity "ACT_VM_DRAW" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 60
-}
+$sequence draw "v_gauss_anims\draw.smd" ACT_VM_DRAW 1 fps 60

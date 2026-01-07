@@ -1,11 +1,7 @@
 // Created by Crowbar 0.72
 
 $modelname "Zombie/Classic.mdl"
-
-$bodygroup "studio"
-{
-	studio "Zombie_reference.smd"
-}
+$body studio "Zombie_reference.smd"
 $bodygroup "headcrab1"
 {
 	blank
@@ -242,7 +238,6 @@ $shadowlod
 }
 
 $surfaceprop "zombieflesh"
-
 $contents "solid"
 
 $illumposition -2.887 -4.81 33.483
@@ -631,9 +626,6 @@ $animation "a_WalkSW" "classic_anims\a_WalkSW.smd" {
 $sequence "Idle01" {
 	"classic_anims\Idle01.smd"
 	activity "ACT_IDLE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "lfoot" footstep contact 0 fakeorigin -0.45 7.1 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 53 53 target 3
 	ikrule "rfoot" footstep contact 0 fakeorigin 1.83 -10.44 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 53 53 target 2
@@ -660,8 +652,6 @@ $sequence "walk" {
 	{ event AE_ZOMBIE_STEP_LEFT 28 "" }
 	{ event AE_ZOMBIE_STEP_RIGHT 38 "" }
 	{ event AE_ZOMBIE_SCUFF_LEFT 40 "" }
-	fadein 0.2
-	fadeout 0.2
 }
 
 $sequence "walk2" {
@@ -683,8 +673,6 @@ $sequence "walk2" {
 	{ event AE_ZOMBIE_STEP_LEFT 31 "" }
 	{ event AE_ZOMBIE_SCUFF_RIGHT 34 "" }
 	{ event AE_ZOMBIE_STEP_RIGHT 44 "" }
-	fadein 0.2
-	fadeout 0.2
 }
 
 $sequence "walk3" {
@@ -706,8 +694,6 @@ $sequence "walk3" {
 	{ event AE_ZOMBIE_STEP_LEFT 32 "" }
 	{ event AE_ZOMBIE_STEP_RIGHT 40 "" }
 	{ event AE_ZOMBIE_SCUFF_LEFT 44 "" }
-	fadein 0.2
-	fadeout 0.2
 }
 
 $sequence "walk4" {
@@ -721,16 +707,11 @@ $sequence "walk4" {
 	{ event AE_ZOMBIE_STEP_RIGHT 49 "" }
 	{ event AE_ZOMBIE_STEP_LEFT 58 "" }
 	{ event AE_ZOMBIE_STEP_RIGHT 67 "" }
-	fadein 0.2
-	fadeout 0.2
 }
 
 $sequence "FireWalk" {
 	"classic_anims\FireWalk.smd"
 	activity "ACT_WALK_ON_FIRE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "lfoot" footstep contact 2 fakeorigin 6.31 8.8 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 25 2 18 25 target 3 usesequence 
 	ikrule "rfoot" footstep contact 17 fakeorigin 5.16 -6.5 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 10 17 4 10 target 2 usesequence 
@@ -742,9 +723,6 @@ $sequence "FireWalk" {
 $sequence "FireIdle" {
 	"classic_anims\FireIdle.smd"
 	activity "ACT_IDLE_ON_FIRE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "lfoot" footstep contact 0 fakeorigin -0.71 0.77 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 30 30 target 3
 	ikrule "rfoot" footstep contact 0 fakeorigin 1.56 -16.77 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 30 30 target 2
@@ -757,9 +735,6 @@ $sequence "attackA" {
 	activity "ACT_MELEE_ATTACK1" 2
 	{ event AE_ZOMBIE_ATTACK_SCREAM 5 "" }
 	{ event AE_ZOMBIE_ATTACK_RIGHT 25 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" footstep contact 0 fakeorigin -0.45 6.89 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 0 0 22 34 target 3 usesequence 
 	ikrule "lfoot" footstep contact 46 fakeorigin 0.26 5.74 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 34 46 56 56 target 3 usesequence 
 	ikrule "rfoot" footstep contact 0 fakeorigin 1.83 -10.64 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 0 0 22 29 target 2 usesequence 
@@ -774,9 +749,6 @@ $sequence "attackB" {
 	activity "ACT_MELEE_ATTACK1" 2
 	{ event AE_ZOMBIE_ATTACK_SCREAM 5 "" }
 	{ event AE_ZOMBIE_ATTACK_RIGHT 25 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" footstep contact 0 fakeorigin -0.45 6.89 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 56 56 target 3
 	ikrule "rfoot" footstep contact 0 fakeorigin 1.83 -10.64 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 56 56 target 2
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 56 56 target 0
@@ -788,9 +760,6 @@ $sequence "attackC" {
 	activity "ACT_MELEE_ATTACK1" 2
 	{ event AE_ZOMBIE_ATTACK_SCREAM 5 "" }
 	{ event AE_ZOMBIE_ATTACK_LEFT 25 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" footstep contact 0 fakeorigin -0.92 6.83 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 0 0 22 28 target 3 usesequence 
 	ikrule "lfoot" footstep contact 34 fakeorigin 3.47 7.06 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 28 34 56 56 target 3 usesequence 
 	ikrule "rfoot" footstep contact 0 fakeorigin 1.72 -11.24 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 0 0 22 34 target 2 usesequence 
@@ -805,9 +774,6 @@ $sequence "attackD" {
 	activity "ACT_MELEE_ATTACK1" 2
 	{ event AE_ZOMBIE_ATTACK_SCREAM 5 "" }
 	{ event AE_ZOMBIE_ATTACK_LEFT 25 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" footstep contact 0 fakeorigin -0.5 6.83 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 56 56 target 3
 	ikrule "rfoot" footstep contact 0 fakeorigin 1.84 -10.74 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 56 56 target 2
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 56 56 target 0
@@ -819,9 +785,6 @@ $sequence "attackE" {
 	activity "ACT_MELEE_ATTACK1" 2
 	{ event AE_ZOMBIE_ATTACK_SCREAM 5 "" }
 	{ event AE_ZOMBIE_ATTACK_BOTH 25 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" footstep contact 0 fakeorigin -0.5 6.83 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 0 0 41 41 target 3
 	ikrule "rfoot" footstep contact 0 fakeorigin 1.84 -10.74 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 0 0 6 15 target 2
 	ikrule "rfoot" footstep contact 23 fakeorigin 13.99 -14.48 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 15 23 32 35 target 2
@@ -835,9 +798,6 @@ $sequence "attackF" {
 	activity "ACT_MELEE_ATTACK1" 2
 	{ event AE_ZOMBIE_ATTACK_SCREAM 5 "" }
 	{ event AE_ZOMBIE_ATTACK_BOTH 25 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" footstep contact 0 fakeorigin -0.77 6.81 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 41 41 target 3
 	ikrule "rfoot" footstep contact 0 fakeorigin 1.98 -10.7 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 41 41 target 2
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 41 41 target 0
@@ -849,9 +809,6 @@ $sequence "swatleftmid" {
 	activity "ACT_ZOM_SWATLEFTMID" 1
 	{ event AE_ZOMBIE_STARTSWAT 1 "" }
 	{ event AE_ZOMBIE_SWATITEM 9 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" footstep contact 0 fakeorigin -0.5 6.83 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 36 36 target 3
 	ikrule "rfoot" footstep contact 0 fakeorigin 1.84 -10.74 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 36 36 target 2
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 36 36 target 0
@@ -863,9 +820,6 @@ $sequence "swatrightmid" {
 	activity "ACT_ZOM_SWATRIGHTMID" 1
 	{ event AE_ZOMBIE_STARTSWAT 1 "" }
 	{ event AE_ZOMBIE_SWATITEM 9 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" footstep contact 0 fakeorigin -0.45 6.89 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 36 36 target 3
 	ikrule "rfoot" footstep contact 0 fakeorigin 1.83 -10.64 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 36 36 target 2
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 36 36 target 0
@@ -877,9 +831,6 @@ $sequence "swatleftlow" {
 	activity "ACT_ZOM_SWATLEFTLOW" 1
 	{ event AE_ZOMBIE_STARTSWAT 1 "" }
 	{ event AE_ZOMBIE_SWATITEM 15 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" footstep contact 0 fakeorigin -0.92 6.83 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 0 0 17 22 target 3 usesequence 
 	ikrule "lfoot" footstep contact 26 fakeorigin 2.29 5.37 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 22 26 45 45 target 3 usesequence 
 	ikrule "rfoot" footstep contact 0 fakeorigin 1.72 -11.24 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 0 0 17 28 target 2 usesequence 
@@ -894,9 +845,6 @@ $sequence "swatrightlow" {
 	activity "ACT_ZOM_SWATRIGHTLOW" 1
 	{ event AE_ZOMBIE_STARTSWAT 1 "" }
 	{ event AE_ZOMBIE_SWATITEM 18 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" footstep contact 0 fakeorigin -0.45 6.89 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 0 0 15 27 target 3 usesequence 
 	ikrule "lfoot" footstep contact 38 fakeorigin 0.03 5.78 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 27 38 47 47 target 3 usesequence 
 	ikrule "rfoot" footstep contact 0 fakeorigin 1.83 -10.64 0 fakerotate 0 0 0 floor 0 height 18 radius 2.5 range 0 0 23 26 target 2 usesequence 
@@ -909,9 +857,6 @@ $sequence "swatrightlow" {
 $sequence "releasecrab" {
 	"classic_anims\releasecrab.smd"
 	activity "ACT_ZOM_RELEASECRAB" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" footstep contact 0 fakeorigin -0.45 6.89 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 30 30 target 3
 	ikrule "rfoot" footstep contact 0 fakeorigin 1.83 -10.64 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 30 30 target 2
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0
@@ -921,9 +866,6 @@ $sequence "releasecrab" {
 $sequence "physflinch1" {
 	"classic_anims\physflinch1.smd"
 	activity "ACT_FLINCH_PHYSICS" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" footstep contact 0 fakeorigin -0.29 6.81 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 18 18 target 3
 	ikrule "rfoot" footstep contact 0 fakeorigin 1.92 -10.39 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 18 18 target 2
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0
@@ -933,9 +875,6 @@ $sequence "physflinch1" {
 $sequence "physflinch2" {
 	"classic_anims\physflinch2.smd"
 	activity "ACT_FLINCH_PHYSICS" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" footstep contact 0 fakeorigin -0.45 7.1 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 20 20 target 3
 	ikrule "rfoot" footstep contact 0 fakeorigin 1.83 -10.44 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 20 20 target 2
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 20 20 target 0
@@ -945,9 +884,6 @@ $sequence "physflinch2" {
 $sequence "physflinch3" {
 	"classic_anims\physflinch3.smd"
 	activity "ACT_FLINCH_PHYSICS" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "lfoot" footstep contact 0 fakeorigin -0.45 7.1 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 20 20 target 3
 	ikrule "rfoot" footstep contact 0 fakeorigin 1.83 -10.44 0 fakerotate 0 0 0 floor 0 height 20 radius 2.5 range 0 0 20 20 target 2
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 20 20 target 0
@@ -960,9 +896,6 @@ $sequence "smashfall64" {
 	{ event AE_NPC_BODYDROP_HEAVY 27 "" }
 	{ event AE_NPC_BODYDROP_HEAVY 37 "" }
 	{ event AE_ZOMBIE_GET_UP 75 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 120 120 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 120 120 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 120 120 target 2
@@ -971,9 +904,6 @@ $sequence "smashfall64" {
 
 $sequence "slump_a" {
 	"classic_anims\slump_a.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 2 2 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 2 2 target 1
@@ -986,9 +916,6 @@ $sequence "slumprise_a" {
 	{ event AE_NPC_LEFTFOOT 15 "" }
 	{ event AE_NPC_RIGHTFOOT 50 "" }
 	{ event AE_ZOMBIE_GET_UP 80 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 127 127 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 127 127 target 1 usesequence 
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 127 127 target 2 usesequence 
@@ -1004,9 +931,6 @@ $sequence "slumprise_a_attack" {
 	{ event AE_ZOMBIE_GET_UP 80 "" }
 	{ event AE_ZOMBIE_ATTACK_SCREAM 16 "" }
 	{ event AE_ZOMBIE_ATTACK_RIGHT 36 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 127 127 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 127 127 target 1 usesequence 
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 127 127 target 2 usesequence 
@@ -1020,9 +944,6 @@ $sequence "slumprise_a2" {
 	{ event AE_NPC_RIGHTFOOT 16 "" }
 	{ event AE_NPC_RIGHTFOOT 22 "" }
 	{ event AE_ZOMBIE_GET_UP 24 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 68 68 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 68 68 target 1 usesequence 
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 68 68 target 2 usesequence 
@@ -1032,9 +953,6 @@ $sequence "slumprise_a2" {
 
 $sequence "slump_b" {
 	"classic_anims\slump_b.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 2 2 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 2 2 target 1
@@ -1047,9 +965,6 @@ $sequence "slumprise_b" {
 	{ event AE_NPC_LEFTFOOT 13 "" }
 	{ event AE_NPC_RIGHTFOOT 27 "" }
 	{ event AE_ZOMBIE_GET_UP 57 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 101 101 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 101 101 target 1 usesequence 
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 101 101 target 2 usesequence 
@@ -1059,9 +974,6 @@ $sequence "slumprise_b" {
 
 $sequence "Breakthrough" {
 	"classic_anims\Breakthrough.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 63 63 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 63 63 target 1 usesequence 
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 63 63 target 2 usesequence 
@@ -1071,9 +983,6 @@ $sequence "Breakthrough" {
 
 $sequence "canal5await" {
 	"classic_anims\canal5await.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -1082,10 +991,7 @@ $sequence "canal5await" {
 
 $sequence "canal5aattack" {
 	"classic_anims\canal5aattack.smd"
-	fadein 0.2
-	fadeout 0.2
 	snap
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 2
@@ -1097,19 +1003,13 @@ $sequence "flinch1inDelta" {
 	delta
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "@flinch1inDelta_corrective_animation" 0
-	fadein 0.2
-	fadeout 0.2
 	hidden
-	fps 30
 	weightlist "weights_flinch1inDelta"
 }
 
 $sequence "flinch1inFrame" {
 	"classic_anims\flinch1inFrame.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
-	fps 30
 	weightlist "weights_flinch1inDelta"
 }
 
@@ -1118,19 +1018,13 @@ $sequence "flinch1CoreDelta" {
 	delta
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "@flinch1CoreDelta_corrective_animation" 0
-	fadein 0.2
-	fadeout 0.2
 	hidden
-	fps 30
 	weightlist "weights_flinch1inDelta"
 }
 
 $sequence "flinch1OutFrame" {
 	"classic_anims\flinch1OutFrame.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
-	fps 30
 	weightlist "weights_flinch1inDelta"
 }
 
@@ -1139,18 +1033,13 @@ $sequence "flinch1outDelta" {
 	delta
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "@flinch1outDelta_corrective_animation" 0
-	fadein 0.2
-	fadeout 0.2
 	hidden
-	fps 30
 	weightlist "weights_flinch1inDelta"
 }
 
 $sequence "flinch1" {
 	"classic_anims\flinch1.smd"
 	activity "ACT_GESTURE_FLINCH_HEAD" 1
-	fadein 0.2
-	fadeout 0.2
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
 	blendlayer "flinch1inFrame" 0 8 8 12 xfade spline
@@ -1158,7 +1047,6 @@ $sequence "flinch1" {
 	blendlayer "flinch1inDelta" 0 0 8 8
 	blendlayer "flinch1CoreDelta" 8 8 12 12
 	blendlayer "flinch1outDelta" 12 12 18 18
-	fps 30
 	weightlist "weights_flinch1"
 }
 
@@ -1167,19 +1055,13 @@ $sequence "flinch2inDelta" {
 	delta
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "@flinch2inDelta_corrective_animation" 0
-	fadein 0.2
-	fadeout 0.2
 	hidden
-	fps 30
 	weightlist "weights_flinch1inDelta"
 }
 
 $sequence "flinch2inFrame" {
 	"classic_anims\flinch2inFrame.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
-	fps 30
 	weightlist "weights_flinch1inDelta"
 }
 
@@ -1188,19 +1070,13 @@ $sequence "flinch2CoreDelta" {
 	delta
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "@flinch2CoreDelta_corrective_animation" 0
-	fadein 0.2
-	fadeout 0.2
 	hidden
-	fps 30
 	weightlist "weights_flinch1inDelta"
 }
 
 $sequence "flinch2OutFrame" {
 	"classic_anims\flinch2OutFrame.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
-	fps 30
 	weightlist "weights_flinch1inDelta"
 }
 
@@ -1209,18 +1085,13 @@ $sequence "flinch2outDelta" {
 	delta
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "@flinch2outDelta_corrective_animation" 0
-	fadein 0.2
-	fadeout 0.2
 	hidden
-	fps 30
 	weightlist "weights_flinch1inDelta"
 }
 
 $sequence "flinch2" {
 	"classic_anims\flinch2.smd"
 	activity "ACT_GESTURE_FLINCH_HEAD" 1
-	fadein 0.2
-	fadeout 0.2
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
 	blendlayer "flinch2inFrame" 0 7 7 12 xfade spline
@@ -1228,7 +1099,6 @@ $sequence "flinch2" {
 	blendlayer "flinch2inDelta" 0 0 7 7
 	blendlayer "flinch2CoreDelta" 7 7 12 12
 	blendlayer "flinch2outDelta" 12 12 20 20
-	fps 30
 	weightlist "weights_flinch1"
 }
 
@@ -1237,19 +1107,13 @@ $sequence "flinch3inDelta" {
 	delta
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "@flinch3inDelta_corrective_animation" 0
-	fadein 0.2
-	fadeout 0.2
 	hidden
-	fps 30
 	weightlist "weights_flinch1inDelta"
 }
 
 $sequence "flinch3inFrame" {
 	"classic_anims\flinch3inFrame.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
-	fps 30
 	weightlist "weights_flinch1inDelta"
 }
 
@@ -1258,19 +1122,13 @@ $sequence "flinch3CoreDelta" {
 	delta
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "@flinch3CoreDelta_corrective_animation" 0
-	fadein 0.2
-	fadeout 0.2
 	hidden
-	fps 30
 	weightlist "weights_flinch1inDelta"
 }
 
 $sequence "flinch3OutFrame" {
 	"classic_anims\flinch3OutFrame.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
-	fps 30
 	weightlist "weights_flinch1inDelta"
 }
 
@@ -1279,18 +1137,13 @@ $sequence "flinch3outDelta" {
 	delta
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "@flinch3outDelta_corrective_animation" 0
-	fadein 0.2
-	fadeout 0.2
 	hidden
-	fps 30
 	weightlist "weights_flinch1inDelta"
 }
 
 $sequence "flinch3" {
 	"classic_anims\flinch3.smd"
 	activity "ACT_GESTURE_FLINCH_HEAD" 1
-	fadein 0.2
-	fadeout 0.2
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
 	blendlayer "flinch3inFrame" 0 10 10 12 xfade spline
@@ -1298,16 +1151,12 @@ $sequence "flinch3" {
 	blendlayer "flinch3inDelta" 0 0 10 10
 	blendlayer "flinch3CoreDelta" 10 10 12 12
 	blendlayer "flinch3outDelta" 12 12 20 20
-	fps 30
 	weightlist "weights_flinch1"
 }
 
 $sequence "Tantrum" {
 	"classic_anims\Tantrum.smd"
 	activity "ACT_ZOMBIE_TANTRUM" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 36 36 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 36 36 target 1
@@ -1320,9 +1169,6 @@ $sequence "WallPound" {
 	activity "ACT_ZOMBIE_WALLPOUND" 1
 	{ event AE_ZOMBIE_POUND 14 "" }
 	{ event AE_ZOMBIE_POUND 35 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 53 53 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 53 53 target 1
@@ -1333,9 +1179,6 @@ $sequence "WallPound" {
 $sequence "ragdoll" {
 	"classic_anims\ragdoll.smd"
 	activity "ACT_DIERAGDOLL" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 1 1 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 1 1 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 1 1 target 2

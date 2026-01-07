@@ -1,20 +1,11 @@
 // Created by Crowbar 0.72
 
 $modelname "weapons/v_railgun.mdl"
-
-$bodygroup "studio"
-{
-	studio "c_railgun_model.smd"
-}
+$body studio "c_railgun_model.smd"
 $bodygroup "Hands"
 {
 	studio "c_arms_hev.smd"
 }
-
-
-$surfaceprop "default"
-
-$contents "solid"
 
 $illumposition -4.919 -28.541 -16.577
 
@@ -26,10 +17,6 @@ $cdmaterials "models\weapons\v_crossbow\"
 
 $attachment "muzzle" "ValveBiped.Gun" -0.03 0.51 23.45 rotate -90 0 0
 $attachment "1" "ValveBiped.Gun" -0.95 1.14 -5.59 rotate 0 -180 180
-
-$cbox 0 0 0 0 0 0
-
-$bbox 5.199 -12.665 -29.433 51.883 2.828 -3.721
 
 $definebone "ValveBiped.Bip01_Spine4" "" 0.000006 0 0 -79.749938 -89.999873 -90.000098 0 0 0 0 0 0
 $definebone "ValveBiped.Bip01_L_Clavicle" "ValveBiped.Bip01_Spine4" 2.033349 1.000767 1.93766 -73.711859 168.619271 91.480542 0 0 0 0 0 0
@@ -121,138 +108,40 @@ $bonemerge "ValveBiped.Bip01_R_Finger02"
 
 $sectionframes 30 200
 
-$sequence "idle01" {
-	"v_railgun_anims\idle01.smd"
-	activity "ACT_VM_IDLE" 1
-	fadein 0.2
-	fadeout 0.2
-	node "0"
-	fps 30
-	loop
-}
+$sequence idle01 "v_railgun_anims\idle01.smd" ACT_VM_IDLE 1 node "0" loop
 
-$sequence "fire01" {
-	"v_railgun_anims\fire01.smd"
-	activity "ACT_VM_PRIMARYATTACK" 1
+$sequence fire01 "v_railgun_anims\fire01.smd" ACT_VM_PRIMARYATTACK 1 node "2" snap {
 	{ event AE_MUZZLEFLASH 0 "AR2 MUZZLE" }
-	fadein 0.2
-	fadeout 0.2
-	node "2"
-	snap
-	fps 30
 }
 
-$sequence "altfire" {
-	"v_railgun_anims\altfire.smd"
-	activity "ACT_VM_SECONDARYATTACK" 1
+$sequence altfire "v_railgun_anims\altfire.smd" ACT_VM_SECONDARYATTACK 1 node "2" snap {
 	{ event AE_MUZZLEFLASH 0 "AR2 MUZZLE" }
-	fadein 0.2
-	fadeout 0.2
-	node "2"
-	snap
-	fps 30
 }
 
-$sequence "draw" {
-	"v_railgun_anims\draw.smd"
-	activity "ACT_VM_DRAW" 1
-	fadein 0.2
-	fadeout 0.2
-	node "0"
-	snap
-	fps 30
-}
+$sequence draw "v_railgun_anims\draw.smd" ACT_VM_DRAW 1 node "0" snap
 
-$sequence "holster" {
-	"v_railgun_anims\holster.smd"
-	activity "ACT_VM_HOLSTER" 1
-	fadein 0.2
-	fadeout 0.2
-	node "0"
-	fps 30
-}
+$sequence holster "v_railgun_anims\holster.smd" ACT_VM_HOLSTER 1 node "0"
 
-$sequence "reload1" {
-	"v_railgun_anims\reload1.smd"
-	activity "ACT_SHOTGUN_RELOAD_START" 1
-	fadein 0.2
-	fadeout 0.2
-	node "0"
-	fps 30
-}
+$sequence reload1 "v_railgun_anims\reload1.smd" ACT_SHOTGUN_RELOAD_START 1 node "0"
 
-$sequence "reload2" {
-	"v_railgun_anims\reload2.smd"
-	activity "ACT_VM_RELOAD" 1
-	fadein 0.2
-	fadeout 0.2
-	node "0"
-	fps 30
-}
+$sequence reload2 "v_railgun_anims\reload2.smd" ACT_VM_RELOAD 1 node "0"
 
-$sequence "reload3" {
-	"v_railgun_anims\reload3.smd"
-	activity "ACT_SHOTGUN_RELOAD_FINISH" 1
-	fadein 0.2
-	fadeout 0.2
-	node "0"
-	fps 30
-}
+$sequence reload3 "v_railgun_anims\reload3.smd" ACT_SHOTGUN_RELOAD_FINISH 1 node "0"
 
-$sequence "pump" {
-	"v_railgun_anims\pump.smd"
-	activity "ACT_SHOTGUN_PUMP" 1
+$sequence pump "v_railgun_anims\pump.smd" ACT_SHOTGUN_PUMP 1 node "0" {
 	{ event 6001 5 "2" }
-	fadein 0.2
-	fadeout 0.2
-	node "0"
-	fps 30
 }
 
-$sequence "dryfire" {
-	"v_railgun_anims\dryfire.smd"
-	activity "ACT_VM_DRYFIRE" 1
-	fadein 0.2
-	fadeout 0.2
-	node "2"
-	fps 30
-}
+$sequence dryfire "v_railgun_anims\dryfire.smd" ACT_VM_DRYFIRE 1 node "2"
 
-$sequence "lowered" {
-	"v_railgun_anims\lowered.smd"
-	activity "ACT_VM_IDLE_LOWERED" 1
-	fadein 0.2
-	fadeout 0.2
-	node "1"
-	fps 30
-	loop
-}
+$sequence lowered "v_railgun_anims\lowered.smd" ACT_VM_IDLE_LOWERED 1 node "1" loop
 
-$sequence "lowered_to_idle" {
-	"v_railgun_anims\lowered_to_idle.smd"
-	activity "ACT_VM_LOWERED_TO_IDLE" 1
-	fadein 0.2
-	fadeout 0.2
-	transition "1" "0"
-	fps 30
-}
+$sequence lowered_to_idle "v_railgun_anims\lowered_to_idle.smd" ACT_VM_LOWERED_TO_IDLE 1 transition "1" "0"
 
-$sequence "idle_to_lowered" {
-	"v_railgun_anims\idle_to_lowered.smd"
-	activity "ACT_VM_IDLE_TO_LOWERED" 1
-	fadein 0.2
-	fadeout 0.2
-	transition "0" "1"
-	fps 30
-}
+$sequence idle_to_lowered "v_railgun_anims\idle_to_lowered.smd" ACT_VM_IDLE_TO_LOWERED 1 transition "0" "1"
 
-$sequence "fire" {
-	"v_railgun_anims\fire.smd"
-	activity "ACT_RANGE_ATTACK_SHOTGUN" 1
+$sequence fire "v_railgun_anims\fire.smd" ACT_RANGE_ATTACK_SHOTGUN 1 fps 5 {
 	{ event AE_MUZZLEFLASH 0 "AR2 MUZZLE" }
 	{ event 6001 0 "3" }
 	{ event 3004 0 "" }
-	fadein 0.2
-	fadeout 0.2
-	fps 5
 }

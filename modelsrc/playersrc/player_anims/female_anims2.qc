@@ -3,7 +3,6 @@
 $modelname "player\female_anims.mdl"
 
 $surfaceprop "flesh"
-
 $contents "solid"
 
 $illumposition 0.729 -5.503 33.285
@@ -1645,7 +1644,6 @@ $animation "a_head_rot_rt_corrective_animation" "female_anims2_anims\a_head_rot_
 }
 
 $animation "a_Crouch_walkS" "female_anims2_anims\a_Crouch_walkS.smd" {
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1
@@ -1655,7 +1653,6 @@ $animation "a_Crouch_walkS" "female_anims2_anims\a_Crouch_walkS.smd" {
 }
 
 $animation "a_Crouch_walkSE" "female_anims2_anims\a_Crouch_walkSE.smd" {
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1
@@ -1665,7 +1662,6 @@ $animation "a_Crouch_walkSE" "female_anims2_anims\a_Crouch_walkSE.smd" {
 }
 
 $animation "a_Crouch_walkE" "female_anims2_anims\a_Crouch_walkE.smd" {
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1
@@ -1675,7 +1671,6 @@ $animation "a_Crouch_walkE" "female_anims2_anims\a_Crouch_walkE.smd" {
 }
 
 $animation "a_Crouch_walkNE" "female_anims2_anims\a_Crouch_walkNE.smd" {
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1
@@ -1685,7 +1680,6 @@ $animation "a_Crouch_walkNE" "female_anims2_anims\a_Crouch_walkNE.smd" {
 }
 
 $animation "a_Crouch_walkN" "female_anims2_anims\a_Crouch_walkN.smd" {
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1
@@ -1695,7 +1689,6 @@ $animation "a_Crouch_walkN" "female_anims2_anims\a_Crouch_walkN.smd" {
 }
 
 $animation "a_Crouch_walkNW" "female_anims2_anims\a_Crouch_walkNW.smd" {
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1
@@ -1705,7 +1698,6 @@ $animation "a_Crouch_walkNW" "female_anims2_anims\a_Crouch_walkNW.smd" {
 }
 
 $animation "a_Crouch_walkW" "female_anims2_anims\a_Crouch_walkW.smd" {
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1
@@ -1715,7 +1707,6 @@ $animation "a_Crouch_walkW" "female_anims2_anims\a_Crouch_walkW.smd" {
 }
 
 $animation "a_Crouch_walkSW" "female_anims2_anims\a_Crouch_walkSW.smd" {
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1
@@ -1725,7 +1716,6 @@ $animation "a_Crouch_walkSW" "female_anims2_anims\a_Crouch_walkSW.smd" {
 }
 
 $animation "a_RunS" "female_anims2_anims\a_RunS.smd" {
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1
@@ -1735,7 +1725,6 @@ $animation "a_RunS" "female_anims2_anims\a_RunS.smd" {
 }
 
 $animation "a_RunSE" "female_anims2_anims\a_RunSE.smd" {
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1
@@ -1745,7 +1734,6 @@ $animation "a_RunSE" "female_anims2_anims\a_RunSE.smd" {
 }
 
 $animation "a_RunE" "female_anims2_anims\a_RunE.smd" {
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1
@@ -1755,7 +1743,6 @@ $animation "a_RunE" "female_anims2_anims\a_RunE.smd" {
 }
 
 $animation "a_RunNE" "female_anims2_anims\a_RunNE.smd" {
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1
@@ -1765,7 +1752,6 @@ $animation "a_RunNE" "female_anims2_anims\a_RunNE.smd" {
 }
 
 $animation "a_RunN" "female_anims2_anims\a_RunN.smd" {
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1
@@ -1775,7 +1761,6 @@ $animation "a_RunN" "female_anims2_anims\a_RunN.smd" {
 }
 
 $animation "a_RunNW" "female_anims2_anims\a_RunNW.smd" {
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1
@@ -1785,7 +1770,6 @@ $animation "a_RunNW" "female_anims2_anims\a_RunNW.smd" {
 }
 
 $animation "a_RunW" "female_anims2_anims\a_RunW.smd" {
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1
@@ -1795,7 +1779,6 @@ $animation "a_RunW" "female_anims2_anims\a_RunW.smd" {
 }
 
 $animation "a_RunSW" "female_anims2_anims\a_RunSW.smd" {
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1
@@ -1805,2835 +1788,2424 @@ $animation "a_RunSW" "female_anims2_anims\a_RunSW.smd" {
 }
 
 $animation "a_soldier_Aim_9_directions_neutral" "female_anims2_anims\a_soldier_Aim_9_directions_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_soldier_Aim_9_directions_down_left" "female_anims2_anims\a_soldier_Aim_9_directions_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_soldier_Aim_9_directions_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_soldier_Aim_9_directions_down_center" "female_anims2_anims\a_soldier_Aim_9_directions_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_soldier_Aim_9_directions_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_soldier_Aim_9_directions_down_right" "female_anims2_anims\a_soldier_Aim_9_directions_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_soldier_Aim_9_directions_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_soldier_Aim_9_directions_mid_left" "female_anims2_anims\a_soldier_Aim_9_directions_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_soldier_Aim_9_directions_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_soldier_Aim_9_directions_mid_center" "female_anims2_anims\a_soldier_Aim_9_directions_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_soldier_Aim_9_directions_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_soldier_Aim_9_directions_mid_right" "female_anims2_anims\a_soldier_Aim_9_directions_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_soldier_Aim_9_directions_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_soldier_Aim_9_directions_up_left" "female_anims2_anims\a_soldier_Aim_9_directions_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_soldier_Aim_9_directions_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_soldier_Aim_9_directions_up_center" "female_anims2_anims\a_soldier_Aim_9_directions_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_soldier_Aim_9_directions_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_soldier_Aim_9_directions_up_right" "female_anims2_anims\a_soldier_Aim_9_directions_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_soldier_Aim_9_directions_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_pistol_neutral" "female_anims2_anims\a_HL2AC_Run_Aim_pistol_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_Aim_pistol_down_left" "female_anims2_anims\a_HL2AC_Run_Aim_pistol_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_pistol_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_pistol_down_center" "female_anims2_anims\a_HL2AC_Run_Aim_pistol_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_pistol_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_pistol_down_right" "female_anims2_anims\a_HL2AC_Run_Aim_pistol_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_pistol_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_pistol_mid_left" "female_anims2_anims\a_HL2AC_Run_Aim_pistol_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_pistol_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_pistol_mid_center" "female_anims2_anims\a_HL2AC_Run_Aim_pistol_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_pistol_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_pistol_mid_right" "female_anims2_anims\a_HL2AC_Run_Aim_pistol_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_pistol_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_pistol_up_left" "female_anims2_anims\a_HL2AC_Run_Aim_pistol_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_pistol_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_pistol_up_center" "female_anims2_anims\a_HL2AC_Run_Aim_pistol_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_pistol_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_pistol_up_right" "female_anims2_anims\a_HL2AC_Run_Aim_pistol_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_pistol_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_pistol_neutral" "female_anims2_anims\a_HL2AC_crouch_aim_pistol_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_aim_pistol_down_left" "female_anims2_anims\a_HL2AC_crouch_aim_pistol_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_pistol_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_pistol_down_center" "female_anims2_anims\a_HL2AC_crouch_aim_pistol_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_pistol_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_pistol_down_right" "female_anims2_anims\a_HL2AC_crouch_aim_pistol_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_pistol_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_pistol_mid_left" "female_anims2_anims\a_HL2AC_crouch_aim_pistol_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_pistol_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_pistol_mid_center" "female_anims2_anims\a_HL2AC_crouch_aim_pistol_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_pistol_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_pistol_mid_right" "female_anims2_anims\a_HL2AC_crouch_aim_pistol_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_pistol_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_pistol_up_left" "female_anims2_anims\a_HL2AC_crouch_aim_pistol_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_pistol_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_pistol_up_center" "female_anims2_anims\a_HL2AC_crouch_aim_pistol_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_pistol_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_pistol_up_right" "female_anims2_anims\a_HL2AC_crouch_aim_pistol_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_pistol_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shotgun_neutral" "female_anims2_anims\a_HL2AC_Run_Aim_shotgun_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_Aim_shotgun_down_left" "female_anims2_anims\a_HL2AC_Run_Aim_shotgun_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shotgun_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shotgun_down_center" "female_anims2_anims\a_HL2AC_Run_Aim_shotgun_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shotgun_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shotgun_down_right" "female_anims2_anims\a_HL2AC_Run_Aim_shotgun_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shotgun_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shotgun_mid_left" "female_anims2_anims\a_HL2AC_Run_Aim_shotgun_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shotgun_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shotgun_mid_center" "female_anims2_anims\a_HL2AC_Run_Aim_shotgun_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shotgun_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shotgun_mid_right" "female_anims2_anims\a_HL2AC_Run_Aim_shotgun_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shotgun_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shotgun_up_left" "female_anims2_anims\a_HL2AC_Run_Aim_shotgun_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shotgun_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shotgun_up_center" "female_anims2_anims\a_HL2AC_Run_Aim_shotgun_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shotgun_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shotgun_up_right" "female_anims2_anims\a_HL2AC_Run_Aim_shotgun_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shotgun_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_shotgun_neutral" "female_anims2_anims\a_HL2AC_crouch_aim_shotgun_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_aim_shotgun_mid_left" "female_anims2_anims\a_HL2AC_crouch_aim_shotgun_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_shotgun_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_shotgun_mid_center" "female_anims2_anims\a_HL2AC_crouch_aim_shotgun_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_shotgun_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_shotgun_mid_right" "female_anims2_anims\a_HL2AC_crouch_aim_shotgun_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_shotgun_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_shotgun_up_left" "female_anims2_anims\a_HL2AC_crouch_aim_shotgun_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_shotgun_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_shotgun_up_center" "female_anims2_anims\a_HL2AC_crouch_aim_shotgun_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_shotgun_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_shotgun_up_right" "female_anims2_anims\a_HL2AC_crouch_aim_shotgun_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_shotgun_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_shotgun_straight_up" "female_anims2_anims\a_HL2AC_crouch_aim_shotgun_straight_up.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_shotgun_straight_up_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_smg_neutral" "female_anims2_anims\a_HL2AC_Run_Aim_smg_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_Aim_smg_down_left" "female_anims2_anims\a_HL2AC_Run_Aim_smg_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_smg_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_smg_down_center" "female_anims2_anims\a_HL2AC_Run_Aim_smg_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_smg_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_smg_down_right" "female_anims2_anims\a_HL2AC_Run_Aim_smg_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_smg_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_smg_mid_left" "female_anims2_anims\a_HL2AC_Run_Aim_smg_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_smg_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_smg_mid_center" "female_anims2_anims\a_HL2AC_Run_Aim_smg_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_smg_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_smg_mid_right" "female_anims2_anims\a_HL2AC_Run_Aim_smg_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_smg_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_smg_up_left" "female_anims2_anims\a_HL2AC_Run_Aim_smg_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_smg_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_smg_up_center" "female_anims2_anims\a_HL2AC_Run_Aim_smg_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_smg_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_smg_up_right" "female_anims2_anims\a_HL2AC_Run_Aim_smg_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_smg_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_smg_neutral" "female_anims2_anims\a_HL2AC_crouch_aim_smg_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_aim_smg_mid_left" "female_anims2_anims\a_HL2AC_crouch_aim_smg_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_smg_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_smg_mid_center" "female_anims2_anims\a_HL2AC_crouch_aim_smg_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_smg_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_smg_mid_right" "female_anims2_anims\a_HL2AC_crouch_aim_smg_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_smg_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_smg_up_left" "female_anims2_anims\a_HL2AC_crouch_aim_smg_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_smg_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_smg_up_center" "female_anims2_anims\a_HL2AC_crouch_aim_smg_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_smg_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_smg_up_right" "female_anims2_anims\a_HL2AC_crouch_aim_smg_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_smg_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_smg_straight_up" "female_anims2_anims\a_HL2AC_crouch_aim_smg_straight_up.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_smg_straight_up_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_ar2_neutral" "female_anims2_anims\a_HL2AC_Run_Aim_ar2_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_Aim_ar2_down_left" "female_anims2_anims\a_HL2AC_Run_Aim_ar2_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_ar2_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_ar2_down_center" "female_anims2_anims\a_HL2AC_Run_Aim_ar2_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_ar2_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_ar2_down_right" "female_anims2_anims\a_HL2AC_Run_Aim_ar2_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_ar2_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_ar2_mid_left" "female_anims2_anims\a_HL2AC_Run_Aim_ar2_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_ar2_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_ar2_mid_center" "female_anims2_anims\a_HL2AC_Run_Aim_ar2_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_ar2_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_ar2_mid_right" "female_anims2_anims\a_HL2AC_Run_Aim_ar2_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_ar2_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_ar2_up_left" "female_anims2_anims\a_HL2AC_Run_Aim_ar2_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_ar2_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_ar2_up_center" "female_anims2_anims\a_HL2AC_Run_Aim_ar2_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_ar2_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_ar2_up_right" "female_anims2_anims\a_HL2AC_Run_Aim_ar2_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_ar2_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_ar2_neutral" "female_anims2_anims\a_HL2AC_crouch_aim_ar2_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_aim_ar2_mid_left" "female_anims2_anims\a_HL2AC_crouch_aim_ar2_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_ar2_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_ar2_mid_center" "female_anims2_anims\a_HL2AC_crouch_aim_ar2_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_ar2_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_ar2_mid_right" "female_anims2_anims\a_HL2AC_crouch_aim_ar2_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_ar2_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_ar2_up_left" "female_anims2_anims\a_HL2AC_crouch_aim_ar2_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_ar2_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_ar2_up_center" "female_anims2_anims\a_HL2AC_crouch_aim_ar2_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_ar2_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_ar2_up_right" "female_anims2_anims\a_HL2AC_crouch_aim_ar2_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_ar2_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_ar2_straight_up" "female_anims2_anims\a_HL2AC_crouch_aim_ar2_straight_up.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_ar2_straight_up_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_grenade_neutral" "female_anims2_anims\a_HL2AC_Run_Aim_grenade_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_Aim_grenade_down_left" "female_anims2_anims\a_HL2AC_Run_Aim_grenade_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_grenade_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_grenade_down_center" "female_anims2_anims\a_HL2AC_Run_Aim_grenade_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_grenade_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_grenade_down_right" "female_anims2_anims\a_HL2AC_Run_Aim_grenade_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_grenade_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_grenade_mid_left" "female_anims2_anims\a_HL2AC_Run_Aim_grenade_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_grenade_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_grenade_mid_center" "female_anims2_anims\a_HL2AC_Run_Aim_grenade_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_grenade_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_grenade_mid_right" "female_anims2_anims\a_HL2AC_Run_Aim_grenade_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_grenade_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_grenade_up_left" "female_anims2_anims\a_HL2AC_Run_Aim_grenade_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_grenade_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_grenade_up_center" "female_anims2_anims\a_HL2AC_Run_Aim_grenade_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_grenade_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_grenade_up_right" "female_anims2_anims\a_HL2AC_Run_Aim_grenade_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_grenade_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg_neutral" "female_anims2_anims\a_HL2AC_Run_Aim_rpg_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_Aim_rpg_down_left" "female_anims2_anims\a_HL2AC_Run_Aim_rpg_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg_down_center" "female_anims2_anims\a_HL2AC_Run_Aim_rpg_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg_down_right" "female_anims2_anims\a_HL2AC_Run_Aim_rpg_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg_mid_left" "female_anims2_anims\a_HL2AC_Run_Aim_rpg_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg_mid_center" "female_anims2_anims\a_HL2AC_Run_Aim_rpg_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg_mid_right" "female_anims2_anims\a_HL2AC_Run_Aim_rpg_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg_up_left" "female_anims2_anims\a_HL2AC_Run_Aim_rpg_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg_up_center" "female_anims2_anims\a_HL2AC_Run_Aim_rpg_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg_up_right" "female_anims2_anims\a_HL2AC_Run_Aim_rpg_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg_neutral" "female_anims2_anims\a_HL2AC_crouch_aim_rpg_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_aim_rpg_down_left" "female_anims2_anims\a_HL2AC_crouch_aim_rpg_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg_down_center" "female_anims2_anims\a_HL2AC_crouch_aim_rpg_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg_down_right" "female_anims2_anims\a_HL2AC_crouch_aim_rpg_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg_mid_left" "female_anims2_anims\a_HL2AC_crouch_aim_rpg_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg_mid_center" "female_anims2_anims\a_HL2AC_crouch_aim_rpg_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg_mid_right" "female_anims2_anims\a_HL2AC_crouch_aim_rpg_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg_up_left" "female_anims2_anims\a_HL2AC_crouch_aim_rpg_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg_up_center" "female_anims2_anims\a_HL2AC_crouch_aim_rpg_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg_up_right" "female_anims2_anims\a_HL2AC_crouch_aim_rpg_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gravgun_neutral" "female_anims2_anims\a_HL2AC_Run_Aim_gravgun_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_Aim_gravgun_down_left" "female_anims2_anims\a_HL2AC_Run_Aim_gravgun_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gravgun_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gravgun_down_center" "female_anims2_anims\a_HL2AC_Run_Aim_gravgun_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gravgun_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gravgun_down_right" "female_anims2_anims\a_HL2AC_Run_Aim_gravgun_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gravgun_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gravgun_mid_left" "female_anims2_anims\a_HL2AC_Run_Aim_gravgun_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gravgun_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gravgun_mid_center" "female_anims2_anims\a_HL2AC_Run_Aim_gravgun_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gravgun_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gravgun_mid_right" "female_anims2_anims\a_HL2AC_Run_Aim_gravgun_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gravgun_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gravgun_up_left" "female_anims2_anims\a_HL2AC_Run_Aim_gravgun_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gravgun_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gravgun_up_center" "female_anims2_anims\a_HL2AC_Run_Aim_gravgun_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gravgun_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gravgun_up_right" "female_anims2_anims\a_HL2AC_Run_Aim_gravgun_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gravgun_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_gravgun_neutral" "female_anims2_anims\a_HL2AC_crouch_aim_gravgun_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_aim_gravgun_down_left" "female_anims2_anims\a_HL2AC_crouch_aim_gravgun_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_gravgun_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_gravgun_down_center" "female_anims2_anims\a_HL2AC_crouch_aim_gravgun_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_gravgun_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_gravgun_down_right" "female_anims2_anims\a_HL2AC_crouch_aim_gravgun_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_gravgun_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_gravgun_mid_left" "female_anims2_anims\a_HL2AC_crouch_aim_gravgun_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_gravgun_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_gravgun_mid_center" "female_anims2_anims\a_HL2AC_crouch_aim_gravgun_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_gravgun_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_gravgun_mid_right" "female_anims2_anims\a_HL2AC_crouch_aim_gravgun_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_gravgun_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_gravgun_up_left" "female_anims2_anims\a_HL2AC_crouch_aim_gravgun_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_gravgun_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_gravgun_up_center" "female_anims2_anims\a_HL2AC_crouch_aim_gravgun_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_gravgun_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_gravgun_up_right" "female_anims2_anims\a_HL2AC_crouch_aim_gravgun_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_gravgun_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_crossbow_neutral" "female_anims2_anims\a_HL2AC_Run_Aim_crossbow_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_Aim_crossbow_down_left" "female_anims2_anims\a_HL2AC_Run_Aim_crossbow_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_crossbow_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_crossbow_down_center" "female_anims2_anims\a_HL2AC_Run_Aim_crossbow_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_crossbow_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_crossbow_down_right" "female_anims2_anims\a_HL2AC_Run_Aim_crossbow_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_crossbow_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_crossbow_mid_left" "female_anims2_anims\a_HL2AC_Run_Aim_crossbow_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_crossbow_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_crossbow_mid_center" "female_anims2_anims\a_HL2AC_Run_Aim_crossbow_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_crossbow_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_crossbow_mid_right" "female_anims2_anims\a_HL2AC_Run_Aim_crossbow_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_crossbow_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_crossbow_up_left" "female_anims2_anims\a_HL2AC_Run_Aim_crossbow_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_crossbow_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_crossbow_up_center" "female_anims2_anims\a_HL2AC_Run_Aim_crossbow_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_crossbow_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_crossbow_up_right" "female_anims2_anims\a_HL2AC_Run_Aim_crossbow_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_crossbow_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_crossbow_neutral" "female_anims2_anims\a_HL2AC_crouch_aim_crossbow_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_aim_crossbow_mid_left" "female_anims2_anims\a_HL2AC_crouch_aim_crossbow_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_crossbow_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_crossbow_mid_center" "female_anims2_anims\a_HL2AC_crouch_aim_crossbow_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_crossbow_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_crossbow_mid_right" "female_anims2_anims\a_HL2AC_crouch_aim_crossbow_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_crossbow_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_crossbow_up_left" "female_anims2_anims\a_HL2AC_crouch_aim_crossbow_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_crossbow_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_crossbow_up_center" "female_anims2_anims\a_HL2AC_crouch_aim_crossbow_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_crossbow_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_crossbow_up_right" "female_anims2_anims\a_HL2AC_crouch_aim_crossbow_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_crossbow_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_crossbow_straight_up" "female_anims2_anims\a_HL2AC_crouch_aim_crossbow_straight_up.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_crossbow_straight_up_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sniper_neutral" "female_anims2_anims\a_HL2AC_Run_Aim_sniper_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_Aim_sniper_down_left" "female_anims2_anims\a_HL2AC_Run_Aim_sniper_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sniper_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sniper_down_center" "female_anims2_anims\a_HL2AC_Run_Aim_sniper_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sniper_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sniper_down_right" "female_anims2_anims\a_HL2AC_Run_Aim_sniper_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sniper_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sniper_mid_left" "female_anims2_anims\a_HL2AC_Run_Aim_sniper_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sniper_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sniper_mid_center" "female_anims2_anims\a_HL2AC_Run_Aim_sniper_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sniper_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sniper_mid_right" "female_anims2_anims\a_HL2AC_Run_Aim_sniper_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sniper_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sniper_up_left" "female_anims2_anims\a_HL2AC_Run_Aim_sniper_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sniper_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sniper_up_center" "female_anims2_anims\a_HL2AC_Run_Aim_sniper_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sniper_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sniper_up_right" "female_anims2_anims\a_HL2AC_Run_Aim_sniper_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sniper_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_sniper_neutral" "female_anims2_anims\a_HL2AC_crouch_aim_sniper_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_aim_sniper_mid_left" "female_anims2_anims\a_HL2AC_crouch_aim_sniper_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_sniper_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_sniper_mid_center" "female_anims2_anims\a_HL2AC_crouch_aim_sniper_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_sniper_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_sniper_mid_right" "female_anims2_anims\a_HL2AC_crouch_aim_sniper_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_sniper_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_sniper_up_left" "female_anims2_anims\a_HL2AC_crouch_aim_sniper_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_sniper_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_sniper_up_center" "female_anims2_anims\a_HL2AC_crouch_aim_sniper_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_sniper_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_sniper_up_right" "female_anims2_anims\a_HL2AC_crouch_aim_sniper_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_sniper_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_sniper_straight_up" "female_anims2_anims\a_HL2AC_crouch_aim_sniper_straight_up.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_sniper_straight_up_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shield_neutral" "female_anims2_anims\a_HL2AC_Run_Aim_shield_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_Aim_shield_down_left" "female_anims2_anims\a_HL2AC_Run_Aim_shield_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shield_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shield_down_center" "female_anims2_anims\a_HL2AC_Run_Aim_shield_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shield_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shield_down_right" "female_anims2_anims\a_HL2AC_Run_Aim_shield_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shield_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shield_mid_left" "female_anims2_anims\a_HL2AC_Run_Aim_shield_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shield_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shield_mid_center" "female_anims2_anims\a_HL2AC_Run_Aim_shield_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shield_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shield_mid_right" "female_anims2_anims\a_HL2AC_Run_Aim_shield_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shield_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shield_up_left" "female_anims2_anims\a_HL2AC_Run_Aim_shield_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shield_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shield_up_center" "female_anims2_anims\a_HL2AC_Run_Aim_shield_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shield_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_shield_up_right" "female_anims2_anims\a_HL2AC_Run_Aim_shield_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_shield_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_shield_neutral" "female_anims2_anims\a_HL2AC_crouch_aim_shield_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_aim_shield_down_left" "female_anims2_anims\a_HL2AC_crouch_aim_shield_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_shield_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_shield_down_center" "female_anims2_anims\a_HL2AC_crouch_aim_shield_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_shield_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_shield_down_right" "female_anims2_anims\a_HL2AC_crouch_aim_shield_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_shield_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_shield_mid_left" "female_anims2_anims\a_HL2AC_crouch_aim_shield_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_shield_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_shield_mid_center" "female_anims2_anims\a_HL2AC_crouch_aim_shield_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_shield_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_shield_mid_right" "female_anims2_anims\a_HL2AC_crouch_aim_shield_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_shield_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_shield_up_left" "female_anims2_anims\a_HL2AC_crouch_aim_shield_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_shield_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_shield_up_center" "female_anims2_anims\a_HL2AC_crouch_aim_shield_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_shield_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_shield_up_right" "female_anims2_anims\a_HL2AC_crouch_aim_shield_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_shield_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_turret_neutral" "female_anims2_anims\a_HL2AC_Run_base_turret_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_base_turret_down_left" "female_anims2_anims\a_HL2AC_Run_base_turret_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_turret_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_turret_down_center" "female_anims2_anims\a_HL2AC_Run_base_turret_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_turret_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_turret_down_right" "female_anims2_anims\a_HL2AC_Run_base_turret_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_turret_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_turret_mid_left" "female_anims2_anims\a_HL2AC_Run_base_turret_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_turret_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_turret_mid_center" "female_anims2_anims\a_HL2AC_Run_base_turret_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_turret_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_turret_mid_right" "female_anims2_anims\a_HL2AC_Run_base_turret_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_turret_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_turret_up_left" "female_anims2_anims\a_HL2AC_Run_base_turret_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_turret_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_turret_up_center" "female_anims2_anims\a_HL2AC_Run_base_turret_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_turret_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_turret_up_right" "female_anims2_anims\a_HL2AC_Run_base_turret_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_turret_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_sniper_injection_neutral" "female_anims2_anims\a_HL2AC_Run_sniper_injection_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_sniper_injection_down_left" "female_anims2_anims\a_HL2AC_Run_sniper_injection_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_sniper_injection_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_sniper_injection_down_center" "female_anims2_anims\a_HL2AC_Run_sniper_injection_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_sniper_injection_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_sniper_injection_down_right" "female_anims2_anims\a_HL2AC_Run_sniper_injection_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_sniper_injection_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_sniper_injection_mid_left" "female_anims2_anims\a_HL2AC_Run_sniper_injection_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_sniper_injection_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_sniper_injection_mid_center" "female_anims2_anims\a_HL2AC_Run_sniper_injection_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_sniper_injection_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_sniper_injection_mid_right" "female_anims2_anims\a_HL2AC_Run_sniper_injection_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_sniper_injection_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_sniper_injection_up_left" "female_anims2_anims\a_HL2AC_Run_sniper_injection_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_sniper_injection_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_sniper_injection_up_center" "female_anims2_anims\a_HL2AC_Run_sniper_injection_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_sniper_injection_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_sniper_injection_up_right" "female_anims2_anims\a_HL2AC_Run_sniper_injection_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_sniper_injection_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_sniper_injection_neutral" "female_anims2_anims\a_HL2AC_crouch_sniper_injection_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_sniper_injection_down_left" "female_anims2_anims\a_HL2AC_crouch_sniper_injection_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_sniper_injection_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_sniper_injection_down_center" "female_anims2_anims\a_HL2AC_crouch_sniper_injection_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_sniper_injection_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_sniper_injection_down_right" "female_anims2_anims\a_HL2AC_crouch_sniper_injection_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_sniper_injection_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_sniper_injection_mid_left" "female_anims2_anims\a_HL2AC_crouch_sniper_injection_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_sniper_injection_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_sniper_injection_mid_center" "female_anims2_anims\a_HL2AC_crouch_sniper_injection_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_sniper_injection_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_sniper_injection_mid_right" "female_anims2_anims\a_HL2AC_crouch_sniper_injection_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_sniper_injection_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_sniper_injection_up_left" "female_anims2_anims\a_HL2AC_crouch_sniper_injection_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_sniper_injection_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_sniper_injection_up_center" "female_anims2_anims\a_HL2AC_crouch_sniper_injection_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_sniper_injection_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_sniper_injection_up_right" "female_anims2_anims\a_HL2AC_crouch_sniper_injection_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_sniper_injection_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_gatling_neutral" "female_anims2_anims\a_HL2AC_Run_base_gatling_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_base_gatling_down_left" "female_anims2_anims\a_HL2AC_Run_base_gatling_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_gatling_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_gatling_down_center" "female_anims2_anims\a_HL2AC_Run_base_gatling_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_gatling_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_gatling_down_right" "female_anims2_anims\a_HL2AC_Run_base_gatling_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_gatling_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_gatling_mid_left" "female_anims2_anims\a_HL2AC_Run_base_gatling_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_gatling_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_gatling_mid_center" "female_anims2_anims\a_HL2AC_Run_base_gatling_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_gatling_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_gatling_mid_right" "female_anims2_anims\a_HL2AC_Run_base_gatling_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_gatling_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_gatling_up_left" "female_anims2_anims\a_HL2AC_Run_base_gatling_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_gatling_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_gatling_up_center" "female_anims2_anims\a_HL2AC_Run_base_gatling_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_gatling_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_gatling_up_right" "female_anims2_anims\a_HL2AC_Run_base_gatling_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_gatling_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_gatling_neutral" "female_anims2_anims\a_HL2AC_crouch_base_gatling_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_base_gatling_down_left" "female_anims2_anims\a_HL2AC_crouch_base_gatling_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_gatling_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_gatling_down_center" "female_anims2_anims\a_HL2AC_crouch_base_gatling_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_gatling_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_gatling_down_right" "female_anims2_anims\a_HL2AC_crouch_base_gatling_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_gatling_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_gatling_mid_left" "female_anims2_anims\a_HL2AC_crouch_base_gatling_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_gatling_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_gatling_mid_center" "female_anims2_anims\a_HL2AC_crouch_base_gatling_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_gatling_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_gatling_mid_right" "female_anims2_anims\a_HL2AC_crouch_base_gatling_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_gatling_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_gatling_up_left" "female_anims2_anims\a_HL2AC_crouch_base_gatling_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_gatling_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_gatling_up_center" "female_anims2_anims\a_HL2AC_crouch_base_gatling_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_gatling_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_gatling_up_right" "female_anims2_anims\a_HL2AC_crouch_base_gatling_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_gatling_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Man_Gun_sniper_neutral" "female_anims2_anims\a_HL2AC_Man_Gun_sniper_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Man_Gun_sniper_down_left" "female_anims2_anims\a_HL2AC_Man_Gun_sniper_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Man_Gun_sniper_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Man_Gun_sniper_down_center" "female_anims2_anims\a_HL2AC_Man_Gun_sniper_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Man_Gun_sniper_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Man_Gun_sniper_down_right" "female_anims2_anims\a_HL2AC_Man_Gun_sniper_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Man_Gun_sniper_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Man_Gun_sniper_mid_left" "female_anims2_anims\a_HL2AC_Man_Gun_sniper_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Man_Gun_sniper_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Man_Gun_sniper_mid_center" "female_anims2_anims\a_HL2AC_Man_Gun_sniper_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Man_Gun_sniper_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Man_Gun_sniper_mid_right" "female_anims2_anims\a_HL2AC_Man_Gun_sniper_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Man_Gun_sniper_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Man_Gun_sniper_up_left" "female_anims2_anims\a_HL2AC_Man_Gun_sniper_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Man_Gun_sniper_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Man_Gun_sniper_up_center" "female_anims2_anims\a_HL2AC_Man_Gun_sniper_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Man_Gun_sniper_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Man_Gun_sniper_up_right" "female_anims2_anims\a_HL2AC_Man_Gun_sniper_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Man_Gun_sniper_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_C_Man_Gun_sniper_neutral" "female_anims2_anims\a_HL2AC_C_Man_Gun_sniper_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_C_Man_Gun_sniper_down_left" "female_anims2_anims\a_HL2AC_C_Man_Gun_sniper_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_C_Man_Gun_sniper_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_C_Man_Gun_sniper_down_center" "female_anims2_anims\a_HL2AC_C_Man_Gun_sniper_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_C_Man_Gun_sniper_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_C_Man_Gun_sniper_down_right" "female_anims2_anims\a_HL2AC_C_Man_Gun_sniper_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_C_Man_Gun_sniper_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_C_Man_Gun_sniper_mid_left" "female_anims2_anims\a_HL2AC_C_Man_Gun_sniper_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_C_Man_Gun_sniper_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_C_Man_Gun_sniper_mid_center" "female_anims2_anims\a_HL2AC_C_Man_Gun_sniper_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_C_Man_Gun_sniper_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_C_Man_Gun_sniper_mid_right" "female_anims2_anims\a_HL2AC_C_Man_Gun_sniper_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_C_Man_Gun_sniper_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_C_Man_Gun_sniper_up_left" "female_anims2_anims\a_HL2AC_C_Man_Gun_sniper_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_C_Man_Gun_sniper_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_C_Man_Gun_sniper_up_center" "female_anims2_anims\a_HL2AC_C_Man_Gun_sniper_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_C_Man_Gun_sniper_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_C_Man_Gun_sniper_up_right" "female_anims2_anims\a_HL2AC_C_Man_Gun_sniper_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_C_Man_Gun_sniper_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_knife_sniper_neutral" "female_anims2_anims\a_HL2AC_Run_base_knife_sniper_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_base_knife_sniper_down_left" "female_anims2_anims\a_HL2AC_Run_base_knife_sniper_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_knife_sniper_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_knife_sniper_down_center" "female_anims2_anims\a_HL2AC_Run_base_knife_sniper_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_knife_sniper_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_knife_sniper_down_right" "female_anims2_anims\a_HL2AC_Run_base_knife_sniper_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_knife_sniper_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_knife_sniper_mid_left" "female_anims2_anims\a_HL2AC_Run_base_knife_sniper_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_knife_sniper_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_knife_sniper_mid_center" "female_anims2_anims\a_HL2AC_Run_base_knife_sniper_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_knife_sniper_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_knife_sniper_mid_right" "female_anims2_anims\a_HL2AC_Run_base_knife_sniper_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_knife_sniper_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_knife_sniper_up_left" "female_anims2_anims\a_HL2AC_Run_base_knife_sniper_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_knife_sniper_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_knife_sniper_up_center" "female_anims2_anims\a_HL2AC_Run_base_knife_sniper_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_knife_sniper_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_knife_sniper_up_right" "female_anims2_anims\a_HL2AC_Run_base_knife_sniper_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_knife_sniper_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_h_shield_sniper_neutral" "female_anims2_anims\a_HL2AC_Run_h_shield_sniper_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_h_shield_sniper_down_left" "female_anims2_anims\a_HL2AC_Run_h_shield_sniper_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_h_shield_sniper_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_h_shield_sniper_down_center" "female_anims2_anims\a_HL2AC_Run_h_shield_sniper_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_h_shield_sniper_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_h_shield_sniper_down_right" "female_anims2_anims\a_HL2AC_Run_h_shield_sniper_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_h_shield_sniper_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_h_shield_sniper_mid_left" "female_anims2_anims\a_HL2AC_Run_h_shield_sniper_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_h_shield_sniper_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_h_shield_sniper_mid_center" "female_anims2_anims\a_HL2AC_Run_h_shield_sniper_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_h_shield_sniper_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_h_shield_sniper_mid_right" "female_anims2_anims\a_HL2AC_Run_h_shield_sniper_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_h_shield_sniper_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_h_shield_sniper_up_left" "female_anims2_anims\a_HL2AC_Run_h_shield_sniper_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_h_shield_sniper_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_h_shield_sniper_up_center" "female_anims2_anims\a_HL2AC_Run_h_shield_sniper_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_h_shield_sniper_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_h_shield_sniper_up_right" "female_anims2_anims\a_HL2AC_Run_h_shield_sniper_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_h_shield_sniper_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_h_shield_sniper_neutral" "female_anims2_anims\a_HL2AC_crouch_h_shield_sniper_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_h_shield_sniper_down_left" "female_anims2_anims\a_HL2AC_crouch_h_shield_sniper_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_h_shield_sniper_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_h_shield_sniper_down_center" "female_anims2_anims\a_HL2AC_crouch_h_shield_sniper_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_h_shield_sniper_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_h_shield_sniper_down_right" "female_anims2_anims\a_HL2AC_crouch_h_shield_sniper_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_h_shield_sniper_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_h_shield_sniper_mid_left" "female_anims2_anims\a_HL2AC_crouch_h_shield_sniper_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_h_shield_sniper_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_h_shield_sniper_mid_center" "female_anims2_anims\a_HL2AC_crouch_h_shield_sniper_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_h_shield_sniper_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_h_shield_sniper_mid_right" "female_anims2_anims\a_HL2AC_crouch_h_shield_sniper_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_h_shield_sniper_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_h_shield_sniper_up_left" "female_anims2_anims\a_HL2AC_crouch_h_shield_sniper_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_h_shield_sniper_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_h_shield_sniper_up_center" "female_anims2_anims\a_HL2AC_crouch_h_shield_sniper_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_h_shield_sniper_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_h_shield_sniper_up_right" "female_anims2_anims\a_HL2AC_crouch_h_shield_sniper_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_h_shield_sniper_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Laserrifle_sniper_neutral" "female_anims2_anims\a_HL2AC_Run_base_Laserrifle_sniper_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_base_Laserrifle_sniper_down_left" "female_anims2_anims\a_HL2AC_Run_base_Laserrifle_sniper_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Laserrifle_sniper_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Laserrifle_sniper_down_center" "female_anims2_anims\a_HL2AC_Run_base_Laserrifle_sniper_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Laserrifle_sniper_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Laserrifle_sniper_down_right" "female_anims2_anims\a_HL2AC_Run_base_Laserrifle_sniper_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Laserrifle_sniper_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Laserrifle_sniper_mid_left" "female_anims2_anims\a_HL2AC_Run_base_Laserrifle_sniper_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Laserrifle_sniper_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Laserrifle_sniper_mid_center" "female_anims2_anims\a_HL2AC_Run_base_Laserrifle_sniper_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Laserrifle_sniper_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Laserrifle_sniper_mid_right" "female_anims2_anims\a_HL2AC_Run_base_Laserrifle_sniper_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Laserrifle_sniper_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Laserrifle_sniper_up_left" "female_anims2_anims\a_HL2AC_Run_base_Laserrifle_sniper_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Laserrifle_sniper_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Laserrifle_sniper_up_center" "female_anims2_anims\a_HL2AC_Run_base_Laserrifle_sniper_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Laserrifle_sniper_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Laserrifle_sniper_up_right" "female_anims2_anims\a_HL2AC_Run_base_Laserrifle_sniper_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Laserrifle_sniper_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Pistol_2_sniper_neutral" "female_anims2_anims\a_HL2AC_Run_base_Pistol_2_sniper_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_base_Pistol_2_sniper_down_left" "female_anims2_anims\a_HL2AC_Run_base_Pistol_2_sniper_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Pistol_2_sniper_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Pistol_2_sniper_down_center" "female_anims2_anims\a_HL2AC_Run_base_Pistol_2_sniper_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Pistol_2_sniper_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Pistol_2_sniper_down_right" "female_anims2_anims\a_HL2AC_Run_base_Pistol_2_sniper_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Pistol_2_sniper_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Pistol_2_sniper_mid_left" "female_anims2_anims\a_HL2AC_Run_base_Pistol_2_sniper_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Pistol_2_sniper_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Pistol_2_sniper_mid_center" "female_anims2_anims\a_HL2AC_Run_base_Pistol_2_sniper_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Pistol_2_sniper_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Pistol_2_sniper_mid_right" "female_anims2_anims\a_HL2AC_Run_base_Pistol_2_sniper_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Pistol_2_sniper_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Pistol_2_sniper_up_left" "female_anims2_anims\a_HL2AC_Run_base_Pistol_2_sniper_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Pistol_2_sniper_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Pistol_2_sniper_up_center" "female_anims2_anims\a_HL2AC_Run_base_Pistol_2_sniper_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Pistol_2_sniper_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_Pistol_2_sniper_up_right" "female_anims2_anims\a_HL2AC_Run_base_Pistol_2_sniper_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_Pistol_2_sniper_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_Pistol_2_sniper_neutral" "female_anims2_anims\a_HL2AC_crouch_base_Pistol_2_sniper_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_base_Pistol_2_sniper_down_left" "female_anims2_anims\a_HL2AC_crouch_base_Pistol_2_sniper_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_Pistol_2_sniper_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_Pistol_2_sniper_down_center" "female_anims2_anims\a_HL2AC_crouch_base_Pistol_2_sniper_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_Pistol_2_sniper_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_Pistol_2_sniper_down_right" "female_anims2_anims\a_HL2AC_crouch_base_Pistol_2_sniper_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_Pistol_2_sniper_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_Pistol_2_sniper_mid_left" "female_anims2_anims\a_HL2AC_crouch_base_Pistol_2_sniper_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_Pistol_2_sniper_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_Pistol_2_sniper_mid_center" "female_anims2_anims\a_HL2AC_crouch_base_Pistol_2_sniper_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_Pistol_2_sniper_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_Pistol_2_sniper_mid_right" "female_anims2_anims\a_HL2AC_crouch_base_Pistol_2_sniper_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_Pistol_2_sniper_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_Pistol_2_sniper_up_left" "female_anims2_anims\a_HL2AC_crouch_base_Pistol_2_sniper_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_Pistol_2_sniper_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_Pistol_2_sniper_up_center" "female_anims2_anims\a_HL2AC_crouch_base_Pistol_2_sniper_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_Pistol_2_sniper_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_base_Pistol_2_sniper_up_right" "female_anims2_anims\a_HL2AC_crouch_base_Pistol_2_sniper_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_base_Pistol_2_sniper_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg2_neutral" "female_anims2_anims\a_HL2AC_Run_Aim_rpg2_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_Aim_rpg2_down_left" "female_anims2_anims\a_HL2AC_Run_Aim_rpg2_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg2_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg2_down_center" "female_anims2_anims\a_HL2AC_Run_Aim_rpg2_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg2_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg2_down_right" "female_anims2_anims\a_HL2AC_Run_Aim_rpg2_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg2_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg2_mid_left" "female_anims2_anims\a_HL2AC_Run_Aim_rpg2_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg2_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg2_mid_center" "female_anims2_anims\a_HL2AC_Run_Aim_rpg2_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg2_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg2_mid_right" "female_anims2_anims\a_HL2AC_Run_Aim_rpg2_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg2_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg2_up_left" "female_anims2_anims\a_HL2AC_Run_Aim_rpg2_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg2_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg2_up_center" "female_anims2_anims\a_HL2AC_Run_Aim_rpg2_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg2_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_rpg2_up_right" "female_anims2_anims\a_HL2AC_Run_Aim_rpg2_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_rpg2_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg2_neutral" "female_anims2_anims\a_HL2AC_crouch_aim_rpg2_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_aim_rpg2_down_left" "female_anims2_anims\a_HL2AC_crouch_aim_rpg2_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg2_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg2_down_center" "female_anims2_anims\a_HL2AC_crouch_aim_rpg2_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg2_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg2_down_right" "female_anims2_anims\a_HL2AC_crouch_aim_rpg2_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg2_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg2_mid_left" "female_anims2_anims\a_HL2AC_crouch_aim_rpg2_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg2_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg2_mid_center" "female_anims2_anims\a_HL2AC_crouch_aim_rpg2_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg2_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg2_mid_right" "female_anims2_anims\a_HL2AC_crouch_aim_rpg2_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg2_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg2_up_left" "female_anims2_anims\a_HL2AC_crouch_aim_rpg2_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg2_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg2_up_center" "female_anims2_anims\a_HL2AC_crouch_aim_rpg2_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg2_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_aim_rpg2_up_right" "female_anims2_anims\a_HL2AC_crouch_aim_rpg2_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_aim_rpg2_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gra_glove_neutral" "female_anims2_anims\a_HL2AC_Run_Aim_gra_glove_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_Aim_gra_glove_down_left" "female_anims2_anims\a_HL2AC_Run_Aim_gra_glove_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gra_glove_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gra_glove_down_center" "female_anims2_anims\a_HL2AC_Run_Aim_gra_glove_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gra_glove_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gra_glove_down_right" "female_anims2_anims\a_HL2AC_Run_Aim_gra_glove_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gra_glove_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gra_glove_mid_left" "female_anims2_anims\a_HL2AC_Run_Aim_gra_glove_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gra_glove_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gra_glove_mid_center" "female_anims2_anims\a_HL2AC_Run_Aim_gra_glove_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gra_glove_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gra_glove_mid_right" "female_anims2_anims\a_HL2AC_Run_Aim_gra_glove_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gra_glove_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gra_glove_up_left" "female_anims2_anims\a_HL2AC_Run_Aim_gra_glove_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gra_glove_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gra_glove_up_center" "female_anims2_anims\a_HL2AC_Run_Aim_gra_glove_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gra_glove_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_gra_glove_up_right" "female_anims2_anims\a_HL2AC_Run_Aim_gra_glove_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_gra_glove_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_gra_glove_neutral" "female_anims2_anims\a_HL2AC_crouch_gra_glove_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_gra_glove_down_left" "female_anims2_anims\a_HL2AC_crouch_gra_glove_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_gra_glove_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_gra_glove_down_center" "female_anims2_anims\a_HL2AC_crouch_gra_glove_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_gra_glove_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_gra_glove_down_right" "female_anims2_anims\a_HL2AC_crouch_gra_glove_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_gra_glove_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_gra_glove_mid_left" "female_anims2_anims\a_HL2AC_crouch_gra_glove_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_gra_glove_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_gra_glove_mid_center" "female_anims2_anims\a_HL2AC_crouch_gra_glove_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_gra_glove_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_gra_glove_mid_right" "female_anims2_anims\a_HL2AC_crouch_gra_glove_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_gra_glove_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_gra_glove_up_left" "female_anims2_anims\a_HL2AC_crouch_gra_glove_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_gra_glove_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_gra_glove_up_center" "female_anims2_anims\a_HL2AC_crouch_gra_glove_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_gra_glove_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_gra_glove_up_right" "female_anims2_anims\a_HL2AC_crouch_gra_glove_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_gra_glove_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_chargebow_neutral" "female_anims2_anims\a_HL2AC_Run_Aim_chargebow_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_Aim_chargebow_down_left" "female_anims2_anims\a_HL2AC_Run_Aim_chargebow_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_chargebow_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_chargebow_down_center" "female_anims2_anims\a_HL2AC_Run_Aim_chargebow_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_chargebow_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_chargebow_down_right" "female_anims2_anims\a_HL2AC_Run_Aim_chargebow_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_chargebow_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_chargebow_mid_left" "female_anims2_anims\a_HL2AC_Run_Aim_chargebow_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_chargebow_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_chargebow_mid_center" "female_anims2_anims\a_HL2AC_Run_Aim_chargebow_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_chargebow_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_chargebow_mid_right" "female_anims2_anims\a_HL2AC_Run_Aim_chargebow_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_chargebow_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_chargebow_up_left" "female_anims2_anims\a_HL2AC_Run_Aim_chargebow_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_chargebow_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_chargebow_up_center" "female_anims2_anims\a_HL2AC_Run_Aim_chargebow_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_chargebow_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_chargebow_up_right" "female_anims2_anims\a_HL2AC_Run_Aim_chargebow_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_chargebow_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_chargebow_neutral" "female_anims2_anims\a_HL2AC_crouch_Aim_chargebow_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_Aim_chargebow_down_left" "female_anims2_anims\a_HL2AC_crouch_Aim_chargebow_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_chargebow_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_chargebow_down_center" "female_anims2_anims\a_HL2AC_crouch_Aim_chargebow_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_chargebow_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_chargebow_down_right" "female_anims2_anims\a_HL2AC_crouch_Aim_chargebow_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_chargebow_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_chargebow_mid_left" "female_anims2_anims\a_HL2AC_crouch_Aim_chargebow_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_chargebow_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_chargebow_mid_center" "female_anims2_anims\a_HL2AC_crouch_Aim_chargebow_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_chargebow_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_chargebow_mid_right" "female_anims2_anims\a_HL2AC_crouch_Aim_chargebow_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_chargebow_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_chargebow_up_left" "female_anims2_anims\a_HL2AC_crouch_Aim_chargebow_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_chargebow_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_chargebow_up_center" "female_anims2_anims\a_HL2AC_crouch_Aim_chargebow_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_chargebow_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_chargebow_up_right" "female_anims2_anims\a_HL2AC_crouch_Aim_chargebow_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_chargebow_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_e_injection_neutral" "female_anims2_anims\a_HL2AC_Run_base_e_injection_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_base_e_injection_down_left" "female_anims2_anims\a_HL2AC_Run_base_e_injection_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_e_injection_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_e_injection_down_center" "female_anims2_anims\a_HL2AC_Run_base_e_injection_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_e_injection_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_e_injection_down_right" "female_anims2_anims\a_HL2AC_Run_base_e_injection_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_e_injection_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_e_injection_mid_left" "female_anims2_anims\a_HL2AC_Run_base_e_injection_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_e_injection_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_e_injection_mid_center" "female_anims2_anims\a_HL2AC_Run_base_e_injection_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_e_injection_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_e_injection_mid_right" "female_anims2_anims\a_HL2AC_Run_base_e_injection_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_e_injection_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_e_injection_up_left" "female_anims2_anims\a_HL2AC_Run_base_e_injection_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_e_injection_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_e_injection_up_center" "female_anims2_anims\a_HL2AC_Run_base_e_injection_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_e_injection_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_base_e_injection_up_right" "female_anims2_anims\a_HL2AC_Run_base_e_injection_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_base_e_injection_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sbox_neutral" "female_anims2_anims\a_HL2AC_Run_Aim_sbox_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_Run_Aim_sbox_down_left" "female_anims2_anims\a_HL2AC_Run_Aim_sbox_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sbox_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sbox_down_center" "female_anims2_anims\a_HL2AC_Run_Aim_sbox_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sbox_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sbox_down_right" "female_anims2_anims\a_HL2AC_Run_Aim_sbox_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sbox_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sbox_mid_left" "female_anims2_anims\a_HL2AC_Run_Aim_sbox_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sbox_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sbox_mid_center" "female_anims2_anims\a_HL2AC_Run_Aim_sbox_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sbox_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sbox_mid_right" "female_anims2_anims\a_HL2AC_Run_Aim_sbox_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sbox_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sbox_up_left" "female_anims2_anims\a_HL2AC_Run_Aim_sbox_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sbox_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sbox_up_center" "female_anims2_anims\a_HL2AC_Run_Aim_sbox_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sbox_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_Run_Aim_sbox_up_right" "female_anims2_anims\a_HL2AC_Run_Aim_sbox_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_Run_Aim_sbox_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_sbox_neutral" "female_anims2_anims\a_HL2AC_crouch_Aim_sbox_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_HL2AC_crouch_Aim_sbox_down_left" "female_anims2_anims\a_HL2AC_crouch_Aim_sbox_down_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_sbox_down_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_sbox_down_center" "female_anims2_anims\a_HL2AC_crouch_Aim_sbox_down_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_sbox_down_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_sbox_down_right" "female_anims2_anims\a_HL2AC_crouch_Aim_sbox_down_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_sbox_down_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_sbox_mid_left" "female_anims2_anims\a_HL2AC_crouch_Aim_sbox_mid_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_sbox_mid_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_sbox_mid_center" "female_anims2_anims\a_HL2AC_crouch_Aim_sbox_mid_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_sbox_mid_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_sbox_mid_right" "female_anims2_anims\a_HL2AC_crouch_Aim_sbox_mid_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_sbox_mid_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_sbox_up_left" "female_anims2_anims\a_HL2AC_crouch_Aim_sbox_up_left.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_sbox_up_left_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_sbox_up_center" "female_anims2_anims\a_HL2AC_crouch_Aim_sbox_up_center.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_sbox_up_center_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_HL2AC_crouch_Aim_sbox_up_right" "female_anims2_anims\a_HL2AC_crouch_Aim_sbox_up_right.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_HL2AC_crouch_Aim_sbox_up_right_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_run_pistol_base" "female_anims2_anims\a_run_pistol_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4641,7 +4213,6 @@ $animation "a_run_pistol_base" "female_anims2_anims\a_run_pistol_base.smd" {
 }
 
 $animation "a_run_shotgun_base" "female_anims2_anims\a_run_shotgun_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4649,7 +4220,6 @@ $animation "a_run_shotgun_base" "female_anims2_anims\a_run_shotgun_base.smd" {
 }
 
 $animation "a_run_smg1_base" "female_anims2_anims\a_run_smg1_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4657,7 +4227,6 @@ $animation "a_run_smg1_base" "female_anims2_anims\a_run_smg1_base.smd" {
 }
 
 $animation "a_run_ar2_base" "female_anims2_anims\a_run_ar2_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4665,7 +4234,6 @@ $animation "a_run_ar2_base" "female_anims2_anims\a_run_ar2_base.smd" {
 }
 
 $animation "a_run_gravgun_base" "female_anims2_anims\a_run_gravgun_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4673,7 +4241,6 @@ $animation "a_run_gravgun_base" "female_anims2_anims\a_run_gravgun_base.smd" {
 }
 
 $animation "a_run_grenade_base" "female_anims2_anims\a_run_grenade_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4681,7 +4248,6 @@ $animation "a_run_grenade_base" "female_anims2_anims\a_run_grenade_base.smd" {
 }
 
 $animation "a_run_rpg_base" "female_anims2_anims\a_run_rpg_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4689,7 +4255,6 @@ $animation "a_run_rpg_base" "female_anims2_anims\a_run_rpg_base.smd" {
 }
 
 $animation "a_run_crossbow_base" "female_anims2_anims\a_run_crossbow_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4697,7 +4262,6 @@ $animation "a_run_crossbow_base" "female_anims2_anims\a_run_crossbow_base.smd" {
 }
 
 $animation "a_run_melee_base" "female_anims2_anims\a_run_melee_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4705,7 +4269,6 @@ $animation "a_run_melee_base" "female_anims2_anims\a_run_melee_base.smd" {
 }
 
 $animation "a_run_slam_base" "female_anims2_anims\a_run_slam_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4713,7 +4276,6 @@ $animation "a_run_slam_base" "female_anims2_anims\a_run_slam_base.smd" {
 }
 
 $animation "a_run_sniper_base" "female_anims2_anims\a_run_sniper_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4721,7 +4283,6 @@ $animation "a_run_sniper_base" "female_anims2_anims\a_run_sniper_base.smd" {
 }
 
 $animation "a_run_shield_base" "female_anims2_anims\a_run_shield_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4729,7 +4290,6 @@ $animation "a_run_shield_base" "female_anims2_anims\a_run_shield_base.smd" {
 }
 
 $animation "a_run_shaketrap_base" "female_anims2_anims\a_run_shaketrap_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4737,7 +4297,6 @@ $animation "a_run_shaketrap_base" "female_anims2_anims\a_run_shaketrap_base.smd"
 }
 
 $animation "a_run_turret_base" "female_anims2_anims\a_run_turret_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4745,7 +4304,6 @@ $animation "a_run_turret_base" "female_anims2_anims\a_run_turret_base.smd" {
 }
 
 $animation "a_run_injection_base" "female_anims2_anims\a_run_injection_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4753,7 +4311,6 @@ $animation "a_run_injection_base" "female_anims2_anims\a_run_injection_base.smd"
 }
 
 $animation "a_run_gatling_base" "female_anims2_anims\a_run_gatling_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4761,7 +4318,6 @@ $animation "a_run_gatling_base" "female_anims2_anims\a_run_gatling_base.smd" {
 }
 
 $animation "a_run_Man_Gun_base" "female_anims2_anims\a_run_Man_Gun_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4769,7 +4325,6 @@ $animation "a_run_Man_Gun_base" "female_anims2_anims\a_run_Man_Gun_base.smd" {
 }
 
 $animation "a_run_knife_base" "female_anims2_anims\a_run_knife_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4777,7 +4332,6 @@ $animation "a_run_knife_base" "female_anims2_anims\a_run_knife_base.smd" {
 }
 
 $animation "a_run_transiber_base" "female_anims2_anims\a_run_transiber_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4785,7 +4339,6 @@ $animation "a_run_transiber_base" "female_anims2_anims\a_run_transiber_base.smd"
 }
 
 $animation "a_run_h_shield_base" "female_anims2_anims\a_run_h_shield_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4793,7 +4346,6 @@ $animation "a_run_h_shield_base" "female_anims2_anims\a_run_h_shield_base.smd" {
 }
 
 $animation "a_run_drink_base" "female_anims2_anims\a_run_drink_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4801,7 +4353,6 @@ $animation "a_run_drink_base" "female_anims2_anims\a_run_drink_base.smd" {
 }
 
 $animation "a_run_stungun_base" "female_anims2_anims\a_run_stungun_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4809,7 +4360,6 @@ $animation "a_run_stungun_base" "female_anims2_anims\a_run_stungun_base.smd" {
 }
 
 $animation "a_run_Laserrifle_base" "female_anims2_anims\a_run_Laserrifle_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4817,7 +4367,6 @@ $animation "a_run_Laserrifle_base" "female_anims2_anims\a_run_Laserrifle_base.sm
 }
 
 $animation "a_run_pistol2_base" "female_anims2_anims\a_run_pistol2_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4825,7 +4374,6 @@ $animation "a_run_pistol2_base" "female_anims2_anims\a_run_pistol2_base.smd" {
 }
 
 $animation "a_run_manhac_base" "female_anims2_anims\a_run_manhac_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4833,7 +4381,6 @@ $animation "a_run_manhac_base" "female_anims2_anims\a_run_manhac_base.smd" {
 }
 
 $animation "a_run_rpg2_base" "female_anims2_anims\a_run_rpg2_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4841,7 +4388,6 @@ $animation "a_run_rpg2_base" "female_anims2_anims\a_run_rpg2_base.smd" {
 }
 
 $animation "a_run_invisible_base" "female_anims2_anims\a_run_invisible_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4849,7 +4395,6 @@ $animation "a_run_invisible_base" "female_anims2_anims\a_run_invisible_base.smd"
 }
 
 $animation "a_run_glove_base" "female_anims2_anims\a_run_glove_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4857,7 +4402,6 @@ $animation "a_run_glove_base" "female_anims2_anims\a_run_glove_base.smd" {
 }
 
 $animation "a_run_dekoi_base" "female_anims2_anims\a_run_dekoi_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4865,7 +4409,6 @@ $animation "a_run_dekoi_base" "female_anims2_anims\a_run_dekoi_base.smd" {
 }
 
 $animation "a_run_timerG_base" "female_anims2_anims\a_run_timerG_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4873,7 +4416,6 @@ $animation "a_run_timerG_base" "female_anims2_anims\a_run_timerG_base.smd" {
 }
 
 $animation "a_run_chargebow_base" "female_anims2_anims\a_run_chargebow_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4881,7 +4423,6 @@ $animation "a_run_chargebow_base" "female_anims2_anims\a_run_chargebow_base.smd"
 }
 
 $animation "a_run_shake_strong_base" "female_anims2_anims\a_run_shake_strong_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4889,7 +4430,6 @@ $animation "a_run_shake_strong_base" "female_anims2_anims\a_run_shake_strong_bas
 }
 
 $animation "a_run_e_injection_base" "female_anims2_anims\a_run_e_injection_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4897,7 +4437,6 @@ $animation "a_run_e_injection_base" "female_anims2_anims\a_run_e_injection_base.
 }
 
 $animation "a_run_sbox_base" "female_anims2_anims\a_run_sbox_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4905,7 +4444,6 @@ $animation "a_run_sbox_base" "female_anims2_anims\a_run_sbox_base.smd" {
 }
 
 $animation "a_cidle_grenade_base" "female_anims2_anims\a_cidle_grenade_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4913,7 +4451,6 @@ $animation "a_cidle_grenade_base" "female_anims2_anims\a_cidle_grenade_base.smd"
 }
 
 $animation "a_cidle_melee_base" "female_anims2_anims\a_cidle_melee_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4921,7 +4458,6 @@ $animation "a_cidle_melee_base" "female_anims2_anims\a_cidle_melee_base.smd" {
 }
 
 $animation "a_cidle_slam_base" "female_anims2_anims\a_cidle_slam_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4929,7 +4465,6 @@ $animation "a_cidle_slam_base" "female_anims2_anims\a_cidle_slam_base.smd" {
 }
 
 $animation "a_cidle_shaketrap_base" "female_anims2_anims\a_cidle_shaketrap_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4937,7 +4472,6 @@ $animation "a_cidle_shaketrap_base" "female_anims2_anims\a_cidle_shaketrap_base.
 }
 
 $animation "a_cidle_turret_base" "female_anims2_anims\a_cidle_turret_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4945,7 +4479,6 @@ $animation "a_cidle_turret_base" "female_anims2_anims\a_cidle_turret_base.smd" {
 }
 
 $animation "a_cidle_knife_base" "female_anims2_anims\a_cidle_knife_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4953,7 +4486,6 @@ $animation "a_cidle_knife_base" "female_anims2_anims\a_cidle_knife_base.smd" {
 }
 
 $animation "a_cidle_transiber_base" "female_anims2_anims\a_cidle_transiber_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4961,7 +4493,6 @@ $animation "a_cidle_transiber_base" "female_anims2_anims\a_cidle_transiber_base.
 }
 
 $animation "a_cidle_drink_base" "female_anims2_anims\a_cidle_drink_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4969,7 +4500,6 @@ $animation "a_cidle_drink_base" "female_anims2_anims\a_cidle_drink_base.smd" {
 }
 
 $animation "a_cidle_stungun_base" "female_anims2_anims\a_cidle_stungun_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4977,7 +4507,6 @@ $animation "a_cidle_stungun_base" "female_anims2_anims\a_cidle_stungun_base.smd"
 }
 
 $animation "a_cidle_manhac_base" "female_anims2_anims\a_cidle_manhac_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4985,7 +4514,6 @@ $animation "a_cidle_manhac_base" "female_anims2_anims\a_cidle_manhac_base.smd" {
 }
 
 $animation "a_cidle_invisible_base" "female_anims2_anims\a_cidle_invisible_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -4993,7 +4521,6 @@ $animation "a_cidle_invisible_base" "female_anims2_anims\a_cidle_invisible_base.
 }
 
 $animation "a_cidle_dekoi_base" "female_anims2_anims\a_cidle_dekoi_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5001,7 +4528,6 @@ $animation "a_cidle_dekoi_base" "female_anims2_anims\a_cidle_dekoi_base.smd" {
 }
 
 $animation "a_cidle_timerG_base" "female_anims2_anims\a_cidle_timerG_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5009,7 +4535,6 @@ $animation "a_cidle_timerG_base" "female_anims2_anims\a_cidle_timerG_base.smd" {
 }
 
 $animation "a_cidle_shake_strong_base" "female_anims2_anims\a_cidle_shake_strong_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5017,7 +4542,6 @@ $animation "a_cidle_shake_strong_base" "female_anims2_anims\a_cidle_shake_strong
 }
 
 $animation "a_cwalk_pistol_base" "female_anims2_anims\a_cwalk_pistol_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5025,7 +4549,6 @@ $animation "a_cwalk_pistol_base" "female_anims2_anims\a_cwalk_pistol_base.smd" {
 }
 
 $animation "a_cwalk_shotgun_base" "female_anims2_anims\a_cwalk_shotgun_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5033,7 +4556,6 @@ $animation "a_cwalk_shotgun_base" "female_anims2_anims\a_cwalk_shotgun_base.smd"
 }
 
 $animation "a_cwalk_smg1_base" "female_anims2_anims\a_cwalk_smg1_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5041,7 +4563,6 @@ $animation "a_cwalk_smg1_base" "female_anims2_anims\a_cwalk_smg1_base.smd" {
 }
 
 $animation "a_cwalk_ar2_base" "female_anims2_anims\a_cwalk_ar2_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5049,7 +4570,6 @@ $animation "a_cwalk_ar2_base" "female_anims2_anims\a_cwalk_ar2_base.smd" {
 }
 
 $animation "a_cwalk_gravgun_base" "female_anims2_anims\a_cwalk_gravgun_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5057,7 +4577,6 @@ $animation "a_cwalk_gravgun_base" "female_anims2_anims\a_cwalk_gravgun_base.smd"
 }
 
 $animation "a_cwalk_grenade_base" "female_anims2_anims\a_cwalk_grenade_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5065,7 +4584,6 @@ $animation "a_cwalk_grenade_base" "female_anims2_anims\a_cwalk_grenade_base.smd"
 }
 
 $animation "a_cwalk_rpg_base" "female_anims2_anims\a_cwalk_rpg_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5073,7 +4591,6 @@ $animation "a_cwalk_rpg_base" "female_anims2_anims\a_cwalk_rpg_base.smd" {
 }
 
 $animation "a_cwalk_crossbow_base" "female_anims2_anims\a_cwalk_crossbow_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5081,7 +4598,6 @@ $animation "a_cwalk_crossbow_base" "female_anims2_anims\a_cwalk_crossbow_base.sm
 }
 
 $animation "a_cwalk_melee_base" "female_anims2_anims\a_cwalk_melee_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5089,7 +4605,6 @@ $animation "a_cwalk_melee_base" "female_anims2_anims\a_cwalk_melee_base.smd" {
 }
 
 $animation "a_cwalk_slam_base" "female_anims2_anims\a_cwalk_slam_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5097,7 +4612,6 @@ $animation "a_cwalk_slam_base" "female_anims2_anims\a_cwalk_slam_base.smd" {
 }
 
 $animation "a_cwalk_sniper_base" "female_anims2_anims\a_cwalk_sniper_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5105,7 +4619,6 @@ $animation "a_cwalk_sniper_base" "female_anims2_anims\a_cwalk_sniper_base.smd" {
 }
 
 $animation "a_cwalk_shield_base" "female_anims2_anims\a_cwalk_shield_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5113,7 +4626,6 @@ $animation "a_cwalk_shield_base" "female_anims2_anims\a_cwalk_shield_base.smd" {
 }
 
 $animation "a_cwalk_shaketrap_base" "female_anims2_anims\a_cwalk_shaketrap_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5121,7 +4633,6 @@ $animation "a_cwalk_shaketrap_base" "female_anims2_anims\a_cwalk_shaketrap_base.
 }
 
 $animation "a_cwalk_turret_base" "female_anims2_anims\a_cwalk_turret_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5129,7 +4640,6 @@ $animation "a_cwalk_turret_base" "female_anims2_anims\a_cwalk_turret_base.smd" {
 }
 
 $animation "a_cwalk_injection_base" "female_anims2_anims\a_cwalk_injection_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5137,7 +4647,6 @@ $animation "a_cwalk_injection_base" "female_anims2_anims\a_cwalk_injection_base.
 }
 
 $animation "a_cwalk_gatling_base" "female_anims2_anims\a_cwalk_gatling_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5145,7 +4654,6 @@ $animation "a_cwalk_gatling_base" "female_anims2_anims\a_cwalk_gatling_base.smd"
 }
 
 $animation "a_cwalk_Man_Gun_base" "female_anims2_anims\a_cwalk_Man_Gun_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5153,7 +4661,6 @@ $animation "a_cwalk_Man_Gun_base" "female_anims2_anims\a_cwalk_Man_Gun_base.smd"
 }
 
 $animation "a_cwalk_knife_base" "female_anims2_anims\a_cwalk_knife_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5161,7 +4668,6 @@ $animation "a_cwalk_knife_base" "female_anims2_anims\a_cwalk_knife_base.smd" {
 }
 
 $animation "a_cwalk_transiber_base" "female_anims2_anims\a_cwalk_transiber_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5169,7 +4675,6 @@ $animation "a_cwalk_transiber_base" "female_anims2_anims\a_cwalk_transiber_base.
 }
 
 $animation "a_cwalk_h_shield_base" "female_anims2_anims\a_cwalk_h_shield_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5177,7 +4682,6 @@ $animation "a_cwalk_h_shield_base" "female_anims2_anims\a_cwalk_h_shield_base.sm
 }
 
 $animation "a_cwalk_drink_base" "female_anims2_anims\a_cwalk_drink_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5185,7 +4689,6 @@ $animation "a_cwalk_drink_base" "female_anims2_anims\a_cwalk_drink_base.smd" {
 }
 
 $animation "a_cwalk_stungun_base" "female_anims2_anims\a_cwalk_stungun_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5193,7 +4696,6 @@ $animation "a_cwalk_stungun_base" "female_anims2_anims\a_cwalk_stungun_base.smd"
 }
 
 $animation "a_cwalk_Laserrifle_base" "female_anims2_anims\a_cwalk_Laserrifle_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5201,7 +4703,6 @@ $animation "a_cwalk_Laserrifle_base" "female_anims2_anims\a_cwalk_Laserrifle_bas
 }
 
 $animation "a_cwalk_pistol2_base" "female_anims2_anims\a_cwalk_pistol2_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5209,7 +4710,6 @@ $animation "a_cwalk_pistol2_base" "female_anims2_anims\a_cwalk_pistol2_base.smd"
 }
 
 $animation "a_cwalk_manhac_base" "female_anims2_anims\a_cwalk_manhac_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5217,7 +4717,6 @@ $animation "a_cwalk_manhac_base" "female_anims2_anims\a_cwalk_manhac_base.smd" {
 }
 
 $animation "a_cwalk_rpg2_base" "female_anims2_anims\a_cwalk_rpg2_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5225,7 +4724,6 @@ $animation "a_cwalk_rpg2_base" "female_anims2_anims\a_cwalk_rpg2_base.smd" {
 }
 
 $animation "a_cwalk_invisible_base" "female_anims2_anims\a_cwalk_invisible_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5233,7 +4731,6 @@ $animation "a_cwalk_invisible_base" "female_anims2_anims\a_cwalk_invisible_base.
 }
 
 $animation "a_cwalk_glove_base" "female_anims2_anims\a_cwalk_glove_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5241,7 +4738,6 @@ $animation "a_cwalk_glove_base" "female_anims2_anims\a_cwalk_glove_base.smd" {
 }
 
 $animation "a_cwalk_dekoi_base" "female_anims2_anims\a_cwalk_dekoi_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5249,7 +4745,6 @@ $animation "a_cwalk_dekoi_base" "female_anims2_anims\a_cwalk_dekoi_base.smd" {
 }
 
 $animation "a_cwalk_timerG_base" "female_anims2_anims\a_cwalk_timerG_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5257,7 +4752,6 @@ $animation "a_cwalk_timerG_base" "female_anims2_anims\a_cwalk_timerG_base.smd" {
 }
 
 $animation "a_cwalk_chargebow_base" "female_anims2_anims\a_cwalk_chargebow_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5265,7 +4759,6 @@ $animation "a_cwalk_chargebow_base" "female_anims2_anims\a_cwalk_chargebow_base.
 }
 
 $animation "a_cwalk_shake_strong_base" "female_anims2_anims\a_cwalk_shake_strong_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5273,7 +4766,6 @@ $animation "a_cwalk_shake_strong_base" "female_anims2_anims\a_cwalk_shake_strong
 }
 
 $animation "a_cwalk_e_injection_base" "female_anims2_anims\a_cwalk_e_injection_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5281,7 +4773,6 @@ $animation "a_cwalk_e_injection_base" "female_anims2_anims\a_cwalk_e_injection_b
 }
 
 $animation "a_cwalk_sbox_base" "female_anims2_anims\a_cwalk_sbox_base.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5289,56 +4780,48 @@ $animation "a_cwalk_sbox_base" "female_anims2_anims\a_cwalk_sbox_base.smd" {
 }
 
 $animation "a_range_pistol" "female_anims2_anims\a_range_pistol.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_pistol_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_shotgun" "female_anims2_anims\a_range_shotgun.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_shotgun_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_smg1" "female_anims2_anims\a_range_smg1.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_smg1_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_ar2" "female_anims2_anims\a_range_ar2.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_ar2_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_gravgun" "female_anims2_anims\a_range_gravgun.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_gravgun_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_grenade" "female_anims2_anims\a_range_grenade.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_grenade_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_rpg" "female_anims2_anims\a_range_rpg.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_rpg_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_crossbow" "female_anims2_anims\a_range_crossbow.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_crossbow_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
@@ -5353,49 +4836,42 @@ $animation "a_range_melee" "female_anims2_anims\a_range_melee.smd" {
 }
 
 $animation "a_range_slam" "female_anims2_anims\a_range_slam.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_slam_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_sniper" "female_anims2_anims\a_range_sniper.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_sniper_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_shield" "female_anims2_anims\a_range_shield.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_shield_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_shaketrap" "female_anims2_anims\a_range_shaketrap.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_shaketrap_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_turret" "female_anims2_anims\a_range_turret.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_turret_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_injection" "female_anims2_anims\a_range_injection.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_injection_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range01_gatling" "female_anims2_anims\a_range01_gatling.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range01_gatling_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
@@ -5410,70 +4886,60 @@ $animation "a_range_knife" "female_anims2_anims\a_range_knife.smd" {
 }
 
 $animation "a_range_h_shield" "female_anims2_anims\a_range_h_shield.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_h_shield_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_drink" "female_anims2_anims\a_range_drink.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_drink_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_stungun" "female_anims2_anims\a_range_stungun.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_stungun_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_Laserrifle" "female_anims2_anims\a_range_Laserrifle.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_Laserrifle_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_pistol2_r" "female_anims2_anims\a_range_pistol2_r.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_pistol2_r_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_pistol2_l" "female_anims2_anims\a_range_pistol2_l.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_pistol2_l_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_manhac" "female_anims2_anims\a_range_manhac.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_manhac_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_rpg2_r" "female_anims2_anims\a_range_rpg2_r.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_rpg2_r_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_rpg2_l" "female_anims2_anims\a_range_rpg2_l.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_rpg2_l_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_rpg2_rl" "female_anims2_anims\a_range_rpg2_rl.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_rpg2_rl_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
@@ -5488,337 +4954,284 @@ $animation "a_range_invisible" "female_anims2_anims\a_range_invisible.smd" {
 }
 
 $animation "a_range_glove" "female_anims2_anims\a_range_glove.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_glove_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_dekoi" "female_anims2_anims\a_range_dekoi.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_dekoi_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_timerG" "female_anims2_anims\a_range_timerG.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_timerG_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_chargebow" "female_anims2_anims\a_range_chargebow.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_chargebow_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_shake_strong" "female_anims2_anims\a_range_shake_strong.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_shake_strong_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_e_injection" "female_anims2_anims\a_range_e_injection.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_e_injection_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_range_sbox" "female_anims2_anims\a_range_sbox.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_range_sbox_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_jump_pistol" "female_anims2_anims\a_jump_pistol.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_shotgun" "female_anims2_anims\a_jump_shotgun.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_smg1" "female_anims2_anims\a_jump_smg1.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_ar2" "female_anims2_anims\a_jump_ar2.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_gravgun" "female_anims2_anims\a_jump_gravgun.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_grenade" "female_anims2_anims\a_jump_grenade.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_rpg" "female_anims2_anims\a_jump_rpg.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_crossbow" "female_anims2_anims\a_jump_crossbow.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_melee" "female_anims2_anims\a_jump_melee.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_slam" "female_anims2_anims\a_jump_slam.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_sniper" "female_anims2_anims\a_jump_sniper.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_shield" "female_anims2_anims\a_jump_shield.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_shaketrap" "female_anims2_anims\a_jump_shaketrap.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_turret" "female_anims2_anims\a_jump_turret.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_injection" "female_anims2_anims\a_jump_injection.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_gatling" "female_anims2_anims\a_jump_gatling.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_Man_Gun" "female_anims2_anims\a_jump_Man_Gun.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_knife" "female_anims2_anims\a_jump_knife.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_transiber" "female_anims2_anims\a_jump_transiber.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_h_shield" "female_anims2_anims\a_jump_h_shield.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_drink" "female_anims2_anims\a_jump_drink.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_stungun" "female_anims2_anims\a_jump_stungun.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_Laserrifle" "female_anims2_anims\a_jump_Laserrifle.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_pistol2" "female_anims2_anims\a_jump_pistol2.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_manhac" "female_anims2_anims\a_jump_manhac.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_rpg2" "female_anims2_anims\a_jump_rpg2.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_invisible" "female_anims2_anims\a_jump_invisible.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_glove" "female_anims2_anims\a_jump_glove.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_dekoi" "female_anims2_anims\a_jump_dekoi.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_timerG" "female_anims2_anims\a_jump_timerG.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_chargebow" "female_anims2_anims\a_jump_chargebow.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_shake_strong" "female_anims2_anims\a_jump_shake_strong.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_e_injection" "female_anims2_anims\a_jump_e_injection.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_jump_sbox" "female_anims2_anims\a_jump_sbox.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 }
 
 $animation "a_damage_pistol" "female_anims2_anims\a_damage_pistol.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_damage_pistol_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_damage_shotgun" "female_anims2_anims\a_damage_shotgun.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_damage_shotgun_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_damage_smg1" "female_anims2_anims\a_damage_smg1.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_damage_smg1_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_damage_ar2" "female_anims2_anims\a_damage_ar2.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_damage_ar2_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_damage_gravgun" "female_anims2_anims\a_damage_gravgun.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_damage_gravgun_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_damage_grenade" "female_anims2_anims\a_damage_grenade.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_damage_grenade_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_damage_rpg" "female_anims2_anims\a_damage_rpg.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_damage_rpg_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_damage_crossbow" "female_anims2_anims\a_damage_crossbow.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_damage_crossbow_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_damage_melee" "female_anims2_anims\a_damage_melee.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_damage_melee_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_damage_slam" "female_anims2_anims\a_damage_slam.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_damage_slam_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_damage_sniper" "female_anims2_anims\a_damage_sniper.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_damage_sniper_corrective_animation" 0
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
 $animation "a_pose_neutral" "female_anims2_anims\a_pose_neutral.smd" {
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 2
@@ -5826,91 +5239,78 @@ $animation "a_pose_neutral" "female_anims2_anims\a_pose_neutral.smd" {
 }
 
 $animation "a_body_rot" "female_anims2_anims\a_body_rot.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_body_rot_corrective_animation" 0
 	weightlist "weights_body_rot_z"
 }
 
 $animation "a_body_rot_z_rt" "female_anims2_anims\a_body_rot_z_rt.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_body_rot_z_rt_corrective_animation" 0
 	weightlist "weights_body_rot_z"
 }
 
 $animation "a_body_rot_z_lt" "female_anims2_anims\a_body_rot_z_lt.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_body_rot_z_lt_corrective_animation" 0
 	weightlist "weights_body_rot_z"
 }
 
 $animation "a_spine_rot" "female_anims2_anims\a_spine_rot.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_spine_rot_corrective_animation" 0
 	weightlist "weights_body_rot_z"
 }
 
 $animation "a_spine_rot_z_rt" "female_anims2_anims\a_spine_rot_z_rt.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_spine_rot_z_rt_corrective_animation" 0
 	weightlist "weights_body_rot_z"
 }
 
 $animation "a_spine_rot_z_lt" "female_anims2_anims\a_spine_rot_z_lt.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_spine_rot_z_lt_corrective_animation" 0
 	weightlist "weights_body_rot_z"
 }
 
 $animation "a_head_rot" "female_anims2_anims\a_head_rot.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_head_rot_corrective_animation" 0
 	weightlist "weights_head_rot_z"
 }
 
 $animation "a_head_rot_lt" "female_anims2_anims\a_head_rot_lt.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_head_rot_lt_corrective_animation" 0
 	weightlist "weights_head_rot_z"
 }
 
 $animation "a_head_rot_rt" "female_anims2_anims\a_head_rot_rt.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_head_rot_rt_corrective_animation" 0
 	weightlist "weights_head_rot_z"
 }
 
 $animation "a_head_rot_dwn" "female_anims2_anims\a_head_rot_dwn.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_head_rot_dwn_corrective_animation" 0
 	weightlist "weights_head_rot_z"
 }
 
 $animation "a_head_rot_up" "female_anims2_anims\a_head_rot_up.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_head_rot_up_corrective_animation" 0
 	weightlist "weights_head_rot_z"
 }
 
 $animation "a_head_rot_z_rt" "female_anims2_anims\a_head_rot_z_rt.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_head_rot_z_rt_corrective_animation" 0
 	weightlist "weights_head_rot_z"
 }
 
 $animation "a_head_rot_z_lt" "female_anims2_anims\a_head_rot_z_lt.smd" {
-	fps 30
 	// Crowbar writes this subtract option to prevent jigglebone and poseparameter problems when delta sequences are recompiled.
 	subtract "a_head_rot_z_lt_corrective_animation" 0
 	weightlist "weights_head_rot_z"
@@ -5918,9 +5318,6 @@ $animation "a_head_rot_z_lt" "female_anims2_anims\a_head_rot_z_lt.smd" {
 
 $sequence "reference" {
 	"female_anims2_anims\reference.smd"
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 2
@@ -5940,8 +5337,6 @@ $sequence "soldier_Aim_9_directions" {
 	blend "aim_yaw" -47.24715 52.47863
 	blend "aim_pitch" -53.50543 47.52302
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -5960,8 +5355,6 @@ $sequence "HL2AC_Run_Aim_pistol" {
 	blend "aim_yaw" -26.66292 38.96569
 	blend "aim_pitch" -69.95754 39.73076
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -5980,8 +5373,6 @@ $sequence "HL2AC_crouch_aim_pistol" {
 	blend "aim_yaw" 49.83447 -41.58972
 	blend "aim_pitch" -56.0968 19.08167
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6000,8 +5391,6 @@ $sequence "HL2AC_Run_Aim_shotgun" {
 	blend "aim_yaw" -41.61918 44.76021
 	blend "aim_pitch" -62.00593 41.31735
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6020,8 +5409,6 @@ $sequence "HL2AC_crouch_aim_shotgun" {
 	blend "aim_yaw" -41.24558 41.80754
 	blend "aim_pitch" -84.87997 0.00001
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6040,8 +5427,6 @@ $sequence "HL2AC_Run_Aim_smg" {
 	blend "aim_yaw" -54.83234 44.25024
 	blend "aim_pitch" -75.96323 35.53762
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6060,8 +5445,6 @@ $sequence "HL2AC_crouch_aim_smg" {
 	blend "aim_yaw" -40.87939 41.47577
 	blend "aim_pitch" -84.31623 0.000012
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6080,8 +5463,6 @@ $sequence "HL2AC_Run_Aim_ar2" {
 	blend "aim_yaw" -53.83519 43.50925
 	blend "aim_pitch" -52.48746 33.12513
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6100,8 +5481,6 @@ $sequence "HL2AC_crouch_aim_ar2" {
 	blend "aim_yaw" -40.87939 41.47577
 	blend "aim_pitch" -84.31623 0.000012
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6120,8 +5499,6 @@ $sequence "HL2AC_Run_Aim_grenade" {
 	blend "aim_yaw" 21.41949 -41.11303
 	blend "aim_pitch" 35.39478 -6.822617
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6140,8 +5517,6 @@ $sequence "HL2AC_Run_Aim_rpg" {
 	blend "aim_yaw" -47.38824 39.06121
 	blend "aim_pitch" -63.36662 36.47446
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6160,8 +5535,6 @@ $sequence "HL2AC_crouch_aim_rpg" {
 	blend "aim_yaw" 28.06767 -28.92532
 	blend "aim_pitch" -52.4442 32.9184
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6180,8 +5553,6 @@ $sequence "HL2AC_Run_Aim_gravgun" {
 	blend "aim_yaw" 37.82613 -39.62481
 	blend "aim_pitch" -62.14973 39.18986
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6200,8 +5571,6 @@ $sequence "HL2AC_crouch_aim_gravgun" {
 	blend "aim_yaw" 36.69551 -37.91605
 	blend "aim_pitch" -58.58581 24.11416
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6220,8 +5589,6 @@ $sequence "HL2AC_Run_Aim_crossbow" {
 	blend "aim_yaw" -59.04 44.88342
 	blend "aim_pitch" -61.30124 37.76128
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6240,8 +5607,6 @@ $sequence "HL2AC_crouch_aim_crossbow" {
 	blend "aim_yaw" -48.84162 33.16013
 	blend "aim_pitch" -81.48676 -0.000023
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6260,8 +5625,6 @@ $sequence "HL2AC_Run_Aim_sniper" {
 	blend "aim_yaw" -39.34877 46.05223
 	blend "aim_pitch" -72.1565 34.5449
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6280,8 +5643,6 @@ $sequence "HL2AC_crouch_aim_sniper" {
 	blend "aim_yaw" -42.75776 31.59021
 	blend "aim_pitch" -83.25663 -0.000062
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6300,8 +5661,6 @@ $sequence "HL2AC_Run_Aim_shield" {
 	blend "aim_yaw" -19.67528 19.87675
 	blend "aim_pitch" -52.07191 18.83999
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6320,8 +5679,6 @@ $sequence "HL2AC_crouch_aim_shield" {
 	blend "aim_yaw" 7.230178 -18.38598
 	blend "aim_pitch" -4.449402 -0.550665
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6340,8 +5697,6 @@ $sequence "HL2AC_Run_base_turret" {
 	blend "aim_yaw" 21.56482 -56.09891
 	blend "aim_pitch" -20.28154 3.366032
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6360,8 +5715,6 @@ $sequence "HL2AC_Run_sniper_injection" {
 	blend "aim_yaw" -44.51812 41.42436
 	blend "aim_pitch" -73.33064 32.71088
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6380,8 +5733,6 @@ $sequence "HL2AC_crouch_sniper_injection" {
 	blend "aim_yaw" -36.48181 33.13844
 	blend "aim_pitch" -53.19492 13.00119
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6400,8 +5751,6 @@ $sequence "HL2AC_Run_base_gatling" {
 	blend "aim_yaw" -51.12867 25.1021
 	blend "aim_pitch" -73.37321 14.35989
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6420,8 +5769,6 @@ $sequence "HL2AC_crouch_base_gatling" {
 	blend "aim_yaw" -51.12859 25.10215
 	blend "aim_pitch" -73.37325 11.78862
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6440,8 +5787,6 @@ $sequence "HL2AC_Man_Gun_sniper" {
 	blend "aim_yaw" 11.57129 -34.44687
 	blend "aim_pitch" -35.85342 7.767738
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6460,8 +5805,6 @@ $sequence "HL2AC_C_Man_Gun_sniper" {
 	blend "aim_yaw" -33.0801 -46.38721
 	blend "aim_pitch" -0.76919 24.93814
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6480,8 +5823,6 @@ $sequence "HL2AC_Run_base_knife_sniper" {
 	blend "aim_yaw" -1.081377 -1.184899
 	blend "aim_pitch" 45.9623 42.4917
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6500,8 +5841,6 @@ $sequence "HL2AC_Run_h_shield_sniper" {
 	blend "aim_yaw" -51.53789 57.16771
 	blend "aim_pitch" -61.36506 42.91571
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6520,8 +5859,6 @@ $sequence "HL2AC_crouch_h_shield_sniper" {
 	blend "aim_yaw" -49.46916 59.29434
 	blend "aim_pitch" -63.52508 41.15115
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6540,8 +5877,6 @@ $sequence "HL2AC_Run_base_Laserrifle_sniper" {
 	blend "aim_yaw" -39.3488 46.0523
 	blend "aim_pitch" -72.15652 34.54485
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6560,8 +5895,6 @@ $sequence "HL2AC_Run_base_Pistol_2_sniper" {
 	blend "aim_yaw" -61.49203 59.41209
 	blend "aim_pitch" -66.36337 31.77952
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6580,8 +5913,6 @@ $sequence "HL2AC_crouch_base_Pistol_2_sniper" {
 	blend "aim_yaw" -51.84354 86.01298
 	blend "aim_pitch" -63.21817 18.17127
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6600,8 +5931,6 @@ $sequence "HL2AC_Run_Aim_rpg2" {
 	blend "aim_yaw" -48.68497 48.53179
 	blend "aim_pitch" -79.80325 49.98411
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6620,8 +5949,6 @@ $sequence "HL2AC_crouch_aim_rpg2" {
 	blend "aim_yaw" -48.68496 48.53179
 	blend "aim_pitch" -79.8032 49.98411
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6640,8 +5967,6 @@ $sequence "HL2AC_Run_Aim_gra_glove" {
 	blend "aim_yaw" 3.422601 -27.75563
 	blend "aim_pitch" -0.034439 -0.073924
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6660,8 +5985,6 @@ $sequence "HL2AC_crouch_gra_glove" {
 	blend "aim_yaw" 3.422601 -27.75563
 	blend "aim_pitch" -0.034439 -0.073924
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6680,8 +6003,6 @@ $sequence "HL2AC_Run_Aim_chargebow" {
 	blend "aim_yaw" -57.40754 47.68022
 	blend "aim_pitch" -54.1775 19.14474
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6700,8 +6021,6 @@ $sequence "HL2AC_crouch_Aim_chargebow" {
 	blend "aim_yaw" -60.88585 43.25361
 	blend "aim_pitch" -53.10667 19.66245
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6720,8 +6039,6 @@ $sequence "HL2AC_Run_base_e_injection" {
 	blend "aim_yaw" -47.52956 49.60473
 	blend "aim_pitch" -59.95264 41.06353
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6740,8 +6057,6 @@ $sequence "HL2AC_Run_Aim_sbox" {
 	blend "aim_yaw" -20.41916 26.84118
 	blend "aim_pitch" -17.42831 24.7724
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
@@ -6760,20 +6075,14 @@ $sequence "HL2AC_crouch_Aim_sbox" {
 	blend "aim_yaw" -20.41916 26.84118
 	blend "aim_pitch" -17.42831 24.7724
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "rfoot" 1 0
 	iklock "lfoot" 1 0
 }
 
-$sequence "idle_pistol" {
+$sequence "idle_pistol" ACT_HL2MP_IDLE_PISTOL 1 {
 	"female_anims2_anims\idle_pistol.smd"
-	activity "ACT_HL2MP_IDLE_PISTOL" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_pistol"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -6781,13 +6090,9 @@ $sequence "idle_pistol" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_shotgun" {
+$sequence "idle_shotgun" ACT_HL2MP_IDLE_SHOTGUN 1 {
 	"female_anims2_anims\idle_shotgun.smd"
-	activity "ACT_HL2MP_IDLE_SHOTGUN" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_shotgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -6795,13 +6100,9 @@ $sequence "idle_shotgun" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_smg1" {
+$sequence "idle_smg1" ACT_HL2MP_IDLE_SMG1 1 {
 	"female_anims2_anims\idle_smg1.smd"
-	activity "ACT_HL2MP_IDLE_SMG1" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_smg"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -6809,13 +6110,9 @@ $sequence "idle_smg1" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_ar2" {
+$sequence "idle_ar2" ACT_HL2MP_IDLE_AR2 1 {
 	"female_anims2_anims\idle_ar2.smd"
-	activity "ACT_HL2MP_IDLE_AR2" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_ar2"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -6823,13 +6120,9 @@ $sequence "idle_ar2" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_gravgun" {
+$sequence "idle_gravgun" ACT_HL2MP_IDLE_PHYSGUN 1 {
 	"female_anims2_anims\idle_gravgun.smd"
-	activity "ACT_HL2MP_IDLE_PHYSGUN" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_gravgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -6837,13 +6130,9 @@ $sequence "idle_gravgun" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_grenade" {
+$sequence "idle_grenade" ACT_HL2MP_IDLE_GRENADE 1 {
 	"female_anims2_anims\idle_grenade.smd"
-	activity "ACT_HL2MP_IDLE_GRENADE" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_shotgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -6851,13 +6140,9 @@ $sequence "idle_grenade" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_rpg" {
+$sequence "idle_rpg" ACT_HL2MP_IDLE_RPG 1 {
 	"female_anims2_anims\idle_rpg.smd"
-	activity "ACT_HL2MP_IDLE_RPG" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_rpg"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -6865,13 +6150,9 @@ $sequence "idle_rpg" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_crossbow" {
+$sequence "idle_crossbow" ACT_HL2MP_IDLE_CROSSBOW 1 {
 	"female_anims2_anims\idle_crossbow.smd"
-	activity "ACT_HL2MP_IDLE_CROSSBOW" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_crossbow"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -6879,13 +6160,9 @@ $sequence "idle_crossbow" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_melee" {
+$sequence "idle_melee" ACT_HL2MP_IDLE_MELEE 1 {
 	"female_anims2_anims\idle_melee.smd"
-	activity "ACT_HL2MP_IDLE_MELEE" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_shotgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -6893,13 +6170,9 @@ $sequence "idle_melee" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_slam" {
+$sequence "idle_slam" ACT_HL2MP_IDLE_SLAM 1 {
 	"female_anims2_anims\idle_slam.smd"
-	activity "ACT_HL2MP_IDLE_SLAM" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_shotgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -6907,13 +6180,9 @@ $sequence "idle_slam" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_sniper" {
+$sequence "idle_sniper" ACT_HL2AC_IDLE_SNIPER 1 {
 	"female_anims2_anims\idle_sniper.smd"
-	activity "ACT_HL2AC_IDLE_SNIPER" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_sniper"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -6921,13 +6190,9 @@ $sequence "idle_sniper" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_shield" {
+$sequence "idle_shield" ACT_HL2AC_IDLE_SHIELD 1 {
 	"female_anims2_anims\idle_shield.smd"
-	activity "ACT_HL2AC_IDLE_SHIELD" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_shield"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -6935,13 +6200,9 @@ $sequence "idle_shield" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_shaketrap" {
+$sequence "idle_shaketrap" ACT_HL2AC_IDLE_SHAKETRAP 1 {
 	"female_anims2_anims\idle_shaketrap.smd"
-	activity "ACT_HL2AC_IDLE_SHAKETRAP" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_shotgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -6949,13 +6210,9 @@ $sequence "idle_shaketrap" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_turret" {
+$sequence "idle_turret" ACT_HL2AC_IDLE_TURRET 1 {
 	"female_anims2_anims\idle_turret.smd"
-	activity "ACT_HL2AC_IDLE_TURRET" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_base_turret"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -6963,13 +6220,9 @@ $sequence "idle_turret" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_injection" {
+$sequence "idle_injection" ACT_HL2AC_IDLE_INJECTION 1 {
 	"female_anims2_anims\idle_injection.smd"
-	activity "ACT_HL2AC_IDLE_INJECTION" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_sniper_injection"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -6977,13 +6230,9 @@ $sequence "idle_injection" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_gatling" {
+$sequence "idle_gatling" ACT_HL2AC_IDLE_GATLING 1 {
 	"female_anims2_anims\idle_gatling.smd"
-	activity "ACT_HL2AC_IDLE_GATLING" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_base_gatling"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -6991,13 +6240,9 @@ $sequence "idle_gatling" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_Man_Gun" {
+$sequence "idle_Man_Gun" ACT_HL2AC_IDLE_MAN_GUN 1 {
 	"female_anims2_anims\idle_Man_Gun.smd"
-	activity "ACT_HL2AC_IDLE_MAN_GUN" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Man_Gun_sniper"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7005,13 +6250,9 @@ $sequence "idle_Man_Gun" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_knife" {
+$sequence "idle_knife" ACT_HL2MP_IDLE_KNIFE 1 {
 	"female_anims2_anims\idle_knife.smd"
-	activity "ACT_HL2MP_IDLE_KNIFE" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_shotgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7019,13 +6260,9 @@ $sequence "idle_knife" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_transiber" {
+$sequence "idle_transiber" ACT_HL2MP_IDLE_TRANSIBER 1 {
 	"female_anims2_anims\idle_transiber.smd"
-	activity "ACT_HL2MP_IDLE_TRANSIBER" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_shotgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7033,13 +6270,9 @@ $sequence "idle_transiber" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_gatling02" {
+$sequence "idle_gatling02" ACT_HL2MP_IDLE_GATLING02 1 {
 	"female_anims2_anims\idle_gatling02.smd"
-	activity "ACT_HL2MP_IDLE_GATLING02" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_shotgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7047,13 +6280,9 @@ $sequence "idle_gatling02" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_h_shield" {
+$sequence "idle_h_shield" ACT_HL2AC_IDLE_H_SHIELD 1 {
 	"female_anims2_anims\idle_h_shield.smd"
-	activity "ACT_HL2AC_IDLE_H_SHIELD" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_h_shield_sniper"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7061,13 +6290,9 @@ $sequence "idle_h_shield" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_drink" {
+$sequence "idle_drink" ACT_HL2MP_IDLE_DRINK 1 {
 	"female_anims2_anims\idle_drink.smd"
-	activity "ACT_HL2MP_IDLE_DRINK" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_shotgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7075,13 +6300,9 @@ $sequence "idle_drink" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_stungun" {
+$sequence "idle_stungun" ACT_HL2MP_IDLE_STUNGUN 1 {
 	"female_anims2_anims\idle_stungun.smd"
-	activity "ACT_HL2MP_IDLE_STUNGUN" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_shotgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7089,13 +6310,9 @@ $sequence "idle_stungun" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_Laserrifle" {
+$sequence "idle_Laserrifle" ACT_HL2AC_IDLE_LASER 1 {
 	"female_anims2_anims\idle_Laserrifle.smd"
-	activity "ACT_HL2AC_IDLE_LASER" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_base_Laserrifle_sniper"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7103,13 +6320,9 @@ $sequence "idle_Laserrifle" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_pistol2" {
+$sequence "idle_pistol2" ACT_HL2MP_IDLE_PISTOL2 1 {
 	"female_anims2_anims\idle_pistol2.smd"
-	activity "ACT_HL2MP_IDLE_PISTOL2" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_base_Pistol_2_sniper"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7117,13 +6330,9 @@ $sequence "idle_pistol2" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_manhac" {
+$sequence "idle_manhac" ACT_HL2MP_IDLE_MANHAC 1 {
 	"female_anims2_anims\idle_manhac.smd"
-	activity "ACT_HL2MP_IDLE_MANHAC" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_shotgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7131,13 +6340,9 @@ $sequence "idle_manhac" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_rpg2" {
+$sequence "idle_rpg2" ACT_HL2MP_IDLE_RPG2 1 {
 	"female_anims2_anims\idle_rpg2.smd"
-	activity "ACT_HL2MP_IDLE_RPG2" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_rpg2"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7145,13 +6350,9 @@ $sequence "idle_rpg2" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_invisible" {
+$sequence "idle_invisible" ACT_HL2MP_IDLE_INVISIBLE 1 {
 	"female_anims2_anims\idle_invisible.smd"
-	activity "ACT_HL2MP_IDLE_INVISIBLE" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_shotgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7159,13 +6360,9 @@ $sequence "idle_invisible" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_glove" {
+$sequence "idle_glove" ACT_HL2MP_IDLE_GLOVE 1 {
 	"female_anims2_anims\idle_glove.smd"
-	activity "ACT_HL2MP_IDLE_GLOVE" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "soldier_Aim_9_directions"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7173,13 +6370,9 @@ $sequence "idle_glove" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_dekoi" {
+$sequence "idle_dekoi" ACT_HL2MP_IDLE_DEKOI 1 {
 	"female_anims2_anims\idle_dekoi.smd"
-	activity "ACT_HL2MP_IDLE_DEKOI" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_shotgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7187,13 +6380,9 @@ $sequence "idle_dekoi" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_timerG" {
+$sequence "idle_timerG" ACT_HL2MP_IDLE_TIMERG 1 {
 	"female_anims2_anims\idle_timerG.smd"
-	activity "ACT_HL2MP_IDLE_TIMERG" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_shotgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7201,13 +6390,9 @@ $sequence "idle_timerG" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_chargebow" {
+$sequence "idle_chargebow" ACT_HL2MP_IDLE_CHARGEBOW 1 {
 	"female_anims2_anims\idle_chargebow.smd"
-	activity "ACT_HL2MP_IDLE_CHARGEBOW" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_chargebow"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7215,13 +6400,9 @@ $sequence "idle_chargebow" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_shake_strong" {
+$sequence "idle_shake_strong" ACT_HL2MP_IDLE_SHAKE_STRONG 1 {
 	"female_anims2_anims\idle_shake_strong.smd"
-	activity "ACT_HL2MP_IDLE_SHAKE_STRONG" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "soldier_Aim_9_directions"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7229,13 +6410,9 @@ $sequence "idle_shake_strong" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_e_injection" {
+$sequence "idle_e_injection" ACT_HL2AC_IDLE_E_INJECTION 1 {
 	"female_anims2_anims\idle_e_injection.smd"
-	activity "ACT_HL2AC_IDLE_E_INJECTION" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_base_e_injection"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7243,13 +6420,9 @@ $sequence "idle_e_injection" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "idle_sbox" {
+$sequence "idle_sbox" ACT_HL2AC_IDLE_SBOX 1 {
 	"female_anims2_anims\idle_sbox.smd"
-	activity "ACT_HL2AC_IDLE_SBOX" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Run_Aim_sbox"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -7259,1133 +6432,721 @@ $sequence "idle_sbox" {
 
 $sequence "run_pistol_mod" {
 	"female_anims2_anims\run_pistol_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_pistol" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_PISTOL" 1
+$sequence "run_pistol" ACT_HL2MP_RUN_PISTOL 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_pistol_mod"
 	addlayer "HL2AC_crouch_aim_pistol"
 }
 
 $sequence "run_shotgun_mod" {
 	"female_anims2_anims\run_shotgun_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_shotgun" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_SHOTGUN" 1
+$sequence "run_shotgun" ACT_HL2MP_RUN_SHOTGUN 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_shotgun_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "run_smg1_mod" {
 	"female_anims2_anims\run_smg1_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_smg1" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_SMG1" 1
+$sequence "run_smg1" ACT_HL2MP_RUN_SMG1 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_smg1_mod"
 	addlayer "HL2AC_Run_Aim_smg"
 }
 
 $sequence "run_ar2_mod" {
 	"female_anims2_anims\run_ar2_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_ar2" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_AR2" 1
+$sequence "run_ar2" ACT_HL2MP_RUN_AR2 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_ar2_mod"
 	addlayer "HL2AC_Run_Aim_ar2"
 }
 
 $sequence "run_gravgun_mod" {
 	"female_anims2_anims\run_gravgun_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_gravgun" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_PHYSGUN" 1
+$sequence "run_gravgun" ACT_HL2MP_RUN_PHYSGUN 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_gravgun_mod"
 	addlayer "HL2AC_Run_Aim_gravgun"
 }
 
 $sequence "run_grenade_mod" {
 	"female_anims2_anims\run_grenade_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_grenade" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_GRENADE" 1
+$sequence "run_grenade" ACT_HL2MP_RUN_GRENADE 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_grenade_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "run_rpg_mod" {
 	"female_anims2_anims\run_rpg_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_rpg" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_RPG" 1
+$sequence "run_rpg" ACT_HL2MP_RUN_RPG 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_rpg_mod"
 	addlayer "HL2AC_Run_Aim_rpg"
 }
 
 $sequence "run_crossbow_mod" {
 	"female_anims2_anims\run_crossbow_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_crossbow" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_CROSSBOW" 1
+$sequence "run_crossbow" ACT_HL2MP_RUN_CROSSBOW 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_crossbow_mod"
 	addlayer "HL2AC_Run_Aim_crossbow"
 }
 
 $sequence "run_melee_mod" {
 	"female_anims2_anims\run_melee_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_melee" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_MELEE" 1
+$sequence "run_melee" ACT_HL2MP_RUN_MELEE 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_melee_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "run_slam_mod" {
 	"female_anims2_anims\run_slam_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_slam" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_SLAM" 1
+$sequence "run_slam" ACT_HL2MP_RUN_SLAM 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_slam_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "run_sniper_mod" {
 	"female_anims2_anims\run_sniper_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_sniper" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2AC_RUN_SNIPER" 1
+$sequence "run_sniper" ACT_HL2AC_RUN_SNIPER 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_sniper_mod"
 	addlayer "HL2AC_Run_Aim_sniper"
 }
 
 $sequence "run_shield_mod" {
 	"female_anims2_anims\run_shield_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_shield" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2AC_RUN_SHIELD" 1
+$sequence "run_shield" ACT_HL2AC_RUN_SHIELD 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_shield_mod"
 	addlayer "HL2AC_crouch_aim_pistol"
 }
 
 $sequence "run_shaketrap_mod" {
 	"female_anims2_anims\run_shaketrap_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_shaketrap" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2AC_RUN_SHAKETRAP" 1
+$sequence "run_shaketrap" ACT_HL2AC_RUN_SHAKETRAP 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_shaketrap_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "run_turret_mod" {
 	"female_anims2_anims\run_turret_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_turret" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2AC_RUN_TURRET" 1
+$sequence "run_turret" ACT_HL2AC_RUN_TURRET 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_turret_mod"
 	addlayer "HL2AC_Run_base_turret"
 }
 
 $sequence "run_injection_mod" {
 	"female_anims2_anims\run_injection_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_injection" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2AC_RUN_INJECTION" 1
+$sequence "run_injection" ACT_HL2AC_RUN_INJECTION 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_injection_mod"
 	addlayer "HL2AC_Run_sniper_injection"
 }
 
 $sequence "run_gatling_mod" {
 	"female_anims2_anims\run_gatling_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_gatling" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2AC_RUN_GATLING" 1
+$sequence "run_gatling" ACT_HL2AC_RUN_GATLING 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_gatling_mod"
 	addlayer "HL2AC_Run_base_gatling"
 }
 
 $sequence "run_Man_Gun_mod" {
 	"female_anims2_anims\run_Man_Gun_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_Man_Gun" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2AC_RUN_MAN_GUN" 1
+$sequence "run_Man_Gun" ACT_HL2AC_RUN_MAN_GUN 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_Man_Gun_mod"
 	addlayer "HL2AC_Man_Gun_sniper"
 }
 
 $sequence "run_knife_mod" {
 	"female_anims2_anims\run_knife_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_knife" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_KNIFE" 1
+$sequence "run_knife" ACT_HL2MP_RUN_KNIFE 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_knife_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "run_transiber_mod" {
 	"female_anims2_anims\run_transiber_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_transiber" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_TRANSIBER" 1
+$sequence "run_transiber" ACT_HL2MP_RUN_TRANSIBER 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_transiber_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "run_h_shield_mod" {
 	"female_anims2_anims\run_h_shield_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_h_shield" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2AC_RUN_H_SHIELD" 1
+$sequence "run_h_shield" ACT_HL2AC_RUN_H_SHIELD 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_h_shield_mod"
 	addlayer "HL2AC_crouch_h_shield_sniper"
 }
 
 $sequence "run_drink_mod" {
 	"female_anims2_anims\run_drink_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_drink" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_DRINK" 1
+$sequence "run_drink" ACT_HL2MP_RUN_DRINK 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_drink_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "run_stungun_mod" {
 	"female_anims2_anims\run_stungun_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_stungun" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_STUNGUN" 1
+$sequence "run_stungun" ACT_HL2MP_RUN_STUNGUN 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_stungun_mod"
 	addlayer "HL2AC_Run_Aim_smg"
 }
 
 $sequence "run_Laserrifle_mod" {
 	"female_anims2_anims\run_Laserrifle_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_Laserrifle" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2AC_RUN_LASER" 1
+$sequence "run_Laserrifle" ACT_HL2AC_RUN_LASER 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_Laserrifle_mod"
 	addlayer "HL2AC_Run_base_Laserrifle_sniper"
 }
 
 $sequence "run_pistol2_mod" {
 	"female_anims2_anims\run_pistol2_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_pistol2" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_PISTOL2" 1
+$sequence "run_pistol2" ACT_HL2MP_RUN_PISTOL2 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_pistol2_mod"
 	addlayer "HL2AC_crouch_base_Pistol_2_sniper"
 }
 
 $sequence "run_manhac_mod" {
 	"female_anims2_anims\run_manhac_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_manhac" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_MANHAC" 1
+$sequence "run_manhac" ACT_HL2MP_RUN_MANHAC 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_manhac_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "run_rpg2_mod" {
 	"female_anims2_anims\run_rpg2_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_rpg2" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_RPG2" 1
+$sequence "run_rpg2" ACT_HL2MP_RUN_RPG2 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_rpg2_mod"
 	addlayer "HL2AC_Run_Aim_rpg2"
 }
 
 $sequence "run_invisible_mod" {
 	"female_anims2_anims\run_invisible_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_invisible" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_INVISIBLE" 1
+$sequence "run_invisible" ACT_HL2MP_RUN_INVISIBLE 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_invisible_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "run_glove_mod" {
 	"female_anims2_anims\run_glove_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_glove" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_GLOVE" 1
+$sequence "run_glove" ACT_HL2MP_RUN_GLOVE 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_glove_mod"
 	addlayer "soldier_Aim_9_directions"
 }
 
 $sequence "run_dekoi_mod" {
 	"female_anims2_anims\run_dekoi_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_dekoi" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_DEKOI" 1
+$sequence "run_dekoi" ACT_HL2MP_RUN_DEKOI 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_dekoi_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "run_timerG_mod" {
 	"female_anims2_anims\run_timerG_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_timerG" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_TIMERG" 1
+$sequence "run_timerG" ACT_HL2MP_RUN_TIMERG 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_timerG_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "run_chargebow_mod" {
 	"female_anims2_anims\run_chargebow_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_chargebow" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_CHARGEBOW" 1
+$sequence "run_chargebow" ACT_HL2MP_RUN_CHARGEBOW 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_chargebow_mod"
 	addlayer "HL2AC_Run_Aim_chargebow"
 }
 
 $sequence "run_shake_strong_mod" {
 	"female_anims2_anims\run_shake_strong_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_shake_strong" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_SHAKE_STRONG" 1
+$sequence "run_shake_strong" ACT_HL2MP_RUN_SHAKE_STRONG 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_shake_strong_mod"
 	addlayer "soldier_Aim_9_directions"
 }
 
 $sequence "run_e_injection_mod" {
 	"female_anims2_anims\run_e_injection_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_e_injection" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2AC_RUN_E_INJECTION" 1
+$sequence "run_e_injection" ACT_HL2AC_RUN_E_INJECTION 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_e_injection_mod"
 	addlayer "HL2AC_Run_base_e_injection"
 }
 
 $sequence "run_sbox_mod" {
 	"female_anims2_anims\run_sbox_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 18 18 target 1 usesequence 
 	walkframe 18 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "run_sbox" {
-	"a_RunS"
-	"a_RunSE"
-	"a_RunE"
-	"a_RunNE"
-	"a_RunN"
-	"a_RunNW"
-	"a_RunW"
-	"a_RunSW"
-	"a_RunS"
-	activity "ACT_HL2MP_RUN_SBOX" 1
+$sequence "run_sbox" ACT_HL2MP_RUN_SBOX 1 {
+	a_RunS a_RunSE a_RunE
+	a_RunNE a_RunN a_RunNW
+	a_RunW a_RunSW a_RunS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "run_sbox_mod"
 	addlayer "HL2AC_Run_Aim_sbox"
 }
 
-$sequence "cidle_pistol" {
+$sequence "cidle_pistol" ACT_HL2MP_IDLE_CROUCH_PISTOL 1 {
 	"female_anims2_anims\cidle_pistol.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_PISTOL" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_aim_pistol"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8393,13 +7154,9 @@ $sequence "cidle_pistol" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_shotgun" {
+$sequence "cidle_shotgun" ACT_HL2MP_IDLE_CROUCH_SHOTGUN 1 {
 	"female_anims2_anims\cidle_shotgun.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_SHOTGUN" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_aim_shotgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8407,13 +7164,9 @@ $sequence "cidle_shotgun" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_smg1" {
+$sequence "cidle_smg1" ACT_HL2MP_IDLE_CROUCH_SMG1 1 {
 	"female_anims2_anims\cidle_smg1.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_SMG1" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_aim_smg"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8421,13 +7174,9 @@ $sequence "cidle_smg1" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_ar2" {
+$sequence "cidle_ar2" ACT_HL2MP_IDLE_CROUCH_AR2 1 {
 	"female_anims2_anims\cidle_ar2.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_AR2" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_aim_ar2"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8435,13 +7184,9 @@ $sequence "cidle_ar2" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_gravgun" {
+$sequence "cidle_gravgun" ACT_HL2MP_IDLE_CROUCH_PHYSGUN 1 {
 	"female_anims2_anims\cidle_gravgun.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_PHYSGUN" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_aim_gravgun"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8449,12 +7194,8 @@ $sequence "cidle_gravgun" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_grenade" {
+$sequence "cidle_grenade" ACT_HL2MP_IDLE_CROUCH_GRENADE 1 {
 	"female_anims2_anims\cidle_grenade.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_GRENADE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
@@ -8462,13 +7203,9 @@ $sequence "cidle_grenade" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 3
 }
 
-$sequence "cidle_rpg" {
+$sequence "cidle_rpg" ACT_HL2MP_IDLE_CROUCH_RPG 1 {
 	"female_anims2_anims\cidle_rpg.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_RPG" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_aim_rpg"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8476,13 +7213,9 @@ $sequence "cidle_rpg" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_crossbow" {
+$sequence "cidle_crossbow" ACT_HL2MP_IDLE_CROUCH_CROSSBOW 1 {
 	"female_anims2_anims\cidle_crossbow.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_CROSSBOW" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_aim_crossbow"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8490,12 +7223,8 @@ $sequence "cidle_crossbow" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_melee" {
+$sequence "cidle_melee" ACT_HL2MP_IDLE_CROUCH_MELEE 1 {
 	"female_anims2_anims\cidle_melee.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_MELEE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
@@ -8503,12 +7232,8 @@ $sequence "cidle_melee" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 3
 }
 
-$sequence "cidle_slam" {
+$sequence "cidle_slam" ACT_HL2MP_IDLE_CROUCH_SLAM 1 {
 	"female_anims2_anims\cidle_slam.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_SLAM" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
@@ -8516,13 +7241,9 @@ $sequence "cidle_slam" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 3
 }
 
-$sequence "cidle_sniper" {
+$sequence "cidle_sniper" ACT_HL2AC_CROUCH_SNIPER 1 {
 	"female_anims2_anims\cidle_sniper.smd"
-	activity "ACT_HL2AC_CROUCH_SNIPER" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_aim_sniper"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8530,13 +7251,9 @@ $sequence "cidle_sniper" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_shield" {
+$sequence "cidle_shield" ACT_HL2AC_IDLE_CROUCH_SHIELD 1 {
 	"female_anims2_anims\cidle_shield.smd"
-	activity "ACT_HL2AC_IDLE_CROUCH_SHIELD" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_aim_pistol"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8544,12 +7261,8 @@ $sequence "cidle_shield" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_shaketrap" {
+$sequence "cidle_shaketrap" ACT_HL2AC_IDLE_CROUCH_SHAKETRAP 1 {
 	"female_anims2_anims\cidle_shaketrap.smd"
-	activity "ACT_HL2AC_IDLE_CROUCH_SHAKETRAP" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
@@ -8557,12 +7270,8 @@ $sequence "cidle_shaketrap" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 3
 }
 
-$sequence "cidle_turret" {
+$sequence "cidle_turret" ACT_HL2AC_IDLE_CROUCH_TURRET 1 {
 	"female_anims2_anims\cidle_turret.smd"
-	activity "ACT_HL2AC_IDLE_CROUCH_TURRET" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
@@ -8570,13 +7279,9 @@ $sequence "cidle_turret" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 3
 }
 
-$sequence "cidle_injection" {
+$sequence "cidle_injection" ACT_HL2AC_CROUCH_INJECTION 1 {
 	"female_anims2_anims\cidle_injection.smd"
-	activity "ACT_HL2AC_CROUCH_INJECTION" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_sniper_injection"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8584,13 +7289,9 @@ $sequence "cidle_injection" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_gatling" {
+$sequence "cidle_gatling" ACT_HL2AC_CROUCH_GATLING 1 {
 	"female_anims2_anims\cidle_gatling.smd"
-	activity "ACT_HL2AC_CROUCH_GATLING" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_base_gatling"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8598,13 +7299,9 @@ $sequence "cidle_gatling" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_Man_Gun" {
+$sequence "cidle_Man_Gun" ACT_HL2AC_CROUCH_MAN_GUN 1 {
 	"female_anims2_anims\cidle_Man_Gun.smd"
-	activity "ACT_HL2AC_CROUCH_MAN_GUN" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_Man_Gun_sniper"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8612,12 +7309,8 @@ $sequence "cidle_Man_Gun" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_knife" {
+$sequence "cidle_knife" ACT_HL2MP_IDLE_CROUCH_KNIFE 1 {
 	"female_anims2_anims\cidle_knife.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_KNIFE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
@@ -8625,12 +7318,8 @@ $sequence "cidle_knife" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 3
 }
 
-$sequence "cidle_transiber" {
+$sequence "cidle_transiber" ACT_HL2MP_IDLE_CROUCH_TRANSIBER 1 {
 	"female_anims2_anims\cidle_transiber.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_TRANSIBER" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
@@ -8638,13 +7327,9 @@ $sequence "cidle_transiber" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 3
 }
 
-$sequence "cidle_h_shield" {
+$sequence "cidle_h_shield" ACT_HL2AC_IDLE_CROUCH_H_SHIELD 1 {
 	"female_anims2_anims\cidle_h_shield.smd"
-	activity "ACT_HL2AC_IDLE_CROUCH_H_SHIELD" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_h_shield_sniper"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8652,12 +7337,8 @@ $sequence "cidle_h_shield" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_drink" {
+$sequence "cidle_drink" ACT_HL2MP_IDLE_CROUCH_DRINK 1 {
 	"female_anims2_anims\cidle_drink.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_DRINK" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
@@ -8665,12 +7346,8 @@ $sequence "cidle_drink" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 3
 }
 
-$sequence "cidle_stungun" {
+$sequence "cidle_stungun" ACT_HL2MP_IDLE_CROUCH_STUNGUN 1 {
 	"female_anims2_anims\cidle_stungun.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_STUNGUN" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
@@ -8678,13 +7355,9 @@ $sequence "cidle_stungun" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 3
 }
 
-$sequence "cidle_Laserrifle" {
+$sequence "cidle_Laserrifle" ACT_HL2AC_CROUCH_LASER 1 {
 	"female_anims2_anims\cidle_Laserrifle.smd"
-	activity "ACT_HL2AC_CROUCH_LASER" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_aim_sniper"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8692,13 +7365,9 @@ $sequence "cidle_Laserrifle" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_pistol2" {
+$sequence "cidle_pistol2" ACT_HL2MP_IDLE_CROUCH_PISTOL2 1 {
 	"female_anims2_anims\cidle_pistol2.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_PISTOL2" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_base_Pistol_2_sniper"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8706,12 +7375,8 @@ $sequence "cidle_pistol2" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_manhac" {
+$sequence "cidle_manhac" ACT_HL2MP_IDLE_CROUCH_MANHAC 1 {
 	"female_anims2_anims\cidle_manhac.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_MANHAC" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
@@ -8719,13 +7384,9 @@ $sequence "cidle_manhac" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 3
 }
 
-$sequence "cidle_rpg2" {
+$sequence "cidle_rpg2" ACT_HL2MP_IDLE_CROUCH_RPG2 1 {
 	"female_anims2_anims\cidle_rpg2.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_RPG2" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_aim_rpg2"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8733,12 +7394,8 @@ $sequence "cidle_rpg2" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_invisible" {
+$sequence "cidle_invisible" ACT_HL2MP_IDLE_CROUCH_INVISIBLE 1 {
 	"female_anims2_anims\cidle_invisible.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_INVISIBLE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
@@ -8746,13 +7403,9 @@ $sequence "cidle_invisible" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 3
 }
 
-$sequence "cidle_glove" {
+$sequence "cidle_glove" ACT_HL2MP_IDLE_CROUCH_GLOVE 1 {
 	"female_anims2_anims\cidle_glove.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_GLOVE" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "soldier_Aim_9_directions"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8760,12 +7413,8 @@ $sequence "cidle_glove" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_dekoi" {
+$sequence "cidle_dekoi" ACT_HL2MP_IDLE_CROUCH_DEKOI 1 {
 	"female_anims2_anims\cidle_dekoi.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_DEKOI" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
@@ -8773,12 +7422,8 @@ $sequence "cidle_dekoi" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 3
 }
 
-$sequence "cidle_timerG" {
+$sequence "cidle_timerG" ACT_HL2MP_IDLE_CROUCH_TIMERG 1 {
 	"female_anims2_anims\cidle_timerG.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_TIMERG" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
@@ -8786,13 +7431,9 @@ $sequence "cidle_timerG" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 3
 }
 
-$sequence "cidle_chargebow" {
+$sequence "cidle_chargebow" ACT_HL2MP_IDLE_CROUCH_CHARGEBOW 1 {
 	"female_anims2_anims\cidle_chargebow.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_CHARGEBOW" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_Aim_chargebow"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8800,12 +7441,8 @@ $sequence "cidle_chargebow" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_shake_strong" {
+$sequence "cidle_shake_strong" ACT_HL2MP_IDLE_CROUCH_SHAKE_STRONG 1 {
 	"female_anims2_anims\cidle_shake_strong.smd"
-	activity "ACT_HL2MP_IDLE_CROUCH_SHAKE_STRONG" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 1
@@ -8813,13 +7450,9 @@ $sequence "cidle_shake_strong" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 0 0 target 3
 }
 
-$sequence "cidle_e_injection" {
+$sequence "cidle_e_injection" ACT_HL2AC_CROUCH_E_INJECTION 1 {
 	"female_anims2_anims\cidle_e_injection.smd"
-	activity "ACT_HL2AC_CROUCH_E_INJECTION" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_sniper_injection"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8827,13 +7460,9 @@ $sequence "cidle_e_injection" {
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 3
 }
 
-$sequence "cidle_sbox" {
+$sequence "cidle_sbox" ACT_HL2AC_CROUCH_SBOX 1 {
 	"female_anims2_anims\cidle_sbox.smd"
-	activity "ACT_HL2AC_CROUCH_SBOX" 1
-	fadein 0.2
-	fadeout 0.2
 	addlayer "HL2AC_crouch_Aim_sbox"
-	fps 30
 	loop
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 29 29 target 1
@@ -8843,1941 +7472,1273 @@ $sequence "cidle_sbox" {
 
 $sequence "cwalk_pistol_mod" {
 	"female_anims2_anims\cwalk_pistol_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_pistol" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_PISTOL" 1
+$sequence "cwalk_pistol" ACT_HL2MP_WALK_CROUCH_PISTOL 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_pistol_mod"
 	addlayer "HL2AC_crouch_aim_pistol"
 }
 
 $sequence "cwalk_shotgun_mod" {
 	"female_anims2_anims\cwalk_shotgun_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_shotgun" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_SHOTGUN" 1
+$sequence "cwalk_shotgun" ACT_HL2MP_WALK_CROUCH_SHOTGUN 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_shotgun_mod"
 	addlayer "HL2AC_crouch_aim_shotgun"
 }
 
 $sequence "cwalk_smg1_mod" {
 	"female_anims2_anims\cwalk_smg1_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_smg1" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_SMG1" 1
+$sequence "cwalk_smg1" ACT_HL2MP_WALK_CROUCH_SMG1 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_smg1_mod"
 	addlayer "HL2AC_crouch_aim_smg"
 }
 
 $sequence "cwalk_ar2_mod" {
 	"female_anims2_anims\cwalk_ar2_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_ar2" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_AR2" 1
+$sequence "cwalk_ar2" ACT_HL2MP_WALK_CROUCH_AR2 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_ar2_mod"
 	addlayer "HL2AC_crouch_aim_ar2"
 }
 
 $sequence "cwalk_gravgun_mod" {
 	"female_anims2_anims\cwalk_gravgun_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_gravgun" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_PHYSGUN" 1
+$sequence "cwalk_gravgun" ACT_HL2MP_WALK_CROUCH_PHYSGUN 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_gravgun_mod"
 	addlayer "HL2AC_crouch_aim_gravgun"
 }
 
 $sequence "cwalk_grenade_mod" {
 	"female_anims2_anims\cwalk_grenade_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_grenade" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_GRENADE" 1
+$sequence "cwalk_grenade" ACT_HL2MP_WALK_CROUCH_GRENADE 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_grenade_mod"
 	addlayer "HL2AC_crouch_aim_pistol"
 }
 
 $sequence "cwalk_rpg_mod" {
 	"female_anims2_anims\cwalk_rpg_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_rpg" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_RPG" 1
+$sequence "cwalk_rpg" ACT_HL2MP_WALK_CROUCH_RPG 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_rpg_mod"
 	addlayer "HL2AC_crouch_aim_rpg"
 }
 
 $sequence "cwalk_crossbow_mod" {
 	"female_anims2_anims\cwalk_crossbow_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_crossbow" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_CROSSBOW" 1
+$sequence "cwalk_crossbow" ACT_HL2MP_WALK_CROUCH_CROSSBOW 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_crossbow_mod"
 	addlayer "HL2AC_crouch_aim_crossbow"
 }
 
 $sequence "cwalk_melee_mod" {
 	"female_anims2_anims\cwalk_melee_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_melee" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_MELEE" 1
+$sequence "cwalk_melee" ACT_HL2MP_WALK_CROUCH_MELEE 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_melee_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "cwalk_slam_mod" {
 	"female_anims2_anims\cwalk_slam_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_slam" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_SLAM" 1
+$sequence "cwalk_slam" ACT_HL2MP_WALK_CROUCH_SLAM 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_slam_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "cwalk_sniper_mod" {
 	"female_anims2_anims\cwalk_sniper_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_sniper" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2AC_WALK_CROUCH_SNIPER" 1
+$sequence "cwalk_sniper" ACT_HL2AC_WALK_CROUCH_SNIPER 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_sniper_mod"
 	addlayer "HL2AC_crouch_aim_sniper"
 }
 
 $sequence "cwalk_shield_mod" {
 	"female_anims2_anims\cwalk_shield_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_shield" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2AC_WALK_CROUCH_SHIELD" 1
+$sequence "cwalk_shield" ACT_HL2AC_WALK_CROUCH_SHIELD 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_shield_mod"
 	addlayer "HL2AC_crouch_aim_pistol"
 }
 
 $sequence "cwalk_shaketrap_mod" {
 	"female_anims2_anims\cwalk_shaketrap_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_shaketrap" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2AC_WALK_CROUCH_SHAKETRAP" 1
+$sequence "cwalk_shaketrap" ACT_HL2AC_WALK_CROUCH_SHAKETRAP 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_shaketrap_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "cwalk_turret_mod" {
 	"female_anims2_anims\cwalk_turret_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_turret" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2AC_WALK_CROUCH_TURRET" 1
+$sequence "cwalk_turret" ACT_HL2AC_WALK_CROUCH_TURRET 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_turret_mod"
 	addlayer "HL2AC_Run_base_turret"
 }
 
 $sequence "cwalk_injection_mod" {
 	"female_anims2_anims\cwalk_injection_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_injection" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2AC_WALK_CROUCH_INJECTION" 1
+$sequence "cwalk_injection" ACT_HL2AC_WALK_CROUCH_INJECTION 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_injection_mod"
 	addlayer "HL2AC_crouch_sniper_injection"
 }
 
 $sequence "cwalk_gatling_mod" {
 	"female_anims2_anims\cwalk_gatling_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_gatling" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2AC_WALK_CROUCH_GATLING" 1
+$sequence "cwalk_gatling" ACT_HL2AC_WALK_CROUCH_GATLING 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_gatling_mod"
 	addlayer "HL2AC_Run_base_gatling"
 }
 
 $sequence "cwalk_Man_Gun_mod" {
 	"female_anims2_anims\cwalk_Man_Gun_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_Man_Gun" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2AC_WALK_CROUCH_MAN_GUN" 1
+$sequence "cwalk_Man_Gun" ACT_HL2AC_WALK_CROUCH_MAN_GUN 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_Man_Gun_mod"
 	addlayer "HL2AC_Man_Gun_sniper"
 }
 
 $sequence "cwalk_knife_mod" {
 	"female_anims2_anims\cwalk_knife_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_knife" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_KNIFE" 1
+$sequence "cwalk_knife" ACT_HL2MP_WALK_CROUCH_KNIFE 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_knife_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "cwalk_transiber_mod" {
 	"female_anims2_anims\cwalk_transiber_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_transiber" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_TRANSIBER" 1
+$sequence "cwalk_transiber" ACT_HL2MP_WALK_CROUCH_TRANSIBER 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_transiber_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "cwalk_h_shield_mod" {
 	"female_anims2_anims\cwalk_h_shield_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_h_shield" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2AC_WALK_CROUCH_H_SHIELD" 1
+$sequence "cwalk_h_shield" ACT_HL2AC_WALK_CROUCH_H_SHIELD 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_h_shield_mod"
 	addlayer "HL2AC_crouch_h_shield_sniper"
 }
 
 $sequence "cwalk_drink_mod" {
 	"female_anims2_anims\cwalk_drink_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_drink" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_DRINK" 1
+$sequence "cwalk_drink" ACT_HL2MP_WALK_CROUCH_DRINK 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_drink_mod"
 	addlayer "HL2AC_crouch_aim_pistol"
 }
 
 $sequence "cwalk_stungun_mod" {
 	"female_anims2_anims\cwalk_stungun_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_stungun" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_STUNGUN" 1
+$sequence "cwalk_stungun" ACT_HL2MP_WALK_CROUCH_STUNGUN 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_stungun_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "cwalk_Laserrifle_mod" {
 	"female_anims2_anims\cwalk_Laserrifle_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_Laserrifle" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2AC_WALK_CROUCH_LASER" 1
+$sequence "cwalk_Laserrifle" ACT_HL2AC_WALK_CROUCH_LASER 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_Laserrifle_mod"
 	addlayer "HL2AC_crouch_aim_sniper"
 }
 
 $sequence "cwalk_pistol2_mod" {
 	"female_anims2_anims\cwalk_pistol2_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_pistol2" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_PISTOL2" 1
+$sequence "cwalk_pistol2" ACT_HL2MP_WALK_CROUCH_PISTOL2 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_pistol2_mod"
 	addlayer "HL2AC_crouch_base_Pistol_2_sniper"
 }
 
 $sequence "cwalk_manhac_mod" {
 	"female_anims2_anims\cwalk_manhac_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_manhac" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_MANHAC" 1
+$sequence "cwalk_manhac" ACT_HL2MP_WALK_CROUCH_MANHAC 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_manhac_mod"
 	addlayer "HL2AC_crouch_aim_pistol"
 }
 
 $sequence "cwalk_rpg2_mod" {
 	"female_anims2_anims\cwalk_rpg2_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_rpg2" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_RPG2" 1
+$sequence "cwalk_rpg2" ACT_HL2MP_WALK_CROUCH_RPG2 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_rpg2_mod"
 	addlayer "HL2AC_crouch_aim_rpg2"
 }
 
 $sequence "cwalk_invisible_mod" {
 	"female_anims2_anims\cwalk_invisible_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_invisible" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_INVISIBLE" 1
+$sequence "cwalk_invisible" ACT_HL2MP_WALK_CROUCH_INVISIBLE 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_invisible_mod"
 	addlayer "HL2AC_Run_Aim_shotgun"
 }
 
 $sequence "cwalk_glove_mod" {
 	"female_anims2_anims\cwalk_glove_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_glove" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_GLOVE" 1
+$sequence "cwalk_glove" ACT_HL2MP_WALK_CROUCH_GLOVE 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_glove_mod"
 	addlayer "soldier_Aim_9_directions"
 }
 
 $sequence "cwalk_dekoi_mod" {
 	"female_anims2_anims\cwalk_dekoi_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_dekoi" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_DEKOI" 1
+$sequence "cwalk_dekoi" ACT_HL2MP_WALK_CROUCH_DEKOI 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_dekoi_mod"
 	addlayer "HL2AC_crouch_aim_pistol"
 }
 
 $sequence "cwalk_timerG_mod" {
 	"female_anims2_anims\cwalk_timerG_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_timerG" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_TIMERG" 1
+$sequence "cwalk_timerG" ACT_HL2MP_WALK_CROUCH_TIMERG 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_timerG_mod"
 	addlayer "HL2AC_crouch_aim_pistol"
 }
 
 $sequence "cwalk_chargebow_mod" {
 	"female_anims2_anims\cwalk_chargebow_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_chargebow" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_CHARGEBOW" 1
+$sequence "cwalk_chargebow" ACT_HL2MP_WALK_CROUCH_CHARGEBOW 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_chargebow_mod"
 	addlayer "HL2AC_crouch_Aim_chargebow"
 }
 
 $sequence "cwalk_shake_strong_mod" {
 	"female_anims2_anims\cwalk_shake_strong_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_shake_strong" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2MP_WALK_CROUCH_SHAKE_STRONG" 1
+$sequence "cwalk_shake_strong" ACT_HL2MP_WALK_CROUCH_SHAKE_STRONG 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_shake_strong_mod"
 	addlayer "soldier_Aim_9_directions"
 }
 
 $sequence "cwalk_e_injection_mod" {
 	"female_anims2_anims\cwalk_e_injection_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_e_injection" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2AC_WALK_CROUCH_E_INJECTION" 1
+$sequence "cwalk_e_injection" ACT_HL2AC_WALK_CROUCH_E_INJECTION 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_e_injection_mod"
 	addlayer "HL2AC_crouch_sniper_injection"
 }
 
 $sequence "cwalk_sbox_mod" {
 	"female_anims2_anims\cwalk_sbox_mod.smd"
-	fadein 0.2
-	fadeout 0.2
 	hidden
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 0 usesequence 
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 30 30 target 1 usesequence 
 	walkframe 30 LX LY
 	weightlist "weights_soldier_Aim_9_directions"
 }
 
-$sequence "cwalk_sbox" {
-	"a_Crouch_walkS"
-	"a_Crouch_walkSE"
-	"a_Crouch_walkE"
-	"a_Crouch_walkNE"
-	"a_Crouch_walkN"
-	"a_Crouch_walkNW"
-	"a_Crouch_walkW"
-	"a_Crouch_walkSW"
-	"a_Crouch_walkS"
-	activity "ACT_HL2AC_WALK_CROUCH_SBOX" 1
+$sequence "cwalk_sbox" ACT_HL2AC_WALK_CROUCH_SBOX 1 {
+	a_Crouch_walkS a_Crouch_walkSE a_Crouch_walkE
+	a_Crouch_walkNE a_Crouch_walkN a_Crouch_walkNW
+	a_Crouch_walkW a_Crouch_walkSW a_Crouch_walkS
 	blend "move_yaw" -180 180
 	blendwidth 9
-	fadein 0.2
-	fadeout 0.2
 	addlayer "cwalk_sbox_mod"
 	addlayer "HL2AC_Run_Aim_sbox"
 }
 
-$sequence "range_pistol" {
+$sequence "range_pistol" ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL 1 {
 	"a_range_pistol"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_shotgun" {
+$sequence "range_shotgun" ACT_HL2MP_GESTURE_RANGE_ATTACK_SHOTGUN 1 {
 	"a_range_shotgun"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_SHOTGUN" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_smg1" {
+$sequence "range_smg1" ACT_HL2MP_GESTURE_RANGE_ATTACK_SMG1 1 {
 	"a_range_smg1"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_SMG1" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_ar2" {
+$sequence "range_ar2" ACT_HL2MP_GESTURE_RANGE_ATTACK_AR2 1 {
 	"a_range_ar2"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_AR2" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_gravgun" {
+$sequence "range_gravgun" ACT_HL2MP_GESTURE_RANGE_ATTACK_PHYSGUN 1 {
 	"a_range_gravgun"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_PHYSGUN" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_grenade" {
+$sequence "range_grenade" ACT_HL2MP_GESTURE_RANGE_ATTACK_GRENADE 1 {
 	"a_range_grenade"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_GRENADE" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_rpg" {
+$sequence "range_rpg" ACT_HL2MP_GESTURE_RANGE_ATTACK_RPG 1 {
 	"a_range_rpg"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_RPG" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_crossbow" {
+$sequence "range_crossbow" ACT_HL2MP_GESTURE_RANGE_ATTACK_CROSSBOW 1 {
 	"a_range_crossbow"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_CROSSBOW" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_melee" {
+$sequence "range_melee" ACT_HL2MP_GESTURE_RANGE_ATTACK_MELEE 1 {
 	"a_range_melee"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_MELEE" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_slam" {
+$sequence "range_slam" ACT_HL2MP_GESTURE_RANGE_ATTACK_SLAM 1 {
 	"a_range_slam"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_SLAM" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_sniper" {
+$sequence "range_sniper" ACT_HL2AC_GESTURE_RANGE_ATTACK_SNIPER 1 {
 	"a_range_sniper"
-	activity "ACT_HL2AC_GESTURE_RANGE_ATTACK_SNIPER" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_shield" {
+$sequence "range_shield" ACT_HL2AC_GESTURE_RANGE_ATTACK_SHIELD 1 {
 	"a_range_shield"
-	activity "ACT_HL2AC_GESTURE_RANGE_ATTACK_SHIELD" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_shaketrap" {
+$sequence "range_shaketrap" ACT_HL2AC_GESTURE_RANGE_ATTACK_SHAKETRAP 1 {
 	"a_range_shaketrap"
-	activity "ACT_HL2AC_GESTURE_RANGE_ATTACK_SHAKETRAP" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_turret" {
+$sequence "range_turret" ACT_HL2AC_GESTURE_RANGE_ATTACK_TURRET 1 {
 	"a_range_turret"
-	activity "ACT_HL2AC_GESTURE_RANGE_ATTACK_TURRET" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_injection" {
+$sequence "range_injection" ACT_HL2AC_GESTURE_RANGE_ATTACK_INJECTION 1 {
 	"a_range_injection"
-	activity "ACT_HL2AC_GESTURE_RANGE_ATTACK_INJECTION" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range01_gatling" {
+$sequence "range01_gatling" ACT_HL2AC_GESTURE_RANGE_ATTACK01_GATLING 1 {
 	"a_range01_gatling"
-	activity "ACT_HL2AC_GESTURE_RANGE_ATTACK01_GATLING" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_knife" {
+$sequence "range_knife" ACT_HL2MP_GESTURE_RANGE_ATTACK_KNIFE 1 {
 	"a_range_knife"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_KNIFE" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_h_shield" {
+$sequence "range_h_shield" ACT_HL2AC_GESTURE_RANGE_ATTACK_H_SHIELD 1 {
 	"a_range_h_shield"
-	activity "ACT_HL2AC_GESTURE_RANGE_ATTACK_H_SHIELD" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_drink" {
+$sequence "range_drink" ACT_HL2MP_GESTURE_RANGE_ATTACK_DRINK 1 {
 	"a_range_drink"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_DRINK" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_stungun" {
+$sequence "range_stungun" ACT_HL2MP_GESTURE_RANGE_ATTACK_STUNGUN 1 {
 	"a_range_stungun"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_STUNGUN" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_Laserrifle" {
+$sequence "range_Laserrifle" ACT_HL2AC_GESTURE_RANGE_ATTACK_LASER 1 {
 	"a_range_Laserrifle"
-	activity "ACT_HL2AC_GESTURE_RANGE_ATTACK_LASER" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_pistol2_r" {
+$sequence "range_pistol2_r" ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL2_R 1 {
 	"a_range_pistol2_r"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL2_R" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_pistol2_l" {
+$sequence "range_pistol2_l" ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL2_L 1 {
 	"a_range_pistol2_l"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL2_L" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_manhac" {
+$sequence "range_manhac" ACT_HL2MP_GESTURE_RANGE_ATTACK_MANHAC 1 {
 	"a_range_manhac"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_MANHAC" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_rpg2_r" {
+$sequence "range_rpg2_r" ACT_HL2MP_GESTURE_RANGE_ATTACK_RPG2_R 1 {
 	"a_range_rpg2_r"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_RPG2_R" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_rpg2_l" {
+$sequence "range_rpg2_l" ACT_HL2MP_GESTURE_RANGE_ATTACK_RPG2_L 1 {
 	"a_range_rpg2_l"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_RPG2_L" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_rpg2_rl" {
+$sequence "range_rpg2_rl" ACT_HL2MP_GESTURE_RANGE_ATTACK_RPG2_RL 1 {
 	"a_range_rpg2_rl"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_RPG2_RL" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_invisible" {
+$sequence "range_invisible" ACT_HL2MP_GESTURE_RANGE_ATTACK_INVISIBLE 1 {
 	"a_range_invisible"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_INVISIBLE" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_glove" {
+$sequence "range_glove" ACT_HL2MP_GESTURE_RANGE_ATTACK_GLOVE 1 {
 	"a_range_glove"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_GLOVE" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_dekoi" {
+$sequence "range_dekoi" ACT_HL2MP_GESTURE_RANGE_ATTACK_DEKOI 1 {
 	"a_range_dekoi"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_DEKOI" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_timerG" {
+$sequence "range_timerG" ACT_HL2MP_GESTURE_RANGE_ATTACK_TIMERG 1 {
 	"a_range_timerG"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_TIMERG" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_chargebow" {
+$sequence "range_chargebow" ACT_HL2MP_GESTURE_RANGE_ATTACK_CHARGEBOW 1 {
 	"a_range_chargebow"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_CHARGEBOW" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_shake_strong" {
+$sequence "range_shake_strong" ACT_HL2MP_GESTURE_RANGE_ATTACK_SHAKE_STRONG 1 {
 	"a_range_shake_strong"
-	activity "ACT_HL2MP_GESTURE_RANGE_ATTACK_SHAKE_STRONG" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_e_injection" {
+$sequence "range_e_injection" ACT_HL2AC_GESTURE_RANGE_ATTACK_E_INJECTION 1 {
 	"a_range_e_injection"
-	activity "ACT_HL2AC_GESTURE_RANGE_ATTACK_E_INJECTION" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "range_sbox" {
+$sequence "range_sbox" ACT_HL2AC_GESTURE_RANGE_ATTACK_SBOX 1 {
 	"a_range_sbox"
-	activity "ACT_HL2AC_GESTURE_RANGE_ATTACK_SBOX" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "jump_pistol" {
+$sequence "jump_pistol" ACT_HL2MP_JUMP_PISTOL 1 {
 	"female_anims2_anims\jump_pistol.smd"
-	activity "ACT_HL2MP_JUMP_PISTOL" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_shotgun" {
+$sequence "jump_shotgun" ACT_HL2MP_JUMP_SHOTGUN 1 {
 	"female_anims2_anims\jump_shotgun.smd"
-	activity "ACT_HL2MP_JUMP_SHOTGUN" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_smg1" {
+$sequence "jump_smg1" ACT_HL2MP_JUMP_SMG1 1 {
 	"female_anims2_anims\jump_smg1.smd"
-	activity "ACT_HL2MP_JUMP_SMG1" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_ar2" {
+$sequence "jump_ar2" ACT_HL2MP_JUMP_AR2 1 {
 	"female_anims2_anims\jump_ar2.smd"
-	activity "ACT_HL2MP_JUMP_AR2" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_gravgun" {
+$sequence "jump_gravgun" ACT_HL2MP_JUMP_PHYSGUN 1 {
 	"female_anims2_anims\jump_gravgun.smd"
-	activity "ACT_HL2MP_JUMP_PHYSGUN" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_grenade" {
+$sequence "jump_grenade" ACT_HL2MP_JUMP_GRENADE 1 {
 	"female_anims2_anims\jump_grenade.smd"
-	activity "ACT_HL2MP_JUMP_GRENADE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_rpg" {
+$sequence "jump_rpg" ACT_HL2MP_JUMP_RPG 1 {
 	"female_anims2_anims\jump_rpg.smd"
-	activity "ACT_HL2MP_JUMP_RPG" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_crossbow" {
+$sequence "jump_crossbow" ACT_HL2MP_JUMP_CROSSBOW 1 {
 	"female_anims2_anims\jump_crossbow.smd"
-	activity "ACT_HL2MP_JUMP_CROSSBOW" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_melee" {
+$sequence "jump_melee" ACT_HL2MP_JUMP_MELEE 1 {
 	"female_anims2_anims\jump_melee.smd"
-	activity "ACT_HL2MP_JUMP_MELEE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_slam" {
+$sequence "jump_slam" ACT_HL2MP_JUMP_SLAM 1 {
 	"female_anims2_anims\jump_slam.smd"
-	activity "ACT_HL2MP_JUMP_SLAM" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_sniper" {
+$sequence "jump_sniper" ACT_HL2AC_JUMP_SNIPER 1 {
 	"female_anims2_anims\jump_sniper.smd"
-	activity "ACT_HL2AC_JUMP_SNIPER" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_shield" {
+$sequence "jump_shield" ACT_HL2AC_JUMP_SHIELD 1 {
 	"female_anims2_anims\jump_shield.smd"
-	activity "ACT_HL2AC_JUMP_SHIELD" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_shaketrap" {
+$sequence "jump_shaketrap" ACT_HL2AC_JUMP_SHAKETRAP 1 {
 	"female_anims2_anims\jump_shaketrap.smd"
-	activity "ACT_HL2AC_JUMP_SHAKETRAP" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_turret" {
+$sequence "jump_turret" ACT_HL2AC_JUMP_TURRET 1 {
 	"female_anims2_anims\jump_turret.smd"
-	activity "ACT_HL2AC_JUMP_TURRET" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_injection" {
+$sequence "jump_injection" ACT_HL2AC_JUMP_INJECTION 1 {
 	"female_anims2_anims\jump_injection.smd"
-	activity "ACT_HL2AC_JUMP_INJECTION" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_gatling" {
+$sequence "jump_gatling" ACT_HL2AC_JUMP_GATLING 1 {
 	"female_anims2_anims\jump_gatling.smd"
-	activity "ACT_HL2AC_JUMP_GATLING" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_Man_Gun" {
+$sequence "jump_Man_Gun" ACT_HL2AC_JUMP_MAN_GUN 1 {
 	"female_anims2_anims\jump_Man_Gun.smd"
-	activity "ACT_HL2AC_JUMP_MAN_GUN" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_knife" {
+$sequence "jump_knife" ACT_HL2MP_JUMP_KNIFE 1 {
 	"female_anims2_anims\jump_knife.smd"
-	activity "ACT_HL2MP_JUMP_KNIFE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_transiber" {
+$sequence "jump_transiber" ACT_HL2MP_JUMP_TRANSIBER 1 {
 	"female_anims2_anims\jump_transiber.smd"
-	activity "ACT_HL2MP_JUMP_TRANSIBER" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_h_shield" {
+$sequence "jump_h_shield" ACT_HL2AC_JUMP_H_SHIELD 1 {
 	"female_anims2_anims\jump_h_shield.smd"
-	activity "ACT_HL2AC_JUMP_H_SHIELD" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_drink" {
+$sequence "jump_drink" ACT_HL2MP_JUMP_DRINK 1 {
 	"female_anims2_anims\jump_drink.smd"
-	activity "ACT_HL2MP_JUMP_DRINK" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_stungun" {
+$sequence "jump_stungun" ACT_HL2MP_JUMP_STUNGUN 1 {
 	"female_anims2_anims\jump_stungun.smd"
-	activity "ACT_HL2MP_JUMP_STUNGUN" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_Laserrifle" {
+$sequence "jump_Laserrifle" ACT_HL2AC_JUMP_LASER 1 {
 	"female_anims2_anims\jump_Laserrifle.smd"
-	activity "ACT_HL2AC_JUMP_LASER" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_pistol2" {
+$sequence "jump_pistol2" ACT_HL2MP_JUMP_PISTOL2 1 {
 	"female_anims2_anims\jump_pistol2.smd"
-	activity "ACT_HL2MP_JUMP_PISTOL2" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_manhac" {
+$sequence "jump_manhac" ACT_HL2MP_JUMP_MANHAC 1 {
 	"female_anims2_anims\jump_manhac.smd"
-	activity "ACT_HL2MP_JUMP_MANHAC" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_rpg2" {
+$sequence "jump_rpg2" ACT_HL2MP_JUMP_RPG2 1 {
 	"female_anims2_anims\jump_rpg2.smd"
-	activity "ACT_HL2MP_JUMP_RPG2" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_invisible" {
+$sequence "jump_invisible" ACT_HL2MP_JUMP_INVISIBLE 1 {
 	"female_anims2_anims\jump_invisible.smd"
-	activity "ACT_HL2MP_JUMP_INVISIBLE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_glove" {
+$sequence "jump_glove" ACT_HL2MP_JUMP_GLOVE 1 {
 	"female_anims2_anims\jump_glove.smd"
-	activity "ACT_HL2MP_JUMP_GLOVE" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_dekoi" {
+$sequence "jump_dekoi" ACT_HL2MP_JUMP_DEKOI 1 {
 	"female_anims2_anims\jump_dekoi.smd"
-	activity "ACT_HL2MP_JUMP_DEKOI" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_timerG" {
+$sequence "jump_timerG" ACT_HL2MP_JUMP_TIMERG 1 {
 	"female_anims2_anims\jump_timerG.smd"
-	activity "ACT_HL2MP_JUMP_TIMERG" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_chargebow" {
+$sequence "jump_chargebow" ACT_HL2MP_JUMP_CHARGEBOW 1 {
 	"female_anims2_anims\jump_chargebow.smd"
-	activity "ACT_HL2MP_JUMP_CHARGEBOW" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_shake_strong" {
+$sequence "jump_shake_strong" ACT_HL2MP_JUMP_SHAKE_STRONG 1 {
 	"female_anims2_anims\jump_shake_strong.smd"
-	activity "ACT_HL2MP_JUMP_SHAKE_STRONG" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_e_injection" {
+$sequence "jump_e_injection" ACT_HL2AC_JUMP_E_INJECTION 1 {
 	"female_anims2_anims\jump_e_injection.smd"
-	activity "ACT_HL2AC_JUMP_E_INJECTION" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "jump_sbox" {
+$sequence "jump_sbox" ACT_HL2AC_JUMP_SBOX 1 {
 	"female_anims2_anims\jump_sbox.smd"
-	activity "ACT_HL2AC_JUMP_SBOX" 1
-	fadein 0.2
-	fadeout 0.2
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 1
 	ikrule "rfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 2
 	ikrule "lfoot" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 26 26 target 3
 }
 
-$sequence "reload_pistol" {
+$sequence "reload_pistol" ACT_HL2MP_GESTURE_RELOAD_PISTOL 1 {
 	"female_anims2_anims\reload_pistol.smd"
-	activity "ACT_HL2MP_GESTURE_RELOAD_PISTOL" 1
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 40 40 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 40 40 target 1
 	weightlist "weights_reload_pistol"
 }
 
-$sequence "reload_shotgun" {
+$sequence "reload_shotgun" ACT_HL2MP_GESTURE_RELOAD_SHOTGUN 1 {
 	"female_anims2_anims\reload_shotgun.smd"
-	activity "ACT_HL2MP_GESTURE_RELOAD_SHOTGUN" 1
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 65 65 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 65 65 target 1
 	weightlist "weights_reload_pistol"
 }
 
-$sequence "reload_smg1" {
+$sequence "reload_smg1" ACT_HL2MP_GESTURE_RELOAD_SMG1 1 {
 	"female_anims2_anims\reload_smg1.smd"
-	activity "ACT_HL2MP_GESTURE_RELOAD_SMG1" 1
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 65 65 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 65 65 target 1
 	weightlist "weights_reload_pistol"
 }
 
-$sequence "reload_ar2" {
+$sequence "reload_ar2" ACT_HL2MP_GESTURE_RELOAD_AR2 1 {
 	"female_anims2_anims\reload_ar2.smd"
-	activity "ACT_HL2MP_GESTURE_RELOAD_AR2" 1
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 65 65 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 65 65 target 1
 	weightlist "weights_reload_pistol"
 }
 
-$sequence "reload_sniper" {
+$sequence "reload_sniper" ACT_HL2AC_GESTURE_RELOAD_SNIPER 1 {
 	"female_anims2_anims\reload_sniper.smd"
-	activity "ACT_HL2AC_GESTURE_RELOAD_SNIPER" 1
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 	fps 45
@@ -10786,37 +8747,26 @@ $sequence "reload_sniper" {
 	weightlist "weights_reload_pistol"
 }
 
-$sequence "reload_injection" {
+$sequence "reload_injection" ACT_HL2AC_GESTURE_RELOAD_INJECTION 1 {
 	"female_anims2_anims\reload_injection.smd"
-	activity "ACT_HL2AC_GESTURE_RELOAD_INJECTION" 1
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 90 90 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 90 90 target 1
 	weightlist "weights_reload_pistol"
 }
 
-$sequence "reload_drink" {
+$sequence "reload_drink" ACT_HL2AC_GESTURE_RELOAD_DRINK 1 {
 	"female_anims2_anims\reload_drink.smd"
-	activity "ACT_HL2AC_GESTURE_RELOAD_DRINK" 1
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 70 70 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 70 70 target 1
 	weightlist "weights_reload_pistol"
 }
 
-$sequence "reload_Laserrifle" {
+$sequence "reload_Laserrifle" ACT_HL2AC_GESTURE_RELOAD_LASER 1 {
 	"female_anims2_anims\reload_Laserrifle.smd"
-	activity "ACT_HL2AC_GESTURE_RELOAD_LASER" 1
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 	fps 45
@@ -10825,177 +8775,124 @@ $sequence "reload_Laserrifle" {
 	weightlist "weights_reload_pistol"
 }
 
-$sequence "reload_pistol2" {
+$sequence "reload_pistol2" ACT_HL2MP_GESTURE_RELOAD_PISTOL2 1 {
 	"female_anims2_anims\reload_pistol2.smd"
-	activity "ACT_HL2MP_GESTURE_RELOAD_PISTOL2" 1
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 90 90 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 90 90 target 1
 	weightlist "weights_reload_pistol"
 }
 
-$sequence "reload_manhac" {
+$sequence "reload_manhac" ACT_HL2MP_GESTURE_RELOAD_MANHAC 1 {
 	"female_anims2_anims\reload_manhac.smd"
-	activity "ACT_HL2MP_GESTURE_RELOAD_MANHAC" 1
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 20 20 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 20 20 target 1
 	weightlist "weights_reload_pistol"
 }
 
-$sequence "reload_dekoi" {
+$sequence "reload_dekoi" ACT_HL2MP_GESTURE_RELOAD_DEKOI 1 {
 	"female_anims2_anims\reload_dekoi.smd"
-	activity "ACT_HL2MP_GESTURE_RELOAD_DEKOI" 1
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 20 20 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 20 20 target 1
 	weightlist "weights_reload_pistol"
 }
 
-$sequence "reload_chargebow" {
+$sequence "reload_chargebow" ACT_HL2MP_GESTURE_RELOAD_CHARGEBOW 1 {
 	"female_anims2_anims\reload_chargebow.smd"
-	activity "ACT_HL2MP_GESTURE_RELOAD_CHARGEBOW" 1
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 25 25 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 25 25 target 1
 	weightlist "weights_reload_pistol"
 }
 
-$sequence "reload_e_injection" {
+$sequence "reload_e_injection" ACT_HL2AC_GESTURE_RELOAD_E_INJECTION 1 {
 	"female_anims2_anims\reload_e_injection.smd"
-	activity "ACT_HL2AC_GESTURE_RELOAD_E_INJECTION" 1
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
-	fps 30
 	ikrule "rhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 35 35 target 0
 	ikrule "lhand" release contact 0 fakeorigin 0 0 0 fakerotate 0 0 0 floor 0 height 0 radius 0 range 0 0 35 35 target 1
 	weightlist "weights_reload_pistol"
 }
 
-$sequence "damage_pistol" {
+$sequence "damage_pistol" ACT_HL2MP_GESTURE_DAMAGE_PISTOL 1 {
 	"a_damage_pistol"
-	activity "ACT_HL2MP_GESTURE_DAMAGE_PISTOL" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "damage_shotgun" {
+$sequence "damage_shotgun" ACT_HL2MP_GESTURE_DAMAGE_SHOTGUN 1 {
 	"a_damage_shotgun"
-	activity "ACT_HL2MP_GESTURE_DAMAGE_SHOTGUN" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "damage_smg1" {
+$sequence "damage_smg1" ACT_HL2MP_GESTURE_DAMAGE_SMG1 1 {
 	"a_damage_smg1"
-	activity "ACT_HL2MP_GESTURE_DAMAGE_SMG1" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "damage_ar2" {
+$sequence "damage_ar2" ACT_HL2MP_GESTURE_DAMAGE_AR2 1 {
 	"a_damage_ar2"
-	activity "ACT_HL2MP_GESTURE_DAMAGE_AR2" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "damage_gravgun" {
+$sequence "damage_gravgun" ACT_HL2MP_GESTURE_DAMAGE_PHYSGUN 1 {
 	"a_damage_gravgun"
-	activity "ACT_HL2MP_GESTURE_DAMAGE_PHYSGUN" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "damage_grenade" {
+$sequence "damage_grenade" ACT_HL2MP_GESTURE_DAMAGE_GRENADE 1 {
 	"a_damage_grenade"
-	activity "ACT_HL2MP_GESTURE_DAMAGE_GRENADE" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "damage_rpg" {
+$sequence "damage_rpg" ACT_HL2MP_GESTURE_DAMAGE_RPG 1 {
 	"a_damage_rpg"
-	activity "ACT_HL2MP_GESTURE_DAMAGE_RPG" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "damage_crossbow" {
+$sequence "damage_crossbow" ACT_HL2MP_GESTURE_DAMAGE_CROSSBOW 1 {
 	"a_damage_crossbow"
-	activity "ACT_HL2MP_GESTURE_DAMAGE_CROSSBOW" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "damage_melee" {
+$sequence "damage_melee" ACT_HL2MP_GESTURE_DAMAGE_MELEE 1 {
 	"a_damage_melee"
-	activity "ACT_HL2MP_GESTURE_DAMAGE_MELEE" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "damage_slam" {
+$sequence "damage_slam" ACT_HL2MP_GESTURE_DAMAGE_SLAM 1{
 	"a_damage_slam"
-	activity "ACT_HL2MP_GESTURE_DAMAGE_SLAM" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
 
-$sequence "damage_sniper" {
+$sequence "damage_sniper" ACT_HL2MP_GESTURE_DAMAGE_SNIPER 1 {
 	"a_damage_sniper"
-	activity "ACT_HL2MP_GESTURE_DAMAGE_SNIPER" 1
 	delta
-	fadein 0.2
-	fadeout 0.2
 	iklock "lfoot" 1 0
 	iklock "rfoot" 1 0
 }
@@ -11008,8 +8905,6 @@ $sequence "body_rot_z" {
 	blend "body_yaw" 29.60788 -29.6078
 	blendwidth 3
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 }
 
@@ -11021,8 +8916,6 @@ $sequence "spine_rot_z" {
 	blend "spine_yaw" 30.60354 -30.60357
 	blendwidth 3
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 }
 
@@ -11034,8 +8927,6 @@ $sequence "head_rot_z" {
 	blend "head_yaw" 44.64133 -44.64157
 	blendwidth 3
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 }
 
@@ -11047,8 +8938,6 @@ $sequence "head_rot_y" {
 	blend "head_pitch" 22.99999 -20
 	blendwidth 3
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 }
 
@@ -11060,7 +8949,5 @@ $sequence "head_rot_x" {
 	blend "head_roll" -10.93823 10.85866
 	blendwidth 3
 	delta
-	fadein 0.2
-	fadeout 0.2
 	hidden
 }
