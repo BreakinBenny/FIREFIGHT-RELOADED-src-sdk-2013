@@ -92,62 +92,73 @@
 		"classname"	"npc_hgrunt"
 		"equipment"
 		{
-			"weapon_9mmar"	"7"
-			"weapon_9mmar_gl"	"4"
-			"weapon_shotgun"	"3"
+			"weapon_9mmar"	"8"
+			"weapon_9mmar_gl"	"5"
+			"weapon_shotgun"	"2"
 		}
 		"exp"	"30"
 	}
 	"14"
 	{
+		"classname"	"npc_antlion"
+		"exp"	"35"
+	}
+	"15"
+	{
 		"classname"	"npc_bullsquid"
 		"rare"	"1"
 		"exp"	"40"
 	}
-	"15"
+	"16"
 	{
 		"classname"	"npc_fastzombie"
 		"exp"	"35"
 	}
-	"16"
+	"17"
 	{
 		"classname"	"npc_fastzombie_torso"
 		"exp"	"30"
 	}
-	"17"
+	"18"
 	{
 		"classname"	"npc_combine_shot"
 		"exp"	"35"
+		"equipment"
+		{
+			"weapon_shotgun"	"8"
+			"weapon_xm1014"	"3"
+		}
 	}
-	"18"
+	"19"
 	{
 		"classname"	"npc_hgrunt_robot"
 		"equipment"
 		{
-			"weapon_9mmar"	"7"
-			"weapon_9mmar_gl"	"4"
-			"weapon_shotgun"	"3"
+			"weapon_9mmar"	"8"
+			"weapon_9mmar_gl"	"5"
+			"weapon_shotgun"	"2"
 			"weapon_shotgun_gl"	"2"
 		}
 		"exp"	"45"
 	}
-	"19"
+	"20"
+	{
+		"classname"	"npc_killerscanner"
+		"exp"	"45"
+	}
+	"21"
 	{
 		"classname"	"npc_strider"
 		"rare"	"1"
 		"exp"	"250"
+		"task_selection_ignore" "1"
 	}
-	"20"
-	{
-		"classname"	"npc_antlion"
-		"exp"	"35"
-	}
-	"21"
+	"22"
 	{
 		"classname"	"npc_playerbot"
 		"rare"	"1"
 	}
-	"22"
+	"23"
 	{
 		"classname"	"npc_combine_e"
 		"rare"	"1"
@@ -164,22 +175,23 @@
 			"weapon_gatling"	"1"
 		}
 	}
-	"23"
+	"24"
 	{
 		"classname"	"npc_poisonzombie"
 		"rare"	"1"
 		"exp"	"45"
 	}
-	"24"
+	"25"
 	{
 		"classname"	"npc_agrunt"
 		"exp"	"45"
 	}
-	"25"
+	"26"
 	{
 		"classname"	"npc_combine_s_friendly"
 		"wildcard"	"1"
 		"preset"	"2"
+		"task_selection_ignore"	"1"
 		"rare"	"1"
 		"equipment"
 		{
@@ -190,46 +202,54 @@
 			"weapon_shotgun"	"4"
 		}
 	}
-	"26"
+	"27"
 	{
 		"classname"	"npc_acontroller"
 		"exp"	"45"
 	}
-	"27"
+	"28"
 	{
 		"classname"	"npc_hunter"
 		"rare"	"1"
 		"exp"	"45"
 	}
-	"28"
+	"29"
 	{
 		"classname"	"npc_zombine"
 		"rare"	"1"
 		"exp"	"45"
 	}
-	"29"
+	"30"
 	{
 		"classname"	"npc_zombine_armored"
 		"rare"	"1"
 		"exp"	"50"
 	}
-	"30"
+	"31"
+	{
+		"classname"	"npc_killerscanner"
+		"preset"	"2"
+		"rare"	"1"
+		"exp"	"65"
+	}
+	"32"
 	{
 		"classname"	"npc_antlionworker"
 		"rare"	"1"
 		"exp"	"45"
 	}
-	"31"
+	"33"
 	{
 		"classname"	"npc_antlionguard"
 		"rare"	"1"
 		"exp"	"55"
 	}
-	"32"
+	"34"
 	{
 		"classname"	"npc_combine_e_friendly"
 		"wildcard"	"1"
 		"preset"	"2"
+		"task_selection_ignore"	"1"
 		"rare"	"1"
 		"equipment"
 		{
@@ -242,54 +262,64 @@
 			"weapon_oicw"	"5"
 		}
 	}
-	"33"
+	"35"
 	{
 		"classname"	"npc_vortigaunt"
+		"task_selection_ignore"	"1"
 		"rare"	"1"
 	}
-	"34"
+	"36"
 	{
 		"classname"	"npc_assassin"
 		"exp"	"35"
 	}
-	"35"
+	"37"
 	{
 		"classname"	"npc_hunter_friendly"
 		"preset"	"1"
+		"task_selection_ignore"	"1"
+		"rare"	"1"
 	}
-	"36"
+	"38"
 	{
 		"classname"	"npc_hunter"
 		"preset"	"4"
 		"rare"	"1"
 		"exp"	"50"
 	}
-	"37"
+	"39"
 	{
 		"classname"	"npc_vortigaunt_hl2_enemy"
 		"rare"	"1"
 		"exp"	"75"
 	}
-	"38"
+	"40"
+	{
+		"classname"	"npc_killerscanner"
+		"preset"	"1"
+		"rare"	"1"
+		"exp"	"85"
+	}
+	"41"
 	{
 		"classname"	"npc_antlionguardian"
 		"rare"	"1"
 		"exp"	"65"
 	}
-	"39"
+	"42"
 	{
 		"classname"	"npc_stalker"
 		"rare"	"1"
 		"exp"	"60"
 	}
-	"40"
+	"43"
 	{
 		"classname"	"npc_bullsquid"
 		"preset"	"1"
 		"rare"	"1"
 		"exp"	"50"
 	}
-	"41"
+	"44"
 	{
 		"classname"	"npc_combine_ace"
 		"rare"	"1"
@@ -305,9 +335,10 @@
 			"weapon_mp5"	"3"
 			"weapon_oicw"	"5"
 			"weapon_gatling"	"3"
+			"weapon_xm1014"	"4"
 		}
 	}
-	"42"
+	"45"
 	{
 		"classname"	"npc_assassin"
 		"preset"	"1"
@@ -319,52 +350,52 @@
 			"weapon_pistol"	"5"
 		}
 	}
-	"43"
+	"46"
 	{
 		"classname"	"npc_rollermine"
 		"exp"	"65"
 	}
-	"44"
+	"47"
 	{
 		"classname"	"npc_cscanner"
 		"exp"	"25"
 	}
-	"45"
+	"48"
 	{
 		"classname"	"npc_hunter"
 		"preset"	"3"
 		"rare"	"1"
 		"exp"	"55"
 	}
-	"46"
+	"49"
 	{
 		"classname"	"npc_headcrab_fast"
 		"preset"	"1"
 		"rare"	"1"
 		"exp"	"45"
 	}
-	"47"
+	"50"
 	{
 		"classname"	"npc_fastzombie"
 		"preset"	"1"
 		"rare"	"1"
 		"exp"	"50"
 	}
-	"48"
+	"51"
 	{
 		"classname"	"npc_hunter"
 		"preset"	"2"
 		"rare"	"1"
 		"exp"	"65"
 	}
-	"49"
+	"52"
 	{
 		"classname"	"npc_hunter"
 		"preset"	"1"
 		"rare"	"1"
 		"exp"	"70"
 	}
-	"50"
+	"53"
 	{
 		"classname"	"npc_combine_ace"
 		"preset"	"1"
@@ -381,13 +412,15 @@
 			"weapon_mp5"	"3"
 			"weapon_oicw"	"5"
 			"weapon_gatling"	"3"
+			"weapon_xm1014"	"4"
 		}
 	}
-	"51"
+	"54"
 	{
 		"classname"	"npc_combine_ace_friendly"
 		"wildcard"	"1"
 		"preset"	"2"
+		"task_selection_ignore"	"1"
 		"rare"	"1"
 		"equipment"
 		{
@@ -401,7 +434,7 @@
 			"weapon_oicw"	"5"
 		}
 	}
-	"52"
+	"55"
 	{
 		"classname"	"npc_combine_s"
 		"wildcard"	"1"
@@ -409,7 +442,7 @@
 		"rare"	"1"
 		"exp"	"60"
 	}
-	"53"
+	"56"
 	{
 		"classname"	"npc_metropolice"
 		"wildcard"	"1"
@@ -417,7 +450,7 @@
 		"rare"	"1"
 		"exp"	"60"
 	}
-	"54"
+	"57"
 	{
 		"classname"	"npc_hunter"
 		"wildcard"	"1"
@@ -425,7 +458,7 @@
 		"rare"	"1"
 		"exp"	"75"
 	}
-	"55"
+	"58"
 	{
 		"classname"	"npc_combine_ace"
 		"wildcard"	"1"
@@ -442,37 +475,39 @@
 			"weapon_sniper_rifle"	"3"
 			"weapon_mp5"	"3"
 			"weapon_oicw"	"5"
+			"weapon_gatling"	"3"
+			"weapon_xm1014"	"4"
 		}
 	}
-	"56"
+	"59"
 	{
 		"classname"	"npc_hunter"
 		"preset"	"5"
 		"rare"	"1"
 		"exp"	"75"
 	}
-	"57"
+	"60"
 	{
 		"classname"	"npc_combine_s"
 		"wildcard"	"1"
 		"preset"	"1"
 		"exp"	"60"
 	}
-	"58"
+	"61"
 	{
 		"classname"	"npc_metropolice"
 		"wildcard"	"1"
 		"preset"	"1"
 		"exp"	"60"
 	}
-	"59"
+	"62"
 	{
 		"classname"	"npc_hunter"
 		"wildcard"	"1"
 		"preset"	"1"
 		"exp"	"75"
 	}
-	"60"
+	"63"
 	{
 		"classname"	"npc_combine_ace"
 		"wildcard"	"1"
@@ -488,6 +523,8 @@
 			"weapon_sniper_rifle"	"3"
 			"weapon_mp5"	"3"
 			"weapon_oicw"	"5"
+			"weapon_gatling"	"3"
+			"weapon_xm1014"	"4"
 		}
 	}
 }

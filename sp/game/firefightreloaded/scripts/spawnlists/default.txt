@@ -217,6 +217,7 @@
 		"min_level"	"8"
 		"wildcard"	"1"
 		"preset"	"2"
+		"task_selection_ignore"	"1"
 		"rare"	"1"
 		"equipment"
 		{
@@ -282,6 +283,7 @@
 		"min_level"	"10"
 		"wildcard"	"1"
 		"preset"	"2"
+		"task_selection_ignore"	"1"
 		"rare"	"1"
 		"equipment"
 		{
@@ -298,6 +300,7 @@
 	{
 		"classname"	"npc_vortigaunt"
 		"min_level"	"11"
+		"task_selection_ignore"	"1"
 		"rare"	"1"
 	}
 	"36"
@@ -311,6 +314,7 @@
 		"classname"	"npc_hunter_friendly"
 		"preset"	"1"
 		"min_level"	"11"
+		"task_selection_ignore"	"1"
 		"rare"	"1"
 	}
 	"38"
@@ -470,6 +474,7 @@
 		"min_level"	"15"
 		"wildcard"	"1"
 		"preset"	"2"
+		"task_selection_ignore"	"1"
 		"rare"	"1"
 		"equipment"
 		{

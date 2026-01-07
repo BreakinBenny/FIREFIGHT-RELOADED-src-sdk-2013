@@ -47,6 +47,18 @@
 	}
 }
 
+"HGrunt.Sniper"
+{
+	"channel"	"CHAN_WEAPON"
+	"volume"	"VOL_NORM"
+	"soundlevel"	"SNDLVL_140db"
+	"pitch"		"PITCH_NORM"
+	"rndwave"
+	{
+		"wave"		"weapons/sniper_fire.wav"
+	}
+}
+
 "HGrunt.Pain"
 {
 	"channel"	"CHAN_VOICE"
