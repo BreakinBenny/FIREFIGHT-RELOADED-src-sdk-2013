@@ -779,7 +779,9 @@ void CNPCMakerFirefight::MakeNPC()
 		if (Q_stristr(pRandomName, "npc_hgrunt") ||
 			Q_stristr(pRandomName, "npc_hgrunt_friendly") ||
 			Q_stristr(pRandomName, "npc_hgrunt_robot") || 
-			Q_stristr(pRandomName, "npc_hgrunt_friendly_robot"))
+			Q_stristr(pRandomName, "npc_hgrunt_friendly_robot") || 
+			Q_stristr(pRandomName, "npc_hgrunt_blackops") ||
+			Q_stristr(pRandomName, "npc_hgrunt_friendly_blackops"))
 		{
 			if (Q_stristr(equip, "weapon_9mmar_gl"))
 			{
@@ -814,12 +816,24 @@ void CNPCMakerFirefight::MakeNPC()
 				}
 			}
 		}
+
+		if (Q_stristr(pRandomName, "npc_hgrunt_blackops") ||
+			Q_stristr(pRandomName, "npc_hgrunt_friendly_blackops"))
+		{
+			// black ops use snipers.
+			if (Q_stristr(equip, "weapon_sniperrifle"))
+			{
+				gruntEquip = WEAPON_HGRUNT_SNIPERRIFLE;
+			}
+		}
 	}
 
 	if (Q_stristr(pRandomName, "npc_hgrunt") ||
 		Q_stristr(pRandomName, "npc_hgrunt_friendly") ||
 		Q_stristr(pRandomName, "npc_hgrunt_robot") ||
-		Q_stristr(pRandomName, "npc_hgrunt_friendly_robot"))
+		Q_stristr(pRandomName, "npc_hgrunt_friendly_robot") || 
+		Q_stristr(pRandomName, "npc_hgrunt_blackops") ||
+		Q_stristr(pRandomName, "npc_hgrunt_friendly_blackops"))
 	{
 		CHGrunt *pGrunt = dynamic_cast<CHGrunt*>(pent);
 		if (pGrunt)

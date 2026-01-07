@@ -31,6 +31,7 @@
 #define SF_GRUNT_LEADER	( 1 << 5  )
 #define SF_GRUNT_FRIENDLY ( 1 << 6  )
 #define SF_GRUNT_ROBOT ( 1 << 15  )
+#define SF_GRUNT_BLACKOPS ( 1 << 16  )
 
 //=========================================================
 // monster-specific DEFINE's
@@ -39,6 +40,7 @@
 #define HGRUNT_HANDGRENADE			( 1 << 1)
 #define HGRUNT_GRENADELAUNCHER		( 1 << 2)
 #define HGRUNT_SHOTGUN				( 1 << 3)
+#define HGRUNT_SNIPERRIFLE			( 1 << 4)
 
 typedef struct
 {
@@ -52,7 +54,7 @@ enum eBodygroupTypes
 	GUN_GROUP
 };
 
-enum eHeadBodygroupTypes
+enum eGruntHeadBodygroupTypes
 {
 	HEAD_GRUNT,
 	HEAD_COMMANDER,
@@ -60,11 +62,19 @@ enum eHeadBodygroupTypes
 	HEAD_M203
 };
 
-enum eWeaponBodygroupTypes
+enum eGruntWeaponBodygroupTypes
 {
 	GUN_MP5,
 	GUN_SHOTGUN,
-	GUN_NONE
+	GUN_SNIPERRIFLE = 1,
+	GUN_NONE,
+};
+
+enum eBlackOpsHeadBodygroupTypes
+{
+	HEAD_WHITE,
+	HEAD_BLACK,
+	HEAD_THERMALVISION
 };
 
 class CHGruntBodygroupLoader
@@ -72,9 +82,11 @@ class CHGruntBodygroupLoader
 public:
 	static GruntBodygroups_t HGruntWeaponBodygroupMap[];
 	static GruntBodygroups_t HGruntHeadBodygroupMap[];
+	static GruntBodygroups_t BlackOpsHeadBodygroupMap[];
 
 	static void SwitchBodygroupForWeapon(CBaseAnimating* pent, int body);
 	static void SwitchBodygroupForHead(CBaseAnimating* pent, int body);
+	static void SwitchBodygroupForBlackOpsHead(CBaseAnimating* pent, int body);
 };
 
 //=========================================================
@@ -155,6 +167,7 @@ enum eHGruntWeapons
 	WEAPON_HGRUNT_SHOTGUN = HGRUNT_SHOTGUN,
 	WEAPON_HGRUNT_SHOTGUN_FRAG = (HGRUNT_SHOTGUN | HGRUNT_HANDGRENADE),
 	WEAPON_HGRUNT_SHOTGUN_GL = (HGRUNT_SHOTGUN | HGRUNT_GRENADELAUNCHER),
+	WEAPON_HGRUNT_SNIPERRIFLE = (HGRUNT_SNIPERRIFLE),
 };
 
 typedef struct
@@ -248,6 +261,7 @@ public:
 	float m_flNextPainTime;
 	float m_flLastEnemySightTime;
 	float m_flTalkWaitTime;
+	float m_flLastShot;
 
 	Vector	m_vecTossVelocity;
 

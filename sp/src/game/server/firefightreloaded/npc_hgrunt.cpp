@@ -59,7 +59,7 @@ GruntBodygroups_t CHGruntBodygroupLoader::HGruntWeaponBodygroupMap[] =
 {
 	{ GUN_GROUP, GUN_MP5 },
 	{ GUN_GROUP, GUN_SHOTGUN },
-	{ GUN_GROUP, GUN_NONE },
+	{ GUN_GROUP, GUN_NONE }
 };
 
 GruntBodygroups_t CHGruntBodygroupLoader::HGruntHeadBodygroupMap[] =
@@ -67,7 +67,14 @@ GruntBodygroups_t CHGruntBodygroupLoader::HGruntHeadBodygroupMap[] =
 	{ HEAD_GROUP, HEAD_GRUNT },
 	{ HEAD_GROUP, HEAD_COMMANDER },
 	{ HEAD_GROUP, HEAD_SHOTGUN },
-	{ HEAD_GROUP, HEAD_M203 },
+	{ HEAD_GROUP, HEAD_M203 }
+};
+
+GruntBodygroups_t CHGruntBodygroupLoader::BlackOpsHeadBodygroupMap[] =
+{
+	{ HEAD_GROUP, HEAD_WHITE },
+	{ HEAD_GROUP, HEAD_BLACK },
+	{ HEAD_GROUP, HEAD_THERMALVISION }
 };
 
 void CHGruntBodygroupLoader::SwitchBodygroupForWeapon(CBaseAnimating* pent, int body)
@@ -89,6 +96,18 @@ void CHGruntBodygroupLoader::SwitchBodygroupForHead(CBaseAnimating* pent, int bo
 		if (HGruntHeadBodygroupMap[i].body == body)
 		{
 			pent->SetBodygroup(HGruntHeadBodygroupMap[i].id, HGruntHeadBodygroupMap[i].body);
+			break;
+		}
+	}
+}
+
+void CHGruntBodygroupLoader::SwitchBodygroupForBlackOpsHead(CBaseAnimating* pent, int body)
+{
+	for (int i = 0; i < ARRAYSIZE(BlackOpsHeadBodygroupMap); i++)
+	{
+		if (BlackOpsHeadBodygroupMap[i].body == body)
+		{
+			pent->SetBodygroup(BlackOpsHeadBodygroupMap[i].id, BlackOpsHeadBodygroupMap[i].body);
 			break;
 		}
 	}
@@ -149,6 +168,7 @@ ConVar  sk_hgrunt_grenade_speed ( "sk_hgrunt_grenade_speed", "0" );
 ConVar  sk_hgrunt_eastereggtaunt_prob ( "sk_hgrunt_eastereggtaunt_prob", "30" );
 ConVar  sk_hgrunt_smg_magsize("sk_hgrunt_smg_magsize", "36");
 ConVar  sk_hgrunt_shotgun_magsize("sk_hgrunt_shotgun_magsize", "8");
+ConVar  sk_hgrunt_sniper_magsize("sk_hgrunt_sniper_magsize", "1");
 
 ConVar hgrunt_hurttaunt("hgrunt_hurttaunt", "1", FCVAR_ARCHIVE, "If true, the hgrunt will taunt at the player if the player's health is under the value of hgrunt_hurttaunt_healthvalue.");
 ConVar hgrunt_hurttaunt_frequency("hgrunt_hurttaunt_frequency", "30", FCVAR_NONE, "Changes the frequency of the hgrunt's taunt. Lower values = higher frequency. Higher values = lower frequency.");
@@ -162,11 +182,15 @@ int ACT_GRUNT_MP5_STANDING;
 int ACT_GRUNT_MP5_CROUCHING;
 int ACT_GRUNT_SHOTGUN_STANDING;
 int ACT_GRUNT_SHOTGUN_CROUCHING;
+int ACT_GRUNT_SNIPERRIFLE_STANDING;
+int ACT_GRUNT_SNIPERRIFLE_CROUCHING;
 
 LINK_ENTITY_TO_CLASS( npc_hgrunt, CHGrunt );
 LINK_ENTITY_TO_CLASS(npc_hgrunt_friendly, CHGrunt);
 LINK_ENTITY_TO_CLASS(npc_hgrunt_robot, CHGrunt);
 LINK_ENTITY_TO_CLASS(npc_hgrunt_friendly_robot, CHGrunt);
+LINK_ENTITY_TO_CLASS(npc_hgrunt_blackops, CHGrunt);
+LINK_ENTITY_TO_CLASS(npc_hgrunt_friendly_blackops, CHGrunt);
 
 //---------------------------------------------------------
 // Save/Restore
@@ -188,6 +212,7 @@ BEGIN_DATADESC( CHGrunt )
     
 	DEFINE_FIELD( m_flLastEnemySightTime, FIELD_TIME ),
 	DEFINE_FIELD( m_flTalkWaitTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flLastShot, FIELD_TIME ),
 
 	DEFINE_FIELD(m_fGruntQuestion, FIELD_INTEGER),
 	DEFINE_FIELD(m_iSquadIndex, FIELD_INTEGER),
@@ -285,6 +310,10 @@ void CHGrunt::Event_Killed( const CTakeDamageInfo &info )
 	{
 		 DropItem( "weapon_shotgun", vecGunPos, vecGunAngles );
 	}
+	else if (FBitSet(m_iWeapons, HGRUNT_SNIPERRIFLE))
+	{
+		DropItem("weapon_sniper_rifle", vecGunPos, vecGunAngles);
+	}
 	else
 	{
 		 DropItem( "weapon_mp5", vecGunPos, vecGunAngles );
@@ -322,6 +351,9 @@ void CHGrunt::Event_Killed( const CTakeDamageInfo &info )
 //=========================================================
 bool CHGrunt::FOkToSpeak( void )
 {
+	if (HasSpawnFlags(SF_GRUNT_BLACKOPS))
+		return false;
+
 	// if someone else is talking, don't speak
 	if ( gpGlobals->curtime <= m_flTalkWaitTime )
 		return false;
@@ -775,6 +807,11 @@ void CHGrunt::Shoot (int bulletnum, Vector cone)
 {
 	if ( GetEnemy() == NULL )
 		return;
+
+	if (FBitSet(m_iWeapons, HGRUNT_SNIPERRIFLE) && (gpGlobals->curtime - m_flLastShot <= 0.11))
+	{
+		return;
+	}
 	
 	Vector vecShootOrigin = Weapon_ShootPosition();
 	Vector vecShootDir = GetShootEnemyDir( vecShootOrigin );
@@ -788,7 +825,7 @@ void CHGrunt::Shoot (int bulletnum, Vector cone)
 	data.m_nEntIndex = entindex();
 	data.m_nAttachmentIndex = LookupAttachment("0");
 	data.m_flScale = 1.0f;
-	if (FBitSet(m_iWeapons, HGRUNT_SHOTGUN))
+	if (FBitSet(m_iWeapons, HGRUNT_SHOTGUN) || FBitSet(m_iWeapons, HGRUNT_SNIPERRIFLE))
 	{
 		data.m_fFlags = MUZZLEFLASH_SHOTGUN;
 	}
@@ -815,6 +852,7 @@ void CHGrunt::Shoot (int bulletnum, Vector cone)
 	float newPitch = curPitch + UTIL_AngleDiff(UTIL_ApproachAngle(angDir.x, curPitch, 60), curPitch);
 
 	SetPoseParameter("XR", -newPitch);
+	m_flLastShot = gpGlobals->curtime;
 }
 
 //=========================================================
@@ -916,12 +954,20 @@ void CHGrunt::HandleAnimEvent( animevent_t *pEvent )
 				// the first round of the three round burst plays the sound and puts a sound in the world sound list.
 				EmitSound( filter3, entindex(), "HGrunt.9MM" );
 			}
+			else if (FBitSet(m_iWeapons, HGRUNT_SNIPERRIFLE))
+			{
+				Shoot(1, VECTOR_CONE_3DEGREES);
+
+				CPASAttenuationFilter filter4(this);
+				// the first round of the three round burst plays the sound and puts a sound in the world sound list.
+				EmitSound(filter4, entindex(), "HGrunt.Sniper");
+			}
 			else
 			{
 				Shoot(sk_hgrunt_shotgun_pellets.GetFloat(), VECTOR_CONE_15DEGREES);
 
-				CPASAttenuationFilter filter4( this );
-				EmitSound( filter4, entindex(), "HGrunt.Shotgun" );
+				CPASAttenuationFilter filter5( this );
+				EmitSound( filter5, entindex(), "HGrunt.Shotgun" );
 			}
 		
 			CSoundEnt::InsertSound ( SOUND_COMBAT, GetAbsOrigin(), 384, 0.3 );
@@ -988,6 +1034,15 @@ void CHGrunt::Spawn()
 		AddSpawnFlags(SF_GRUNT_FRIENDLY);
 		AddSpawnFlags(SF_GRUNT_ROBOT);
 	}
+	else if (FClassnameIs(this, "npc_hgrunt_blackops"))
+	{
+		AddSpawnFlags(SF_GRUNT_BLACKOPS);
+	}
+	else if (FClassnameIs(this, "npc_hgrunt_friendly_blackops"))
+	{
+		AddSpawnFlags(SF_GRUNT_FRIENDLY);
+		AddSpawnFlags(SF_GRUNT_BLACKOPS);
+	}
 
 	Precache( );
 
@@ -995,6 +1050,7 @@ void CHGrunt::Spawn()
 	{
 		SetModel("models/g_hgrunt.mdl");
 	}
+	// ADD BLACK OPS MODEL HERE
 	else
 	{
 		SetModel("models/hgrunt.mdl");
@@ -1073,28 +1129,41 @@ void CHGrunt::Spawn()
 		CHGruntBodygroupLoader::SwitchBodygroupForWeapon(this, GUN_SHOTGUN);
 		m_iClipSize		= sk_hgrunt_shotgun_magsize.GetInt();
 	}
+	else if (FBitSet(m_iWeapons, HGRUNT_SNIPERRIFLE))
+	{
+		CHGruntBodygroupLoader::SwitchBodygroupForWeapon(this, GUN_SNIPERRIFLE);
+		m_iClipSize		= sk_hgrunt_sniper_magsize.GetInt();
+	}
 	else
 	{
 		m_iClipSize		= sk_hgrunt_smg_magsize.GetInt();
 	}
 	m_cAmmoLoaded		= m_iClipSize;
 
-	if ( random->RandomInt( 0, 99 ) < 80)
-		m_nSkin = 0;	// light skin
-	else
-		m_nSkin = 1;	// dark skin
+	if (!HasSpawnFlags(SF_GRUNT_BLACKOPS))
+	{
+		if (random->RandomInt(0, 99) < 80)
+			m_nSkin = 0;	// light skin
+		else
+			m_nSkin = 1;	// dark skin
 
-	if (FBitSet( m_iWeapons, HGRUNT_SHOTGUN ))
-	{
-		CHGruntBodygroupLoader::SwitchBodygroupForHead(this, HEAD_SHOTGUN);
+		if (FBitSet(m_iWeapons, HGRUNT_SHOTGUN))
+		{
+			CHGruntBodygroupLoader::SwitchBodygroupForHead(this, HEAD_SHOTGUN);
+		}
+		else if (FBitSet(m_iWeapons, HGRUNT_GRENADELAUNCHER))
+		{
+			CHGruntBodygroupLoader::SwitchBodygroupForHead(this, HEAD_M203);
+			m_nSkin = 1; // alway dark skin
+		}
 	}
-	else if (FBitSet( m_iWeapons, HGRUNT_GRENADELAUNCHER ))
+	else
 	{
-		CHGruntBodygroupLoader::SwitchBodygroupForHead(this, HEAD_M203);
-		m_nSkin = 1; // alway dark skin
+		CHGruntBodygroupLoader::SwitchBodygroupForBlackOpsHead(this, random->RandomInt(HEAD_WHITE, HEAD_THERMALVISION));
 	}
 
 	m_flTalkWaitTime = 0;
+	m_flLastShot = 0;
 
 	//HACK
 	m_iSquadIndex = 0;
@@ -1211,6 +1280,7 @@ void CHGrunt::Precache()
 	PrecacheScriptSound( "HGrunt.GrenadeLaunch" );
 	PrecacheScriptSound( "HGrunt.9MM" );
 	PrecacheScriptSound( "HGrunt.Shotgun" );
+	PrecacheScriptSound( "HGrunt.Sniper" );
 	if (HasSpawnFlags(SF_GRUNT_ROBOT))
 	{
 		PrecacheScriptSound("HGrunt.Pain_Robot");
@@ -1337,6 +1407,9 @@ void CHGrunt::RunTask( const Task_t *pTask )
 //=========================================================
 void CHGrunt::PainSound( const CTakeDamageInfo &info )
 {
+	if (HasSpawnFlags(SF_GRUNT_BLACKOPS))
+		return;
+
 	if ( gpGlobals->curtime > m_flNextPainTime )
 	{
 		CPASAttenuationFilter filter( this );
@@ -1358,6 +1431,9 @@ void CHGrunt::PainSound( const CTakeDamageInfo &info )
 //=========================================================
 void CHGrunt::DeathSound( const CTakeDamageInfo &info )
 {
+	if (HasSpawnFlags(SF_GRUNT_BLACKOPS))
+		return;
+
 	CPASAttenuationFilter filter( this, ATTN_IDLE );
 	if (HasSpawnFlags(SF_GRUNT_ROBOT))
 	{
@@ -1389,6 +1465,19 @@ Activity CHGrunt::NPC_TranslateActivity( Activity NewActivity )
 			{
 				// get crouching shoot
 				return (Activity)ACT_GRUNT_MP5_CROUCHING;
+			}
+		}
+		else if (FBitSet(m_iWeapons, HGRUNT_SNIPERRIFLE))
+		{
+			if (m_fStanding)
+			{
+				// get aimable sequence
+				return (Activity)ACT_GRUNT_SNIPERRIFLE_STANDING;
+			}
+			else
+			{
+				// get crouching shoot
+				return (Activity)ACT_GRUNT_SNIPERRIFLE_CROUCHING;
 			}
 		}
 		else
@@ -1983,10 +2072,13 @@ void CHGrunt::StartNPC ( void )
 
 	BaseClass::StartNPC();
 
-	if ( m_pSquad && m_pSquad->IsLeader( this ) )
+	if (!HasSpawnFlags(SF_GRUNT_BLACKOPS))
 	{
-		CHGruntBodygroupLoader::SwitchBodygroupForHead(this, HEAD_COMMANDER);
-		m_nSkin = 0;
+		if (m_pSquad && m_pSquad->IsLeader(this))
+		{
+			CHGruntBodygroupLoader::SwitchBodygroupForHead(this, HEAD_COMMANDER);
+			m_nSkin = 0;
+		}
 	}
 }
 
@@ -2003,6 +2095,8 @@ AI_BEGIN_CUSTOM_NPC( npc_hgrunt, CHGrunt )
 	DECLARE_ACTIVITY( ACT_GRUNT_MP5_CROUCHING );
 	DECLARE_ACTIVITY( ACT_GRUNT_SHOTGUN_STANDING );
 	DECLARE_ACTIVITY( ACT_GRUNT_SHOTGUN_CROUCHING );
+	DECLARE_ACTIVITY( ACT_GRUNT_SNIPERRIFLE_STANDING );
+	DECLARE_ACTIVITY( ACT_GRUNT_SNIPERRIFLE_CROUCHING );
 
 	DECLARE_CONDITION( COND_GRUNT_NOFIRE )
 	
