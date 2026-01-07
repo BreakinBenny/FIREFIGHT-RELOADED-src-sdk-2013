@@ -40,15 +40,42 @@
 #define HGRUNT_GRENADELAUNCHER		( 1 << 2)
 #define HGRUNT_SHOTGUN				( 1 << 3)
 
-#define HEAD_GROUP					1
-#define HEAD_GRUNT					0
-#define HEAD_COMMANDER				1
-#define HEAD_SHOTGUN				2
-#define HEAD_M203					3
-#define GUN_GROUP					2
-#define GUN_MP5						0
-#define GUN_SHOTGUN					1
-#define GUN_NONE					2
+typedef struct
+{
+	int id;
+	int body;
+} GruntBodygroups_t;
+
+enum eBodygroupTypes
+{
+	HEAD_GROUP = 1,
+	GUN_GROUP
+};
+
+enum eHeadBodygroupTypes
+{
+	HEAD_GRUNT,
+	HEAD_COMMANDER,
+	HEAD_SHOTGUN,
+	HEAD_M203
+};
+
+enum eWeaponBodygroupTypes
+{
+	GUN_MP5,
+	GUN_SHOTGUN,
+	GUN_NONE
+};
+
+class CHGruntBodygroupLoader
+{
+public:
+	static GruntBodygroups_t HGruntWeaponBodygroupMap[];
+	static GruntBodygroups_t HGruntHeadBodygroupMap[];
+
+	static void SwitchBodygroupForWeapon(CBaseAnimating* pent, int body);
+	static void SwitchBodygroupForHead(CBaseAnimating* pent, int body);
+};
 
 //=========================================================
 // Monster's Anim Events Go Here

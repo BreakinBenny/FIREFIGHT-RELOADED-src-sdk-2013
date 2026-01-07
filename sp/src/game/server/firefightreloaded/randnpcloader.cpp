@@ -268,6 +268,21 @@ const CRandNPCLoader::SpawnEntry_t* CRandNPCLoader::GetEntry(const char* query, 
 	return NULL;
 }
 
+const bool CRandNPCLoader::ContainsRareEnemies() const
+{
+	int iRareEnemies = 0;
+
+	for (auto& iter : m_Entries)
+	{
+		if (iter.isRare)
+		{
+			iRareEnemies++;
+		}
+	}
+
+	return (iRareEnemies > 0);
+}
+
 bool CRandNPCLoader::AddEntries( KeyValues* pKV )
 {
 	bool ret = true;

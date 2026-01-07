@@ -88,6 +88,7 @@ public:
 	bool AddEntries( KeyValues *kv );
 	const SpawnEntry_t* GetRandomEntry(bool isRare) const;
 	const SpawnEntry_t* GetEntry(const char* query, int preset = -1, bool wildcard = false) const;
+	const bool ContainsRareEnemies() const;
 
 public:
 	Settings_t m_Settings;

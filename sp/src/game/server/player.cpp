@@ -1414,7 +1414,22 @@ void CBasePlayer::UpdateTask(int index, const char* message)
 void CBasePlayer::AssignKillTask(bool cmd, const char* target)
 {
 	if (!g_ref_npcLoader)
-		return;
+	{
+		// load the spawnlist here.
+		if (g_ref_npcLoader == nullptr)
+		{
+			g_ref_npcLoader = new CRandNPCLoader;
+
+			if (g_ref_npcLoader)
+			{
+				if (!g_ref_npcLoader->Load())
+				{
+					Warning("g_ref_npcLoader failed to load due to missing spawnlist. Kill tasks won't function.\n");
+					return;
+				}
+			}
+		}
+	}
 
 	const CRandNPCLoader::SpawnEntry_t* pEntry = NULL;
 
@@ -1424,57 +1439,58 @@ void CBasePlayer::AssignKillTask(bool cmd, const char* target)
 	}
 	else
 	{
-		//prioritize commons over rares.
-		bool coinFlip = ((random->RandomInt(0, 1) == 1) ? true : false);
+		//prioritize commons over rares. if we don't have any rares, only spawn commons.
+		bool coinFlip = false;
+		if (g_ref_npcLoader->ContainsRareEnemies())
+		{
+			coinFlip = ((random->RandomInt(0, 1) == 1) ? true : false);
+		}
+
 		pEntry = g_ref_npcLoader->GetRandomEntry(coinFlip);
 	}
 
-	random->SetSeed((int)gpGlobals->curtime);
-
-	int count = TASKLIST_KILL_TASK_MIN_KILL_COUNT;
-
-	if (pEntry->isRare)
+	if (pEntry)
 	{
-		count = random->RandomInt(TASKLIST_KILL_TASK_MIN_KILL_RARE_COUNT, TASKLIST_KILL_TASK_MAX_KILL_COUNT);
-	}
-	else
-	{
-		count = random->RandomInt(TASKLIST_KILL_TASK_MIN_KILL_COUNT, TASKLIST_KILL_TASK_MAX_KILL_COUNT);
-	}
+		random->SetSeed((int)gpGlobals->curtime);
 
-	bool reroll = false;
+		int count = TASKLIST_KILL_TASK_MIN_KILL_COUNT;
 
-	// allies don't count.
-	if (pEntry->extraExp <= 0 && pEntry->extraMoney <= 0)
-	{
-		reroll = true;
-	}
-	else
-	{
+		if (pEntry->isRare)
+		{
+			count = random->RandomInt(TASKLIST_KILL_TASK_MIN_KILL_RARE_COUNT, TASKLIST_KILL_TASK_MAX_KILL_COUNT);
+		}
+		else
+		{
+			count = random->RandomInt(TASKLIST_KILL_TASK_MIN_KILL_COUNT, TASKLIST_KILL_TASK_MAX_KILL_COUNT);
+		}
+
+		bool reroll = false;
+
+		// allies don't count.
 		// counting antlions
 		if (UTIL_FR_AreAntlionsAllied() &&
 			(Q_strcmp(pEntry->classname, "npc_antlion") || Q_strcmp(pEntry->classname, "npc_antlionworker")))
 		{
 			reroll = true;
 		}
+
+		if (pEntry->taskIgnore)
+		{
+			reroll = true;
+		}
+
+		if (reroll && !cmd)
+		{
+			//try to assign a different task. this MAY cause problems.
+			AssignKillTask();
+			return;
+		}
+
+		NpcName target_name;
+		SPGameRules()->GetNPCName(target_name, pEntry->classname, pEntry->npcAttributePreset, pEntry->npcAttributeWildcard);
+
+		SendTask((pEntry->isRare ? (count > TASKLIST_KILL_TASK_COUNTTOCHANGECOLOR ? TASK_HIGH : TASK_MEDIUM) : (count > TASKLIST_KILL_TASK_COUNTTOCHANGECOLOR ? TASK_MEDIUM : TASK_LOW)), count, target_name, "#Task_KillEnemy", "#Task_KillEnemies");
 	}
-
-	if (pEntry->taskIgnore)
-	{
-		reroll = true;
-	}
-
-	if (reroll && !cmd)
-	{
-		//try to assign a different task. this MAY cause problems.
-		AssignKillTask();
-		return;
-	}
-
-	NpcName target_name;
-	SPGameRules()->GetNPCName(target_name, pEntry->classname, pEntry->npcAttributePreset, pEntry->npcAttributeWildcard);
-
-	SendTask((pEntry->isRare ? (count > TASKLIST_KILL_TASK_COUNTTOCHANGECOLOR ? TASK_HIGH : TASK_MEDIUM) : (count > TASKLIST_KILL_TASK_COUNTTOCHANGECOLOR ? TASK_MEDIUM : TASK_LOW)), count, target_name, "#Task_KillEnemy", "#Task_KillEnemies");
 }
 
 void CBasePlayer::UpdateKillTask(int index, const char* target)
@@ -7281,21 +7297,6 @@ void CBasePlayer::Precache( void )
 
 	if ( gInitHUD )
 		m_fInitHUD = true;
-
-
-	// load the spawnlist here.
-	if (g_ref_npcLoader == nullptr)
-	{
-		g_ref_npcLoader = new CRandNPCLoader;
-
-		if (g_ref_npcLoader)
-		{
-			if (!g_ref_npcLoader->Load())
-			{
-				Warning("g_ref_npcLoader failed to load due to missing spawnlist. Kill tasks won't function.\n");
-			}
-		}
-	}
 }
 
 //-----------------------------------------------------------------------------

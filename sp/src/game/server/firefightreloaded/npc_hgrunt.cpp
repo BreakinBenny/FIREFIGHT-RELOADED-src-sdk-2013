@@ -55,6 +55,45 @@
 #include	"hl2_gamerules.h"
 #include	"te_effect_dispatch.h"
 
+GruntBodygroups_t CHGruntBodygroupLoader::HGruntWeaponBodygroupMap[] =
+{
+	{ GUN_GROUP, GUN_MP5 },
+	{ GUN_GROUP, GUN_SHOTGUN },
+	{ GUN_GROUP, GUN_NONE },
+};
+
+GruntBodygroups_t CHGruntBodygroupLoader::HGruntHeadBodygroupMap[] =
+{
+	{ HEAD_GROUP, HEAD_GRUNT },
+	{ HEAD_GROUP, HEAD_COMMANDER },
+	{ HEAD_GROUP, HEAD_SHOTGUN },
+	{ HEAD_GROUP, HEAD_M203 },
+};
+
+void CHGruntBodygroupLoader::SwitchBodygroupForWeapon(CBaseAnimating* pent, int body)
+{
+	for (int i = 0; i < ARRAYSIZE(HGruntWeaponBodygroupMap); i++)
+	{
+		if (HGruntWeaponBodygroupMap[i].body == body)
+		{
+			pent->SetBodygroup(HGruntWeaponBodygroupMap[i].id, HGruntWeaponBodygroupMap[i].body);
+			break;
+		}
+	}
+}
+
+void CHGruntBodygroupLoader::SwitchBodygroupForHead(CBaseAnimating* pent, int body)
+{
+	for (int i = 0; i < ARRAYSIZE(HGruntHeadBodygroupMap); i++)
+	{
+		if (HGruntHeadBodygroupMap[i].body == body)
+		{
+			pent->SetBodygroup(HGruntHeadBodygroupMap[i].id, HGruntHeadBodygroupMap[i].body);
+			break;
+		}
+	}
+}
+
 GruntSentences_t CHGruntSentenceLoader::HGruntSentenceMap[] =
 {
 	{ SENT_GREN, "GREN" }, // grenade scared grunt
@@ -233,7 +272,7 @@ void CHGrunt::Event_Killed( const CTakeDamageInfo &info )
 	GetAttachment( "0", vecGunPos, vecGunAngles );
 
 	// switch to body group with no gun.
-	SetBodygroup( GUN_GROUP, GUN_NONE );
+	CHGruntBodygroupLoader::SwitchBodygroupForWeapon(this, GUN_NONE);
 
 	// If the gun would drop into a wall, spawn it at our origin
 	if( UTIL_PointContents( vecGunPos ) & CONTENTS_SOLID )
@@ -1031,7 +1070,7 @@ void CHGrunt::Spawn()
 
 	if (FBitSet( m_iWeapons, HGRUNT_SHOTGUN ))
 	{
-		SetBodygroup( GUN_GROUP, GUN_SHOTGUN );
+		CHGruntBodygroupLoader::SwitchBodygroupForWeapon(this, GUN_SHOTGUN);
 		m_iClipSize		= sk_hgrunt_shotgun_magsize.GetInt();
 	}
 	else
@@ -1047,11 +1086,11 @@ void CHGrunt::Spawn()
 
 	if (FBitSet( m_iWeapons, HGRUNT_SHOTGUN ))
 	{
-		SetBodygroup( HEAD_GROUP, HEAD_SHOTGUN);
+		CHGruntBodygroupLoader::SwitchBodygroupForHead(this, HEAD_SHOTGUN);
 	}
 	else if (FBitSet( m_iWeapons, HGRUNT_GRENADELAUNCHER ))
 	{
-		SetBodygroup( HEAD_GROUP, HEAD_M203 );
+		CHGruntBodygroupLoader::SwitchBodygroupForHead(this, HEAD_M203);
 		m_nSkin = 1; // alway dark skin
 	}
 
@@ -1946,7 +1985,7 @@ void CHGrunt::StartNPC ( void )
 
 	if ( m_pSquad && m_pSquad->IsLeader( this ) )
 	{
-		SetBodygroup( 1, 1 ); // UNDONE: truly ugly hack
+		CHGruntBodygroupLoader::SwitchBodygroupForHead(this, HEAD_COMMANDER);
 		m_nSkin = 0;
 	}
 }
